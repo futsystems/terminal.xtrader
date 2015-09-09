@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C87A245F-E926-4027-96BC-A6BFC40AA8E6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FutSystems.GUI</RootNamespace>
+    <AssemblyName>XTrader.TraderControl</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\Telerik.WinControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.WinControls.GridView, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\Telerik.WinControls.GridView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RichTextBox, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\Telerik.WinControls.UI.dll</HintPath>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI.Design, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\Telerik.WinControls.UI.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\TelerikCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\IDataSource.cs" />
+    <Compile Include="Control\ctAccountInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctAccountInfo.designer.cs">
+      <DependentUpon>ctAccountInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctQuoteView\QuoteCell.cs" />
+    <Compile Include="Control\ctQuoteView\QuoteListConst.cs" />
+    <Compile Include="Control\ctQuoteView\QuoteRow.cs" />
+    <Compile Include="Control\ctQuoteView\Style.cs" />
+    <Compile Include="Control\ctQuoteView\ViewQuoteList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctQuoteView\ViewQuoteList.Designer.cs">
+      <DependentUpon>ViewQuoteList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctTradeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctTradeView.Designer.cs">
+      <DependentUpon>ctTradeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctDebug.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctDebug.Designer.cs">
+      <DependentUpon>ctDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctOrderView.Designer.cs">
+      <DependentUpon>ctOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctPositionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctPositionView.Designer.cs">
+      <DependentUpon>ctPositionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctOrderSender.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctOrderSender.Designer.cs">
+      <DependentUpon>ctOrderSender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctSymbolSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctSymbolSelect.designer.cs">
+      <DependentUpon>ctSymbolSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="demo.cs" />
+    <Compile Include="fmConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmConfirm.Designer.cs">
+      <DependentUpon>fmConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fut.Price\FutPriceEditorContentElement.cs" />
+    <Compile Include="Fut.Price\FutsPriceArrowButtonElement.cs" />
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageForm.designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyPanelElement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="tracker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TraderHelper.cs" />
+    <Compile Include="UIConstant.cs" />
+    <Compile Include="UIUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Control\ctAccountInfo.resx">
+      <DependentUpon>ctAccountInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctQuoteView\ViewQuoteList.resx">
+      <DependentUpon>ViewQuoteList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctTradeView.resx">
+      <DependentUpon>ctTradeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctDebug.resx">
+      <DependentUpon>ctDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctOrderView.resx">
+      <DependentUpon>ctOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctPositionView.resx">
+      <DependentUpon>ctPositionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctOrderSender.resx">
+      <DependentUpon>ctOrderSender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctSymbolSelect.resx">
+      <DependentUpon>ctSymbolSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmConfirm.resx">
+      <DependentUpon>fmConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
+      <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>
+      <Name>TradingLib.TraderCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

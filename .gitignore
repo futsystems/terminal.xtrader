@@ -1,0 +1,50 @@
+
+
+
+
+*.pdb
+*.cache
+*.tlog
+*.su
+
+#排除.sdf
+*.sdf
+
+
+#排除目录
+/output
+/patch
+/packages
+/lib/Win
+/lib/TradingLib
+
+
+/publish
+/package
+/cache
+
+#排除子目录中的bin obj debug release
+**/bin/
+**/Bin/
+**/obj/
+**/Obj/
+**/Debug/
+**/debug/
+**/Release/
+**/release/
+
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+TradingLibGUI.suo

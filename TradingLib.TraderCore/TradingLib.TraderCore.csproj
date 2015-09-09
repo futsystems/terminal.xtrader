@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TradingLib.TraderCore</RootNamespace>
+    <AssemblyName>XTrader.TraderCore</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NetMQ">
+      <HintPath>..\..\Futs.base\lib\NetMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\IEventBinder.cs" />
+    <Compile Include="Client\AsyncClient_MQ.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_HandlerRouter.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_EventHalder.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_BasicInfo.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_TradingInfo.cs" />
+    <Compile Include="Client\TLClient_MQ.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_Request.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_Login.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BasicInfo\BasicInfoTracker.cs" />
+    <Compile Include="Services\BasicInfo\BasicInfoTracker_.cs" />
+    <Compile Include="Services\BasicInfo\BasicInfoTracker_Handler.cs" />
+    <Compile Include="Services\BasicInfo\BasicInfoTracker_Data.cs" />
+    <Compile Include="Services\CoreService.cs" />
+    <Compile Include="Services\Event\EventCore.cs" />
+    <Compile Include="Services\Event\EventIndicator.cs" />
+    <Compile Include="Services\Event\EventUI.cs" />
+    <Compile Include="Services\LogService.cs" />
+    <Compile Include="Services\TradingInfo\TradingInfoTracker.cs" />
+    <Compile Include="Services\TradingInfo\TradingInfoTracker_.cs" />
+    <Compile Include="Services\TradingInfo\TradingInfoTracker_Handler.cs" />
+    <Compile Include="Services\TradingInfo\TradingInfoTracker_Utils.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
