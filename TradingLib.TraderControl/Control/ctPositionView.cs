@@ -66,6 +66,8 @@ namespace TradingLib.TraderControl
             
 
             this.Load +=new EventHandler(ctPositionView_Load);
+
+            btnShowHold.IsChecked = true;
         }
 
         void WireEvent()
@@ -502,8 +504,8 @@ namespace TradingLib.TraderControl
                         {
                             ResetOffset(key);
                         }
-                        gt.Rows[posidx][STOPLOSS] = GetGridOffsetText(pos, QSEnumPositionOffsetDirection.LOSS);
-                        gt.Rows[posidx][PROFITTARGET] = GetGridOffsetText(pos, QSEnumPositionOffsetDirection.PROFIT);
+                        //gt.Rows[posidx][STOPLOSS] = GetGridOffsetText(pos, QSEnumPositionOffsetDirection.LOSS);
+                        //gt.Rows[posidx][PROFITTARGET] = GetGridOffsetText(pos, QSEnumPositionOffsetDirection.PROFIT);
 
                         //updateCurrentRowPositionNum();
                     }
@@ -738,7 +740,7 @@ namespace TradingLib.TraderControl
         //平调所有持仓
         private void btnFlatAll_Click(object sender, EventArgs e)
         {
-            TraderHelper.WindowMessage("flat all");
+            //TraderHelper.WindowMessage("flat all");
             foreach (Position pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 if (!pos.isFlat)

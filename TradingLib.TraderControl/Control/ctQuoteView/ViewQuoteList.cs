@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.TraderCore;
 
 namespace TradingLib.TraderControl
 {
@@ -162,6 +163,20 @@ namespace TradingLib.TraderControl
             }
         }
 
+        [DefaultValue("Blue")]
+        Color _selectedColor = Color.Blue;
+        public Color SelectedColor
+        {
+            get
+            {
+                return _selectedColor;
+            }
+            set
+            {
+                _selectedColor = value;
+            }
+        }
+
 
 
         [DefaultValue("SlateGray")]
@@ -259,12 +274,18 @@ namespace TradingLib.TraderControl
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
+            this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
             //初始化右键菜单
             if(MenuEnable)
                 initMenu();
             //计算列起点 总宽等参数
             columnWidthChanged();
+
+
+            CoreService.EventIndicator.GotTickEvent += new Action<Tick>(this.GotTick);
         }
+
+        
 
         
         //将最新成交价闪亮的单元格改回原来的颜色
@@ -755,15 +776,32 @@ namespace TradingLib.TraderControl
             }
             
         }
+
+        void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
+        {
+            Symbol symbol = GetVisibleSecurity(SelectedQuoteRow);
+            if (SymbolSelectedEvent != null)
+            {
+                SymbolSelectedEvent(symbol);
+
+            }
+            CoreService.EventUI.FireSymbolselectedEvent(this, symbol);
+            debug("Symbol:" + symbol.ToString() + " Selected");
+        }
+
         //触发选择某个symbol的事件
         void ViewQuoteList_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             
             //debug("selected :" + SelectedQuoteRow.ToString());
-            Symbol sec = GetVisibleSecurity(SelectedQuoteRow);
+            Symbol symbol = GetVisibleSecurity(SelectedQuoteRow);
             if (SymbolSelectedEvent != null)
-                SymbolSelectedEvent(sec);
-            debug("Symbol:" + sec.ToString() + " Selected");
+            {
+                SymbolSelectedEvent(symbol);
+                
+            }
+            CoreService.EventUI.FireSymbolselectedEvent(this, symbol);
+            debug("Symbol:" + symbol.ToString() + " Selected");
         }
 
         //获得某个行的security
@@ -796,8 +834,8 @@ namespace TradingLib.TraderControl
             //if (rid == SelectedQuoteRow) return;
             for (int i = 0; i < columns.Length; i++)
             {
-                this[rid][i].CellStyle.BackColor = Color.Blue;
-                this[rid][i].CellStyle.LineColor = Color.Blue;
+                this[rid][i].CellStyle.BackColor = this.SelectedColor;
+                this[rid][i].CellStyle.LineColor = this.SelectedColor;
             }
             Invalidate(this[rid].Rect);
         }

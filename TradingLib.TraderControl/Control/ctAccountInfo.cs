@@ -8,76 +8,75 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.TraderCore;
 
 namespace TradingLib.TraderControl
 {
-    public partial class ctAccountInfo : UserControl
+    public partial class ctAccountInfo : UserControl,IEventBinder
     {
         public event VoidDelegate QueryAccountInfo;
         public event VoidDelegate QueryRaceInfo;
         public ctAccountInfo()
         {
             InitializeComponent();
-            //racebox1.Visible = false;
+            CoreService.EventCore.RegIEventHandler(this);
+            WireEvent();
+            
         }
 
-        //public void GotRaceInfo(IRaceInfo info)
-        //{
+        void WireEvent()
+        {
+            CoreService.EventOther.OnAccountInfoEvent += new Action<AccountInfo>(GotAccountInfo);
+        }
+        public void OnInit()
+        {
+            this.GotAccountInfo(CoreService.AccountInfo);
+        }
 
-        //    //if (_accounttype == QSEnumAccountCategory.QUALIFIER)
-        //    {
-        //        //MessageBox.Show("got race info");
-        //        racebox1.Visible = true;
-        //        raceType1.Text = "晋级赛";
-        //        promptLevel.Text = info.RaceID;
-        //        raceStatus.Text = LibUtil.GetEnumDescription(info.RaceStatus);
-        //        obverseProfit.Text = LibUtil.FormatDisp(info.ObverseProfit);
-        //        promptDiff.Text = LibUtil.FormatDisp(info.PromptEquity - info.StartEquity - info.ObverseProfit);
-        //    }
-        //}
-        //public void GotFinServiceInfo(IFinServiceInfo info)
-        //{ 
+        public void OnDisposed()
+        { 
             
-        //}
-        //QSEnumAccountCategory _accounttype = QSEnumAccountCategory.QUALIFIER;
-        //public void GotAccountInfo(IAccountInfo info)
-        //{
-        //    account.Text = info.Account;
-        //    execution.Text = info.Execute ? "允许交易" : "禁止交易";
-        //    _accounttype = info.Category;
-        //    accountCategory.Text = LibUtil.GetEnumDescription(info.Category);
-        //    interday.Text = info.IntraDay ? "日内交易" : "隔夜交易";
+        }
+
+        public void GotAccountInfo(AccountInfo info)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<AccountInfo>(GotAccountInfo), new object[] { info });
+            }
+            else
+            {
+                if (info == null) return;
+                account.Text = info.Account;
+                execution.Text = info.Execute ? "允许" : "禁止";
+                accountCategory.Text = Util.GetEnumDescription(info.Category);
+                interday.Text = info.IntraDay ? "日内" : "隔夜";
 
 
-        //    lastequity.Text = LibUtil.FormatDisp(info.LastEquity);
-        //    nowequity.Text = LibUtil.FormatDisp(info.NowEquity);
+                lastequity.Text = Util.FormatDecimal(info.LastEquity);
+                nowequity.Text = Util.FormatDecimal(info.NowEquity);
 
-        //    realizedpl.Text = LibUtil.FormatDisp(info.RealizedPL);
-        //    unrealizedpl.Text = LibUtil.FormatDisp(info.UnRealizedPL);
-        //    profit.Text = LibUtil.FormatDisp(info.Profit);
-        //    marginUsed.Text = LibUtil.FormatDisp(info.Margin);
-        //    marginFrozen.Text = LibUtil.FormatDisp(info.ForzenMargin);
+                realizedpl.Text = Util.FormatDecimal(info.RealizedPL);
+                unrealizedpl.Text = Util.FormatDecimal(info.UnRealizedPL);
 
-        //    commission.Text = LibUtil.FormatDisp(info.Commission);
-        //    buypower.Text = LibUtil.FormatDisp(info.BuyPower);
-        //    cashin.Text = LibUtil.FormatDisp(info.CashIn);
-        //    cashout.Text = LibUtil.FormatDisp(info.CashOut);
+                commission.Text = Util.FormatDecimal(info.Commission);
+                profit.Text = Util.FormatDecimal(info.Profit);
+
+                marginUsed.Text = Util.FormatDecimal(info.Margin);
+                marginFrozen.Text = Util.FormatDecimal(info.MarginFrozen);
 
 
-        
-        //}
+                buypower.Text = Util.FormatDecimal(info.AvabileFunds);
+                cashin.Text = Util.FormatDecimal(info.CashIn);
+                cashout.Text = Util.FormatDecimal(info.CashOut);
+
+            }
+
+        }
 
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            if (QueryAccountInfo != null)
-                QueryAccountInfo();
-        }
-
-        private void btnQueryRace_Click(object sender, EventArgs e)
-        {
-            if (QueryRaceInfo != null)
-                QueryRaceInfo();
-
+            CoreService.TLClient.ReqQryAccountInfo();   
         }
     }
 

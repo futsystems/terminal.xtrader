@@ -29,11 +29,17 @@ namespace TradingLib.TraderControl
             BindToTable();
 
             CoreService.EventCore.RegIEventHandler(this);
+            WireEvent();
 
             this.Load +=new EventHandler(ctTradeView_Load);
         }
 
         private void ctTradeView_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void WireEvent()
         {
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
         }

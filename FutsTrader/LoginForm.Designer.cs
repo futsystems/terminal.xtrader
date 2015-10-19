@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.account = new Telerik.WinControls.UI.RadTextBox();
             this.btnLogin = new Telerik.WinControls.UI.RadButton();
-            this.roundRectShape1 = new Telerik.WinControls.RoundRectShape(this.components);
             this.lbLoginStatus = new Telerik.WinControls.UI.RadLabel();
             this.savepassword = new Telerik.WinControls.UI.RadCheckBox();
             this.serverlist = new Telerik.WinControls.UI.RadListControl();
@@ -153,7 +151,7 @@
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BorderWidth = 0;
-            this.ClientSize = new System.Drawing.Size(568, 290);
+            this.ClientSize = new System.Drawing.Size(560, 290);
             this.Controls.Add(this.password);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.radLabel2);
@@ -165,7 +163,6 @@
             this.Controls.Add(this.account);
             this.DoubleBuffered = true;
             this.Name = "LoginForm";
-            this.Shape = this.roundRectShape1;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -187,7 +184,6 @@
 
         private Telerik.WinControls.UI.RadTextBox account;
         private Telerik.WinControls.UI.RadButton btnLogin;
-        private Telerik.WinControls.RoundRectShape roundRectShape1;
         private Telerik.WinControls.UI.RadLabel lbLoginStatus;
         private Telerik.WinControls.UI.RadCheckBox savepassword;
         private Telerik.WinControls.UI.RadListControl serverlist;

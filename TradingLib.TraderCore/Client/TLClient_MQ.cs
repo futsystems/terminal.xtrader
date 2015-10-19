@@ -104,7 +104,9 @@ namespace TradingLib.TraderCore
         //服务端版本与客户端API版本是否匹配
         public bool IsAPIOK { get { return Util.Version >= _serverversion; } }
 
-        public bool IsConnected { get { return _connect; } }//是否连接
+        public bool IsConnected { get { return _mqcli==null?false:_mqcli.isConnected; } }//是否连接
+
+        public bool IsTickConnected { get { return _mqcli == null ? false : _mqcli.isTickConnected; } }
         //心跳相应是否正常 连接正常 并且 请求心跳与接收心跳一致(确定发送心跳回复请求后是否收到心跳回报)
         public bool isHeartbeatOk { get { return _connect && (_requestheartbeat == _recvheartbeat); } }
 

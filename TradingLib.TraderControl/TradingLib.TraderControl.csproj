@@ -71,11 +71,7 @@
       <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\Telerik.WinControls.UI.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TelerikCommon, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\LibResource\telerik_radcontrols\Bin40\TelerikCommon.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="TelerikCommon, Version=2013.2.612.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="TradingLib.API">
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
     </Reference>
@@ -138,6 +134,12 @@
       <DependentUpon>ctSymbolSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="demo.cs" />
+    <Compile Include="fmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmChangePassword.Designer.cs">
+      <DependentUpon>fmChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="fmConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctSymbolSelect.resx">
       <DependentUpon>ctSymbolSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmChangePassword.resx">
+      <DependentUpon>fmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmConfirm.resx">
       <DependentUpon>fmConfirm.cs</DependentUpon>

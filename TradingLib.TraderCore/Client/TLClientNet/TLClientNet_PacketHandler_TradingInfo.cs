@@ -84,5 +84,28 @@ namespace TradingLib.TraderCore
             }
             CoreService.TradingInfoTracker.GotTrade(response.Trade, response.IsLast);
         }
+
+        void CliOnQryAccountInfo(RspQryAccountInfoResponse response)
+        {
+            logger.Debug("got qry account info response:" + response.ToString());
+            CoreService.TradingInfoTracker.GotAccountInfo(response.AccInfo, response.IsLast);
+        }
+
+        /// <summary>
+        /// 委托异常汇报
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnErrorOrderNotify(ErrorOrderNotify response)
+        {
+            logger.Debug("got error order:" + response.ToString());
+            CoreService.EventIndicator.FireErrorOrder(response.Order, response.RspInfo);
+
+        }
+
+        void CliOnErrorOrderActionNotify(ErrorOrderActionNotify response)
+        {
+            logger.Debug("got error order actoin:" + response.ToString());
+            CoreService.EventIndicator.FireErrorOrderAction(response.OrderAction, response.RspInfo);
+        }
     }
 }

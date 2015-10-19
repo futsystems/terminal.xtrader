@@ -13,27 +13,44 @@ namespace TradingLib.TraderCore
     {
         const string PROGRAME = "TLClientNet";
         ILog logger = LogManager.GetLogger(PROGRAME);
-        #region Event
+        //#region Event
 
-        /// <summary>
-        /// 行情回调
-        /// </summary>
-        public event TickDelegate OnTickEvent;
-        /// <summary>
-        /// 委托回报回调
-        /// </summary>
-        public event OrderDelegate OnOrderEvent;
+        ///// <summary>
+        ///// 行情回调
+        ///// </summary>
+        //public event TickDelegate OnTickEvent;
+        ///// <summary>
+        ///// 委托回报回调
+        ///// </summary>
+        //public event OrderDelegate OnOrderEvent;
 
-        /// <summary>
-        /// 成交回调
-        /// </summary>
-        public event FillDelegate OnTradeEvent;
+        ///// <summary>
+        ///// 成交回调
+        ///// </summary>
+        //public event FillDelegate OnTradeEvent;
 
 
-        #endregion
+        //#endregion
 
         TLClient_MQ connecton = null;
 
+        public bool IsConnected
+        {
+            get
+            {
+                if (connecton == null) return false;
+                return connecton.IsConnected;
+            }
+        }
+
+        public bool IsTickConnected
+        {
+            get
+            {
+                if (connecton == null) return false;
+                return connecton.IsTickConnected;
+            }
+        }
 
         string[] _servers = new string[] { };
         int _port = 5570;
@@ -110,10 +127,7 @@ namespace TradingLib.TraderCore
                 //OnOldPositionEvent(response.Position);
         }
 
-        void CliOnErrorOrderNotify(ErrorOrderNotify response)
-        {
-            logger.Info(string.Format("got order error:{0} message:{1} order:{2}", response.RspInfo.ErrorID, response.RspInfo.ErrorMessage, OrderImpl.Serialize(response.Order)));
-        }
+
 
 
 
@@ -146,26 +160,25 @@ namespace TradingLib.TraderCore
             logger.Info("got order action:" + response.ToString());
         }
 
-        void CliOnErrorOrderActionNotify(ErrorOrderActionNotify response)
-        {
-            logger.Info(string.Format("got orderaction error:{0} message:{1} orderaction:{2}", response.RspInfo.ErrorID, response.RspInfo.ErrorMessage, OrderActionImpl.Serialize(response.OrderAction)));
-        }
+
 
         void CliOnChangePass(RspReqChangePasswordResponse response)
         {
             logger.Info("got changepassword response:" + response.RspInfo.ErrorID.ToString() + " " + response.RspInfo.ErrorMessage);
+
+            if (response.RspInfo.ErrorID != 0)
+            {
+                CoreService.EventCore.FireRspInfoEvent(response.RspInfo);
+            }
+            else
+            {
+                CoreService.EventCore.FireRspInfoEvent(new RspInfoImpl() { ErrorID = 0, ErrorMessage = "修改密码成功" });
+            }
         }
         #region 查询
-        void CliOnRspQryAccountInfoResponse(RspQryAccountInfoResponse response)
-        {
 
 
-        }
 
-        void CliOnMaxOrderVol(RspQryMaxOrderVolResponse response)
-        {
-
-        }
 
         /// <summary>
         /// 查询委托回报

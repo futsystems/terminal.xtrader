@@ -32,7 +32,7 @@ namespace TradingLib.TraderCore
         {
             _tickTracker.GotTick(k);
             PositionTracker.GotTick(k);
-            CoreService.EventIndicator.FireTick(k);
+            //CoreService.EventIndicator.FireTick(k);
         }
 
 
@@ -43,7 +43,7 @@ namespace TradingLib.TraderCore
         public void NotifyOrder(Order o)
         {
             OrderTracker.GotOrder(o);
-            CoreService.EventIndicator.FireOrder(o);
+            //CoreService.EventIndicator.FireOrder(o);
         }
 
 
@@ -56,7 +56,7 @@ namespace TradingLib.TraderCore
             OrderTracker.GotFill(f);
             PositionTracker.GotFill(f);
             TradeTracker.Add(f);
-            CoreService.EventIndicator.FireFill(f);
+            //CoreService.EventIndicator.FireFill(f);
         }
         #endregion
 
@@ -103,12 +103,36 @@ namespace TradingLib.TraderCore
             }
             if (islast)
             {
-                Status("成交查询完毕");
+                Status("成交查询完毕,查询帐户信息");
 
-                CoreService.TLClient.StartTick();
-                //核心服务完成初始化
-                CoreService.Initialize();
-                Status("触发初始化完毕事件");
+                CoreService.TLClient.ReqQryAccountInfo();
+            }
+        }
+
+        public void GotAccountInfo(AccountInfo info,bool islast)
+        {
+            CoreService.AccountInfo = info;
+            if (!CoreService.Initialized)
+            {
+                if (info == null)
+                {
+                    Status("帐户信息查询异常");
+                    return;
+                }
+
+                if (islast) //没有初始化完毕则需要触发一下操作
+                {
+                    Status("帐户信息查询完毕");
+
+                    CoreService.TLClient.StartTick();
+                    //核心服务完成初始化
+                    CoreService.Initialize();
+                    Status("触发初始化完毕事件");
+                }
+            }
+            else
+            {
+                CoreService.EventOther.FireAccountInfoEvent(info);  
             }
         }
 

@@ -25,6 +25,17 @@ namespace TradingLib.TraderCore
         public event Action<Order> GotOrderEvent;
 
         /// <summary>
+        /// 委托错误事件
+        /// </summary>
+        public event Action<Order,RspInfo> GotErrorOrderEvent;
+
+
+        /// <summary>
+        /// 委托操作错误事件
+        /// </summary>
+        public event Action<OrderAction, RspInfo> GotErrorOrderActionEvent;
+
+        /// <summary>
         /// 成交事件
         /// </summary>
         public event Action<Trade> GotFillEvent;
@@ -56,6 +67,18 @@ namespace TradingLib.TraderCore
         {
             if (GotPositionDetailEvent != null)
                 GotPositionDetailEvent(p);
+        }
+
+        internal void FireErrorOrder(Order o,RspInfo e)
+        {
+            if (GotErrorOrderEvent != null)
+                GotErrorOrderEvent(o, e);
+        }
+
+        internal void FireErrorOrderAction(OrderAction a, RspInfo e)
+        {
+            if (GotErrorOrderActionEvent != null)
+                GotErrorOrderActionEvent(a, e);
         }
 
 

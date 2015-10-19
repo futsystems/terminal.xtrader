@@ -81,6 +81,9 @@ namespace TradingLib.TraderCore
             request.LoginID = loginid;
             request.Passwd = pass;
             request.LoginType = 1;
+            request.ProductInfo = "XTrader.Net";
+            request.IPAddress = "22.22.22.22";
+            request.MAC = "wwwwww";
             //request.MAC = mac;
             SendPacket(request);
         }

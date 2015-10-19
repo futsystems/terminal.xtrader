@@ -32,13 +32,14 @@
             this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
             this.authStatus = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement1 = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement2 = new Telerik.WinControls.UI.RadLabelElement();
+            this.msgbtn = new Telerik.WinControls.UI.RadLabelElement();
             this.message = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement4 = new Telerik.WinControls.UI.RadLabelElement();
+            this.span = new Telerik.WinControls.UI.RadLabelElement();
             this.timeStatus = new Telerik.WinControls.UI.RadLabelElement();
             this.exStatus = new Telerik.WinControls.UI.RadLabelElement();
             this.mdStatus = new Telerik.WinControls.UI.RadLabelElement();
-            this.btnConfig = new Telerik.WinControls.UI.RadButtonElement();
+            this.radSplitButtonElement1 = new Telerik.WinControls.UI.RadSplitButtonElement();
+            this.menuAboutUS = new Telerik.WinControls.UI.RadMenuItem();
             this.radThemeManager1 = new Telerik.WinControls.RadThemeManager();
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.SplitContainer = new Telerik.WinControls.UI.RadSplitContainer();
@@ -46,24 +47,23 @@
             this.viewPanel = new Telerik.WinControls.UI.RadPanel();
             this.mainPageView = new Telerik.WinControls.UI.RadPageView();
             this.pageQuote = new Telerik.WinControls.UI.RadPageViewPage();
-            this.viewQuoteList1 = new TradingLib.TraderControl.ViewQuoteList();
             this.pageOrder = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ctOrderView1 = new TradingLib.TraderControl.ctOrderView();
             this.pagePosition = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ctPositionView1 = new TradingLib.TraderControl.ctPositionView();
             this.pageTrade = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ctTradeView1 = new TradingLib.TraderControl.ctTradeView();
             this.pageAccount = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ctAccountInfo1 = new TradingLib.TraderControl.ctAccountInfo();
-            this.pageSecurity = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ctSymbolSelect1 = new TradingLib.TraderControl.ctSymbolSelect();
-            this.pageWeb = new Telerik.WinControls.UI.RadPageViewPage();
-            this.pageDebug = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ctDebug1 = new TradingLib.TraderControl.ctDebug();
+            this.btnCashIn = new Telerik.WinControls.UI.RadButton();
             this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
-            this.ctOrderSender1 = new TradingLib.TraderControl.ctOrderSender();
             this.radLabelElement5 = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement3 = new Telerik.WinControls.UI.RadLabelElement();
+            this.radLabelElement4 = new Telerik.WinControls.UI.RadLabelElement();
+            this.btnChangePass = new Telerik.WinControls.UI.RadButton();
+            this.viewQuoteList1 = new TradingLib.TraderControl.ViewQuoteList();
+            this.ctOrderView1 = new TradingLib.TraderControl.ctOrderView();
+            this.ctPositionView1 = new TradingLib.TraderControl.ctPositionView();
+            this.ctTradeView1 = new TradingLib.TraderControl.ctTradeView();
+            this.ctAccountInfo1 = new TradingLib.TraderControl.ctAccountInfo();
+            this.btnCashOut = new Telerik.WinControls.UI.RadButton();
+            this.ctOrderSender1 = new TradingLib.TraderControl.ctOrderSender();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
             this.SplitContainer.SuspendLayout();
@@ -78,10 +78,11 @@
             this.pagePosition.SuspendLayout();
             this.pageTrade.SuspendLayout();
             this.pageAccount.SuspendLayout();
-            this.pageSecurity.SuspendLayout();
-            this.pageDebug.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCashIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
             this.splitPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnChangePass)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCashOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,16 +91,16 @@
             this.radStatusStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.authStatus,
             this.radLabelElement1,
-            this.radLabelElement2,
+            this.msgbtn,
             this.message,
-            this.radLabelElement4,
+            this.span,
             this.timeStatus,
             this.exStatus,
             this.mdStatus,
-            this.btnConfig});
-            this.radStatusStrip1.Location = new System.Drawing.Point(0, 297);
+            this.radSplitButtonElement1});
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 303);
             this.radStatusStrip1.Name = "radStatusStrip1";
-            this.radStatusStrip1.Size = new System.Drawing.Size(604, 24);
+            this.radStatusStrip1.Size = new System.Drawing.Size(632, 24);
             this.radStatusStrip1.TabIndex = 0;
             this.radStatusStrip1.Text = "radStatusStrip1";
             this.radStatusStrip1.ThemeName = "Windows8";
@@ -125,34 +126,38 @@
             this.radLabelElement1.TextWrap = true;
             this.radLabelElement1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // radLabelElement2
+            // msgbtn
             // 
-            this.radLabelElement2.AccessibleDescription = "状态:";
-            this.radLabelElement2.AccessibleName = "状态:";
-            this.radLabelElement2.Name = "radLabelElement2";
-            this.radStatusStrip1.SetSpring(this.radLabelElement2, false);
-            this.radLabelElement2.Text = "消息:";
-            this.radLabelElement2.TextWrap = true;
-            this.radLabelElement2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.msgbtn.AccessibleDescription = "状态:";
+            this.msgbtn.AccessibleName = "状态:";
+            this.msgbtn.Name = "msgbtn";
+            this.radStatusStrip1.SetSpring(this.msgbtn, false);
+            this.msgbtn.Text = "消息:";
+            this.msgbtn.TextWrap = true;
+            this.msgbtn.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.msgbtn.DoubleClick += new System.EventHandler(this.msgbtn_DoubleClick);
             // 
             // message
             // 
-            this.message.DefaultSize = new System.Drawing.Size(250, 0);
+            this.message.AccessibleDescription = "radLabelElement6";
+            this.message.AccessibleName = "radLabelElement6";
+            this.message.AutoSize = false;
+            this.message.Bounds = new System.Drawing.Rectangle(0, 0, 300, 18);
             this.message.Name = "message";
             this.radStatusStrip1.SetSpring(this.message, false);
-            this.message.Text = "";
+            this.message.Text = "欢迎使用XTrader";
             this.message.TextWrap = true;
             this.message.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // radLabelElement4
+            // span
             // 
-            this.radLabelElement4.AccessibleDescription = "radLabelElement4";
-            this.radLabelElement4.AccessibleName = "radLabelElement4";
-            this.radLabelElement4.Name = "radLabelElement4";
-            this.radStatusStrip1.SetSpring(this.radLabelElement4, true);
-            this.radLabelElement4.Text = "";
-            this.radLabelElement4.TextWrap = true;
-            this.radLabelElement4.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.span.AccessibleDescription = "33";
+            this.span.AccessibleName = "33";
+            this.span.Name = "span";
+            this.radStatusStrip1.SetSpring(this.span, true);
+            this.span.Text = "  ";
+            this.span.TextWrap = true;
+            this.span.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // timeStatus
             // 
@@ -188,16 +193,28 @@
             this.mdStatus.TextWrap = true;
             this.mdStatus.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // btnConfig
+            // radSplitButtonElement1
             // 
-            this.btnConfig.AccessibleDescription = "设置";
-            this.btnConfig.AccessibleName = "设置";
-            this.btnConfig.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnConfig.Name = "btnConfig";
-            this.radStatusStrip1.SetSpring(this.btnConfig, false);
-            this.btnConfig.Text = "设置";
-            this.btnConfig.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            this.radSplitButtonElement1.AccessibleDescription = "菜单";
+            this.radSplitButtonElement1.AccessibleName = "菜单";
+            this.radSplitButtonElement1.ArrowButtonMinSize = new System.Drawing.Size(12, 12);
+            this.radSplitButtonElement1.DefaultItem = null;
+            this.radSplitButtonElement1.DropDownDirection = Telerik.WinControls.UI.RadDirection.Up;
+            this.radSplitButtonElement1.ExpandArrowButton = false;
+            this.radSplitButtonElement1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.menuAboutUS});
+            this.radSplitButtonElement1.Name = "radSplitButtonElement1";
+            this.radStatusStrip1.SetSpring(this.radSplitButtonElement1, false);
+            this.radSplitButtonElement1.Text = "菜单";
+            this.radSplitButtonElement1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
+            // menuAboutUS
+            // 
+            this.menuAboutUS.AccessibleDescription = "关于";
+            this.menuAboutUS.AccessibleName = "关于";
+            this.menuAboutUS.Name = "menuAboutUS";
+            this.menuAboutUS.Text = "关于";
+            this.menuAboutUS.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // SplitContainer
             // 
@@ -211,7 +228,7 @@
             // 
             // 
             this.SplitContainer.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.SplitContainer.Size = new System.Drawing.Size(604, 297);
+            this.SplitContainer.Size = new System.Drawing.Size(632, 303);
             this.SplitContainer.SplitterWidth = 4;
             this.SplitContainer.TabIndex = 2;
             this.SplitContainer.TabStop = false;
@@ -229,7 +246,7 @@
             // 
             // 
             this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(0, 0);
-            this.splitPanel1.Size = new System.Drawing.Size(604, 205);
+            this.splitPanel1.Size = new System.Drawing.Size(632, 211);
             this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0.2534418F, 0.1883562F);
             this.splitPanel1.SizeInfo.MinimumSize = new System.Drawing.Size(0, 0);
             this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(202, 55);
@@ -242,7 +259,7 @@
             this.viewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewPanel.Location = new System.Drawing.Point(0, 0);
             this.viewPanel.Name = "viewPanel";
-            this.viewPanel.Size = new System.Drawing.Size(604, 205);
+            this.viewPanel.Size = new System.Drawing.Size(632, 211);
             this.viewPanel.TabIndex = 2;
             this.viewPanel.Text = "radPanel1";
             // 
@@ -253,15 +270,12 @@
             this.mainPageView.Controls.Add(this.pagePosition);
             this.mainPageView.Controls.Add(this.pageTrade);
             this.mainPageView.Controls.Add(this.pageAccount);
-            this.mainPageView.Controls.Add(this.pageSecurity);
-            this.mainPageView.Controls.Add(this.pageWeb);
-            this.mainPageView.Controls.Add(this.pageDebug);
             this.mainPageView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Margin = new System.Windows.Forms.Padding(0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.pageQuote;
-            this.mainPageView.Size = new System.Drawing.Size(604, 205);
+            this.mainPageView.SelectedPage = this.pageAccount;
+            this.mainPageView.Size = new System.Drawing.Size(632, 211);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "Windows8";
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.mainPageView.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
@@ -277,32 +291,8 @@
             this.pageQuote.Controls.Add(this.viewQuoteList1);
             this.pageQuote.Location = new System.Drawing.Point(1, 1);
             this.pageQuote.Name = "pageQuote";
-            this.pageQuote.Size = new System.Drawing.Size(566, 203);
+            this.pageQuote.Size = new System.Drawing.Size(596, 209);
             this.pageQuote.Text = "报价";
-            // 
-            // viewQuoteList1
-            // 
-            this.viewQuoteList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.DNColor = System.Drawing.Color.Green;
-            this.viewQuoteList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewQuoteList1.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.viewQuoteList1.HeaderFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(157)))), ((int)(((byte)(229)))));
-            this.viewQuoteList1.Location = new System.Drawing.Point(0, 0);
-            this.viewQuoteList1.MenuEnable = false;
-            this.viewQuoteList1.Name = "viewQuoteList1";
-            this.viewQuoteList1.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.viewQuoteList1.QuoteViewWidth = 1030;
-            this.viewQuoteList1.SelectedQuoteRow = -1;
-            this.viewQuoteList1.Size = new System.Drawing.Size(566, 203);
-            this.viewQuoteList1.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.viewQuoteList1.SymbolFontColor = System.Drawing.Color.Gold;
-            this.viewQuoteList1.TabIndex = 0;
-            this.viewQuoteList1.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.Text = "viewQuoteList1";
-            this.viewQuoteList1.UPColor = System.Drawing.Color.Red;
             // 
             // pageOrder
             // 
@@ -312,14 +302,6 @@
             this.pageOrder.Size = new System.Drawing.Size(566, 203);
             this.pageOrder.Text = "委托";
             // 
-            // ctOrderView1
-            // 
-            this.ctOrderView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctOrderView1.Location = new System.Drawing.Point(0, 0);
-            this.ctOrderView1.Name = "ctOrderView1";
-            this.ctOrderView1.Size = new System.Drawing.Size(566, 203);
-            this.ctOrderView1.TabIndex = 0;
-            // 
             // pagePosition
             // 
             this.pagePosition.Controls.Add(this.ctPositionView1);
@@ -327,14 +309,6 @@
             this.pagePosition.Name = "pagePosition";
             this.pagePosition.Size = new System.Drawing.Size(564, 203);
             this.pagePosition.Text = "持仓";
-            // 
-            // ctPositionView1
-            // 
-            this.ctPositionView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctPositionView1.Location = new System.Drawing.Point(0, 0);
-            this.ctPositionView1.Name = "ctPositionView1";
-            this.ctPositionView1.Size = new System.Drawing.Size(564, 203);
-            this.ctPositionView1.TabIndex = 0;
             // 
             // pageTrade
             // 
@@ -344,103 +318,42 @@
             this.pageTrade.Size = new System.Drawing.Size(564, 203);
             this.pageTrade.Text = "成交";
             // 
-            // ctTradeView1
-            // 
-            this.ctTradeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctTradeView1.Location = new System.Drawing.Point(0, 0);
-            this.ctTradeView1.Name = "ctTradeView1";
-            this.ctTradeView1.Size = new System.Drawing.Size(564, 203);
-            this.ctTradeView1.TabIndex = 0;
-            // 
             // pageAccount
             // 
+            this.pageAccount.Controls.Add(this.btnCashOut);
+            this.pageAccount.Controls.Add(this.btnChangePass);
+            this.pageAccount.Controls.Add(this.btnCashIn);
             this.pageAccount.Controls.Add(this.ctAccountInfo1);
             this.pageAccount.Location = new System.Drawing.Point(1, 1);
             this.pageAccount.Name = "pageAccount";
-            this.pageAccount.Size = new System.Drawing.Size(566, 203);
+            this.pageAccount.Size = new System.Drawing.Size(596, 209);
             this.pageAccount.Text = "帐户";
             // 
-            // ctAccountInfo1
+            // btnCashIn
             // 
-            this.ctAccountInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctAccountInfo1.Location = new System.Drawing.Point(0, 0);
-            this.ctAccountInfo1.Name = "ctAccountInfo1";
-            this.ctAccountInfo1.Size = new System.Drawing.Size(566, 203);
-            this.ctAccountInfo1.TabIndex = 0;
-            // 
-            // pageSecurity
-            // 
-            this.pageSecurity.Controls.Add(this.ctSymbolSelect1);
-            this.pageSecurity.Location = new System.Drawing.Point(1, 1);
-            this.pageSecurity.Name = "pageSecurity";
-            this.pageSecurity.Size = new System.Drawing.Size(564, 203);
-            this.pageSecurity.Text = "合约";
-            // 
-            // ctSymbolSelect1
-            // 
-            this.ctSymbolSelect1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctSymbolSelect1.Location = new System.Drawing.Point(0, 0);
-            this.ctSymbolSelect1.Name = "ctSymbolSelect1";
-            this.ctSymbolSelect1.Size = new System.Drawing.Size(564, 203);
-            this.ctSymbolSelect1.TabIndex = 0;
-            // 
-            // pageWeb
-            // 
-            this.pageWeb.Location = new System.Drawing.Point(1, 1);
-            this.pageWeb.Name = "pageWeb";
-            this.pageWeb.Size = new System.Drawing.Size(564, 203);
-            this.pageWeb.Text = "快讯";
-            // 
-            // pageDebug
-            // 
-            this.pageDebug.Controls.Add(this.ctDebug1);
-            this.pageDebug.Location = new System.Drawing.Point(1, 1);
-            this.pageDebug.Name = "pageDebug";
-            this.pageDebug.Size = new System.Drawing.Size(564, 203);
-            this.pageDebug.Text = "日志";
-            // 
-            // ctDebug1
-            // 
-            this.ctDebug1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctDebug1.EnableSearching = true;
-            this.ctDebug1.ExternalTimeStamp = 0;
-            this.ctDebug1.Location = new System.Drawing.Point(0, 0);
-            this.ctDebug1.Margin = new System.Windows.Forms.Padding(2);
-            this.ctDebug1.Name = "ctDebug1";
-            this.ctDebug1.Size = new System.Drawing.Size(564, 203);
-            this.ctDebug1.TabIndex = 0;
-            this.ctDebug1.TimeStamps = true;
-            this.ctDebug1.UseExternalTimeStamp = false;
+            this.btnCashIn.Location = new System.Drawing.Point(509, 41);
+            this.btnCashIn.Name = "btnCashIn";
+            this.btnCashIn.Size = new System.Drawing.Size(82, 24);
+            this.btnCashIn.TabIndex = 1;
+            this.btnCashIn.Text = "入金";
             // 
             // splitPanel2
             // 
             this.splitPanel2.Controls.Add(this.ctOrderSender1);
-            this.splitPanel2.Location = new System.Drawing.Point(0, 209);
+            this.splitPanel2.Location = new System.Drawing.Point(0, 215);
             this.splitPanel2.Name = "splitPanel2";
             // 
             // 
             // 
             this.splitPanel2.RootElement.MaxSize = new System.Drawing.Size(0, 88);
             this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(0, 88);
-            this.splitPanel2.Size = new System.Drawing.Size(604, 88);
+            this.splitPanel2.Size = new System.Drawing.Size(632, 88);
             this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(-0.2534418F, -0.1883562F);
             this.splitPanel2.SizeInfo.MaximumSize = new System.Drawing.Size(0, 88);
             this.splitPanel2.SizeInfo.MinimumSize = new System.Drawing.Size(0, 88);
             this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(-202, -55);
             this.splitPanel2.TabIndex = 1;
             this.splitPanel2.TabStop = false;
-            // 
-            // ctOrderSender1
-            // 
-            this.ctOrderSender1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctOrderSender1.Location = new System.Drawing.Point(0, 0);
-            this.ctOrderSender1.Margin = new System.Windows.Forms.Padding(0);
-            this.ctOrderSender1.Name = "ctOrderSender1";
-            this.ctOrderSender1.OrderTracker = null;
-            this.ctOrderSender1.OrderType = TradingLib.API.QSEnumOrderType.Market;
-            this.ctOrderSender1.PositionTracker = null;
-            this.ctOrderSender1.Size = new System.Drawing.Size(604, 88);
-            this.ctOrderSender1.TabIndex = 0;
             // 
             // radLabelElement5
             // 
@@ -462,14 +375,107 @@
             this.radLabelElement3.TextWrap = true;
             this.radLabelElement3.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
+            // radLabelElement4
+            // 
+            this.radLabelElement4.AccessibleDescription = "radLabelElement4";
+            this.radLabelElement4.AccessibleName = "radLabelElement4";
+            this.radLabelElement4.Name = "radLabelElement4";
+            this.radLabelElement4.Text = "";
+            this.radLabelElement4.TextWrap = true;
+            this.radLabelElement4.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
+            // btnChangePass
+            // 
+            this.btnChangePass.Location = new System.Drawing.Point(509, 11);
+            this.btnChangePass.Name = "btnChangePass";
+            this.btnChangePass.Size = new System.Drawing.Size(82, 24);
+            this.btnChangePass.TabIndex = 2;
+            this.btnChangePass.Text = "修改密码";
+            // 
+            // viewQuoteList1
+            // 
+            this.viewQuoteList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.DNColor = System.Drawing.Color.Green;
+            this.viewQuoteList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewQuoteList1.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.viewQuoteList1.HeaderFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(157)))), ((int)(((byte)(229)))));
+            this.viewQuoteList1.Location = new System.Drawing.Point(0, 0);
+            this.viewQuoteList1.MenuEnable = false;
+            this.viewQuoteList1.Name = "viewQuoteList1";
+            this.viewQuoteList1.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.viewQuoteList1.QuoteViewWidth = 1030;
+            this.viewQuoteList1.SelectedColor = System.Drawing.Color.Blue;
+            this.viewQuoteList1.SelectedQuoteRow = -1;
+            this.viewQuoteList1.Size = new System.Drawing.Size(596, 209);
+            this.viewQuoteList1.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.viewQuoteList1.SymbolFontColor = System.Drawing.Color.Gold;
+            this.viewQuoteList1.TabIndex = 0;
+            this.viewQuoteList1.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.Text = "viewQuoteList1";
+            this.viewQuoteList1.UPColor = System.Drawing.Color.Red;
+            // 
+            // ctOrderView1
+            // 
+            this.ctOrderView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctOrderView1.Location = new System.Drawing.Point(0, 0);
+            this.ctOrderView1.Name = "ctOrderView1";
+            this.ctOrderView1.Size = new System.Drawing.Size(566, 203);
+            this.ctOrderView1.TabIndex = 0;
+            // 
+            // ctPositionView1
+            // 
+            this.ctPositionView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctPositionView1.Location = new System.Drawing.Point(0, 0);
+            this.ctPositionView1.Name = "ctPositionView1";
+            this.ctPositionView1.Size = new System.Drawing.Size(564, 203);
+            this.ctPositionView1.TabIndex = 0;
+            // 
+            // ctTradeView1
+            // 
+            this.ctTradeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctTradeView1.Location = new System.Drawing.Point(0, 0);
+            this.ctTradeView1.Name = "ctTradeView1";
+            this.ctTradeView1.Size = new System.Drawing.Size(564, 203);
+            this.ctTradeView1.TabIndex = 0;
+            // 
+            // ctAccountInfo1
+            // 
+            this.ctAccountInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctAccountInfo1.Location = new System.Drawing.Point(0, 0);
+            this.ctAccountInfo1.Name = "ctAccountInfo1";
+            this.ctAccountInfo1.Size = new System.Drawing.Size(596, 209);
+            this.ctAccountInfo1.TabIndex = 0;
+            // 
+            // btnCashOut
+            // 
+            this.btnCashOut.Location = new System.Drawing.Point(509, 71);
+            this.btnCashOut.Name = "btnCashOut";
+            this.btnCashOut.Size = new System.Drawing.Size(82, 24);
+            this.btnCashOut.TabIndex = 3;
+            this.btnCashOut.Text = "出金";
+            // 
+            // ctOrderSender1
+            // 
+            this.ctOrderSender1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctOrderSender1.Location = new System.Drawing.Point(0, 0);
+            this.ctOrderSender1.Margin = new System.Windows.Forms.Padding(0);
+            this.ctOrderSender1.Name = "ctOrderSender1";
+            this.ctOrderSender1.OrderType = TradingLib.API.QSEnumOrderType.Market;
+            this.ctOrderSender1.Size = new System.Drawing.Size(632, 88);
+            this.ctOrderSender1.TabIndex = 0;
+            // 
             // TradeLite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 321);
+            this.ClientSize = new System.Drawing.Size(632, 327);
             this.Controls.Add(this.SplitContainer);
             this.Controls.Add(this.radStatusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(334, 149);
             this.Name = "TradeLite";
             // 
@@ -494,10 +500,11 @@
             this.pagePosition.ResumeLayout(false);
             this.pageTrade.ResumeLayout(false);
             this.pageAccount.ResumeLayout(false);
-            this.pageSecurity.ResumeLayout(false);
-            this.pageDebug.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnCashIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).EndInit();
             this.splitPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnChangePass)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCashOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -515,13 +522,10 @@
         private Telerik.WinControls.UI.SplitPanel splitPanel1;
         private Telerik.WinControls.UI.SplitPanel splitPanel2;
         private Telerik.WinControls.UI.RadPanel viewPanel;
-        private Telerik.WinControls.UI.RadButtonElement btnConfig;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement1;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement2;
-        private Telerik.WinControls.UI.RadLabelElement message;
+        private Telerik.WinControls.UI.RadLabelElement msgbtn;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement5;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement3;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement4;
         private Telerik.WinControls.UI.RadLabelElement timeStatus;
         private Telerik.WinControls.UI.RadLabelElement exStatus;
         private Telerik.WinControls.UI.RadLabelElement mdStatus;
@@ -537,12 +541,16 @@
         private TradingLib.TraderControl.ctPositionView ctPositionView1;
         private Telerik.WinControls.UI.RadPageViewPage pageTrade;
         private TradingLib.TraderControl.ctTradeView ctTradeView1;
-        private Telerik.WinControls.UI.RadPageViewPage pageSecurity;
-        private TradingLib.TraderControl.ctSymbolSelect ctSymbolSelect1;
         private Telerik.WinControls.UI.RadPageViewPage pageAccount;
         private TradingLib.TraderControl.ctAccountInfo ctAccountInfo1;
-        private Telerik.WinControls.UI.RadPageViewPage pageDebug;
-        private TradingLib.TraderControl.ctDebug ctDebug1;
-        private Telerik.WinControls.UI.RadPageViewPage pageWeb;
+        private Telerik.WinControls.UI.RadLabelElement radLabelElement4;
+       // private Telerik.WinControls.UI.RadLabelElement message;
+        private Telerik.WinControls.UI.RadLabelElement message;
+        private Telerik.WinControls.UI.RadLabelElement span;
+        private Telerik.WinControls.UI.RadSplitButtonElement radSplitButtonElement1;
+        private Telerik.WinControls.UI.RadMenuItem menuAboutUS;
+        private Telerik.WinControls.UI.RadButton btnCashIn;
+        private Telerik.WinControls.UI.RadButton btnChangePass;
+        private Telerik.WinControls.UI.RadButton btnCashOut;
     }
 }

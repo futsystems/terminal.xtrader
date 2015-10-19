@@ -35,6 +35,7 @@ namespace TradingLib.TraderControl
 
             this.Load +=new EventHandler(ctOrderView_Load);
 
+            btnFilterPlaced.IsChecked = true;
         }
 
         void WireEvent()

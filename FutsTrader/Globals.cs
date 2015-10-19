@@ -14,6 +14,9 @@ namespace FutsTrader
 
         public static Log logger = new Log("FutsTrader_Crash", true, true, "log", true);//日志组件
 
+        public static string CashIn = string.Empty;
+        public static string CashOut = string.Empty;
+
         public static void Debug(string msg)
         {
             logger.GotDebug(msg);

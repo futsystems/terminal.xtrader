@@ -30,7 +30,6 @@
         {
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
-            this.btnReserve = new Telerik.WinControls.UI.RadButton();
             this.btnCancelAll = new Telerik.WinControls.UI.RadButton();
             this.posCanFlat = new Telerik.WinControls.UI.RadLabel();
             this.posRealizedPL = new Telerik.WinControls.UI.RadLabel();
@@ -57,8 +56,8 @@
             this.bidlabel = new Telerik.WinControls.UI.RadLabel();
             this.asklabel = new Telerik.WinControls.UI.RadLabel();
             this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
+            this.btnQueryMaxVol = new Telerik.WinControls.UI.RadButton();
             this.maxOpenSize = new Telerik.WinControls.UI.RadLabel();
-            this.sizeTrack = new Telerik.WinControls.UI.RadTrackBar();
             this.size = new Telerik.WinControls.UI.RadSpinEditor();
             this.btnSell = new Telerik.WinControls.UI.RadButton();
             this.btnBuy = new Telerik.WinControls.UI.RadButton();
@@ -67,7 +66,6 @@
             this.radPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnReserve)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancelAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.posCanFlat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.posRealizedPL)).BeginInit();
@@ -97,8 +95,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.asklabel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
             this.radGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueryMaxVol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxOpenSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sizeTrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.size)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBuy)).BeginInit();
@@ -123,7 +121,6 @@
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox1.Controls.Add(this.btnReserve);
             this.radGroupBox1.Controls.Add(this.btnCancelAll);
             this.radGroupBox1.Controls.Add(this.posCanFlat);
             this.radGroupBox1.Controls.Add(this.posRealizedPL);
@@ -135,42 +132,23 @@
             this.radGroupBox1.Controls.Add(this.radLabel1);
             this.radGroupBox1.Controls.Add(this.btnFall);
             this.radGroupBox1.HeaderText = "";
-            this.radGroupBox1.Location = new System.Drawing.Point(475, 1);
+            this.radGroupBox1.Location = new System.Drawing.Point(460, 1);
             this.radGroupBox1.Name = "radGroupBox1";
             // 
             // 
             // 
             this.radGroupBox1.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox1.Size = new System.Drawing.Size(118, 84);
+            this.radGroupBox1.Size = new System.Drawing.Size(129, 84);
             this.radGroupBox1.TabIndex = 22;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BottomWidth = 0F;
             // 
-            // btnReserve
-            // 
-            this.btnReserve.Location = new System.Drawing.Point(80, 56);
-            this.btnReserve.Name = "btnReserve";
-            this.btnReserve.Size = new System.Drawing.Size(34, 19);
-            this.btnReserve.TabIndex = 10;
-            this.btnReserve.Text = "反手";
-            this.btnReserve.Click += new System.EventHandler(this.btnReserve_Click);
-            this.btnReserve.MouseEnter += new System.EventHandler(this.btnReserve_MouseEnter);
-            this.btnReserve.MouseLeave += new System.EventHandler(this.btnReserve_MouseLeave);
-            ((Telerik.WinControls.UI.RadButtonElement)(this.btnReserve.GetChildAt(0))).Text = "反手";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.Crimson;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.Crimson;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.Crimson;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(0))).GradientStyle = Telerik.WinControls.GradientStyles.Solid;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.Crimson;
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.MintCream;
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnReserve.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // btnCancelAll
             // 
-            this.btnCancelAll.Location = new System.Drawing.Point(80, 31);
+            this.btnCancelAll.Location = new System.Drawing.Point(79, 48);
             this.btnCancelAll.Name = "btnCancelAll";
-            this.btnCancelAll.Size = new System.Drawing.Size(34, 19);
+            this.btnCancelAll.Size = new System.Drawing.Size(45, 25);
             this.btnCancelAll.TabIndex = 9;
             this.btnCancelAll.Text = "全撤";
             this.btnCancelAll.Click += new System.EventHandler(this.btnCancelAll_Click);
@@ -183,6 +161,7 @@
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnCancelAll.GetChildAt(0).GetChildAt(0))).GradientStyle = Telerik.WinControls.GradientStyles.Solid;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnCancelAll.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.Orange;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnCancelAll.GetChildAt(0).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.MintCream;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnCancelAll.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnCancelAll.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // posCanFlat
@@ -251,21 +230,22 @@
             // 
             // btnFall
             // 
-            this.btnFall.Location = new System.Drawing.Point(80, 5);
+            this.btnFall.Location = new System.Drawing.Point(79, 8);
             this.btnFall.Name = "btnFall";
-            this.btnFall.Size = new System.Drawing.Size(34, 19);
+            this.btnFall.Size = new System.Drawing.Size(45, 25);
             this.btnFall.TabIndex = 0;
             this.btnFall.Text = "全平";
             this.btnFall.Click += new System.EventHandler(this.btnFall_Click);
             this.btnFall.MouseEnter += new System.EventHandler(this.btnFall_MouseEnter);
             this.btnFall.MouseLeave += new System.EventHandler(this.btnFall_MouseLeave);
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnFall.GetChildAt(0))).Text = "全平";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.LimeGreen;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.LimeGreen;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.LimeGreen;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.Crimson;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.Crimson;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.Crimson;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).GradientStyle = Telerik.WinControls.GradientStyles.Solid;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.LimeGreen;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.Crimson;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.MintCream;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.btnFall.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radGroupBox4
@@ -278,7 +258,7 @@
             this.radGroupBox4.Controls.Add(this.profitValue);
             this.radGroupBox4.Controls.Add(this.isLossSet);
             this.radGroupBox4.HeaderText = "";
-            this.radGroupBox4.Location = new System.Drawing.Point(339, 1);
+            this.radGroupBox4.Location = new System.Drawing.Point(324, 1);
             this.radGroupBox4.Name = "radGroupBox4";
             // 
             // 
@@ -369,13 +349,13 @@
             this.radGroupBox3.Controls.Add(this.bidlabel);
             this.radGroupBox3.Controls.Add(this.asklabel);
             this.radGroupBox3.HeaderText = "";
-            this.radGroupBox3.Location = new System.Drawing.Point(240, 1);
+            this.radGroupBox3.Location = new System.Drawing.Point(215, 1);
             this.radGroupBox3.Name = "radGroupBox3";
             // 
             // 
             // 
             this.radGroupBox3.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox3.Size = new System.Drawing.Size(100, 84);
+            this.radGroupBox3.Size = new System.Drawing.Size(110, 84);
             this.radGroupBox3.TabIndex = 20;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox3.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox3.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
@@ -387,9 +367,9 @@
             this.followtype.ForeColor = System.Drawing.Color.Maroon;
             this.followtype.Location = new System.Drawing.Point(5, 27);
             this.followtype.Name = "followtype";
-            this.followtype.Size = new System.Drawing.Size(15, 19);
+            this.followtype.Size = new System.Drawing.Size(19, 19);
             this.followtype.TabIndex = 14;
-            this.followtype.Text = "X";
+            this.followtype.Text = "价";
             this.followtype.DoubleClick += new System.EventHandler(this.followtype_DoubleClick);
             this.followtype.MouseEnter += new System.EventHandler(this.followtype_MouseEnter);
             this.followtype.MouseLeave += new System.EventHandler(this.followtype_MouseLeave);
@@ -399,7 +379,7 @@
             this.orderType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.orderType.Location = new System.Drawing.Point(8, 5);
             this.orderType.Name = "orderType";
-            this.orderType.Size = new System.Drawing.Size(85, 18);
+            this.orderType.Size = new System.Drawing.Size(95, 18);
             this.orderType.TabIndex = 13;
             this.orderType.Text = "--";
             this.orderType.SelectedValueChanged += new System.EventHandler(this.orderType_SelectedValueChanged);
@@ -408,7 +388,7 @@
             // price
             // 
             this.price.ForeColor = System.Drawing.Color.Black;
-            this.price.Location = new System.Drawing.Point(20, 27);
+            this.price.Location = new System.Drawing.Point(30, 27);
             this.price.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -426,22 +406,24 @@
             // 
             // bidprice
             // 
-            this.bidprice.Location = new System.Drawing.Point(20, 48);
+            this.bidprice.Location = new System.Drawing.Point(30, 48);
             this.bidprice.Name = "bidprice";
             this.bidprice.Size = new System.Drawing.Size(50, 18);
             this.bidprice.TabIndex = 2;
             this.bidprice.Text = "2100.2/6";
+            this.bidprice.DoubleClick += new System.EventHandler(this.bidprice_DoubleClick);
             ((Telerik.WinControls.UI.RadLabelElement)(this.bidprice.GetChildAt(0))).Text = "2100.2/6";
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.bidprice.GetChildAt(0).GetChildAt(2).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.TopLeft;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.bidprice.GetChildAt(0).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.Crimson;
             // 
             // askprice
             // 
-            this.askprice.Location = new System.Drawing.Point(20, 66);
+            this.askprice.Location = new System.Drawing.Point(30, 64);
             this.askprice.Name = "askprice";
             this.askprice.Size = new System.Drawing.Size(50, 18);
             this.askprice.TabIndex = 3;
             this.askprice.Text = "2100.2/6";
+            this.askprice.DoubleClick += new System.EventHandler(this.askprice_DoubleClick);
             ((Telerik.WinControls.UI.RadLabelElement)(this.askprice.GetChildAt(0))).Text = "2100.2/6";
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.askprice.GetChildAt(0).GetChildAt(2).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.TopLeft;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.askprice.GetChildAt(0).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.LimeGreen;
@@ -452,9 +434,9 @@
             this.bidlabel.ForeColor = System.Drawing.Color.Maroon;
             this.bidlabel.Location = new System.Drawing.Point(5, 46);
             this.bidlabel.Name = "bidlabel";
-            this.bidlabel.Size = new System.Drawing.Size(15, 19);
+            this.bidlabel.Size = new System.Drawing.Size(19, 19);
             this.bidlabel.TabIndex = 3;
-            this.bidlabel.Text = "B";
+            this.bidlabel.Text = "买";
             this.bidlabel.DoubleClick += new System.EventHandler(this.bidlabel_DoubleClick);
             this.bidlabel.MouseEnter += new System.EventHandler(this.bidlabel_MouseEnter);
             this.bidlabel.MouseLeave += new System.EventHandler(this.bidlabel_MouseLeave);
@@ -465,9 +447,9 @@
             this.asklabel.ForeColor = System.Drawing.Color.SeaGreen;
             this.asklabel.Location = new System.Drawing.Point(5, 64);
             this.asklabel.Name = "asklabel";
-            this.asklabel.Size = new System.Drawing.Size(14, 19);
+            this.asklabel.Size = new System.Drawing.Size(19, 19);
             this.asklabel.TabIndex = 4;
-            this.asklabel.Text = "S";
+            this.asklabel.Text = "卖";
             this.asklabel.DoubleClick += new System.EventHandler(this.asklabel_DoubleClick);
             this.asklabel.MouseEnter += new System.EventHandler(this.asklabel_MouseEnter);
             this.asklabel.MouseLeave += new System.EventHandler(this.asklabel_MouseLeave);
@@ -475,8 +457,8 @@
             // radGroupBox2
             // 
             this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox2.Controls.Add(this.btnQueryMaxVol);
             this.radGroupBox2.Controls.Add(this.maxOpenSize);
-            this.radGroupBox2.Controls.Add(this.sizeTrack);
             this.radGroupBox2.Controls.Add(this.size);
             this.radGroupBox2.HeaderText = "";
             this.radGroupBox2.Location = new System.Drawing.Point(136, 1);
@@ -485,43 +467,41 @@
             // 
             // 
             this.radGroupBox2.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox2.Size = new System.Drawing.Size(105, 84);
+            this.radGroupBox2.Size = new System.Drawing.Size(80, 84);
             this.radGroupBox2.TabIndex = 19;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BottomWidth = 0F;
             // 
+            // btnQueryMaxVol
+            // 
+            this.btnQueryMaxVol.Location = new System.Drawing.Point(6, 46);
+            this.btnQueryMaxVol.Name = "btnQueryMaxVol";
+            this.btnQueryMaxVol.Size = new System.Drawing.Size(68, 27);
+            this.btnQueryMaxVol.TabIndex = 19;
+            this.btnQueryMaxVol.Text = "可开";
+            // 
             // maxOpenSize
             // 
-            this.maxOpenSize.Location = new System.Drawing.Point(84, 9);
+            this.maxOpenSize.Location = new System.Drawing.Point(55, 12);
             this.maxOpenSize.Name = "maxOpenSize";
             this.maxOpenSize.Size = new System.Drawing.Size(12, 18);
             this.maxOpenSize.TabIndex = 4;
             this.maxOpenSize.Text = "0";
             // 
-            // sizeTrack
-            // 
-            this.sizeTrack.Location = new System.Drawing.Point(4, 31);
-            this.sizeTrack.MinimumSize = new System.Drawing.Size(80, 0);
-            this.sizeTrack.Name = "sizeTrack";
-            // 
-            // 
-            // 
-            this.sizeTrack.RootElement.MinSize = new System.Drawing.Size(80, 0);
-            this.sizeTrack.Size = new System.Drawing.Size(92, 27);
-            this.sizeTrack.TabIndex = 10;
-            this.sizeTrack.Text = "radTrackBar1";
-            this.sizeTrack.TickStyle = Telerik.WinControls.Enumerations.TickStyles.TopLeft;
-            this.sizeTrack.ValueChanged += new System.EventHandler(this.sizeTrack_ValueChanged);
-            // 
             // size
             // 
-            this.size.Location = new System.Drawing.Point(8, 5);
+            this.size.Location = new System.Drawing.Point(3, 6);
             this.size.Name = "size";
-            this.size.Size = new System.Drawing.Size(70, 19);
+            this.size.Size = new System.Drawing.Size(51, 27);
             this.size.TabIndex = 9;
             this.size.TabStop = false;
             this.size.ValueChanged += new System.EventHandler(this.size_ValueChanged);
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.size.GetChildAt(0).GetChildAt(1))).Width = 5F;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.size.GetChildAt(0).GetChildAt(1))).LeftWidth = 5F;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.size.GetChildAt(0).GetChildAt(1))).TopWidth = 5F;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.size.GetChildAt(0).GetChildAt(1))).RightWidth = 5F;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.size.GetChildAt(0).GetChildAt(1))).BottomWidth = 5F;
             ((Telerik.WinControls.UI.RadTextBoxItem)(this.size.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             // 
             // btnSell
@@ -578,7 +558,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnReserve)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancelAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.posCanFlat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.posRealizedPL)).EndInit();
@@ -611,8 +590,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).EndInit();
             this.radGroupBox2.ResumeLayout(false);
             this.radGroupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnQueryMaxVol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxOpenSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sizeTrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.size)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBuy)).EndInit();
@@ -634,7 +613,6 @@
         private Telerik.WinControls.UI.RadButton btnSell;
         private Telerik.WinControls.UI.RadSpinEditor size;
         private Telerik.WinControls.UI.RadSpinEditor price;
-        private Telerik.WinControls.UI.RadTrackBar sizeTrack;
         private Telerik.WinControls.UI.RadDropDownList profitType;
         private Telerik.WinControls.UI.RadSpinEditor profitValue;
         private Telerik.WinControls.UI.RadDropDownList lossType;
@@ -654,9 +632,9 @@
         private Telerik.WinControls.UI.RadLabel posRealizedPL;
         private Telerik.WinControls.UI.RadLabel radLabel6;
         private Telerik.WinControls.UI.RadLabel radLabel11;
-        private Telerik.WinControls.UI.RadButton btnReserve;
         private Telerik.WinControls.UI.RadButton btnCancelAll;
         private Telerik.WinControls.UI.RadLabel followtype;
         private Telerik.WinControls.UI.RadLabel posCanFlat;
+        private Telerik.WinControls.UI.RadButton btnQueryMaxVol;
     }
 }

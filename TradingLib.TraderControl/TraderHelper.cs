@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Text;
+using Microsoft.Win32;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
@@ -20,6 +21,10 @@ namespace TradingLib.TraderControl
             return fm.ShowDialog();
         }
 
+        public static System.Windows.Forms.DialogResult ConfirmWindow(string message, string title = "提示")
+        {
+            return fmConfirm.Show(message, title);
+        }
 
         /// <summary>
         /// 将控件适配到IDataSource用于数据的统一绑定
@@ -93,7 +98,43 @@ namespace TradingLib.TraderControl
 
         }
 
+        static string GetDefaultWebBrowserFilePath()
+        {
+            string _BrowserKey1 = @"Software\Clients\StartmenuInternet\";
+            string _BrowserKey2 = @"\shell\open\command";
 
+            RegistryKey _RegistryKey = Registry.CurrentUser.OpenSubKey(_BrowserKey1, false);
+            if (_RegistryKey == null)
+                _RegistryKey = Registry.LocalMachine.OpenSubKey(_BrowserKey1, false);
+            String _Result = _RegistryKey.GetValue("").ToString();
+            _RegistryKey.Close();
 
+            _RegistryKey = Registry.LocalMachine.OpenSubKey(_BrowserKey1 + _Result + _BrowserKey2);
+            _Result = _RegistryKey.GetValue("").ToString();
+            _RegistryKey.Close();
+
+            if (_Result.Contains("\""))
+            {
+                _Result = _Result.TrimStart('"');
+                _Result = _Result.Substring(0, _Result.IndexOf('"'));
+            }
+            return _Result;
+        }
+
+        public static void OpenURL(string url = "http://www.baidu.com")
+        {
+            //string BrowserPath = TraderHelper.GetDefaultWebBrowserFilePath();//.GetDefaultWebBrowserFilePath();
+            string gotoUrl = url;
+            if (!gotoUrl.StartsWith("http://"))
+            {
+                gotoUrl = "http://" + gotoUrl;
+            }
+            //如果输入的url地址为空，则清空url地址，浏览器默认跳转到默认页面
+            if (gotoUrl == "http://")
+            {
+                gotoUrl = "";
+            }
+            System.Diagnostics.Process.Start(gotoUrl);
+        }
     }
 }

@@ -14,20 +14,18 @@ using TradingLib.TraderCore;
 using Telerik.WinControls;
 using TradingLib.TraderControl;
 using Common.Logging;
-using TradingLib.TraderControl;
+
 
 namespace FutsTrader
 {
     public partial class LoginForm : Telerik.WinControls.UI.ShapedForm
     {
-        //public event ServerLoginDel ServerLoginEvent;
         ILog logger = LogManager.GetLogger("LoginForm");
         Starter mStart;
 
         List<ServerCfg> servers = null;
         int port = 5570;
-       
-
+      
         public LoginForm(Starter start)
         {
             try
@@ -286,8 +284,10 @@ namespace FutsTrader
                 string name = i < namelist.Length ? namelist[i] : iplist[i];
                 ServerCfg cfg = new ServerCfg(iplist[i], name);
                 servers.Add(cfg);
-
             }
+            Globals.CashIn = _config["CASHIN"].AsString();
+            Globals.CashOut = _config["CASHOUT"].AsString();
+
         }
 
         void SaveLoginConfig()

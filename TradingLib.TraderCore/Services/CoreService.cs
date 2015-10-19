@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TradingLib.API;
+using TradingLib.Common;
 
 namespace TradingLib.TraderCore
 {
@@ -67,6 +69,21 @@ namespace TradingLib.TraderCore
             }
         }
 
+        AccountInfo _accountInfo = null;
+
+        public static AccountInfo AccountInfo
+        {
+            get
+            {
+                return defaultinstance._accountInfo;
+            }
+
+            internal set
+            {
+                defaultinstance._accountInfo = value;
+            }
+        }
+
 
         EventUI _eventUI = null;
         /// <summary>
@@ -80,6 +97,18 @@ namespace TradingLib.TraderCore
                 if (defaultinstance._eventUI == null)
                     defaultinstance._eventUI = new EventUI();
                 return defaultinstance._eventUI;
+            }
+        }
+
+        EventOther _eventOther = null;
+
+        public static EventOther EventOther
+        {
+            get
+            {
+                if (defaultinstance._eventOther == null)
+                    defaultinstance._eventOther = new EventOther();
+                return defaultinstance._eventOther;
             }
         }
 

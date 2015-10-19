@@ -23,37 +23,11 @@ namespace TradingLib.TraderControl
     {
         ILog logger = LogManager.GetLogger("ctOrderSender");
         const string PROGRAM = "ctOrderSender";
-        //bool _assumenoordermod = true;
-        //public bool AssumeNewOrder { get { return _assumenoordermod; } set { _assumenoordermod = value; } }
 
         string _dispdecpointformat = "N" + ((int)2).ToString();
-        //bool touched = false;//鼠标是否在价格或者数量控件里面
-
-       
-        
-        //public event PositionOffsetArgsDel UpdatePostionOffsetEvent;//对外触发止盈止损更新事件
-        
-        
-
-        //本控件触发sendOrder事件,买入 卖出按钮通过触发sendOrder事件从而实现对其他组件的调用
-        //外部使用该控件时,需要绑定其SendOrder
-        //public event OrderDelegate SendOrder;
-
-        //public Security SecuritySelected { get { return _sec; } }
-        //private Security _sec;
 
         QSEnumOrderType _ordertype = QSEnumOrderType.Market;
         public QSEnumOrderType OrderType { get { return _ordertype; } set { _ordertype = value; } }
-
-        //private Order work;
-        //Basket _basket = null;
-        //public Basket DefaultBasket { get { return _basket; } set { _basket = value; } }
-
-        PositionTracker _pt;
-        public PositionTracker PositionTracker { get { return _pt; } set { _pt = value; } }
-
-        OrderTracker _ot;
-        public OrderTracker OrderTracker { get { return _ot; } set { _ot = value; } }
 
         bool _pricetouch = false;//价格框更新标识
         PriceFollow _pricefollow = PriceFollow.TRADE;
@@ -74,6 +48,13 @@ namespace TradingLib.TraderControl
             CoreService.EventCore.RegIEventHandler(this);
 
             this.Load +=new EventHandler(ctOrderSender_Load);
+
+            isLossSet.Enabled = false;
+            isProfitSet.Enabled = false;
+            lossType.Enabled = false;
+            profitType.Enabled = false;
+            lossValue.Enabled = false;
+            profitValue.Enabled = false;
         }
 
         bool load = false;
@@ -101,10 +82,27 @@ namespace TradingLib.TraderControl
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotTrade);
             CoreService.EventIndicator.GotOrderEvent +=new Action<Order>(GotOrder);
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<Object,Symbol>(EventUI_OnSymbolSelectedEvent);
+            CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);
             this.cbSymbolList.SelectedValueChanged += new EventHandler(cbSymbolList_SelectedValueChanged);
 
+            
             this.btnBuy.Click +=new EventHandler(btnBuy_Click);
             this.btnSell.Click +=new EventHandler(btnSell_Click);
+            this.btnQueryMaxVol.Click += new EventHandler(btnQueryMaxVol_Click);
+        }
+
+        void btnQueryMaxVol_Click(object sender, EventArgs e)
+        {
+            QryMaxOrderVal();
+        }
+
+        /// <summary>
+        /// 查询最大可开数量
+        /// </summary>
+        /// <param name="obj"></param>
+        void EventOther_OnRspQryMaxOrderVolResponse(RspQryMaxOrderVolResponse obj)
+        {
+            UpdateMaxOpenSize(obj.MaxVol);
         }
 
         /// <summary>
@@ -357,6 +355,9 @@ namespace TradingLib.TraderControl
             UpdateRealizedPL();
             UpdateCanFlat();
 
+            //查询可开手数
+            QryMaxOrderVal();
+
         }
 
         
@@ -598,17 +599,18 @@ namespace TradingLib.TraderControl
         #endregion
 
         #region 手数
-        void UpdateSizeCtlMaximum()
+        void UpdateSizeCtlMaximum(int num)
         {
+            //canopensize = num;
             if (InvokeRequired)
-                Invoke(new VoidDelegate(UpdateSizeCtlMaximum), new object[] { });
+                Invoke(new Action<int>(UpdateSizeCtlMaximum), new object[] { num });
             else
             {
                 try
                 {
-                    maxOpenSize.Text = canopensize.ToString();
-                    sizeTrack.Maximum = canopensize;
-                    size.Maximum = canopensize;
+                    maxOpenSize.Text = num.ToString();
+                    //sizeTrack.Maximum = num;
+                    size.Maximum = num;
                 }
                 catch (Exception ex)
                 {
@@ -616,85 +618,85 @@ namespace TradingLib.TraderControl
                 }
             }
         }
-        void UpdateSizeCtlValue()
-        {
-            if (InvokeRequired)
-                Invoke(new VoidDelegate(UpdateSizeCtlValue), new object[] { });
-            else
-            {
-                try
-                {
-                    int csize = (int)sizeTrack.Value;
-                    csize = csize < canopensize ? csize : canopensize;
-                    size.Value = csize;
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("UpdateSizeCtlValue error:" + ex.ToString());
-                }
-            }
-        }
-        void UpdateSizeTrackValue()
-        {
-            if (InvokeRequired)
-                Invoke(new VoidDelegate(UpdateSizeTrackValue), new object[] { });
-            else
-            {
-                try
-                {
-                    float fs = (float)size.Value;
-                    if (fs > sizeTrack.Maximum)
-                        fs = sizeTrack.Maximum;
-                    sizeTrack.Value = fs;
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("UpdateSizeTrackValue error:" + ex.ToString());
-                }
-            }
-        }
+
         /// <summary>
-        /// 获得合约对应的手数,如果该合约有默认手数就设定该手数
+        /// 调节器数量到数字空间
         /// </summary>
-        /// <param name="symbol"></param>
-        /// <returns></returns>
-        int GetSize(string symbol)
-        {
-            //int size = 0;
-            //if (SendQryDefaultSizeEvent != null)
-            //    size = SendQryDefaultSizeEvent(symbol);
-            //if (size == 0)
-            //    return 1;
-            //else
-            //    return size;
-            return 0;
+        //void UpdateSizeCtlValue()
+        //{
+        //    if (InvokeRequired)
+        //        Invoke(new VoidDelegate(UpdateSizeCtlValue), new object[] { });
+        //    else
+        //    {
+        //        try
+        //        {
+        //            int csize = (int)sizeTrack.Value;
+        //            csize = csize < canopensize ? csize : canopensize;
+        //            size.Value = csize;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            logger.Error("UpdateSizeCtlValue error:" + ex.ToString());
+        //        }
+        //    }
+        //}
+
+        ///// <summary>
+        ///// 更新数量调节器
+        ///// </summary>
+        //void UpdateSizeTrackValue()
+        //{
+        //    if (InvokeRequired)
+        //        Invoke(new VoidDelegate(UpdateSizeTrackValue), new object[] { });
+        //    else
+        //    {
+        //        try
+        //        {
+        //            float fs = (float)size.Value;
+        //            if (fs > sizeTrack.Maximum)
+        //                fs = sizeTrack.Maximum;
+        //            sizeTrack.Value = fs;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            logger.Error("UpdateSizeTrackValue error:" + ex.ToString());
+        //        }
+        //    }
+        //}
+
+        void QryMaxOrderVal()
+        { 
+            if(_currentSymbol == null) return;
+            CoreService.TLClient.ReqQryMaxOrderVol(_currentSymbol.Symbol);
+
         }
+       
         
         /// <summary>
         /// 更新可开数量
         /// 1.服务端查询 
         /// 2.本地计算
         /// </summary>
-        public void UpdateMaxOpenSize()
-        {
-            ////本地计算可开手数
-            //if (QryCanOpenPositionLocalEvent != null && CurrentSecurity != null)
-            //{
-            //    int r = QryCanOpenPositionLocalEvent(CurrentSecurity.Symbol);
-            //    UpdateMaxOpenSize(r);
-            //    return;
-            //}
-            ////服务端查询
-            //if (QryCanOpenPositionEvent != null && CurrentSecurity !=null)
-            //    QryCanOpenPositionEvent(CurrentSymbol);
-        }
+        //public void UpdateMaxOpenSize()
+        //{
+        //    ////本地计算可开手数
+        //    //if (QryCanOpenPositionLocalEvent != null && CurrentSecurity != null)
+        //    //{
+        //    //    int r = QryCanOpenPositionLocalEvent(CurrentSecurity.Symbol);
+        //    //    UpdateMaxOpenSize(r);
+        //    //    return;
+        //    //}
+        //    ////服务端查询
+        //    //if (QryCanOpenPositionEvent != null && CurrentSecurity !=null)
+        //    //    QryCanOpenPositionEvent(CurrentSymbol);
+        //}
 
         //总可开数量 服务端获得最大可开数量 则通过回调事件调用该函数
         int canopensize = 0;
         public void UpdateMaxOpenSize(int psize)
         {
             canopensize = psize;
-            UpdateSizeCtlMaximum();
+            UpdateSizeCtlMaximum(psize);
         }
 
         //更新当前设定的手数
@@ -769,12 +771,12 @@ namespace TradingLib.TraderControl
         //合约手数
         private void size_ValueChanged(object sender, EventArgs e)
         {
-            UpdateSizeTrackValue();
+            //UpdateSizeTrackValue();
         }
         //合约手数调节器
         private void sizeTrack_ValueChanged(object sender, EventArgs e)
         {
-            UpdateSizeCtlValue();
+            //UpdateSizeCtlValue();
         }
 
         //委托类别选择触发事件
@@ -812,6 +814,20 @@ namespace TradingLib.TraderControl
             
         }
 
+        private void bidprice_DoubleClick(object sender, EventArgs e)
+        {
+            _pricefollow = PriceFollow.BID;
+            _pricetouch = false;
+            followtype.Text = "B";
+        }
+
+        private void askprice_DoubleClick(object sender, EventArgs e)
+        {
+            _pricefollow = PriceFollow.ASK;
+            _pricetouch = false;
+            followtype.Text = "S";
+        }
+
         private void asklabel_MouseEnter(object sender, EventArgs e)
         {
             this.Cursor = Cursors.Hand;
@@ -831,7 +847,7 @@ namespace TradingLib.TraderControl
         {
             _pricefollow = PriceFollow.TRADE;
             _pricetouch = false;
-            followtype.Text = "X";
+            followtype.Text = "价";
         }
 
         private void followtype_MouseEnter(object sender, EventArgs e)
@@ -864,24 +880,37 @@ namespace TradingLib.TraderControl
         //全平按钮
         private void btnFall_Click(object sender, EventArgs e)
         {
-            //FlatPosition(CurrentPosition);
+            if (_currentSymbol == null) return;
+            Position longside = CoreService.TradingInfoTracker.PositionTracker[_currentSymbol.Symbol, CoreService.Account, true];
+            Position shortside = CoreService.TradingInfoTracker.PositionTracker[_currentSymbol.Symbol, CoreService.Account, false];
+
+            if (longside != null && !longside.isFlat)
+            {
+                FlatPosition(longside);
+            }
+            if (longside != null && !shortside.isFlat)
+            {
+                FlatPosition(shortside);
+            }
         }
+        void FlatPosition(Position pos)
+        {
+            if (pos == null || pos.isFlat) return;
+            Order o = new MarketOrderFlat(pos);
+            SendOrder(o);
+        }
+
         //全撤按钮
         private void btnCancelAll_Click(object sender, EventArgs e)
         {
-            //string sym = CurrentSymbol;
-            //if (string.IsNullOrEmpty(sym))
-            //{
-            //    MessageForm.Show("无有效合约");
-            //    return;
-            //}
-            //foreach (Order o in OrderTracker)
-            //{
-            //    if ((o.symbol == sym) && (OrderTracker.isPending(o.id)))
-            //    {
-            //        CancelOrder(o.id);
-            //    }
-            //}
+            if (_currentSymbol == null) return;
+            foreach (Order o in CoreService.TradingInfoTracker.OrderTracker)
+            {
+                if ((o.Symbol == _currentSymbol.Symbol) && o.IsPending())
+                {
+                    CoreService.TLClient.ReqCancelOrder(o.id);
+                }
+            }
         }
         //反手按钮
         private void btnReserve_Click(object sender, EventArgs e)
@@ -990,35 +1019,6 @@ namespace TradingLib.TraderControl
             }
         }
 
-        void CancelOrder(long oid)
-        {
-            //if (SendCancelEvent != null)
-            //    SendCancelEvent(oid);
-        }
-
-        /// <summary>
-        /// 撤销某个合约的所有委托
-        /// </summary>
-        /// <param name="symbol"></param>
-        void CancelSymbol(string symbol)
-        {
-            foreach (Order o in _ot)
-            {
-                //if (_ot.isPending(o.id))
-                //{
-                //    if (symbol == o.symbol)
-                //        CancelOrder(o.id);
-                //}
-            }
-        }
-        void FlatPosition(Position pos)
-        {
-
-            if (pos == null || pos.isFlat) return;
-            Order o = new MarketOrderFlat(pos);
-            SendOrder(o);
-            
-        }
         #endregion
 
         #region 止盈 止损 区域
@@ -1158,13 +1158,12 @@ namespace TradingLib.TraderControl
         {
             FillPrimitive f = ((FillPrimitive)btnFall.ButtonElement.GetChildrenByType(typeof(FillPrimitive))[0]);
             f.BackColor = Color.LightGray;
-            //btnFall.ForeColor = Color.Black;
         }
 
         private void btnFall_MouseLeave(object sender, EventArgs e)
         {
             FillPrimitive f = ((FillPrimitive)btnFall.ButtonElement.GetChildrenByType(typeof(FillPrimitive))[0]);
-            f.BackColor = Color.LimeGreen;
+            f.BackColor = Color.Crimson;
         }
 
         private void btnCancelAll_MouseEnter(object sender, EventArgs e)
@@ -1179,18 +1178,22 @@ namespace TradingLib.TraderControl
             f.BackColor = Color.Orange;
         }
 
-        private void btnReserve_MouseEnter(object sender, EventArgs e)
-        {
+       
 
-            FillPrimitive f = ((FillPrimitive)btnReserve.ButtonElement.GetChildrenByType(typeof(FillPrimitive))[0]);
-            f.BackColor = Color.LightGray;
-        }
+        
 
-        private void btnReserve_MouseLeave(object sender, EventArgs e)
-        {
-            FillPrimitive f = ((FillPrimitive)btnReserve.ButtonElement.GetChildrenByType(typeof(FillPrimitive))[0]);
-            f.BackColor = Color.Crimson;
-        }
+        //private void btnReserve_MouseEnter(object sender, EventArgs e)
+        //{
+
+        //    FillPrimitive f = ((FillPrimitive)btnReserve.ButtonElement.GetChildrenByType(typeof(FillPrimitive))[0]);
+        //    f.BackColor = Color.LightGray;
+        //}
+
+        //private void btnReserve_MouseLeave(object sender, EventArgs e)
+        //{
+        //    FillPrimitive f = ((FillPrimitive)btnReserve.ButtonElement.GetChildrenByType(typeof(FillPrimitive))[0]);
+        //    f.BackColor = Color.Crimson;
+        //}
         #endregion
 
         

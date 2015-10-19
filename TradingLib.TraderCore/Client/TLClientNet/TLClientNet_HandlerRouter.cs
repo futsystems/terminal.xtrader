@@ -43,9 +43,12 @@ namespace TradingLib.TraderCore
                     break;
 
                 case MessageTypes.ERRORORDERACTIONNOTIFY:
+                    CliOnErrorOrderActionNotify(packet as ErrorOrderActionNotify);
                     break;
 
                 case MessageTypes.CHANGEPASSRESPONSE:
+                    CliOnChangePass(packet as RspReqChangePasswordResponse);
+                    break;
 
 
 
@@ -61,7 +64,7 @@ namespace TradingLib.TraderCore
                     break;
 
                 case MessageTypes.ACCOUNTINFORESPONSE://帐户信息回报
-                    CliOnRspQryAccountInfoResponse(packet as RspQryAccountInfoResponse);
+                    CliOnQryAccountInfo(packet as RspQryAccountInfoResponse);
                     break;
                 case MessageTypes.INVESTORRESPONSE:
                     CliOnRspQryInvestorResponse(packet as RspQryInvestorResponse);

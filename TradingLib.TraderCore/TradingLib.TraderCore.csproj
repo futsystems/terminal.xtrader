@@ -59,6 +59,7 @@
     <Compile Include="Client\TLClientNet\TLClientNet_EventHalder.cs" />
     <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_BasicInfo.cs" />
     <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_TradingInfo.cs" />
+    <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_Other.cs" />
     <Compile Include="Client\TLClient_MQ.cs" />
     <Compile Include="Client\TLClientNet\TLClientNet_Request.cs" />
     <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Services\CoreService.cs" />
     <Compile Include="Services\Event\EventCore.cs" />
     <Compile Include="Services\Event\EventIndicator.cs" />
+    <Compile Include="Services\Event\EventOther.cs" />
     <Compile Include="Services\Event\EventUI.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker.cs" />

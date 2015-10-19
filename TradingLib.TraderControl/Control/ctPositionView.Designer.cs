@@ -32,7 +32,6 @@
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.isDoubleFlat = new Telerik.WinControls.UI.RadCheckBox();
             this.btnCancel = new Telerik.WinControls.UI.RadButton();
-            this.btnReserve = new Telerik.WinControls.UI.RadButton();
             this.btnFlatAll = new Telerik.WinControls.UI.RadButton();
             this.btnFlat = new Telerik.WinControls.UI.RadButton();
             this.btnShowAll = new Telerik.WinControls.UI.RadRadioButton();
@@ -43,7 +42,6 @@
             this.radPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.isDoubleFlat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnReserve)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFlatAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFlat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShowAll)).BeginInit();
@@ -66,7 +64,6 @@
             // 
             this.radPanel1.Controls.Add(this.isDoubleFlat);
             this.radPanel1.Controls.Add(this.btnCancel);
-            this.radPanel1.Controls.Add(this.btnReserve);
             this.radPanel1.Controls.Add(this.btnFlatAll);
             this.radPanel1.Controls.Add(this.btnFlat);
             this.radPanel1.Controls.Add(this.btnShowAll);
@@ -82,7 +79,7 @@
             // isDoubleFlat
             // 
             this.isDoubleFlat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.isDoubleFlat.Location = new System.Drawing.Point(395, 172);
+            this.isDoubleFlat.Location = new System.Drawing.Point(328, 172);
             this.isDoubleFlat.Name = "isDoubleFlat";
             this.isDoubleFlat.Size = new System.Drawing.Size(66, 18);
             this.isDoubleFlat.TabIndex = 11;
@@ -91,20 +88,11 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Location = new System.Drawing.Point(329, 171);
+            this.btnCancel.Location = new System.Drawing.Point(262, 171);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(60, 22);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "撤 单";
-            // 
-            // btnReserve
-            // 
-            this.btnReserve.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnReserve.Location = new System.Drawing.Point(263, 171);
-            this.btnReserve.Name = "btnReserve";
-            this.btnReserve.Size = new System.Drawing.Size(60, 22);
-            this.btnReserve.TabIndex = 9;
-            this.btnReserve.Text = "反 手";
             // 
             // btnFlatAll
             // 
@@ -159,7 +147,6 @@
             this.radPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.isDoubleFlat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnReserve)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFlatAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFlat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShowAll)).EndInit();
@@ -176,7 +163,6 @@
         private Telerik.WinControls.UI.RadRadioButton btnShowHold;
         private Telerik.WinControls.UI.RadButton btnFlatAll;
         private Telerik.WinControls.UI.RadButton btnFlat;
-        private Telerik.WinControls.UI.RadButton btnReserve;
         private Telerik.WinControls.UI.RadButton btnCancel;
         private Telerik.WinControls.UI.RadCheckBox isDoubleFlat;
     }
