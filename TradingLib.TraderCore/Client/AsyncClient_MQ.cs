@@ -171,14 +171,14 @@ namespace TradingLib.TraderCore
                 return true;
             logger.Info("Stop Client Message Reciving Thread....");
             int _wait = 0;
-            while (_cliThread.IsAlive && (_wait++ < 5))
+            while (_cliThread.IsAlive && (_wait++ < 50))
             {
                 logger.Info("#:" + _wait.ToString() + "  AsynClient is stoping...." + "MessageThread Status:" + _cliThread.IsAlive.ToString());
                 if (_msgpoller.IsStarted)//如果poller处于启动状态 则停止poller
                 {
                     _msgpoller.Stop();
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
             }
 
 
@@ -192,7 +192,7 @@ namespace TradingLib.TraderCore
             return false;
         }
 
-        TimeSpan timeout = new TimeSpan(0, 0, 2);
+        TimeSpan timeout = new TimeSpan(0,0,2);
         //消息翻译线程,当socket有新的数据进来时候,我们将数据转换成TL交易协议的内部信息,并触发SendTLMessage事件,从而TLClient可以用于调用对应的处理逻辑对信息进行处理
         private void MessageTranslate()
         {
@@ -278,7 +278,7 @@ namespace TradingLib.TraderCore
                 return true;
             logger.Info("Stop Client Tick Reciving Thread....");
             int _wait = 0;
-            while (_tickthread.IsAlive && (_wait++ < 5))
+            while (_tickthread.IsAlive && (_wait++ < 50))
             {
                 //等待1秒,当后台正式启动完毕后方可有进入下面的程序端运行
                 logger.Info("#:" + _wait.ToString() + "  AsynClient[Tick Reciver] is stoping...." + "TickThread Status:" + _tickthread.IsAlive.ToString());
@@ -287,7 +287,7 @@ namespace TradingLib.TraderCore
                     //debug("tick poller stop");
                     _tickpoller.Stop();
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
             }
             if (!_tickthread.IsAlive)
             {
@@ -375,7 +375,7 @@ namespace TradingLib.TraderCore
             if (!msggo) return true;
             logger.Info("Stop Client Send Thread....");
             int _wait = 0;
-            while (_msgthread.IsAlive && (_wait++ < 5))
+            while (_msgthread.IsAlive && (_wait++ < 50))
             {
                 //等待1秒,当后台正式启动完毕后方可有进入下面的程序端运行
                 logger.Info("#:" + _wait.ToString() + "  AsynClient[Message Sender] is stoping...." + "SenderThread Status:" + _msgthread.IsAlive.ToString());
@@ -383,7 +383,7 @@ namespace TradingLib.TraderCore
                 {
                     msggo = false;
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
             }
             if (!_msgthread.IsAlive)
             {

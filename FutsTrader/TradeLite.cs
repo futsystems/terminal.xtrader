@@ -93,6 +93,7 @@ namespace FutsTrader
             {
                 e.Cancel = true;
             }
+            CoreService.TLClient.Stop();
         }
 
         void TradeLite_Load(object sender, EventArgs e)
@@ -129,6 +130,11 @@ namespace FutsTrader
             this.menuAboutUS.Click += new EventHandler(menuAboutUS_Click);
             this.msgbtn.MouseEnter += new EventHandler(msgbtn_MouseEnter);
             this.msgbtn.MouseLeave += new EventHandler(msgbtn_MouseLeave);
+
+
+
+            //查询行情快照
+            CoreService.TLClient.ReqTickSnapShot();
         }
 
         void EventCore_OnRspInfoEvent(RspInfo obj)
@@ -348,6 +354,8 @@ namespace FutsTrader
         #endregion
         #region 后台worker用于更新界面
         private System.ComponentModel.BackgroundWorker bg;
+        //private System.Timers.Timer timer;
+        DateTime _lastupdate = DateTime.Now;
         private void bgDoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             while (true)
@@ -357,7 +365,15 @@ namespace FutsTrader
                     double targetOpacity =message.Opacity-0.02;
                     message.Opacity = targetOpacity >= 0 ? targetOpacity : 0;
                 }
+
+                DateTime now = DateTime.Now;
+                if ((now - _lastupdate).TotalSeconds >= 1)
+                {
+                    timeStatus.Text = now.ToString("HH:mm:ss");
+                    _lastupdate = now;
+                }
                 Thread.Sleep(50);
+                
             }
         }
         //启动后台工作进程 用于检查信息并调用弹出窗口
@@ -368,6 +384,9 @@ namespace FutsTrader
             bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgDoWork);
             //bg.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(bg_ProgressChanged);
             bg.RunWorkerAsync();
+
+            
+
         }
         #endregion
 

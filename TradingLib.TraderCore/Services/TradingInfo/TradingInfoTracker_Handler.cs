@@ -32,7 +32,6 @@ namespace TradingLib.TraderCore
         {
             _tickTracker.GotTick(k);
             PositionTracker.GotTick(k);
-            //CoreService.EventIndicator.FireTick(k);
         }
 
 

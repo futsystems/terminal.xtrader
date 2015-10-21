@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Remoting.Messaging;
 using TradingLib.API;
 using TradingLib.Common;
 using Common.Logging;
@@ -77,16 +78,35 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + " request login to server, account:" + loginid + " pass:" + pass);
 
+            LocationInfo info = Util.GetLocationInfo();
+
             LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(requestid++);
             request.LoginID = loginid;
             request.Passwd = pass;
             request.LoginType = 1;
             request.ProductInfo = "XTrader.Net";
-            request.IPAddress = "22.22.22.22";
-            request.MAC = "wwwwww";
+            request.IPAddress = info.IP;
+            
+            //request.IPAddress = "22.22.22.22";
+            //request.MAC = "wwwwww";
             //request.MAC = mac;
             SendPacket(request);
+
+            //Func<LocationInfo> del = new Func<LocationInfo>(Util.GetLocationInfo);
+            //del.BeginInvoke(QryLocaltionInfoCallback, null);
+
         }
+
+        void QryLocaltionInfoCallback(IAsyncResult async)
+        {
+            Func<LocationInfo> proc = ((AsyncResult)async).AsyncDelegate as Func<LocationInfo>;
+            LocationInfo info = proc.EndInvoke(async);
+            //InvokeGotGLocation(location);
+            UpdateLocationInfoRequest request = RequestTemplate<UpdateLocationInfoRequest>.CliSendRequest(requestid++);
+            request.LocationInfo = info;
+            SendPacket(request);
+        }
+
 
         /// <summary>
         /// 请求帐户信息
@@ -340,6 +360,14 @@ namespace TradingLib.TraderCore
             QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(requestid++);
             request.Symbol = symbol;
             request.Account = _account;
+
+            SendPacket(request);
+        }
+
+        public void ReqTickSnapShot(string symbol = "")
+        {
+            XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(requestid++);
+            request.Symbol = symbol;
 
             SendPacket(request);
         }

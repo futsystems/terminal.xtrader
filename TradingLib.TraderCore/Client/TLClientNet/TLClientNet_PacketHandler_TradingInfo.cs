@@ -91,6 +91,15 @@ namespace TradingLib.TraderCore
             CoreService.TradingInfoTracker.GotAccountInfo(response.AccInfo, response.IsLast);
         }
 
+        void CliOnXQryTickSnapShot(RspXQryTickSnapShotResponse response)
+        {
+            logger.Debug("got qry ticksnapshot response:" + response.ToString());
+            if(response.Tick != null)
+            {
+                CoreService.EventIndicator.FireTick(response.Tick);
+            }
+        }
+
         /// <summary>
         /// 委托异常汇报
         /// </summary>

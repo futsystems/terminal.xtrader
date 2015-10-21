@@ -47,23 +47,23 @@
             this.viewPanel = new Telerik.WinControls.UI.RadPanel();
             this.mainPageView = new Telerik.WinControls.UI.RadPageView();
             this.pageQuote = new Telerik.WinControls.UI.RadPageViewPage();
+            this.viewQuoteList1 = new TradingLib.TraderControl.ViewQuoteList();
             this.pageOrder = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ctOrderView1 = new TradingLib.TraderControl.ctOrderView();
             this.pagePosition = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ctPositionView1 = new TradingLib.TraderControl.ctPositionView();
             this.pageTrade = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ctTradeView1 = new TradingLib.TraderControl.ctTradeView();
             this.pageAccount = new Telerik.WinControls.UI.RadPageViewPage();
+            this.btnCashOut = new Telerik.WinControls.UI.RadButton();
+            this.btnChangePass = new Telerik.WinControls.UI.RadButton();
             this.btnCashIn = new Telerik.WinControls.UI.RadButton();
+            this.ctAccountInfo1 = new TradingLib.TraderControl.ctAccountInfo();
             this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
+            this.ctOrderSender1 = new TradingLib.TraderControl.ctOrderSender();
             this.radLabelElement5 = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement3 = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement4 = new Telerik.WinControls.UI.RadLabelElement();
-            this.btnChangePass = new Telerik.WinControls.UI.RadButton();
-            this.viewQuoteList1 = new TradingLib.TraderControl.ViewQuoteList();
-            this.ctOrderView1 = new TradingLib.TraderControl.ctOrderView();
-            this.ctPositionView1 = new TradingLib.TraderControl.ctPositionView();
-            this.ctTradeView1 = new TradingLib.TraderControl.ctTradeView();
-            this.ctAccountInfo1 = new TradingLib.TraderControl.ctAccountInfo();
-            this.btnCashOut = new Telerik.WinControls.UI.RadButton();
-            this.ctOrderSender1 = new TradingLib.TraderControl.ctOrderSender();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
             this.SplitContainer.SuspendLayout();
@@ -78,11 +78,11 @@
             this.pagePosition.SuspendLayout();
             this.pageTrade.SuspendLayout();
             this.pageAccount.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCashOut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnChangePass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCashIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
             this.splitPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnChangePass)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCashOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -274,7 +274,7 @@
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Margin = new System.Windows.Forms.Padding(0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.pageAccount;
+            this.mainPageView.SelectedPage = this.pageQuote;
             this.mainPageView.Size = new System.Drawing.Size(632, 211);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "Windows8";
@@ -291,8 +291,33 @@
             this.pageQuote.Controls.Add(this.viewQuoteList1);
             this.pageQuote.Location = new System.Drawing.Point(1, 1);
             this.pageQuote.Name = "pageQuote";
-            this.pageQuote.Size = new System.Drawing.Size(596, 209);
+            this.pageQuote.Size = new System.Drawing.Size(594, 209);
             this.pageQuote.Text = "报价";
+            // 
+            // viewQuoteList1
+            // 
+            this.viewQuoteList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.DNColor = System.Drawing.Color.Green;
+            this.viewQuoteList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewQuoteList1.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.viewQuoteList1.HeaderFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(157)))), ((int)(((byte)(229)))));
+            this.viewQuoteList1.Location = new System.Drawing.Point(0, 0);
+            this.viewQuoteList1.MenuEnable = false;
+            this.viewQuoteList1.Name = "viewQuoteList1";
+            this.viewQuoteList1.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.viewQuoteList1.QuoteViewWidth = 1030;
+            this.viewQuoteList1.SelectedColor = System.Drawing.Color.Blue;
+            this.viewQuoteList1.SelectedQuoteRow = -1;
+            this.viewQuoteList1.Size = new System.Drawing.Size(594, 209);
+            this.viewQuoteList1.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.viewQuoteList1.SymbolFontColor = System.Drawing.Color.Gold;
+            this.viewQuoteList1.TabIndex = 0;
+            this.viewQuoteList1.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.viewQuoteList1.Text = "viewQuoteList1";
+            this.viewQuoteList1.UPColor = System.Drawing.Color.Red;
             // 
             // pageOrder
             // 
@@ -302,6 +327,14 @@
             this.pageOrder.Size = new System.Drawing.Size(566, 203);
             this.pageOrder.Text = "委托";
             // 
+            // ctOrderView1
+            // 
+            this.ctOrderView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctOrderView1.Location = new System.Drawing.Point(0, 0);
+            this.ctOrderView1.Name = "ctOrderView1";
+            this.ctOrderView1.Size = new System.Drawing.Size(566, 203);
+            this.ctOrderView1.TabIndex = 0;
+            // 
             // pagePosition
             // 
             this.pagePosition.Controls.Add(this.ctPositionView1);
@@ -309,6 +342,14 @@
             this.pagePosition.Name = "pagePosition";
             this.pagePosition.Size = new System.Drawing.Size(564, 203);
             this.pagePosition.Text = "持仓";
+            // 
+            // ctPositionView1
+            // 
+            this.ctPositionView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctPositionView1.Location = new System.Drawing.Point(0, 0);
+            this.ctPositionView1.Name = "ctPositionView1";
+            this.ctPositionView1.Size = new System.Drawing.Size(564, 203);
+            this.ctPositionView1.TabIndex = 0;
             // 
             // pageTrade
             // 
@@ -318,6 +359,14 @@
             this.pageTrade.Size = new System.Drawing.Size(564, 203);
             this.pageTrade.Text = "成交";
             // 
+            // ctTradeView1
+            // 
+            this.ctTradeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctTradeView1.Location = new System.Drawing.Point(0, 0);
+            this.ctTradeView1.Name = "ctTradeView1";
+            this.ctTradeView1.Size = new System.Drawing.Size(564, 203);
+            this.ctTradeView1.TabIndex = 0;
+            // 
             // pageAccount
             // 
             this.pageAccount.Controls.Add(this.btnCashOut);
@@ -326,8 +375,24 @@
             this.pageAccount.Controls.Add(this.ctAccountInfo1);
             this.pageAccount.Location = new System.Drawing.Point(1, 1);
             this.pageAccount.Name = "pageAccount";
-            this.pageAccount.Size = new System.Drawing.Size(596, 209);
+            this.pageAccount.Size = new System.Drawing.Size(594, 209);
             this.pageAccount.Text = "帐户";
+            // 
+            // btnCashOut
+            // 
+            this.btnCashOut.Location = new System.Drawing.Point(509, 71);
+            this.btnCashOut.Name = "btnCashOut";
+            this.btnCashOut.Size = new System.Drawing.Size(82, 24);
+            this.btnCashOut.TabIndex = 3;
+            this.btnCashOut.Text = "出金";
+            // 
+            // btnChangePass
+            // 
+            this.btnChangePass.Location = new System.Drawing.Point(509, 11);
+            this.btnChangePass.Name = "btnChangePass";
+            this.btnChangePass.Size = new System.Drawing.Size(82, 24);
+            this.btnChangePass.TabIndex = 2;
+            this.btnChangePass.Text = "修改密码";
             // 
             // btnCashIn
             // 
@@ -336,6 +401,14 @@
             this.btnCashIn.Size = new System.Drawing.Size(82, 24);
             this.btnCashIn.TabIndex = 1;
             this.btnCashIn.Text = "入金";
+            // 
+            // ctAccountInfo1
+            // 
+            this.ctAccountInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctAccountInfo1.Location = new System.Drawing.Point(0, 0);
+            this.ctAccountInfo1.Name = "ctAccountInfo1";
+            this.ctAccountInfo1.Size = new System.Drawing.Size(594, 209);
+            this.ctAccountInfo1.TabIndex = 0;
             // 
             // splitPanel2
             // 
@@ -354,6 +427,16 @@
             this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(-202, -55);
             this.splitPanel2.TabIndex = 1;
             this.splitPanel2.TabStop = false;
+            // 
+            // ctOrderSender1
+            // 
+            this.ctOrderSender1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctOrderSender1.Location = new System.Drawing.Point(0, 0);
+            this.ctOrderSender1.Margin = new System.Windows.Forms.Padding(0);
+            this.ctOrderSender1.Name = "ctOrderSender1";
+            this.ctOrderSender1.OrderType = TradingLib.API.QSEnumOrderType.Market;
+            this.ctOrderSender1.Size = new System.Drawing.Size(632, 88);
+            this.ctOrderSender1.TabIndex = 0;
             // 
             // radLabelElement5
             // 
@@ -383,89 +466,6 @@
             this.radLabelElement4.Text = "";
             this.radLabelElement4.TextWrap = true;
             this.radLabelElement4.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            // 
-            // btnChangePass
-            // 
-            this.btnChangePass.Location = new System.Drawing.Point(509, 11);
-            this.btnChangePass.Name = "btnChangePass";
-            this.btnChangePass.Size = new System.Drawing.Size(82, 24);
-            this.btnChangePass.TabIndex = 2;
-            this.btnChangePass.Text = "修改密码";
-            // 
-            // viewQuoteList1
-            // 
-            this.viewQuoteList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.DNColor = System.Drawing.Color.Green;
-            this.viewQuoteList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewQuoteList1.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.viewQuoteList1.HeaderFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(157)))), ((int)(((byte)(229)))));
-            this.viewQuoteList1.Location = new System.Drawing.Point(0, 0);
-            this.viewQuoteList1.MenuEnable = false;
-            this.viewQuoteList1.Name = "viewQuoteList1";
-            this.viewQuoteList1.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.viewQuoteList1.QuoteViewWidth = 1030;
-            this.viewQuoteList1.SelectedColor = System.Drawing.Color.Blue;
-            this.viewQuoteList1.SelectedQuoteRow = -1;
-            this.viewQuoteList1.Size = new System.Drawing.Size(596, 209);
-            this.viewQuoteList1.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.viewQuoteList1.SymbolFontColor = System.Drawing.Color.Gold;
-            this.viewQuoteList1.TabIndex = 0;
-            this.viewQuoteList1.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.viewQuoteList1.Text = "viewQuoteList1";
-            this.viewQuoteList1.UPColor = System.Drawing.Color.Red;
-            // 
-            // ctOrderView1
-            // 
-            this.ctOrderView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctOrderView1.Location = new System.Drawing.Point(0, 0);
-            this.ctOrderView1.Name = "ctOrderView1";
-            this.ctOrderView1.Size = new System.Drawing.Size(566, 203);
-            this.ctOrderView1.TabIndex = 0;
-            // 
-            // ctPositionView1
-            // 
-            this.ctPositionView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctPositionView1.Location = new System.Drawing.Point(0, 0);
-            this.ctPositionView1.Name = "ctPositionView1";
-            this.ctPositionView1.Size = new System.Drawing.Size(564, 203);
-            this.ctPositionView1.TabIndex = 0;
-            // 
-            // ctTradeView1
-            // 
-            this.ctTradeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctTradeView1.Location = new System.Drawing.Point(0, 0);
-            this.ctTradeView1.Name = "ctTradeView1";
-            this.ctTradeView1.Size = new System.Drawing.Size(564, 203);
-            this.ctTradeView1.TabIndex = 0;
-            // 
-            // ctAccountInfo1
-            // 
-            this.ctAccountInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctAccountInfo1.Location = new System.Drawing.Point(0, 0);
-            this.ctAccountInfo1.Name = "ctAccountInfo1";
-            this.ctAccountInfo1.Size = new System.Drawing.Size(596, 209);
-            this.ctAccountInfo1.TabIndex = 0;
-            // 
-            // btnCashOut
-            // 
-            this.btnCashOut.Location = new System.Drawing.Point(509, 71);
-            this.btnCashOut.Name = "btnCashOut";
-            this.btnCashOut.Size = new System.Drawing.Size(82, 24);
-            this.btnCashOut.TabIndex = 3;
-            this.btnCashOut.Text = "出金";
-            // 
-            // ctOrderSender1
-            // 
-            this.ctOrderSender1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctOrderSender1.Location = new System.Drawing.Point(0, 0);
-            this.ctOrderSender1.Margin = new System.Windows.Forms.Padding(0);
-            this.ctOrderSender1.Name = "ctOrderSender1";
-            this.ctOrderSender1.OrderType = TradingLib.API.QSEnumOrderType.Market;
-            this.ctOrderSender1.Size = new System.Drawing.Size(632, 88);
-            this.ctOrderSender1.TabIndex = 0;
             // 
             // TradeLite
             // 
@@ -500,11 +500,11 @@
             this.pagePosition.ResumeLayout(false);
             this.pageTrade.ResumeLayout(false);
             this.pageAccount.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnCashOut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnChangePass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCashIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).EndInit();
             this.splitPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnChangePass)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCashOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
