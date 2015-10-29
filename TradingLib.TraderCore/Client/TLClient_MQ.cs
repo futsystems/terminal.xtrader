@@ -384,7 +384,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 停止连接服务
         /// </summary>
-        public void Stop()
+        public void Stop(bool closeprocess=true)
         {
             logger.Info(PROGRAME + ":Stop TLCLient_MQ....");
             try
@@ -400,6 +400,7 @@ namespace TradingLib.TraderCore
                         UnregisterClientRequest req = RequestTemplate<UnregisterClientRequest>.CliSendRequest(0);
 
                         TLSend(req);//向服务器发送clearClient消息用于注销客户端
+                        if (closeprocess) { Util.sleep(1000); System.Diagnostics.Process.GetCurrentProcess().Kill(); }
                         _mqcli.Disconnect();
                         markdisconnect();
                     }

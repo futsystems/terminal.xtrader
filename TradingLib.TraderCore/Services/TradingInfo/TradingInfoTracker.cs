@@ -29,6 +29,11 @@ namespace TradingLib.TraderCore
         /// </summary>
         public ThreadSafeList<Trade> TradeTracker { get; set; }
 
+        /// <summary>
+        /// 新的持仓生成事件
+        /// </summary>
+        public event Action<Position> GotPositionEvent;
+
         public AccountLite Account { get; set; }
 
         public TradingInfoTracker()
@@ -39,6 +44,13 @@ namespace TradingLib.TraderCore
             TradeTracker = new ThreadSafeList<Trade>();
             Account = new AccountLite();
 
+            PositionTracker.NewPositionEvent += new Action<Position>(PositionTracker_NewPositionEvent);
+        }
+
+        void PositionTracker_NewPositionEvent(Position obj)
+        {
+            if (GotPositionEvent != null)
+                GotPositionEvent(obj);
         }
 
         

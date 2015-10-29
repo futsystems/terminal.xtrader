@@ -164,6 +164,21 @@ namespace TradingLib.TraderCore
         }
 
 
+        PositionWatcher _positionwatcher = null;
+
+        /// <summary>
+        /// 持仓监控器
+        /// </summary>
+        public static PositionWatcher PositionWatcher
+        {
+            get
+            {
+                if (defaultinstance._positionwatcher == null)
+                    defaultinstance._positionwatcher = new PositionWatcher();
+                return defaultinstance._positionwatcher;
+            }
+        }
+
         TLClientNet _tlclient = null;
         public static TLClientNet TLClient
         {
@@ -180,7 +195,9 @@ namespace TradingLib.TraderCore
                 TLClientNet tlclient = new TLClientNet(new string[] { address }, port);
 
                 defaultinstance._tlclient = tlclient;
-                
+
+                if (defaultinstance._positionwatcher == null)
+                    defaultinstance._positionwatcher = new PositionWatcher();
             }
         }
 

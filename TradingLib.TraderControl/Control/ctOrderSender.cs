@@ -798,7 +798,7 @@ namespace TradingLib.TraderControl
         {
             _pricefollow = PriceFollow.BID;
             _pricetouch = false;
-            followtype.Text = "B";
+            followtype.Text = "买";
         }
 
         private void bidlabel_MouseEnter(object sender, EventArgs e)
@@ -810,7 +810,7 @@ namespace TradingLib.TraderControl
         {
             _pricefollow = PriceFollow.ASK;
             _pricetouch = false;
-            followtype.Text = "S";
+            followtype.Text = "卖";
             
         }
 
@@ -818,14 +818,14 @@ namespace TradingLib.TraderControl
         {
             _pricefollow = PriceFollow.BID;
             _pricetouch = false;
-            followtype.Text = "B";
+            followtype.Text = "买";
         }
 
         private void askprice_DoubleClick(object sender, EventArgs e)
         {
             _pricefollow = PriceFollow.ASK;
             _pricetouch = false;
-            followtype.Text = "S";
+            followtype.Text = "卖";
         }
 
         private void asklabel_MouseEnter(object sender, EventArgs e)

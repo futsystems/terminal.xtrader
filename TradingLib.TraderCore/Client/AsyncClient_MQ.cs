@@ -91,7 +91,7 @@ namespace TradingLib.TraderCore
                 bool b = StopTickReciver();
                 bool c = StopSendThread();
                 logger.Info("___________________Stop Task Report: " + "[MessageThread Stop]:" + a.ToString() + "  [TickThread Stop]:" + b.ToString() + "  [SendThread Stop]:" + b.ToString());
-
+                
             }
             catch (Exception ex)
             {

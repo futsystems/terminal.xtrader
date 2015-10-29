@@ -78,14 +78,14 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + " request login to server, account:" + loginid + " pass:" + pass);
 
-            LocationInfo info = Util.GetLocationInfo();
+            //LocationInfo info = Util.GetLocationInfo();
 
             LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(requestid++);
             request.LoginID = loginid;
             request.Passwd = pass;
             request.LoginType = 1;
             request.ProductInfo = "XTrader.Net";
-            request.IPAddress = info.IP;
+            request.IPAddress = "";// info.IP;
             
             //request.IPAddress = "22.22.22.22";
             //request.MAC = "wwwwww";

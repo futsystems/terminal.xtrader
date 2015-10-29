@@ -75,6 +75,7 @@
     <Compile Include="Services\Event\EventOther.cs" />
     <Compile Include="Services\Event\EventUI.cs" />
     <Compile Include="Services\LogService.cs" />
+    <Compile Include="Services\PositionWatcher.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker_.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker_Handler.cs" />

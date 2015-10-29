@@ -28,6 +28,8 @@ namespace TradingLib.TraderControl
 
         //委托事务辅助,用于执行反手等功能
         OrderTransactionHelper _ordTransHelper;
+        //止盈止损窗口
+        //frmPositionOffset frmPosOffset;
 
         ////获得止盈参数
         //ProfitArgs getDefaultprofitargs(string symbol)
@@ -44,7 +46,7 @@ namespace TradingLib.TraderControl
         //    return null;
         //}
 
-
+        //PositionCheckCentre _positionCheckCentre = new PositionCheckCentre();
         public ctPositionView()
         {
             InitializeComponent();
@@ -52,7 +54,7 @@ namespace TradingLib.TraderControl
             InitTable();
             BindToTable();
 
-            //初始化止盈止损设置窗口
+
             //frmPosOffset = new frmPositionOffset();
             //frmPosOffset.TopMost = true;
             //frmPosOffset.UpdatePostionOffsetEvent += (PositionOffsetArgs args) =>
@@ -75,6 +77,8 @@ namespace TradingLib.TraderControl
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+
+
 
             positiongrid.CellFormatting +=new CellFormattingEventHandler(positiongrid_CellFormatting);
             positiongrid.DoubleClick +=new EventHandler(positiongrid_DoubleClick);
@@ -128,12 +132,12 @@ namespace TradingLib.TraderControl
 
         //frmPositionOffset frmPosOffset;
         //止损参数映射
-        ConcurrentDictionary<string, PositionOffsetArgs> lossOffsetMap = new ConcurrentDictionary<string, PositionOffsetArgs>();
+        ConcurrentDictionary<string, PositionOffsetArg> lossOffsetMap = new ConcurrentDictionary<string, PositionOffsetArg>();
         //止盈参数映射
-        ConcurrentDictionary<string, PositionOffsetArgs> profitOffsetMap = new ConcurrentDictionary<string, PositionOffsetArgs>();
+        ConcurrentDictionary<string, PositionOffsetArg> profitOffsetMap = new ConcurrentDictionary<string, PositionOffsetArg>();
 
 
-        PositionOffsetArgs GetLossArgs(string key)
+        PositionOffsetArg GetLossArgs(string key)
         {
             if (lossOffsetMap.Keys.Contains(key))
                 return lossOffsetMap[key];
@@ -141,7 +145,7 @@ namespace TradingLib.TraderControl
                 return null;
         }
 
-        PositionOffsetArgs GetProfitArgs(string key)
+        PositionOffsetArg GetProfitArgs(string key)
         {
             if (profitOffsetMap.Keys.Contains(key))
                 return profitOffsetMap[key];
@@ -154,10 +158,10 @@ namespace TradingLib.TraderControl
 
         void ResetOffset(string key)
         {
-            PositionOffsetArgs p = GetProfitArgs(key);
+            PositionOffsetArg p = GetProfitArgs(key);
             if (p != null)
                 p.Enable = false;
-            PositionOffsetArgs l = GetLossArgs(key);
+            PositionOffsetArg l = GetLossArgs(key);
             if (l != null)
                 l.Enable = false;
         }
@@ -235,8 +239,34 @@ namespace TradingLib.TraderControl
         {
             logger.Info("FlatPositon:" + pos.GetPositionKey());
             if (pos == null || pos.isFlat) return;
-            Order o = new MarketOrderFlat(pos);
-            CoreService.TLClient.ReqOrderInsert(o);
+
+            bool side = pos.isLong ? true : false;
+            //上期所区分平今平昨
+            if (pos.oSymbol.SecurityFamily.Exchange.EXCode == "SHFE")
+            {
+                int voltd = pos.PositionDetailTodayNew.Sum(p => p.Volume);//今日持仓
+                int volyd = pos.PositionDetailYdNew.Sum(p => p.Volume);//昨日持仓
+                //Tick snapshot = TLCtxHelper.ModuleDataRouter.GetTickSnapshot(pos.Account);
+                if (volyd != 0)
+                {
+                    Order oyd = new OrderImpl(pos.Symbol, volyd * (side ? 1 : -1) * -1);
+                    oyd.OffsetFlag = QSEnumOffsetFlag.CLOSE;
+
+                    CoreService.TLClient.ReqOrderInsert(oyd);
+                }
+                if (voltd != 0)
+                {
+                    Order otd = new OrderImpl(pos.Symbol, voltd * (side ? 1 : -1) * -1);
+                    otd.OffsetFlag = QSEnumOffsetFlag.CLOSETODAY;
+
+                    CoreService.TLClient.ReqOrderInsert(otd);
+                }
+            }
+            else
+            {
+                Order o = new MarketOrderFlat(pos);
+                CoreService.TLClient.ReqOrderInsert(o);
+            }
         }
 
 
@@ -265,6 +295,7 @@ namespace TradingLib.TraderControl
         }
 
         //获得当前选中持仓
+
         Position CurrentPositoin
         {
             get
@@ -357,6 +388,35 @@ namespace TradingLib.TraderControl
 
         }
 
+        string GetGridPositionOffsetText(Position pos, QSEnumPositionOffsetDirection direction)
+        {
+            PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
+            if (args == null) return "无";
+            decimal targetprice = 0;
+            //logger.Info("it is here");
+            //return "x";
+            if (direction == QSEnumPositionOffsetDirection.LOSS)
+            {
+                targetprice = args.LossArg.TargetPrice(pos);
+            }
+            else
+            {
+                targetprice = args.ProfitArg.TargetPrice(pos);
+            }
+
+            if (targetprice == -1)
+            {
+                return "停止";
+            }
+            if (targetprice == 0)
+            {
+                return "无持仓";
+            }
+            else
+            {
+                return Util.FormatDecimal(targetprice, GetDisplayFormat(pos.oSymbol));
+            }
+        }
         public void GotTick(Tick t)
         {
             if (InvokeRequired)
@@ -396,10 +456,15 @@ namespace TradingLib.TraderControl
                             {
                                 gt.Rows[i][UNREALIZEDPL] = string.Format(_fromat, unrealizedpl * pos.oSymbol.Multiple);
                             }
-
-                            //更新止盈止损数值
-                            //gt.Rows[i][STOPLOSS] = GetGridOffsetText(pos, QSEnumPositionOffsetDirection.LOSS);
-                            //gt.Rows[i][PROFITTARGET] = GetGridOffsetText(pos, QSEnumPositionOffsetDirection.PROFIT);
+                            if (!pos.isFlat) //有持仓的情况下 更新止盈止损参数
+                            {
+                                //更新止盈止损数值
+                                string lossstr = GetGridPositionOffsetText(pos, QSEnumPositionOffsetDirection.LOSS);
+                                string profitstr = GetGridPositionOffsetText(pos, QSEnumPositionOffsetDirection.PROFIT);
+                                gt.Rows[i][STOPLOSS] = lossstr;
+                                gt.Rows[i][PROFITTARGET] = profitstr;
+                                //logger.Info("Position loss str:" + lossstr + " profit str:" + profitstr);
+                            }
                         }
                     }
                 }
@@ -771,33 +836,42 @@ namespace TradingLib.TraderControl
         private void positiongrid_DoubleClick(object sender, EventArgs e)
         {
             
-            //int rownum = positiongrid.CurrentRow.Index+1;
+            int rownum = positiongrid.CurrentRow.Index+1;
             ////止盈 止损设置
-            //if (positiongrid.CurrentColumn.Name == STOPLOSS)
-            //{
-            //    //MessageBox.Show("stoploss edit");
-            //    //frmPositionOffset fm = new frmPositionOffset();
-            //    //fm.TopMost = true;
-            //    frmPosOffset.ParseOffset(GetLossArgs(CurrentKey),CurrentPositoin,findSecurity(CurrentSymbol));
-            //    Point p = this.PointToScreen(positiongrid.Location);
-            //    p.X = p.X + 250;
-            //    p.Y = p.Y + UIGlobals.HeaderHeight + UIGlobals.RowHeight * rownum;
-            //    frmPosOffset.Location = p;
-            //    frmPosOffset.Show();
-            //    return;
-            //}
-            //if (positiongrid.CurrentColumn.Name == PROFITTARGET)
-            //{
-            //    //frmPositionOffset fm = new frmPositionOffset();
-            //    //fm.TopMost = true;
-            //    frmPosOffset.ParseOffset(GetProfitArgs(CurrentKey), CurrentPositoin, findSecurity(CurrentSymbol));
-            //    Point p = this.PointToScreen(positiongrid.Location);
-            //    p.X = p.X + 250;
-            //    p.Y = p.Y + UIGlobals.HeaderHeight + UIGlobals.RowHeight * rownum;
-            //    frmPosOffset.Location = p;
-            //    frmPosOffset.Show();
-            //    return;
-            //}
+            if (positiongrid.CurrentColumn.Name == STOPLOSS)
+            {
+                Position current_pos = CurrentPositoin;
+                PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                if(args == null) return;
+
+                frmPositionOffset fm = new frmPositionOffset();
+                fm.TopMost = true;
+                fm.ParseOffset(current_pos, args.LossArg);
+
+                Point p = this.PointToScreen(positiongrid.Location);
+                p.X = p.X + 250;
+                p.Y = p.Y + UIConstant.HeaderHeight + UIConstant.RowHeight * rownum;
+                fm.Location = p;
+                fm.Show();
+                return;
+            }
+            if (positiongrid.CurrentColumn.Name == PROFITTARGET)
+            {
+                Position current_pos = CurrentPositoin;
+                PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                if (args == null) return;
+
+                frmPositionOffset fm = new frmPositionOffset();
+                fm.TopMost = true;
+                fm.ParseOffset(current_pos, args.ProfitArg);
+
+                Point p = this.PointToScreen(positiongrid.Location);
+                p.X = p.X + 250;
+                p.Y = p.Y + UIConstant.HeaderHeight + UIConstant.RowHeight * rownum;
+                fm.Location = p;
+                fm.Show();
+                return;
+            }
 
             ////非止盈止损列的双击并且设定为双击平仓,平调所选持仓
             if (isDoubleFlat.Checked)

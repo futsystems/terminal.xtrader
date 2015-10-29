@@ -406,7 +406,7 @@
             // 
             // bidprice
             // 
-            this.bidprice.Location = new System.Drawing.Point(30, 48);
+            this.bidprice.Location = new System.Drawing.Point(30, 64);
             this.bidprice.Name = "bidprice";
             this.bidprice.Size = new System.Drawing.Size(50, 18);
             this.bidprice.TabIndex = 2;
@@ -418,7 +418,7 @@
             // 
             // askprice
             // 
-            this.askprice.Location = new System.Drawing.Point(30, 64);
+            this.askprice.Location = new System.Drawing.Point(30, 46);
             this.askprice.Name = "askprice";
             this.askprice.Size = new System.Drawing.Size(50, 18);
             this.askprice.TabIndex = 3;
@@ -432,7 +432,7 @@
             // 
             this.bidlabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.bidlabel.ForeColor = System.Drawing.Color.Maroon;
-            this.bidlabel.Location = new System.Drawing.Point(5, 46);
+            this.bidlabel.Location = new System.Drawing.Point(5, 62);
             this.bidlabel.Name = "bidlabel";
             this.bidlabel.Size = new System.Drawing.Size(19, 19);
             this.bidlabel.TabIndex = 3;
@@ -445,7 +445,7 @@
             // 
             this.asklabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.asklabel.ForeColor = System.Drawing.Color.SeaGreen;
-            this.asklabel.Location = new System.Drawing.Point(5, 64);
+            this.asklabel.Location = new System.Drawing.Point(5, 46);
             this.asklabel.Name = "asklabel";
             this.asklabel.Size = new System.Drawing.Size(19, 19);
             this.asklabel.TabIndex = 4;
