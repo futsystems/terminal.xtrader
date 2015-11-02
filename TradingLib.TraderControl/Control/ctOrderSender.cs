@@ -380,7 +380,6 @@ namespace TradingLib.TraderControl
                 if(_currentSymbol == null) return;
                 if (o.Symbol.Equals(CurrentSymbol.Symbol) && o.Status == QSEnumOrderStatus.Opened)
                 {
-
                     UpdateCanFlat();
                 }
                 //{
@@ -403,11 +402,8 @@ namespace TradingLib.TraderControl
                 if (t.Symbol.Equals(CurrentSymbol.Symbol))
                 {
                     UpdatePositionSize();
-                    if (!t.IsEntryPosition)
-                    {
-                        UpdateRealizedPL();
-                        UpdateCanFlat();
-                    }
+                    UpdateRealizedPL();
+                    UpdateCanFlat();
                 }
                 //if (t.symbol.Equals(CurrentSymbol))
                 //{
@@ -511,6 +507,9 @@ namespace TradingLib.TraderControl
 
         #region 更新持仓信息
 
+        /// <summary>
+        /// 更新持仓数据
+        /// </summary>
         void UpdatePositionSize()
         {
             if (InvokeRequired)
@@ -531,6 +530,9 @@ namespace TradingLib.TraderControl
                 }
             }
         }
+        /// <summary>
+        /// 更新平仓盈亏
+        /// </summary>
         void UpdateRealizedPL()
         {
             if (InvokeRequired)
@@ -544,6 +546,15 @@ namespace TradingLib.TraderControl
                     Position shortside = CoreService.TradingInfoTracker.PositionTracker[_currentSymbol.Symbol, CoreService.Account, false];
                     decimal realized = longside.ClosedPL + shortside.ClosedPL;
                     posRealizedPL.Text = string.Format(GetDisplayFormat(_currentSymbol.Symbol), realized);
+                    if (realized >= 0)
+                    {
+                        posRealizedPL.ForeColor = UIConstant.LongSideColor;
+                        //posRealizedPL.RootElement.getr
+                    }
+                    else
+                    {
+                        posRealizedPL.ForeColor = UIConstant.ShortSideColor;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -551,6 +562,9 @@ namespace TradingLib.TraderControl
                 }
             }
         }
+        /// <summary>
+        /// 更新浮动盈亏
+        /// </summary>
         void UpdateUnRealizedPL()
         {
             if (InvokeRequired)
@@ -571,6 +585,9 @@ namespace TradingLib.TraderControl
                 }
             }
         }
+        /// <summary>
+        /// 更新可平
+        /// </summary>
         void UpdateCanFlat()
         {
             if (InvokeRequired)
@@ -585,8 +602,8 @@ namespace TradingLib.TraderControl
                     Position shortside = CoreService.TradingInfoTracker.PositionTracker[_currentSymbol.Symbol, CoreService.Account, false];
                     OrderTracker ot = CoreService.TradingInfoTracker.OrderTracker;
 
-                    int longflat = longside.isFlat ? 0 : (longside.UnsignedSize - ot.GetPendingExitSize(_currentSymbol.Symbol, !longside.isLong));
-                    int shortflat = shortside.isFlat ? 0 : (shortside.UnsignedSize - ot.GetPendingExitSize(_currentSymbol.Symbol, !shortside.isLong));
+                    int longflat = longside.isFlat ? 0 : (longside.UnsignedSize - ot.GetPendingExitSize(_currentSymbol.Symbol,true));
+                    int shortflat = shortside.isFlat ? 0 : (shortside.UnsignedSize - ot.GetPendingExitSize(_currentSymbol.Symbol,false));
                     posCanFlat.Text = string.Format("{0}/{1}", longflat, shortflat);
 
                 }

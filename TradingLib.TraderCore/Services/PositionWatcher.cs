@@ -114,6 +114,8 @@ namespace TradingLib.TraderCore
         {
             if (!this.ProfitArg.Enable) return false;//止盈未启用
 
+            bool side = this.Position.DirectionType == QSEnumPositionDirectionType.Long;
+
             if (ProfitArg.OffsetType == QSEnumPositionOffsetType.TRAILING)
             {
                 decimal hitprice = ProfitTakePrice;
@@ -127,10 +129,23 @@ namespace TradingLib.TraderCore
             }
             else
             {
+                Util.Debug("profittakeprice:" + ProfitTakePrice.ToString() + " profit arg enable:" + this.ProfitArg.Enable.ToString());
                 decimal hitprice = ProfitTakePrice;
-                if (k.Trade >= hitprice)
+                if (side)
                 {
-                    return true;//执行止盈
+                    if (k.Trade >= hitprice)
+                    {
+                        return true;//执行止盈
+                    }
+                    return false;
+                }
+                else//空
+                {
+                    if (k.Trade <= hitprice)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
             return false;//不止盈

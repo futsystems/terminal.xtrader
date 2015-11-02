@@ -175,7 +175,9 @@ namespace TradingLib.TraderControl
 
         private void btnSwitchOffset_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("it is here");
             _posOffset.Enable = !_posOffset.Enable;
+            //MessageBox.Show("possoffset enable:" + _posOffset.Enable.ToString());
             switchLabel.Text = _posOffset.Enable?"运行":"停止";
             btnSwitchOffset.Text = _posOffset.Enable ? "禁止" : "启用";
             UpdateOffsetArgs();

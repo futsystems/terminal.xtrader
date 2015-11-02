@@ -121,24 +121,24 @@
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox1.Controls.Add(this.posUnrealizedPL);
             this.radGroupBox1.Controls.Add(this.btnCancelAll);
             this.radGroupBox1.Controls.Add(this.posCanFlat);
             this.radGroupBox1.Controls.Add(this.posRealizedPL);
             this.radGroupBox1.Controls.Add(this.radLabel11);
             this.radGroupBox1.Controls.Add(this.radLabel6);
-            this.radGroupBox1.Controls.Add(this.posUnrealizedPL);
             this.radGroupBox1.Controls.Add(this.radLabel4);
             this.radGroupBox1.Controls.Add(this.posSize);
             this.radGroupBox1.Controls.Add(this.radLabel1);
             this.radGroupBox1.Controls.Add(this.btnFall);
             this.radGroupBox1.HeaderText = "";
-            this.radGroupBox1.Location = new System.Drawing.Point(460, 1);
+            this.radGroupBox1.Location = new System.Drawing.Point(343, 1);
             this.radGroupBox1.Name = "radGroupBox1";
             // 
             // 
             // 
             this.radGroupBox1.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox1.Size = new System.Drawing.Size(129, 84);
+            this.radGroupBox1.Size = new System.Drawing.Size(214, 84);
             this.radGroupBox1.TabIndex = 22;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
@@ -146,7 +146,7 @@
             // 
             // btnCancelAll
             // 
-            this.btnCancelAll.Location = new System.Drawing.Point(79, 48);
+            this.btnCancelAll.Location = new System.Drawing.Point(161, 46);
             this.btnCancelAll.Name = "btnCancelAll";
             this.btnCancelAll.Size = new System.Drawing.Size(45, 25);
             this.btnCancelAll.TabIndex = 9;
@@ -166,23 +166,26 @@
             // 
             // posCanFlat
             // 
-            this.posCanFlat.Location = new System.Drawing.Point(39, 62);
+            this.posCanFlat.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posCanFlat.Location = new System.Drawing.Point(115, 5);
             this.posCanFlat.Name = "posCanFlat";
-            this.posCanFlat.Size = new System.Drawing.Size(15, 18);
+            this.posCanFlat.Size = new System.Drawing.Size(18, 21);
             this.posCanFlat.TabIndex = 8;
             this.posCanFlat.Text = "--";
             // 
             // posRealizedPL
             // 
-            this.posRealizedPL.Location = new System.Drawing.Point(39, 42);
+            this.posRealizedPL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posRealizedPL.Location = new System.Drawing.Point(17, 52);
             this.posRealizedPL.Name = "posRealizedPL";
-            this.posRealizedPL.Size = new System.Drawing.Size(15, 18);
+            this.posRealizedPL.Size = new System.Drawing.Size(20, 24);
             this.posRealizedPL.TabIndex = 6;
             this.posRealizedPL.Text = "--";
             // 
             // radLabel11
             // 
-            this.radLabel11.Location = new System.Drawing.Point(5, 62);
+            this.radLabel11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel11.Location = new System.Drawing.Point(78, 5);
             this.radLabel11.Name = "radLabel11";
             this.radLabel11.Size = new System.Drawing.Size(31, 18);
             this.radLabel11.TabIndex = 7;
@@ -190,7 +193,8 @@
             // 
             // radLabel6
             // 
-            this.radLabel6.Location = new System.Drawing.Point(5, 42);
+            this.radLabel6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel6.Location = new System.Drawing.Point(4, 29);
             this.radLabel6.Name = "radLabel6";
             this.radLabel6.Size = new System.Drawing.Size(31, 18);
             this.radLabel6.TabIndex = 5;
@@ -198,15 +202,17 @@
             // 
             // posUnrealizedPL
             // 
-            this.posUnrealizedPL.Location = new System.Drawing.Point(39, 23);
+            this.posUnrealizedPL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posUnrealizedPL.Location = new System.Drawing.Point(91, 52);
             this.posUnrealizedPL.Name = "posUnrealizedPL";
-            this.posUnrealizedPL.Size = new System.Drawing.Size(15, 18);
+            this.posUnrealizedPL.Size = new System.Drawing.Size(20, 24);
             this.posUnrealizedPL.TabIndex = 4;
             this.posUnrealizedPL.Text = "--";
             // 
             // radLabel4
             // 
-            this.radLabel4.Location = new System.Drawing.Point(5, 23);
+            this.radLabel4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel4.Location = new System.Drawing.Point(78, 29);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(31, 18);
             this.radLabel4.TabIndex = 3;
@@ -214,14 +220,16 @@
             // 
             // posSize
             // 
-            this.posSize.Location = new System.Drawing.Point(38, 5);
+            this.posSize.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posSize.Location = new System.Drawing.Point(41, 5);
             this.posSize.Name = "posSize";
-            this.posSize.Size = new System.Drawing.Size(15, 18);
+            this.posSize.Size = new System.Drawing.Size(18, 21);
             this.posSize.TabIndex = 2;
             this.posSize.Text = "--";
             // 
             // radLabel1
             // 
+            this.radLabel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel1.Location = new System.Drawing.Point(4, 5);
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(31, 18);
@@ -230,7 +238,7 @@
             // 
             // btnFall
             // 
-            this.btnFall.Location = new System.Drawing.Point(79, 8);
+            this.btnFall.Location = new System.Drawing.Point(161, 7);
             this.btnFall.Name = "btnFall";
             this.btnFall.Size = new System.Drawing.Size(45, 25);
             this.btnFall.TabIndex = 0;
@@ -258,7 +266,7 @@
             this.radGroupBox4.Controls.Add(this.profitValue);
             this.radGroupBox4.Controls.Add(this.isLossSet);
             this.radGroupBox4.HeaderText = "";
-            this.radGroupBox4.Location = new System.Drawing.Point(324, 1);
+            this.radGroupBox4.Location = new System.Drawing.Point(619, 1);
             this.radGroupBox4.Name = "radGroupBox4";
             // 
             // 
@@ -266,6 +274,7 @@
             this.radGroupBox4.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
             this.radGroupBox4.Size = new System.Drawing.Size(137, 84);
             this.radGroupBox4.TabIndex = 21;
+            this.radGroupBox4.Visible = false;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox4.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox4.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox4.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BottomWidth = 0F;
@@ -349,13 +358,13 @@
             this.radGroupBox3.Controls.Add(this.bidlabel);
             this.radGroupBox3.Controls.Add(this.asklabel);
             this.radGroupBox3.HeaderText = "";
-            this.radGroupBox3.Location = new System.Drawing.Point(215, 1);
+            this.radGroupBox3.Location = new System.Drawing.Point(225, 1);
             this.radGroupBox3.Name = "radGroupBox3";
             // 
             // 
             // 
             this.radGroupBox3.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox3.Size = new System.Drawing.Size(110, 84);
+            this.radGroupBox3.Size = new System.Drawing.Size(119, 84);
             this.radGroupBox3.TabIndex = 20;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox3.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox3.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
@@ -379,7 +388,7 @@
             this.orderType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.orderType.Location = new System.Drawing.Point(8, 5);
             this.orderType.Name = "orderType";
-            this.orderType.Size = new System.Drawing.Size(95, 18);
+            this.orderType.Size = new System.Drawing.Size(105, 18);
             this.orderType.TabIndex = 13;
             this.orderType.Text = "--";
             this.orderType.SelectedValueChanged += new System.EventHandler(this.orderType_SelectedValueChanged);
@@ -395,7 +404,7 @@
             0,
             0});
             this.price.Name = "price";
-            this.price.Size = new System.Drawing.Size(73, 19);
+            this.price.Size = new System.Drawing.Size(83, 19);
             this.price.TabIndex = 8;
             this.price.TabStop = false;
             this.price.Enter += new System.EventHandler(this.price_Enter);
@@ -467,7 +476,7 @@
             // 
             // 
             this.radGroupBox2.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox2.Size = new System.Drawing.Size(80, 84);
+            this.radGroupBox2.Size = new System.Drawing.Size(90, 84);
             this.radGroupBox2.TabIndex = 19;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
@@ -475,11 +484,11 @@
             // 
             // btnQueryMaxVol
             // 
-            this.btnQueryMaxVol.Location = new System.Drawing.Point(6, 46);
+            this.btnQueryMaxVol.Location = new System.Drawing.Point(2, 46);
             this.btnQueryMaxVol.Name = "btnQueryMaxVol";
-            this.btnQueryMaxVol.Size = new System.Drawing.Size(68, 27);
+            this.btnQueryMaxVol.Size = new System.Drawing.Size(86, 27);
             this.btnQueryMaxVol.TabIndex = 19;
-            this.btnQueryMaxVol.Text = "可开";
+            this.btnQueryMaxVol.Text = "查询可开";
             // 
             // maxOpenSize
             // 
