@@ -98,6 +98,8 @@ namespace TradingLib.TraderControl
             }
             return -1;
         }
+
+
         string GetOrderPrice(Order o)
         {
             if (o.isMarket)
@@ -114,6 +116,7 @@ namespace TradingLib.TraderControl
             }
             return "未知";
         }
+
         public void GotOrder(Order o)
         {
             if (InvokeRequired)

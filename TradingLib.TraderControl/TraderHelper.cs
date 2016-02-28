@@ -136,5 +136,31 @@ namespace TradingLib.TraderControl
             }
             System.Diagnostics.Process.Start(gotoUrl);
         }
+
+        public static ArrayList GetOffsetCBList()
+        {
+            ArrayList list = new ArrayList();
+            ValueObject<QSEnumOffsetFlag> vo0 = new ValueObject<QSEnumOffsetFlag>();
+            vo0.Name = Util.GetEnumDescription(QSEnumOffsetFlag.UNKNOWN);
+            vo0.Value = QSEnumOffsetFlag.UNKNOWN;
+            list.Add(vo0);
+
+            ValueObject<QSEnumOffsetFlag> vo1 = new ValueObject<QSEnumOffsetFlag>();
+            vo1.Name = Util.GetEnumDescription(QSEnumOffsetFlag.OPEN);
+            vo1.Value = QSEnumOffsetFlag.OPEN;
+            list.Add(vo1);
+
+            ValueObject<QSEnumOffsetFlag> vo2 = new ValueObject<QSEnumOffsetFlag>();
+            vo2.Name = Util.GetEnumDescription(QSEnumOffsetFlag.CLOSE);
+            vo2.Value = QSEnumOffsetFlag.CLOSE;
+            list.Add(vo2);
+
+            ValueObject<QSEnumOffsetFlag> vo3 = new ValueObject<QSEnumOffsetFlag>();
+            vo3.Name = Util.GetEnumDescription(QSEnumOffsetFlag.CLOSETODAY);
+            vo3.Value = QSEnumOffsetFlag.CLOSETODAY;
+            list.Add(vo3);
+            return list;
+
+        }
     }
 }

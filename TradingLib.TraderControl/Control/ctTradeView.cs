@@ -61,6 +61,7 @@ namespace TradingLib.TraderControl
         { 
             
         }
+
         public void GotFill(Trade t)
         {
             if (InvokeRequired)

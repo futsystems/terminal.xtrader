@@ -30,12 +30,12 @@
         {
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.posUnrealizedPL = new Telerik.WinControls.UI.RadLabel();
             this.btnCancelAll = new Telerik.WinControls.UI.RadButton();
             this.posCanFlat = new Telerik.WinControls.UI.RadLabel();
             this.posRealizedPL = new Telerik.WinControls.UI.RadLabel();
             this.radLabel11 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
-            this.posUnrealizedPL = new Telerik.WinControls.UI.RadLabel();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.posSize = new Telerik.WinControls.UI.RadLabel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
@@ -62,16 +62,17 @@
             this.btnSell = new Telerik.WinControls.UI.RadButton();
             this.btnBuy = new Telerik.WinControls.UI.RadButton();
             this.cbSymbolList = new Telerik.WinControls.UI.RadDropDownList();
+            this.cboffsetflag = new Telerik.WinControls.UI.RadDropDownList();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             this.radPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.posUnrealizedPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancelAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.posCanFlat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.posRealizedPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.posUnrealizedPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.posSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
@@ -101,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBuy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSymbolList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboffsetflag)).BeginInit();
             this.SuspendLayout();
             // 
             // radPanel1
@@ -132,7 +134,7 @@
             this.radGroupBox1.Controls.Add(this.radLabel1);
             this.radGroupBox1.Controls.Add(this.btnFall);
             this.radGroupBox1.HeaderText = "";
-            this.radGroupBox1.Location = new System.Drawing.Point(343, 1);
+            this.radGroupBox1.Location = new System.Drawing.Point(368, 1);
             this.radGroupBox1.Name = "radGroupBox1";
             // 
             // 
@@ -143,6 +145,15 @@
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BottomWidth = 0F;
+            // 
+            // posUnrealizedPL
+            // 
+            this.posUnrealizedPL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posUnrealizedPL.Location = new System.Drawing.Point(91, 52);
+            this.posUnrealizedPL.Name = "posUnrealizedPL";
+            this.posUnrealizedPL.Size = new System.Drawing.Size(20, 24);
+            this.posUnrealizedPL.TabIndex = 4;
+            this.posUnrealizedPL.Text = "--";
             // 
             // btnCancelAll
             // 
@@ -199,15 +210,6 @@
             this.radLabel6.Size = new System.Drawing.Size(31, 18);
             this.radLabel6.TabIndex = 5;
             this.radLabel6.Text = "平盈:";
-            // 
-            // posUnrealizedPL
-            // 
-            this.posUnrealizedPL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posUnrealizedPL.Location = new System.Drawing.Point(91, 52);
-            this.posUnrealizedPL.Name = "posUnrealizedPL";
-            this.posUnrealizedPL.Size = new System.Drawing.Size(20, 24);
-            this.posUnrealizedPL.TabIndex = 4;
-            this.posUnrealizedPL.Text = "--";
             // 
             // radLabel4
             // 
@@ -358,7 +360,7 @@
             this.radGroupBox3.Controls.Add(this.bidlabel);
             this.radGroupBox3.Controls.Add(this.asklabel);
             this.radGroupBox3.HeaderText = "";
-            this.radGroupBox3.Location = new System.Drawing.Point(225, 1);
+            this.radGroupBox3.Location = new System.Drawing.Point(250, 1);
             this.radGroupBox3.Name = "radGroupBox3";
             // 
             // 
@@ -466,6 +468,7 @@
             // radGroupBox2
             // 
             this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox2.Controls.Add(this.cboffsetflag);
             this.radGroupBox2.Controls.Add(this.btnQueryMaxVol);
             this.radGroupBox2.Controls.Add(this.maxOpenSize);
             this.radGroupBox2.Controls.Add(this.size);
@@ -476,7 +479,7 @@
             // 
             // 
             this.radGroupBox2.RootElement.Padding = new System.Windows.Forms.Padding(2, 18, 2, 2);
-            this.radGroupBox2.Size = new System.Drawing.Size(90, 84);
+            this.radGroupBox2.Size = new System.Drawing.Size(115, 84);
             this.radGroupBox2.TabIndex = 19;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).TopWidth = 0F;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox2.GetChildAt(0).GetChildAt(0).GetChildAt(1))).RightWidth = 0F;
@@ -484,11 +487,11 @@
             // 
             // btnQueryMaxVol
             // 
-            this.btnQueryMaxVol.Location = new System.Drawing.Point(2, 46);
+            this.btnQueryMaxVol.Location = new System.Drawing.Point(73, 6);
             this.btnQueryMaxVol.Name = "btnQueryMaxVol";
-            this.btnQueryMaxVol.Size = new System.Drawing.Size(86, 27);
+            this.btnQueryMaxVol.Size = new System.Drawing.Size(37, 27);
             this.btnQueryMaxVol.TabIndex = 19;
-            this.btnQueryMaxVol.Text = "查询可开";
+            this.btnQueryMaxVol.Text = "可开";
             // 
             // maxOpenSize
             // 
@@ -554,6 +557,16 @@
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.cbSymbolList.GetChildAt(0).GetChildAt(0))).BottomWidth = 5F;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.cbSymbolList.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.SystemColors.Window;
             // 
+            // cboffsetflag
+            // 
+            this.cboffsetflag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.cboffsetflag.Location = new System.Drawing.Point(5, 52);
+            this.cboffsetflag.Name = "cboffsetflag";
+            this.cboffsetflag.Size = new System.Drawing.Size(105, 18);
+            this.cboffsetflag.TabIndex = 20;
+            this.cboffsetflag.Text = "--";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.cboffsetflag.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.SystemColors.Window;
+            // 
             // ctOrderSender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -567,12 +580,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.posUnrealizedPL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancelAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.posCanFlat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.posRealizedPL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.posUnrealizedPL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.posSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
@@ -605,6 +618,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBuy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSymbolList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboffsetflag)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -645,5 +659,6 @@
         private Telerik.WinControls.UI.RadLabel followtype;
         private Telerik.WinControls.UI.RadLabel posCanFlat;
         private Telerik.WinControls.UI.RadButton btnQueryMaxVol;
+        private Telerik.WinControls.UI.RadDropDownList cboffsetflag;
     }
 }

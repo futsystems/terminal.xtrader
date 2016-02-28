@@ -442,7 +442,7 @@ namespace TradingLib.TraderControl
                             decimal unrealizedpl = pos.UnRealizedPL;
 
                              //更新最新成交价
-                            if (t.isTrade)
+                            if (t.IsTrade())
                             {
                                 gt.Rows[i][LASTPRICE] = string.Format(_fromat, t.Trade);
                             }

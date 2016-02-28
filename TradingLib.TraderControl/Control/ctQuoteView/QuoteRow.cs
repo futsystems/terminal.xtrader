@@ -126,7 +126,7 @@ namespace TradingLib.TraderControl
             //debug("got a tick");
             //this[QuoteListConst.SYMBOL].symbol = k.symbol;
             //将数据更新到cell value中去
-            if (k.isTrade)
+            if (k.IsTrade())
             {
                 if (k.Trade != this[QuoteListConst.LAST].Value)
                 {

@@ -64,7 +64,7 @@ namespace TradingLib.TraderCore
         /// </summary>
         public void ReqUnRegisterSymbols()
         {
-            UnregisterSymbolsRequest request = RequestTemplate<UnregisterSymbolsRequest>.CliSendRequest(requestid++);
+            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(requestid++);
 
             SendPacket(request);
         }
@@ -316,8 +316,10 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + " register symbols:" + string.Join(",", symbols));
 
-            RegisterSymbolsRequest request = RequestTemplate<RegisterSymbolsRequest>.CliSendRequest(requestid++);
-            request.SetSymbols(symbols);
+            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(requestid++);
+
+            request.SymbolList.AddRange(symbols);
+           
 
             SendPacket(request);
             connecton.Subscribe(symbols);

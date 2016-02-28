@@ -33,34 +33,36 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.btnQuery = new Telerik.WinControls.UI.RadButton();
             this.cashout = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
-            this.cashin = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
-            this.account = new Telerik.WinControls.UI.RadLabel();
-            this.buypower = new Telerik.WinControls.UI.RadLabel();
-            this.accountCategory = new Telerik.WinControls.UI.RadLabel();
-            this.interday = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel25 = new Telerik.WinControls.UI.RadLabel();
-            this.execution = new Telerik.WinControls.UI.RadLabel();
-            this.marginFrozen = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
-            this.profit = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel16 = new Telerik.WinControls.UI.RadLabel();
-            this.marginUsed = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel12 = new Telerik.WinControls.UI.RadLabel();
-            this.realizedpl = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel15 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel23 = new Telerik.WinControls.UI.RadLabel();
-            this.lastequity = new Telerik.WinControls.UI.RadLabel();
-            this.commission = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel20 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel24 = new Telerik.WinControls.UI.RadLabel();
-            this.unrealizedpl = new Telerik.WinControls.UI.RadLabel();
-            this.nowequity = new Telerik.WinControls.UI.RadLabel();
             this.radLabel19 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
+            this.nowequity = new Telerik.WinControls.UI.RadLabel();
+            this.cashin = new Telerik.WinControls.UI.RadLabel();
+            this.unrealizedpl = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel24 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel20 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
+            this.commission = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
+            this.lastequity = new Telerik.WinControls.UI.RadLabel();
+            this.account = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel23 = new Telerik.WinControls.UI.RadLabel();
+            this.buypower = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel15 = new Telerik.WinControls.UI.RadLabel();
+            this.accountCategory = new Telerik.WinControls.UI.RadLabel();
+            this.realizedpl = new Telerik.WinControls.UI.RadLabel();
+            this.interday = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel12 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel25 = new Telerik.WinControls.UI.RadLabel();
+            this.marginUsed = new Telerik.WinControls.UI.RadLabel();
+            this.execution = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel16 = new Telerik.WinControls.UI.RadLabel();
+            this.marginFrozen = new Telerik.WinControls.UI.RadLabel();
+            this.profit = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
+            this.name = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             this.radPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
@@ -68,34 +70,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQuery)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashout)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cashin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.account)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.buypower)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountCategory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.interday)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel25)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.execution)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.marginFrozen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.marginUsed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.realizedpl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lastequity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.commission)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unrealizedpl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nowequity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nowequity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cashin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unrealizedpl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commission)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lastequity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.account)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buypower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountCategory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.realizedpl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.interday)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marginUsed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.execution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marginFrozen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.name)).BeginInit();
             this.SuspendLayout();
             // 
             // radPanel1
@@ -110,6 +114,8 @@
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox1.Controls.Add(this.radLabel5);
+            this.radGroupBox1.Controls.Add(this.name);
             this.radGroupBox1.Controls.Add(this.radLabel1);
             this.radGroupBox1.Controls.Add(this.btnQuery);
             this.radGroupBox1.Controls.Add(this.cashout);
@@ -178,213 +184,21 @@
             this.cashout.TabIndex = 22;
             this.cashout.Text = "--";
             // 
+            // radLabel19
+            // 
+            this.radLabel19.Location = new System.Drawing.Point(276, 65);
+            this.radLabel19.Name = "radLabel19";
+            this.radLabel19.Size = new System.Drawing.Size(43, 18);
+            this.radLabel19.TabIndex = 14;
+            this.radLabel19.Text = "净盈亏:";
+            // 
             // radLabel2
             // 
-            this.radLabel2.Location = new System.Drawing.Point(5, 43);
+            this.radLabel2.Location = new System.Drawing.Point(5, 65);
             this.radLabel2.Name = "radLabel2";
             this.radLabel2.Size = new System.Drawing.Size(54, 18);
             this.radLabel2.TabIndex = 1;
             this.radLabel2.Text = "帐号类别:";
-            // 
-            // cashin
-            // 
-            this.cashin.Location = new System.Drawing.Point(195, 131);
-            this.cashin.Name = "cashin";
-            this.cashin.Size = new System.Drawing.Size(15, 18);
-            this.cashin.TabIndex = 20;
-            this.cashin.Text = "--";
-            // 
-            // radLabel3
-            // 
-            this.radLabel3.Location = new System.Drawing.Point(5, 65);
-            this.radLabel3.Name = "radLabel3";
-            this.radLabel3.Size = new System.Drawing.Size(54, 18);
-            this.radLabel3.TabIndex = 2;
-            this.radLabel3.Text = "隔夜权限:";
-            // 
-            // radLabel7
-            // 
-            this.radLabel7.Location = new System.Drawing.Point(264, 131);
-            this.radLabel7.Name = "radLabel7";
-            this.radLabel7.Size = new System.Drawing.Size(54, 18);
-            this.radLabel7.TabIndex = 21;
-            this.radLabel7.Text = "当日出金:";
-            // 
-            // radLabel4
-            // 
-            this.radLabel4.Location = new System.Drawing.Point(5, 87);
-            this.radLabel4.Name = "radLabel4";
-            this.radLabel4.Size = new System.Drawing.Size(54, 18);
-            this.radLabel4.TabIndex = 3;
-            this.radLabel4.Text = "交易权限:";
-            // 
-            // radLabel8
-            // 
-            this.radLabel8.Location = new System.Drawing.Point(130, 131);
-            this.radLabel8.Name = "radLabel8";
-            this.radLabel8.Size = new System.Drawing.Size(54, 18);
-            this.radLabel8.TabIndex = 19;
-            this.radLabel8.Text = "当日入金:";
-            // 
-            // account
-            // 
-            this.account.Location = new System.Drawing.Point(65, 21);
-            this.account.Name = "account";
-            this.account.Size = new System.Drawing.Size(15, 18);
-            this.account.TabIndex = 1;
-            this.account.Text = "--";
-            // 
-            // buypower
-            // 
-            this.buypower.Location = new System.Drawing.Point(195, 109);
-            this.buypower.Name = "buypower";
-            this.buypower.Size = new System.Drawing.Size(15, 18);
-            this.buypower.TabIndex = 10;
-            this.buypower.Text = "--";
-            // 
-            // accountCategory
-            // 
-            this.accountCategory.Location = new System.Drawing.Point(65, 43);
-            this.accountCategory.Name = "accountCategory";
-            this.accountCategory.Size = new System.Drawing.Size(15, 18);
-            this.accountCategory.TabIndex = 2;
-            this.accountCategory.Text = "--";
-            // 
-            // interday
-            // 
-            this.interday.Location = new System.Drawing.Point(65, 65);
-            this.interday.Name = "interday";
-            this.interday.Size = new System.Drawing.Size(15, 18);
-            this.interday.TabIndex = 2;
-            this.interday.Text = "--";
-            // 
-            // radLabel25
-            // 
-            this.radLabel25.Location = new System.Drawing.Point(117, 109);
-            this.radLabel25.Name = "radLabel25";
-            this.radLabel25.Size = new System.Drawing.Size(66, 18);
-            this.radLabel25.TabIndex = 16;
-            this.radLabel25.Text = "可用保证金:";
-            // 
-            // execution
-            // 
-            this.execution.Location = new System.Drawing.Point(65, 87);
-            this.execution.Name = "execution";
-            this.execution.Size = new System.Drawing.Size(15, 18);
-            this.execution.TabIndex = 2;
-            this.execution.Text = "--";
-            // 
-            // marginFrozen
-            // 
-            this.marginFrozen.Location = new System.Drawing.Point(329, 87);
-            this.marginFrozen.Name = "marginFrozen";
-            this.marginFrozen.Size = new System.Drawing.Size(15, 18);
-            this.marginFrozen.TabIndex = 11;
-            this.marginFrozen.Text = "--";
-            // 
-            // radLabel10
-            // 
-            this.radLabel10.Location = new System.Drawing.Point(130, 21);
-            this.radLabel10.Name = "radLabel10";
-            this.radLabel10.Size = new System.Drawing.Size(54, 18);
-            this.radLabel10.TabIndex = 4;
-            this.radLabel10.Text = "上次结算:";
-            // 
-            // profit
-            // 
-            this.profit.Location = new System.Drawing.Point(329, 65);
-            this.profit.Name = "profit";
-            this.profit.Size = new System.Drawing.Size(15, 18);
-            this.profit.TabIndex = 15;
-            this.profit.Text = "--";
-            // 
-            // radLabel16
-            // 
-            this.radLabel16.Location = new System.Drawing.Point(130, 43);
-            this.radLabel16.Name = "radLabel16";
-            this.radLabel16.Size = new System.Drawing.Size(54, 18);
-            this.radLabel16.TabIndex = 8;
-            this.radLabel16.Text = "浮动盈亏:";
-            // 
-            // marginUsed
-            // 
-            this.marginUsed.Location = new System.Drawing.Point(195, 87);
-            this.marginUsed.Name = "marginUsed";
-            this.marginUsed.Size = new System.Drawing.Size(15, 18);
-            this.marginUsed.TabIndex = 9;
-            this.marginUsed.Text = "--";
-            // 
-            // radLabel12
-            // 
-            this.radLabel12.Location = new System.Drawing.Point(264, 21);
-            this.radLabel12.Name = "radLabel12";
-            this.radLabel12.Size = new System.Drawing.Size(54, 18);
-            this.radLabel12.TabIndex = 6;
-            this.radLabel12.Text = "动态权益:";
-            // 
-            // realizedpl
-            // 
-            this.realizedpl.Location = new System.Drawing.Point(329, 43);
-            this.realizedpl.Name = "realizedpl";
-            this.realizedpl.Size = new System.Drawing.Size(15, 18);
-            this.realizedpl.TabIndex = 11;
-            this.realizedpl.Text = "--";
-            // 
-            // radLabel15
-            // 
-            this.radLabel15.Location = new System.Drawing.Point(264, 43);
-            this.radLabel15.Name = "radLabel15";
-            this.radLabel15.Size = new System.Drawing.Size(54, 18);
-            this.radLabel15.TabIndex = 10;
-            this.radLabel15.Text = "平仓盈亏:";
-            // 
-            // radLabel23
-            // 
-            this.radLabel23.Location = new System.Drawing.Point(251, 87);
-            this.radLabel23.Name = "radLabel23";
-            this.radLabel23.Size = new System.Drawing.Size(66, 18);
-            this.radLabel23.TabIndex = 10;
-            this.radLabel23.Text = "冻结保证金:";
-            // 
-            // lastequity
-            // 
-            this.lastequity.Location = new System.Drawing.Point(195, 21);
-            this.lastequity.Name = "lastequity";
-            this.lastequity.Size = new System.Drawing.Size(15, 18);
-            this.lastequity.TabIndex = 5;
-            this.lastequity.Text = "--";
-            // 
-            // commission
-            // 
-            this.commission.Location = new System.Drawing.Point(195, 65);
-            this.commission.Name = "commission";
-            this.commission.Size = new System.Drawing.Size(15, 18);
-            this.commission.TabIndex = 13;
-            this.commission.Text = "--";
-            // 
-            // radLabel20
-            // 
-            this.radLabel20.Location = new System.Drawing.Point(142, 65);
-            this.radLabel20.Name = "radLabel20";
-            this.radLabel20.Size = new System.Drawing.Size(43, 18);
-            this.radLabel20.TabIndex = 12;
-            this.radLabel20.Text = "手续费:";
-            // 
-            // radLabel24
-            // 
-            this.radLabel24.Location = new System.Drawing.Point(117, 87);
-            this.radLabel24.Name = "radLabel24";
-            this.radLabel24.Size = new System.Drawing.Size(66, 18);
-            this.radLabel24.TabIndex = 8;
-            this.radLabel24.Text = "占用保证金:";
-            // 
-            // unrealizedpl
-            // 
-            this.unrealizedpl.Location = new System.Drawing.Point(195, 43);
-            this.unrealizedpl.Name = "unrealizedpl";
-            this.unrealizedpl.Size = new System.Drawing.Size(15, 18);
-            this.unrealizedpl.TabIndex = 9;
-            this.unrealizedpl.Text = "--";
             // 
             // nowequity
             // 
@@ -394,13 +208,221 @@
             this.nowequity.TabIndex = 7;
             this.nowequity.Text = "--";
             // 
-            // radLabel19
+            // cashin
             // 
-            this.radLabel19.Location = new System.Drawing.Point(276, 65);
-            this.radLabel19.Name = "radLabel19";
-            this.radLabel19.Size = new System.Drawing.Size(43, 18);
-            this.radLabel19.TabIndex = 14;
-            this.radLabel19.Text = "净盈亏:";
+            this.cashin.Location = new System.Drawing.Point(195, 131);
+            this.cashin.Name = "cashin";
+            this.cashin.Size = new System.Drawing.Size(15, 18);
+            this.cashin.TabIndex = 20;
+            this.cashin.Text = "--";
+            // 
+            // unrealizedpl
+            // 
+            this.unrealizedpl.Location = new System.Drawing.Point(195, 43);
+            this.unrealizedpl.Name = "unrealizedpl";
+            this.unrealizedpl.Size = new System.Drawing.Size(15, 18);
+            this.unrealizedpl.TabIndex = 9;
+            this.unrealizedpl.Text = "--";
+            // 
+            // radLabel3
+            // 
+            this.radLabel3.Location = new System.Drawing.Point(5, 87);
+            this.radLabel3.Name = "radLabel3";
+            this.radLabel3.Size = new System.Drawing.Size(54, 18);
+            this.radLabel3.TabIndex = 2;
+            this.radLabel3.Text = "隔夜权限:";
+            // 
+            // radLabel24
+            // 
+            this.radLabel24.Location = new System.Drawing.Point(117, 87);
+            this.radLabel24.Name = "radLabel24";
+            this.radLabel24.Size = new System.Drawing.Size(66, 18);
+            this.radLabel24.TabIndex = 8;
+            this.radLabel24.Text = "占用保证金:";
+            // 
+            // radLabel7
+            // 
+            this.radLabel7.Location = new System.Drawing.Point(264, 131);
+            this.radLabel7.Name = "radLabel7";
+            this.radLabel7.Size = new System.Drawing.Size(54, 18);
+            this.radLabel7.TabIndex = 21;
+            this.radLabel7.Text = "当日出金:";
+            // 
+            // radLabel20
+            // 
+            this.radLabel20.Location = new System.Drawing.Point(142, 65);
+            this.radLabel20.Name = "radLabel20";
+            this.radLabel20.Size = new System.Drawing.Size(43, 18);
+            this.radLabel20.TabIndex = 12;
+            this.radLabel20.Text = "手续费:";
+            // 
+            // radLabel4
+            // 
+            this.radLabel4.Location = new System.Drawing.Point(5, 109);
+            this.radLabel4.Name = "radLabel4";
+            this.radLabel4.Size = new System.Drawing.Size(54, 18);
+            this.radLabel4.TabIndex = 3;
+            this.radLabel4.Text = "交易权限:";
+            // 
+            // commission
+            // 
+            this.commission.Location = new System.Drawing.Point(195, 65);
+            this.commission.Name = "commission";
+            this.commission.Size = new System.Drawing.Size(15, 18);
+            this.commission.TabIndex = 13;
+            this.commission.Text = "--";
+            // 
+            // radLabel8
+            // 
+            this.radLabel8.Location = new System.Drawing.Point(130, 131);
+            this.radLabel8.Name = "radLabel8";
+            this.radLabel8.Size = new System.Drawing.Size(54, 18);
+            this.radLabel8.TabIndex = 19;
+            this.radLabel8.Text = "当日入金:";
+            // 
+            // lastequity
+            // 
+            this.lastequity.Location = new System.Drawing.Point(195, 21);
+            this.lastequity.Name = "lastequity";
+            this.lastequity.Size = new System.Drawing.Size(15, 18);
+            this.lastequity.TabIndex = 5;
+            this.lastequity.Text = "--";
+            // 
+            // account
+            // 
+            this.account.Location = new System.Drawing.Point(65, 21);
+            this.account.Name = "account";
+            this.account.Size = new System.Drawing.Size(15, 18);
+            this.account.TabIndex = 1;
+            this.account.Text = "--";
+            // 
+            // radLabel23
+            // 
+            this.radLabel23.Location = new System.Drawing.Point(251, 87);
+            this.radLabel23.Name = "radLabel23";
+            this.radLabel23.Size = new System.Drawing.Size(66, 18);
+            this.radLabel23.TabIndex = 10;
+            this.radLabel23.Text = "冻结保证金:";
+            // 
+            // buypower
+            // 
+            this.buypower.Location = new System.Drawing.Point(195, 109);
+            this.buypower.Name = "buypower";
+            this.buypower.Size = new System.Drawing.Size(15, 18);
+            this.buypower.TabIndex = 10;
+            this.buypower.Text = "--";
+            // 
+            // radLabel15
+            // 
+            this.radLabel15.Location = new System.Drawing.Point(264, 43);
+            this.radLabel15.Name = "radLabel15";
+            this.radLabel15.Size = new System.Drawing.Size(54, 18);
+            this.radLabel15.TabIndex = 10;
+            this.radLabel15.Text = "平仓盈亏:";
+            // 
+            // accountCategory
+            // 
+            this.accountCategory.Location = new System.Drawing.Point(65, 65);
+            this.accountCategory.Name = "accountCategory";
+            this.accountCategory.Size = new System.Drawing.Size(15, 18);
+            this.accountCategory.TabIndex = 2;
+            this.accountCategory.Text = "--";
+            // 
+            // realizedpl
+            // 
+            this.realizedpl.Location = new System.Drawing.Point(329, 43);
+            this.realizedpl.Name = "realizedpl";
+            this.realizedpl.Size = new System.Drawing.Size(15, 18);
+            this.realizedpl.TabIndex = 11;
+            this.realizedpl.Text = "--";
+            // 
+            // interday
+            // 
+            this.interday.Location = new System.Drawing.Point(65, 87);
+            this.interday.Name = "interday";
+            this.interday.Size = new System.Drawing.Size(15, 18);
+            this.interday.TabIndex = 2;
+            this.interday.Text = "--";
+            // 
+            // radLabel12
+            // 
+            this.radLabel12.Location = new System.Drawing.Point(264, 21);
+            this.radLabel12.Name = "radLabel12";
+            this.radLabel12.Size = new System.Drawing.Size(54, 18);
+            this.radLabel12.TabIndex = 6;
+            this.radLabel12.Text = "动态权益:";
+            // 
+            // radLabel25
+            // 
+            this.radLabel25.Location = new System.Drawing.Point(117, 109);
+            this.radLabel25.Name = "radLabel25";
+            this.radLabel25.Size = new System.Drawing.Size(66, 18);
+            this.radLabel25.TabIndex = 16;
+            this.radLabel25.Text = "可用保证金:";
+            // 
+            // marginUsed
+            // 
+            this.marginUsed.Location = new System.Drawing.Point(195, 87);
+            this.marginUsed.Name = "marginUsed";
+            this.marginUsed.Size = new System.Drawing.Size(15, 18);
+            this.marginUsed.TabIndex = 9;
+            this.marginUsed.Text = "--";
+            // 
+            // execution
+            // 
+            this.execution.Location = new System.Drawing.Point(65, 109);
+            this.execution.Name = "execution";
+            this.execution.Size = new System.Drawing.Size(15, 18);
+            this.execution.TabIndex = 2;
+            this.execution.Text = "--";
+            // 
+            // radLabel16
+            // 
+            this.radLabel16.Location = new System.Drawing.Point(130, 43);
+            this.radLabel16.Name = "radLabel16";
+            this.radLabel16.Size = new System.Drawing.Size(54, 18);
+            this.radLabel16.TabIndex = 8;
+            this.radLabel16.Text = "浮动盈亏:";
+            // 
+            // marginFrozen
+            // 
+            this.marginFrozen.Location = new System.Drawing.Point(329, 87);
+            this.marginFrozen.Name = "marginFrozen";
+            this.marginFrozen.Size = new System.Drawing.Size(15, 18);
+            this.marginFrozen.TabIndex = 11;
+            this.marginFrozen.Text = "--";
+            // 
+            // profit
+            // 
+            this.profit.Location = new System.Drawing.Point(329, 65);
+            this.profit.Name = "profit";
+            this.profit.Size = new System.Drawing.Size(15, 18);
+            this.profit.TabIndex = 15;
+            this.profit.Text = "--";
+            // 
+            // radLabel10
+            // 
+            this.radLabel10.Location = new System.Drawing.Point(130, 21);
+            this.radLabel10.Name = "radLabel10";
+            this.radLabel10.Size = new System.Drawing.Size(54, 18);
+            this.radLabel10.TabIndex = 4;
+            this.radLabel10.Text = "上次结算:";
+            // 
+            // radLabel5
+            // 
+            this.radLabel5.Location = new System.Drawing.Point(28, 43);
+            this.radLabel5.Name = "radLabel5";
+            this.radLabel5.Size = new System.Drawing.Size(31, 18);
+            this.radLabel5.TabIndex = 3;
+            this.radLabel5.Text = "姓名:";
+            // 
+            // name
+            // 
+            this.name.Location = new System.Drawing.Point(65, 41);
+            this.name.Name = "name";
+            this.name.Size = new System.Drawing.Size(15, 18);
+            this.name.TabIndex = 4;
+            this.name.Text = "--";
             // 
             // ctAccountInfo
             // 
@@ -417,34 +439,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnQuery)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashout)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cashin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.account)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.buypower)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountCategory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.interday)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel25)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.execution)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.marginFrozen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.marginUsed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.realizedpl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lastequity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.commission)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unrealizedpl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nowequity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nowequity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cashin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unrealizedpl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commission)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lastequity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.account)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buypower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountCategory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.realizedpl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.interday)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marginUsed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.execution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marginFrozen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.name)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -484,5 +508,7 @@
         private Telerik.WinControls.UI.RadLabel cashin;
         private Telerik.WinControls.UI.RadLabel radLabel7;
         private Telerik.WinControls.UI.RadLabel radLabel8;
+        private Telerik.WinControls.UI.RadLabel radLabel5;
+        private Telerik.WinControls.UI.RadLabel name;
     }
 }

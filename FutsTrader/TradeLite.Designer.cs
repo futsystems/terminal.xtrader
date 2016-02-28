@@ -302,7 +302,7 @@
             this.pageOrder.Controls.Add(this.ctOrderView1);
             this.pageOrder.Location = new System.Drawing.Point(1, 1);
             this.pageOrder.Name = "pageOrder";
-            this.pageOrder.Size = new System.Drawing.Size(566, 203);
+            this.pageOrder.Size = new System.Drawing.Size(594, 209);
             this.pageOrder.Text = "委托";
             // 
             // pagePosition
@@ -433,7 +433,7 @@
             this.ctOrderView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctOrderView1.Location = new System.Drawing.Point(0, 0);
             this.ctOrderView1.Name = "ctOrderView1";
-            this.ctOrderView1.Size = new System.Drawing.Size(566, 203);
+            this.ctOrderView1.Size = new System.Drawing.Size(594, 209);
             this.ctOrderView1.TabIndex = 0;
             // 
             // ctPositionView1

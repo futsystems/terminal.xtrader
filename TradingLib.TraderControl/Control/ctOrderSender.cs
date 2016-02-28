@@ -66,6 +66,7 @@ namespace TradingLib.TraderControl
                 WireEvent();
                 InitOrderType();
                 InitOffsetType();
+                InitOffsetFlag();
 
                 //如果合约列表有合约 则设定默认合约
                 if (cbSymbolList.SelectedItems.Count > 0)
@@ -468,21 +469,21 @@ namespace TradingLib.TraderControl
                     string format = GetDisplayFormat(tick.Symbol);
 
 
-                    if (tick.hasAsk) askprice.Text = string.Format(format, tick.AskPrice) + " /" + tick.AskSize.ToString();
-                    if (tick.hasBid) bidprice.Text = string.Format(format, tick.BidPrice) + " /" + tick.BidSize.ToString();
+                    if (tick.HasAsk()) askprice.Text = string.Format(format, tick.AskPrice) + " /" + tick.AskSize.ToString();
+                    if (tick.HasBid()) bidprice.Text = string.Format(format, tick.BidPrice) + " /" + tick.BidSize.ToString();
                
                     if (!_pricetouch)
                     {
                         switch (_pricefollow)
                         {
                             case PriceFollow.TRADE:
-                                if (tick.isTrade) price.Value = tick.Trade;
+                                if (tick.IsTrade()) price.Value = tick.Trade;
                                 break;
                             case PriceFollow.ASK:
-                                if (tick.hasAsk) price.Value = tick.AskPrice;
+                                if (tick.HasAsk()) price.Value = tick.AskPrice;
                                 break;
                             case PriceFollow.BID:
-                                if (tick.hasBid) price.Value = tick.BidPrice;
+                                if (tick.HasBid()) price.Value = tick.BidPrice;
                                 break;
                             default:
                                 break;
@@ -955,6 +956,7 @@ namespace TradingLib.TraderControl
             o.LocalSymbol = CurrentSymbol.Symbol;
             o.Side = f;
             o.Size = Math.Abs((int)size.Value);
+            o.OffsetFlag = (QSEnumOffsetFlag)cboffsetflag.SelectedValue;
             if (ismarket)
             {
                 o.LimitPrice = 0;
@@ -1039,6 +1041,31 @@ namespace TradingLib.TraderControl
         #endregion
 
         #region 止盈 止损 区域
+        void InitOffsetFlag()
+        {
+            ArrayList list = new ArrayList();
+            ValueObject<QSEnumOffsetFlag> vo0 = new ValueObject<QSEnumOffsetFlag>();
+            vo0.Name = Util.GetEnumDescription(QSEnumOffsetFlag.UNKNOWN);
+            vo0.Value = QSEnumOffsetFlag.UNKNOWN;
+            list.Add(vo0);
+
+            ValueObject<QSEnumOffsetFlag> vo1 = new ValueObject<QSEnumOffsetFlag>();
+            vo1.Name = Util.GetEnumDescription(QSEnumOffsetFlag.OPEN);
+            vo1.Value = QSEnumOffsetFlag.OPEN;
+            list.Add(vo1);
+
+            ValueObject<QSEnumOffsetFlag> vo2 = new ValueObject<QSEnumOffsetFlag>();
+            vo2.Name = Util.GetEnumDescription(QSEnumOffsetFlag.CLOSE);
+            vo2.Value = QSEnumOffsetFlag.CLOSE;
+            list.Add(vo2);
+
+            ValueObject<QSEnumOffsetFlag> vo3 = new ValueObject<QSEnumOffsetFlag>();
+            vo3.Name = Util.GetEnumDescription(QSEnumOffsetFlag.CLOSETODAY);
+            vo3.Value = QSEnumOffsetFlag.CLOSETODAY;
+            list.Add(vo3);
+
+            Factory.IDataSourceFactory(cboffsetflag).BindDataSource(list);
+        }
         //在下单时 如果没有止盈止损则不对服务端的止盈止损参数进行更新
         //如果有止盈止损设置 则对服务端的止盈止损参数进行更新
         //初始化委托类型

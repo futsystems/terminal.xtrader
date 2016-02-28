@@ -240,7 +240,7 @@ namespace TradingLib.TraderCore
         /// <param name="k"></param>
         void GotTick(Tick k)
         {
-            if (k == null || !k.isValid) return;
+            if (k == null || !k.IsValid()) return;
             ThreadSafeList<PositionOffsetArgs> target = null;
             if (symbolargsmap.TryGetValue(k.Symbol, out target))
             {
@@ -289,7 +289,7 @@ namespace TradingLib.TraderCore
                 {
                     args.LossFireCount++;
                     args.LossTakeTime = DateTime.Now;
-                    args.LossTakeOrder = FlatPosition(args.Position, "客户端止损");
+                    args.LossTakeOrder = FlatPosition(args.Position,args.LossArg.Size,"客户端止损");
                     
                     logger.Info("触发客户端止损:" + args.LossTakePrice.ToString() + " " + args.LossTakeOrder.ToString());
                 }
@@ -300,7 +300,7 @@ namespace TradingLib.TraderCore
                 {
                     args.ProfitFireCount++;//累加触发次数
                     args.ProfitTakeTime = DateTime.Now;//记录触发时间
-                    args.ProfitTakeOrder = FlatPosition(args.Position, "客户端止盈");//平仓
+                    args.ProfitTakeOrder = FlatPosition(args.Position,args.ProfitArg.Size, "客户端止盈");//平仓
                     logger.Info("触发客户端止盈" + args.ProfitTakePrice.ToString() + " " + args.ProfitTakeOrder.ToString());
 
                 }
@@ -370,7 +370,7 @@ namespace TradingLib.TraderCore
         }
 
 
-        long FlatPosition(Position pos,string comment)
+        long FlatPosition(Position pos,int size,string comment)
         {
             logger.Info("FlatPositon:" + pos.GetPositionKey());
             if (pos == null || pos.isFlat) return -1;
@@ -400,6 +400,12 @@ namespace TradingLib.TraderCore
             else
             {
                 Order o = new MarketOrderFlat(pos);
+                size = Math.Abs(size);
+                if (size > 0 && size<o.UnsignedSize)//如果size有设定(不为0且小于持仓数量);
+                {
+
+                    o.Size = size * (o.Side ? 1 : -1);
+                }
                 CoreService.TLClient.ReqOrderInsert(o);
             }
 

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TradingLib.API;
+﻿using TradingLib.API;
 using TradingLib.Common;
-using Common.Logging;
 
 namespace TradingLib.TraderCore
 {
@@ -59,6 +54,7 @@ namespace TradingLib.TraderCore
             if (pd != null)
             {
                 pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Symbol);
+                if (pd.oSymbol == null) return;
             }
             CoreService.TradingInfoTracker.GotYDPosition(response.YDPosition, response.IsLast);
         }
@@ -70,6 +66,7 @@ namespace TradingLib.TraderCore
             if (o != null)
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
+                if (o.oSymbol == null) return;
             }
             CoreService.TradingInfoTracker.GotOrder(response.Order, response.IsLast);
         }
@@ -81,6 +78,7 @@ namespace TradingLib.TraderCore
             if (f != null)
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
+                if (f.oSymbol == null) return;
             }
             CoreService.TradingInfoTracker.GotTrade(response.Trade, response.IsLast);
         }

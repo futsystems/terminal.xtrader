@@ -55,6 +55,7 @@ namespace TradingLib.TraderCore
 
         /// <summary>
         /// 注册EventHandler用于执行事件注册与延迟加载
+        /// 如果内部核心数据初始化完毕则直接调用否则延迟到数据加载完毕进行调用
         /// </summary>
         /// <param name="control"></param>
         public void RegIEventHandler(object control)

@@ -52,9 +52,13 @@ namespace TradingLib.TraderCore
         /// <param name="f"></param>
         public void NotifyFill(Trade f)
         {
-            OrderTracker.GotFill(f);
-            PositionTracker.GotFill(f);
-            TradeTracker.Add(f);
+            bool accept = false;
+            PositionTracker.GotFill(f,out accept);
+            if (accept)
+            {
+                OrderTracker.GotFill(f);
+                TradeTracker.Add(f);
+            }
             //CoreService.EventIndicator.FireFill(f);
         }
         #endregion
@@ -96,9 +100,13 @@ namespace TradingLib.TraderCore
         {
             if (f != null)
             {
-                OrderTracker.GotFill(f);
-                PositionTracker.GotFill(f);
-                TradeTracker.Add(f);
+                bool accept = false;
+                PositionTracker.GotFill(f,out accept);
+                if (accept)
+                {
+                    OrderTracker.GotFill(f);
+                    TradeTracker.Add(f);
+                }
             }
             if (islast)
             {

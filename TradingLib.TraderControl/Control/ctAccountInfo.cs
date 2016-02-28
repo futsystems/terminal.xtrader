@@ -52,7 +52,7 @@ namespace TradingLib.TraderControl
                 accountCategory.Text = Util.GetEnumDescription(info.Category);
                 interday.Text = info.IntraDay ? "日内" : "隔夜";
 
-
+                name.Text = info.Name;
                 lastequity.Text = Util.FormatDecimal(info.LastEquity);
                 nowequity.Text = Util.FormatDecimal(info.NowEquity);
 
