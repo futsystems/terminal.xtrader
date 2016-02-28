@@ -27,11 +27,11 @@ namespace TradingLib.TraderCore
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
             }
-            if (o.oSymbol == null)
-            {
-                logger.Warn("Order's Symbol do no exist");
-                return;
-            }
+            //if (o.oSymbol == null)
+            //{
+            //    logger.Warn("Order's Symbol do no exist");
+            //    return;
+            //}
             CoreService.TradingInfoTracker.NotifyOrder(o);
             CoreService.EventIndicator.FireOrder(o);
         }
@@ -48,11 +48,11 @@ namespace TradingLib.TraderCore
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
             }
-            if (f.oSymbol == null)
-            {
-                logger.Warn("Trade's Symbol do no exist");
-                return;
-            }
+            //if (f.oSymbol == null)
+            //{
+            //    logger.Warn("Trade's Symbol do no exist");
+            //    return;
+            //}
             CoreService.TradingInfoTracker.NotifyFill(f);
             CoreService.EventIndicator.FireFill(f);
         }
@@ -68,11 +68,11 @@ namespace TradingLib.TraderCore
             if (pd != null)
             {
                 pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Symbol);
-                if (pd.oSymbol == null)
-                {
-                    logger.Warn("PositionDetail's Symbol do no exist");
-                    return;
-                }
+                //if (pd.oSymbol == null)
+                //{
+                //    logger.Warn("PositionDetail's Symbol do no exist");
+                //    return;
+                //}
             }
             
             CoreService.EventQry.FireRspXQryYDPositionResponse(pd, response.RspInfo, response.RequestID, response.IsLast);
@@ -90,11 +90,11 @@ namespace TradingLib.TraderCore
             if (o != null)
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
-                if (o.oSymbol == null)
-                {
-                    logger.Warn("Order's Symbol do no exist");
-                    return;
-                }
+                //if (o.oSymbol == null)
+                //{
+                //    logger.Warn("Order's Symbol do no exist");
+                //    return;
+                //}
             }
             
             CoreService.EventQry.FireRspXQryOrderResponse(o, response.RspInfo, response.RequestID, response.IsLast);
@@ -112,11 +112,11 @@ namespace TradingLib.TraderCore
             if (f != null)
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
-                if (f.oSymbol == null)
-                {
-                    logger.Warn("Trade's Symbol do no exist");
-                    return;
-                }
+                //if (f.oSymbol == null)
+                //{
+                //    logger.Warn("Trade's Symbol do no exist");
+                //    return;
+                //}
             }
             
             CoreService.EventQry.FireRspXQryFillResponese(f, response.RspInfo, response.RequestID, response.IsLast);

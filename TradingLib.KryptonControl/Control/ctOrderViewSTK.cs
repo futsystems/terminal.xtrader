@@ -69,6 +69,18 @@ namespace TradingLib.KryptonControl
         }
 
 
+        string GetSymbolName(Order o)
+        {
+            if (o.oSymbol != null) return o.oSymbol.GetName();
+            return "";
+        }
+
+        string FormatPrice(Order o, decimal val)
+        {
+            if (o.oSymbol != null) val.ToFormatStr(o.oSymbol);
+            return val.ToFormatStr();
+        }
+
         public void GotOrder(Order o)
         {
             if (InvokeRequired)
@@ -91,11 +103,11 @@ namespace TradingLib.KryptonControl
 
                         
                         tb.Rows[i][SYMBOL] = o.Symbol;
-                        tb.Rows[i][SYMBOLNAME] = o.oSymbol.GetName();
+                        tb.Rows[i][SYMBOLNAME] = GetSymbolName(o);
                         tb.Rows[i][SIZE] = Math.Abs(o.TotalSize);
                         tb.Rows[i][FILLED] = o.FilledSize;
 
-                        tb.Rows[i][PRICE] = o.oSymbol.FormatPrice(o.LimitPrice);
+                        tb.Rows[i][PRICE] = FormatPrice(o, o.LimitPrice);
                         tb.Rows[i][FILLAVGPRICE] = 0;
                         tb.Rows[i][OPERATION] = o.Side ? "买入" : "   卖出";
                         tb.Rows[i][DATETIME] = Util.ToDateTime(o.Date, o.Time).ToString("HH:mm:ss");

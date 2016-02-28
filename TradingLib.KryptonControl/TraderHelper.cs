@@ -55,35 +55,40 @@ namespace TradingLib.KryptonControl
         }
 
 
- 
 
+        //public static string FormatPrice(Symbol sym, decimal price)
+        //{
+        //    if (sym == null) return price.ToFormatStr();
+        //    if (sym.SecurityFamily == null) return price.ToFormatStr();
+        //    return sym.FormatPrice(price);
+        //}
 
-        /// <summary>
-        /// 获得某个合约的数字显示方式
-        /// </summary>
-        /// <param name="sym"></param>
-        /// <returns></returns>
-        public static string GetDisplayFormat(Symbol sym)
-        {
-            if (sym == null) return "{0:F2}";
-            if (sym.SecurityFamily == null) return "{0:F2}";
-            return GetDisplayFormat(sym.SecurityFamily.PriceTick);
-        }
-        /// <summary>
-        /// 通过PriceTick得到数字显示格式
-        /// </summary>
-        /// <param name="pricetick"></param>
-        /// <returns></returns>
-        public static string GetDisplayFormat(decimal pricetick)
-        {
-            //1 0.2
-            string[] p = pricetick.ToString().Split('.');
-            if (p.Length <= 1)
-                return "{0:F0}";
-            else
-                return "{0:F" + p[1].ToCharArray().Length.ToString() + "}";
+        ///// <summary>
+        ///// 获得某个合约的数字显示方式
+        ///// </summary>
+        ///// <param name="sym"></param>
+        ///// <returns></returns>
+        //public static string GetDisplayFormat(Symbol sym)
+        //{
+        //    if (sym == null) return "{0:F2}";
+        //    if (sym.SecurityFamily == null) return "{0:F2}";
+        //    return GetDisplayFormat(sym.SecurityFamily.PriceTick);
+        //}
+        ///// <summary>
+        ///// 通过PriceTick得到数字显示格式
+        ///// </summary>
+        ///// <param name="pricetick"></param>
+        ///// <returns></returns>
+        //public static string GetDisplayFormat(decimal pricetick)
+        //{
+        //    //1 0.2
+        //    string[] p = pricetick.ToString().Split('.');
+        //    if (p.Length <= 1)
+        //        return "{0:F0}";
+        //    else
+        //        return "{0:F" + p[1].ToCharArray().Length.ToString() + "}";
 
-        }
+        //}
 
         public static int GetDecimalPlace(decimal pricetick)
         {

@@ -49,7 +49,7 @@
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(259, 164);
+            this.kryptonLabel1.Location = new System.Drawing.Point(258, 164);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(38, 20);
             this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
@@ -58,7 +58,7 @@
             // 
             // account
             // 
-            this.account.Location = new System.Drawing.Point(302, 160);
+            this.account.Location = new System.Drawing.Point(302, 164);
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(145, 20);
             this.account.TabIndex = 2;
@@ -82,7 +82,7 @@
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(259, 202);
+            this.kryptonLabel2.Location = new System.Drawing.Point(258, 198);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(38, 20);
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.White;

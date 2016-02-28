@@ -71,6 +71,25 @@ namespace TradingLib.KryptonControl
             }
         }
 
+        /// <summary>
+        /// 获得合约名称
+        /// </summary>
+        /// <param name="fill"></param>
+        /// <returns></returns>
+        string GetSymbolName(Trade fill)
+        {
+            if (fill.oSymbol != null) return fill.oSymbol.GetName();
+            return fill.Symbol;
+        }
+
+        string FormatPrice(Trade fill,decimal val)
+        {
+            if (fill.oSymbol != null) return val.ToFormatStr(fill.oSymbol);
+            SecurityFamily sec = CoreService.BasicInfoTracker.GetSecurity(fill.SecurityCode);
+            if (sec == null) return val.ToFormatStr();
+            return val.ToFormatStr(sec);
+        }
+
         public void GotFill(Trade fill)
         {
             if (InvokeRequired)
@@ -79,6 +98,7 @@ namespace TradingLib.KryptonControl
             }
             else
             {
+                
                 DataRow r = tb.Rows.Add(fill.id);
                 int i = tb.Rows.Count - 1;//得到新建的Row号
                 tb.Rows[i][ORDERID] = fill.id;
@@ -88,10 +108,10 @@ namespace TradingLib.KryptonControl
                 tb.Rows[i][FILLTIME] = fill.xTime;
 
                 tb.Rows[i][SYMBOL] = fill.Symbol;
-                tb.Rows[i][SYMBOLNAME] = fill.oSymbol.GetName();
+                tb.Rows[i][SYMBOLNAME] = GetSymbolName(fill);
 
                 tb.Rows[i][OPERATEION] = (fill.Side ? "买入" : "   卖出");
-                tb.Rows[i][PRICE] = fill.oSymbol.FormatPrice(fill.xPrice);
+                tb.Rows[i][PRICE] = FormatPrice(fill, fill.xPrice);
                 tb.Rows[i][SIZE] = Math.Abs(fill.xSize);
                 tb.Rows[i][AMMOUNT] = fill.xSize * fill.xPrice;
                 
