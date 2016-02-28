@@ -16,7 +16,7 @@ using TradingLib.Common;
 using TradingLib.TraderCore;
 
 
-namespace TradingLib.NevronControl.Control
+namespace TradingLib.KryptonControl
 {
     public partial class ctPositionViewSTK : UserControl
     {

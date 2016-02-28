@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B7439DAF-8AEA-4A9E-BB1D-66D1A71842D4}</ProjectGuid>
+    <ProjectGuid>{F02819E0-B738-4531-9C6D-29DBAE3049F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TradingLib.KryptonControl</RootNamespace>
@@ -31,36 +31,69 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Navigator, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2" />
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2" />
     <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\ctDeliveryViewSTK.cs" />
+    <Compile Include="Control\ctDeliveryViewSTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Control\ctDeliveryViewSTK.Designer.cs">
       <DependentUpon>ctDeliveryViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\ctOrderSenderSTK.cs" />
+    <Compile Include="Control\ctOrderSenderSTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Control\ctOrderSenderSTK.Designer.cs">
       <DependentUpon>ctOrderSenderSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\ctOrderViewSTK.cs" />
+    <Compile Include="Control\ctOrderViewSTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Control\ctOrderViewSTK.Designer.cs">
       <DependentUpon>ctOrderViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\ctPositionViewSTK.cs" />
+    <Compile Include="Control\ctPositionViewSTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Control\ctPositionViewSTK.Designer.cs">
       <DependentUpon>ctPositionViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\ctTradeViewSTK.cs" />
+    <Compile Include="Control\ctTradeViewSTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Control\ctTradeViewSTK.Designer.cs">
       <DependentUpon>ctTradeViewSTK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\ctQuoteViewSTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
+      <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIConstant.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\ctDeliveryViewSTK.resx">
@@ -78,7 +111,18 @@
     <EmbeddedResource Include="Control\ctTradeViewSTK.resx">
       <DependentUpon>ctTradeViewSTK.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctQuoteViewSTK.resx">
+      <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
+      <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>
+      <Name>TradingLib.TraderCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

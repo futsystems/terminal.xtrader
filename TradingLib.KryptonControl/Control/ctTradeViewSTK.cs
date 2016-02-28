@@ -15,7 +15,7 @@ using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
 
-namespace TradingLib.NevronControl.Control
+namespace TradingLib.KryptonControl
 {
     public partial class ctTradeViewSTK : UserControl, IEventBinder
     {
@@ -26,14 +26,27 @@ namespace TradingLib.NevronControl.Control
             InitTable();
             BindToTable();
             CoreService.EventCore.RegIEventHandler(this);
-            CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+            
+            //实时状态 响应实时成交回报
+            if (this._realview)
+            {
+                CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+            }
+            else
+            { 
+                
+            }
         }
 
         public void OnInit()
         {
-            foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
+            //实时状态从交易数据维护器中恢复当日交易数据
+            if (this._realview)
             {
-                this.GotFill(f);
+                foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
+                {
+                    this.GotFill(f);
+                }
             }
         }
 
@@ -42,6 +55,21 @@ namespace TradingLib.NevronControl.Control
 
         }
 
+        [DefaultValue(true)]
+        bool _realview = true;
+        /// <summary>
+        /// 控件是否在实时状态工作
+        /// 实时状态显示实时交易回报
+        /// 查询状态显示查询回报
+        /// </summary>
+        public bool RealView
+        {
+            get { return _realview; }
+            set
+            {
+                _realview = value;
+            }
+        }
 
         public void GotFill(Trade fill)
         {

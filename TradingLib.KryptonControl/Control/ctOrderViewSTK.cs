@@ -18,7 +18,7 @@ using TradingLib.TraderCore;
 
 
 
-namespace TradingLib.NevronControl
+namespace TradingLib.KryptonControl
 {
     public partial class ctOrderViewSTK : UserControl, IEventBinder
     {

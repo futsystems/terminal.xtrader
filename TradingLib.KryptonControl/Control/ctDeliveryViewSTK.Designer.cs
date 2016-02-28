@@ -1,4 +1,4 @@
-﻿namespace TradingLib.NevronControl
+﻿namespace TradingLib.KryptonControl
 {
     partial class ctDeliveryViewSTK
     {

@@ -9,11 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.TraderControl", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTraderPro", "XTraderPro\XTraderPro.csproj", "{A283FAED-AE8C-447C-BE29-57ABBADF1203}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTrader", "StockTrader\StockTrader.csproj", "{22EA529D-81F8-43E3-B736-0103DAA7BDB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.KryptonControl", "TradingLib.NevronControl\TradingLib.KryptonControl.csproj", "{F02819E0-B738-4531-9C6D-29DBAE3049F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.KryptonControl", "TradingLib.KryptonControl\TradingLib.KryptonControl.csproj", "{F02819E0-B738-4531-9C6D-29DBAE3049F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,26 +109,6 @@ Global
 		{A283FAED-AE8C-447C-BE29-57ABBADF1203}.ReleaseMono|Mixed Platforms.Build.0 = Release|x86
 		{A283FAED-AE8C-447C-BE29-57ABBADF1203}.ReleaseMono|x86.ActiveCfg = Release|x86
 		{A283FAED-AE8C-447C-BE29-57ABBADF1203}.ReleaseMono|x86.Build.0 = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug|x86.ActiveCfg = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug|x86.Build.0 = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug-OEM|Any CPU.ActiveCfg = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug-OEM|Mixed Platforms.ActiveCfg = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug-OEM|Mixed Platforms.Build.0 = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug-OEM|x86.ActiveCfg = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Debug-OEM|x86.Build.0 = Debug|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Release|Any CPU.ActiveCfg = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Release|Mixed Platforms.Build.0 = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Release|x86.ActiveCfg = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.Release|x86.Build.0 = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.ReleaseMono|Any CPU.ActiveCfg = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.ReleaseMono|Mixed Platforms.ActiveCfg = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.ReleaseMono|Mixed Platforms.Build.0 = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.ReleaseMono|x86.ActiveCfg = Release|x86
-		{AAD7F2E7-AC0D-4CD3-813B-48470796DC04}.ReleaseMono|x86.Build.0 = Release|x86
 		{22EA529D-81F8-43E3-B736-0103DAA7BDB1}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{22EA529D-81F8-43E3-B736-0103DAA7BDB1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{22EA529D-81F8-43E3-B736-0103DAA7BDB1}.Debug|Mixed Platforms.Build.0 = Debug|x86

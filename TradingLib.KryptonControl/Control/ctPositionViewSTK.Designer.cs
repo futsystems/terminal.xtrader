@@ -1,4 +1,4 @@
-﻿namespace TradingLib.NevronControl.Control
+﻿namespace TradingLib.KryptonControl
 {
     partial class ctPositionViewSTK
     {

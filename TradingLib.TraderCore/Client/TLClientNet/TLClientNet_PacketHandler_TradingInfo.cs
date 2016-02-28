@@ -27,6 +27,11 @@ namespace TradingLib.TraderCore
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
             }
+            if (o.oSymbol == null)
+            {
+                logger.Warn("Order's Symbol do no exist");
+                return;
+            }
             CoreService.TradingInfoTracker.NotifyOrder(o);
             CoreService.EventIndicator.FireOrder(o);
         }
@@ -37,16 +42,25 @@ namespace TradingLib.TraderCore
         /// <param name="response"></param>
         void CliOnTradeNotify(TradeNotify response)
         {
-            logger.Info("got trade notify:" + response.Trade.GetTradeInfo());
+            logger.Info("Trade Notify:" + response.Trade.GetTradeInfo());
             Trade f = response.Trade;
             if (f != null)
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
             }
+            if (f.oSymbol == null)
+            {
+                logger.Warn("Trade's Symbol do no exist");
+                return;
+            }
             CoreService.TradingInfoTracker.NotifyFill(f);
             CoreService.EventIndicator.FireFill(f);
         }
 
+        /// <summary>
+        /// 响应隔夜持仓查询
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXQryYDPosition(RspXQryYDPositionResponse response)
         {
             logger.Debug("got xqry yd position response:" + response.ToString());
@@ -54,23 +68,39 @@ namespace TradingLib.TraderCore
             if (pd != null)
             {
                 pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Symbol);
-                if (pd.oSymbol == null) return;
+            }
+            if (pd.oSymbol == null)
+            {
+                logger.Warn("PositionDetail's Symbol do no exist");
+                return;
             }
             CoreService.TradingInfoTracker.GotYDPosition(response.YDPosition, response.IsLast);
         }
 
+        /// <summary>
+        /// 响应委托查询
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXQryOrder(RspXQryOrderResponse response)
         {
             logger.Debug("got xqry order response:" + response.ToString());
             Order o = response.Order;
             if (o != null)
             {
-                o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
-                if (o.oSymbol == null) return;
+                o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);   
+            }
+            if (o.oSymbol == null)
+            {
+                logger.Warn("Order's Symbol do no exist");
+                return;
             }
             CoreService.TradingInfoTracker.GotOrder(response.Order, response.IsLast);
         }
 
+        /// <summary>
+        /// 响应成交查询
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXQryTrade(RspXQryTradeResponse response)
         {
             logger.Debug("got xqry trade response:" + response.ToString());
@@ -78,17 +108,29 @@ namespace TradingLib.TraderCore
             if (f != null)
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
-                if (f.oSymbol == null) return;
+            }
+            if (f.oSymbol == null)
+            {
+                logger.Warn("Trade's Symbol do no exist");
+                return;
             }
             CoreService.TradingInfoTracker.GotTrade(response.Trade, response.IsLast);
         }
 
+        /// <summary>
+        /// 响应帐户查询
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnQryAccountInfo(RspQryAccountInfoResponse response)
         {
             logger.Debug("got qry account info response:" + response.ToString());
             CoreService.TradingInfoTracker.GotAccountInfo(response.AccInfo, response.IsLast);
         }
 
+        /// <summary>
+        /// 响应行情快照查询
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXQryTickSnapShot(RspXQryTickSnapShotResponse response)
         {
             logger.Debug("got qry ticksnapshot response:" + response.ToString());

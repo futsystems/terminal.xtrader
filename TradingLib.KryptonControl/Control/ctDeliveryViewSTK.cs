@@ -16,7 +16,7 @@ using TradingLib.Common;
 using TradingLib.TraderCore;
 
 
-namespace TradingLib.NevronControl
+namespace TradingLib.KryptonControl
 {
     public partial class ctDeliveryViewSTK : UserControl
     {

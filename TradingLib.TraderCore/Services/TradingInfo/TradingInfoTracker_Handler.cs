@@ -42,7 +42,6 @@ namespace TradingLib.TraderCore
         public void NotifyOrder(Order o)
         {
             OrderTracker.GotOrder(o);
-            //CoreService.EventIndicator.FireOrder(o);
         }
 
 
@@ -59,7 +58,6 @@ namespace TradingLib.TraderCore
                 OrderTracker.GotFill(f);
                 TradeTracker.Add(f);
             }
-            //CoreService.EventIndicator.FireFill(f);
         }
         #endregion
 
@@ -111,7 +109,6 @@ namespace TradingLib.TraderCore
             if (islast)
             {
                 Status("成交查询完毕,查询帐户信息");
-
                 CoreService.TLClient.ReqQryAccountInfo();
             }
         }
@@ -127,7 +124,7 @@ namespace TradingLib.TraderCore
                     return;
                 }
 
-                if (islast) //没有初始化完毕则需要触发一下操作
+                if (islast)
                 {
                     Status("帐户信息查询完毕");
 

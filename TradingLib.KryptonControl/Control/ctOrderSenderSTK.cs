@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TradingLib.NevronControl
+namespace TradingLib.KryptonControl
 {
     public partial class ctOrderSenderSTK : UserControl
     {
@@ -15,7 +15,7 @@ namespace TradingLib.NevronControl
         public ctOrderSenderSTK()
         {
             InitializeComponent();
-            label1.Font = TITLEFONT;
+            kryptonLabel1.Font = TITLEFONT;
             this.Side = true;
 
             //设置空间为背景透明
@@ -45,19 +45,19 @@ namespace TradingLib.NevronControl
             set
             {
                 _side = value;
-                label1.Text = _side ? "买入股票" : "卖出股票";
-                label6.Text = _side ? "可买(股):" : "可卖(股):";
-                label8.Text = _side ? "买入数量:" : "买出数量:";
+                kryptonLabel1.Text = _side ? "买入股票" : "卖出股票";
+                kryptonLabel6.Text = _side ? "可买(股):" : "可卖(股):";
+                kryptonLabel8.Text = _side ? "买入数量:" : "买出数量:";
                 //btnSubmit.Text = _side ? "买 入" : "卖 出";
 
-                label1.ForeColor = LabelColor;
-                label2.ForeColor = LabelColor;
-                label3.ForeColor = LabelColor;
+                kryptonLabel1.StateCommon.ShortText.Color1 = LabelColor;
+                kryptonLabel2.StateCommon.ShortText.Color1 = LabelColor;
+                kryptonLabel3.StateCommon.ShortText.Color1 = LabelColor;
                 //label4.ForeColor = LabelColor;
-                label5.ForeColor = LabelColor;
-                label6.ForeColor = LabelColor;
+                kryptonLabel5.StateCommon.ShortText.Color1 = LabelColor;
+                kryptonLabel6.StateCommon.ShortText.Color1 = LabelColor;
                 //label7.ForeColor = LabelColor;
-                label8.ForeColor = LabelColor;
+                kryptonLabel8.StateCommon.ShortText.Color1 = LabelColor;
 
                 Invalidate();
             }
