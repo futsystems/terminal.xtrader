@@ -112,6 +112,20 @@ namespace TradingLib.TraderCore
             }
         }
 
+        EventQry _eventQry = null;
+        /// <summary>
+        /// 查询事件中继
+        /// </summary>
+        public static EventQry EventQry
+        {
+            get
+            {
+                if (defaultinstance._eventQry == null)
+                    defaultinstance._eventQry = new EventQry();
+                return defaultinstance._eventQry;
+            }
+        }
+
         EventIndicator _eventIndicator = null;
 
         /// <summary>

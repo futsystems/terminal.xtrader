@@ -73,6 +73,7 @@
     <Compile Include="Services\Event\EventCore.cs" />
     <Compile Include="Services\Event\EventIndicator.cs" />
     <Compile Include="Services\Event\EventOther.cs" />
+    <Compile Include="Services\Event\EventQry.cs" />
     <Compile Include="Services\Event\EventUI.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\PositionWatcher.cs" />

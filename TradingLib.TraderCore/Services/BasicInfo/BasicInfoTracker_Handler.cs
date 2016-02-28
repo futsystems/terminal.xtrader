@@ -164,7 +164,7 @@ namespace TradingLib.TraderCore
             {
                 Status("合约查询完毕,查询隔夜持仓");
                 BindData();
-                CoreService.TLClient.ReqXQryYDPositon();
+                CoreService.TradingInfoTracker.ResumeData();
             }
 
         }

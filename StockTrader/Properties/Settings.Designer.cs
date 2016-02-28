@@ -22,5 +22,41 @@ namespace StockTrader.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string account {
+            get {
+                return ((string)(this["account"]));
+            }
+            set {
+                this["account"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pass {
+            get {
+                return ((string)(this["pass"]));
+            }
+            set {
+                this["pass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool savepass {
+            get {
+                return ((bool)(this["savepass"]));
+            }
+            set {
+                this["savepass"] = value;
+            }
+        }
     }
 }

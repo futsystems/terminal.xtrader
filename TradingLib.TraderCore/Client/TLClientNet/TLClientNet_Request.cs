@@ -19,36 +19,38 @@ namespace TradingLib.TraderCore
         /// 发送委托
         /// </summary>
         /// <param name="order"></param>
-        public void ReqOrderInsert(Order order)
+        public int  ReqOrderInsert(Order order)
         {
             logger.Info(PROGRAME + " send order:" + order.GetOrderInfo());
 
             order.Account = _account;
 
-            OrderInsertRequest request = RequestTemplate<OrderInsertRequest>.CliSendRequest(requestid++);
+            OrderInsertRequest request = RequestTemplate<OrderInsertRequest>.CliSendRequest(++requestid);
             request.Order = order;
 
             SendPacket(request);
+            return requestid;
         }
         /// <summary>
         /// 提交委托操作
         /// </summary>
         /// <param name="action"></param>
-        public void ReqOrderAction(OrderAction action)
+        public int ReqOrderAction(OrderAction action)
         {
             logger.Info(PROGRAME + " send orderaction:" + action.ToString());
 
-            OrderActionRequest requets = RequestTemplate<OrderActionRequest>.CliSendRequest(requestid++);
+            OrderActionRequest requets = RequestTemplate<OrderActionRequest>.CliSendRequest(++requestid);
             action.Account = _account;
             requets.OrderAction = action;
 
             SendPacket(requets);
+            return requestid;
         }
         /// <summary>
         /// 直接取消委托
         /// </summary>
         /// <param name="id"></param>
-        public void ReqCancelOrder(long id)
+        public int ReqCancelOrder(long id)
         {
             logger.Info(PROGRAME + " cancel order:" + id.ToString());
 
@@ -56,7 +58,7 @@ namespace TradingLib.TraderCore
             action.Account = "";
             action.ActionFlag = QSEnumOrderActionFlag.Delete;
             action.OrderID = id;
-            ReqOrderAction(action);
+            return ReqOrderAction(action);
         }
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace TradingLib.TraderCore
         /// </summary>
         public void ReqUnRegisterSymbols()
         {
-            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(requestid++);
+            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
 
             SendPacket(request);
         }
@@ -74,13 +76,13 @@ namespace TradingLib.TraderCore
         /// </summary>
         /// <param name="loginid"></param>
         /// <param name="pass"></param>
-        public void ReqLogin(string loginid, string pass, int logintype = 1)
+        public int  ReqLogin(string loginid, string pass, int logintype = 1)
         {
             logger.Info(PROGRAME + " request login to server, account:" + loginid + " pass:" + pass);
 
             //LocationInfo info = Util.GetLocationInfo();
 
-            LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(requestid++);
+            LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(++requestid);
             request.LoginID = loginid;
             request.Passwd = pass;
             request.LoginType = 1;
@@ -94,7 +96,7 @@ namespace TradingLib.TraderCore
 
             //Func<LocationInfo> del = new Func<LocationInfo>(Util.GetLocationInfo);
             //del.BeginInvoke(QryLocaltionInfoCallback, null);
-
+            return requestid;
         }
 
         void QryLocaltionInfoCallback(IAsyncResult async)
@@ -102,7 +104,7 @@ namespace TradingLib.TraderCore
             Func<LocationInfo> proc = ((AsyncResult)async).AsyncDelegate as Func<LocationInfo>;
             LocationInfo info = proc.EndInvoke(async);
             //InvokeGotGLocation(location);
-            UpdateLocationInfoRequest request = RequestTemplate<UpdateLocationInfoRequest>.CliSendRequest(requestid++);
+            UpdateLocationInfoRequest request = RequestTemplate<UpdateLocationInfoRequest>.CliSendRequest(++requestid);
             request.LocationInfo = info;
             SendPacket(request);
         }
@@ -111,84 +113,91 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 请求帐户信息
         /// </summary>
-        public void ReqQryAccountInfo()
+        public int  ReqQryAccountInfo()
         {
             logger.Info(PROGRAME + " qry account info");
-            QryAccountInfoRequest request = RequestTemplate<QryAccountInfoRequest>.CliSendRequest(requestid++);
+            QryAccountInfoRequest request = RequestTemplate<QryAccountInfoRequest>.CliSendRequest(++requestid);
             request.Account = _account;
 
             SendPacket(request);
+            return requestid;
         }
         /// <summary>
         /// 请求查询可开手数
         /// </summary>
-        public void ReqQryMaxOrderVol(string symbol)
+        public int  ReqQryMaxOrderVol(string symbol)
         {
             logger.Info(PROGRAME + " qry max order vol,symbol:" + symbol);
 
-            QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(requestid++);
+            QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
             request.OffsetFlag = QSEnumOffsetFlag.UNKNOWN;
             request.Account = _account;
 
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
         /// 查询交易者信息
         /// </summary>
-        public void ReqQryInvestor()
+        public int  ReqQryInvestor()
         {
             logger.Info(PROGRAME + " qry investror info");
 
-            QryInvestorRequest request = RequestTemplate<QryInvestorRequest>.CliSendRequest(requestid++);
+            QryInvestorRequest request = RequestTemplate<QryInvestorRequest>.CliSendRequest(++requestid);
             request.Account = _account;
             SendPacket(request);
+            return requestid;
         }
 
         #region 基础信息
         /// <summary>
         /// 查询交易时间段
         /// </summary>
-        public void ReqXQryMarketTime()
+        public int ReqXQryMarketTime()
         {
             logger.Info(PROGRAME + " qry markettime");
 
-            XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(requestid++);
+            XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
         /// 查询交易所
         /// </summary>
-        public void ReqXQryExchange()
+        public int  ReqXQryExchange()
         {
             logger.Info(PROGRAME + " qry exchange");
 
-            XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(requestid++);
+            XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
         /// 查询品种
         /// </summary>
-        public void ReqXQrySecurity()
+        public int  ReqXQrySecurity()
         {
             logger.Info(PROGRAME + " qry security");
 
-            XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(requestid++);
+            XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
         /// 查询合约
         /// </summary>
-        public void ReqXQrySymbol()
+        public int  ReqXQrySymbol()
         {
             logger.Info(PROGRAME + " qry symbol");
 
-            XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(requestid++);
+            XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
         #endregion
@@ -198,74 +207,77 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 查询隔夜持仓
         /// </summary>
-        public void ReqXQryYDPositon()
+        public int  ReqXQryYDPositon()
         {
             logger.Info(PROGRAME +" qry yd position");
-            XQryYDPositionRequest request = RequestTemplate<XQryYDPositionRequest>.CliSendRequest(requestid++);
+            XQryYDPositionRequest request = RequestTemplate<XQryYDPositionRequest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
         /// 查询委托
         /// </summary>
-        public void ReqXQryOrder()
+        public int  ReqXQryOrder()
         {
             logger.Info(PROGRAME + "qry order");
-            XQryOrderRequest request = RequestTemplate<XQryOrderRequest>.CliSendRequest(requestid++);
+            XQryOrderRequest request = RequestTemplate<XQryOrderRequest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
         /// 查询成交
         /// </summary>
-        public void ReqXQryTrade()
+        public int  ReqXQryTrade()
         {
             logger.Info(PROGRAME + "qry trade");
-            XQryTradeRequest request = RequestTemplate<XQryTradeRequest>.CliSendRequest(requestid++);
+            XQryTradeRequest request = RequestTemplate<XQryTradeRequest>.CliSendRequest(++requestid);
             SendPacket(request);
+            return requestid;
         }
 
 
 
         #endregion
-        /// <summary>
-        /// 查询结算信息
-        /// </summary>
-        public void ReqQrySettleInfo(int tradingday = 0)
-        {
-            logger.Info(PROGRAME + " qry settleinfo");
+        ///// <summary>
+        ///// 查询结算信息
+        ///// </summary>
+        //public void ReqQrySettleInfo(int tradingday = 0)
+        //{
+        //    logger.Info(PROGRAME + " qry settleinfo");
 
-            QrySettleInfoRequest request = RequestTemplate<QrySettleInfoRequest>.CliSendRequest(requestid++);
-            request.Account = _account;
-            request.Tradingday = tradingday;
-            SendPacket(request);
-        }
+        //    QrySettleInfoRequest request = RequestTemplate<QrySettleInfoRequest>.CliSendRequest(++requestid);
+        //    request.Account = _account;
+        //    request.Tradingday = tradingday;
+        //    SendPacket(request);
+        //}
 
-        /// <summary>
-        /// 查询结算确认
-        /// </summary>
-        public void ReqQrySettleInfoConfirm()
-        {
-            logger.Info(PROGRAME + " qry settleinfoconfigm");
+        ///// <summary>
+        ///// 查询结算确认
+        ///// </summary>
+        //public void ReqQrySettleInfoConfirm()
+        //{
+        //    logger.Info(PROGRAME + " qry settleinfoconfigm");
 
-            QrySettleInfoConfirmRequest request = RequestTemplate<QrySettleInfoConfirmRequest>.CliSendRequest(requestid++);
-            request.Account = _account;
+        //    QrySettleInfoConfirmRequest request = RequestTemplate<QrySettleInfoConfirmRequest>.CliSendRequest(++requestid);
+        //    request.Account = _account;
 
-            SendPacket(request);
-        }
+        //    SendPacket(request);
+        //}
 
-        /// <summary>
-        /// 确认结算单
-        /// </summary>
-        public void ReqConfirmSettlement()
-        {
-            logger.Info(PROGRAME + " confirm settlement");
+        ///// <summary>
+        ///// 确认结算单
+        ///// </summary>
+        //public void ReqConfirmSettlement()
+        //{
+        //    logger.Info(PROGRAME + " confirm settlement");
 
-            ConfirmSettlementRequest request = RequestTemplate<ConfirmSettlementRequest>.CliSendRequest(requestid++);
-            request.Account = _account;
+        //    ConfirmSettlementRequest request = RequestTemplate<ConfirmSettlementRequest>.CliSendRequest(++requestid);
+        //    request.Account = _account;
 
-            SendPacket(request);
-        }
+        //    SendPacket(request);
+        //}
         /// <summary>
         /// 查询委托
         /// </summary>
@@ -273,7 +285,7 @@ namespace TradingLib.TraderCore
         //{
         //    logger.Info(PROGRAME + " qry order");
 
-        //    QryOrderRequest request = RequestTemplate<QryOrderRequest>.CliSendRequest(requestid++);
+        //    QryOrderRequest request = RequestTemplate<QryOrderRequest>.CliSendRequest(++requestid);
         //    request.Account = _account;
         //    request.Symbol = symbol;
         //    request.OrderID = orderid;
@@ -287,7 +299,7 @@ namespace TradingLib.TraderCore
         //{
         //    logger.Info(PROGRAME + " qry trade");
 
-        //    QryTradeRequest request = RequestTemplate<QryTradeRequest>.CliSendRequest(requestid++);
+        //    QryTradeRequest request = RequestTemplate<QryTradeRequest>.CliSendRequest(++requestid);
         //    request.Account = _account;
         //    request.Symbol = symbol;
 
@@ -301,7 +313,7 @@ namespace TradingLib.TraderCore
         //{
         //    logger.Info(PROGRAME + " qry position");
 
-        //    QryPositionRequest request = RequestTemplate<QryPositionRequest>.CliSendRequest(requestid++);
+        //    QryPositionRequest request = RequestTemplate<QryPositionRequest>.CliSendRequest(++requestid);
         //    request.Account = _account;
         //    request.Symbol = symbol;
 
@@ -316,7 +328,7 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + " register symbols:" + string.Join(",", symbols));
 
-            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(requestid++);
+            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
 
             request.SymbolList.AddRange(symbols);
            
@@ -328,7 +340,7 @@ namespace TradingLib.TraderCore
 
         public void ReqContribRequest(string moduleid, string cmdstr, string args)
         {
-            ContribRequest request = RequestTemplate<ContribRequest>.CliSendRequest(requestid++);
+            ContribRequest request = RequestTemplate<ContribRequest>.CliSendRequest(++requestid);
             request.ModuleID = moduleid;
             request.CMDStr = cmdstr;
             request.Parameters = args;
@@ -340,7 +352,7 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + " req change password");
 
-            ReqChangePasswordRequest request = RequestTemplate<ReqChangePasswordRequest>.CliSendRequest(requestid++);
+            ReqChangePasswordRequest request = RequestTemplate<ReqChangePasswordRequest>.CliSendRequest(++requestid);
             request.Account = _account;
             request.OldPassword = oldpass;
             request.NewPassword = newpass;
@@ -351,7 +363,7 @@ namespace TradingLib.TraderCore
 
         public void ReqQrySymbol(string symbol)
         {
-            QrySymbolRequest request = RequestTemplate<QrySymbolRequest>.CliSendRequest(requestid++);
+            QrySymbolRequest request = RequestTemplate<QrySymbolRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
 
             SendPacket(request);
@@ -359,7 +371,7 @@ namespace TradingLib.TraderCore
 
         public void ReqQryOpenSize(string symbol)
         {
-            QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(requestid++);
+            QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
             request.Account = _account;
 
@@ -368,7 +380,7 @@ namespace TradingLib.TraderCore
 
         public void ReqTickSnapShot(string symbol = "")
         {
-            XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(requestid++);
+            XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
 
             SendPacket(request);

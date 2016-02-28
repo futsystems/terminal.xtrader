@@ -20,5 +20,20 @@ namespace TradingLib.TraderCore
             if (OnSymbolSelectedEvent != null)
                 OnSymbolSelectedEvent(sender,symbol);
         }
+
+
+
+        /// <summary>
+        /// 帐户交易信息刷新事件
+        /// 用于重新查询日内交易数据生成本地数据
+        /// </summary>
+        public event Action OnRefreshEvent;
+        internal void FireRefreshEvent()
+        {
+            if (OnRefreshEvent != null)
+            {
+                OnRefreshEvent();
+            }
+        }
     }
 }

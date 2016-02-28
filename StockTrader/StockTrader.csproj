@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ant.Component">
+      <HintPath>..\..\Futs.base\lib\update\Ant.Component.dll</HintPath>
+    </Reference>
+    <Reference Include="Beetle">
+      <HintPath>..\..\Futs.base\lib\update\Beetle.dll</HintPath>
+    </Reference>
     <Reference Include="Common.Logging">
       <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
     </Reference>
@@ -53,9 +59,22 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\EnumPageType.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Starter.cs" />
     <Compile Include="StockTrader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +132,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StockTrader.resx">
       <DependentUpon>StockTrader.cs</DependentUpon>
     </EmbeddedResource>

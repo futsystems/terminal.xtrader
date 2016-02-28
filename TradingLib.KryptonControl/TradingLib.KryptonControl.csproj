@@ -92,8 +92,13 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerCfg.cs" />
+    <Compile Include="SplashScreenApplicationContext.cs" />
+    <Compile Include="TraderHelper.cs" />
     <Compile Include="UIConstant.cs" />
+    <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\ctDeliveryViewSTK.resx">

@@ -819,7 +819,7 @@ namespace TradingLib.TraderCore
         void Register()
         {
             logger.Info(PROGRAME + ":注册到服务端...");
-            RegisterClientRequest req = RequestTemplate<RegisterClientRequest>.CliSendRequest(requestid++);
+            RegisterClientRequest req = RequestTemplate<RegisterClientRequest>.CliSendRequest(++requestid);
             TLSend(req);
         }
         /// <summary>
@@ -829,7 +829,7 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + ":请求服务端功能列表...");
             _rfl.Clear();
-            FeatureRequest request = RequestTemplate<FeatureRequest>.CliSendRequest(requestid++);
+            FeatureRequest request = RequestTemplate<FeatureRequest>.CliSendRequest(++requestid);
             TLSend(request);
         }
 
@@ -839,7 +839,7 @@ namespace TradingLib.TraderCore
         void ReqServerVersion()
         {
             logger.Info(PROGRAME + ":请求服务端版本...");
-            VersionRequest request = RequestTemplate<VersionRequest>.CliSendRequest(requestid++);
+            VersionRequest request = RequestTemplate<VersionRequest>.CliSendRequest(++requestid);
             request.ClientVersion = "2.0";
             request.DeviceType = "PC";
             TLSend(request);

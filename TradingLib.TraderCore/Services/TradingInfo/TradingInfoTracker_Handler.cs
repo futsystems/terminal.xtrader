@@ -67,51 +67,51 @@ namespace TradingLib.TraderCore
         /// 获得隔夜持仓数据
         /// </summary>
         /// <param name="pos"></param>
-        public void GotYDPosition(PositionDetail pos,bool islast)
-        {
-            if (pos != null)
-            {
-                PositionTracker.GotPosition(pos);
-                HoldPositionTracker.GotPosition(pos);
-            }
-            if (islast)
-            {
-                Status("隔夜持仓查询完毕,查询委托");
-                CoreService.TLClient.ReqXQryOrder();
-            }
-        }
+        //void GotYDPosition(PositionDetail pos,bool islast)
+        //{
+        //    if (pos != null)
+        //    {
+        //        PositionTracker.GotPosition(pos);
+        //        HoldPositionTracker.GotPosition(pos);
+        //    }
+        //    if (islast)
+        //    {
+        //        Status("隔夜持仓查询完毕,查询委托");
+        //        CoreService.TLClient.ReqXQryOrder();
+        //    }
+        //}
 
-        public void GotOrder(Order o, bool islast)
-        {
-            if (o != null)
-            {
-                OrderTracker.GotOrder(o);
-            }
-            if (islast)
-            {
-                Status("委托查询完毕,查询成交");
-                CoreService.TLClient.ReqXQryTrade();
-            }
-        }
+        //public void GotOrder(Order o, bool islast)
+        //{
+        //    if (o != null)
+        //    {
+        //        OrderTracker.GotOrder(o);
+        //    }
+        //    if (islast)
+        //    {
+        //        Status("委托查询完毕,查询成交");
+        //        CoreService.TLClient.ReqXQryTrade();
+        //    }
+        //}
 
-        public void GotTrade(Trade f, bool islast)
-        {
-            if (f != null)
-            {
-                bool accept = false;
-                PositionTracker.GotFill(f,out accept);
-                if (accept)
-                {
-                    OrderTracker.GotFill(f);
-                    TradeTracker.Add(f);
-                }
-            }
-            if (islast)
-            {
-                Status("成交查询完毕,查询帐户信息");
-                CoreService.TLClient.ReqQryAccountInfo();
-            }
-        }
+        //public void GotTrade(Trade f, bool islast)
+        //{
+        //    if (f != null)
+        //    {
+        //        bool accept = false;
+        //        PositionTracker.GotFill(f,out accept);
+        //        if (accept)
+        //        {
+        //            OrderTracker.GotFill(f);
+        //            TradeTracker.Add(f);
+        //        }
+        //    }
+        //    if (islast)
+        //    {
+        //        Status("成交查询完毕,查询帐户信息");
+        //        CoreService.TLClient.ReqQryAccountInfo();
+        //    }
+        //}
 
         public void GotAccountInfo(AccountInfo info,bool islast)
         {
