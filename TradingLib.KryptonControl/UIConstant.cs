@@ -22,5 +22,10 @@ namespace TradingLib.KryptonControl
         public static System.Drawing.Font DefaultFont = new Font("微软雅黑", 9, FontStyle.Regular);
 
         public static string DefaultDecimalFormat = "{0:F2}";
+
+        /// <summary>
+        /// 查询间隔
+        /// </summary>
+        public static int QRYINTERVAL = 3;
     }
 }

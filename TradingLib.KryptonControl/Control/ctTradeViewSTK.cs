@@ -197,5 +197,17 @@ namespace TradingLib.KryptonControl
             }
         }
 
+
+        /// <summary>
+        /// 清空表格内容
+        /// </summary>
+        public void Clear()
+        {
+
+            tradeGrid.DataSource = null;
+            tb.Rows.Clear();
+            BindToTable();
+        }
+
     }
 }

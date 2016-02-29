@@ -139,6 +139,7 @@ namespace TradingLib.KryptonControl
         }
 
 
+
         const string ID = "全局编号";
         const string OrderSeq = "编号";
 
@@ -231,6 +232,17 @@ namespace TradingLib.KryptonControl
             {
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+        }
+
+        /// <summary>
+        /// 清空表格内容
+        /// </summary>
+        public void Clear()
+        {
+            orderGrid.DataSource = null;
+            orderRowIdxMap.Clear();
+            tb.Rows.Clear();
+            BindToTable();
         }
 
     }

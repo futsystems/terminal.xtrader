@@ -30,9 +30,9 @@
         {
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.btnQry = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonDateTimePicker2 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
+            this.end = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonDateTimePicker1 = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
+            this.start = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.ctTradeViewSTK1 = new TradingLib.KryptonControl.ctTradeViewSTK();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
@@ -43,9 +43,9 @@
             // 
             this.kryptonPanel1.Controls.Add(this.ctTradeViewSTK1);
             this.kryptonPanel1.Controls.Add(this.btnQry);
-            this.kryptonPanel1.Controls.Add(this.kryptonDateTimePicker2);
+            this.kryptonPanel1.Controls.Add(this.end);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel2);
-            this.kryptonPanel1.Controls.Add(this.kryptonDateTimePicker1);
+            this.kryptonPanel1.Controls.Add(this.start);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
@@ -61,12 +61,12 @@
             this.btnQry.TabIndex = 10;
             this.btnQry.Values.Text = "查 询";
             // 
-            // kryptonDateTimePicker2
+            // end
             // 
-            this.kryptonDateTimePicker2.Location = new System.Drawing.Point(221, 4);
-            this.kryptonDateTimePicker2.Name = "kryptonDateTimePicker2";
-            this.kryptonDateTimePicker2.Size = new System.Drawing.Size(116, 21);
-            this.kryptonDateTimePicker2.TabIndex = 9;
+            this.end.Location = new System.Drawing.Point(221, 4);
+            this.end.Name = "end";
+            this.end.Size = new System.Drawing.Size(116, 21);
+            this.end.TabIndex = 9;
             // 
             // kryptonLabel2
             // 
@@ -76,12 +76,12 @@
             this.kryptonLabel2.TabIndex = 8;
             this.kryptonLabel2.Values.Text = "至";
             // 
-            // kryptonDateTimePicker1
+            // start
             // 
-            this.kryptonDateTimePicker1.Location = new System.Drawing.Point(70, 4);
-            this.kryptonDateTimePicker1.Name = "kryptonDateTimePicker1";
-            this.kryptonDateTimePicker1.Size = new System.Drawing.Size(116, 21);
-            this.kryptonDateTimePicker1.TabIndex = 7;
+            this.start.Location = new System.Drawing.Point(70, 4);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(116, 21);
+            this.start.TabIndex = 7;
             // 
             // kryptonLabel1
             // 
@@ -98,6 +98,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ctTradeViewSTK1.Location = new System.Drawing.Point(0, 30);
             this.ctTradeViewSTK1.Name = "ctTradeViewSTK1";
+            this.ctTradeViewSTK1.RealView = true;
             this.ctTradeViewSTK1.Size = new System.Drawing.Size(578, 312);
             this.ctTradeViewSTK1.TabIndex = 11;
             // 
@@ -119,9 +120,9 @@
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnQry;
-        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker kryptonDateTimePicker2;
+        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker end;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker kryptonDateTimePicker1;
+        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker start;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private TradingLib.KryptonControl.ctTradeViewSTK ctTradeViewSTK1;
     }

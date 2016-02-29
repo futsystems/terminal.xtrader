@@ -218,10 +218,13 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 查询委托
         /// </summary>
-        public int  ReqXQryOrder()
+        public int  ReqXQryOrder(int start=0,int end=0,string symbol="")
         {
             logger.Info(PROGRAME + "qry order");
             XQryOrderRequest request = RequestTemplate<XQryOrderRequest>.CliSendRequest(++requestid);
+            request.Start = start;
+            request.End = end;
+            request.Symbol = symbol;
             SendPacket(request);
             return requestid;
         }
@@ -229,10 +232,13 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 查询成交
         /// </summary>
-        public int  ReqXQryTrade()
+        public int ReqXQryTrade(int start = 0, int end = 0, string symbol = "")
         {
             logger.Info(PROGRAME + "qry trade");
             XQryTradeRequest request = RequestTemplate<XQryTradeRequest>.CliSendRequest(++requestid);
+            request.Start = start;
+            request.End = end;
+            request.Symbol = symbol;
             SendPacket(request);
             return requestid;
         }
