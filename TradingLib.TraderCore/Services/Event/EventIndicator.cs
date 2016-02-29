@@ -80,33 +80,5 @@ namespace TradingLib.TraderCore
             if (GotErrorOrderActionEvent != null)
                 GotErrorOrderActionEvent(a, e);
         }
-
-
-        public event Action<Order, bool> OnHistOrderEvent;
-        internal void FireHistOrderEvent(Order o, bool islast)
-        {
-            if (OnHistOrderEvent != null)
-                OnHistOrderEvent(o, islast);
-        }
-        public event Action<Trade, bool> OnHistTradeEvent;
-        internal void FireHistTradeEvent(Trade f, bool islast)
-        {
-            if (OnHistTradeEvent != null)
-                OnHistTradeEvent(f, islast);
-        }
-        public event Action<PositionDetail, bool> OnHistPositionEvent;
-        internal void FireHistPositionEvent(PositionDetail p, bool islast)
-        {
-            if (OnHistPositionEvent != null)
-                OnHistPositionEvent(p, islast);
-        }
-
-        public event Action<RspMGRQrySettleResponse> OnSettlementEvent;
-        internal void FireSettlementEvent(RspMGRQrySettleResponse resp)
-        {
-            if (OnSettlementEvent != null)
-                OnSettlementEvent(resp);
-        }
-
     }
 }

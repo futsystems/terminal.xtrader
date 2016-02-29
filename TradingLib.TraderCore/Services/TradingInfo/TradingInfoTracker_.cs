@@ -9,9 +9,6 @@ namespace TradingLib.TraderCore
 {
     public partial class TradingInfoTracker
     {
-        public Order SentOrder(long oid)
-        {
-            return this.OrderTracker.SentOrder(oid);
-        }
+        
     }
 }

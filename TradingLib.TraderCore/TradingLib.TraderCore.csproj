@@ -79,7 +79,6 @@
     <Compile Include="Services\PositionWatcher.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker_.cs" />
-    <Compile Include="Services\TradingInfo\TradingInfoTracker_Handler.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker_Utils.cs" />
   </ItemGroup>
   <ItemGroup />

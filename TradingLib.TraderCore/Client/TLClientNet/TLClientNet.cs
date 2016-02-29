@@ -121,13 +121,6 @@ namespace TradingLib.TraderCore
         #region 底层连接暴露上来的通道
 
 
-        void CliOnOldPositionNotify(HoldPositionNotify response)
-        {
-            //if (OnOldPositionEvent != null)
-                //OnOldPositionEvent(response.Position);
-        }
-
-
 
 
 

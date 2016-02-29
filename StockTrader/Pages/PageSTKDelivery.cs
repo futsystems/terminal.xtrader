@@ -6,8 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Common.Logging;
 
+using Common.Logging;
 using StockTrader.API;
 using TradingLib.API;
 using TradingLib.Common;

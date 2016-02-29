@@ -4,11 +4,20 @@ using System.Linq;
 using System.Text;
 using TradingLib.API;
 using TradingLib.Common;
+using Common.Logging;
+
 
 namespace TradingLib.TraderCore
 {
     public partial class TradingInfoTracker
     {
+        ILog logger = LogManager.GetLogger("TradingInfoTracker");
+
+        /// <summary>
+        /// 行情快照维护器
+        /// </summary>
+        public TickTracker TickTracker {get;set;}
+
         /// <summary>
         /// 委托维护器
         /// </summary>
@@ -42,13 +51,40 @@ namespace TradingLib.TraderCore
             PositionTracker = new LSPositionTracker("");
             HoldPositionTracker = new LSPositionTracker("");
             TradeTracker = new ThreadSafeList<Trade>();
+            TickTracker = new TickTracker();
             Account = new AccountLite();
+
+            CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
+            CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
+            CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);
 
             CoreService.EventQry.OnRspXQryOrderResponse += new Action<Order, RspInfo, int, bool>(EventQry_OnRspXQryOrderResponse);
             CoreService.EventQry.OnRspXQryYDPositionResponse += new Action<PositionDetail, RspInfo, int, bool>(EventQry_OnRspXQryYDPositionResponse);
             CoreService.EventQry.OnRspXQryFillResponese += new Action<Trade, RspInfo, int, bool>(EventQry_OnRspXQryFillResponese);
             CoreService.EventQry.OnRspQryAccountInfoResponse += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspQryAccountInfoResponse);
             PositionTracker.NewPositionEvent += new Action<Position>(PositionTracker_NewPositionEvent);
+        }
+
+        void EventIndicator_GotTickEvent(Tick obj)
+        {
+            TickTracker.GotTick(obj);
+            PositionTracker.GotTick(obj);
+        }
+
+        void EventIndicator_GotFillEvent(Trade obj)
+        {
+            bool accept = false;
+            PositionTracker.GotFill(obj, out accept);
+            if (accept)
+            {
+                OrderTracker.GotFill(obj);
+                TradeTracker.Add(obj);
+            }
+        }
+
+        void EventIndicator_GotOrderEvent(Order obj)
+        {
+            OrderTracker.GotOrder(obj);
         }
 
 
@@ -161,7 +197,14 @@ namespace TradingLib.TraderCore
                 GotPositionEvent(obj);
         }
 
-        
+
+
+        void Status(string msg)
+        {
+            CoreService.EventCore.FireInitializeStatusEvent(msg);
+            logger.Info(msg);
+        }
+
 
     }
 }

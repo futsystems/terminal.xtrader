@@ -5,13 +5,13 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
+        #region 实时数据处理
         /// <summary>
         /// 响应行情
         /// </summary>
         /// <param name="response"></param>
         void CliOnTickNotify(TickNotify response)
         {
-            CoreService.TradingInfoTracker.NotifyTick(response.Tick);
             CoreService.EventIndicator.FireTick(response.Tick);
         }
 
@@ -32,7 +32,6 @@ namespace TradingLib.TraderCore
             //    logger.Warn("Order's Symbol do no exist");
             //    return;
             //}
-            CoreService.TradingInfoTracker.NotifyOrder(o);
             CoreService.EventIndicator.FireOrder(o);
         }
 
@@ -53,9 +52,11 @@ namespace TradingLib.TraderCore
             //    logger.Warn("Trade's Symbol do no exist");
             //    return;
             //}
-            CoreService.TradingInfoTracker.NotifyFill(f);
             CoreService.EventIndicator.FireFill(f);
         }
+
+        #endregion
+
 
         /// <summary>
         /// 响应隔夜持仓查询
@@ -76,7 +77,6 @@ namespace TradingLib.TraderCore
             }
             
             CoreService.EventQry.FireRspXQryYDPositionResponse(pd, response.RspInfo, response.RequestID, response.IsLast);
-            //CoreService.TradingInfoTracker.GotYDPosition(response.YDPosition, response.IsLast);
         }
 
         /// <summary>
@@ -98,7 +98,6 @@ namespace TradingLib.TraderCore
             }
             
             CoreService.EventQry.FireRspXQryOrderResponse(o, response.RspInfo, response.RequestID, response.IsLast);
-            //CoreService.TradingInfoTracker.GotOrder(response.Order, response.IsLast);
         }
 
         /// <summary>
@@ -120,7 +119,6 @@ namespace TradingLib.TraderCore
             }
             
             CoreService.EventQry.FireRspXQryFillResponese(f, response.RspInfo, response.RequestID, response.IsLast);
-            //CoreService.TradingInfoTracker.GotTrade(response.Trade, response.IsLast);
         }
 
         /// <summary>
@@ -130,8 +128,9 @@ namespace TradingLib.TraderCore
         void CliOnQryAccountInfo(RspQryAccountInfoResponse response)
         {
             logger.Debug("got qry account info response:" + response.ToString());
-            CoreService.TradingInfoTracker.GotAccountInfo(response.AccInfo, response.IsLast);
+            CoreService.EventQry.FireRspQryAccountInfoResponse(response.AccInfo, response.RspInfo, response.RequestID, response.IsLast);
         }
+
 
         /// <summary>
         /// 响应行情快照查询

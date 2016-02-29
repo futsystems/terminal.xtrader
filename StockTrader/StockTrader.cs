@@ -23,44 +23,14 @@ namespace StockTrader
         public StockTrader()
         {
             InitializeComponent();
-            //NSkinManager.Instance.Enabled = true;
-            //NSkinResource res = new NSkinResource(SkinResourceType.GlobalAssembly, "Vista");
-            //res.AssemblyName = "Nevron.UI.WinForm.Skins";
 
-            //NSkin skin = new NSkin();
-            //if (skin.Load(res))
-            //{
-            //    NSkinManager.Instance.Skin = skin;
-            //}
-
-            
             //初始化页面
             InitPage();
 
             //初始化左侧树状菜单
             InitMenuTree();
-            
-            
-
 
             WireEvent();
-            
-
-
-            //for(int i = 0; i < 20; i++)
-            //{
-            //    node1 = new TreeNode("NTreeNode "+i.ToString());
-            //    node1.ImageIndex = i;
-            //    node1.SelectedImageIndex = i;
-            //    for(int j = 0; j < 20; j++)
-            //    {
-            //        node2 = new TreeNode("Sub-NTreeNode "+j.ToString());
-            //        node2.ImageIndex = j;
-            //        node2.SelectedImageIndex = j;
-            //        node1.Nodes.Add(node2);
-            //    }
-            //    nTreeView1.Nodes.Add(node1);
-            //}
 
             ShowPage(EnumPageType.OrderEntryPage);
         }
@@ -234,6 +204,7 @@ namespace StockTrader
         {
             PageSTKAccountPosition p = node.Tag as PageSTKAccountPosition;
             ShowPage(EnumPageType.AccountPage);
+            p.QryAccountInfo();
         }
         void OpenPageDelivery(TreeNode node)
         {
