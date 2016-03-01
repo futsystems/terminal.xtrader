@@ -126,19 +126,19 @@ namespace TradingLib.KryptonControl
             if (needsearch)
             {
                 Symbol sym = CoreService.BasicInfoTracker.GetSymbol(symbol.Text);
-                if (sym != null)
+                if (sym == null)
                 {
                     if (_qryid == 0)
                     {
-                        //logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol.Text));
-                        logger.Info(string.Format("qry symbol:{0} from server", sym.Symbol));
-                        _qryid = CoreService.TLClient.ReqXQrySymbol(sym.Symbol);
+                        logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol.Text));
+                        //logger.Info(string.Format("qry symbol:{0} from server", sym.Symbol));
+                        _qryid = CoreService.TLClient.ReqXQrySymbol(symbol.Text);
                     }
                 }
                 else
                 { 
                     //触发合约选择事件
-                    //CoreService.EventUI.FireSymbolselectedEvent(this, sym);
+                    CoreService.EventUI.FireSymbolselectedEvent(this, sym);
                 }
             }
         }

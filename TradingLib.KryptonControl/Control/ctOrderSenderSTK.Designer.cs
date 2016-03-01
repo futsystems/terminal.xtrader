@@ -32,8 +32,8 @@
             this.price = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.size = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnReset = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel7 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel6 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -70,8 +70,8 @@
             // 
             // kryptonPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.kryptonButton2);
-            this.kryptonPanel1.Controls.Add(this.kryptonButton1);
+            this.kryptonPanel1.Controls.Add(this.btnSubmit);
+            this.kryptonPanel1.Controls.Add(this.btnReset);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel8);
             this.kryptonPanel1.Controls.Add(this.size);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel7);
@@ -88,21 +88,21 @@
             this.kryptonPanel1.Size = new System.Drawing.Size(220, 212);
             this.kryptonPanel1.TabIndex = 25;
             // 
-            // kryptonButton2
+            // btnSubmit
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(123, 175);
-            this.kryptonButton2.Name = "kryptonButton2";
-            this.kryptonButton2.Size = new System.Drawing.Size(70, 25);
-            this.kryptonButton2.TabIndex = 30;
-            this.kryptonButton2.Values.Text = "买 入";
+            this.btnSubmit.Location = new System.Drawing.Point(123, 175);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(70, 25);
+            this.btnSubmit.TabIndex = 30;
+            this.btnSubmit.Values.Text = "买 入";
             // 
-            // kryptonButton1
+            // btnReset
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(23, 175);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(70, 25);
-            this.kryptonButton1.TabIndex = 29;
-            this.kryptonButton1.Values.Text = "重 置";
+            this.btnReset.Location = new System.Drawing.Point(23, 175);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(70, 25);
+            this.btnReset.TabIndex = 29;
+            this.btnReset.Values.Text = "重 置";
             // 
             // kryptonLabel8
             // 
@@ -198,7 +198,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel6;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel7;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnReset;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubmit;
     }
 }
