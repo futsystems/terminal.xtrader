@@ -80,6 +80,7 @@
     <Compile Include="Services\TradingInfo\TradingInfoTracker.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker_.cs" />
     <Compile Include="Services\TradingInfo\TradingInfoTracker_Utils.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

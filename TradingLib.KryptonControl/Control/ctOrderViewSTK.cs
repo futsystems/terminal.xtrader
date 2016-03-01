@@ -32,8 +32,31 @@ namespace TradingLib.KryptonControl
             InitTable();
             BindToTable();
 
-            CoreService.EventCore.RegIEventHandler(this);
-            CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
+            //控件创建时_realview为默认True 这里还没有设置成自定义参数
+            //logger.Info("Control created, realview:" + _realview.ToString());
+            ////显示实时委托 需要在核心初始化完毕后从TradingInfoTracker中加载所有委托 同时相应委托实时数据
+            //if (_realview)
+            //{
+            //    CoreService.EventCore.RegIEventHandler(this);
+            //    CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
+            //}
+            this.Load += new EventHandler(ctOrderViewSTK_Load);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ctOrderViewSTK_Load(object sender, EventArgs e)
+        {
+            //logger.Info("Control load,realivew:" + _realview.ToString());
+            //如果需要根据控件的参数设置动态的调整控件内部事件的注册 则在控件第一次显示时进行处理,此时控件的参数已经赋值完毕
+            if (_realview)
+            {
+                CoreService.EventCore.RegIEventHandler(this);
+                CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
+            }
         }
 
         public void OnInit()
@@ -51,6 +74,24 @@ namespace TradingLib.KryptonControl
         {
 
         }
+
+        [DefaultValue(true)]
+        bool _realview = true;
+        /// <summary>
+        /// 控件是否在实时状态工作
+        /// 实时状态显示实时交易回报
+        /// 查询状态显示查询回报
+        /// 该参数用于编制控件时在属性内进行调整，程序运行期间调整无效
+        /// </summary>
+        public bool RealView
+        {
+            get { return _realview; }
+            set
+            {
+                _realview = value;
+            }
+        }
+
 
 
         /// <summary>

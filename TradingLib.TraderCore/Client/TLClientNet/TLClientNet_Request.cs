@@ -384,7 +384,7 @@ namespace TradingLib.TraderCore
             SendPacket(request);
         }
 
-        public void ReqTickSnapShot(string symbol = "")
+        public void ReqXQryTickSnapShot(string symbol = "")
         {
             XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;

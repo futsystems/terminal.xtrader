@@ -152,7 +152,7 @@
             this.menuTree.Size = new System.Drawing.Size(200, 440);
             this.menuTree.TabIndex = 0;
             // 
-            // Form1
+            // StockTrader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -160,9 +160,9 @@
             this.Controls.Add(this.kryptonSplitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "Form1";
+            this.Name = "StockTrader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "巨融股票交易终端";
+            this.Text = "终端";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();

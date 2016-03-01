@@ -15,6 +15,11 @@ namespace TradingLib.TraderControl
 {
     public class TraderHelper
     {
+
+        public static string FormatPrice(Position pos, decimal val)
+        {
+            return "";
+        }
         public static System.Windows.Forms.DialogResult WindowMessage(string message, string title = "提示")
         {
             MessageForm fm = new MessageForm(message, title);

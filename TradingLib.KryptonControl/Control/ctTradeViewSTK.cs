@@ -25,29 +25,27 @@ namespace TradingLib.KryptonControl
             SetPreferences();
             InitTable();
             BindToTable();
-            CoreService.EventCore.RegIEventHandler(this);
             
-            //实时状态 响应实时成交回报
+
+            this.Load += new EventHandler(ctTradeViewSTK_Load);
+        }
+
+        void ctTradeViewSTK_Load(object sender, EventArgs e)
+        {
             if (this._realview)
             {
+                CoreService.EventCore.RegIEventHandler(this);
                 CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
-            }
-            else
-            { 
-                
             }
         }
 
         public void OnInit()
         {
-            //实时状态从交易数据维护器中恢复当日交易数据
-            if (this._realview)
+            foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
             {
-                foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
-                {
-                    this.GotFill(f);
-                }
+                this.GotFill(f);
             }
+
         }
 
         public void OnDisposed()

@@ -436,6 +436,7 @@ namespace TradingLib.TraderControl
                             //记录该仓位所属账户
                             string acc = gt.Rows[i][ACCOUNT].ToString();
                             bool posside = bool.Parse(gt.Rows[i][SIDE].ToString());
+
                             Position pos = CoreService.TradingInfoTracker.PositionTracker[t.Symbol, acc, posside];
                             string key = pos.GetPositionKey();
                             //logger.Debug("tick symbol:" + t.Symbol + " key:" + key.ToString());
