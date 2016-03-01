@@ -13,6 +13,8 @@ namespace TradingLib.TraderCore
     {
         ILog logger = LogManager.GetLogger("BasicInfoTracker");
 
+        bool _inited = false;
+
         void Status(string msg)
         {
             CoreService.EventCore.FireInitializeStatusEvent(msg);

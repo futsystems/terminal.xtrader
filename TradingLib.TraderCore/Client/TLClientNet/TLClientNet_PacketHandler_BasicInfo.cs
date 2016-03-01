@@ -32,6 +32,13 @@ namespace TradingLib.TraderCore
         {
             logger.Debug("got symbol response:" + response.ToString());
             CoreService.BasicInfoTracker.GotSymbol(response.Symbol, response.IsLast);
+            Symbol target = null;
+            if (response.Symbol != null)
+            {
+                target = CoreService.BasicInfoTracker.GetSymbol(response.Symbol.Symbol);
+            }
+            CoreService.EventQry.FireRspXQrySymbolResponse(target, response.RspInfo, response.RequestID, response.IsLast);
+
         }
     }
 }

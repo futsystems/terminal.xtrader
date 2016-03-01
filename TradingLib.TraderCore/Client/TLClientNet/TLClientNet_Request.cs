@@ -191,11 +191,12 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 查询合约
         /// </summary>
-        public int  ReqXQrySymbol()
+        public int  ReqXQrySymbol(string symbol="")
         {
             logger.Info(PROGRAME + " qry symbol");
 
             XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(++requestid);
+            request.Symbol = symbol;
             SendPacket(request);
             return requestid;
         }
@@ -367,13 +368,19 @@ namespace TradingLib.TraderCore
         }
 
 
-        public void ReqQrySymbol(string symbol)
-        {
-            QrySymbolRequest request = RequestTemplate<QrySymbolRequest>.CliSendRequest(++requestid);
-            request.Symbol = symbol;
+        ///// <summary>
+        ///// 查询合约数据
+        ///// </summary>
+        ///// <param name="symbol"></param>
+        ///// <returns></returns>
+        //public int  ReqQrySymbol(string symbol)
+        //{
+        //    QrySymbolRequest request = RequestTemplate<QrySymbolRequest>.CliSendRequest(++requestid);
+        //    request.Symbol = symbol;
 
-            SendPacket(request);
-        }
+        //    SendPacket(request);
+        //    return requestid;
+        //}
 
         public void ReqQryOpenSize(string symbol)
         {

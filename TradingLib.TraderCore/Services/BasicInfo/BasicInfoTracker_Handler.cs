@@ -29,7 +29,7 @@ namespace TradingLib.TraderCore
                     notify = mt;
                 }
             }
-            if (islast)
+            if (islast && (!_inited))
             {
                 Status("交易时间查询完毕,查询交易所信息");
                 CoreService.TLClient.ReqXQryExchange();
@@ -57,7 +57,7 @@ namespace TradingLib.TraderCore
                     notify = ex;
                 }
             }
-            if (islast)
+            if (islast && (!_inited))
             {
                 Status("交易所查询完毕,查询品种信息");
                 CoreService.TLClient.ReqXQrySecurity();
@@ -108,7 +108,7 @@ namespace TradingLib.TraderCore
                 }
             }
 
-            if (islast)
+            if (islast && (!_inited))
             {
                 Status("品种查询完毕,查询合约信息");
                 CoreService.TLClient.ReqXQrySymbol();
@@ -124,7 +124,6 @@ namespace TradingLib.TraderCore
             if (symbol != null)
             {
                 SymbolImpl target = null;
-                SymbolImpl notify = null;
                 if (symbolmap.TryGetValue(symbol.ID, out target))
                 {
                     //更新
@@ -147,8 +146,6 @@ namespace TradingLib.TraderCore
                     target.underlayingsymbol_fk = symbol.underlayingsymbol_fk;
                     target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
                     target.Tradeable = symbol.Tradeable;
-
-                    notify = target;
                 }
                 else //添加
                 {
@@ -157,13 +154,13 @@ namespace TradingLib.TraderCore
                     symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
                     symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
                     symbolnamemap[symbol.Symbol] = symbol;
-                    notify = symbol;
                 }
             }
-            if (islast)
+            if (islast&& (!_inited))
             {
                 Status("合约查询完毕,查询隔夜持仓");
                 BindData();
+                _inited = true;
                 CoreService.TradingInfoTracker.ResumeData();
             }
 

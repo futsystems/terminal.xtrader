@@ -59,5 +59,18 @@ namespace TradingLib.TraderCore
                 OnRspQryAccountInfoResponse(info, rsp, requestId, isLast);
             }
         }
+
+
+        /// <summary>
+        /// 查询合约对象
+        /// </summary>
+        public event Action<Symbol, RspInfo, int, bool> OnRspXQrySymbolResponse;
+        internal void FireRspXQrySymbolResponse(Symbol symbol, RspInfo rsp, int requestId, bool isLast)
+        {
+            if (OnRspXQrySymbolResponse != null)
+            {
+                OnRspXQrySymbolResponse(symbol, rsp, requestId, isLast);
+            }
+        }
     }
 }
