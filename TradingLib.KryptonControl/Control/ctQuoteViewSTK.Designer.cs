@@ -29,9 +29,32 @@
         private void InitializeComponent()
         {
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.kryptonLabel25 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBidSize5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBidSize4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBidSize3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBidSize2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBidSize1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel31 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAskSize1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAskSize2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAskSize3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAskSize4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAskSize5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel23 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBid5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBid4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBid3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBid2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbBid1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbTrade = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAsk1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAsk2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAsk3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAsk4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel38 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel37 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel24 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lbAsk5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonBorderEdge3 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.kryptonLabel7 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -47,29 +70,6 @@
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel13 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel14 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel15 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel16 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel17 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel18 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel19 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel20 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel21 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel22 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel23 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel25 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel26 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel27 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel28 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel29 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel30 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel31 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel32 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel33 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel34 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel35 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel36 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,31 +77,31 @@
             // kryptonPanel1
             // 
             this.kryptonPanel1.Controls.Add(this.kryptonLabel25);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel26);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel27);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel28);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel29);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel30);
+            this.kryptonPanel1.Controls.Add(this.lbBidSize5);
+            this.kryptonPanel1.Controls.Add(this.lbBidSize4);
+            this.kryptonPanel1.Controls.Add(this.lbBidSize3);
+            this.kryptonPanel1.Controls.Add(this.lbBidSize2);
+            this.kryptonPanel1.Controls.Add(this.lbBidSize1);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel31);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel32);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel33);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel34);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel35);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel36);
+            this.kryptonPanel1.Controls.Add(this.lbAskSize1);
+            this.kryptonPanel1.Controls.Add(this.lbAskSize2);
+            this.kryptonPanel1.Controls.Add(this.lbAskSize3);
+            this.kryptonPanel1.Controls.Add(this.lbAskSize4);
+            this.kryptonPanel1.Controls.Add(this.lbAskSize5);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel23);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel22);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel21);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel20);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel19);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel18);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel17);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel16);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel15);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel14);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel13);
+            this.kryptonPanel1.Controls.Add(this.lbBid5);
+            this.kryptonPanel1.Controls.Add(this.lbBid4);
+            this.kryptonPanel1.Controls.Add(this.lbBid3);
+            this.kryptonPanel1.Controls.Add(this.lbBid2);
+            this.kryptonPanel1.Controls.Add(this.lbBid1);
+            this.kryptonPanel1.Controls.Add(this.lbTrade);
+            this.kryptonPanel1.Controls.Add(this.lbAsk1);
+            this.kryptonPanel1.Controls.Add(this.lbAsk2);
+            this.kryptonPanel1.Controls.Add(this.lbAsk3);
+            this.kryptonPanel1.Controls.Add(this.lbAsk4);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel38);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel37);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel24);
+            this.kryptonPanel1.Controls.Add(this.lbAsk5);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel12);
             this.kryptonPanel1.Controls.Add(this.kryptonBorderEdge3);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel7);
@@ -123,6 +123,236 @@
             this.kryptonPanel1.Size = new System.Drawing.Size(220, 250);
             this.kryptonPanel1.TabIndex = 0;
             // 
+            // kryptonLabel25
+            // 
+            this.kryptonLabel25.AutoSize = false;
+            this.kryptonLabel25.Location = new System.Drawing.Point(150, 223);
+            this.kryptonLabel25.Name = "kryptonLabel25";
+            this.kryptonLabel25.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.kryptonLabel25.Size = new System.Drawing.Size(60, 20);
+            this.kryptonLabel25.TabIndex = 71;
+            this.kryptonLabel25.Values.Text = "--";
+            // 
+            // lbBidSize5
+            // 
+            this.lbBidSize5.AutoSize = false;
+            this.lbBidSize5.Location = new System.Drawing.Point(150, 202);
+            this.lbBidSize5.Name = "lbBidSize5";
+            this.lbBidSize5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBidSize5.Size = new System.Drawing.Size(60, 20);
+            this.lbBidSize5.TabIndex = 70;
+            this.lbBidSize5.Values.Text = "--";
+            // 
+            // lbBidSize4
+            // 
+            this.lbBidSize4.AutoSize = false;
+            this.lbBidSize4.Location = new System.Drawing.Point(150, 182);
+            this.lbBidSize4.Name = "lbBidSize4";
+            this.lbBidSize4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBidSize4.Size = new System.Drawing.Size(60, 20);
+            this.lbBidSize4.TabIndex = 69;
+            this.lbBidSize4.Values.Text = "--";
+            // 
+            // lbBidSize3
+            // 
+            this.lbBidSize3.AutoSize = false;
+            this.lbBidSize3.Location = new System.Drawing.Point(150, 162);
+            this.lbBidSize3.Name = "lbBidSize3";
+            this.lbBidSize3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBidSize3.Size = new System.Drawing.Size(60, 20);
+            this.lbBidSize3.TabIndex = 68;
+            this.lbBidSize3.Values.Text = "--";
+            // 
+            // lbBidSize2
+            // 
+            this.lbBidSize2.AutoSize = false;
+            this.lbBidSize2.Location = new System.Drawing.Point(150, 142);
+            this.lbBidSize2.Name = "lbBidSize2";
+            this.lbBidSize2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBidSize2.Size = new System.Drawing.Size(60, 20);
+            this.lbBidSize2.TabIndex = 67;
+            this.lbBidSize2.Values.Text = "--";
+            // 
+            // lbBidSize1
+            // 
+            this.lbBidSize1.AutoSize = false;
+            this.lbBidSize1.Location = new System.Drawing.Point(150, 122);
+            this.lbBidSize1.Name = "lbBidSize1";
+            this.lbBidSize1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBidSize1.Size = new System.Drawing.Size(60, 20);
+            this.lbBidSize1.TabIndex = 66;
+            this.lbBidSize1.Values.Text = "--";
+            // 
+            // kryptonLabel31
+            // 
+            this.kryptonLabel31.AutoSize = false;
+            this.kryptonLabel31.Location = new System.Drawing.Point(150, 101);
+            this.kryptonLabel31.Name = "kryptonLabel31";
+            this.kryptonLabel31.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.kryptonLabel31.Size = new System.Drawing.Size(60, 20);
+            this.kryptonLabel31.TabIndex = 65;
+            this.kryptonLabel31.Values.Text = "--";
+            // 
+            // lbAskSize1
+            // 
+            this.lbAskSize1.AutoSize = false;
+            this.lbAskSize1.Location = new System.Drawing.Point(150, 80);
+            this.lbAskSize1.Name = "lbAskSize1";
+            this.lbAskSize1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAskSize1.Size = new System.Drawing.Size(60, 20);
+            this.lbAskSize1.TabIndex = 64;
+            this.lbAskSize1.Values.Text = "--";
+            // 
+            // lbAskSize2
+            // 
+            this.lbAskSize2.AutoSize = false;
+            this.lbAskSize2.Location = new System.Drawing.Point(150, 60);
+            this.lbAskSize2.Name = "lbAskSize2";
+            this.lbAskSize2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAskSize2.Size = new System.Drawing.Size(60, 20);
+            this.lbAskSize2.TabIndex = 63;
+            this.lbAskSize2.Values.Text = "--";
+            // 
+            // lbAskSize3
+            // 
+            this.lbAskSize3.AutoSize = false;
+            this.lbAskSize3.Location = new System.Drawing.Point(150, 40);
+            this.lbAskSize3.Name = "lbAskSize3";
+            this.lbAskSize3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAskSize3.Size = new System.Drawing.Size(60, 20);
+            this.lbAskSize3.TabIndex = 62;
+            this.lbAskSize3.Values.Text = "--";
+            // 
+            // lbAskSize4
+            // 
+            this.lbAskSize4.AutoSize = false;
+            this.lbAskSize4.Location = new System.Drawing.Point(150, 20);
+            this.lbAskSize4.Name = "lbAskSize4";
+            this.lbAskSize4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAskSize4.Size = new System.Drawing.Size(60, 20);
+            this.lbAskSize4.TabIndex = 61;
+            this.lbAskSize4.Values.Text = "--";
+            // 
+            // lbAskSize5
+            // 
+            this.lbAskSize5.AutoSize = false;
+            this.lbAskSize5.Location = new System.Drawing.Point(150, 0);
+            this.lbAskSize5.Name = "lbAskSize5";
+            this.lbAskSize5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAskSize5.Size = new System.Drawing.Size(60, 20);
+            this.lbAskSize5.TabIndex = 60;
+            this.lbAskSize5.Values.Text = "--";
+            // 
+            // kryptonLabel23
+            // 
+            this.kryptonLabel23.AutoSize = false;
+            this.kryptonLabel23.Location = new System.Drawing.Point(40, 223);
+            this.kryptonLabel23.Name = "kryptonLabel23";
+            this.kryptonLabel23.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.kryptonLabel23.Size = new System.Drawing.Size(60, 20);
+            this.kryptonLabel23.TabIndex = 59;
+            this.kryptonLabel23.Values.Text = "--";
+            // 
+            // lbBid5
+            // 
+            this.lbBid5.AutoSize = false;
+            this.lbBid5.Location = new System.Drawing.Point(40, 202);
+            this.lbBid5.Name = "lbBid5";
+            this.lbBid5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBid5.Size = new System.Drawing.Size(60, 20);
+            this.lbBid5.TabIndex = 58;
+            this.lbBid5.Values.Text = "--";
+            // 
+            // lbBid4
+            // 
+            this.lbBid4.AutoSize = false;
+            this.lbBid4.Location = new System.Drawing.Point(40, 182);
+            this.lbBid4.Name = "lbBid4";
+            this.lbBid4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBid4.Size = new System.Drawing.Size(60, 20);
+            this.lbBid4.TabIndex = 57;
+            this.lbBid4.Values.Text = "--";
+            // 
+            // lbBid3
+            // 
+            this.lbBid3.AutoSize = false;
+            this.lbBid3.Location = new System.Drawing.Point(40, 162);
+            this.lbBid3.Name = "lbBid3";
+            this.lbBid3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBid3.Size = new System.Drawing.Size(60, 20);
+            this.lbBid3.TabIndex = 56;
+            this.lbBid3.Values.Text = "--";
+            // 
+            // lbBid2
+            // 
+            this.lbBid2.AutoSize = false;
+            this.lbBid2.Location = new System.Drawing.Point(40, 142);
+            this.lbBid2.Name = "lbBid2";
+            this.lbBid2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBid2.Size = new System.Drawing.Size(60, 20);
+            this.lbBid2.TabIndex = 55;
+            this.lbBid2.Values.Text = "--";
+            // 
+            // lbBid1
+            // 
+            this.lbBid1.AutoSize = false;
+            this.lbBid1.Location = new System.Drawing.Point(40, 122);
+            this.lbBid1.Name = "lbBid1";
+            this.lbBid1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbBid1.Size = new System.Drawing.Size(60, 20);
+            this.lbBid1.TabIndex = 54;
+            this.lbBid1.Values.Text = "--";
+            // 
+            // lbTrade
+            // 
+            this.lbTrade.AutoSize = false;
+            this.lbTrade.Location = new System.Drawing.Point(40, 101);
+            this.lbTrade.Name = "lbTrade";
+            this.lbTrade.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbTrade.Size = new System.Drawing.Size(60, 20);
+            this.lbTrade.TabIndex = 53;
+            this.lbTrade.Values.Text = "--";
+            // 
+            // lbAsk1
+            // 
+            this.lbAsk1.AutoSize = false;
+            this.lbAsk1.Location = new System.Drawing.Point(40, 80);
+            this.lbAsk1.Name = "lbAsk1";
+            this.lbAsk1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAsk1.Size = new System.Drawing.Size(60, 20);
+            this.lbAsk1.TabIndex = 52;
+            this.lbAsk1.Values.Text = "--";
+            // 
+            // lbAsk2
+            // 
+            this.lbAsk2.AutoSize = false;
+            this.lbAsk2.Location = new System.Drawing.Point(40, 60);
+            this.lbAsk2.Name = "lbAsk2";
+            this.lbAsk2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAsk2.Size = new System.Drawing.Size(60, 20);
+            this.lbAsk2.TabIndex = 51;
+            this.lbAsk2.Values.Text = "--";
+            // 
+            // lbAsk3
+            // 
+            this.lbAsk3.AutoSize = false;
+            this.lbAsk3.Location = new System.Drawing.Point(40, 40);
+            this.lbAsk3.Name = "lbAsk3";
+            this.lbAsk3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAsk3.Size = new System.Drawing.Size(60, 20);
+            this.lbAsk3.TabIndex = 50;
+            this.lbAsk3.Values.Text = "--";
+            // 
+            // lbAsk4
+            // 
+            this.lbAsk4.AutoSize = false;
+            this.lbAsk4.Location = new System.Drawing.Point(40, 20);
+            this.lbAsk4.Name = "lbAsk4";
+            this.lbAsk4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAsk4.Size = new System.Drawing.Size(60, 20);
+            this.lbAsk4.TabIndex = 49;
+            this.lbAsk4.Values.Text = "--";
+            // 
             // kryptonLabel38
             // 
             this.kryptonLabel38.Location = new System.Drawing.Point(107, 101);
@@ -139,15 +369,15 @@
             this.kryptonLabel37.TabIndex = 44;
             this.kryptonLabel37.Values.Text = "跌停";
             // 
-            // kryptonLabel24
+            // lbAsk5
             // 
-            this.kryptonLabel24.AutoSize = false;
-            this.kryptonLabel24.Location = new System.Drawing.Point(40, 0);
-            this.kryptonLabel24.Name = "kryptonLabel24";
-            this.kryptonLabel24.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel24.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel24.TabIndex = 20;
-            this.kryptonLabel24.Values.Text = "--";
+            this.lbAsk5.AutoSize = false;
+            this.lbAsk5.Location = new System.Drawing.Point(40, 0);
+            this.lbAsk5.Name = "lbAsk5";
+            this.lbAsk5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lbAsk5.Size = new System.Drawing.Size(60, 20);
+            this.lbAsk5.TabIndex = 20;
+            this.lbAsk5.Values.Text = "--";
             // 
             // kryptonLabel12
             // 
@@ -266,236 +496,6 @@
             this.kryptonLabel1.TabIndex = 0;
             this.kryptonLabel1.Values.Text = "卖五";
             // 
-            // kryptonLabel13
-            // 
-            this.kryptonLabel13.AutoSize = false;
-            this.kryptonLabel13.Location = new System.Drawing.Point(40, 20);
-            this.kryptonLabel13.Name = "kryptonLabel13";
-            this.kryptonLabel13.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel13.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel13.TabIndex = 49;
-            this.kryptonLabel13.Values.Text = "--";
-            // 
-            // kryptonLabel14
-            // 
-            this.kryptonLabel14.AutoSize = false;
-            this.kryptonLabel14.Location = new System.Drawing.Point(40, 40);
-            this.kryptonLabel14.Name = "kryptonLabel14";
-            this.kryptonLabel14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel14.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel14.TabIndex = 50;
-            this.kryptonLabel14.Values.Text = "--";
-            // 
-            // kryptonLabel15
-            // 
-            this.kryptonLabel15.AutoSize = false;
-            this.kryptonLabel15.Location = new System.Drawing.Point(40, 60);
-            this.kryptonLabel15.Name = "kryptonLabel15";
-            this.kryptonLabel15.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel15.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel15.TabIndex = 51;
-            this.kryptonLabel15.Values.Text = "--";
-            // 
-            // kryptonLabel16
-            // 
-            this.kryptonLabel16.AutoSize = false;
-            this.kryptonLabel16.Location = new System.Drawing.Point(40, 80);
-            this.kryptonLabel16.Name = "kryptonLabel16";
-            this.kryptonLabel16.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel16.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel16.TabIndex = 52;
-            this.kryptonLabel16.Values.Text = "--";
-            // 
-            // kryptonLabel17
-            // 
-            this.kryptonLabel17.AutoSize = false;
-            this.kryptonLabel17.Location = new System.Drawing.Point(40, 101);
-            this.kryptonLabel17.Name = "kryptonLabel17";
-            this.kryptonLabel17.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel17.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel17.TabIndex = 53;
-            this.kryptonLabel17.Values.Text = "--";
-            // 
-            // kryptonLabel18
-            // 
-            this.kryptonLabel18.AutoSize = false;
-            this.kryptonLabel18.Location = new System.Drawing.Point(40, 122);
-            this.kryptonLabel18.Name = "kryptonLabel18";
-            this.kryptonLabel18.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel18.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel18.TabIndex = 54;
-            this.kryptonLabel18.Values.Text = "--";
-            // 
-            // kryptonLabel19
-            // 
-            this.kryptonLabel19.AutoSize = false;
-            this.kryptonLabel19.Location = new System.Drawing.Point(40, 142);
-            this.kryptonLabel19.Name = "kryptonLabel19";
-            this.kryptonLabel19.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel19.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel19.TabIndex = 55;
-            this.kryptonLabel19.Values.Text = "--";
-            // 
-            // kryptonLabel20
-            // 
-            this.kryptonLabel20.AutoSize = false;
-            this.kryptonLabel20.Location = new System.Drawing.Point(40, 162);
-            this.kryptonLabel20.Name = "kryptonLabel20";
-            this.kryptonLabel20.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel20.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel20.TabIndex = 56;
-            this.kryptonLabel20.Values.Text = "--";
-            // 
-            // kryptonLabel21
-            // 
-            this.kryptonLabel21.AutoSize = false;
-            this.kryptonLabel21.Location = new System.Drawing.Point(40, 182);
-            this.kryptonLabel21.Name = "kryptonLabel21";
-            this.kryptonLabel21.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel21.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel21.TabIndex = 57;
-            this.kryptonLabel21.Values.Text = "--";
-            // 
-            // kryptonLabel22
-            // 
-            this.kryptonLabel22.AutoSize = false;
-            this.kryptonLabel22.Location = new System.Drawing.Point(40, 202);
-            this.kryptonLabel22.Name = "kryptonLabel22";
-            this.kryptonLabel22.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel22.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel22.TabIndex = 58;
-            this.kryptonLabel22.Values.Text = "--";
-            // 
-            // kryptonLabel23
-            // 
-            this.kryptonLabel23.AutoSize = false;
-            this.kryptonLabel23.Location = new System.Drawing.Point(40, 223);
-            this.kryptonLabel23.Name = "kryptonLabel23";
-            this.kryptonLabel23.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel23.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel23.TabIndex = 59;
-            this.kryptonLabel23.Values.Text = "--";
-            // 
-            // kryptonLabel25
-            // 
-            this.kryptonLabel25.AutoSize = false;
-            this.kryptonLabel25.Location = new System.Drawing.Point(150, 223);
-            this.kryptonLabel25.Name = "kryptonLabel25";
-            this.kryptonLabel25.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel25.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel25.TabIndex = 71;
-            this.kryptonLabel25.Values.Text = "--";
-            // 
-            // kryptonLabel26
-            // 
-            this.kryptonLabel26.AutoSize = false;
-            this.kryptonLabel26.Location = new System.Drawing.Point(150, 202);
-            this.kryptonLabel26.Name = "kryptonLabel26";
-            this.kryptonLabel26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel26.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel26.TabIndex = 70;
-            this.kryptonLabel26.Values.Text = "--";
-            // 
-            // kryptonLabel27
-            // 
-            this.kryptonLabel27.AutoSize = false;
-            this.kryptonLabel27.Location = new System.Drawing.Point(150, 182);
-            this.kryptonLabel27.Name = "kryptonLabel27";
-            this.kryptonLabel27.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel27.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel27.TabIndex = 69;
-            this.kryptonLabel27.Values.Text = "--";
-            // 
-            // kryptonLabel28
-            // 
-            this.kryptonLabel28.AutoSize = false;
-            this.kryptonLabel28.Location = new System.Drawing.Point(150, 162);
-            this.kryptonLabel28.Name = "kryptonLabel28";
-            this.kryptonLabel28.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel28.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel28.TabIndex = 68;
-            this.kryptonLabel28.Values.Text = "--";
-            // 
-            // kryptonLabel29
-            // 
-            this.kryptonLabel29.AutoSize = false;
-            this.kryptonLabel29.Location = new System.Drawing.Point(150, 142);
-            this.kryptonLabel29.Name = "kryptonLabel29";
-            this.kryptonLabel29.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel29.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel29.TabIndex = 67;
-            this.kryptonLabel29.Values.Text = "--";
-            // 
-            // kryptonLabel30
-            // 
-            this.kryptonLabel30.AutoSize = false;
-            this.kryptonLabel30.Location = new System.Drawing.Point(150, 122);
-            this.kryptonLabel30.Name = "kryptonLabel30";
-            this.kryptonLabel30.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel30.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel30.TabIndex = 66;
-            this.kryptonLabel30.Values.Text = "--";
-            // 
-            // kryptonLabel31
-            // 
-            this.kryptonLabel31.AutoSize = false;
-            this.kryptonLabel31.Location = new System.Drawing.Point(150, 101);
-            this.kryptonLabel31.Name = "kryptonLabel31";
-            this.kryptonLabel31.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel31.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel31.TabIndex = 65;
-            this.kryptonLabel31.Values.Text = "--";
-            // 
-            // kryptonLabel32
-            // 
-            this.kryptonLabel32.AutoSize = false;
-            this.kryptonLabel32.Location = new System.Drawing.Point(150, 80);
-            this.kryptonLabel32.Name = "kryptonLabel32";
-            this.kryptonLabel32.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel32.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel32.TabIndex = 64;
-            this.kryptonLabel32.Values.Text = "--";
-            // 
-            // kryptonLabel33
-            // 
-            this.kryptonLabel33.AutoSize = false;
-            this.kryptonLabel33.Location = new System.Drawing.Point(150, 60);
-            this.kryptonLabel33.Name = "kryptonLabel33";
-            this.kryptonLabel33.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel33.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel33.TabIndex = 63;
-            this.kryptonLabel33.Values.Text = "--";
-            // 
-            // kryptonLabel34
-            // 
-            this.kryptonLabel34.AutoSize = false;
-            this.kryptonLabel34.Location = new System.Drawing.Point(150, 40);
-            this.kryptonLabel34.Name = "kryptonLabel34";
-            this.kryptonLabel34.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel34.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel34.TabIndex = 62;
-            this.kryptonLabel34.Values.Text = "--";
-            // 
-            // kryptonLabel35
-            // 
-            this.kryptonLabel35.AutoSize = false;
-            this.kryptonLabel35.Location = new System.Drawing.Point(150, 20);
-            this.kryptonLabel35.Name = "kryptonLabel35";
-            this.kryptonLabel35.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel35.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel35.TabIndex = 61;
-            this.kryptonLabel35.Values.Text = "--";
-            // 
-            // kryptonLabel36
-            // 
-            this.kryptonLabel36.AutoSize = false;
-            this.kryptonLabel36.Location = new System.Drawing.Point(150, 0);
-            this.kryptonLabel36.Name = "kryptonLabel36";
-            this.kryptonLabel36.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.kryptonLabel36.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel36.TabIndex = 60;
-            this.kryptonLabel36.Values.Text = "--";
-            // 
             // ctQuoteViewSTK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -530,29 +530,29 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel38;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel37;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel24;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel17;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel16;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel15;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel14;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel13;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel18;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel19;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel20;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel21;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel22;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAsk5;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbTrade;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAsk1;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAsk2;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAsk3;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAsk4;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBid1;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBid2;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBid3;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBid4;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBid5;
         public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel23;
         public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel25;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel26;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel27;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel28;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel29;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel30;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBidSize5;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBidSize4;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBidSize3;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBidSize2;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbBidSize1;
         public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel31;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel32;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel33;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel34;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel35;
-        public ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel36;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAskSize1;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAskSize2;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAskSize3;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAskSize4;
+        public ComponentFactory.Krypton.Toolkit.KryptonLabel lbAskSize5;
     }
 }

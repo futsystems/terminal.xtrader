@@ -8,6 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 
 using StockTrader.API;
+using TradingLib.API;
+using TradingLib.Common;
+using TradingLib.TraderCore;
+
+using TradingLib.KryptonControl;
 
 namespace StockTrader
 {
@@ -19,7 +24,54 @@ namespace StockTrader
         {
             InitializeComponent();
             this.Mode = 0;
+
+            //绑定按钮事件
+            WireEvent();
         }
+
+        void WireEvent()
+        {
+            btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
+            btnCancelBuy.Click += new EventHandler(btnCancelBuy_Click);
+            btnCancelSell.Click += new EventHandler(btnCancelSell_Click);
+        }
+
+        #region 撤单按钮事件操作
+
+        void btnCancelSell_Click(object sender, EventArgs e)
+        {
+            if (TraderHelper.ConfirmWindow("确认撤掉所有未成交卖出委托?") == DialogResult.Yes)
+            {
+                foreach (var order in CoreService.TradingInfoTracker.OrderTracker.Where(o => o.IsPending() && (!o.Side)))
+                {
+                    CoreService.TLClient.ReqCancelOrder(order.id);
+                }
+            }
+        }
+
+        void btnCancelBuy_Click(object sender, EventArgs e)
+        {
+            if (TraderHelper.ConfirmWindow("确认撤掉所有未成交买入委托?") == DialogResult.Yes)
+            {
+                foreach (var order in CoreService.TradingInfoTracker.OrderTracker.Where(o => o.IsPending() && (o.Side)))
+                {
+                    CoreService.TLClient.ReqCancelOrder(order.id);
+                }
+            }
+        }
+
+        void btnCancelAll_Click(object sender, EventArgs e)
+        {
+            if (TraderHelper.ConfirmWindow("确认撤掉所有未成交委托?") == DialogResult.Yes)
+            {
+                foreach (var order in CoreService.TradingInfoTracker.OrderTracker.Where(o => o.IsPending()))
+                {
+                    CoreService.TLClient.ReqCancelOrder(order.id);
+                }
+            }
+        }
+
+        #endregion
 
         [DefaultValue(0)]
         int _mode = 0;

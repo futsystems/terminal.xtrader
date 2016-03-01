@@ -41,6 +41,39 @@ namespace TradingLib.KryptonControl
                 //CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
                 CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
             }
+
+            positionGrid.Click += new EventHandler(positionGrid_Click);
+        }
+
+        /// <summary>
+        /// 获得当前选中持仓
+        /// </summary>
+        Position CurrentPositoin
+        {
+            get
+            {
+                if (positionGrid.SelectedRows.Count > 0)
+                {
+                    string sym = positionGrid.SelectedRows[0].Cells[SYMBOL].Value.ToString();
+                    string account = positionGrid.SelectedRows[0].Cells[ACCOUNT].Value.ToString();
+                    bool side = bool.Parse(positionGrid.SelectedRows[0].Cells[SIDE].Value.ToString());
+
+                    return CoreService.TradingInfoTracker.PositionTracker[sym, account, side];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+
+        void positionGrid_Click(object sender, EventArgs e)
+        {
+            Position pos = CurrentPositoin;
+            if (pos == null) return;
+            logger.Info(string.Format("Position:{0} selected", pos.GetPositionKey()));
+            CoreService.EventUI.FireSymbolselectedEvent(this, pos.oSymbol);
         }
 
         public void OnInit()

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.ctTradeViewSTK1 = new TradingLib.KryptonControl.ctTradeViewSTK();
             this.btnQry = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.end = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.start = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.ctTradeViewSTK1 = new TradingLib.KryptonControl.ctTradeViewSTK();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +52,17 @@
             this.kryptonPanel1.Name = "kryptonPanel1";
             this.kryptonPanel1.Size = new System.Drawing.Size(578, 342);
             this.kryptonPanel1.TabIndex = 0;
+            // 
+            // ctTradeViewSTK1
+            // 
+            this.ctTradeViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ctTradeViewSTK1.Location = new System.Drawing.Point(0, 30);
+            this.ctTradeViewSTK1.Name = "ctTradeViewSTK1";
+            this.ctTradeViewSTK1.RealView = false;
+            this.ctTradeViewSTK1.Size = new System.Drawing.Size(578, 312);
+            this.ctTradeViewSTK1.TabIndex = 11;
             // 
             // btnQry
             // 
@@ -90,17 +101,6 @@
             this.kryptonLabel1.Size = new System.Drawing.Size(60, 20);
             this.kryptonLabel1.TabIndex = 6;
             this.kryptonLabel1.Values.Text = "查询日期";
-            // 
-            // ctTradeViewSTK1
-            // 
-            this.ctTradeViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctTradeViewSTK1.Location = new System.Drawing.Point(0, 30);
-            this.ctTradeViewSTK1.Name = "ctTradeViewSTK1";
-            this.ctTradeViewSTK1.RealView = true;
-            this.ctTradeViewSTK1.Size = new System.Drawing.Size(578, 312);
-            this.ctTradeViewSTK1.TabIndex = 11;
             // 
             // PageSTKTradeHist
             // 
