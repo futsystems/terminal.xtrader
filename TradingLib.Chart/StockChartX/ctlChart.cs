@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 using Common.Logging;
 
+
 using STOCKCHARTXLib;
 using TradingLib.API;
 using TradingLib.Common;
@@ -31,10 +32,12 @@ namespace TradingLib.Chart
 
     public partial class ctlChart : UserControl
     {
+        ILog logger = LogManager.GetLogger("cltChart");
+
         public ctlChart()
         {
             InitializeComponent();
-            logger = LogManager.GetLogger("cltChart");
+
             InitStockChartX();
 
             InitMenu();
@@ -57,7 +60,7 @@ namespace TradingLib.Chart
 
         Dictionary<int, string> _indicatorMap = new Dictionary<int, string>();
 
-        ILog logger;
+        
         void InitStockChartX()
         {
             StockChartX1.MouseMoveEvent += new AxSTOCKCHARTXLib._DStockChartXEvents_MouseMoveEventHandler(StockChartX1_MouseMoveEvent);
@@ -80,7 +83,7 @@ namespace TradingLib.Chart
             StockChartX1.OnChar += new AxSTOCKCHARTXLib._DStockChartXEvents_OnCharEventHandler(StockChartX1_OnChar);
 
             StockChartX1.DebugEvent += new AxSTOCKCHARTXLib._DStockChartXEvents_DebugEventEventHandler(StockChartX1_DebugEvent);
-            //StockChartX1.
+
         }
 
         void StockChartX1_DebugEvent(object sender, AxSTOCKCHARTXLib._DStockChartXEvents_DebugEventEvent e)
@@ -191,44 +194,39 @@ namespace TradingLib.Chart
 
         void InitMenu()
         {
-            mnuBuy.Click += new Nevron.UI.WinForm.Controls.CommandEventHandler(mnuBuy_Click);
-            mnuIndicator.Click += new CommandEventHandler(mnuIndicator_Click);
+            
         }
 
-        void mnuIndicator_Click(object sender, CommandEventArgs e)
-        {
-            frmIndicator fm = new frmIndicator();
-            fm.Show();
-        }
+       
 
-        void mnuBuy_Click(object sender, Nevron.UI.WinForm.Controls.CommandEventArgs e)
-        {
-            if (StockChartX1.PriceStyle != PriceStyle.psStandard)
-            {
-                MessageBox.Show("Chart trading can be used only with standard HLC or candle charts!", "Error:", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            MessageBox.Show("it is ok current panel:" + StockChartX1.CurrentPanel);
-            //if (txtQuantity.Text == "") txtQuantity.Text = "1";
+        //void mnuBuy_Click(object sender, Nevron.UI.WinForm.Controls.CommandEventArgs e)
+        //{
+        //    if (StockChartX1.PriceStyle != PriceStyle.psStandard)
+        //    {
+        //        MessageBox.Show("Chart trading can be used only with standard HLC or candle charts!", "Error:", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+        //    MessageBox.Show("it is ok current panel:" + StockChartX1.CurrentPanel);
+        //    //if (txtQuantity.Text == "") txtQuantity.Text = "1";
 
-            if (StockChartX1.CurrentPanel != 0) return;
-            //LoadPortfolios();
-            //grpOrder.Left = StockChartX1.GetXPixel(m_Record - StockChartX1.FirstVisibleRecord) - 50;
-            //grpOrder.Top = StockChartX1.GetYPixel(0, m_Value) - 20;
+        //    if (StockChartX1.CurrentPanel != 0) return;
+        //    //LoadPortfolios();
+        //    //grpOrder.Left = StockChartX1.GetXPixel(m_Record - StockChartX1.FirstVisibleRecord) - 50;
+        //    //grpOrder.Top = StockChartX1.GetYPixel(0, m_Value) - 20;
 
-            // Don't go offscreen
-            //if (grpOrder.Left + grpOrder.Width > StockChartX1.Left + StockChartX1.Width)
-            //    grpOrder.Left = StockChartX1.Left + StockChartX1.Width - grpOrder.Width;
-            //if (grpOrder.Top + grpOrder.Height > StockChartX1.Top + StockChartX1.Height)
-            //    grpOrder.Top = StockChartX1.Top + StockChartX1.Height - grpOrder.Height;
+        //    // Don't go offscreen
+        //    //if (grpOrder.Left + grpOrder.Width > StockChartX1.Left + StockChartX1.Width)
+        //    //    grpOrder.Left = StockChartX1.Left + StockChartX1.Width - grpOrder.Width;
+        //    //if (grpOrder.Top + grpOrder.Height > StockChartX1.Top + StockChartX1.Height)
+        //    //    grpOrder.Top = StockChartX1.Top + StockChartX1.Height - grpOrder.Height;
 
-            //if (cmbPortfolio.Items.Count > -1) cmbPortfolio.SelectedIndex = 0;
-            //if (grpOrder.Text == "") grpOrder.Text = "1";
-            //m_Side = ctlPortfolio.Orders.Side.LongSide;
-            //grpOrder.Visible = true;
-            //txtQuantity.SelectAll();
-            //txtQuantity.Focus();
-        }
+        //    //if (cmbPortfolio.Items.Count > -1) cmbPortfolio.SelectedIndex = 0;
+        //    //if (grpOrder.Text == "") grpOrder.Text = "1";
+        //    //m_Side = ctlPortfolio.Orders.Side.LongSide;
+        //    //grpOrder.Visible = true;
+        //    //txtQuantity.SelectAll();
+        //    //txtQuantity.Focus();
+        //}
 
         /// <summary>
         /// 按键Up事件nChar标示按键码
@@ -264,7 +262,7 @@ namespace TradingLib.Chart
             //if (_showMenu) return;
             //if (StockChartX1.SelectedKey != "") return;
             Point p = new Point { X = (Cursor.Position.X + Left), Y = (Cursor.Position.Y + Top) };
-            ctmRight.Show(this, p);
+            //ctmRight.Show(this, p);
         }
         
         /* A word about Julian dates:
@@ -381,18 +379,7 @@ namespace TradingLib.Chart
             return true;
         }
 
-        const string OPEN = "Open";
-        const string HIGH = "High";
-        const string LOW = "Low";
-        const string ClOSE= "Close";
-        const string VOLUME = "Volume";
-        const string OPENINTEREST = "Oi";
-
-        string GetSerieseName(string name)
-        { 
-            return string.Format("{0}{1}{2}",_symbol,".",name);
-        }
-        //string OpenName { get { return GetSerieseName(OPEN); } }
+        
 
         ChartStyle _style = new ChartStyle();
 
@@ -403,7 +390,7 @@ namespace TradingLib.Chart
             int panel = 0;
 
             StockChartX1.RemoveAllSeries();
-            StockChartX1.Symbol = this.Symbol.Replace(".", "");
+            StockChartX1.Symbol = this.Symbol.Symbol.Replace(".", "");
             StockChartX1.Visible = true;
             StockChartX1.PriceStyle = PriceStyle.psStandard;
 
@@ -431,10 +418,14 @@ namespace TradingLib.Chart
 
 
         }
+
+        Dictionary<int, ChartPanel> chartmap = new Dictionary<int, ChartPanel>();
+
         public void LoadChart()
         {
             LoadData(Environment.CurrentDirectory + "\\MSFT.csv");
-            _symbol = "IF1511";
+            _symbol = new SymbolImpl();
+            _symbol.Symbol = "IF1604";
 
             int panel = 0;
             int row = 0;
@@ -443,17 +434,24 @@ namespace TradingLib.Chart
 
             StockChartX1.RemoveAllSeries();
 
-            //StockChartX1.Symbol = _symbol.Replace(".", "");
+            StockChartX1.Symbol = _symbol.Symbol;
             StockChartX1.Visible = true;
             StockChartX1.PriceStyle = PriceStyle.psStandard;
             //First add a panel (chart area) for the OHLC data:
-            panel = StockChartX1.AddChartPanel();
+            //panel = StockChartX1.AddChartPanel();
+            ChartPanel chartPanel = new ChartPanel("主视图", StockChartX1);
+            chartPanel.AddSeries(this.NAME_OPEN);
+            chartPanel.AddSeries(this.NAME_HIGH);
+            chartPanel.AddSeries(this.NAME_LOW);
+            chartPanel.AddSeries(this.NAME_CLOSE);
+
+            chartmap.Add(chartPanel.PanelIdx, chartPanel);
 
             //Now add the open, high, low and close series to that panel:
-            StockChartX1.AddSeries(GetSerieseName(OPEN), SeriesType.stCandleChart, panel);
-            StockChartX1.AddSeries(GetSerieseName(HIGH), SeriesType.stCandleChart, panel);
-            StockChartX1.AddSeries(GetSerieseName(LOW), SeriesType.stCandleChart, panel);
-            StockChartX1.AddSeries(GetSerieseName(ClOSE), SeriesType.stCandleChart, panel);
+            //StockChartX1.AddSeries(GetSerieseName(OPEN), SeriesType.stCandleChart, panel);
+            //StockChartX1.AddSeries(GetSerieseName(HIGH), SeriesType.stCandleChart, panel);
+            //StockChartX1.AddSeries(GetSerieseName(LOW), SeriesType.stCandleChart, panel);
+            //StockChartX1.AddSeries(GetSerieseName(ClOSE), SeriesType.stCandleChart, panel);
             //StockChartX1.AddSeries(GetSerieseName(VOLUME), SeriesType.stCandleChart, panel);
 
             // Change the color:
@@ -464,9 +462,12 @@ namespace TradingLib.Chart
             // IMPORTANT! If you receive an AccessViolation regarding "protected memory" on the following line,
             // it means you are using the PERSONAL version of StockChartX without having registered the component
             // using the Activate.exe program. Please reinstall StockChartX in that case.
-            panel = StockChartX1.AddChartPanel();
-            StockChartX1.AddSeries(GetSerieseName(VOLUME), STOCKCHARTXLib.SeriesType.stVolumeChart, panel);
+            //panel = StockChartX1.AddChartPanel();
+            //StockChartX1.AddSeries(GetSerieseName(VOLUME), STOCKCHARTXLib.SeriesType.stVolumeChart, panel);
             //StockChartX1.SetSeriesUpDownColors(GetSerieseName(ClOSE), (uint)System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lime), (uint)System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red));
+            chartPanel = new ChartPanel("成交量", StockChartX1);
+            chartPanel.AddSeries(this.NAME_VOLUME, SeriesType.stVolumeChart);
+
 
             // Change volume color and weight of the volume panel:
             StockChartX1.set_SeriesColor(GetSerieseName(VOLUME), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue));
@@ -601,11 +602,25 @@ namespace TradingLib.Chart
                 {
                     StockChartX1.FirstVisibleRecord = StockChartX1.RecordCount - 100;
                 }
-
-
                 //实时触发更新
                 StockChartX1.Update();
             }
+        }
+
+        public void UpdateView()
+        {
+            //int cnt = StockChartX1.Width / 20;
+            if (StockChartX1.RecordCount > 100)
+            {
+                StockChartX1.FirstVisibleRecord = StockChartX1.RecordCount - 100;
+            }
+            //实时触发更新
+            StockChartX1.Update();
+        }
+
+        public void Clear()
+        {
+            StockChartX1.RemoveAllSeries();
         }
 
         /// <summary>
@@ -677,254 +692,10 @@ namespace TradingLib.Chart
 
 
 
-        string _symbol = string.Empty;
-        /// <summary>
-        /// Chart对应的合约
-        /// </summary>
-        public string Symbol
-        {
-            get { return _symbol; }
-        }
-
-        #region 属性
-
-
-        int _visibleRecoredCount = 150;
-        /// <summary>
-        /// 默认图表显示Bar个数
-        /// </summary>
-        public int DefaultVisibleRecordCount
-        {
-            get { return _visibleRecoredCount; }
-
-            set 
-            {
-                _visibleRecoredCount = value;
-            }
-        }
-
-        bool _threeD = true;
-        public bool ThreeD
-        {
-            get { return _threeD; }
-            set
-            {
-                _threeD = value;
-                StockChartX1.ThreeDStyle = _threeD;
-            }
-        }
-
-        System.Drawing.Color _upBodyColor = System.Drawing.Color.Black;
-        public System.Drawing.Color ColorUpBody
-        {
-            get { return _upBodyColor; }
-            set 
-            {
-                _upBodyColor = value;
-                StockChartX1.UpColor = _upBodyColor;
-            }
-        }
-        System.Drawing.Color _upBoxColor = ChartStyle.COLOR_UP;
-        public System.Drawing.Color ColorUpBox
-        {
-            get { return _upBoxColor; }
-            set
-            {
-                _upBoxColor = value;
-                if (!this.ThreeD)//3D模式不设置边框颜色
-                {
-                    StockChartX1.CandleUpOutlineColor = _upBoxColor;
-                }
-            }
-        }
-        System.Drawing.Color _downBodyColor = ChartStyle.COLOR_DOWN;
-        public System.Drawing.Color ColorDownBody
-        {
-            get { return _downBodyColor; }
-            set
-            {
-                _downBodyColor = value;
-                StockChartX1.DownColor = _downBodyColor;
-                
-            }
-        }
-        System.Drawing.Color _downBoxColor = ChartStyle.COLOR_DOWN;
-        public System.Drawing.Color ColorDownBox
-        {
-            get { return _downBoxColor; }
-            set
-            {
-                _downBoxColor = value;
-                if (!this.ThreeD)//3D模式不设置边框颜色
-                {
-                    StockChartX1.CandleDownOutlineColor = _downBoxColor;
-                }
-            }
-        }
-
-        System.Drawing.Color _seperatorColor = ChartStyle.COLOR_SEPERATOR;
-        public System.Drawing.Color ColorSeperator
-        {
-            get { return _seperatorColor; }
-            set
-            {
-                _seperatorColor = value;
-                StockChartX1.HorizontalSeparatorColor = _seperatorColor;
-            }
-        }
 
 
 
 
-        bool _showTitle = true;
-        public bool ShowTitle
-        {
-            get { return _showTitle; }
-            set 
-            {
-                _showTitle = value;
-                StockChartX1.DisplayTitles = _showTitle;
-            }
-        }
-
-        EnumScaleAlignment _xScaleAlignment = EnumScaleAlignment.Left;
-        /// <summary>
-        /// Y轴坐标位置
-        /// </summary>
-        public EnumScaleAlignment ScaleAlignment
-        { 
-            get
-            {
-                return _xScaleAlignment;
-            }
-            set
-            {
-                _xScaleAlignment = value;
-                if(_xScaleAlignment == EnumScaleAlignment.Left)
-                {
-                    StockChartX1.Alignment = (int)STOCKCHARTXLib.ScaleType.stAlignLeft;
-                }
-                if(_xScaleAlignment == EnumScaleAlignment.Right)
-                {
-                    StockChartX1.Alignment = (int)STOCKCHARTXLib.ScaleType.stAlignRight;
-                }
-                
-            }
-        }
-
-        EnumScaleType _xScaleType = EnumScaleType.Linear;
-        /// <summary>
-        /// Y轴坐标类型
-        /// </summary>
-        public EnumScaleType ScaleType
-        {
-            get
-            {
-                return _xScaleType;
-            }
-            set
-            {
-                _xScaleType = value;
-                if (_xScaleType == EnumScaleType.Linear)
-                {
-                    StockChartX1.ScaleType = STOCKCHARTXLib.ScaleType.stLinearScale;
-                }
-                if (_xScaleType == EnumScaleType.Log)
-                {
-                    StockChartX1.ScaleType = STOCKCHARTXLib.ScaleType.stSemiLogScale;
-                }
-            }
-        }
-
-        bool _showXGrid = false;
-        /// <summary>
-        /// 是否显示X轴向格子线
-        /// </summary>
-        public bool ShowXGrid
-        {
-            get { return _showXGrid; }
-            set 
-            {
-                _showXGrid = value;
-                StockChartX1.XGrid = _showXGrid;
-            }
-        }
-
-        bool _showYGrid = false;
-        /// <summary>
-        /// 是否显示Y轴向格子线
-        /// </summary>
-        public bool ShowYGrid
-        {
-            get { return _showYGrid; }
-            set
-            {
-                _showYGrid = value;
-                StockChartX1.YGrid = _showYGrid;
-            }
-        }
-
-        int _scaleDecimalPlace = 2;
-        /// <summary>
-        /// X轴价格小数点位置
-        /// </summary>
-        public int ScaleDecimalPlace
-        {
-            get { return _scaleDecimalPlace; }
-            set
-            {
-                int val = value;
-                if (val < 0 || val > 4) val = 2;
-                _scaleDecimalPlace = val;
-                StockChartX1.ScalePrecision = val;
-            }
-        }
-
-        int _rightDrawingSpace = 10;
-        /// <summary>
-        /// K线图右侧绘图空距
-        /// </summary>
-        public int RightDrawingSpace
-        {
-            get { return _rightDrawingSpace; }
-            set
-            {
-                int val = value;
-                if (val < 1 || val > 300) val = 75;
-                _rightDrawingSpace = val;
-                StockChartX1.RightDrawingSpacePixels = val;
-            }
-        
-        }
-
-        bool _showPanelSeperator = true;
-        /// <summary>
-        /// 是否显示绘图Panel分割线
-        /// </summary>
-        public bool ShowPanelSeperator
-        {
-            get { return _showPanelSeperator; }
-            set {
-                _showPanelSeperator = value;
-                //设置颜色
-                StockChartX1.HorizontalSeparators = _showPanelSeperator;
-            }
-        }
-
-        bool _showCrossHairs = false;
-        /// <summary>
-        /// 是否显示定位十字线
-        /// </summary>
-        public bool ShowCrossHairs
-        {
-            get { return _showCrossHairs; }
-            set
-            {
-                _showCrossHairs = value;
-                StockChartX1.CrossHairs = _showCrossHairs;
-            }
-        }
-        #endregion
 
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 
 
-namespace TradingLib.TraderControl
+namespace TradingLib.Chart
 {
     /// <summary>
     /// X轴坐标位置

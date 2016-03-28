@@ -32,24 +32,24 @@
             this.savepassword = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.password = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.serverlist = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
-            this.kryptonComboBox2 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
-            this.btnLogin = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnExit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lbLoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.kryptonComboBox1 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.btnExit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnLogin = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonComboBox2 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.serverlist = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lbLoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.serverlist)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox2)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverlist)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // account
@@ -97,90 +97,6 @@
             this.kryptonPanel1.Size = new System.Drawing.Size(326, 206);
             this.kryptonPanel1.TabIndex = 10;
             // 
-            // kryptonLabel3
-            // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(26, 11);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(51, 20);
-            this.kryptonLabel3.TabIndex = 10;
-            this.kryptonLabel3.Values.Text = "营业部:";
-            // 
-            // kryptonLabel4
-            // 
-            this.kryptonLabel4.Location = new System.Drawing.Point(14, 37);
-            this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(63, 20);
-            this.kryptonLabel4.TabIndex = 11;
-            this.kryptonLabel4.Values.Text = "帐号类型:";
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(32, 63);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(45, 20);
-            this.kryptonLabel1.TabIndex = 12;
-            this.kryptonLabel1.Values.Text = "帐  号:";
-            // 
-            // kryptonLabel2
-            // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(14, 89);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(63, 20);
-            this.kryptonLabel2.TabIndex = 13;
-            this.kryptonLabel2.Values.Text = "交易密码:";
-            // 
-            // serverlist
-            // 
-            this.serverlist.DropDownWidth = 119;
-            this.serverlist.Location = new System.Drawing.Point(88, 11);
-            this.serverlist.Name = "serverlist";
-            this.serverlist.Size = new System.Drawing.Size(119, 21);
-            this.serverlist.TabIndex = 14;
-            // 
-            // kryptonComboBox2
-            // 
-            this.kryptonComboBox2.DropDownWidth = 119;
-            this.kryptonComboBox2.Enabled = false;
-            this.kryptonComboBox2.Location = new System.Drawing.Point(88, 37);
-            this.kryptonComboBox2.Name = "kryptonComboBox2";
-            this.kryptonComboBox2.Size = new System.Drawing.Size(119, 21);
-            this.kryptonComboBox2.TabIndex = 15;
-            this.kryptonComboBox2.Text = "资金帐号";
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Location = new System.Drawing.Point(229, 7);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(73, 25);
-            this.btnLogin.TabIndex = 16;
-            this.btnLogin.Values.Text = "确 定";
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(229, 38);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(73, 25);
-            this.btnExit.TabIndex = 17;
-            this.btnExit.Values.Text = "取 消";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lbLoginStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 184);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.statusStrip1.Size = new System.Drawing.Size(326, 22);
-            this.statusStrip1.TabIndex = 11;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lbLoginStatus
-            // 
-            this.lbLoginStatus.Name = "lbLoginStatus";
-            this.lbLoginStatus.Size = new System.Drawing.Size(18, 17);
-            this.lbLoginStatus.Text = "--";
-            // 
             // kryptonComboBox1
             // 
             this.kryptonComboBox1.DropDownWidth = 119;
@@ -199,6 +115,90 @@
             this.kryptonLabel5.TabIndex = 18;
             this.kryptonLabel5.Values.Text = "加密协议:";
             // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(229, 38);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(73, 25);
+            this.btnExit.TabIndex = 17;
+            this.btnExit.Values.Text = "取 消";
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(229, 7);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(73, 25);
+            this.btnLogin.TabIndex = 16;
+            this.btnLogin.Values.Text = "确 定";
+            // 
+            // kryptonComboBox2
+            // 
+            this.kryptonComboBox2.DropDownWidth = 119;
+            this.kryptonComboBox2.Enabled = false;
+            this.kryptonComboBox2.Location = new System.Drawing.Point(88, 37);
+            this.kryptonComboBox2.Name = "kryptonComboBox2";
+            this.kryptonComboBox2.Size = new System.Drawing.Size(119, 21);
+            this.kryptonComboBox2.TabIndex = 15;
+            this.kryptonComboBox2.Text = "资金帐号";
+            // 
+            // serverlist
+            // 
+            this.serverlist.DropDownWidth = 119;
+            this.serverlist.Location = new System.Drawing.Point(88, 11);
+            this.serverlist.Name = "serverlist";
+            this.serverlist.Size = new System.Drawing.Size(119, 21);
+            this.serverlist.TabIndex = 14;
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Location = new System.Drawing.Point(14, 89);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(63, 20);
+            this.kryptonLabel2.TabIndex = 13;
+            this.kryptonLabel2.Values.Text = "交易密码:";
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(32, 63);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(45, 20);
+            this.kryptonLabel1.TabIndex = 12;
+            this.kryptonLabel1.Values.Text = "帐  号:";
+            // 
+            // kryptonLabel4
+            // 
+            this.kryptonLabel4.Location = new System.Drawing.Point(14, 37);
+            this.kryptonLabel4.Name = "kryptonLabel4";
+            this.kryptonLabel4.Size = new System.Drawing.Size(63, 20);
+            this.kryptonLabel4.TabIndex = 11;
+            this.kryptonLabel4.Values.Text = "帐号类型:";
+            // 
+            // kryptonLabel3
+            // 
+            this.kryptonLabel3.Location = new System.Drawing.Point(26, 11);
+            this.kryptonLabel3.Name = "kryptonLabel3";
+            this.kryptonLabel3.Size = new System.Drawing.Size(51, 20);
+            this.kryptonLabel3.TabIndex = 10;
+            this.kryptonLabel3.Values.Text = "营业部:";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lbLoginStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 184);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+            this.statusStrip1.Size = new System.Drawing.Size(326, 22);
+            this.statusStrip1.TabIndex = 11;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lbLoginStatus
+            // 
+            this.lbLoginStatus.Name = "lbLoginStatus";
+            this.lbLoginStatus.Size = new System.Drawing.Size(17, 17);
+            this.lbLoginStatus.Text = "--";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -214,11 +214,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.serverlist)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverlist)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

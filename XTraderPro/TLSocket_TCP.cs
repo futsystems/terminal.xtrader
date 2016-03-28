@@ -53,7 +53,7 @@ namespace TradingLib.TraderCore
             RspQryServiceResponse response = null;
             if (message.isValid && message.Type == MessageTypes.SERVICERESPONSE)
             {
-                response = ResponseTemplate<RspQryServiceResponse>.CliRecvResponse(message.Content);
+                response = ResponseTemplate<RspQryServiceResponse>.CliRecvResponse(message);
 
             }
             return response;
