@@ -6,8 +6,11 @@ using System.Text;
 using TradingLib.API;
 using TradingLib.Common;
 using Common.Logging;
+using Easychart.Finance;
+using Easychart.Finance.DataProvider;
 
-namespace Easychart.Finance.DataProvider
+
+namespace TradingLib.DataProvider
 {
     public class TLCommonDataProvider:CommonDataProvider
     {

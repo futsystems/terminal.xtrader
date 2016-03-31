@@ -37,6 +37,15 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Easychart.Finance">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.dll</HintPath>
+    </Reference>
+    <Reference Include="Easychart.Finance.Objects">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="Easychart.Finance.Win">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Win.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -49,12 +58,17 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
-    <Reference Include="TradingLib.MDClient">
-      <HintPath>..\..\Futs.base\TL_DataFarm\TradingLib.MDClient\bin\Debug\TradingLib.MDClient.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartStyle.cs" />
+    <Compile Include="Common\ChartSetting.cs" />
+    <Compile Include="Common\ChartStyle.cs" />
+    <Compile Include="Common\ChartType.cs" />
+    <Compile Include="EasyChart\ctlEasyChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EasyChart\ctlEasyChart.Designer.cs">
+      <DependentUpon>ctlEasyChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="StockChartX\ctChart_.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -81,6 +95,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EasyChart\ctlEasyChart.resx">
+      <DependentUpon>ctlEasyChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StockChartX\ctlChart.resx">
       <DependentUpon>ctlChart.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +132,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
+      <Project>{4EFE4D39-1036-473D-B228-18FEAA882F41}</Project>
+      <Name>TradingLib.DataProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

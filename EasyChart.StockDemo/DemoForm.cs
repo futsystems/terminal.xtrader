@@ -101,6 +101,7 @@ namespace WindowsDemo
 			DataClient =  new EasyChartDataClient(); //new YahooDataClient();
 
             client = new TradingLib.MDClient.MDClient("114.55.72.206", 5060, 5060);
+            //client = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
             client.Start();
 
             //ChartControl.DataChanged +=new EventHandler(ChartControl_DataChanged);
@@ -108,8 +109,15 @@ namespace WindowsDemo
             ChartControl.AfterCycleChange += new EventHandler(ChartControl_AfterCycleChange);
             ChartControl.MouseClick += new MouseEventHandler(ChartControl_MouseClick);
             ChartControl.AfterBindData += new AfterBindData(ChartControl_AfterBindData);
+            ChartControl.EndTime = DateTime.MaxValue;
             //ChartControl.DataChanged +=new EventHandler(ChartControl_DataChanged);
+            ChartControl.KeyDown += new KeyEventHandler(ChartControl_KeyDown);
 		}
+
+        void ChartControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            logger.Info("key:" + (int)e.KeyCode);
+        }
 
         void ChartControl_AfterBindData(object sender, BindDataEventArgs e)
         {
@@ -126,7 +134,7 @@ namespace WindowsDemo
                 //
                 //logger.Info("~~~~~~~~~~~~~~~~~~~~~~");
                 //模拟实时行情更新
-                tlmdm.DemoTick();
+                //tlmdm.DemoTick();
             }
         }
 
@@ -671,15 +679,24 @@ namespace WindowsDemo
 		private void LoadCSVFile(string FileName)
 		{
             //ChartControl.max
-			//DataManagerBase dmb = new YahooCSVDataManager(Path.GetDirectoryName(FileName),Path.GetExtension(FileName));
-			//ChartControl.DataManager = dmb;
-			//ChartControl.Symbol = Path.GetFileNameWithoutExtension(FileName);
-			//ChartControl.EndTime = DateTime.MinValue;
+			DataManagerBase dmb = new YahooCSVDataManager(Path.GetDirectoryName(FileName),Path.GetExtension(FileName));
+			ChartControl.DataManager = dmb;
+			ChartControl.Symbol = Path.GetFileNameWithoutExtension(FileName);
+			ChartControl.EndTime = DateTime.MinValue;
             //ChartControl.StockBars = 2000;
             //ChartControl.AfterBars = 20;
             //Avoid flicker when refresh the chart
             ChartControl.MemoryCrossCursor = true;
-            TLLocalDataManager local = new TLLocalDataManager(true);
+            //向下键盘 将绘图区域右侧留空 占左侧绘图区域比例
+            //ChartControl.AfterBars =3;
+            //ChartControl.CurrentDataCycle = DataCycle.Minute;
+            //ChartControl.Symbol = "rb1610";
+
+            //显示的Bar数量
+            //ChartControl.StockBars = 150;
+            //需要在Bar更新事件中 将EndTime设置为Max 这样可以永远显示最新的Bar 否则会停留在上次显示的EndTime上
+            //TLLocalDataManager local = new TLLocalDataManager(true);
+            logger.Info("adjust:{0} afterbars:{1} columnWidth:{2} currentDayCycle:{3} starttime:{4} endtime:{5} startbar:{6} fixtime:{7} stockbars:{8} ".Put(ChartControl.AdjustData, ChartControl.AfterBars, ChartControl.ColumnWidth, ChartControl.CurrentDataCycle, ChartControl.StartTime, ChartControl.EndTime,ChartControl.StartBar,ChartControl.FixedTime,ChartControl.StockBars));
 
 		}
 
@@ -1017,12 +1034,16 @@ namespace WindowsDemo
 
             //ChartControl.IntraDataManager = mdm;
             ChartControl.DataManager = tlmdm;
-            ChartControl.Symbol = "IF1604";
+            ChartControl.MemoryCrossCursor = true;
+            //向下键盘 将绘图区域右侧留空 占左侧绘图区域比例
+            ChartControl.AfterBars = 3;
             ChartControl.CurrentDataCycle = DataCycle.Minute;
+            ChartControl.Symbol = "rb1610";
+            ChartControl.NeedRebind();
+
+            logger.Info("adjust:{0} afterbars:{1} columnWidth:{2} currentDayCycle:{3} starttime:{4} endtime:{5} startbar:{6} fixtime:{7} stockbars:{8} ".Put(ChartControl.AdjustData, ChartControl.AfterBars, ChartControl.ColumnWidth, ChartControl.CurrentDataCycle, ChartControl.StartTime, ChartControl.EndTime, ChartControl.StartBar, ChartControl.FixedTime, ChartControl.StockBars));
 
 
-			
-			
 			//Show 15 days future bar.
 			//ChartControl.EndTime = DateTime.Today.AddDays(15);
 			//Show chart from 8 months ago.
@@ -1059,6 +1080,7 @@ namespace WindowsDemo
 
         void tlmdm_BarUpdatedEvent()
         {
+            ChartControl.EndTime = DateTime.MaxValue;
             ChartControl.NeedRebind();
             //
             //ChartControl.NeedRefresh();

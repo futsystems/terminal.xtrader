@@ -351,7 +351,7 @@ namespace Easychart.Finance.DataProvider
                 data[2][j] = bars[j].Low;
                 data[3][j] = bars[j].Close;
                 data[4][j] = bars[j].Volume ;
-                data[5][j] = bars[j].BarStartTime.ToOADate();
+                data[5][j] = bars[j].StartTime.ToOADate();
             }
             this.LoadBinary(data);
         }

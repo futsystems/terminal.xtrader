@@ -5,13 +5,14 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{18DCEA7A-D579-4226-9144-21550FFA9A84}</ProjectGuid>
+    <ProjectGuid>{D87A2BCF-C9EA-4F95-81EB-CE17C15D16E3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChartDemo</RootNamespace>
     <AssemblyName>ChartDemo</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,25 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.STOCKCHARTXLib">
-      <HintPath>..\TradingLib.Chart\obj\Debug\AxInterop.STOCKCHARTXLib.dll</HintPath>
+    <Reference Include="Easychart.Finance">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    <Reference Include="Easychart.Finance.Objects">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Objects.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2" />
-    <Reference Include="Interop.STOCKCHARTXLib">
-      <HintPath>..\TradingLib.Chart\obj\Debug\Interop.STOCKCHARTXLib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="Easychart.Finance.Win">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Win.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -75,7 +69,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MDHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -89,7 +82,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,6 +99,10 @@
     <ProjectReference Include="..\TradingLib.Chart\TradingLib.Chart.csproj">
       <Project>{4CA0F11D-DC8B-4A43-9FF3-BF22E265C1AF}</Project>
       <Name>TradingLib.Chart</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
+      <Project>{4EFE4D39-1036-473D-B228-18FEAA882F41}</Project>
+      <Name>TradingLib.DataProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

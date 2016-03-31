@@ -28,114 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.btnQryBar = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnClearData = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.ctlChart1 = new TradingLib.Chart.ctlChart();
-            this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
-            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.btnUpdate = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            ((System.ComponentModel.ISupportInitialize)(this.btnQryBar)).BeginInit();
-            this.btnQryBar.SuspendLayout();
+            this.ctlChartEasyChart1 = new TradingLib.Chart.ctlEasyChart();
+            this.btnShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnQryBar
+            // ctlChartEasyChart1
             // 
-            this.btnQryBar.Controls.Add(this.btnUpdate);
-            this.btnQryBar.Controls.Add(this.kryptonButton1);
-            this.btnQryBar.Controls.Add(this.btnClearData);
-            this.btnQryBar.Controls.Add(this.ctlChart1);
-            this.btnQryBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnQryBar.Location = new System.Drawing.Point(0, 0);
-            this.btnQryBar.Name = "btnQryBar";
-            this.btnQryBar.Size = new System.Drawing.Size(826, 389);
-            this.btnQryBar.TabIndex = 0;
-            // 
-            // kryptonButton1
-            // 
-            this.kryptonButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonButton1.Location = new System.Drawing.Point(724, 12);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(90, 25);
-            this.kryptonButton1.TabIndex = 2;
-            this.kryptonButton1.Values.Text = "查询历史数据";
-            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
-            // 
-            // btnClearData
-            // 
-            this.btnClearData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearData.Location = new System.Drawing.Point(579, 12);
-            this.btnClearData.Name = "btnClearData";
-            this.btnClearData.Size = new System.Drawing.Size(90, 25);
-            this.btnClearData.TabIndex = 1;
-            this.btnClearData.Values.Text = "清空数据";
-            this.btnClearData.Click += new System.EventHandler(this.btnClearData_Click);
-            // 
-            // ctlChart1
-            // 
-            this.ctlChart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.ctlChartEasyChart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctlChart1.ColorDownBody = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctlChart1.ColorDownBox = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctlChart1.ColorSeperator = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(60)))), ((int)(((byte)(57)))));
-            this.ctlChart1.ColorUpBody = System.Drawing.Color.Black;
-            this.ctlChart1.ColorUpBox = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(60)))), ((int)(((byte)(57)))));
-            this.ctlChart1.DefaultVisibleRecordCount = 150;
-            this.ctlChart1.Location = new System.Drawing.Point(0, 0);
-            this.ctlChart1.Name = "ctlChart1";
-            this.ctlChart1.RightDrawingSpace = 10;
-            this.ctlChart1.ScaleAlignment = TradingLib.Chart.EnumScaleAlignment.Left;
-            this.ctlChart1.ScaleDecimalPlace = 2;
-            this.ctlChart1.ScaleType = TradingLib.Chart.EnumScaleType.Linear;
-            this.ctlChart1.ShowCrossHairs = false;
-            this.ctlChart1.ShowPanelSeperator = true;
-            this.ctlChart1.ShowTitle = true;
-            this.ctlChart1.ShowXGrid = false;
-            this.ctlChart1.ShowYGrid = false;
-            this.ctlChart1.Size = new System.Drawing.Size(573, 389);
-            this.ctlChart1.Symbol = null;
-            this.ctlChart1.TabIndex = 0;
-            this.ctlChart1.ThreeD = true;
+            this.ctlChartEasyChart1.Location = new System.Drawing.Point(0, 0);
+            this.ctlChartEasyChart1.Name = "ctlChartEasyChart1";
+            this.ctlChartEasyChart1.Size = new System.Drawing.Size(599, 398);
+            this.ctlChartEasyChart1.TabIndex = 0;
             // 
-            // kryptonManager1
+            // btnShow
             // 
-            this.kryptonManager1.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.Office2010Silver;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(724, 88);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(90, 25);
-            this.btnUpdate.TabIndex = 3;
-            this.btnUpdate.Values.Text = "Update";
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.btnShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShow.Location = new System.Drawing.Point(729, 12);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(61, 23);
+            this.btnShow.TabIndex = 1;
+            this.btnShow.Text = "显示";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(826, 389);
-            this.Controls.Add(this.btnQryBar);
+            this.ClientSize = new System.Drawing.Size(816, 398);
+            this.Controls.Add(this.btnShow);
+            this.Controls.Add(this.ctlChartEasyChart1);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.btnQryBar)).EndInit();
-            this.btnQryBar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel btnQryBar;
-        private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
-        private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
-        private TradingLib.Chart.ctlChart ctlChart1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnClearData;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnUpdate;
+        private TradingLib.Chart.ctlEasyChart ctlChartEasyChart1;
+        private System.Windows.Forms.Button btnShow;
+
     }
 }
 

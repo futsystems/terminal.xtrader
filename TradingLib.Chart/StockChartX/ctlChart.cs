@@ -352,7 +352,7 @@ namespace TradingLib.Chart
                 {
                     record = sr.ReadLine().Split(new char[] { ',' });
                     Bar bar = new BarImpl();
-                    bar.BarStartTime =  DateTime.Parse(record[0]);
+                    bar.StartTime =  DateTime.Parse(record[0]);
                     bar.Open = Double.Parse(record[1]);
                     bar.High = Double.Parse(record[2]);
                     bar.Low = Double.Parse(record[3]);
@@ -544,9 +544,9 @@ namespace TradingLib.Chart
             double prevJDate = 0;
             foreach (var bar in barlist)
             {
-                double jdate = StockChartX1.ToJulianDate(bar.BarStartTime.Year, bar.BarStartTime.Month,
-                                                            bar.BarStartTime.Day, bar.BarStartTime.Hour,
-                                                            bar.BarStartTime.Minute, bar.BarStartTime.Second);
+                double jdate = StockChartX1.ToJulianDate(bar.StartTime.Year, bar.StartTime.Month,
+                                                            bar.StartTime.Day, bar.StartTime.Hour,
+                                                            bar.StartTime.Minute, bar.StartTime.Second);
 
                 if (jdate != prevJDate)
                 {
@@ -576,8 +576,8 @@ namespace TradingLib.Chart
         {
             if (isNewBar)//插入一个Bar数据
             {
-                double jdate = StockChartX1.ToJulianDate(bar.BarStartTime.Year, bar.BarStartTime.Month, bar.BarStartTime.Day,
-                        bar.BarStartTime.Hour, bar.BarStartTime.Minute, bar.BarStartTime.Second);
+                double jdate = StockChartX1.ToJulianDate(bar.StartTime.Year, bar.StartTime.Month, bar.StartTime.Day,
+                        bar.StartTime.Hour, bar.StartTime.Minute, bar.StartTime.Second);
                 StockChartX1.AppendValue(GetSerieseName(OPEN),jdate, bar.Open);
                 StockChartX1.AppendValue(GetSerieseName(HIGH), jdate, bar.High);
                 StockChartX1.AppendValue(GetSerieseName(LOW), jdate, bar.Low);
