@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.DataProvider;
+using Common.Logging;
 
 using Easychart.Finance;
 using Easychart.Finance.DataProvider;
@@ -17,6 +18,8 @@ namespace TradingLib.Chart
 {
     public partial class ctlEasyChart : UserControl
     {
+
+        ILog logger = LogManager.GetLogger("ctlEasyChart");
 
         TLMemoryDataManager datamanager = null;
         public ctlEasyChart()
@@ -51,6 +54,8 @@ namespace TradingLib.Chart
             //WinChartControl.NativeContextMenu = false;
             //WinChartControl.ShowStatistic = false;
             //WinChartControl.Margin = new System.Windows.Forms.Padding(0);
+            WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;
+            WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;
 
             //靠右缩放
             WinChartControl.ZoomPosition = Easychart.Finance.Win.ZoomCenterPosition.Right;
@@ -61,10 +66,17 @@ namespace TradingLib.Chart
             //WinChartControl.AfterApplySkin += new EventHandler(WinChartControl_AfterApplySkin);
             //WinChartControl.MouseUp += new MouseEventHandler(WinChartControl_MouseUp);
 
-            WinChartControl.Skin = "RedWhite";
-            WinChartControl.BeforeApplySkin += new Easychart.Finance.Win.ApplySkinHandler(WinChartControl_BeforeApplySkin);
 
+            //WinChartControl.Skin = "GreenRed";
             
+            WinChartControl.BeforeApplySkin += new Easychart.Finance.Win.ApplySkinHandler(WinChartControl_BeforeApplySkin);
+            //WinChartControl.Chart.ViewChanged += new ViewChangedHandler(Chart_ViewChanged);
+            
+        }
+
+        void Chart_ViewChanged(object sender, ViewChangedArgs e)
+        {
+            logger.Info("View Changed");
         }
 
         FormulaSkin DefaultSkion
@@ -158,71 +170,108 @@ namespace TradingLib.Chart
             ////公式文字标注颜色
             //skin.NameBrush.Color = setting.ChartTextColor;
 
-            //绘图区域背景颜色
+            //绘图区域 背景颜色
             skin.Back.BackGround.Color = setting.ChartBackgroundColor;
+            //绘图区域 边框颜色
+            //skin.Back.FrameColor = setting.ChartBorderColor;
+            //skin.Back.TopPen = new PenMapper(Color.Green);
+            //skin.Back.LeftPen = new PenMapper(Color.Green);//有效
+            //skin.Back.BottomPen = new PenMapper(Color.Red);//无效 可能是被X轴覆盖
+            //skin.Back.RightPen = new PenMapper(Color.Green);
+
             //绘制Bar颜色
             skin.BarPens = new PenMapper[] { new PenMapper(setting.CandleUpBorder), new PenMapper(setting.CandleDownBorder), new PenMapper(setting.CandleDownBorder) };
             skin.BarBrushes = new BrushMapper[] {BrushMapper.Empty,BrushMapper.Empty,new BrushMapper(setting.CandleDownColor)};// new BrushMapper(setting.CandleUpColor), new BrushMapper(setting.CandleUpColor), new BrushMapper(setting.CandleDownColor) };
 
 
-            ////十字光标颜色
-            //skin.CursorPen.Color = setting.CrossHairColor;
+            //十字光标颜色
+            skin.CursorPen.Color = setting.CrossHairColor;
 
-            //坐标尺上的标尺线颜色
-            skin.AxisX.MajorTick.TickPen.Color = setting.TickLineColor;
-            skin.AxisX.MinorTick.TickPen.Color = setting.TickLineColor;
+            //坐标 标尺线刻度颜色
+            //skin.AxisX.MajorTick.TickPen.Color = setting.TickLineColor;
+            //skin.AxisX.MinorTick.TickPen.Color = setting.TickLineColor;
+            skin.AxisX.MajorTick.ShowTick = false;
+            skin.AxisX.MajorTick.ShowLine = false;
+            skin.AxisX.MajorTick.ShowText = true;
+            skin.AxisX.MinorTick.ShowTick = false;
+            skin.AxisX.MinorTick.ShowLine = false;
+            skin.AxisX.MinorTick.ShowText = false;
+
+            skin.ShowXAxisInLastArea = true;//只在最后一个Area显示X轴
+
             skin.AxisY.MajorTick.TickPen.Color = setting.TickLineColor;
             skin.AxisY.MinorTick.TickPen.Color = setting.TickLineColor;
-
-            ////背景格子线颜色
-            //skin.AxisX.MajorTick.LinePen.Color = setting.GridLineColor;
-            //skin.AxisX.MinorTick.LinePen.Color = setting.GridLineColor;
-            //skin.AxisY.MajorTick.LinePen.Color = setting.GridLineColor;
-            //skin.AxisY.MinorTick.LinePen.Color = setting.GridLineColor;
-
-            //skin.AxisX.LabelBrush.Color = setting.LabelColor;
-            //skin.AxisY.LabelBrush.Color = setting.LabelColor;
-            ////skin.AxisY.AxisPos = AxisPos.Left;
-            ////skin.AxisY.ShowAsPercent = true;
-            ////坐标轴小数点输出
-            ////skin.AxisY.Format = "N1";
-
-            ////坐标面板颜色
-            //skin.AxisX.Back.BackGround.Color = setting.SolidFrameColor;
-            //skin.AxisY.Back.BackGround.Color = setting.SolidFrameColor;
-
+            skin.AxisY.MajorTick.FullTick = false;
+            skin.AxisY.MajorTick.ShowTick = true;
+            skin.AxisY.MajorTick.ShowLine = false;
+            skin.AxisY.MajorTick.ShowText = true;
+            skin.AxisY.AutoMultiply = false;
+            skin.AxisY.MultiplyFactor = 10;
+            skin.AxisY.RefValue = 10;
             
 
-            ////绘图pane的边框颜色
-            ////skin.Back.FrameColor = setting.ChartBorderColor;
-            //skin.Back.TopPen = new PenMapper(Color.Red);
-            ////skin.Back.LeftPen = new PenMapper(Color.Red);
-            ////skin.Back.BottomPen =  new PenMapper(Color.Red);
+            skin.AxisY.MinorTick.ShowTick = false;
+            skin.AxisY.MinorTick.ShowLine = false;
+            skin.AxisY.MinorTick.ShowText = false;
+            skin.AxisY.MajorTick.MinimumPixel = 100;
 
-            ////坐标面板边框 可分为上 下 左 右
+            //坐标 面板颜色
+            skin.AxisX.Back.BackGround.Color = setting.SolidFrameColor;
+            skin.AxisY.Back.BackGround.Color = setting.SolidFrameColor;
+
+            //坐标 面板边框 可分为上 下 左 右
             //skin.AxisX.Back.TopPen = new PenMapper(Color.Red);
-            ////skin.AxisX.Back.FrameColor = setting.ChartBorderColor;
-            ////skin.AxisY.Back.FrameColor = setting.ChartBorderColor;
+            //skin.AxisX.Back.BottomPen = new PenMapper(Color.Red);
+            //skin.AxisX.Back.FrameColor = setting.ChartBorderColor;//x轴
+
+            //skin.AxisY.Back.FrameColor = setting.ChartBorderColor;
             //skin.AxisY.Back.TopPen = new PenMapper(Color.Red);
-            //skin.AxisY.Back.LeftPen = new PenMapper(Color.Red);
-            ////skin.AxisY.Back.RightPen = new PenMapper(Color.Red);
+            skin.AxisY.Back.LeftPen = new PenMapper(Color.Red);
+            //skin.AxisY.Back.RightPen = new PenMapper(Color.Red);
+            //skin.AxisY.Back.FrameWidth = 1;
+
+            //skin.AxisY.AxisPos = AxisPos.Left;//Y轴 左侧 右侧显示
+            //skin.AxisY.ShowAsPercent = true;
+            
+            //坐标轴小数点输出
+            skin.AxisY.Format = "F1";
+
+            skin.AxisY.MultiplyFactor = 10;
+            skin.AxisY.MultiplyBack.BackGround.Color = setting.MultiplierBackgroundColor;
+            skin.AxisY.MultiplyBack.FrameColor = setting.MultiplierBackgroundColor;
+
+            //坐标 标签颜色
+            skin.AxisX.LabelBrush.Color = setting.LabelColor;
+            skin.AxisY.LabelBrush.Color = setting.LabelColor;
 
 
-            //skin.AxisY.MultiplyBack.BackGround.Color = setting.MultiplierBackgroundColor;
-            //skin.AxisY.MultiplyBack.FrameColor = setting.MultiplierBackgroundColor;
 
-            //switch (setting.ChartType)
-            //{
-            //    case ChartType.CandleStick:
-            //        WinChartControl.StockRenderType = StockRenderType.Candle;
-            //        break;
-            //    case ChartType.UpDownStick:
-            //        WinChartControl.StockRenderType = StockRenderType.OHLCBars;
-            //        break;
-            //    case ChartType.Line:
-            //        WinChartControl.StockRenderType = StockRenderType.Line;
-            //        break;
-            //}
+            //FormulaArea fa = new FormulaArea(WinChartControl.Chart);
+            //this.WinChartControl.Chart.MainArea.AxisX.Visible = false;
+            
+            ////背景格子线颜色
+            skin.AxisX.MajorTick.LinePen.Color = setting.GridLineColor;
+            //skin.AxisX.MinorTick.LinePen.Color = setting.GridLineColor;
+            skin.AxisY.MajorTick.LinePen.Color = setting.GridLineColor;
+            //skin.AxisY.MinorTick.LinePen.Color = setting.GridLineColor;
+
+
+
+
+
+
+            switch (setting.ChartType)
+            {
+                case ChartType.CandleStick:
+                    WinChartControl.StockRenderType = StockRenderType.Candle;
+                    break;
+                case ChartType.UpDownStick:
+                    WinChartControl.StockRenderType = StockRenderType.OHLCBars;
+                    break;
+                case ChartType.Line:
+                    WinChartControl.StockRenderType = StockRenderType.Line;
+                    break;
+            }
 
             //skin.ShowXAxisInLastArea = true;
         }
@@ -237,11 +286,12 @@ namespace TradingLib.Chart
             WinChartControl.ShowCrossCursor = true;
             WinChartControl.ShowCursorLabel = true;
             WinChartControl.StockBars = 150;//chart显示的Bar数
-            WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;//水平
-            WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.Show;//垂直
+            //WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.Default;//水平
+            //WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;//垂直
 
-            WinChartControl.ShowTopLine = true;
+            //WinChartControl.ShowTopLine = true;
             WinChartControl.StickRenderType = StickRenderType.Column;
+            
         }
 
         IDataClient _client = null;

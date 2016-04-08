@@ -477,7 +477,7 @@ namespace TradingLib.TraderCore
                 {
                     //实例化asyncClient并绑定对已的函数
                     _mqcli = new AsyncClient(avabileip[providerindex], port);
-                    _mqcli.SendTLMessage += new TradingLib.API.HandleTLMessageClient(handle);
+                    _mqcli.SendTLMessage += new Action<Message>(handle);
                     //开始启动连接
                     _mqcli.Start();
                     updateheartbeat();
@@ -1023,7 +1023,7 @@ namespace TradingLib.TraderCore
         void markdisconnect()
         {
             _connect = false;
-            _mqcli.SendTLMessage -= new TradingLib.API.HandleTLMessageClient(handle);
+            _mqcli.SendTLMessage -= new Action<Message>(handle);
             _mqcli = null;//将_mqcli至null 内存才会被回收
 
             if (OnDisconnectEvent != null)
@@ -1066,12 +1066,13 @@ namespace TradingLib.TraderCore
         #endregion
 
         //消息处理逻辑
-        void handle(MessageTypes type, string msg)
+        void handle(Message msg)
         {
-                IPacket packet = PacketHelper.CliRecvResponse(type, msg);
+            IPacket packet = PacketHelper.CliRecvResponse(msg);
 
                 //logger.Debug(">>Recv Packet type:" + type.ToString() + " message:" + msg);
-
+            MessageTypes type = msg.Type;
+            
                 if (packet.Type != MessageTypes.TICKHEARTBEAT && type != MessageTypes.HEARTBEATRESPONSE && type != MessageTypes.TICKNOTIFY)
                 {
 
