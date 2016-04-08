@@ -29,7 +29,9 @@ namespace TradingLib.KryptonControl
             BackColor = copythis.BackColor;
             FontColor = copythis.FontColor;
             QuoteFont = copythis.QuoteFont;
+            SymbolFont = copythis.SymbolFont;
             LineColor = copythis.LineColor;
+
 
         }
         Color _lineColor;

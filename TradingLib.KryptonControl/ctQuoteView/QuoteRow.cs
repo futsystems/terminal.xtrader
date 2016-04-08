@@ -73,14 +73,15 @@ namespace TradingLib.KryptonControl
         public Symbol Symbol { get { return _symbol; } }
         EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
         public EnumQuoteType QuoteType { get { return _quoteType; } set { _quoteType = value; } }
-        public QuoteRow(ViewQuoteList quotelist,Symbol symbol,int rid, ref string[] columes,IntRetIntDel startfun,IntRetIntDel widthfun,RetIntDel rowwidthfun,RetIntDel beginIdxfun, QuoteStyle defaultQuoteStyle,string displayformat,EnumQuoteType type)//, CellStyle defaultCellStyle)
+        public QuoteRow(ViewQuoteList quotelist,Symbol symbol,int rid, ref string[] columes,IntRetIntDel startfun,IntRetIntDel widthfun,RetIntDel rowwidthfun,RetIntDel beginIdxfun,EnumQuoteType type)//, CellStyle defaultCellStyle)
         {
             _quotelist = quotelist;
             _symbol = symbol;
 
             RowID = rid;
             _columesname = columes;
-            _defaultQuoteStyle = defaultQuoteStyle;
+            _defaultQuoteStyle = quotelist.DefaultQuoteStyle;
+
             //_defaultCellStyle = defaultCellStyle;
             //_columnWidth = columnWidth;
             //_columnStartX = columnStartX;
@@ -91,7 +92,7 @@ namespace TradingLib.KryptonControl
             getBeginIndex = beginIdxfun;
 
             cellRectsArray = new Rectangle[columes.Length];//单元格的绘图区间
-            PriceDispFormat = displayformat;
+            _pricedispformat = symbol.SecurityFamily.GetPriceFormat();
             _quoteType = type;
 
             //初始化行
@@ -105,7 +106,7 @@ namespace TradingLib.KryptonControl
         private string[] ColumnNames { get { return _columesname; } }
         //价格显示格式
         string _pricedispformat = "{0:F1}";
-        public string PriceDispFormat { get { return _pricedispformat; } set { _pricedispformat = value; } }
+        
         //{ SYMBOL, LAST, LASTSIZE, ASK, BID, ASKSIZE, BIDSIZE, VOL, CHANGE, OI, OICHANGE, SETTLEMENT, OPEN, HIGH, LOW, LASTSETTLEMENT };
 
         //模拟更新某单元格数据
@@ -286,7 +287,7 @@ namespace TradingLib.KryptonControl
             for (int i = 0; i < ColumnNames.Length; i++)
             {
                 string columnName = ColumnNames[i];
-                QuoteCell c = new QuoteCell(columnName, cellstyle, 0M, PriceDispFormat);
+                QuoteCell c = new QuoteCell(columnName, cellstyle, 0M, _pricedispformat);
                 //if (columnName == QuoteListConst.SYMBOLNAME)
                 //{
                 //    c.symbol = _symbol.Name;

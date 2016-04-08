@@ -115,7 +115,7 @@ namespace TradingLib.KryptonControl
             //debug(_value.ToString());
             if (_colname == QuoteListConst.SYMBOL || _colname == QuoteListConst.SYMBOLNAME)
             {
-                g.DrawString(_symbol, CellStyle.QuoteFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
+                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
             }
             
             else

@@ -484,7 +484,7 @@ namespace TradingLib.KryptonControl
                 int i = _idxQuoteRowMap.Count;
                 //新建一行 并插入到数据结构中
                 string dispformat = symbol.SecurityFamily.GetPriceFormat();// TraderHelper.GetDisplayFormat(sec.SecurityFamily.PriceTick);
-                QuoteRow qr = new QuoteRow(this, symbol,i, ref columns, getColumnStarX, getColumnWidth, getRowWidth, getBeginIndex, DefaultQuoteStyle, dispformat, _quoteType);
+                QuoteRow qr = new QuoteRow(this, symbol,i, ref columns, getColumnStarX, getColumnWidth, getRowWidth, getBeginIndex, _quoteType);
                 //MessageBox.Show(qr.PriceDispFormat + " " + sec.PriceTick.ToString());
                 qr.SendRowLastPriceChangedEvent += new IntDelegate(bookCellLocation);
                 qr.SendDebutEvent +=new DebugDelegate(debug);
