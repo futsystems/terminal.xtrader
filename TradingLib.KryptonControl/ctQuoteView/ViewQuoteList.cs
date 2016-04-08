@@ -130,13 +130,13 @@ namespace TradingLib.KryptonControl
             set
             {
                 _quoteFont = value;
-                _cellstyle.Font = value;
+                _cellstyle.QuoteFont = value;
                 Invalidate();
             }
         }
 
-        [DefaultValue("Arial, 10.5pt, style=Bold")]
-        Font _symbolFont = new Font("Aria", 10, FontStyle.Bold);
+        [DefaultValue("Arial, 10.5pt")]
+        Font _symbolFont = new Font("Aria", 10);
         public Font SymbolFont
         {
             get
@@ -269,8 +269,8 @@ namespace TradingLib.KryptonControl
             InitializeComponent();
             this.DoubleBuffered = true;
             //设置单元格样式
-            _cellstyle = new CellStyle(QuoteBackColor1, Color.Red, QuoteFont,TableLineColor);
-            _quotestyle = new QuoteStyle(QuoteBackColor1, QuoteBackColor2, QuoteFont,TableLineColor,UPColor,DNColor,HeaderHeight, RowHeight);
+            _cellstyle = new CellStyle(QuoteBackColor1, Color.Red, QuoteFont,SymbolFont,TableLineColor);
+            _quotestyle = new QuoteStyle(QuoteBackColor1, QuoteBackColor2, QuoteFont,SymbolFont,TableLineColor,UPColor,DNColor,HeaderHeight, RowHeight);
 
             _timer = new System.Threading.Timer(changecolor, null, 800, 1500);
            
@@ -651,10 +651,14 @@ namespace TradingLib.KryptonControl
             genColunmTotalWidth();
             ResetAllRect();
         }
-        
-        //标题高度
+
+        /// <summary>
+        /// 标题高度
+        /// </summary>
         private int HeaderHeight { get { return _headFont.Height + 4; } }
-        //行高度
+        /// <summary>
+        /// 报价行高度
+        /// </summary>
         private int RowHeight { get { return _symbolFont.Height + 4; } }
 
         #endregion

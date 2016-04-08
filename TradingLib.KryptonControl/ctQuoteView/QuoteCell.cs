@@ -115,11 +115,11 @@ namespace TradingLib.KryptonControl
             //debug(_value.ToString());
             if (_colname == QuoteListConst.SYMBOL || _colname == QuoteListConst.SYMBOLNAME)
             {
-                g.DrawString(_symbol,CellStyle.Font, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.Font.Height);
+                g.DrawString(_symbol, CellStyle.QuoteFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
             }
             
             else
-                g.DrawString(string.Format(DisplayFormat,_value), CellStyle.Font, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.Font.Height);
+                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
             //cellRect.Y + HeaderHeight - _headFont.Height + 2
         }
 

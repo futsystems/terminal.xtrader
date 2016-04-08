@@ -13,11 +13,12 @@ namespace TradingLib.KryptonControl
     //单元格样式 单元格背景色,字体颜色,字体等信息
     public class CellStyle
     {
-        public CellStyle(Color backcolor, Color fontcolor, Font font,Color gridColor)
+        public CellStyle(Color backcolor, Color fontcolor, Font quotefont,Font symbolfont,Color gridColor)
         {
             BackColor = backcolor;
             FontColor = fontcolor;
-            Font = font;
+            QuoteFont = quotefont;
+            SymbolFont = symbolfont;
             LineColor = gridColor;
         }
 
@@ -27,7 +28,7 @@ namespace TradingLib.KryptonControl
         {
             BackColor = copythis.BackColor;
             FontColor = copythis.FontColor;
-            Font = copythis.Font;
+            QuoteFont = copythis.QuoteFont;
             LineColor = copythis.LineColor;
 
         }
@@ -71,16 +72,18 @@ namespace TradingLib.KryptonControl
 
         Brush _fontbrush;
         public Brush FontBrush { get { return _fontbrush; } }
-        Font _Font;
-        public Font Font { get { return _Font; } set { _Font = value; } }
+        Font _quoteFont;
+        public Font QuoteFont { get { return _quoteFont; } set { _quoteFont = value; } }
 
-        //public int CellHight { get { return _} }
+        Font _symbolFont;
+        public Font SymbolFont { get { return _symbolFont; } set { _symbolFont = value; } }
+       
 
     }
     //报表样式
     public class QuoteStyle
     {
-        public QuoteStyle(Color quoteback1,Color quoteback2,Font quotefont,Color linecolor, Color upcolor,Color dncolor,int headheight, int rowheight)
+        public QuoteStyle(Color quoteback1,Color quoteback2,Font quotefont,Font symbolfront,Color linecolor, Color upcolor,Color dncolor,int headheight, int rowheight)
         {
             _quoteBackColor1 = quoteback1;
             _quoteBackColor2 = quoteback2;
@@ -88,6 +91,7 @@ namespace TradingLib.KryptonControl
             _headerheight = headheight;
             _rowheight = rowheight;
             _quoteFont = quotefont;
+            _symbolFont = symbolfront;
             _upcolor = upcolor;
             _dncolor = dncolor;
 
@@ -97,15 +101,32 @@ namespace TradingLib.KryptonControl
         public Color UPColor { get { return _upcolor; } set { _upcolor = value; } }
         Color _dncolor;
         public Color DNColor { get { return _dncolor; } set { _dncolor = value; } }
+
         Font _quoteFont;
+        /// <summary>
+        /// 报价字体
+        /// </summary>
         public Font QuoteFont { get { return _quoteFont; } set { _quoteFont = value; } }
         Color _FontColor;
+
+        Font _symbolFont;
+        /// <summary>
+        /// 合约字体
+        /// </summary>
+        public Font SymbolFont { get { return _symbolFont; } set { _symbolFont = value; } }
+
         public Color FontColor{get{return _FontColor;} set{_FontColor = value;}}
 
 
         Color _quoteBackColor1;
+        /// <summary>
+        /// 报价背景色 奇
+        /// </summary>
         public Color QuoteBackColor1 { get { return _quoteBackColor1; } set { _quoteBackColor1 = value; } }
         Color _quoteBackColor2;
+        /// <summary>
+        /// 报价背景色 偶
+        /// </summary>
         public Color QuoteBackColor2 { get { return _quoteBackColor2; } set { _quoteBackColor2 = value; } }
 
         Color _lineColor;
@@ -123,9 +144,15 @@ namespace TradingLib.KryptonControl
         public Pen LinePen { get { return _linepen; } }
 
         int _rowheight;
+        /// <summary>
+        /// 行高
+        /// </summary>
         public int RowHeight { get { return _rowheight; } set { _rowheight = value; } }
 
         int _headerheight;
+        /// <summary>
+        /// 标题高度
+        /// </summary>
         public int HeaderHeight { get { return _headerheight; } set { _headerheight = value; } }
 
     }

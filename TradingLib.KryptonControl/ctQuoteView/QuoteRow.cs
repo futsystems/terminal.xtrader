@@ -281,7 +281,7 @@ namespace TradingLib.KryptonControl
         public void InitRow()
         {
             //根据行号得到列底色基本配置
-            CellStyle cellstyle = new CellStyle(RowID % 2 == 0 ? _defaultQuoteStyle.QuoteBackColor1 : _defaultQuoteStyle.QuoteBackColor2,Color.DarkRed, _defaultQuoteStyle.QuoteFont,_defaultQuoteStyle.LineColor);
+            CellStyle cellstyle = new CellStyle(RowID % 2 == 0 ? _defaultQuoteStyle.QuoteBackColor1 : _defaultQuoteStyle.QuoteBackColor2,Color.DarkRed, _defaultQuoteStyle.QuoteFont,_defaultQuoteStyle.SymbolFont,_defaultQuoteStyle.LineColor);
             //遍历所有的行名 并初始化单元格
             for (int i = 0; i < ColumnNames.Length; i++)
             {
