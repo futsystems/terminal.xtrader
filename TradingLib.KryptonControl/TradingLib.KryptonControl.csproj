@@ -92,11 +92,11 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="ctQuoteMoniter.cs">
+    <Compile Include="PageQuoteMoniter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ctQuoteMoniter.Designer.cs">
-      <DependentUpon>ctQuoteMoniter.cs</DependentUpon>
+    <Compile Include="PageQuoteMoniter.Designer.cs">
+      <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </Compile>
     <Compile Include="ctQuoteView\EnumQuoteType.cs" />
     <Compile Include="ctQuoteView\QuoteCell.cs" />
@@ -110,6 +110,7 @@
       <DependentUpon>ViewQuoteList.cs</DependentUpon>
     </Compile>
     <Compile Include="IDataSource.cs" />
+    <Compile Include="IPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerCfg.cs" />
     <Compile Include="SplashScreenApplicationContext.cs" />
@@ -136,8 +137,8 @@
     <EmbeddedResource Include="Control\ctQuoteViewSTK.resx">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ctQuoteMoniter.resx">
-      <DependentUpon>ctQuoteMoniter.cs</DependentUpon>
+    <EmbeddedResource Include="PageQuoteMoniter.resx">
+      <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ctQuoteView\ViewQuoteList.resx">
       <DependentUpon>ViewQuoteList.cs</DependentUpon>

@@ -81,11 +81,6 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        public QuoteCell(string colname, CellStyle cellstyle, string value, string disformat)
-            : this(colname, cellstyle, disformat)
-        {
-            _symbol = value;
-        }
 
         public QuoteCell(string colname, CellStyle cellstyle, decimal value, string disformat)
             : this(colname, cellstyle, disformat)
@@ -99,20 +94,14 @@ namespace TradingLib.KryptonControl
 
         public void Paint(PaintEventArgs e, System.Drawing.RectangleF cellRect, QuoteStyle quoteStyle)
         {
-            //debug("更新段元格:"+this.ColumnName );
             Graphics g = e.Graphics;
-            //_quoteStyle = quoteStyle;
             //用颜色填充单元格
             g.FillRectangle(CellStyle.BackBrush, cellRect);
-            //debug("填充颜色:" + CellStyle.BackColor.ToString());
-            //绘制方形区域边界
-            //g.DrawRectangle(LinePen, cellRect);
             //绘制单元格 提供了单元格的rectangle就得到了 方格位置与长 宽
             //debug("fill the cellrect:"+"x:"+cellRect.X.ToString()+" y:"+cellRect.Y.ToString()+" width:"+cellRect.Width.ToString()+" height"+cellRect.Height.ToString());
             g.DrawRectangle(CellStyle.LinePen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
             //绘制出文字
             //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-            //debug(_value.ToString());
             if (_colname == QuoteListConst.SYMBOL || _colname == QuoteListConst.SYMBOLNAME)
             {
                 g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
@@ -120,30 +109,6 @@ namespace TradingLib.KryptonControl
             
             else
                 g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
-            //cellRect.Y + HeaderHeight - _headFont.Height + 2
         }
-
-        /*
-        //调用方指定value输出到表格
-        public void Paint(PaintEventArgs e, System.Drawing.Rectangle cellRect, object value, QuoteStyle quoteStyle)
-        {
-            Graphics g = e.Graphics;
-            //用颜色填充单元格
-            g.FillRectangle(CellStyle.BackBrush, cellRect);
-            
-            //绘制方形区域边界
-            //g.DrawRectangle(LinePen, cellRect);
-            //绘制单元格 提供了单元格的rectangle就得到了 方格位置与长 宽
-            //debug("fill the cellrect:"+"x:"+cellRect.X.ToString()+" y:"+cellRect.Y.ToString()+" width:"+cellRect.Width.ToString()+" height"+cellRect.Height.ToString());
-            g.DrawRectangle(quoteStyle.LinePen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-            //绘制出文字
-            //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-            debug(value.ToString());
-            g.DrawString(value.ToString(), CellStyle.Font, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.Font.Height);
-            //cellRect.Y + HeaderHeight - _headFont.Height + 2
-        }**/
-
-
-
     }
 }

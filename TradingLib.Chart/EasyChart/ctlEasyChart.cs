@@ -13,27 +13,84 @@ using Common.Logging;
 
 using Easychart.Finance;
 using Easychart.Finance.DataProvider;
+using TradingLib.KryptonControl;
 
 namespace TradingLib.Chart
 {
-    public partial class ctlEasyChart : UserControl
+    public partial class ctlEasyChart : UserControl,IPage
     {
 
-        ILog logger = LogManager.GetLogger("ctlEasyChart");
+        string _pageName = "KCHART";
+        public string PageName { get { return _pageName; } }
 
-        TLMemoryDataManager datamanager = null;
+        public event Action<Symbol> OpenQuoteEvent;
+
+        ILog logger = LogManager.GetLogger("ctlEasyChart");
+        Symbol _symbol = null;
+        BarFrequency _freq = null;
+
+        
+        
         public ctlEasyChart()
         {
+            
             InitializeComponent();
+
+            //初始化Chart
+            InitChartControl();
+
+            SetChartControl();
             this.Load += new EventHandler(ctlEasyChart_Load);
             
         }
 
         void ctlEasyChart_Load(object sender, EventArgs e)
         {
-            InitChartControl();
+
         }
 
+
+        /// <summary>
+        /// 合约
+        /// </summary>
+        public Symbol Symbol
+        {
+            get { return _symbol; }
+            set 
+            {
+                _symbol = value;
+            }
+        }
+
+        /// <summary>
+        /// 频率
+        /// </summary>
+        public BarFrequency BarFrequency
+        {
+            get { return _freq; }
+            set
+            {
+                _freq = value;
+            }
+        }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string ChartName
+        {
+            get
+            {
+                if (_symbol == null || _freq == null)
+                {
+                    throw new Exception("symbol or freq not valid");
+                }
+                return "{0}({1})-{2}".Put(_symbol.Symbol, _symbol.SecurityFamily.Exchange.Title, _freq.ToString());
+            }
+        }
+
+
+        
         /// <summary>
         /// 设置ChartControl
         /// </summary>
@@ -65,13 +122,39 @@ namespace TradingLib.Chart
             //WinChartControl.DragDrop += new DragEventHandler(WinChartControl_DragDrop);
             //WinChartControl.AfterApplySkin += new EventHandler(WinChartControl_AfterApplySkin);
             //WinChartControl.MouseUp += new MouseEventHandler(WinChartControl_MouseUp);
-
-
+            WinChartControl.KeyDown += new KeyEventHandler(WinChartControl_KeyDown);
+            WinChartControl.KeyPress += new KeyPressEventHandler(WinChartControl_KeyPress);
+            WinChartControl.KeyUp += new KeyEventHandler(WinChartControl_KeyUp);
             //WinChartControl.Skin = "GreenRed";
             
             WinChartControl.BeforeApplySkin += new Easychart.Finance.Win.ApplySkinHandler(WinChartControl_BeforeApplySkin);
             //WinChartControl.Chart.ViewChanged += new ViewChangedHandler(Chart_ViewChanged);
             
+        }
+
+        void WinChartControl_KeyUp(object sender, KeyEventArgs e)
+        {
+            logger.Info("KeyUp:{0}".Put(e.KeyCode));
+        }
+
+        void WinChartControl_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            logger.Info("KeyPress:{0}".Put(e.KeyChar));
+        }
+
+        void WinChartControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            logger.Info("KeyDown:{0}".Put(e.KeyCode));
+
+            if (e.KeyCode == Keys.Return)
+            {
+                if (OpenQuoteEvent != null)
+                {
+                    
+                    logger.Info("OpenQuote Page view symbol:{0}".Put(_symbol.Symbol));
+                    OpenQuoteEvent(_symbol);
+                }
+            }
         }
 
         void Chart_ViewChanged(object sender, ViewChangedArgs e)
@@ -282,7 +365,6 @@ namespace TradingLib.Chart
         void SetChartControl()
         {
             //WinChartControl.MouseZoomBackColor = Color.Red;
-
             WinChartControl.ShowCrossCursor = true;
             WinChartControl.ShowCursorLabel = true;
             WinChartControl.StockBars = 150;//chart显示的Bar数
@@ -291,54 +373,81 @@ namespace TradingLib.Chart
 
             //WinChartControl.ShowTopLine = true;
             WinChartControl.StickRenderType = StickRenderType.Column;
-            
         }
 
-        IDataClient _client = null;
-        /// <summary>
-        /// 初始化datamanager
-        /// </summary>
-        public void InitDataManager(IDataClient client)
-        {
-            _client = client;
-            this.datamanager = new TLMemoryDataManager(_client, true);
-            this.datamanager.DataProcessedEvent += new Action(datamanager_DataProcessedEvent);
-            this.datamanager.BarUpdatedEvent += new Action(datamanager_BarUpdatedEvent);
+        //IDataClient _client = null;
+        ///// <summary>
+        ///// 初始化datamanager
+        ///// </summary>
+        //public void InitDataManager(IDataClient client)
+        //{
+        //    _client = client;
+        //    this.datamanager = new TLMemoryDataManager(_client, true);
+        //    this.datamanager.DataProcessedEvent += new Action(OnBarUpdatedEvent);
+        //    this.datamanager.BarUpdatedEvent += new Action(datamanager_BarUpdatedEvent);
 
-            WinChartControl.DataManager = this.datamanager;
+        //    WinChartControl.DataManager = this.datamanager;
+        //    WinChartControl.EndTime = DateTime.MinValue;
+        //    WinChartControl.Symbol ="rb1610";
+        //    WinChartControl.CurrentDataCycle = Easychart.Finance.DataCycle.Minute;
+        //}
+
+        TLMemoryDataManager _mdmIntraday = null;
+        TLMemoryDataManager _mdmHist = null;
+
+        public void BindDataManager(TLMemoryDataManager mdmIntraday)
+        {
+
+            this._mdmIntraday = mdmIntraday;
+            this._mdmIntraday.DataProcessedEvent += new Action(OnBarUpdatedEvent);
+            this._mdmIntraday.BarUpdatedEvent += new Action(OnDataProcessedEvent);
+
+            WinChartControl.DataManager = _mdmIntraday;
             WinChartControl.EndTime = DateTime.MinValue;
-            WinChartControl.Symbol ="rb1610";
+            WinChartControl.Symbol = "rb1610";
             WinChartControl.CurrentDataCycle = Easychart.Finance.DataCycle.Minute;
         }
 
-        void datamanager_BarUpdatedEvent()
+        void OnBarUpdatedEvent()
         {
             WinChartControl.EndTime = DateTime.MaxValue;
             WinChartControl.NeedRefresh();
         }
 
-        void datamanager_DataProcessedEvent()
+        void OnDataProcessedEvent()
         {
             WinChartControl.NeedRefresh();
         }
 
 
-        Symbol _symbol = null;
-        /// <summary>
-        /// 显示某个合约
-        /// </summary>
-        /// <param name="symbol"></param>
-        public void Display(IDataClient client)
+        public void ShowChart(Symbol symbol)
         {
-            _symbol = null ;
+            this.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 60));
+            WinChartControl.NeedRefresh();
 
-            //设置控件
-            SetChartControl();
-
-
-            //初始化datamanager
-            InitDataManager(client);
         }
+
+        public void ShowChart(Symbol symbol, BarFrequency freq)
+        {
+            _symbol = symbol;
+            _freq = freq;
+            WinChartControl.Symbol = _symbol.Symbol;
+        }
+
+        ///// <summary>
+        ///// 显示某个合约
+        ///// </summary>
+        ///// <param name="symbol"></param>
+        //public void Display(IDataClient client)
+        //{
+        //    _symbol = null ;
+
+        //    //设置控件
+        //    SetChartControl();
+
+        //    //初始化datamanager
+        //    //InitDataManager(client);
+        //}
     }
 
 }

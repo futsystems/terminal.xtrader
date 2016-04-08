@@ -14,13 +14,20 @@ using Common.Logging;
 
 namespace TradingLib.KryptonControl
 {
-    public partial class ctQuoteMoniter : UserControl
+    public partial class PageQuoteMoniter : UserControl,IPage
     {
+        string _pageName = "QUOTEMONITER";
+        public string PageName { get { return _pageName; } }
+
+
         public event Action<IExchange> ExchangeChangedEvent;
+        public event Action<Symbol> OpenChartEvent;
+
         ILog logger = LogManager.GetLogger("QuoteMoniter");
 
-        public ctQuoteMoniter()
+        public PageQuoteMoniter()
         {
+
             InitializeComponent();
             navigator.SelectedPageChanged += new EventHandler(navigator_SelectedPageChanged);
         }
@@ -41,7 +48,7 @@ namespace TradingLib.KryptonControl
 
         ConcurrentDictionary<string, ViewQuoteList> exchangeQuoteMap = new ConcurrentDictionary<string, ViewQuoteList>();
         ConcurrentDictionary<string, IExchange> exchangeMap = new ConcurrentDictionary<string, IExchange>();
-
+        ConcurrentDictionary<string, ComponentFactory.Krypton.Navigator.KryptonPage> pageMap = new ConcurrentDictionary<string, ComponentFactory.Krypton.Navigator.KryptonPage>();
 
         ViewQuoteList GetQuoteList(string exchange)
         {
@@ -87,7 +94,9 @@ namespace TradingLib.KryptonControl
             quote.QuoteBackColor2 = Color.FromArgb(0, 0, 0);
             quote.QuoteType = GetQuoteType(ex);
             quote.SelectedColor = Color.FromArgb(75, 75, 75);
-            
+            quote.MenuEnable = true;
+            quote.OpenKChartEvent += new Action<Symbol>(OnOpenKChartEvent);
+
             ComponentFactory.Krypton.Navigator.KryptonPage page = new ComponentFactory.Krypton.Navigator.KryptonPage(ex.Title);
             page.Tag = ex;
             page.Controls.Add(quote);
@@ -96,6 +105,16 @@ namespace TradingLib.KryptonControl
 
             exchangeQuoteMap.TryAdd(ex.EXCode, quote);
             exchangeMap.TryAdd(ex.EXCode, ex);
+            pageMap.TryAdd(ex.EXCode, page);
+
+        }
+
+        void OnOpenKChartEvent(Symbol symbol)
+        {
+            if (OpenChartEvent != null)
+            {
+                OpenChartEvent(symbol);
+            }
         }
 
         /// <summary>
@@ -122,7 +141,23 @@ namespace TradingLib.KryptonControl
         }
 
 
+        public void ShowQuote(Symbol symbol)
+        {
+            ComponentFactory.Krypton.Navigator.KryptonPage target = null;
+            string exchange = symbol.Exchange;
+            if (pageMap.TryGetValue(exchange, out target))
+            {
+                navigator.SelectedPage = target;
+                ViewQuoteList quote = null;
+                if (exchangeQuoteMap.TryGetValue(exchange, out quote))
+                {
+                    quote.Focus();
+                }
+            }
 
+
+
+        }
         public void GotTick(Symbol symbol, Tick k)
         {
             ViewQuoteList target = GetQuoteList(symbol.Exchange);

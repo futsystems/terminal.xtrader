@@ -298,8 +298,10 @@ namespace TradingLib.DataProvider
                 }
 
                 var date = (double[])this.htData["DATE"];
-                _latestBarTime = DateTime.FromOADate(date[date.Length - 1]);//获得最新的Bar时间
-
+                if (date.Length > 0)
+                {
+                    _latestBarTime = DateTime.FromOADate(date[date.Length - 1]);//获得最新的Bar时间
+                }
                 this.htAllCycle.Clear();
             }
         }

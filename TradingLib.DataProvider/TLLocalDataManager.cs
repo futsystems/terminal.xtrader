@@ -233,12 +233,14 @@ namespace TradingLib.DataProvider
 					});
 
                     //double[] tmp = commonDataProvider.GetData("Date");
+                    commonDataProvider.SetStringData("Code", Code);
                     return commonDataProvider;
                 }
             }
 
             var cdp = TLCommonDataProvider.CreateEmptyDataProvider(Code,_intraday);
             cdp.DataManager = this;
+            cdp.SetStringData("Code", Code);
             return cdp;
 
         }

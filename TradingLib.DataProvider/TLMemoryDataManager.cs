@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using TradingLib.API;
@@ -19,8 +20,6 @@ namespace TradingLib.DataProvider
     {
         ILog logger = LogManager.GetLogger("TLMemoryDataManager");
 
-        //const string SYMBOL = "rb1610";
-        const string SYMBOL = "rb1610";
         /// <summary>
         /// 数据查询处理完毕事件
         /// </summary>
@@ -58,7 +57,7 @@ namespace TradingLib.DataProvider
         /// 内部查询RequestID 用于记录本地发起的请求
         /// 在回报处理函数中需要判断该回报是否需要处理 有可能是其他组件发起的数据查询操作
         /// </summary>
-        ThreadSafeList<int> reqIdList = new ThreadSafeList<int>();
+        ConcurrentDictionary<int, string> reqIdList = new ConcurrentDictionary<int, string>();
         
         /// <summary>
         /// 用于存放某个Bar数据查询所返回的Bar数据结果，服务端可能分几个消息进行返回 但是数据加载时需要整体进行加载
@@ -108,8 +107,7 @@ namespace TradingLib.DataProvider
             this.freqmgr.NewFreqKeyBarEvent += new Action<FrequencyManager.FreqKey, SingleBarEventArgs>(OnNewFreqKeyBarEvent);
             
 
-            Symbol sym = this.dataClient.GetSymbol(SYMBOL);
-            this.freqmgr.RegisterSymbol(sym);
+            
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace TradingLib.DataProvider
                 //1.将新产生的Bar数据合并到stream_cdp中,在下次获取数据时候 并入main_cdp.DataProvider中的最后一个数据由Tick更新,FrequencyManager生成的Bar需要与当前比较
                 Bar b = arg2.Bar;
                 DataPacket dp = new DataPacket(b.Symbol, b.StartTime.ToOADate(), b.Open, b.High, b.Low, b.Close, b.Volume, b.Close);
-                TLCommonDataProvider stream_cdp = GetStreamCDP(SYMBOL);
+                TLCommonDataProvider stream_cdp = GetStreamCDP(arg1.Symbol.Symbol);
                 //将新生成的Bar放入stream_cdp 在下次获取数据时候 并入main_cdp
                 stream_cdp.Merge(dp);
 
@@ -141,9 +139,9 @@ namespace TradingLib.DataProvider
         }
         void OnRspBarEvent(RspQryBarResponseBin response)
         {
-            logger.Info("got bar response reqid:{0} islast:".Put(response.RequestID, response.IsLast));
+            logger.Info("Got bar response reqid:{0} symbol:{1} count:{2} islast:{3}".Put(response.RequestID,"XXX",response.Bars.Count, response.IsLast));
             //不属于本组件请求的回报直接过滤
-            if (!reqIdList.Contains(response.RequestID)) return;
+            if (!reqIdList.Keys.Contains(response.RequestID)) return;
             //将数据存在对应的缓存中
             List<BarImpl> barlist = null;
             if (!barRspMap.TryGetValue(response.RequestID, out barlist))
@@ -156,7 +154,7 @@ namespace TradingLib.DataProvider
             //接收完所有数据后 将服务端返回的Bar数据加载到stream 等待下次取数据时合并
             if (response.IsLast)
             {
-                TLCommonDataProvider stream_cdp = GetStreamCDP(SYMBOL);
+                TLCommonDataProvider stream_cdp = GetStreamCDP(reqIdList[response.RequestID]);
                 stream_cdp.LoadBinary(ConvertBars(barlist.ToArray()));
 
                 if (DataProcessedEvent != null)
@@ -166,7 +164,8 @@ namespace TradingLib.DataProvider
                 }
 
                 //this.InnerDataManager.SaveData("IF1604", main_cdp,true);
-                reqIdList.Remove(response.RequestID);
+                string target = null;
+                reqIdList.TryRemove(response.RequestID,out target);
                 barRspMap.Remove(response.RequestID);
             }
         }
@@ -187,7 +186,7 @@ namespace TradingLib.DataProvider
 
             //2.调用对应的DataProvider处理Tick用于更新最新Bar的高开低收
             bool update = false;
-            TLCommonDataProvider commonDataProvider = (TLCommonDataProvider)TLMemoryDataManager.htHistorical[SYMBOL];
+            TLCommonDataProvider commonDataProvider = (TLCommonDataProvider)TLMemoryDataManager.htHistorical[k.Symbol];
 
             if (commonDataProvider != null)
             {
@@ -283,7 +282,7 @@ namespace TradingLib.DataProvider
         {
             logger.Info("Qry Bar from server,symbol:{0} interval:{1} start:{2} end:{3}".Put(symbol, interval, start, end));
             int reqId = this.dataClient.QryBar(symbol, interval, start, end,10000);
-            reqIdList.Add(reqId);
+            reqIdList.TryAdd(reqId,symbol);
         }
 
         /// <summary>
@@ -320,7 +319,7 @@ namespace TradingLib.DataProvider
                 }
             }
             int secends = cycle.ToSeconds();
-            QryBar(SYMBOL,secends,DateTime.MinValue, DateTime.Now);
+            QryBar(cdp.Symbol, secends, DateTime.MinValue, DateTime.Now);
 
         }
 
@@ -364,7 +363,10 @@ namespace TradingLib.DataProvider
                 //本地加载完毕后 回补数据
                 CoverBars(commonDataProvider, mainCycle);
 
-                RegisterSymbol(SYMBOL);
+                RegisterSymbol(commonDataProvider.Symbol);
+
+                Symbol sym = this.dataClient.GetSymbol(commonDataProvider.Symbol);
+                this.freqmgr.RegisterSymbol(sym);
             }
             //logger.Info("current datacycle:" + commonDataProvider.DataCycle.ToString());
             //获得实时Bar数据并进行合并同时清空实时数据

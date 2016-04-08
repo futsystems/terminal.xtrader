@@ -1,6 +1,6 @@
 ﻿namespace TradingLib.KryptonControl
 {
-    partial class ctQuoteMoniter
+    partial class PageQuoteMoniter
     {
         /// <summary> 
         /// 必需的设计器变量。
