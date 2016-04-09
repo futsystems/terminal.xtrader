@@ -69,8 +69,8 @@ namespace DataFarmMgr
 
         void menuConnect_Click(object sender, EventArgs e)
         {
-            client = new MDClient("114.55.72.206", 5060, 5060);
-            //client = new MDClient("127.0.0.1", 5060, 5060);
+            //client = new MDClient("114.55.72.206", 5060, 5060);
+            client = new MDClient("127.0.0.1", 5060, 5060);
             client.OnRtnTickEvent += new Action<Tick>(client_OnRtnTickEvent);
             client.OnInitializedEvent += new Action(OnInitializedEvent);
             client.Start();

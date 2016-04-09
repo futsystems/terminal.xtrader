@@ -29,8 +29,44 @@ namespace TradingLib.KryptonControl
         {
 
             InitializeComponent();
+            
             navigator.SelectedPageChanged += new EventHandler(navigator_SelectedPageChanged);
+            navigator.PreviewKeyDown += new PreviewKeyDownEventHandler(navigator_PreviewKeyDown);
         }
+
+        void navigator_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            logger.Info("PreviewKeyDown:" + e.KeyCode);
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                    {
+                        IExchange exchange = navigator.SelectedPage.Tag as IExchange;
+                        if (exchange != null)
+                        {
+                            ViewQuoteList quote = GetQuoteList(exchange.EXCode);
+                            if (quote != null)
+                            {
+                                if (e.KeyCode == Keys.Up)
+                                {
+                                    quote.RowUp();
+                                }
+                                else
+                                {
+                                    quote.RowDown();
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
+      
 
         void navigator_SelectedPageChanged(object sender, EventArgs e)
         {
@@ -96,9 +132,11 @@ namespace TradingLib.KryptonControl
             quote.SelectedColor = Color.FromArgb(75, 75, 75);
             quote.MenuEnable = true;
             quote.OpenKChartEvent += new Action<Symbol>(OnOpenKChartEvent);
+            quote.RightLeftMoveEvent += new Action<PreviewKeyDownEventArgs>(OnRightLeftMoveEvent);
 
             ComponentFactory.Krypton.Navigator.KryptonPage page = new ComponentFactory.Krypton.Navigator.KryptonPage(ex.Title);
             page.Tag = ex;
+            
             page.Controls.Add(quote);
             quote.Dock = DockStyle.Fill;
             navigator.Pages.Add(page);
@@ -106,6 +144,19 @@ namespace TradingLib.KryptonControl
             exchangeQuoteMap.TryAdd(ex.EXCode, quote);
             exchangeMap.TryAdd(ex.EXCode, ex);
             pageMap.TryAdd(ex.EXCode, page);
+
+        }
+
+        void OnRightLeftMoveEvent(PreviewKeyDownEventArgs obj)
+        {
+            if (obj.KeyCode == Keys.Right)
+            {
+                navigator.SelectNextPage(true);
+            }
+            else if (obj.KeyCode == Keys.Left)
+            {
+                navigator.SelectPreviousPage(true);
+            }
 
         }
 

@@ -32,6 +32,11 @@ namespace TradingLib.KryptonControl
         public event Action<Symbol> SymbolSelectedEvent;
 
         /// <summary>
+        /// 捕捉到控件上左右移动事件
+        /// </summary>
+        public event Action<PreviewKeyDownEventArgs> RightLeftMoveEvent;
+
+        /// <summary>
         /// 报价单 小下单面板行情事件
         /// </summary>
         private event TickDelegate spillTick;
@@ -286,28 +291,61 @@ namespace TradingLib.KryptonControl
 
             _timer = new System.Threading.Timer(ChangeColorBack, null, 800, 1500);
            
+            
             this.MouseMove +=new MouseEventHandler(ViewQuoteList_MouseMove);
             this.MouseDown += new MouseEventHandler(ViewQuoteList_MouseDown);
             this.MouseUp += new MouseEventHandler(ViewQuoteList_MouseUp);
             this.MouseWheel += new MouseEventHandler(ViewQuoteList_MouseWheel);
-            
-
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyUp);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
             this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
+
+            
+            
+            
+            this.PreviewKeyDown += new PreviewKeyDownEventHandler(ViewQuoteList_PreviewKeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyUp);
+
+
+
             //初始化右键菜单
             if(MenuEnable)
                 initMenu();
             //计算列起点 总宽等参数
             columnWidthChanged();
 
-
+            
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(this.GotTick);
         }
 
+        void ViewQuoteList_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            logger.Info("PreviewKeyDown:" + e.KeyCode.ToString());
+            switch(e.KeyCode)
+            {
+                case Keys.Up:
+                    this.RowUp();
+                    break;
+                case Keys.Down:
+                    this.RowDown();
+                    break;
+                case Keys.Left:
+                case Keys.Right:
+                    {
+                        if (RightLeftMoveEvent != null)
+                        {
+                            RightLeftMoveEvent(e);
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
 
+
+       
         /// <summary>
         /// 定时将闪亮的单元格 改回原来的颜色
         /// </summary>
@@ -506,6 +544,12 @@ namespace TradingLib.KryptonControl
                 _idxQuoteRowMap.Add(i, qr);
                 //更新当前的序号
                 _endIdx = Count - 1;
+
+                //如果当前没有默认选中某行 则选中第一行
+                if (_selectedRow == -1)
+                {
+                    SelectRow(0);
+                }
                 //重新绘制窗口的某个特定部分
                 Invalidate(qr.Rect);   
             }
@@ -773,7 +817,7 @@ namespace TradingLib.KryptonControl
         void SelectRow(int i)
         {
             //debug("选择行:"+i.ToString());
-            if (i < 0) i = Count - 1;
+            if (i < 0) i =  Count - 1;
             if (i > (Count - 1)) i = 0;//如果选择的行数超过当前显示的总行数,则返回到第一行
             int old = SelectedQuoteRow;
             if (i != old)//两次选择的行步一致
@@ -910,13 +954,14 @@ namespace TradingLib.KryptonControl
         /// <returns></returns>
         private int MouseIInYLineIdentity(MouseEventArgs e)
         {
-            
-            for(int i=0;i<columnStartX.Length;i++)
+            if (e.Y > 0 && e.Y < this.HeaderHeight)
             {
-
-                if (e.X > columnStartX[i] - 3 && e.X < columnStartX[i] + 3)
+                for (int i = 0; i < columnStartX.Length; i++)
                 {
-                    return i;
+                    if (e.X > columnStartX[i] - 3 && e.X < columnStartX[i] + 3)
+                    {
+                        return i;
+                    }
                 }
             }
             return -1;
@@ -939,6 +984,7 @@ namespace TradingLib.KryptonControl
         }
         private int _mouseX;
         private int _mouseY;
+
         /// <summary>
         /// 滚动鼠标轮 上下移动选行光标
         /// </summary>
@@ -946,11 +992,10 @@ namespace TradingLib.KryptonControl
         /// <param name="e"></param>
         void ViewQuoteList_MouseWheel(object sender, MouseEventArgs e)
         {
-            //debug("转动:" + e.Delta.ToString());
             if (e.Delta > 0)
-                RowUpside();
+                RowUp();
             else
-                RowDownside();
+                RowDown();
         }
 
         #endregion
@@ -1034,29 +1079,28 @@ namespace TradingLib.KryptonControl
         void ViewQuoteList_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
-            logger.Info("KeyDown:{0}".Put(e.KeyCode));
-
-            if (e.KeyCode == Keys.Return)//Q打开K线图//回车打开k线
+            try
             {
-                Symbol symbol = CurrentSymbol;
+                logger.Info("KeyDown:{0}".Put(e.KeyCode));
 
-                logger.Info("Open Chart Symbol:{0}".Put(symbol != null ? symbol.Symbol : "null"));
-                menuOpenKChart(null, null);
+                if (e.KeyCode == Keys.Return)//Q打开K线图//回车打开k线
+                {
+                    Symbol symbol = CurrentSymbol;
+
+                    logger.Info("Open Chart Symbol:{0}".Put(symbol != null ? symbol.Symbol : "null"));
+                    menuOpenKChart(null, null);
+                }
+
+                if (e.KeyCode == Keys.W)//W打开盘口
+                    openTimeSales();
+                if (e.KeyCode == Keys.E)//E打开小下单面板
+                    openTicket();
+
+               
             }
-
-            if (e.KeyCode == Keys.W)//W打开盘口
-                openTimeSales();
-            if (e.KeyCode == Keys.E)//E打开小下单面板
-                openTicket();
-            
-
-            if (e.KeyCode == Keys.Up)
-            {
-                RowUpside();
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                RowDownside();
+            catch (Exception ex)
+            { 
+                
             }
 
         }
@@ -1064,11 +1108,12 @@ namespace TradingLib.KryptonControl
         void ViewQuoteList_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             //MessageBox.Show("xx");
+            logger.Info("KeyPress:" + e.KeyChar);
         }
         /// <summary>
         /// 上移行
         /// </summary>
-        void RowUpside()
+        public void RowUp()
         {
             int rid = SelectedQuoteRow -1;
             SelectRow(rid);
@@ -1081,7 +1126,7 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 下移行
         /// </summary>
-        void RowDownside()
+        public void RowDown()
         {
             int rid = SelectedQuoteRow + 1;
             SelectRow(rid);//选择某行带有更新该行显示的语句
