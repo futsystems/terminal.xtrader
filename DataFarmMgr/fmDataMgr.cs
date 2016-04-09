@@ -33,12 +33,41 @@ namespace DataFarmMgr
         TLMemoryDataManager mdmHist = null;
 
         ToolStrip toolbar = null;
+        ImageList imageList = new ImageList();
+
+        ToolStripButton btn_Home;
+        ToolStripButton btn_Connect;
+        ToolStripButton btn_Refresh;
+        ToolStripButton btn_Chart1M;
+        ToolStripButton btn_Chart3M;
+        ToolStripButton btn_Chart5M;
+
+
+
+
+
         ComponentFactory.Krypton.Toolkit.KryptonPanel mainPanel;
+        
+
         public fmDataMgr()
         {
             InitializeComponent();
+            imageList.Images.Add(Properties.Resources.img_1M);//报价 0
+            imageList.Images.Add(Properties.Resources.img_1M);//报价 1
+            imageList.Images.Add(Properties.Resources.img_1M);//分时 2
+            imageList.Images.Add(Properties.Resources.img_1M);//分时 3
+
+            //下面为K线
+            imageList.Images.Add(Properties.Resources.img_1M);//4
+            imageList.Images.Add(Properties.Resources.img_1M_S);//5
+            imageList.Images.Add(Properties.Resources.img_3M);//6
+            imageList.Images.Add(Properties.Resources.img_3M_S);//7
+            imageList.Images.Add(Properties.Resources.img_5M);//8
+            imageList.Images.Add(Properties.Resources.img_5M_S);//9
+
 
             this.toolbar = new ToolStrip();
+            this.toolbar.ImageList = imageList;
             // 
             // toolStrip1
             // 
@@ -81,47 +110,56 @@ namespace DataFarmMgr
         #region 工具栏
         void InitTooBar()
         {
-            ToolStripButton btn = new ToolStripButton("连接");
-            btn.Click += new EventHandler(BTN_CONNECT_Click);
-            this.toolbar.Items.Add(btn);
+            this.btn_Connect = new ToolStripButton("连接");
+            this.btn_Connect.Click += new EventHandler(BTN_CONNECT_Click);
+            this.toolbar.Items.Add(this.btn_Connect);
 
-            btn = new ToolStripButton("BTN_HOME",Properties.Resources.img_home);
-            btn.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btn.ToolTipText = "起始页";
-            btn.Click += new EventHandler(BTN_HOME_Click);
-            this.toolbar.Items.Add(btn);
+            this.btn_Home = new ToolStripButton("BTN_HOME",Properties.Resources.img_home);
+            this.btn_Home.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            this.btn_Home.ToolTipText = "起始页";
+            this.btn_Home.Click += new EventHandler(BTN_HOME_Click);
+            this.toolbar.Items.Add(this.btn_Home);
 
-            btn = new ToolStripButton(Properties.Resources.img_refresh);
-            btn.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btn.ToolTipText = "数据刷新";
-            this.toolbar.Items.Add(btn);
+            this.btn_Refresh = new ToolStripButton(Properties.Resources.img_refresh);
+            this.btn_Refresh.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            this.btn_Refresh.ToolTipText = "数据刷新";
+            this.toolbar.Items.Add(this.btn_Refresh);
 
             this.toolbar.Items.Add(new ToolStripSeparator());
 
-            btn = new ToolStripButton("BTN_KCHART_1M", Properties.Resources.img_1M);
-            btn.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btn.ToolTipText = "1分钟";
-            btn.Click += new EventHandler(BTN_KCHART_1M_Click);
-            this.toolbar.Items.Add(btn);
+            this.btn_Chart1M = new ToolStripButton("BTN_KCHART_1M", Properties.Resources.img_1M);
+            this.btn_Chart1M.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            this.btn_Chart1M.ToolTipText = "1分钟";
+            this.btn_Chart1M.Click += new EventHandler(BTN_KCHART_1M_Click);
+            this.toolbar.Items.Add(this.btn_Chart1M);
 
 
-            btn = new ToolStripButton("BTN_KCHART_3M", Properties.Resources.img_3M);
-            btn.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btn.ToolTipText = "3分钟";
-            btn.Click += new EventHandler(BTN_KCHART_3M_Click);
-            this.toolbar.Items.Add(btn);
+            this.btn_Chart3M = new ToolStripButton("BTN_KCHART_3M", Properties.Resources.img_3M);
+            this.btn_Chart3M.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            this.btn_Chart3M.ToolTipText = "3分钟";
+            this.btn_Chart3M.Click += new EventHandler(BTN_KCHART_3M_Click);
+            this.toolbar.Items.Add(this.btn_Chart3M);
 
-            btn = new ToolStripButton("BTN_KCHART_5M", Properties.Resources.img_5M);
-            btn.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btn.ToolTipText = "5分钟";
-            btn.Click += new EventHandler(BTN_KCHART_5M_Click);
-            this.toolbar.Items.Add(btn);
+            this.btn_Chart5M = new ToolStripButton("BTN_KCHART_5M", Properties.Resources.img_5M);
+            this.btn_Chart5M.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            this.btn_Chart5M.ToolTipText = "5分钟";
+            this.btn_Chart5M.Click += new EventHandler(BTN_KCHART_5M_Click);
+            this.toolbar.Items.Add(this.btn_Chart5M);
         }
 
+        void ClearBtnChecked()
+        {
+            this.btn_Chart1M.ImageIndex = 4;
+            this.btn_Chart3M.ImageIndex = 6;
+            this.btn_Chart5M.ImageIndex = 8;
+
+        }
 
 
         void BTN_CONNECT_Click(object sender, EventArgs e)
         {
+            ToolStripButton btn = sender as ToolStripButton;
+            btn.Enabled = false;
             //client = new MDClient("114.55.72.206", 5060, 5060);
             client = new MDClient("127.0.0.1", 5060, 5060);
             client.OnRtnTickEvent += new Action<Tick>(client_OnRtnTickEvent);
@@ -139,6 +177,7 @@ namespace DataFarmMgr
             pageHolder.ShowPage(PageConstants.PAGE_QUOTE);
         }
 
+        
         /// <summary>
         /// 打开1分钟K线
         /// </summary>
@@ -147,8 +186,12 @@ namespace DataFarmMgr
         void BTN_KCHART_1M_Click(object sender, EventArgs e)
         {
             logger.Info("Open 1M Chart");
+            this.ClearBtnChecked();
+
             pageHolder.ShowPage(PageConstants.PAGE_CHART);
             Symbol symbol = quoteMoniter.SelectedSymbol;
+            this.btn_Chart1M.ImageIndex = 5;
+
             if (symbol != null)
             {
                 easyChart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 60));
@@ -167,8 +210,12 @@ namespace DataFarmMgr
         void BTN_KCHART_3M_Click(object sender, EventArgs e)
         {
             logger.Info("Open 3M Chart");
+            this.ClearBtnChecked();
+
             pageHolder.ShowPage(PageConstants.PAGE_CHART);
             Symbol symbol = quoteMoniter.SelectedSymbol;
+            this.btn_Chart3M.ImageIndex = 7;
+
             if (symbol != null)
             {
                 easyChart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 180));
@@ -186,8 +233,12 @@ namespace DataFarmMgr
         void BTN_KCHART_5M_Click(object sender, EventArgs e)
         {
             logger.Info("Open 5M Chart");
+            this.ClearBtnChecked();
+
             pageHolder.ShowPage(PageConstants.PAGE_CHART);
             Symbol symbol = quoteMoniter.SelectedSymbol;
+            this.btn_Chart5M.ImageIndex = 9;
+
             if (symbol != null)
             {
                 easyChart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 300));
