@@ -432,6 +432,7 @@ namespace TradingLib.KryptonControl
             _symbol = symbol;
             _freq = freq;
             WinChartControl.Symbol = _symbol.Symbol;
+            WinChartControl.CurrentDataCycle = new DataCycle(DataCycleBase.MINUTE, freq.Interval / 60);
             SetChartControl();
             WinChartControl.NeedRefresh();
         }

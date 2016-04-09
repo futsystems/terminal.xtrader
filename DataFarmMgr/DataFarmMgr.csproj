@@ -115,6 +115,33 @@
       <Name>TradingLib.KryptonControl</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_1M.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_1M_S.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_3M.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_3M_S.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_5M.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\img_5M_S.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

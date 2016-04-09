@@ -105,16 +105,16 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="PageEasyChart.cs">
+    <Compile Include="Page\PageEasyChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PageEasyChart.Designer.cs">
+    <Compile Include="Page\PageEasyChart.Designer.cs">
       <DependentUpon>PageEasyChart.cs</DependentUpon>
     </Compile>
-    <Compile Include="PageQuoteMoniter.cs">
+    <Compile Include="Page\PageQuoteMoniter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PageQuoteMoniter.Designer.cs">
+    <Compile Include="Page\PageQuoteMoniter.Designer.cs">
       <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </Compile>
     <Compile Include="ctQuoteView\EnumQuoteType.cs" />
@@ -156,10 +156,10 @@
     <EmbeddedResource Include="Control\ctQuoteViewSTK.resx">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PageEasyChart.resx">
+    <EmbeddedResource Include="Page\PageEasyChart.resx">
       <DependentUpon>PageEasyChart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PageQuoteMoniter.resx">
+    <EmbeddedResource Include="Page\PageQuoteMoniter.resx">
       <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ctQuoteView\ViewQuoteList.resx">

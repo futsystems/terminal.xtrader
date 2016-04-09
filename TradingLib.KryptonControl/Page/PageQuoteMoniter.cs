@@ -65,6 +65,20 @@ namespace TradingLib.KryptonControl
             }
             return null;
         }
+
+        /// <summary>
+        /// 当前选中的合约
+        /// </summary>
+        public Symbol SelectedSymbol
+        {
+            get
+            {
+                if (navigator.Pages.Count == 0) return null;
+                ViewQuoteList quote = GetSelectedQuote();
+                if (quote != null) return quote.SelectedSymbol;
+                return null;
+            }
+        }
         void navigator_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             logger.Info("PreviewKeyDown:" + e.KeyCode);
