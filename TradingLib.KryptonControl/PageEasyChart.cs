@@ -15,9 +15,9 @@ using Easychart.Finance;
 using Easychart.Finance.DataProvider;
 using TradingLib.KryptonControl;
 
-namespace TradingLib.Chart
+namespace TradingLib.KryptonControl
 {
-    public partial class ctlEasyChart : UserControl,IPage
+    public partial class PageEasyChart : UserControl,IPage
     {
 
         string _pageName = "KCHART";
@@ -29,9 +29,9 @@ namespace TradingLib.Chart
         Symbol _symbol = null;
         BarFrequency _freq = null;
 
-        
-        
-        public ctlEasyChart()
+
+
+        public PageEasyChart()
         {
             
             InitializeComponent();

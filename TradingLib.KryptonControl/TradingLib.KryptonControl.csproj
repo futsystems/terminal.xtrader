@@ -39,6 +39,15 @@
     </Reference>
     <Reference Include="ComponentFactory.Krypton.Navigator, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2" />
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2" />
+    <Reference Include="Easychart.Finance">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.dll</HintPath>
+    </Reference>
+    <Reference Include="Easychart.Finance.Objects">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="Easychart.Finance.Win">
+      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Win.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -56,6 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ChartSetting.cs" />
+    <Compile Include="Common\ChartStyle.cs" />
+    <Compile Include="Common\ChartType.cs" />
+    <Compile Include="Common\Enum.cs" />
     <Compile Include="Control\ctDeliveryViewSTK.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -91,6 +104,12 @@
     </Compile>
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PageEasyChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PageEasyChart.Designer.cs">
+      <DependentUpon>PageEasyChart.cs</DependentUpon>
     </Compile>
     <Compile Include="PageQuoteMoniter.cs">
       <SubType>UserControl</SubType>
@@ -137,6 +156,9 @@
     <EmbeddedResource Include="Control\ctQuoteViewSTK.resx">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PageEasyChart.resx">
+      <DependentUpon>PageEasyChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PageQuoteMoniter.resx">
       <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,12 +169,18 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
+      <Project>{4EFE4D39-1036-473D-B228-18FEAA882F41}</Project>
+      <Name>TradingLib.DataProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
       <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>
       <Name>TradingLib.TraderCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Chart\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

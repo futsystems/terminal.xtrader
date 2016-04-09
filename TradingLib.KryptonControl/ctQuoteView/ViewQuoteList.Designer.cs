@@ -36,6 +36,8 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GDIControl_Paint);
             this.ResumeLayout(false);
 
+            
+
         }
 
         #endregion

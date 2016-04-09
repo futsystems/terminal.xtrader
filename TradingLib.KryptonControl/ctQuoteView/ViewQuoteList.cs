@@ -307,7 +307,7 @@ namespace TradingLib.KryptonControl
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyUp);
 
-
+            this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
 
             //初始化右键菜单
             if(MenuEnable)
@@ -316,9 +316,19 @@ namespace TradingLib.KryptonControl
             columnWidthChanged();
 
             
-            CoreService.EventIndicator.GotTickEvent += new Action<Tick>(this.GotTick);
         }
 
+        /// <summary>
+        /// 尺寸变化重新计算开始与结束行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ViewQuoteList_SizeChanged(object sender, EventArgs e)
+        {
+            UpdateBeginEndIdx();
+        }
+
+        
         void ViewQuoteList_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             logger.Info("PreviewKeyDown:" + e.KeyCode.ToString());
@@ -387,7 +397,7 @@ namespace TradingLib.KryptonControl
         {
             Graphics g = e.Graphics;
             //绘制表头
-            paintHeader(e);
+            PaintHeader(e);
             //绘制我们需要显示的数据行
             //debug("begin:" + _beginIdx.ToString() + " end:" + _endIdx.ToString());
             try
@@ -404,8 +414,11 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        //绘制标题行
-        void paintHeader(PaintEventArgs e)
+        /// <summary>
+        /// 绘制标题行
+        /// </summary>
+        /// <param name="e"></param>
+        void PaintHeader(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
@@ -429,9 +442,9 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 更新我们需要显示的起点idx与终点idx 这个运算不需要每次都调用当移动光标使得显示的行改变的时候才需要进行
         /// </summary>
-        void updateBeginEndIdx()
+        void UpdateBeginEndIdx()
         {
-            int[] ids = getRowsStartEndToShow();
+            int[] ids = CalcRowsBeginEndIdx();
             //debug("caculate:" + _beginIdx.ToString() + "|" + _endIdx.ToString());
             int oldbegin = _beginIdx;
             _beginIdx = ids[0];
@@ -440,29 +453,38 @@ namespace TradingLib.KryptonControl
             if (oldbegin != _beginIdx)
                 this.ResetAllRect();
         }
-        //计算当前控件高度可以显示的行数
-        int calRowsCanShow()
+
+        /// <summary>
+        /// 计算控件显示报价行的开始与结束序号
+        /// </summary>
+        /// <returns></returns>
+        int[] CalcRowsBeginEndIdx()
         {
-            int i = ClientSize.Height;
-            //得到可以显示的行数
-            int rnum = Convert.ToInt16((i - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight);
-            //debug("可以显示:"+rnum.ToString());
-            return rnum;
-        }
-        //根据我们选择的row来去定我们需要显示哪些行
-        int[] getRowsStartEndToShow()
-        {   
-            int rows = calRowsCanShow();//计算我们显示的总行数
+            int rows = CalcRowsCanShow();//计算我们显示的总行数
             //当选择的行小于我们可以显示的行 则我们显示可以显示的行数与总行数中最小的一个数字
             if (SelectedQuoteRow + 1 <= rows)
-                return new int[] { 0, Math.Min(rows-1, Count - 1)};
+                return new int[] { 0, Math.Min(rows - 1, Count - 1) };
             else
             {   //如果大于可以显示的行了 则我们需要移动表格,把起点与终点都同步向上移动
                 //selectedrows会对行数进行变化,当移动到没有足够的行的时候它会自己跳到首行进行显示
-                return new int[] { 0 + (SelectedQuoteRow - rows+1), rows + (SelectedQuoteRow - rows+1)-1 };
-
+                return new int[] { 0 + (SelectedQuoteRow - rows + 1), rows + (SelectedQuoteRow - rows + 1) - 1 };
             }
         }
+
+
+        /// <summary>
+        /// 计算当前控件高度可以显示的报价行数
+        /// </summary>
+        /// <returns></returns>
+        int CalcRowsCanShow()
+        {
+            int i = ClientSize.Height;
+            //得到可以显示的行数
+            int rnum = Convert.ToInt32((i - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight);
+            //debug("可以显示:"+rnum.ToString());
+            return rnum;
+        }
+        
         #endregion
 
         //记录rowid与对应的quoteRow的映射
@@ -520,23 +542,20 @@ namespace TradingLib.KryptonControl
         /// <param name="sec"></param>
         public void AddSymbol(Symbol symbol)
         {
-            debug("add symbol:" + symbol.Symbol);
-            //MessageBox.Show("Symbol:"+sec.Symbol + " "+sec.PriceTick.ToString() +" "+ sec.Currency.ToString());
-            string sym = symbol.Symbol;//得到该security的symbol代号
+           
+            string sym = symbol.Symbol;
             //1.检查是否存在该symbol,如果存在则直接返回
             if (symmap.ContainsKey(symbol.Symbol)) return;
-            //如果baskect中没有该symbol,我们将其加入
-            symmap.TryAdd(symbol.Symbol, symbol);//basket.add默认有完备性检查
+
             //2.如果没有该symbol则进行数据项目的增加
+            symmap.TryAdd(symbol.Symbol, symbol);
             try
             {
 
                 debug("security:" + sym + "pricetick" + symbol.SecurityFamily.PriceTick.ToString());
                 //1.在DataGrid中增加新的一行数据
-                // SYM,LAST,TSIZE,BID,ASK,BSIZE,ASIZE,SIZES,OHLC(YEST),CHANGE
+               
                 int i = _idxQuoteRowMap.Count;
-                //新建一行 并插入到数据结构中
-                string dispformat = symbol.SecurityFamily.GetPriceFormat();// TraderHelper.GetDisplayFormat(sec.SecurityFamily.PriceTick);
                 QuoteRow qr = new QuoteRow(this,i, symbol, _quoteType);
                 qr.SendDebutEvent +=new DebugDelegate(debug);
 
@@ -545,11 +564,21 @@ namespace TradingLib.KryptonControl
                 //更新当前的序号
                 _endIdx = Count - 1;
 
+
+
                 //如果当前没有默认选中某行 则选中第一行
                 if (_selectedRow == -1)
                 {
                     SelectRow(0);
                 }
+                //int rows = CalcRowsCanShow();//计算我们显示的总行数
+                ////当选择的行小于我们可以显示的行 则我们显示可以显示的行数与总行数中最小的一个数字
+                //if (_selectedRow + 1 <= rows)
+                //    _endIdx = Math.Min(rows - 1, Count - 1);
+                //logger.Info("max rows:{0} endidx:{1}".Put(rows, _endIdx));
+                //计算显示的起始行数
+                //UpdateBeginEndIdx();
+
                 //重新绘制窗口的某个特定部分
                 Invalidate(qr.Rect);   
             }
@@ -597,9 +626,9 @@ namespace TradingLib.KryptonControl
             _idxQuoteRowMap.Remove(rnum-1);
             _symbolIdxMap.Remove(sym);
             //debug("剩下数据" + _symbolIdxMap.Count.ToString() + "行");
-            
+
+            UpdateBeginEndIdx();
             this.ResetAllRect();
-            updateBeginEndIdx();
             Invalidate();
   
         }
@@ -773,6 +802,17 @@ namespace TradingLib.KryptonControl
 
         int _selectedRow=-1;
         public int SelectedQuoteRow { get { return _selectedRow; } set { _selectedRow = value; } }
+
+        /// <summary>
+        /// 当前选中的合约
+        /// </summary>
+        public Symbol SelectedSymbol
+        {
+            get
+            {
+                return CurrentSymbol;
+            }
+        }
         /// <summary>
         /// 鼠标点击事件处理
         /// </summary>
@@ -817,8 +857,8 @@ namespace TradingLib.KryptonControl
         void SelectRow(int i)
         {
             //debug("选择行:"+i.ToString());
-            if (i < 0) i =  Count - 1;
-            if (i > (Count - 1)) i = 0;//如果选择的行数超过当前显示的总行数,则返回到第一行
+            if (i < 0) i =  Count - 1;//如果选择的行小于0 则返回最后一行
+            if (i > (Count - 1)) i = 0;//如果选择的行 超过当总行数,则返回到第一行
             int old = SelectedQuoteRow;
             if (i != old)//两次选择的行步一致
             {
@@ -1119,7 +1159,7 @@ namespace TradingLib.KryptonControl
             SelectRow(rid);
             if (rid > _endIdx || rid < _beginIdx)
             {
-                updateBeginEndIdx();
+                UpdateBeginEndIdx();
                 Invalidate();
             }
         }
@@ -1130,9 +1170,10 @@ namespace TradingLib.KryptonControl
         {
             int rid = SelectedQuoteRow + 1;
             SelectRow(rid);//选择某行带有更新该行显示的语句
+            logger.Info("begin:{0} end:{1}".Put(_beginIdx, _endIdx));
             if (rid > _endIdx || rid < _beginIdx)//当选择的行超出我们显示的start end区间之后我们需要重新计算对应的起始
             {
-                updateBeginEndIdx();
+                UpdateBeginEndIdx();
                 Invalidate();
             }
         }

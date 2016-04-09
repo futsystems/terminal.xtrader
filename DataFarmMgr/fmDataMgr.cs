@@ -12,7 +12,6 @@ using TradingLib.MDClient;
 using Common.Logging;
 
 using TradingLib.KryptonControl;
-using TradingLib.Chart;
 using Easychart.Finance.DataProvider;
 using TradingLib.DataProvider;
 
@@ -26,7 +25,7 @@ namespace DataFarmMgr
         ILog logger = LogManager.GetLogger("DataFarmMgr");
         
         PageQuoteMoniter quoteMoniter=null;
-        ctlEasyChart easyChart = null;
+        PageEasyChart easyChart = null;
 
         PageHolder pageHolder = new PageHolder();
 
@@ -43,7 +42,7 @@ namespace DataFarmMgr
             mainPanel.Controls.Add(quoteMoniter);
             pageHolder.AddPage(quoteMoniter);
 
-            easyChart = new ctlEasyChart();
+            easyChart = new PageEasyChart();
             easyChart.Dock = DockStyle.Fill;
             
             mainPanel.Controls.Add(easyChart);

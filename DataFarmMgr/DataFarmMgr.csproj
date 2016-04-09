@@ -106,10 +106,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TradingLib.Chart\TradingLib.Chart.csproj">
-      <Project>{4CA0F11D-DC8B-4A43-9FF3-BF22E265C1AF}</Project>
-      <Name>TradingLib.Chart</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
       <Project>{4EFE4D39-1036-473D-B228-18FEAA882F41}</Project>
       <Name>TradingLib.DataProvider</Name>

@@ -32,8 +32,39 @@ namespace TradingLib.KryptonControl
             
             navigator.SelectedPageChanged += new EventHandler(navigator_SelectedPageChanged);
             navigator.PreviewKeyDown += new PreviewKeyDownEventHandler(navigator_PreviewKeyDown);
+            navigator.MouseWheel += new MouseEventHandler(navigator_MouseWheel);
         }
 
+        void navigator_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (navigator.Pages.Count > 0)
+            {
+                ViewQuoteList quote = GetSelectedQuote();
+                if (quote != null)
+                {
+                    if (e.Delta > 0)
+                    {
+                        quote.RowUp();
+                    }
+                    else
+                    {
+                        quote.RowDown();
+                    }
+                }
+            }
+        }
+
+
+
+        ViewQuoteList GetSelectedQuote()
+        { 
+            IExchange exchange = navigator.SelectedPage.Tag as IExchange;
+            if (exchange != null)
+            {
+                return GetQuoteList(exchange.EXCode);
+            }
+            return null;
+        }
         void navigator_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             logger.Info("PreviewKeyDown:" + e.KeyCode);
@@ -42,24 +73,33 @@ namespace TradingLib.KryptonControl
                 case Keys.Up:
                 case Keys.Down:
                     {
-                        IExchange exchange = navigator.SelectedPage.Tag as IExchange;
-                        if (exchange != null)
+                        ViewQuoteList quote = GetSelectedQuote();
+                        if (quote != null)
                         {
-                            ViewQuoteList quote = GetQuoteList(exchange.EXCode);
-                            if (quote != null)
+                            if (e.KeyCode == Keys.Up)
                             {
-                                if (e.KeyCode == Keys.Up)
-                                {
-                                    quote.RowUp();
-                                }
-                                else
-                                {
-                                    quote.RowDown();
-                                }
+                                quote.RowUp();
+                            }
+                            else
+                            {
+                                quote.RowDown();
                             }
                         }
                     }
                     break;
+                case Keys.Return:
+                    {
+                        ViewQuoteList quote = GetSelectedQuote();
+                        if (quote != null)
+                        {
+                            Symbol symbol = quote.SelectedSymbol;
+                            if(symbol != null)
+                            {
+                                OnOpenKChartEvent(symbol);
+                            }
+                        }
+                    }
+                    break;                    
                 default:
                     break;
             }
