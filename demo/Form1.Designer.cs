@@ -1,6 +1,6 @@
-﻿namespace DataFarmMgr
+﻿namespace demo
 {
-    partial class fmDataMgr
+    partial class Form1
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,37 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
-            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.axStockChartX1 = new AxSTOCKCHARTXLib.AxStockChartX();
+            ((System.ComponentModel.ISupportInitialize)(this.axStockChartX1)).BeginInit();
             this.SuspendLayout();
             // 
-            // kryptonManager1
+            // axStockChartX1
             // 
-            this.kryptonManager1.GlobalPalette = this.kryptonPalette1;
-            this.kryptonManager1.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.Custom;
+            this.axStockChartX1.Enabled = true;
+            this.axStockChartX1.Location = new System.Drawing.Point(122, 88);
+            this.axStockChartX1.Name = "axStockChartX1";
+            this.axStockChartX1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axStockChartX1.OcxState")));
+            this.axStockChartX1.Size = new System.Drawing.Size(100, 50);
+            this.axStockChartX1.TabIndex = 0;
             // 
-            // kryptonPalette1
-            // 
-            this.kryptonPalette1.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            // 
-            // fmDataMgr
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 418);
-            this.KeyPreview = true;
-            this.Name = "fmDataMgr";
-            this.Text = "行情管理终端";
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.axStockChartX1);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.axStockChartX1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
-        private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
-
+        private AxSTOCKCHARTXLib.AxStockChartX axStockChartX1;
     }
 }
 

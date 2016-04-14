@@ -40,8 +40,39 @@ namespace TradingLib.KryptonControl
             InitChartControl();
 
             SetChartControl();
+
+            
+            this.KeyDown += new KeyEventHandler(PageEasyChart_KeyDown);
             this.Load += new EventHandler(ctlEasyChart_Load);
             
+            
+        }
+
+
+        //protected override bool ProcessDialogKey(Keys keyData)
+        //{
+        //    MessageBox.Show("key:" + keyData.ToString());
+        //    return base.ProcessDialogKey(keyData);
+        //}
+        void PageEasyChart_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+            //switch (e.KeyCode)
+            //{
+            //    case Keys.Up:
+            //        {
+            //            AdjustSize(-0.2);
+            //        }
+            //        break;
+            //    case Keys.Down:
+            //        {
+            //            //MessageBox.Show("down");
+            //            AdjustSize(0.2);
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         void ctlEasyChart_Load(object sender, EventArgs e)
@@ -104,13 +135,16 @@ namespace TradingLib.KryptonControl
 
             WinChartControl.StockBars = 150;
             WinChartControl.AfterBars = 1;
+            WinChartControl.ShowCrossCursor = false;//显示十字线
+            WinChartControl.ShowCursorLabel = false;//显示鼠标对应的坐标值
 
             //样式应用
             //WinChartControl.IntradayInfo = new ExchangeIntraday();
-            //WinChartControl.MaxPrice = 0.0;
+            WinChartControl.MaxPrice = 0.0;
             //WinChartControl.NativeContextMenu = false;
             //WinChartControl.ShowStatistic = false;
-            //WinChartControl.Margin = new System.Windows.Forms.Padding(0);
+            WinChartControl.Margin = new System.Windows.Forms.Padding(0);
+
             WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;
             WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;
 
@@ -122,14 +156,53 @@ namespace TradingLib.KryptonControl
             //WinChartControl.DragDrop += new DragEventHandler(WinChartControl_DragDrop);
             //WinChartControl.AfterApplySkin += new EventHandler(WinChartControl_AfterApplySkin);
             //WinChartControl.MouseUp += new MouseEventHandler(WinChartControl_MouseUp);
-            WinChartControl.KeyDown += new KeyEventHandler(WinChartControl_KeyDown);
-            WinChartControl.KeyPress += new KeyPressEventHandler(WinChartControl_KeyPress);
-            WinChartControl.KeyUp += new KeyEventHandler(WinChartControl_KeyUp);
+            //WinChartControl.KeyDown += new KeyEventHandler(WinChartControl_KeyDown);
+            //WinChartControl.KeyPress += new KeyPressEventHandler(WinChartControl_KeyPress);
+            //WinChartControl.KeyUp += new KeyEventHandler(WinChartControl_KeyUp);
+            
+            //WinChartControl.PreviewKeyDown += new PreviewKeyDownEventHandler(WinChartControl_PreviewKeyDown);
             //WinChartControl.Skin = "GreenRed";
             
             WinChartControl.BeforeApplySkin += new Easychart.Finance.Win.ApplySkinHandler(WinChartControl_BeforeApplySkin);
             //WinChartControl.Chart.ViewChanged += new ViewChangedHandler(Chart_ViewChanged);
+
+            WinChartControl.MouseDoubleClick += new MouseEventHandler(WinChartControl_MouseDoubleClick);
             
+        }
+
+        void WinChartControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            //switch (e.KeyCode)
+            //{
+            //    case Keys.Up:
+            //        {
+            //            AdjustSize(-0.2);
+            //        }
+            //        break;
+            //    case Keys.Down:
+            //        {
+            //            //MessageBox.Show("down");
+            //            AdjustSize(0.2);
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
+        }
+
+        private void AdjustSize(double Multiply)
+        {
+            this.WinChartControl.ScaleChart(Multiply);
+        }
+
+        /// <summary>
+        /// 双击切换十字光标状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void WinChartControl_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            WinChartControl.ShowCrossCursor = !WinChartControl.ShowCrossCursor;
         }
 
         void WinChartControl_KeyUp(object sender, KeyEventArgs e)
@@ -256,8 +329,10 @@ namespace TradingLib.KryptonControl
             //绘图区域 背景颜色
             skin.Back.BackGround.Color = setting.ChartBackgroundColor;
             //绘图区域 边框颜色
-            //skin.Back.FrameColor = setting.ChartBorderColor;
-            //skin.Back.TopPen = new PenMapper(Color.Green);
+            //skin.Back.FrameColor = Color.Green;//setting.ChartBorderColor;
+            //skin.Back.FrameWidth = 1;
+
+            //skin.Back.TopPen = new PenMapper(setting.ChartBorderColor);
             //skin.Back.LeftPen = new PenMapper(Color.Green);//有效
             //skin.Back.BottomPen = new PenMapper(Color.Red);//无效 可能是被X轴覆盖
             //skin.Back.RightPen = new PenMapper(Color.Green);
@@ -286,14 +361,15 @@ namespace TradingLib.KryptonControl
             skin.AxisY.MinorTick.TickPen.Color = setting.TickLineColor;
             skin.AxisY.MajorTick.FullTick = false;
             skin.AxisY.MajorTick.ShowTick = true;
-            skin.AxisY.MajorTick.ShowLine = false;
+            skin.AxisY.MajorTick.ShowLine = true;
             skin.AxisY.MajorTick.ShowText = true;
-            skin.AxisY.AutoMultiply = false;
-            skin.AxisY.MultiplyFactor = 10;
-            skin.AxisY.RefValue = 10;
+            skin.AxisY.AutoMultiply = true;
+            //skin.AxisY.MultiplyFactor = 10;
+            skin.AxisY.RefValue = 1000;
+            skin.AxisY.ShowAsPercent = true;
             
 
-            skin.AxisY.MinorTick.ShowTick = false;
+            skin.AxisY.MinorTick.ShowTick = true;
             skin.AxisY.MinorTick.ShowLine = false;
             skin.AxisY.MinorTick.ShowText = false;
             skin.AxisY.MajorTick.MinimumPixel = 100;
@@ -330,7 +406,7 @@ namespace TradingLib.KryptonControl
 
 
             //FormulaArea fa = new FormulaArea(WinChartControl.Chart);
-            //this.WinChartControl.Chart.MainArea.AxisX.Visible = false;
+            //this.WinChartControl.Chart.MainArea.TopMargin = 10;
             
             ////背景格子线颜色
             skin.AxisX.MajorTick.LinePen.Color = setting.GridLineColor;
@@ -339,6 +415,8 @@ namespace TradingLib.KryptonControl
             //skin.AxisY.MinorTick.LinePen.Color = setting.GridLineColor;
 
 
+            WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.Default;//水平
+            WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;//垂直
 
 
 
@@ -368,8 +446,8 @@ namespace TradingLib.KryptonControl
             //WinChartControl.ShowCrossCursor = true;
             //WinChartControl.ShowCursorLabel = true;
             WinChartControl.StockBars = 150;//chart显示的Bar数
-            //WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.Default;//水平
-            //WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;//垂直
+            WinChartControl.ShowVerticalGrid = Easychart.Finance.Win.ShowLineMode.Default;//水平
+            WinChartControl.ShowHorizontalGrid = Easychart.Finance.Win.ShowLineMode.HideAll;//垂直
 
             //WinChartControl.ShowTopLine = true;
             WinChartControl.StickRenderType = StickRenderType.Column;
@@ -423,8 +501,6 @@ namespace TradingLib.KryptonControl
         public void ShowChart(Symbol symbol)
         {
             this.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 60));
-            
-
         }
 
         public void ShowChart(Symbol symbol, BarFrequency freq)

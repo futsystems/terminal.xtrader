@@ -25,7 +25,7 @@ namespace DataFarmMgr
         ILog logger = LogManager.GetLogger("DataFarmMgr");
         
         PageQuoteMoniter quoteMoniter=null;
-        PageEasyChart easyChart = null;
+        PageStockChartX chart = null;
 
         PageHolder pageHolder = new PageHolder();
 
@@ -93,11 +93,11 @@ namespace DataFarmMgr
             this.mainPanel.Controls.Add(quoteMoniter);
             this.pageHolder.AddPage(quoteMoniter);
 
-            this.easyChart = new PageEasyChart();
-            this.easyChart.Dock = DockStyle.Fill;
+            this.chart = new PageStockChartX();
+            this.chart.Dock = DockStyle.Fill;
 
-            this.mainPanel.Controls.Add(easyChart);
-            this.pageHolder.AddPage(easyChart);
+            this.mainPanel.Controls.Add(chart);
+            this.pageHolder.AddPage(chart);
 
 
             //初始化工具栏
@@ -174,6 +174,9 @@ namespace DataFarmMgr
         /// <param name="e"></param>
         void BTN_HOME_Click(object sender, EventArgs e)
         {
+            logger.Info("Return home page");
+            this.ClearBtnChecked();
+
             pageHolder.ShowPage(PageConstants.PAGE_QUOTE);
         }
 
@@ -194,7 +197,7 @@ namespace DataFarmMgr
 
             if (symbol != null)
             {
-                easyChart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 60));
+                chart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 60));
             }
             else
             {
@@ -218,7 +221,7 @@ namespace DataFarmMgr
 
             if (symbol != null)
             {
-                easyChart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 180));
+                chart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 180));
             }
             else
             {
@@ -241,7 +244,7 @@ namespace DataFarmMgr
 
             if (symbol != null)
             {
-                easyChart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 300));
+                chart.ShowChart(symbol, new BarFrequency(BarInterval.CustomTime, 300));
             }
             else
             {
@@ -254,6 +257,24 @@ namespace DataFarmMgr
 
         #endregion
 
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Up:
+                    MessageBox.Show("up");
+                    break;
+                default:
+                    break;
+            }
+
+            if (keyData == Keys.Up || keyData == Keys.Down ||
+                keyData == Keys.Left || keyData == Keys.Right)
+                return false;
+            else
+                return base.ProcessDialogKey(keyData);
+        }
 
 
         void WireEvent()
@@ -288,8 +309,8 @@ namespace DataFarmMgr
                 
 
                 mdmIntraday = new TLMemoryDataManager(client, true);
-                easyChart.BindDataManager(mdmIntraday);
-                easyChart.OpenQuoteEvent += new Action<Symbol>(easyChart_OpenQuoteEvent);
+                chart.BindDataManager(mdmIntraday);
+                //chart.OpenQuoteEvent += new Action<Symbol>(easyChart_OpenQuoteEvent);
 
             }
         }
@@ -320,7 +341,7 @@ namespace DataFarmMgr
         void quoteMoniter_OpenChartEvent(Symbol obj)
         {
             pageHolder.ShowPage(PageConstants.PAGE_CHART);
-            easyChart.ShowChart(obj);
+            chart.ShowChart(obj);
 
         }
 

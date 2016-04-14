@@ -141,10 +141,6 @@
       <Project>{4EFE4D39-1036-473D-B228-18FEAA882F41}</Project>
       <Name>TradingLib.DataProvider</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TradingLib.KryptonControl\TradingLib.KryptonControl.csproj">
-      <Project>{F02819E0-B738-4531-9C6D-29DBAE3049F4}</Project>
-      <Name>TradingLib.KryptonControl</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

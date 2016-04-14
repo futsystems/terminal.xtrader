@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctlChartEasyChart1 = new TradingLib.Chart.ctlEasyChart();
+            this.ctlChartEasyChart1 = new TradingLib.KryptonControl.PageEasyChart();
             this.btnShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -37,9 +37,11 @@
             this.ctlChartEasyChart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.ctlChartEasyChart1.BarFrequency = null;
             this.ctlChartEasyChart1.Location = new System.Drawing.Point(0, 0);
             this.ctlChartEasyChart1.Name = "ctlChartEasyChart1";
             this.ctlChartEasyChart1.Size = new System.Drawing.Size(599, 398);
+            this.ctlChartEasyChart1.Symbol = null;
             this.ctlChartEasyChart1.TabIndex = 0;
             // 
             // btnShow
@@ -60,6 +62,7 @@
             this.ClientSize = new System.Drawing.Size(816, 398);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.ctlChartEasyChart1);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -68,7 +71,7 @@
 
         #endregion
 
-        private TradingLib.Chart.ctlEasyChart ctlChartEasyChart1;
+        private TradingLib.KryptonControl.PageEasyChart ctlChartEasyChart1;
         private System.Windows.Forms.Button btnShow;
 
     }
