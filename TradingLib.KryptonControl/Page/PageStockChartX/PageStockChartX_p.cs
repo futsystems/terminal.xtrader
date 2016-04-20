@@ -60,8 +60,7 @@ namespace TradingLib.KryptonControl
 
             set
             {
-                _visibleRecoredCount = value;
-                StockChartX1.VisibleRecordCount = _visibleRecoredCount;
+                _visibleRecoredCount = value;  
             }
         }
 

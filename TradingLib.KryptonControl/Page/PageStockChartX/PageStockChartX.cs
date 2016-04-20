@@ -86,6 +86,7 @@ namespace TradingLib.KryptonControl
             StockChartX1.OnKeyUp += new AxSTOCKCHARTXLib._DStockChartXEvents_OnKeyUpEventHandler(StockChartX1_OnKeyUp);
             StockChartX1.OnChar += new AxSTOCKCHARTXLib._DStockChartXEvents_OnCharEventHandler(StockChartX1_OnChar);
 
+            
             StockChartX1.DebugEvent += new AxSTOCKCHARTXLib._DStockChartXEvents_DebugEventEventHandler(StockChartX1_DebugEvent);
         }
 
@@ -107,22 +108,24 @@ namespace TradingLib.KryptonControl
             //StockChartX1.CrossHairs = true;
         }
 
+
         void StockChartX1_OnKeyDown(object sender, AxSTOCKCHARTXLib._DStockChartXEvents_OnKeyDownEvent e)
         {
-            logger.Info("on keydown");
+            
             Keys keycode = (Keys)e.nChar;
+            logger.Info("KeyDown Code:{0}".Put(keycode));
             switch (keycode)
             {
                 case Keys.Down:
                     {
-                        this.ZoomOut(0.1);
+                        this.ZoomOut(0.2);
                         
                         logger.Info("RecordCount:{0} FirstVisibleRecord:{1} LastVisbleRecord:{2}".Put(StockChartX1.RecordCount, StockChartX1.FirstVisibleRecord,StockChartX1.LastVisibleRecord));
                         break;
                     }
                 case Keys.Up:
                     {
-                        this.ZommIn(0.1);
+                        this.ZommIn(0.2);
                         break;
                     }
                 case Keys.Left:
@@ -133,6 +136,20 @@ namespace TradingLib.KryptonControl
                 case Keys.Right:
                     {
                         this.ScrollRight(5);
+                        break;
+                    }
+                case Keys.U:
+                    {
+                        logger.Info("add visiable count");
+                        StockChartX1.VisibleRecordCount += 1;
+                        StockChartX1.Update();
+                        break;
+                    }
+                case Keys.D:
+                    {
+                        logger.Info("add visiable count");
+                        //StockChartX1.FirstVisibleRecord -= 1;
+                        
                         break;
                     }
             }
@@ -153,13 +170,16 @@ namespace TradingLib.KryptonControl
 
 
         /// <summary>
-        /// StockChartX1.RecordCount 为图标中Bar总数
+        /// 放大缩小事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void StockChartX1_Zoom(object sender, EventArgs e)
         {
-            logger.Info("stock chart zoomed" + StockChartX1.RecordCount.ToString());
+            logger.Info("Zoome Show Record Cnt:{0}".Put(StockChartX1.VisibleRecordCount));
+            //记录当前图表显示Bar数量 频率切换或合约显示数量一致
+            _currentVisibleRecordCount = StockChartX1.VisibleRecordCount;
+
         }
 
         void StockChartX1_ItemRightClick(object sender, AxSTOCKCHARTXLib._DStockChartXEvents_ItemRightClickEvent e)
@@ -312,17 +332,29 @@ namespace TradingLib.KryptonControl
 
         }
 
-        #region 图标事件操作
+        #region 图表事件操作
 
+        /// <summary>
+        /// 左移
+        /// </summary>
+        /// <param name="record"></param>
         public void ScrollLeft(int record=1)
         {
             StockChartX1.ScrollLeft(record);
         }
+        /// <summary>
+        /// 右移
+        /// </summary>
+        /// <param name="record"></param>
         public void ScrollRight(int record = 1)
         {
             StockChartX1.ScrollRight(record);
         }
 
+        /// <summary>
+        /// 放大
+        /// </summary>
+        /// <param name="ratio"></param>
         public void ZommIn(double ratio)
         {
             if (ratio >= 1)
@@ -331,10 +363,14 @@ namespace TradingLib.KryptonControl
             }
             else
             {
-                StockChartX1.ZoomIn((int)(ratio * this.RecordCount));
+                StockChartX1.ZoomIn((int)(ratio * StockChartX1.VisibleRecordCount));
             }
         }
 
+        /// <summary>
+        /// 缩小
+        /// </summary>
+        /// <param name="ratio"></param>
         public void ZoomOut(double ratio)
         {
             if (ratio >= 1)
@@ -343,7 +379,7 @@ namespace TradingLib.KryptonControl
             }
             else
             {
-                StockChartX1.ZoomOut((int)(ratio * this.RecordCount));
+                StockChartX1.ZoomOut((int)(ratio * StockChartX1.VisibleRecordCount));
             }
         }
 
@@ -351,56 +387,6 @@ namespace TradingLib.KryptonControl
 
         #endregion
 
-
-        private bool LoadData(string fileName)
-        {
-
-            string[] record;
-
-            //BarData bar;
-            Data.Clear();
-
-            FileStream fs = null;
-            StreamReader sr = null;
-
-            try
-            {
-                fs = new FileStream(fileName, FileMode.Open);
-                sr = new StreamReader(fs);
-
-                sr.BaseStream.Seek(0, SeekOrigin.Begin);
-                while (sr.Peek() > -1)
-                {
-                    record = sr.ReadLine().Split(new char[] { ',' });
-                    Bar bar = new BarImpl();
-                    bar.StartTime =  DateTime.Parse(record[0]);
-                    bar.Open = Double.Parse(record[1]);
-                    bar.High = Double.Parse(record[2]);
-                    bar.Low = Double.Parse(record[3]);
-                    bar.Close = Double.Parse(record[4]);
-                    bar.Volume = int.Parse(record[5]);
-
-                    Data.Add(bar);
-                }
-
-            }
-            catch
-            {
-                return false;
-            }
-
-            // Note: If dividing volume by millions as we have above,
-            // you should add an "M" to the volume panel like this:
-            StockChartX1.VolumePostfixLetter = "M"; // M for "millions"
-            // You could also divide by 1000 and show "K" for "thousands".
-
-            fs.Close();
-            sr.Close();
-
-            return true;
-        }
-
-        
 
         ChartStyle _style = new ChartStyle();
 
@@ -454,107 +440,13 @@ namespace TradingLib.KryptonControl
 
             this.ApplyChartStyle(new ChartStyle());
 
-            this.DefaultVisibleRecordCount = 150;
+            //默认显示K线数量
+            this.DefaultVisibleRecordCount = 50;
             
 
         }
 
-        
-
-        public void LoadChart()
-        {
-            LoadData(Environment.CurrentDirectory + "\\MSFT.csv");
-            _symbol = new SymbolImpl();
-            _symbol.Symbol = "IF1604";
-
-            int panel = 0;
-            int row = 0;
-            Bar bar;
-
-
-            StockChartX1.RemoveAllSeries();
-
-            StockChartX1.Symbol = _symbol.Symbol;
-            StockChartX1.Visible = true;
-            StockChartX1.PriceStyle = PriceStyle.psStandard;
-            //First add a panel (chart area) for the OHLC data:
-            //panel = StockChartX1.AddChartPanel();
-            ChartPanel chartPanel = new ChartPanel("主视图", StockChartX1);
-            chartPanel.AddSeries(this.NAME_OPEN);
-            chartPanel.AddSeries(this.NAME_HIGH);
-            chartPanel.AddSeries(this.NAME_LOW);
-            chartPanel.AddSeries(this.NAME_CLOSE);
-
-            chartmap.Add(chartPanel.PanelIdx, chartPanel);
-
-            //Now add the open, high, low and close series to that panel:
-            //StockChartX1.AddSeries(GetSerieseName(OPEN), SeriesType.stCandleChart, panel);
-            //StockChartX1.AddSeries(GetSerieseName(HIGH), SeriesType.stCandleChart, panel);
-            //StockChartX1.AddSeries(GetSerieseName(LOW), SeriesType.stCandleChart, panel);
-            //StockChartX1.AddSeries(GetSerieseName(ClOSE), SeriesType.stCandleChart, panel);
-            //StockChartX1.AddSeries(GetSerieseName(VOLUME), SeriesType.stCandleChart, panel);
-
-            // Change the color:
-            StockChartX1.set_SeriesColor(GetSerieseName(ClOSE), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Gray));
-            //StockChartX1.set_SeriesVisible(GetSerieseName(VOLUME), false);
-
-            // Add the volume chart panel
-            // IMPORTANT! If you receive an AccessViolation regarding "protected memory" on the following line,
-            // it means you are using the PERSONAL version of StockChartX without having registered the component
-            // using the Activate.exe program. Please reinstall StockChartX in that case.
-            //panel = StockChartX1.AddChartPanel();
-            //StockChartX1.AddSeries(GetSerieseName(VOLUME), STOCKCHARTXLib.SeriesType.stVolumeChart, panel);
-            //StockChartX1.SetSeriesUpDownColors(GetSerieseName(ClOSE), (uint)System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lime), (uint)System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red));
-            chartPanel = new ChartPanel("成交量", StockChartX1);
-            chartPanel.AddSeries(this.NAME_VOLUME, SeriesType.stVolumeChart);
-
-
-            // Change volume color and weight of the volume panel:
-            StockChartX1.set_SeriesColor(GetSerieseName(VOLUME), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue));
-            StockChartX1.set_SeriesWeight(GetSerieseName(VOLUME), 3);
-            // Resize the volume panel to make it smaller
-            StockChartX1.set_PanelY1(1, (int)(StockChartX1.Height * 0.8));
-
-            //panel = StockChartX1.AddChartPanel();
-            //StockChartX1.AddSeries(symbol + ".测试", STOCKCHARTXLib.SeriesType.stStockBarChartHLC, panel);
-            //StockChartX1.TitleBorderColor = System.Drawing.Color.Green;
-
-            // Insert values into StockChartX
-            for (row =0; row <Data.Count-1; ++row)
-            { 
-                bar = (Bar)Data[row];
-                this.UpdateBar(bar, true);
-            } 
-
-
-            // So we can use the "add bar" button
-            // to simulate new data for this example:
-            //currentBar = (Data.Count / 2) + 1;
-
-            StockChartX1.DisplayTitleBorder = true;
-            //StockChartX1.UseLineSeriesUpDownColors = true;
-            //StockChartX1.UseVolumeUpDownColors = true;
-            //StockChartX1.ChartBackColor = System.Drawing.Color.Black;
-            //StockChartX1.Gridcolor = System.Drawing.Color.FromArgb(255, 60, 57);
-            //Panel分割线颜色
-            //StockChartX1.HorizontalSeparatorColor = System.Drawing.Color.FromArgb(255, 60, 57);
-            //StockChartX1.HorizontalSeparators = true;
-            
-            //StockChartX1.SetSeriesUpDownColors(GetSerieseName(CLOSE),)
-            //StockChartX1.set_BarColor(StockChartX1.RecordCount-1, GetSerieseName(ClOSE), System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White));
-            //MessageBox.Show(StockChartX1.get_BarColor(StockChartX1.RecordCount - 1, GetSerieseName(ClOSE)).ToString());
-
-            //StockChartX1.SetYScale();
-
-
-            //StockChartX1.MoveSeries("MSFT.Open", 0, 1);
-            //StockChartX1.ShowAboutBox();
-            //StockChartX1.ShowHelp("",1);
-            //StockChartX1.ShowLastTick(Symbol + ".volume", 33.33);
-
-            //StockChartX1.Update();
-            return;
-        }
+       
 
 
 
