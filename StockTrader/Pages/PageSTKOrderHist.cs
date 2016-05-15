@@ -18,6 +18,9 @@ namespace StockTrader
 {
     public partial class PageSTKOrderHist : UserControl,IPage
     {
+        string _pageName = "KCHART";
+        public string PageName { get { return _pageName; } }
+
         ILog logger = LogManager.GetLogger("PageSTKOrderHist");
         public EnumPageType PageType { get { return EnumPageType.OrderHistPage; } }
         public PageSTKOrderHist()

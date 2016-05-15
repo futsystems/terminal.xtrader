@@ -16,8 +16,11 @@ using TradingLib.KryptonControl;
 
 namespace StockTrader
 {
-    public partial class PageSTKOrderEntry : UserControl,API.IPage
+    public partial class PageSTKOrderEntry : UserControl,IPage
     {
+        string _pageName = "KCHART";
+        public string PageName { get { return _pageName; } }
+
         public EnumPageType PageType { get { return EnumPageType.OrderEntryPage; } }
 
         public PageSTKOrderEntry()

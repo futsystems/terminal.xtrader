@@ -18,6 +18,9 @@ namespace StockTrader
 {
     public partial class PageSTKAccountPosition : UserControl,IPage
     {
+        string _pageName = "KCHART";
+        public string PageName { get { return _pageName; } }
+
         ILog logger = LogManager.GetLogger("PageSTKAccountPosition");
         public EnumPageType PageType { get { return EnumPageType.AccountPage; } }
         public PageSTKAccountPosition()

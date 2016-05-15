@@ -18,6 +18,9 @@ namespace StockTrader
 {
     public partial class PageSTKDelivery : UserControl,IPage
     {
+        string _pageName = "KCHART";
+        public string PageName { get { return _pageName; } }
+
         ILog logger = LogManager.GetLogger("PageSTKDelivery");
         public EnumPageType PageType { get { return EnumPageType.DeliveryPage; } }
         public PageSTKDelivery()

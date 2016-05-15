@@ -19,6 +19,9 @@ namespace StockTrader
 {
     public partial class PageSTKOrderCancel : UserControl,IPage
     {
+        string _pageName = "KCHART";
+        public string PageName { get { return _pageName; } }
+
         public EnumPageType PageType { get { return EnumPageType.CancelPage; } }
         public PageSTKOrderCancel()
         {
