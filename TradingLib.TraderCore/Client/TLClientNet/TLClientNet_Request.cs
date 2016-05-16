@@ -11,7 +11,7 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
-        #region 客户端暴露的操作
+        #region API操作接口
 
 
 
@@ -60,6 +60,7 @@ namespace TradingLib.TraderCore
             action.OrderID = id;
             return ReqOrderAction(action);
         }
+
 
         /// <summary>
         /// 请求注销行情数据
@@ -125,13 +126,14 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 请求查询可开手数
         /// </summary>
-        public int  ReqQryMaxOrderVol(string symbol)
+        public int  ReqQryMaxOrderVol(string symbol,bool side = true,QSEnumOffsetFlag offset = QSEnumOffsetFlag.UNKNOWN)
         {
             logger.Info(PROGRAME + " qry max order vol,symbol:" + symbol);
 
             QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
-            request.OffsetFlag = QSEnumOffsetFlag.UNKNOWN;
+            request.Side = side;
+            request.OffsetFlag = offset;
             request.Account = _account;
 
             SendPacket(request);
@@ -151,7 +153,8 @@ namespace TradingLib.TraderCore
             return requestid;
         }
 
-        #region 基础信息
+
+        #region 基础数据接口
         /// <summary>
         /// 查询交易时间段
         /// </summary>
@@ -247,6 +250,8 @@ namespace TradingLib.TraderCore
 
 
         #endregion
+
+
         ///// <summary>
         ///// 查询结算信息
         ///// </summary>
@@ -331,7 +336,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 请求注册行情数据
         /// </summary>
-        public void ReqRegisterSymbols(string[] symbols)
+        public int ReqRegisterSymbols(string[] symbols)
         {
             logger.Info(PROGRAME + " register symbols:" + string.Join(",", symbols));
 
@@ -342,6 +347,7 @@ namespace TradingLib.TraderCore
 
             SendPacket(request);
             connecton.Subscribe(symbols);
+            return requestid;
 
         }
 
@@ -398,6 +404,7 @@ namespace TradingLib.TraderCore
 
             SendPacket(request);
         }
+
         #endregion
 
 

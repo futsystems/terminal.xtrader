@@ -38,11 +38,13 @@ namespace TradingLib.KryptonControl
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
             CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);
-
+            CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);
 
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
         }
+
+        
 
         /// <summary>
         /// 响应实时行情
@@ -50,6 +52,9 @@ namespace TradingLib.KryptonControl
         /// <param name="obj"></param>
         void EventIndicator_GotTickEvent(Tick obj)
         {
+            if (obj == null) return;
+            if (_symbol == null || _symbol.Symbol != obj.Symbol) return;
+            AdjustInputControl();
             
         }
 
@@ -77,12 +82,8 @@ namespace TradingLib.KryptonControl
         }
 
 
-        decimal GetMaxPrice(Tick k)
-        {
-            if (k.UpperLimit > 0) return k.UpperLimit;
-            return k.Trade * 2;
-        }
-
+        Symbol _symbol = null;
+        bool _inputControlAdjuestd = false;
         /// <summary>
         /// 响应合约选择事件
         /// 设置合约名称 并设置当前价格
@@ -91,19 +92,50 @@ namespace TradingLib.KryptonControl
         /// <param name="arg2"></param>
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-            lbSymbolName.Text = arg2.GetName();
-            Tick k = CoreService.TradingInfoTracker.TickTracker[arg2.Symbol];
+            //
+            if (_symbol == null || _symbol.Symbol != arg2.Symbol)
+            {
+                _symbol = arg2;
+                _inputControlAdjuestd = false;
+                AdjustInputControl();
+            }
+        }
+
+        void AdjustInputControl()
+        {
+            if (_symbol == null) return;
+            if (_inputControlAdjuestd) return;
+            lbSymbolName.Text = _symbol.GetName();
+            Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Symbol];
             if (k != null)
             {
-                price.Minimum = 0;
-                price.Maximum = GetMaxPrice(k);
-                price.DecimalPlaces = Util.GetDecimalPlace(arg2.SecurityFamily.PriceTick);
-                price.Increment = arg2.SecurityFamily.PriceTick;
-                price.Value = k.Trade;
-            }
+                price.Maximum = k.UpperLimit;
+                price.Minimum = k.LowerLimit;
+                price.DecimalPlaces = _symbol.SecurityFamily.GetDecimalPlaces();
+                price.Increment = _symbol.SecurityFamily.PriceTick;
+                price.Value = _side ? k.AskPrice : k.BidPrice;
 
-            //查询可操作数量
+                //查询最大可开委托数量
+                QryMaxOrderVol();
+
+                _inputControlAdjuestd = true;
+            }
+            
         }
+
+        int qryMaxOrderId = 0;
+        void QryMaxOrderVol()
+        {
+            if (_symbol == null) return;
+            qryMaxOrderId = CoreService.TLClient.ReqQryMaxOrderVol(_symbol.Symbol);
+        }
+
+        void EventOther_OnRspQryMaxOrderVolResponse(RspQryMaxOrderVolResponse obj)
+        {
+            if (obj.RequestID != qryMaxOrderId) return;
+            lbMaxOrderVol.Text = obj.MaxVol.ToString();
+        }
+
 
         /// <summary>
         /// 判定是否需要查找合约
@@ -112,7 +144,7 @@ namespace TradingLib.KryptonControl
         /// <returns></returns>
         bool NeedSearchSymbol(string symbol)
         {
-            if (symbol.Length == 4 || symbol.Length == 5) return true;
+            if (symbol.Length == 6) return true;
             return false;
 
         }
@@ -123,7 +155,7 @@ namespace TradingLib.KryptonControl
             logger.Info(string.Format("Symbol changed:{0}", symbol.Text));
 
             bool needsearch = NeedSearchSymbol(symbol.Text);
-            if (needsearch)
+           if (needsearch)
             {
                 Symbol sym = CoreService.BasicInfoTracker.GetSymbol(symbol.Text);
                 if (sym == null)
@@ -179,6 +211,8 @@ namespace TradingLib.KryptonControl
                 //label7.ForeColor = LabelColor;
                 kryptonLabel8.StateCommon.ShortText.Color1 = LabelColor;
 
+                _inputControlAdjuestd = false;
+                AdjustInputControl();
                 Invalidate();
             }
         }

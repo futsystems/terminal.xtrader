@@ -25,6 +25,21 @@ namespace TradingLib.KryptonControl
             InitializeComponent();
             //label1.TextAlign = ContentAlignment.
 
+            lbAsk1.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+            lbAsk2.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+            lbAsk3.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+            lbAsk4.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+            lbAsk5.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+
+            lbBid1.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+            lbBid2.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+            lbBid3.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+            lbBid4.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+            lbBid5.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+
+            lbUpper.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+            lbLower.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+
             this.Load += new EventHandler(ctQuoteViewSTK_Load);
             
         }
@@ -70,9 +85,18 @@ namespace TradingLib.KryptonControl
             {
                 GotTick(k);
             }
+            else
+            { 
+                //如果本地行情快照没有对应合约行情 则查询行情快照
+                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Symbol);
+            }
         }
 
 
+        /// <summary>
+        /// 响应行情数据
+        /// </summary>
+        /// <param name="k"></param>
         public void GotTick(Tick k)
         {
             if (InvokeRequired)
@@ -94,8 +118,38 @@ namespace TradingLib.KryptonControl
                 lbAsk1.Text = k.AskPrice.ToFormatStr(_format);
                 lbAskSize1.Text = k.AskSize.ToString();
 
+                lbAsk2.Text = k.AskPrice2.ToFormatStr(_format);
+                lbAskSize2.Text = k.AskSize2.ToString();
+
+                lbAsk3.Text = k.AskPrice3.ToFormatStr(_format);
+                lbAskSize3.Text = k.AskSize3.ToString();
+
+                lbAsk4.Text = k.AskPrice4.ToFormatStr(_format);
+                lbAskSize4.Text = k.AskSize4.ToString();
+
+                lbAsk5.Text = k.AskPrice5.ToFormatStr(_format);
+                lbAskSize5.Text = k.AskSize5.ToString();
+
+
                 lbBid1.Text = k.BidPrice.ToFormatStr(_format);
                 lbBidSize1.Text = k.BidSize.ToString();
+
+                lbBid2.Text = k.BidPrice2.ToFormatStr(_format);
+                lbBidSize2.Text = k.BidSize2.ToString();
+
+                lbBid3.Text = k.BidPrice3.ToFormatStr(_format);
+                lbBidSize3.Text = k.BidSize3.ToString();
+
+                lbBid4.Text = k.BidPrice4.ToFormatStr(_format);
+                lbBidSize4.Text = k.BidSize4.ToString();
+
+                lbBid5.Text = k.BidPrice5.ToFormatStr(_format);
+                lbBidSize5.Text = k.BidSize5.ToString();
+
+                lbPect.Text = ((k.Trade - k.PreClose) / k.PreClose * 100).ToFormatStr() + "%";
+
+                lbUpper.Text = k.UpperLimit.ToFormatStr(_format);
+                lbLower.Text = k.LowerLimit.ToFormatStr(_format);
 
             }
         }

@@ -134,6 +134,8 @@ namespace TradingLib.TraderCore
 
         /// <summary>
         /// 响应行情快照查询
+        /// 这里行情快照直接按照新到行情的处理方式进行处理的 感觉不是很合理，会导致出发某些由行情触发的事件
+        /// 在需要行情快照数据的地方应该自行填充数据
         /// </summary>
         /// <param name="response"></param>
         void CliOnXQryTickSnapShot(RspXQryTickSnapShotResponse response)

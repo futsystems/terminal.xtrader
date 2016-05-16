@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using TradingLib.KryptonControl;
 using StockTrader.API;
+using TradingLib.API;
+using TradingLib.Common;
+using TradingLib.TraderCore;
 
 namespace StockTrader
 {
@@ -38,6 +41,17 @@ namespace StockTrader
         void WireEvent()
         {
             menuTree.NodeMouseClick += new TreeNodeMouseClickEventHandler(menuTree_NodeMouseClick);
+
+            //
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(OnSymbolSelectedEvent);
+        }
+
+        void OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                CoreService.TLClient.ReqRegisterSymbols(new string[] { arg2.Symbol });
+            }
         }
 
 

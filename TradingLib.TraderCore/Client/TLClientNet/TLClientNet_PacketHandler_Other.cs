@@ -15,5 +15,7 @@ namespace TradingLib.TraderCore
         {
             CoreService.EventOther.FireRspQryMaxOrderVolResponse(response);
         }
+
+        
     }
 }
