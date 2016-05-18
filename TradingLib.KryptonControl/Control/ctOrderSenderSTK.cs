@@ -40,9 +40,28 @@ namespace TradingLib.KryptonControl
             CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);
             CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);
 
+            btnSubmit.Click += new EventHandler(btnSubmit_Click);
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
         }
+
+        int _orderInesertId = 0;
+        void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (_symbol == null)
+            {
+                return;
+            }
+
+            Order order = new OrderImpl();
+            order.Symbol = _symbol.Symbol;
+            order.Size = Math.Abs((int)size.Value);
+            order.Side = _side;
+            order.LimitPrice = price.Value;
+            _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
+        }
+
+       
 
         
 
@@ -200,7 +219,7 @@ namespace TradingLib.KryptonControl
                 kryptonLabel1.Text = _side ? "买入股票" : "卖出股票";
                 kryptonLabel6.Text = _side ? "可买(股):" : "可卖(股):";
                 kryptonLabel8.Text = _side ? "买入数量:" : "买出数量:";
-                //btnSubmit.Text = _side ? "买 入" : "卖 出";
+                btnSubmit.Text = _side ? "买 入" : "卖 出";
 
                 kryptonLabel1.StateCommon.ShortText.Color1 = LabelColor;
                 kryptonLabel2.StateCommon.ShortText.Color1 = LabelColor;
@@ -211,6 +230,7 @@ namespace TradingLib.KryptonControl
                 //label7.ForeColor = LabelColor;
                 kryptonLabel8.StateCommon.ShortText.Color1 = LabelColor;
 
+                
                 _inputControlAdjuestd = false;
                 AdjustInputControl();
                 Invalidate();
