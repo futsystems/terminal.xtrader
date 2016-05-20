@@ -19,15 +19,43 @@ namespace TradingLib.KryptonControl
 {
     public partial class ctTradeViewSTK : UserControl, IEventBinder
     {
+        ILog logger = LogManager.GetLogger("ctOrderViewSTK");
+
         public ctTradeViewSTK()
         {
             InitializeComponent();
             SetPreferences();
             InitTable();
             BindToTable();
-            
 
+            this.tradeGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(tradeGrid_CellFormatting);
+            this.tradeGrid.SizeChanged += new EventHandler(tradeGrid_SizeChanged);
             this.Load += new EventHandler(ctTradeViewSTK_Load);
+        }
+
+        void tradeGrid_SizeChanged(object sender, EventArgs e)
+        {
+            ResetColumeSize();
+        }
+
+        void tradeGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 8)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    bool side = false;
+                    bool.TryParse(tradeGrid[7, e.RowIndex].Value.ToString(), out side);
+                    e.CellStyle.ForeColor = side ? UIConstant.LongSideColor : UIConstant.ShortSideColor;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error("cell format error:" + ex.ToString());
+            }
         }
 
         void ctTradeViewSTK_Load(object sender, EventArgs e)
@@ -88,6 +116,20 @@ namespace TradingLib.KryptonControl
             return val.ToFormatStr(sec);
         }
 
+        const string _realDT = "HH:mm:ss";
+        const string _histDT = "yyyy-MM-dd HH:mm:ss";
+        /// <summary>
+        /// 获得委托时间
+        /// 显示日内委托只显示时间 历史委托需要显示日期
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        string GetDateTime(Trade t)
+        {
+            return Util.ToDateTime(t.xDate,t.xTime).ToString(_realview ? _realDT : _histDT);
+        }
+
+
         public void GotFill(Trade fill)
         {
             if (InvokeRequired)
@@ -101,14 +143,14 @@ namespace TradingLib.KryptonControl
                 int i = tb.Rows.Count - 1;//得到新建的Row号
                 tb.Rows[i][ORDERID] = fill.id;
                 tb.Rows[i][TRADEID] = fill.TradeID;
-                tb.Rows[i][DATETIME] = Util.ToDateTime(fill.xDate, fill.xTime).ToString("HH:mm:ss");
+                tb.Rows[i][DATETIME] = GetDateTime(fill);
                 tb.Rows[i][FILLDATE] = fill.xDate;
                 tb.Rows[i][FILLTIME] = fill.xTime;
 
                 tb.Rows[i][SYMBOL] = fill.Symbol;
                 tb.Rows[i][SYMBOLNAME] = GetSymbolName(fill);
-
-                tb.Rows[i][OPERATEION] = (fill.Side ? "买入" : "   卖出");
+                tb.Rows[i][SIDE] = fill.Side;
+                tb.Rows[i][OPERATION] = (fill.Side ? "买入" : "   卖出");
                 tb.Rows[i][PRICE] = FormatPrice(fill, fill.xPrice);
                 tb.Rows[i][SIZE] = Math.Abs(fill.xSize);
                 tb.Rows[i][AMMOUNT] = fill.xSize * fill.xPrice;
@@ -124,7 +166,8 @@ namespace TradingLib.KryptonControl
         const string SYMBOL = "证券代码";
         const string SYMBOLNAME = "证券名称";
 
-        const string OPERATEION = "操作";
+        const string SIDE = "方向";
+        const string OPERATION = "操作";
         const string PRICE = "成交均价";
         const string SIZE = "成交数量";
         const string AMMOUNT = "成交金额";
@@ -158,17 +201,33 @@ namespace TradingLib.KryptonControl
         /// </summary>
         private void InitTable()
         {
-            tb.Columns.Add(ORDERID);
+            tb.Columns.Add(ORDERID);//0
             tb.Columns.Add(TRADEID);
             tb.Columns.Add(DATETIME);
             tb.Columns.Add(FILLDATE);
             tb.Columns.Add(FILLTIME);
             tb.Columns.Add(SYMBOL);
             tb.Columns.Add(SYMBOLNAME);
-            tb.Columns.Add(OPERATEION);
+            tb.Columns.Add(SIDE);
+            tb.Columns.Add(OPERATION);
             tb.Columns.Add(PRICE);
             tb.Columns.Add(SIZE);
             tb.Columns.Add(AMMOUNT);
+        }
+
+        void ResetColumeSize()
+        {
+            ComponentFactory.Krypton.Toolkit.KryptonDataGridView grid = tradeGrid;
+            grid.Columns[DATETIME].Width = _realview?80:160;
+            grid.Columns[SYMBOL].Width = 100;
+            grid.Columns[SYMBOLNAME].Width = 100;
+            grid.Columns[OPERATION].Width = 80;
+            
+            grid.Columns[PRICE].Width = 100;
+            grid.Columns[SIZE].Width = 80;
+            
+            
+
         }
 
         /// <summary>
@@ -183,9 +242,11 @@ namespace TradingLib.KryptonControl
             datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
 
+            grid.Columns[SIDE].Visible = false;
             grid.Columns[ORDERID].Visible = false;
             grid.Columns[TRADEID].Visible = false;
-            grid.Columns[DATETIME].Visible = false;
+            grid.Columns[FILLDATE].Visible = false;
+            grid.Columns[FILLTIME].Visible = false;
 
             //set width
             //grid.Columns[SYMBOL].Width = 80;
@@ -193,6 +254,8 @@ namespace TradingLib.KryptonControl
             {
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+
+            ResetColumeSize();
         }
 
 

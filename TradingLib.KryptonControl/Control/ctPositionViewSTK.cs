@@ -29,7 +29,13 @@ namespace TradingLib.KryptonControl
             InitTable();
             BindToTable();
 
+            this.positionGrid.SizeChanged += new EventHandler(positionGrid_SizeChanged);
             this.Load += new EventHandler(ctPositionViewSTK_Load);
+        }
+
+        void positionGrid_SizeChanged(object sender, EventArgs e)
+        {
+            ResetColumeSize();
         }
 
         void ctPositionViewSTK_Load(object sender, EventArgs e)
@@ -384,6 +390,27 @@ namespace TradingLib.KryptonControl
 
         }
 
+        void ResetColumeSize()
+        {
+            ComponentFactory.Krypton.Toolkit.KryptonDataGridView grid = positionGrid;
+           
+            grid.Columns[SYMBOL].Width = 100;
+            grid.Columns[SYMBOLNAME].Width = 100;
+            grid.Columns[TOTALSIZE].Width = 60;
+            grid.Columns[AVABILESIZE].Width = 60;
+            grid.Columns[FRONZENSIZE].Width = 60;
+
+            grid.Columns[POSITIONPROFIT].Width = 80;
+            grid.Columns[AVGPRICE].Width = 80;
+            grid.Columns[LASTPRICE].Width = 80;
+            grid.Columns[POSITIONPROFITPECT].Width = 80;
+            grid.Columns[MARKETVALUE].Width = 120;
+
+
+
+
+        }
+
         /// <summary>
         /// 绑定数据表格到grid
         /// </summary>
@@ -396,9 +423,9 @@ namespace TradingLib.KryptonControl
             //datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
 
-            //grid.Columns[ORDERID].Visible = false;
-            //grid.Columns[TRADEID].Visible = false;
-            //grid.Columns[DATETIME].Visible = false;
+            grid.Columns[POSKEY].Visible = false;
+            grid.Columns[ACCOUNT].Visible = false;
+            grid.Columns[SIDE].Visible = false;
 
             //set width
             //grid.Columns[SYMBOL].Width = 80;
@@ -406,6 +433,8 @@ namespace TradingLib.KryptonControl
             {
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+
+            ResetColumeSize();
         }
     }
 }

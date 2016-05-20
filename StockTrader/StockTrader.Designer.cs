@@ -133,6 +133,7 @@
             // 
             this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonSplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 70);
             this.kryptonSplitContainer1.Name = "kryptonSplitContainer1";
             // 

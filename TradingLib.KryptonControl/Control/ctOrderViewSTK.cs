@@ -31,7 +31,6 @@ namespace TradingLib.KryptonControl
             SetPreferences();
             InitTable();
             BindToTable();
-
             //控件创建时_realview为默认True 这里还没有设置成自定义参数
             //logger.Info("Control created, realview:" + _realview.ToString());
             ////显示实时委托 需要在核心初始化完毕后从TradingInfoTracker中加载所有委托 同时相应委托实时数据
@@ -40,7 +39,34 @@ namespace TradingLib.KryptonControl
             //    CoreService.EventCore.RegIEventHandler(this);
             //    CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
             //}
+            this.orderGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(orderGrid_CellFormatting);
+            this.orderGrid.SizeChanged += new EventHandler(orderGrid_SizeChanged);
             this.Load += new EventHandler(ctOrderViewSTK_Load);
+        }
+
+        void orderGrid_SizeChanged(object sender, EventArgs e)
+        {
+            this.ResetColumeSize();
+        }
+
+        void orderGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 8)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    bool side = false;
+                    bool.TryParse(orderGrid[11, e.RowIndex].Value.ToString(), out side);
+                    e.CellStyle.ForeColor = side ? UIConstant.LongSideColor : UIConstant.ShortSideColor;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error("cell format error:" + ex.ToString());
+            }
         }
 
         /// <summary>
@@ -122,6 +148,19 @@ namespace TradingLib.KryptonControl
             return val.ToFormatStr();
         }
 
+        const string _realDT = "HH:mm:ss";
+        const string _histDT = "yyyy-MM-dd HH:mm:ss";
+        /// <summary>
+        /// 获得委托时间
+        /// 显示日内委托只显示时间 历史委托需要显示日期
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        string GetDateTime(Order o)
+        {
+            return Util.ToDateTime(o.Date, o.Time).ToString(_realview ? _realDT : _histDT);
+        }
+
         public void GotOrder(Order o)
         {
             if (InvokeRequired)
@@ -151,11 +190,11 @@ namespace TradingLib.KryptonControl
                         tb.Rows[i][PRICE] = FormatPrice(o, o.LimitPrice);
                         tb.Rows[i][FILLAVGPRICE] = 0;
                         tb.Rows[i][OPERATION] = o.Side ? "买入" : "   卖出";
-                        tb.Rows[i][DATETIME] = Util.ToDateTime(o.Date, o.Time).ToString("HH:mm:ss");
+                        tb.Rows[i][DATETIME] = GetDateTime(o);
                         tb.Rows[i][COMMENT] = o.Comment;
 
 
-                        tb.Rows[i][DIRECTION] = o.Side ? "1" : "-1";
+                        tb.Rows[i][DIRECTION] = o.Side;
                         tb.Rows[i][OFFSETFLAG] = o.IsEntryPosition ? "开仓" : "平仓";
                         tb.Rows[i][STATUS] = o.Status;
                         tb.Rows[i][STATUSSTR] = Util.GetEnumDescription(o.Status);
@@ -222,17 +261,18 @@ namespace TradingLib.KryptonControl
 
             grid.Margin = new Padding(0);
         }
+
         /// <summary>
         /// 初始化数据表格
         /// </summary>
         private void InitTable()
         {
-            tb.Columns.Add(ID);
+            tb.Columns.Add(ID);//0
             tb.Columns.Add(OrderSeq);
             tb.Columns.Add(SYMBOL);
             tb.Columns.Add(SYMBOLNAME);
             tb.Columns.Add(SIZE);
-            tb.Columns.Add(FILLED);
+            tb.Columns.Add(FILLED);//5
             tb.Columns.Add(PRICE);
             tb.Columns.Add(FILLAVGPRICE);
             tb.Columns.Add(OPERATION);
@@ -246,14 +286,27 @@ namespace TradingLib.KryptonControl
             
         }
 
+        void ResetColumeSize()
+        {
+            ComponentFactory.Krypton.Toolkit.KryptonDataGridView grid = orderGrid;
+            grid.Columns[SYMBOL].Width = 100;
+            grid.Columns[SYMBOLNAME].Width = 100;
+            grid.Columns[SIZE].Width = 80;
+            grid.Columns[FILLED].Width = 80;
+            grid.Columns[PRICE].Width = 100;
+            grid.Columns[PRICE].Width = 100;
+            grid.Columns[FILLAVGPRICE].Width = 100;
+            grid.Columns[OPERATION].Width = 80;
+            grid.Columns[DATETIME].Width = _realview ? 80 : 160;
+            
+        }
+
         /// <summary>
         /// 绑定数据表格到grid
         /// </summary>
         private void BindToTable()
         {
             KryptonDataGridView grid = orderGrid;
-            //grid.TableElement.BeginUpdate();             
-            //grid.MasterTemplate.Columns.Clear(); 
             datasource.DataSource = tb;
             datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
@@ -273,6 +326,7 @@ namespace TradingLib.KryptonControl
             {
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+            ResetColumeSize();
         }
 
         /// <summary>

@@ -226,6 +226,9 @@ namespace StockTrader
             ShowPage(EnumPageType.DeliveryPage);
         }
 
+        /// <summary>
+        /// 初始化菜单
+        /// </summary>
         void InitMenuTree()
         {
             TreeNode node_buy = new TreeNode("买入[F1]");
