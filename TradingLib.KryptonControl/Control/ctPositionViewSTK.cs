@@ -34,15 +34,22 @@ namespace TradingLib.KryptonControl
 
         void ctPositionViewSTK_Load(object sender, EventArgs e)
         {
-            if (this._realview)
+            try
             {
-                CoreService.EventCore.RegIEventHandler(this);
-                CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
-                //CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
-                CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
-            }
+                if (this._realview)
+                {
+                    CoreService.EventCore.RegIEventHandler(this);
+                    CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
+                    //CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
+                    CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+                }
 
-            positionGrid.Click += new EventHandler(positionGrid_Click);
+                positionGrid.Click += new EventHandler(positionGrid_Click);
+            }
+            catch (Exception ex)
+            { 
+                
+            }
         }
 
         /// <summary>
