@@ -72,8 +72,8 @@ namespace StockTrader
             {
                 Control c = page as Control;
                 if (c == null) continue;
-                
-                kryptonSplitContainer1.Panel2.Controls.Add(c);
+
+                mainPanel.Controls.Add(c);
                 c.Dock = DockStyle.Fill;
             }
 
