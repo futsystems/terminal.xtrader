@@ -153,7 +153,7 @@ namespace TradingLib.KryptonControl
                 tb.Rows[i][OPERATION] = (fill.Side ? "买入" : "   卖出");
                 tb.Rows[i][PRICE] = FormatPrice(fill, fill.xPrice);
                 tb.Rows[i][SIZE] = Math.Abs(fill.xSize);
-                tb.Rows[i][AMMOUNT] = fill.xSize * fill.xPrice;
+                tb.Rows[i][AMMOUNT] = fill.GetAmount();//fill.xSize * fill.xPrice;
                 
             }
         }
