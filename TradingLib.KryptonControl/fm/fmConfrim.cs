@@ -8,18 +8,23 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.TraderCore;
 
-namespace StockTrader
+namespace TradingLib.KryptonControl
 {
-    public partial class fmMessage : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class fmConfirm : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        public fmMessage(string title,string message)
+        public fmConfirm(string title, string message)
         {
             InitializeComponent();
 
             this.Text = string.IsNullOrEmpty(title) ? "提示" :title;
             this._label.Text = string.IsNullOrEmpty(message) ? "内容" :message;
             this.btnSubmit.Click += new EventHandler(btnSubmit_Click);
+            this.btnCancel.Click += new EventHandler(btnCancel_Click);
+        }
 
+        void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.No;
         }
 
         void btnSubmit_Click(object sender, EventArgs e)
@@ -37,7 +42,7 @@ namespace StockTrader
         public static DialogResult Show(string title, string message)
         {
             DialogResult result;
-            using (fmMessage fm = new fmMessage(title,message))
+            using (fmConfirm fm = new fmConfirm(title, message))
             {
 
                 fm.StartPosition = FormStartPosition.CenterParent;

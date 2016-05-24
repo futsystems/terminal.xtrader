@@ -50,9 +50,8 @@
             // 
             this.symbol.Location = new System.Drawing.Point(74, 34);
             this.symbol.Name = "symbol";
-            this.symbol.Size = new System.Drawing.Size(97, 21);
+            this.symbol.Size = new System.Drawing.Size(97, 20);
             this.symbol.TabIndex = 22;
-            this.symbol.Text = "600000";
             // 
             // price
             // 
@@ -108,7 +107,7 @@
             // 
             this.kryptonLabel8.Location = new System.Drawing.Point(5, 138);
             this.kryptonLabel8.Name = "kryptonLabel8";
-            this.kryptonLabel8.Size = new System.Drawing.Size(63, 22);
+            this.kryptonLabel8.Size = new System.Drawing.Size(63, 20);
             this.kryptonLabel8.TabIndex = 28;
             this.kryptonLabel8.Values.Text = "买入数量:";
             // 
@@ -116,7 +115,7 @@
             // 
             this.lbMaxOrderVol.Location = new System.Drawing.Point(74, 112);
             this.lbMaxOrderVol.Name = "lbMaxOrderVol";
-            this.lbMaxOrderVol.Size = new System.Drawing.Size(21, 22);
+            this.lbMaxOrderVol.Size = new System.Drawing.Size(20, 20);
             this.lbMaxOrderVol.TabIndex = 27;
             this.lbMaxOrderVol.Values.Text = "--";
             // 
@@ -124,7 +123,7 @@
             // 
             this.kryptonLabel6.Location = new System.Drawing.Point(10, 112);
             this.kryptonLabel6.Name = "kryptonLabel6";
-            this.kryptonLabel6.Size = new System.Drawing.Size(59, 22);
+            this.kryptonLabel6.Size = new System.Drawing.Size(58, 20);
             this.kryptonLabel6.TabIndex = 26;
             this.kryptonLabel6.Values.Text = "可买(股):";
             // 
@@ -132,7 +131,7 @@
             // 
             this.kryptonLabel5.Location = new System.Drawing.Point(30, 86);
             this.kryptonLabel5.Name = "kryptonLabel5";
-            this.kryptonLabel5.Size = new System.Drawing.Size(38, 22);
+            this.kryptonLabel5.Size = new System.Drawing.Size(38, 20);
             this.kryptonLabel5.TabIndex = 25;
             this.kryptonLabel5.Values.Text = "价格:";
             // 
@@ -140,7 +139,7 @@
             // 
             this.lbSymbolName.Location = new System.Drawing.Point(74, 60);
             this.lbSymbolName.Name = "lbSymbolName";
-            this.lbSymbolName.Size = new System.Drawing.Size(21, 22);
+            this.lbSymbolName.Size = new System.Drawing.Size(20, 20);
             this.lbSymbolName.TabIndex = 24;
             this.lbSymbolName.Values.Text = "--";
             // 
@@ -148,7 +147,7 @@
             // 
             this.kryptonLabel3.Location = new System.Drawing.Point(5, 60);
             this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(63, 22);
+            this.kryptonLabel3.Size = new System.Drawing.Size(63, 20);
             this.kryptonLabel3.TabIndex = 23;
             this.kryptonLabel3.Values.Text = "证券名称:";
             // 
@@ -156,7 +155,7 @@
             // 
             this.kryptonLabel2.Location = new System.Drawing.Point(5, 34);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(63, 22);
+            this.kryptonLabel2.Size = new System.Drawing.Size(63, 20);
             this.kryptonLabel2.TabIndex = 1;
             this.kryptonLabel2.Values.Text = "证券代码:";
             // 
@@ -164,7 +163,7 @@
             // 
             this.kryptonLabel1.Location = new System.Drawing.Point(50, 5);
             this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(91, 29);
+            this.kryptonLabel1.Size = new System.Drawing.Size(91, 27);
             this.kryptonLabel1.StateCommon.LongText.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("宋体", 14.25F);
             this.kryptonLabel1.TabIndex = 0;

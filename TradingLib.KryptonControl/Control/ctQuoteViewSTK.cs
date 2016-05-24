@@ -70,6 +70,7 @@ namespace TradingLib.KryptonControl
 
         }
 
+        const string lbnull = "--";
         /// <summary>
         /// 响应合约选择事件
         /// </summary>
@@ -77,7 +78,48 @@ namespace TradingLib.KryptonControl
         /// <param name="arg2"></param>
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-            if (arg2 == null) return;
+            if (arg2 == null)
+            {
+                _symbol = null;
+                lbTrade.Text = lbnull;
+                lbAsk1.Text = lbnull;
+                lbAskSize1.Text = lbnull;
+
+                lbAsk2.Text = lbnull;
+                lbAskSize2.Text = lbnull;
+
+                lbAsk3.Text = lbnull;
+                lbAskSize3.Text = lbnull;
+
+                lbAsk4.Text = lbnull;
+                lbAskSize4.Text = lbnull;
+
+                lbAsk5.Text = lbnull;
+                lbAskSize5.Text = lbnull;
+
+
+                lbBid1.Text = lbnull;
+                lbBidSize1.Text = lbnull;
+
+                lbBid2.Text = lbnull;
+                lbBidSize2.Text = lbnull;
+
+                lbBid3.Text = lbnull;
+                lbBidSize3.Text = lbnull;
+
+                lbBid4.Text = lbnull;
+                lbBidSize4.Text = lbnull;
+
+                lbBid5.Text = lbnull;
+                lbBidSize5.Text = lbnull;
+
+                lbPect.Text = lbnull;
+
+                lbUpper.Text = lbnull;
+                lbLower.Text = lbnull;
+                return;
+
+            }
             logger.Info(string.Format("Will show quote for symbol:{0}", arg2.Symbol));
             _symbol = arg2;
             Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Symbol];

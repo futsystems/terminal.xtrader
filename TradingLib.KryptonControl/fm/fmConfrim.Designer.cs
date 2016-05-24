@@ -1,6 +1,6 @@
-﻿namespace StockTrader
+﻿namespace TradingLib.KryptonControl
 {
-    partial class fmMessage
+    partial class fmConfirm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this._label = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
+            this.btnCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
@@ -40,6 +41,7 @@
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.btnCancel);
             this.kryptonPanel1.Controls.Add(this.btnSubmit);
             this.kryptonPanel1.Controls.Add(this.kryptonPanel2);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -47,6 +49,15 @@
             this.kryptonPanel1.Name = "kryptonPanel1";
             this.kryptonPanel1.Size = new System.Drawing.Size(334, 181);
             this.kryptonPanel1.TabIndex = 0;
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSubmit.Location = new System.Drawing.Point(260, 146);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(62, 25);
+            this.btnSubmit.TabIndex = 1;
+            this.btnSubmit.Values.Text = "确 定";
             // 
             // kryptonPanel2
             // 
@@ -59,15 +70,6 @@
             this.kryptonPanel2.Size = new System.Drawing.Size(310, 128);
             this.kryptonPanel2.TabIndex = 1;
             // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSubmit.Location = new System.Drawing.Point(260, 146);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(62, 25);
-            this.btnSubmit.TabIndex = 1;
-            this.btnSubmit.Values.Text = "确 定";
-            // 
             // _label
             // 
             this._label.AutoSize = false;
@@ -79,14 +81,23 @@
             this._label.Size = new System.Drawing.Size(310, 128);
             this._label.Text = "messsage";
             // 
-            // fmMessage
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(192, 146);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(62, 25);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Values.Text = "取 消";
+            // 
+            // fmConfirm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 181);
             this.Controls.Add(this.kryptonPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "fmMessage";
+            this.Name = "fmConfirm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fmMessage";
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
@@ -103,5 +114,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubmit;
         private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel _label;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancel;
     }
 }

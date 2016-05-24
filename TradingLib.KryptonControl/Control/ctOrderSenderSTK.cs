@@ -40,9 +40,43 @@ namespace TradingLib.KryptonControl
             CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);
             CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);
 
+            //用于检查委托提交返回 并设置界面提交委托按钮有效 提交委托后 需要等对应委托回报到达后才可以再次提交委托 避免多次提交产生错误
+            CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
+            CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
+
             btnSubmit.Click += new EventHandler(btnSubmit_Click);
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
+        }
+
+        void EventIndicator_GotErrorOrderEvent(Order arg1, RspInfo arg2)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent), new object[] { arg1, arg2 });
+            }
+            else
+            {
+                if (arg1.RequestID == _orderInesertId)
+                {
+                    btnSubmit.Enabled = true;
+                }
+            }
+        }
+
+        void EventIndicator_GotOrderEvent(Order obj)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<Order>(EventIndicator_GotOrderEvent), new object[] { obj });
+            }
+            else
+            {
+                if (obj.RequestID == _orderInesertId)
+                {
+                    btnSubmit.Enabled = true;
+                }
+            }
         }
 
         int _orderInesertId = 0;
@@ -50,6 +84,12 @@ namespace TradingLib.KryptonControl
         {
             if (_symbol == null)
             {
+                fmMessage.Show("委托参数错误", "请输入交易股票代码");
+                return;
+            }
+            if (size.Value == 0)
+            {
+                fmMessage.Show("委托参数错误", "请输入交易股票数量");
                 return;
             }
 
@@ -58,7 +98,14 @@ namespace TradingLib.KryptonControl
             order.Size = Math.Abs((int)size.Value);
             order.Side = _side;
             order.LimitPrice = price.Value;
-            _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
+
+            string msg = "以价格:{0} {1}{2}股票:{3}".Put(order.LimitPrice.ToFormatStr(), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName());
+            if (fmConfirm.Show("确认提交委托?", msg) == DialogResult.Yes)
+            {
+                _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
+                btnSubmit.Enabled = false;
+            }
+            
         }
 
        
@@ -111,11 +158,24 @@ namespace TradingLib.KryptonControl
         /// <param name="arg2"></param>
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-            //
+            if (arg2 == null)
+            {
+                _symbol = null;
+                lbSymbolName.Text = "--";
+                lbMaxOrderVol.Text = "0";
+                price.Maximum = 0;
+                price.Minimum = 0;
+                price.DecimalPlaces = 0;
+                price.Increment = 0;
+                price.Value = 0;
+                btnSubmit.Enabled = false;
+                return;
+            }
             if (_symbol == null || _symbol.Symbol != arg2.Symbol)
             {
                 _symbol = arg2;
                 _inputControlAdjuestd = false;
+
                 AdjustInputControl();
             }
         }
@@ -138,6 +198,7 @@ namespace TradingLib.KryptonControl
                 QryMaxOrderVol();
 
                 _inputControlAdjuestd = true;
+                btnSubmit.Enabled = true;
             }
             
         }
@@ -174,7 +235,7 @@ namespace TradingLib.KryptonControl
             logger.Info(string.Format("Symbol changed:{0}", symbol.Text));
 
             bool needsearch = NeedSearchSymbol(symbol.Text);
-           if (needsearch)
+            if (needsearch)
             {
                 Symbol sym = CoreService.BasicInfoTracker.GetSymbol(symbol.Text);
                 if (sym == null)
@@ -187,9 +248,16 @@ namespace TradingLib.KryptonControl
                     }
                 }
                 else
-                { 
+                {
                     //触发合约选择事件
                     CoreService.EventUI.FireSymbolselectedEvent(this, sym);
+                }
+            }
+            else
+            {
+                if (_symbol != null)//如果当前选择的合约不为空 则出发选空 进行重置，边界出发
+                {
+                    CoreService.EventUI.FireSymbolselectedEvent(this, null);
                 }
             }
         }

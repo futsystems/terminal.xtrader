@@ -71,12 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\EnumPageType.cs" />
-    <Compile Include="fmMessage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fmMessage.Designer.cs">
-      <DependentUpon>fmMessage.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,9 +134,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="fmMessage.resx">
-      <DependentUpon>fmMessage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
