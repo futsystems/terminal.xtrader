@@ -83,7 +83,6 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PromptMessage.cs" />
     <Compile Include="Starter.cs" />
     <Compile Include="StockTrader.cs">
       <SubType>Form</SubType>

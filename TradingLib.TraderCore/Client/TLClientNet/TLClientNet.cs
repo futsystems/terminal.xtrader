@@ -221,8 +221,16 @@ namespace TradingLib.TraderCore
         }
 
 
-
-
+        /// <summary>
+        /// 判断某个回报消息是否是错误消息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        bool IsRspInfoError(RspInfo info)
+        {
+            if (info != null && info.ErrorID != 0) return true;
+            return false;
+        }
 
         #endregion
 

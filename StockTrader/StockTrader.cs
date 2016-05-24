@@ -14,12 +14,14 @@ using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
 
+using Common.Logging;
+
 namespace StockTrader
 {
     public partial class StockTrader : KryptonForm
     {
         Dictionary<EnumPageType, IPage> pagemap = new Dictionary<EnumPageType, IPage>();
-
+        ILog logger = LogManager.GetLogger("StockTrader");
         public StockTrader()
         {
             InitializeComponent();
@@ -31,6 +33,9 @@ namespace StockTrader
             InitMenuTree();
 
             WireEvent();
+
+            //启动消息弹窗线程
+            InitMessageBW();
 
             ShowPage(EnumPageType.OrderEntryPage);
         }
@@ -46,9 +51,7 @@ namespace StockTrader
 
         void btnRefresh_Click(object sender, EventArgs e)
         {
-            fmMessage fm = new fmMessage("测试", "多朋友都会在开发WinForm中遇到Label要显示的内容太长,但却不能换行的问题.这里我总结了几种方法,供大家参考:");
-            fm.ShowDialog();
-            fm.Close();
+            
         }
 
         void OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
@@ -322,43 +325,22 @@ namespace StockTrader
         
         System.ComponentModel.BackgroundWorker bg;
 
-        RingBuffer<RspInfo> infobuffer = new RingBuffer<RspInfo>(1000);
+        RingBuffer<PromptMessage> infobuffer = new RingBuffer<PromptMessage>(1000);
 
 
-        /// <summary>
-        /// 将需要弹出的消息放入缓存
-        /// </summary>
-        /// <param name="info"></param>
-        void OnRspInfo(TradingLib.API.RspInfo info)
-        {
-            //将RspInfo写入缓存 等待后台线程进行处理
-            infobuffer.Write(info);
-        }
+       
 
-        void InitPopBW()
+        void InitMessageBW()
         {
             bg = new BackgroundWorker();
-            bg.WorkerReportsProgress = true;
             bg.DoWork += new DoWorkEventHandler(bg_DoWork);
-            bg.ProgressChanged += new ProgressChangedEventHandler(bg_ProgressChanged);
             bg.RunWorkerAsync();
-            MessageBox.Show("eee");
-            CoreService.EventCore.OnRspInfoEvent += new Action<RspInfo>(OnRspInfo);
+            CoreService.EventCore.OnPromptMessageEvent += new Action<PromptMessage>(EventCore_OnPromptMessageEvent);
         }
 
-        /// <summary>
-        /// 当后台线程有触发时 调用显示窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void bg_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        void EventCore_OnPromptMessageEvent(PromptMessage obj)
         {
-            RspInfo info = e.UserState as RspInfo;
-            //System.Drawing.Point p = PointToScreen(status.Location);
-            //p = new System.Drawing.Point(p.X, p.Y - popwindow.Height + status.Height);
-
-            //popwindow.Location = p;
-            //popwindow.PopMessage(info);
+            infobuffer.Write(obj);
         }
 
         /// <summary>
@@ -370,14 +352,26 @@ namespace StockTrader
         {
             while (true)
             {
-                //检查变量 然后对外触发 
-                while (infobuffer.hasItems)
+                try
                 {
-                    RspInfo info = infobuffer.Read();
-                    bg.ReportProgress(1, info);
-                    Util.sleep(1000);
+                    //如果消息缓存中有内容则弹窗提醒
+                    while (infobuffer.hasItems)
+                    {
+                        PromptMessage info = infobuffer.Read();
+                        if (info != null)
+                        {
+                            MethodInvoker mi = new MethodInvoker(() => { fmMessage.Show(info); });
+                            IAsyncResult result = this.BeginInvoke(mi);
+                            this.EndInvoke(result);
+                        }
+                        Util.sleep(100);
+                    }
+                    Util.sleep(100);
                 }
-                Util.sleep(50);
+                catch (Exception ex)
+                {
+                    logger.Error("bg worker error:" + ex.ToString());
+                }
             }
         }
 

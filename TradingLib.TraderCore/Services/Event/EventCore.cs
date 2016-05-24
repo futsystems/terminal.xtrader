@@ -155,6 +155,15 @@ namespace TradingLib.TraderCore
                 OnRspInfoEvent(info);
         }
 
+        public event Action<PromptMessage> OnPromptMessageEvent;
+        internal void FirePromptMessageEvent(PromptMessage msg)
+        {
+            if (OnPromptMessageEvent != null)
+            {
+                OnPromptMessageEvent(msg);
+            }
+        }
+
 
         public event Action<ManagerNotify> OnManagerNotifyEvent;
         internal void FireManagerNotifyEvent(ManagerNotify notify)

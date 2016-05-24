@@ -155,13 +155,22 @@ namespace TradingLib.TraderCore
         {
             logger.Debug("got error order:" + response.ToString());
             CoreService.EventIndicator.FireErrorOrder(response.Order, response.RspInfo);
-
+            if (IsRspInfoError(response.RspInfo))
+            {
+                PromptMessage msg = new PromptMessage("提交委托异常", "{0},ErrorCode[{1}]".Put(response.RspInfo.ErrorMessage, response.RspInfo.ErrorID));
+                CoreService.EventCore.FirePromptMessageEvent(msg);
+            }
         }
 
         void CliOnErrorOrderActionNotify(ErrorOrderActionNotify response)
         {
             logger.Debug("got error order actoin:" + response.ToString());
             CoreService.EventIndicator.FireErrorOrderAction(response.OrderAction, response.RspInfo);
+            if (IsRspInfoError(response.RspInfo))
+            {
+                PromptMessage msg = new PromptMessage("提交委托操作异常", "{0},ErrorCode[{1}]".Put(response.RspInfo.ErrorMessage, response.RspInfo.ErrorID));
+                CoreService.EventCore.FirePromptMessageEvent(msg);
+            }
         }
     }
 }
