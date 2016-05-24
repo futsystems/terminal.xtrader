@@ -18,9 +18,6 @@ namespace StockTrader
 {
     public partial class StockTrader : KryptonForm
     {
-
-
-
         Dictionary<EnumPageType, IPage> pagemap = new Dictionary<EnumPageType, IPage>();
 
         public StockTrader()
@@ -42,8 +39,16 @@ namespace StockTrader
         {
             menuTree.NodeMouseClick += new TreeNodeMouseClickEventHandler(menuTree_NodeMouseClick);
 
+            btnRefresh.Click += new EventHandler(btnRefresh_Click);
             //
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(OnSymbolSelectedEvent);
+        }
+
+        void btnRefresh_Click(object sender, EventArgs e)
+        {
+            fmMessage fm = new fmMessage("测试", "多朋友都会在开发WinForm中遇到Label要显示的内容太长,但却不能换行的问题.这里我总结了几种方法,供大家参考:");
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
@@ -72,7 +77,6 @@ namespace StockTrader
             {
                 Control c = page as Control;
                 if (c == null) continue;
-
                 mainPanel.Controls.Add(c);
                 c.Dock = DockStyle.Fill;
             }
@@ -112,58 +116,10 @@ namespace StockTrader
             }
             return null;
         }
-        void menuTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Node.Parent == null)
-            {
-                //MessageBox.Show(e.Node.Index.ToString());
-                switch(e.Node.Index)
-                {
-                    case 0:
-                        OpenPageBuy(e.Node);
-                        return;
-                    case 1:
-                        OpenPageSell(e.Node);
-                        return;
-                    case 2:
-                        OpenPageCancel(e.Node);
-                        return;
-                    case 3:
-                        OpenPageBuySell(e.Node);
-                        return;
-                    default:
-                        return;
-                }
-            }
-            else if (e.Node.Parent.Index == 4)
-            {
-                switch (e.Node.Index)
-                {
-                    case 0:
-                        OpenPageOrderToday(e.Node);
-                        return;
-                    case 1:
-                        OpenPageTradeToday(e.Node);
-                        return;
-                    case 2:
-                        OpenPageOrderHist(e.Node);
-                        return;
-                    case 3:
-                        OpenPageTradeHist(e.Node);
-                        return;
-                    case 4:
-                        OpenPageAccount(e.Node);
-                        return;
-                    case 5:
-                        OpenPageDelivery(e.Node);
-                        return;
-                    default:
-                        return;
-                }
-            }
 
-        }
 
+
+        #region 打开页面
         void OpenPageBuy(TreeNode node)
         {
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
@@ -225,7 +181,10 @@ namespace StockTrader
             PageSTKDelivery p = node.Tag as PageSTKDelivery;
             ShowPage(EnumPageType.DeliveryPage);
         }
+        #endregion
 
+
+        #region 初始化树状菜单与菜单点击事件
         /// <summary>
         /// 初始化菜单
         /// </summary>
@@ -301,6 +260,131 @@ namespace StockTrader
             node_search_delivery.Tag = GetPage(EnumPageType.DeliveryPage);
             node_search.Nodes.Add(node_search_delivery);
         }
+
+        void menuTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Parent == null)
+            {
+                //MessageBox.Show(e.Node.Index.ToString());
+                switch (e.Node.Index)
+                {
+                    case 0:
+                        OpenPageBuy(e.Node);
+                        return;
+                    case 1:
+                        OpenPageSell(e.Node);
+                        return;
+                    case 2:
+                        OpenPageCancel(e.Node);
+                        return;
+                    case 3:
+                        OpenPageBuySell(e.Node);
+                        return;
+                    default:
+                        return;
+                }
+            }
+            else if (e.Node.Parent.Index == 4)
+            {
+                switch (e.Node.Index)
+                {
+                    case 0:
+                        OpenPageOrderToday(e.Node);
+                        return;
+                    case 1:
+                        OpenPageTradeToday(e.Node);
+                        return;
+                    case 2:
+                        OpenPageOrderHist(e.Node);
+                        return;
+                    case 3:
+                        OpenPageTradeHist(e.Node);
+                        return;
+                    case 4:
+                        OpenPageAccount(e.Node);
+                        return;
+                    case 5:
+                        OpenPageDelivery(e.Node);
+                        return;
+                    default:
+                        return;
+                }
+            }
+
+        }
+        #endregion
+
+
+
+        #region 弹窗提醒
+
+
+        
+        System.ComponentModel.BackgroundWorker bg;
+
+        RingBuffer<RspInfo> infobuffer = new RingBuffer<RspInfo>(1000);
+
+
+        /// <summary>
+        /// 将需要弹出的消息放入缓存
+        /// </summary>
+        /// <param name="info"></param>
+        void OnRspInfo(TradingLib.API.RspInfo info)
+        {
+            //将RspInfo写入缓存 等待后台线程进行处理
+            infobuffer.Write(info);
+        }
+
+        void InitPopBW()
+        {
+            bg = new BackgroundWorker();
+            bg.WorkerReportsProgress = true;
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.ProgressChanged += new ProgressChangedEventHandler(bg_ProgressChanged);
+            bg.RunWorkerAsync();
+            MessageBox.Show("eee");
+            CoreService.EventCore.OnRspInfoEvent += new Action<RspInfo>(OnRspInfo);
+        }
+
+        /// <summary>
+        /// 当后台线程有触发时 调用显示窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void bg_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            RspInfo info = e.UserState as RspInfo;
+            //System.Drawing.Point p = PointToScreen(status.Location);
+            //p = new System.Drawing.Point(p.X, p.Y - popwindow.Height + status.Height);
+
+            //popwindow.Location = p;
+            //popwindow.PopMessage(info);
+        }
+
+        /// <summary>
+        /// 后台工作流程 当缓存中有数据是通过ReportProgress进行触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void bg_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                //检查变量 然后对外触发 
+                while (infobuffer.hasItems)
+                {
+                    RspInfo info = infobuffer.Read();
+                    bg.ReportProgress(1, info);
+                    Util.sleep(1000);
+                }
+                Util.sleep(50);
+            }
+        }
+
+
+        #endregion
+
+
         private void ctOrderViewSTK1_Load(object sender, EventArgs e)
         {
 
