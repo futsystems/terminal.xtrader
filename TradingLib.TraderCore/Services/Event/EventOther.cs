@@ -52,5 +52,15 @@ namespace TradingLib.TraderCore
                 OnRspQryMaxOrderVolResponse(response);
             
         }
+
+        public event Action<RspReqChangePasswordResponse> OnRspReqChangePasswordResponse;
+
+        internal void FireRspReqChangePasswordResponse(RspReqChangePasswordResponse response)
+        {
+            if (OnRspReqChangePasswordResponse != null)
+            {
+                OnRspReqChangePasswordResponse(response);
+            }
+        }
     }
 }

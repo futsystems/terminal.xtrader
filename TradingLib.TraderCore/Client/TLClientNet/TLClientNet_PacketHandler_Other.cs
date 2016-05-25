@@ -16,6 +16,25 @@ namespace TradingLib.TraderCore
             CoreService.EventOther.FireRspQryMaxOrderVolResponse(response);
         }
 
+
+        /// <summary>
+        /// 响应修改密码回报
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnChangePass(RspReqChangePasswordResponse response)
+        {
+            CoreService.EventOther.FireRspReqChangePasswordResponse(response);
+            if (IsRspInfoError(response.RspInfo))
+            {
+                PromptMessage msg = new PromptMessage("修改密码错误", "{0},ErrorCode[{1}]".Put(response.RspInfo.ErrorMessage, response.RspInfo.ErrorID));
+                CoreService.EventCore.FirePromptMessageEvent(msg);
+            }
+            else
+            {
+                PromptMessage msg = new PromptMessage("修改密码成功", "密码修改成功，下次交易请用新密码登入。");
+                CoreService.EventCore.FirePromptMessageEvent(msg);
+            }
+        }
         
     }
 }

@@ -6,8 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
-using StockTrader.API;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
@@ -18,10 +16,10 @@ namespace StockTrader
 {
     public partial class PageSTKOrderEntry : UserControl,IPage
     {
-        string _pageName = "KCHART";
+        string _pageName = PageTypes.PAGE_ORDER_ENTRY;
         public string PageName { get { return _pageName; } }
 
-        public EnumPageType PageType { get { return EnumPageType.OrderEntryPage; } }
+       
 
         public PageSTKOrderEntry()
         {

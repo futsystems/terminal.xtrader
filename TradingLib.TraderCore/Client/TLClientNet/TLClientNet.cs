@@ -153,21 +153,6 @@ namespace TradingLib.TraderCore
             logger.Info("got order action:" + response.ToString());
         }
 
-
-
-        void CliOnChangePass(RspReqChangePasswordResponse response)
-        {
-            logger.Info("got changepassword response:" + response.RspInfo.ErrorID.ToString() + " " + response.RspInfo.ErrorMessage);
-
-            if (response.RspInfo.ErrorID != 0)
-            {
-                CoreService.EventCore.FireRspInfoEvent(response.RspInfo);
-            }
-            else
-            {
-                CoreService.EventCore.FireRspInfoEvent(new RspInfoImpl() { ErrorID = 0, ErrorMessage = "修改密码成功" });
-            }
-        }
         #region 查询
 
 

@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Common.Logging;
-
-using StockTrader.API;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
@@ -18,11 +16,11 @@ namespace StockTrader
 {
     public partial class PageSTKOrderHist : UserControl,IPage
     {
-        string _pageName = "KCHART";
+        string _pageName = PageTypes.PAGE_ORDER_HIST;
         public string PageName { get { return _pageName; } }
 
         ILog logger = LogManager.GetLogger("PageSTKOrderHist");
-        public EnumPageType PageType { get { return EnumPageType.OrderHistPage; } }
+      
         public PageSTKOrderHist()
         {
             InitializeComponent();

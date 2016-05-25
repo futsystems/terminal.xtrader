@@ -6,17 +6,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using StockTrader.API;
 using TradingLib.KryptonControl;
 
 namespace StockTrader
 {
     public partial class PageSTKOrderToday : UserControl,IPage
     {
-        string _pageName = "KCHART";
+        string _pageName = PageTypes.PAGE_ORDER_TODAY;
         public string PageName { get { return _pageName; } }
 
-        public EnumPageType PageType { get { return EnumPageType.OrderTodayPage; } }
+
         public PageSTKOrderToday()
         {
             InitializeComponent();

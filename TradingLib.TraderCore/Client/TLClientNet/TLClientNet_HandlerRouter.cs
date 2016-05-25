@@ -46,9 +46,6 @@ namespace TradingLib.TraderCore
                     CliOnErrorOrderActionNotify(packet as ErrorOrderActionNotify);
                     break;
 
-                case MessageTypes.CHANGEPASSRESPONSE:
-                    CliOnChangePass(packet as RspReqChangePasswordResponse);
-                    break;
 
 
 
@@ -72,6 +69,9 @@ namespace TradingLib.TraderCore
 
                 case MessageTypes.MAXORDERVOLRESPONSE: //最大可开数量回报
                     CliOnMaxOrderVol(packet as RspQryMaxOrderVolResponse);
+                    break;
+                case MessageTypes.CHANGEPASSRESPONSE://修改密码回报
+                    CliOnChangePass(packet as RspReqChangePasswordResponse);
                     break;
                 //case MessageTypes.SETTLEINFOCONFIRMRESPONSE://结算确认回报
                 //    CliOnSettleInfoConfirm(packet as RspQrySettleInfoConfirmResponse);

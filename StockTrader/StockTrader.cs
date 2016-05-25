@@ -9,7 +9,6 @@ using System.Windows.Forms;
 
 using ComponentFactory.Krypton.Toolkit;
 using TradingLib.KryptonControl;
-using StockTrader.API;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
@@ -20,7 +19,7 @@ namespace StockTrader
 {
     public partial class StockTrader : KryptonForm
     {
-        Dictionary<EnumPageType, IPage> pagemap = new Dictionary<EnumPageType, IPage>();
+        Dictionary<string, IPage> pagemap = new Dictionary<string, IPage>();
         ILog logger = LogManager.GetLogger("StockTrader");
         public StockTrader()
         {
@@ -37,7 +36,7 @@ namespace StockTrader
             //启动消息弹窗线程
             InitMessageBW();
 
-            ShowPage(EnumPageType.OrderEntryPage);
+            ShowPage(PageTypes.PAGE_ORDER_ENTRY);
         }
 
         void WireEvent()
@@ -45,10 +44,16 @@ namespace StockTrader
             menuTree.NodeMouseClick += new TreeNodeMouseClickEventHandler(menuTree_NodeMouseClick);
 
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
+            btnPass.Click += new EventHandler(btnPass_Click);
             //
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(OnSymbolSelectedEvent);
             CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);
             CoreService.EventCore.OnDisconnectedEvent += new VoidDelegate(EventCore_OnDisconnectedEvent);
+        }
+
+        void btnPass_Click(object sender, EventArgs e)
+        {
+            ShowPage(PageTypes.PAGE_CHANGE_PASS);
         }
 
         void EventCore_OnDisconnectedEvent()
@@ -80,17 +85,18 @@ namespace StockTrader
 
         void InitPage()
         {
-            pagemap.Add(EnumPageType.OrderEntryPage, new PageSTKOrderEntry());
-            pagemap.Add(EnumPageType.CancelPage, new PageSTKOrderCancel());
+            pagemap.Add(PageTypes.PAGE_ORDER_ENTRY, new PageSTKOrderEntry());
+            pagemap.Add(PageTypes.PAGE_ORDER_CANCEL, new PageSTKOrderCancel());
 
-            pagemap.Add(EnumPageType.OrderTodayPage, new PageSTKOrderToday());
-            pagemap.Add(EnumPageType.TradeTodayPage, new PageSTKTradeToday());
-            pagemap.Add(EnumPageType.OrderHistPage, new PageSTKOrderHist());
-            pagemap.Add(EnumPageType.TradeHistPage, new PageSTKTradeHist());
+            pagemap.Add(PageTypes.PAGE_ORDER_TODAY, new PageSTKOrderToday());
+            pagemap.Add(PageTypes.PAGE_TRADE_TODAY, new PageSTKTradeToday());
+            pagemap.Add(PageTypes.PAGE_ORDER_HIST, new PageSTKOrderHist());
+            pagemap.Add(PageTypes.PAGE_TRADE_HIST, new PageSTKTradeHist());
 
-            pagemap.Add(EnumPageType.AccountPage, new PageSTKAccountPosition());
-            pagemap.Add(EnumPageType.DeliveryPage, new PageSTKDelivery());
+            pagemap.Add(PageTypes.PAGE_ACCOUNT_POSITION, new PageSTKAccountPosition());
+            pagemap.Add(PageTypes.PAGE_DELIVERY, new PageSTKDelivery());
 
+            pagemap.Add(PageTypes.PAGE_CHANGE_PASS, new PageSTKChangePass());
             foreach (var page in pagemap.Values)
             {
                 Control c = page as Control;
@@ -115,7 +121,7 @@ namespace StockTrader
         /// 显示某个类别的页面
         /// </summary>
         /// <param name="type"></param>
-        void ShowPage(EnumPageType type)
+        void ShowPage(string type)
         {
             IPage page = null;
             if (pagemap.TryGetValue(type, out page))
@@ -125,7 +131,7 @@ namespace StockTrader
             }
         }
 
-        IPage GetPage(EnumPageType pagetype)
+        IPage GetPage(string pagetype)
         { 
             IPage page = null;
             if (pagemap.TryGetValue(pagetype, out page))
@@ -142,62 +148,68 @@ namespace StockTrader
         {
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
             p.Mode = 0;
-            ShowPage(EnumPageType.OrderEntryPage);
+            ShowPage(PageTypes.PAGE_ORDER_ENTRY);
         }
 
         void OpenPageSell(TreeNode node)
         {
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
             p.Mode = 1;
-            ShowPage(EnumPageType.OrderEntryPage);
+            ShowPage(PageTypes.PAGE_ORDER_ENTRY);
         }
         void OpenPageBuySell(TreeNode node)
         {
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
             p.Mode = 2;
-            ShowPage(EnumPageType.OrderEntryPage);
+            ShowPage(PageTypes.PAGE_ORDER_ENTRY);
         }
 
         void OpenPageCancel(TreeNode node)
         {
             PageSTKOrderCancel p = node.Tag as PageSTKOrderCancel;
-            ShowPage(EnumPageType.CancelPage);
+            ShowPage(PageTypes.PAGE_ORDER_CANCEL);
         }
 
         void OpenPageOrderToday(TreeNode node)
         {
             PageSTKOrderToday p = node.Tag as PageSTKOrderToday;
-            ShowPage(EnumPageType.OrderTodayPage);
+            ShowPage(PageTypes.PAGE_ORDER_TODAY);
         }
 
         void OpenPageTradeToday(TreeNode node)
         {
             PageSTKTradeToday p = node.Tag as PageSTKTradeToday;
-            ShowPage(EnumPageType.TradeTodayPage);
+            ShowPage(PageTypes.PAGE_TRADE_TODAY);
         }
 
         void OpenPageOrderHist(TreeNode node)
         {
             PageSTKOrderHist p = node.Tag as PageSTKOrderHist;
-            ShowPage(EnumPageType.OrderHistPage);
+            ShowPage(PageTypes.PAGE_ORDER_HIST);
         }
 
         void OpenPageTradeHist(TreeNode node)
         {
             PageSTKTradeHist p = node.Tag as PageSTKTradeHist;
-            ShowPage(EnumPageType.TradeHistPage);
+            ShowPage(PageTypes.PAGE_TRADE_HIST);
         }
 
         void OpenPageAccount(TreeNode node)
         {
             PageSTKAccountPosition p = node.Tag as PageSTKAccountPosition;
-            ShowPage(EnumPageType.AccountPage);
+            ShowPage(PageTypes.PAGE_ACCOUNT_POSITION);
             p.QryAccountInfo();
         }
         void OpenPageDelivery(TreeNode node)
         {
             PageSTKDelivery p = node.Tag as PageSTKDelivery;
-            ShowPage(EnumPageType.DeliveryPage);
+            ShowPage(PageTypes.PAGE_DELIVERY);
+        }
+
+        void OpenChangePass(TreeNode node)
+        {
+            PageSTKChangePass p = node.Tag as PageSTKChangePass;
+            ShowPage(PageTypes.PAGE_CHANGE_PASS);
         }
         #endregion
 
@@ -211,26 +223,26 @@ namespace StockTrader
             TreeNode node_buy = new TreeNode("买入[F1]");
             node_buy.ImageIndex = 1;
             node_buy.SelectedImageIndex = 1;
-            node_buy.Tag = GetPage(EnumPageType.OrderEntryPage);
+            node_buy.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
             
             menuTree.Nodes.Add(node_buy);
 
             TreeNode node_sell = new TreeNode("卖出[F2]");
             node_sell.ImageIndex = 2;
             node_sell.SelectedImageIndex = 2;
-            node_sell.Tag = GetPage(EnumPageType.OrderEntryPage);
+            node_sell.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
             menuTree.Nodes.Add(node_sell);
 
             TreeNode node_cancel = new TreeNode("撤单[F3]");
             node_cancel.ImageIndex = 3;
             node_cancel.SelectedImageIndex = 3;
-            node_cancel.Tag = GetPage(EnumPageType.CancelPage);
+            node_cancel.Tag = GetPage(PageTypes.PAGE_ORDER_CANCEL);
             menuTree.Nodes.Add(node_cancel);
 
             TreeNode node_buysell = new TreeNode("双向委托");
             node_buysell.ImageIndex = 4;
             node_buysell.SelectedImageIndex = 4;
-            node_buysell.Tag = GetPage(EnumPageType.OrderEntryPage);
+            node_buysell.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
             menuTree.Nodes.Add(node_buysell);
 
 
@@ -240,42 +252,50 @@ namespace StockTrader
             menuTree.Nodes.Add(node_search);
 
 
+            TreeNode node_pass = new TreeNode("修改密码");
+            node_search.ImageIndex = 5;
+            node_search.SelectedImageIndex = 5;
+            node_pass.Tag = GetPage(PageTypes.PAGE_CHANGE_PASS);
+            menuTree.Nodes.Add(node_pass);
+
+
+
             TreeNode node_search_todayorder = new TreeNode("当日委托");
             node_search_todayorder.ImageIndex = 5;
             node_search_todayorder.SelectedImageIndex = 5;
-            node_search_todayorder.Tag = GetPage(EnumPageType.OrderTodayPage);
+            node_search_todayorder.Tag = GetPage(PageTypes.PAGE_ORDER_TODAY);
             node_search.Nodes.Add(node_search_todayorder);
 
 
             TreeNode node_search_todaytrade = new TreeNode("当日成交");
             node_search_todaytrade.ImageIndex = 5;
             node_search_todaytrade.SelectedImageIndex = 5;
-            node_search_todaytrade.Tag = GetPage(EnumPageType.TradeTodayPage);
+            node_search_todaytrade.Tag = GetPage(PageTypes.PAGE_TRADE_TODAY);
             node_search.Nodes.Add(node_search_todaytrade);
 
             TreeNode node_search_historder = new TreeNode("历史委托");
             node_search_historder.ImageIndex = 5;
             node_search_historder.SelectedImageIndex = 5;
-            node_search_historder.Tag = GetPage(EnumPageType.OrderHistPage);
+            node_search_historder.Tag = GetPage(PageTypes.PAGE_ORDER_HIST);
             node_search.Nodes.Add(node_search_historder);
 
             TreeNode node_search_histtrade = new TreeNode("历史成交");
             node_search_histtrade.ImageIndex = 5;
             node_search_histtrade.SelectedImageIndex = 5;
-            node_search_histtrade.Tag = GetPage(EnumPageType.TradeHistPage);
+            node_search_histtrade.Tag = GetPage(PageTypes.PAGE_TRADE_HIST);
             node_search.Nodes.Add(node_search_histtrade);
 
             TreeNode node_search_account = new TreeNode("资金股票");
             node_search_account.ImageIndex = 5;
             node_search_account.SelectedImageIndex = 5;
-            node_search_account.Tag = GetPage(EnumPageType.AccountPage);
+            node_search_account.Tag = GetPage(PageTypes.PAGE_ACCOUNT_POSITION);
             node_search.Nodes.Add(node_search_account);
 
 
             TreeNode node_search_delivery = new TreeNode("交割单");
             node_search_delivery.ImageIndex = 5;
             node_search_delivery.SelectedImageIndex = 5;
-            node_search_delivery.Tag = GetPage(EnumPageType.DeliveryPage);
+            node_search_delivery.Tag = GetPage(PageTypes.PAGE_DELIVERY);
             node_search.Nodes.Add(node_search_delivery);
         }
 
@@ -297,6 +317,9 @@ namespace StockTrader
                         return;
                     case 3:
                         OpenPageBuySell(e.Node);
+                        return;
+                    case 5:
+                        OpenChangePass(e.Node);
                         return;
                     default:
                         return;

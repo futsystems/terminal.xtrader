@@ -6,8 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using StockTrader.API;
-
 using Common.Logging;
 using TradingLib.KryptonControl;
 using TradingLib.API;
@@ -19,10 +17,10 @@ namespace StockTrader
 {
     public partial class PageSTKOrderCancel : UserControl,IPage
     {
-        string _pageName = "KCHART";
+        string _pageName = PageTypes.PAGE_ORDER_CANCEL;
         public string PageName { get { return _pageName; } }
 
-        public EnumPageType PageType { get { return EnumPageType.CancelPage; } }
+       
         public PageSTKOrderCancel()
         {
             InitializeComponent();

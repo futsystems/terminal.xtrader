@@ -70,13 +70,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\EnumPageType.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageSTKChangePass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageSTKChangePass.Designer.cs">
+      <DependentUpon>PageSTKChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PageTypes.cs" />
     <Compile Include="Starter.cs" />
     <Compile Include="StockTrader.cs">
       <SubType>Form</SubType>
@@ -136,6 +142,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageSTKChangePass.resx">
+      <DependentUpon>PageSTKChangePass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StockTrader.resx">
       <DependentUpon>StockTrader.cs</DependentUpon>
