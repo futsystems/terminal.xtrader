@@ -38,6 +38,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.menuTree = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.mainPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbmessage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbConnectImg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.SuspendLayout();
@@ -45,6 +52,13 @@
             // statusStrip1
             // 
             this.statusStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.lbmessage,
+            this.toolStripStatusLabel4,
+            this.lbConnectImg});
             this.statusStrip1.Location = new System.Drawing.Point(0, 660);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
@@ -100,7 +114,6 @@
             // 
             this.toolStripButton4.AutoSize = false;
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
@@ -131,6 +144,7 @@
             this.menuTree.Location = new System.Drawing.Point(0, 70);
             this.menuTree.Name = "menuTree";
             this.menuTree.Size = new System.Drawing.Size(180, 590);
+            this.menuTree.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
             this.menuTree.TabIndex = 0;
             // 
             // mainPanel
@@ -142,6 +156,48 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(946, 590);
             this.mainPanel.TabIndex = 2;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
+            // lbmessage
+            // 
+            this.lbmessage.AutoSize = false;
+            this.lbmessage.Name = "lbmessage";
+            this.lbmessage.Size = new System.Drawing.Size(200, 17);
+            this.lbmessage.Text = "--";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(34, 17);
+            this.toolStripStatusLabel4.Text = "连接:";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(492, 17);
+            this.toolStripStatusLabel3.Spring = true;
+            // 
+            // lbConnectImg
+            // 
+            this.lbConnectImg.AutoSize = false;
+            this.lbConnectImg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.lbConnectImg.Image = global::StockTrader.Properties.Resources.connected;
+            this.lbConnectImg.Margin = new System.Windows.Forms.Padding(0);
+            this.lbConnectImg.Name = "lbConnectImg";
+            this.lbConnectImg.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.lbConnectImg.Size = new System.Drawing.Size(22, 22);
+            this.lbConnectImg.Text = "toolStripStatusLabel5";
             // 
             // StockTrader
             // 
@@ -155,6 +211,8 @@
             this.Name = "StockTrader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "终端";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
@@ -174,6 +232,12 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private ComponentFactory.Krypton.Toolkit.KryptonTreeView menuTree;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel mainPanel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel lbmessage;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel lbConnectImg;
     }
 }
 

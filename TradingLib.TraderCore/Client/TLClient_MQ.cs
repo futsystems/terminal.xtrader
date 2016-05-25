@@ -384,7 +384,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 停止连接服务
         /// </summary>
-        public void Stop(bool closeprocess=true)
+        public void Stop(bool closeprocess=false)
         {
             logger.Info(PROGRAME + ":Stop TLCLient_MQ....");
             try

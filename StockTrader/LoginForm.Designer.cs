@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.account = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.savepassword = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.password = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
@@ -44,6 +45,8 @@
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lbLoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).BeginInit();
@@ -199,6 +202,15 @@
             this.lbLoginStatus.Size = new System.Drawing.Size(17, 17);
             this.lbLoginStatus.Text = "--";
             // 
+            // kryptonPalette1
+            // 
+            this.kryptonPalette1.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
+            // 
+            // kryptonManager1
+            // 
+            this.kryptonManager1.GlobalPalette = this.kryptonPalette1;
+            this.kryptonManager1.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.Custom;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -242,5 +254,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lbLoginStatus;
         private ComponentFactory.Krypton.Toolkit.KryptonComboBox kryptonComboBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
+        private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
+        private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
     }
 }

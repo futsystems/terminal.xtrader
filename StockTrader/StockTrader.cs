@@ -47,10 +47,25 @@ namespace StockTrader
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             //
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(OnSymbolSelectedEvent);
+            CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);
+            CoreService.EventCore.OnDisconnectedEvent += new VoidDelegate(EventCore_OnDisconnectedEvent);
         }
 
+        void EventCore_OnDisconnectedEvent()
+        {
+            lbConnectImg.Image = Properties.Resources.disconnected;
+        }
+
+        void EventCore_OnConnectedEvent()
+        {
+            lbConnectImg.Image = Properties.Resources.connected;
+        }
+
+        bool conn = false;
         void btnRefresh_Click(object sender, EventArgs e)
         {
+            lbConnectImg.Image = conn?Properties.Resources.connected:Properties.Resources.disconnected;
+            conn = !conn;
             
         }
 
