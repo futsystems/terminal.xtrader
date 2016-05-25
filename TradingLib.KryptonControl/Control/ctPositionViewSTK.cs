@@ -48,6 +48,9 @@ namespace TradingLib.KryptonControl
                     CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
                     //CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
                     CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+
+                    CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                    CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
                 }
 
                 positionGrid.Click += new EventHandler(positionGrid_Click);
@@ -56,6 +59,21 @@ namespace TradingLib.KryptonControl
             { 
                 
             }
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            //恢复持仓数据
+            foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
+            {
+                this.GotPosition(pos);
+                CoreService.TLClient.ReqXQryTickSnapShot(pos.Symbol);
+            }
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            this.Clear();
         }
 
         /// <summary>
@@ -435,6 +453,18 @@ namespace TradingLib.KryptonControl
             }
 
             ResetColumeSize();
+        }
+
+
+        /// <summary>
+        /// 清空表格内容
+        /// </summary>
+        public void Clear()
+        {
+            poskeyRowIdxMap.Clear();
+            positionGrid.DataSource = null;
+            tb.Rows.Clear();
+            BindToTable();
         }
     }
 }

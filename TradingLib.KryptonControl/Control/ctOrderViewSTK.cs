@@ -82,7 +82,24 @@ namespace TradingLib.KryptonControl
             {
                 CoreService.EventCore.RegIEventHandler(this);
                 CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
+
+                CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             }
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            //加载初始化数据中的委托
+            foreach (var order in CoreService.TradingInfoTracker.OrderTracker)
+            {
+                this.GotOrder(order);
+            }
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            this.Clear();
         }
 
         public void OnInit()

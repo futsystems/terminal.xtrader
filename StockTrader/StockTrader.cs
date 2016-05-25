@@ -31,7 +31,11 @@ namespace StockTrader
             //初始化左侧树状菜单
             InitMenuTree();
 
+            InitControl();
+
+            //绑定事件
             WireEvent();
+
 
             //启动消息弹窗线程
             InitMessageBW();
@@ -39,16 +43,42 @@ namespace StockTrader
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
         }
 
+        void InitControl()
+        {
+            lbProgrameName.Text = TraderConstant.PROGRAME_NAME;
+        }
         void WireEvent()
         {
             menuTree.NodeMouseClick += new TreeNodeMouseClickEventHandler(menuTree_NodeMouseClick);
 
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             btnPass.Click += new EventHandler(btnPass_Click);
+            btnExit.Click += new EventHandler(btnExit_Click);
             //
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(OnSymbolSelectedEvent);
             CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);
             CoreService.EventCore.OnDisconnectedEvent += new VoidDelegate(EventCore_OnDisconnectedEvent);
+
+            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            btnRefresh.Enabled = true;
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            btnRefresh.Enabled = false;
+        }
+
+        void btnExit_Click(object sender, EventArgs e)
+        {
+            if (fmConfirm.Show("退出", "确认退出交易客户端?") == System.Windows.Forms.DialogResult.Yes)
+            {
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
         }
 
         void btnPass_Click(object sender, EventArgs e)
@@ -69,9 +99,7 @@ namespace StockTrader
         bool conn = false;
         void btnRefresh_Click(object sender, EventArgs e)
         {
-            lbConnectImg.Image = conn?Properties.Resources.connected:Properties.Resources.disconnected;
-            conn = !conn;
-            
+            CoreService.TradingInfoTracker.ResumeData();          
         }
 
         void OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)

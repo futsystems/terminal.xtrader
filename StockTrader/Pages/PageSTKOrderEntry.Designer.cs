@@ -32,7 +32,7 @@
             this.btnCancelSell = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancelBuy = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancelAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnRefresh = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ctOrderSenderSTK2 = new TradingLib.KryptonControl.ctOrderSenderSTK();
             this.ctOrderSenderSTK1 = new TradingLib.KryptonControl.ctOrderSenderSTK();
             this.ctQuoteViewSTK1 = new TradingLib.KryptonControl.ctQuoteViewSTK();
@@ -60,7 +60,7 @@
             this.kryptonPanel1.Controls.Add(this.btnCancelSell);
             this.kryptonPanel1.Controls.Add(this.btnCancelBuy);
             this.kryptonPanel1.Controls.Add(this.btnCancelAll);
-            this.kryptonPanel1.Controls.Add(this.kryptonButton1);
+            this.kryptonPanel1.Controls.Add(this.btnRefresh);
             this.kryptonPanel1.Controls.Add(this.ctOrderSenderSTK2);
             this.kryptonPanel1.Controls.Add(this.ctOrderSenderSTK1);
             this.kryptonPanel1.Controls.Add(this.ctQuoteViewSTK1);
@@ -95,13 +95,13 @@
             this.btnCancelAll.TabIndex = 4;
             this.btnCancelAll.Values.Text = "全 撤";
             // 
-            // kryptonButton1
+            // btnRefresh
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(26, 219);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(70, 25);
-            this.kryptonButton1.TabIndex = 3;
-            this.kryptonButton1.Values.Text = "刷 新";
+            this.btnRefresh.Location = new System.Drawing.Point(26, 219);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(70, 25);
+            this.btnRefresh.TabIndex = 3;
+            this.btnRefresh.Values.Text = "刷 新";
             // 
             // ctOrderSenderSTK2
             // 
@@ -130,9 +130,9 @@
             // 
             // kryptonNavigator1
             // 
-            this.kryptonNavigator1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonNavigator1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonNavigator1.Bar.TabStyle = ComponentFactory.Krypton.Toolkit.TabStyle.LowProfile;
             this.kryptonNavigator1.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
             this.kryptonNavigator1.Button.ContextButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
@@ -247,7 +247,7 @@
         private TradingLib.KryptonControl.ctQuoteViewSTK ctQuoteViewSTK1;
         private TradingLib.KryptonControl.ctOrderSenderSTK ctOrderSenderSTK1;
         private TradingLib.KryptonControl.ctOrderSenderSTK ctOrderSenderSTK2;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnRefresh;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelSell;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelBuy;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelAll;

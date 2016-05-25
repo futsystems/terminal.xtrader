@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>main.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ant.Component">
       <HintPath>..\..\Futs.base\lib\update\Ant.Component.dll</HintPath>
@@ -70,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TraderConstant.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +150,7 @@
     <EmbeddedResource Include="Pages\PageSTKChangePass.resx">
       <DependentUpon>PageSTKChangePass.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="StockTrader.resx">
       <DependentUpon>StockTrader.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +214,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="images\disconnected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="main.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

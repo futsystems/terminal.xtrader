@@ -30,22 +30,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StockTrader));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbProgrameName = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbmessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPass = new System.Windows.Forms.ToolStrip();
+            this.mToolBar = new System.Windows.Forms.ToolStrip();
             this.menuTree = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.mainPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lbConnectImg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btnExit = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.btnPass = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
-            this.btnPass.SuspendLayout();
+            this.mToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +53,7 @@
             // 
             this.statusStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
+            this.lbProgrameName,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.lbmessage,
@@ -66,22 +66,22 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // lbProgrameName
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.lbProgrameName.Name = "lbProgrameName";
+            this.lbProgrameName.Size = new System.Drawing.Size(17, 17);
+            this.lbProgrameName.Text = "--";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(17, 17);
+            this.toolStripStatusLabel2.Text = "--";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(619, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(821, 17);
             this.toolStripStatusLabel3.Spring = true;
             // 
             // lbmessage
@@ -102,21 +102,21 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 70);
             // 
-            // btnPass
+            // mToolBar
             // 
-            this.btnPass.AutoSize = false;
-            this.btnPass.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnPass.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.mToolBar.AutoSize = false;
+            this.mToolBar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.mToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnExit,
             this.toolStripButton2,
             this.btnRefresh,
             this.toolStripSeparator1,
-            this.toolStripButton4});
-            this.btnPass.Location = new System.Drawing.Point(0, 0);
-            this.btnPass.Name = "btnPass";
-            this.btnPass.Size = new System.Drawing.Size(1126, 70);
-            this.btnPass.TabIndex = 0;
-            this.btnPass.Text = "toolStrip1";
+            this.btnPass});
+            this.mToolBar.Location = new System.Drawing.Point(0, 0);
+            this.mToolBar.Name = "mToolBar";
+            this.mToolBar.Size = new System.Drawing.Size(1126, 70);
+            this.mToolBar.TabIndex = 0;
+            this.mToolBar.Text = "toolStrip1";
             // 
             // menuTree
             // 
@@ -148,18 +148,18 @@
             this.lbConnectImg.Size = new System.Drawing.Size(22, 22);
             this.lbConnectImg.Text = "toolStripStatusLabel5";
             // 
-            // toolStripButton1
+            // btnExit
             // 
-            this.toolStripButton1.AutoSize = false;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(55, 65);
-            this.toolStripButton1.Text = "退 出";
-            this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExit.AutoSize = false;
+            this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
+            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnExit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(55, 65);
+            this.btnExit.Text = "退 出";
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripButton2
             // 
@@ -187,17 +187,17 @@
             this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
-            // toolStripButton4
+            // btnPass
             // 
-            this.toolStripButton4.AutoSize = false;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(55, 65);
-            this.toolStripButton4.Text = "密 码";
-            this.toolStripButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPass.AutoSize = false;
+            this.btnPass.Image = ((System.Drawing.Image)(resources.GetObject("btnPass.Image")));
+            this.btnPass.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPass.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPass.Name = "btnPass";
+            this.btnPass.Size = new System.Drawing.Size(55, 65);
+            this.btnPass.Text = "密 码";
+            this.btnPass.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnPass.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // StockTrader
             // 
@@ -207,14 +207,15 @@
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.menuTree);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.btnPass);
+            this.Controls.Add(this.mToolBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StockTrader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "终端";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.btnPass.ResumeLayout(false);
-            this.btnPass.PerformLayout();
+            this.mToolBar.ResumeLayout(false);
+            this.mToolBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -224,15 +225,15 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnExit;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton btnRefresh;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStrip btnPass;
+        private System.Windows.Forms.ToolStripButton btnPass;
+        private System.Windows.Forms.ToolStrip mToolBar;
         private ComponentFactory.Krypton.Toolkit.KryptonTreeView menuTree;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel mainPanel;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel lbProgrameName;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel lbmessage;

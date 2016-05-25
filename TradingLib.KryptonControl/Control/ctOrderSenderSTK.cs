@@ -44,9 +44,23 @@ namespace TradingLib.KryptonControl
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
 
+            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             btnSubmit.Click += new EventHandler(btnSubmit_Click);
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            btnSubmit.Enabled = true;
+            btnReset.Enabled = true;
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            btnSubmit.Enabled = false;
+            btnReset.Enabled = false;
         }
 
         void EventIndicator_GotErrorOrderEvent(Order arg1, RspInfo arg2)

@@ -64,7 +64,23 @@ namespace TradingLib.KryptonControl
             {
                 CoreService.EventCore.RegIEventHandler(this);
                 CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+
+                CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             }
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
+            {
+                this.GotFill(f);
+            }
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            this.Clear();
         }
 
         public void OnInit()

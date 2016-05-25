@@ -35,6 +35,33 @@ namespace StockTrader
             btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
             btnCancelBuy.Click += new EventHandler(btnCancelBuy_Click);
             btnCancelSell.Click += new EventHandler(btnCancelSell_Click);
+            btnRefresh.Click += new EventHandler(btnRefresh_Click);
+
+            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+        }
+
+        void btnRefresh_Click(object sender, EventArgs e)
+        {
+            CoreService.TradingInfoTracker.ResumeData();
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            btnCancelAll.Enabled = true;
+            btnCancelBuy.Enabled = true;
+            btnCancelSell.Enabled = true;
+
+            btnRefresh.Enabled = true;
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            btnCancelAll.Enabled = false;
+            btnCancelBuy.Enabled = false;
+            btnCancelSell.Enabled = false;
+
+            btnRefresh.Enabled = false;
         }
 
         #region 撤单按钮事件操作
