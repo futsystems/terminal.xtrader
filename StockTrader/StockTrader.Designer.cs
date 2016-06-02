@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StockTrader));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lbProgrameName = new System.Windows.Forms.ToolStripStatusLabel();
@@ -39,6 +40,7 @@
             this.mToolBar = new System.Windows.Forms.ToolStrip();
             this.menuTree = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.mainPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lbConnectImg = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnExit = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -81,7 +83,7 @@
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(821, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(790, 17);
             this.toolStripStatusLabel3.Spring = true;
             // 
             // lbmessage
@@ -136,6 +138,19 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(946, 590);
             this.mainPanel.TabIndex = 2;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "toolbar_exit.png");
+            this.imageList1.Images.SetKeyName(1, "01_buy.png");
+            this.imageList1.Images.SetKeyName(2, "02_sell.png");
+            this.imageList1.Images.SetKeyName(3, "03_cancel.png");
+            this.imageList1.Images.SetKeyName(4, "04_buysell.png");
+            this.imageList1.Images.SetKeyName(5, "05_qry.png");
+            this.imageList1.Images.SetKeyName(6, "06_qry_item.png");
+            this.imageList1.Images.SetKeyName(7, "07_changepass.png");
             // 
             // lbConnectImg
             // 
@@ -239,6 +254,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lbmessage;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel lbConnectImg;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 
