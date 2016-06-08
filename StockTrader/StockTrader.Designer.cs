@@ -36,16 +36,16 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbmessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbConnectImg = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mToolBar = new System.Windows.Forms.ToolStrip();
-            this.menuTree = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
-            this.mainPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.lbConnectImg = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnExit = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnPass = new System.Windows.Forms.ToolStripButton();
+            this.menuTree = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
+            this.mainPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1.SuspendLayout();
             this.mToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
@@ -83,7 +83,7 @@
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(790, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(821, 17);
             this.toolStripStatusLabel3.Spring = true;
             // 
             // lbmessage
@@ -98,6 +98,17 @@
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
             this.toolStripStatusLabel4.Size = new System.Drawing.Size(34, 17);
             this.toolStripStatusLabel4.Text = "连接:";
+            // 
+            // lbConnectImg
+            // 
+            this.lbConnectImg.AutoSize = false;
+            this.lbConnectImg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.lbConnectImg.Image = global::StockTrader.Properties.Resources.connected;
+            this.lbConnectImg.Margin = new System.Windows.Forms.Padding(0);
+            this.lbConnectImg.Name = "lbConnectImg";
+            this.lbConnectImg.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.lbConnectImg.Size = new System.Drawing.Size(22, 22);
+            this.lbConnectImg.Text = "toolStripStatusLabel5";
             // 
             // toolStripSeparator1
             // 
@@ -119,49 +130,6 @@
             this.mToolBar.Size = new System.Drawing.Size(1126, 70);
             this.mToolBar.TabIndex = 0;
             this.mToolBar.Text = "toolStrip1";
-            // 
-            // menuTree
-            // 
-            this.menuTree.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menuTree.Location = new System.Drawing.Point(0, 70);
-            this.menuTree.Name = "menuTree";
-            this.menuTree.Size = new System.Drawing.Size(180, 590);
-            this.menuTree.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
-            this.menuTree.TabIndex = 0;
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainPanel.Location = new System.Drawing.Point(180, 70);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(946, 590);
-            this.mainPanel.TabIndex = 2;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "toolbar_exit.png");
-            this.imageList1.Images.SetKeyName(1, "01_buy.png");
-            this.imageList1.Images.SetKeyName(2, "02_sell.png");
-            this.imageList1.Images.SetKeyName(3, "03_cancel.png");
-            this.imageList1.Images.SetKeyName(4, "04_buysell.png");
-            this.imageList1.Images.SetKeyName(5, "05_qry.png");
-            this.imageList1.Images.SetKeyName(6, "06_qry_item.png");
-            this.imageList1.Images.SetKeyName(7, "07_changepass.png");
-            // 
-            // lbConnectImg
-            // 
-            this.lbConnectImg.AutoSize = false;
-            this.lbConnectImg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.lbConnectImg.Image = global::StockTrader.Properties.Resources.connected;
-            this.lbConnectImg.Margin = new System.Windows.Forms.Padding(0);
-            this.lbConnectImg.Name = "lbConnectImg";
-            this.lbConnectImg.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.lbConnectImg.Size = new System.Drawing.Size(22, 22);
-            this.lbConnectImg.Text = "toolStripStatusLabel5";
             // 
             // btnExit
             // 
@@ -213,6 +181,38 @@
             this.btnPass.Text = "密 码";
             this.btnPass.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnPass.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // menuTree
+            // 
+            this.menuTree.Dock = System.Windows.Forms.DockStyle.Left;
+            this.menuTree.Location = new System.Drawing.Point(0, 70);
+            this.menuTree.Name = "menuTree";
+            this.menuTree.Size = new System.Drawing.Size(180, 590);
+            this.menuTree.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
+            this.menuTree.TabIndex = 0;
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPanel.Location = new System.Drawing.Point(180, 70);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(946, 590);
+            this.mainPanel.TabIndex = 2;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "toolbar_exit.png");
+            this.imageList1.Images.SetKeyName(1, "01_buy.png");
+            this.imageList1.Images.SetKeyName(2, "02_sell.png");
+            this.imageList1.Images.SetKeyName(3, "03_cancel.png");
+            this.imageList1.Images.SetKeyName(4, "04_buysell.png");
+            this.imageList1.Images.SetKeyName(5, "05_qry.png");
+            this.imageList1.Images.SetKeyName(6, "06_qry_item.png");
+            this.imageList1.Images.SetKeyName(7, "07_changepass.png");
             // 
             // StockTrader
             // 
