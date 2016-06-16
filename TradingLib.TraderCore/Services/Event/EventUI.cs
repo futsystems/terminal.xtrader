@@ -9,16 +9,33 @@ namespace TradingLib.TraderCore
 {
     public class EventUI
     {
+        static Symbol _symbolSelected = null;
         public event Action<Object,Symbol> OnSymbolSelectedEvent;
-
         /// <summary>
         /// 触发合约选择事件
         /// </summary>
         /// <param name="symbol"></param>
-        public void FireSymbolselectedEvent(Object sender,Symbol symbol)
+        public void FireSymbolSelectedEvent(Object sender,Symbol symbol)
         {
+            if (_symbolSelected != null && symbol != null)
+            {
+                FireSymbolUnSelectedEvent(sender, _symbolSelected);
+                _symbolSelected = symbol;
+            }
             if (OnSymbolSelectedEvent != null)
                 OnSymbolSelectedEvent(sender,symbol);
+        }
+
+        public event Action<object, Symbol> OnSymbolUnSelectedEvent;
+        /// <summary>
+        /// 触发合约取消选择事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="symbol"></param>
+        public void FireSymbolUnSelectedEvent(Object sender, Symbol symbol)
+        {
+            if (OnSymbolUnSelectedEvent != null)
+                OnSymbolUnSelectedEvent(sender, symbol);
         }
 
 

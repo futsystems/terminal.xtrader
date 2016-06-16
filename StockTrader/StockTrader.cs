@@ -55,7 +55,8 @@ namespace StockTrader
             btnPass.Click += new EventHandler(btnPass_Click);
             btnExit.Click += new EventHandler(btnExit_Click);
             //
-            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(OnSymbolSelectedEvent);
+            CoreService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
             CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);
             CoreService.EventCore.OnDisconnectedEvent += new VoidDelegate(EventCore_OnDisconnectedEvent);
 
@@ -65,6 +66,28 @@ namespace StockTrader
             this.Load += new EventHandler(StockTrader_Load);
             CoreService.EventCore.OnLoginEvent += new Action<LoginResponse>(EventCore_OnLoginEvent);
         }
+
+
+        void EventUI_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                //非常驻合约 则需要取消 避免不必要的订阅
+                if (!CoreService.TradingInfoTracker.HotSymbols.Contains(arg2))
+                {
+                    CoreService.TLClient.ReqUnRegisterSymbol(arg2.Symbol);
+                }
+            }
+        }
+
+        void EventUI_OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(arg2.Symbol);
+            }
+        }
+
 
         void EventCore_OnLoginEvent(LoginResponse obj)
         {
@@ -84,6 +107,12 @@ namespace StockTrader
         void EventOther_OnResumeDataEnd()
         {
             btnRefresh.Enabled = true;
+
+            //数据恢复完毕后 订阅常驻合约
+            foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(sym.Symbol);
+            }
         }
 
         void EventOther_OnResumeDataStart()
@@ -114,19 +143,12 @@ namespace StockTrader
             lbConnectImg.Image = Properties.Resources.connected;
         }
 
-        bool conn = false;
         void btnRefresh_Click(object sender, EventArgs e)
         {
             CoreService.TradingInfoTracker.ResumeData();          
         }
 
-        void OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
-        {
-            if (arg2 != null)
-            {
-                CoreService.TLClient.ReqRegisterSymbols(new string[] { arg2.Symbol });
-            }
-        }
+
 
 
         void InitPage()

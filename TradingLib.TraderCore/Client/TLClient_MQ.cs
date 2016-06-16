@@ -590,7 +590,7 @@ namespace TradingLib.TraderCore
                 OnDataPubDisconnectEvent();
 
 
-            _mqcli.StartTickReciver(true);//建立tickpublisher的连接
+            _mqcli.StartTickReciver(false);//建立tickpublisher的连接
             _tickhartbeat = DateTime.Now.Ticks;//将当前时间设定为tickheartbeat时间
             tickenable = true;
             StartTickWatcher();
@@ -853,43 +853,45 @@ namespace TradingLib.TraderCore
         }
 
 
-        SymbolBasket _lastbasekt;
-        List<string> symlist = new List<string>();
+        //SymbolBasket _lastbasekt;
+        //List<string> symlist = new List<string>();
+        ///// <summary>
+        ///// 请求市场数据
+        ///// </summary>
+        ///// <param name="mb"></param>
+        //public void Subscribe(string[] symbols)
+        //{
+        //    //如果mb=null 则订阅所有数据(订阅发布者当前所发布的所有数据)
+        //    if (symbols == null || symbols.Length == 0)
+        //    {
+        //        SubscribeAll_sub();//
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        //通知服务端该客户端请求symbol basket数据
+        //        //Unsubscribe();//先清除原来数据请求
+        //        logger.Info("TLClient注册合约列表:" + string.Join(",",symbols));
+        //        List<string> newlist = new List<string>();
+        //        foreach (string sym in newlist)
+        //        {
+        //            if (!symlist.Contains(sym))
+        //            {
+        //                newlist.Add(sym);
+        //            }
+        //        }
+        //        foreach(string sym in newlist)
+        //        {
+        //            Subscribe_sub(sym);
+        //        }
+        //    }
+        //}
+
         /// <summary>
-        /// 请求市场数据
+        /// 订阅某个合约
         /// </summary>
-        /// <param name="mb"></param>
-        public void Subscribe(string[] symbols)
-        {
-            //如果mb=null 则订阅所有数据(订阅发布者当前所发布的所有数据)
-            if (symbols == null || symbols.Length == 0)
-            {
-                SubscribeAll_sub();//
-                return;
-            }
-            else
-            {
-                //通知服务端该客户端请求symbol basket数据
-                //Unsubscribe();//先清除原来数据请求
-                logger.Info("TLClient注册合约列表:" + string.Join(",",symbols));
-                List<string> newlist = new List<string>();
-                foreach (string sym in newlist)
-                {
-                    if (!symlist.Contains(sym))
-                    {
-                        newlist.Add(sym);
-                    }
-                }
-                foreach(string sym in newlist)
-                {
-                    Subscribe_sub(sym);
-                }
-            }
-
-        }
-
-        #region tick subscriber 订阅 退订 等函数
-        void Subscribe_sub(string symbol)
+        /// <param name="symbol"></param>
+        public void Subscribe(string symbol)
         {
             if (_mqcli != null && _mqcli.isConnected)
             {
@@ -897,56 +899,78 @@ namespace TradingLib.TraderCore
 
             }
         }
-        void SubscribeAll_sub()
+        /// <summary>
+        /// 取消订阅某个合约
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void UnSubscribe(string symbol)
         {
             if (_mqcli != null && _mqcli.isConnected)
             {
-                _mqcli.SubscribeAll();
+                _mqcli.UnSubscribe(symbol);//订阅合约
 
             }
         }
-        /// <summary>
-        /// sub 向 pub注销symbol数据请求
-        /// </summary>
-        void Unsubscribe_sub(string symbol)
-        {
-            if (_mqcli != null && _mqcli.isConnected)
-            {
-                //_mqcli.Unsubscribe(symbol);
-            }
-        }
-        /// <summary>
-        /// sub 向 pub注销所有数据请求
-        /// </summary>
-        void UnsubscribeAll_sub()
-        {
-            logger.Info("注销所有市场订阅...");
-            if (_mqcli != null && _mqcli.isConnected)
-            {
-                if (_lastbasekt != null)
-                {
-                    //foreach (Security sec in _lastbasekt)
-                    //{
-                    //    _mqcli.Unsubscribe(sec.Symbol);
-                    //}
-                }
 
-            }
-        }
-        #endregion
+        //#region tick subscriber 订阅 退订 等函数
+        //void Subscribe_sub(string symbol)
+        //{
+        //    if (_mqcli != null && _mqcli.isConnected)
+        //    {
+        //        _mqcli.Subscribe(symbol);//订阅合约
+
+        //    }
+        //}
+        //void SubscribeAll_sub()
+        //{
+        //    if (_mqcli != null && _mqcli.isConnected)
+        //    {
+        //        _mqcli.SubscribeAll();
+
+        //    }
+        //}
+        ///// <summary>
+        ///// sub 向 pub注销symbol数据请求
+        ///// </summary>
+        //void Unsubscribe_sub(string symbol)
+        //{
+        //    if (_mqcli != null && _mqcli.isConnected)
+        //    {
+        //        //_mqcli.Unsubscribe(symbol);
+        //    }
+        //}
+        ///// <summary>
+        ///// sub 向 pub注销所有数据请求
+        ///// </summary>
+        //void UnsubscribeAll_sub()
+        //{
+        //    logger.Info("注销所有市场订阅...");
+        //    if (_mqcli != null && _mqcli.isConnected)
+        //    {
+        //        if (_lastbasekt != null)
+        //        {
+        //            //foreach (Security sec in _lastbasekt)
+        //            //{
+        //            //    _mqcli.Unsubscribe(sec.Symbol);
+        //            //}
+        //        }
+
+        //    }
+        //}
+        //#endregion
 
 
-        /// <summary>
-        /// 注销市场数据
-        /// </summary>
-        public void Unsubscribe()
-        {
-            //告诉服务端清除数据
-            UnregisterSymbolTickRequest req = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(0);
-            TLSend(req);
-            UnsubscribeAll_sub();
+        ///// <summary>
+        ///// 注销市场数据
+        ///// </summary>
+        //public void Unsubscribe()
+        //{
+        //    //告诉服务端清除数据
+        //    UnregisterSymbolTickRequest req = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(0);
+        //    TLSend(req);
+        //    UnsubscribeAll_sub();
 
-        }
+        //}
         /// <summary>
         /// 发送心跳响应 告诉服务器 该客户端存活
         /// </summary>

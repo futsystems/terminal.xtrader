@@ -63,15 +63,7 @@ namespace TradingLib.TraderCore
         }
 
 
-        /// <summary>
-        /// 请求注销行情数据
-        /// </summary>
-        public void ReqUnRegisterSymbols()
-        {
-            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
 
-            SendPacket(request);
-        }
 
         /// <summary>
         /// 请求登入
@@ -81,9 +73,6 @@ namespace TradingLib.TraderCore
         public int  ReqLogin(string loginid, string pass, int logintype = 1)
         {
             logger.Info(PROGRAME + " request login to server, account:" + loginid + " pass:" + pass);
-
-            //LocationInfo info = Util.GetLocationInfo();
-
             LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(++requestid);
             request.LoginID = loginid;
             request.Passwd = pass;
@@ -96,8 +85,8 @@ namespace TradingLib.TraderCore
             //request.MAC = mac;
             SendPacket(request);
 
-            //Func<LocationInfo> del = new Func<LocationInfo>(Util.GetLocationInfo);
-            //del.BeginInvoke(QryLocaltionInfoCallback, null);
+            Func<LocationInfo> del = new Func<LocationInfo>(Util.GetLocationInfo);
+            del.BeginInvoke(QryLocaltionInfoCallback, null);
             return requestid;
         }
 
@@ -255,104 +244,37 @@ namespace TradingLib.TraderCore
         #endregion
 
 
-        ///// <summary>
-        ///// 查询结算信息
-        ///// </summary>
-        //public void ReqQrySettleInfo(int tradingday = 0)
-        //{
-        //    logger.Info(PROGRAME + " qry settleinfo");
-
-        //    QrySettleInfoRequest request = RequestTemplate<QrySettleInfoRequest>.CliSendRequest(++requestid);
-        //    request.Account = _account;
-        //    request.Tradingday = tradingday;
-        //    SendPacket(request);
-        //}
-
-        ///// <summary>
-        ///// 查询结算确认
-        ///// </summary>
-        //public void ReqQrySettleInfoConfirm()
-        //{
-        //    logger.Info(PROGRAME + " qry settleinfoconfigm");
-
-        //    QrySettleInfoConfirmRequest request = RequestTemplate<QrySettleInfoConfirmRequest>.CliSendRequest(++requestid);
-        //    request.Account = _account;
-
-        //    SendPacket(request);
-        //}
-
-        ///// <summary>
-        ///// 确认结算单
-        ///// </summary>
-        //public void ReqConfirmSettlement()
-        //{
-        //    logger.Info(PROGRAME + " confirm settlement");
-
-        //    ConfirmSettlementRequest request = RequestTemplate<ConfirmSettlementRequest>.CliSendRequest(++requestid);
-        //    request.Account = _account;
-
-        //    SendPacket(request);
-        //}
-        /// <summary>
-        /// 查询委托
-        /// </summary>
-        //public void ReqQryOrder(string symbol = "", long orderid = 0)
-        //{
-        //    logger.Info(PROGRAME + " qry order");
-
-        //    QryOrderRequest request = RequestTemplate<QryOrderRequest>.CliSendRequest(++requestid);
-        //    request.Account = _account;
-        //    request.Symbol = symbol;
-        //    request.OrderID = orderid;
-        //    SendPacket(request);
-        //}
-
-        /// <summary>
-        /// 查询成交
-        /// </summary>
-        //public void ReqQryTrade(string symbol = "")
-        //{
-        //    logger.Info(PROGRAME + " qry trade");
-
-        //    QryTradeRequest request = RequestTemplate<QryTradeRequest>.CliSendRequest(++requestid);
-        //    request.Account = _account;
-        //    request.Symbol = symbol;
-
-        //    SendPacket(request);
-        //}
-
-        /// <summary>
-        /// 查询持仓
-        /// </summary>
-        //public void ReqQryPosition(string symbol = "")
-        //{
-        //    logger.Info(PROGRAME + " qry position");
-
-        //    QryPositionRequest request = RequestTemplate<QryPositionRequest>.CliSendRequest(++requestid);
-        //    request.Account = _account;
-        //    request.Symbol = symbol;
-
-        //    SendPacket(request);
-        //}
-
-
         /// <summary>
         /// 请求注册行情数据
         /// </summary>
-        public int ReqRegisterSymbols(string[] symbols)
+        public void ReqRegisterSymbol(string symbol)
         {
-            logger.Info(PROGRAME + " register symbols:" + string.Join(",", symbols));
+            //logger.Info(PROGRAME + " register symbols:" + string.Join(",", symbols));
 
-            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
+            //RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
 
-            request.SymbolList.AddRange(symbols);
-           
+            //request.SymbolList.AddRange(symbols);
+            //SendPacket(request);
+            //connecton.Subscribe(symbols);
+            //return requestid;
 
-            SendPacket(request);
-            connecton.Subscribe(symbols);
-            return requestid;
-
+            connecton.Subscribe(symbol);
         }
+
+        public void ReqUnRegisterSymbol(string symbol)
+        {
+            connecton.UnSubscribe(symbol);
+        }
+        ///// <summary>
+        ///// 请求注销行情数据
+        ///// </summary>
+        //public void ReqUnRegisterSymbols()
+        //{
+        //    UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
+        //    SendPacket(request);
+        //}
+
+
 
         public void ReqContribRequest(string moduleid, string cmdstr, string args)
         {
@@ -376,20 +298,6 @@ namespace TradingLib.TraderCore
             SendPacket(request);
         }
 
-
-        ///// <summary>
-        ///// 查询合约数据
-        ///// </summary>
-        ///// <param name="symbol"></param>
-        ///// <returns></returns>
-        //public int  ReqQrySymbol(string symbol)
-        //{
-        //    QrySymbolRequest request = RequestTemplate<QrySymbolRequest>.CliSendRequest(++requestid);
-        //    request.Symbol = symbol;
-
-        //    SendPacket(request);
-        //    return requestid;
-        //}
 
         public void ReqQryOpenSize(string symbol)
         {

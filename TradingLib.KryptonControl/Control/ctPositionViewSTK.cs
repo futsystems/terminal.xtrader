@@ -107,7 +107,7 @@ namespace TradingLib.KryptonControl
             Position pos = CurrentPositoin;
             if (pos == null) return;
             logger.Info(string.Format("Position:{0} selected", pos.GetPositionKey()));
-            CoreService.EventUI.FireSymbolselectedEvent(this, pos.oSymbol);
+            CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
         }
 
         public void OnInit()

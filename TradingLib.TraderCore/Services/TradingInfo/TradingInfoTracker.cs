@@ -43,7 +43,16 @@ namespace TradingLib.TraderCore
         /// </summary>
         public event Action<Position> GotPositionEvent;
 
+        /// <summary>
+        /// 交易账户对象
+        /// </summary>
         public AccountLite Account { get; set; }
+
+        /// <summary>
+        /// 合约
+        /// 委托 持仓 合约需要 记录 用于保持行情订阅
+        /// </summary>
+        public List<Symbol> HotSymbols { get; set; }
 
         public TradingInfoTracker()
         {
@@ -53,6 +62,7 @@ namespace TradingLib.TraderCore
             TradeTracker = new ThreadSafeList<Trade>();
             TickTracker = new TickTracker();
             Account = new AccountLite();
+            HotSymbols = new List<Symbol>();
 
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
@@ -78,6 +88,7 @@ namespace TradingLib.TraderCore
         {
             bool accept = false;
             PositionTracker.GotFill(obj, out accept);
+            KeepSymbol(obj.oSymbol);
             if (accept)
             {
                 OrderTracker.GotFill(obj);
@@ -88,6 +99,7 @@ namespace TradingLib.TraderCore
         void EventIndicator_GotOrderEvent(Order obj)
         {
             OrderTracker.GotOrder(obj);
+            KeepSymbol(obj.oSymbol);
         }
 
 
@@ -105,12 +117,20 @@ namespace TradingLib.TraderCore
             PositionTracker.Clear();
             HoldPositionTracker.Clear();
             TradeTracker.Clear();
+            HotSymbols.Clear();
 
             //执行隔夜持仓查询 并按序触发后续查询
             _qrypositionid = CoreService.TLClient.ReqXQryYDPositon();
         }
 
-
+        void KeepSymbol(Symbol symbol)
+        {
+            if (symbol == null) return;
+            if (!HotSymbols.Contains(symbol))
+            {
+                HotSymbols.Add(symbol);
+            }
+        }
         int _qryorderid = 0;
         void EventQry_OnRspXQryYDPositionResponse(PositionDetail arg1, RspInfo arg2, int arg3, bool arg4)
         {
@@ -119,6 +139,7 @@ namespace TradingLib.TraderCore
             {
                 PositionTracker.GotPosition(arg1);
                 HoldPositionTracker.GotPosition(arg1);
+                KeepSymbol(arg1.oSymbol);
             }
             if (arg4)
             {
@@ -134,6 +155,7 @@ namespace TradingLib.TraderCore
             if (arg1 != null)
             {
                 OrderTracker.GotOrder(arg1);
+                KeepSymbol(arg1.oSymbol);
             }
             if (arg4)
             {
@@ -150,6 +172,7 @@ namespace TradingLib.TraderCore
             {
                 bool accept = false;
                 PositionTracker.GotFill(arg1, out accept);
+                KeepSymbol(arg1.oSymbol);
                 if (accept)
                 {
                     OrderTracker.GotFill(arg1);
@@ -166,7 +189,7 @@ namespace TradingLib.TraderCore
         void EventQry_OnRspXQryAccountResponse(AccountLite arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qryaccountinfoid) return;
-            CoreService.Account = arg1;
+            CoreService.TradingInfoTracker.Account = arg1;
             //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件
             if (!CoreService.Initialized)
             {

@@ -500,6 +500,7 @@ namespace TradingLib.TraderCore
             string prefix = "TICKHEARTBEAT";
             subscriber.Subscribe(Encoding.UTF8.GetBytes(prefix));
         }
+
         /// <summary>
         /// 订阅某个合约的数据
         /// </summary>
@@ -511,6 +512,19 @@ namespace TradingLib.TraderCore
             subscriber.Subscribe(Encoding.UTF8.GetBytes(prefix));
             //SubscribeTickHeartBeat();
         }
+
+        /// <summary>
+        /// 取消订阅某个合约
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void UnSubscribe(string symbol)
+        {
+            if (subscriber == null) return;
+            string prefix = symbol + "^";
+            subscriber.Unsubscribe(Encoding.UTF8.GetBytes(prefix));
+        }
+
+        
 
         public void SubscribeAll()
         {

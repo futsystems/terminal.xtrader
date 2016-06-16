@@ -876,7 +876,7 @@ namespace TradingLib.KryptonControl
             {
                 SymbolSelectedEvent(symbol);
             }
-            CoreService.EventUI.FireSymbolselectedEvent(this, symbol);
+            CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
             debug("Symbol:" + symbol.ToString() + " Selected");
         }
 
@@ -888,7 +888,7 @@ namespace TradingLib.KryptonControl
             {
                 SymbolSelectedEvent(symbol);
             }
-            CoreService.EventUI.FireSymbolselectedEvent(this, symbol);
+            CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
             debug("Symbol:" + symbol.ToString() + " Selected");
         }
 

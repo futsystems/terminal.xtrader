@@ -153,7 +153,7 @@ namespace TradingLib.KryptonControl
             logger.Info("got response of symbol from server");
             if (arg1 != null)
             {
-                CoreService.EventUI.FireSymbolselectedEvent(this, arg1);      
+                CoreService.EventUI.FireSymbolSelectedEvent(this, arg1);      
             }
             if (arg4)
             {
@@ -264,14 +264,14 @@ namespace TradingLib.KryptonControl
                 else
                 {
                     //触发合约选择事件
-                    CoreService.EventUI.FireSymbolselectedEvent(this, sym);
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, sym);
                 }
             }
             else
             {
                 if (_symbol != null)//如果当前选择的合约不为空 则出发选空 进行重置，边界出发
                 {
-                    CoreService.EventUI.FireSymbolselectedEvent(this, null);
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, null);
                 }
             }
         }

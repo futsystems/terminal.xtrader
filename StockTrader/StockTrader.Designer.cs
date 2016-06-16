@@ -188,7 +188,7 @@
             this.menuTree.Location = new System.Drawing.Point(0, 70);
             this.menuTree.Name = "menuTree";
             this.menuTree.Size = new System.Drawing.Size(180, 590);
-            this.menuTree.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
+            this.menuTree.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(230)))), ((int)(((byte)(232)))));
             this.menuTree.TabIndex = 0;
             // 
             // mainPanel
