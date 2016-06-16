@@ -147,6 +147,12 @@ namespace TradingLib.TraderCore
             }
         }
 
+        void CliOnXQryAccount(RspXQryAccountResponse response)
+        {
+            logger.Debug("got qry account response:" + response.ToString());
+            CoreService.EventQry.FireRspXQryAccountResponse(response.Account, response.RspInfo, response.RequestID, response.IsLast);
+        }
+
         /// <summary>
         /// 委托异常汇报
         /// </summary>

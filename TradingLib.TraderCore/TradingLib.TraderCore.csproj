@@ -63,7 +63,7 @@
     <Compile Include="Client\TLClient_MQ.cs" />
     <Compile Include="Client\TLClientNet\TLClientNet_Request.cs" />
     <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_.cs" />
-    <Compile Include="Client\TLClientNet\TLClientNet_PacketHandler_Login.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="PromptMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BasicInfo\BasicInfoTracker.cs" />

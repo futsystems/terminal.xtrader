@@ -61,6 +61,9 @@ namespace TradingLib.KryptonControl
             }
         }
 
+        /// <summary>
+        /// 交易数据恢复结束后 查询每个持仓合约的行情快照
+        /// </summary>
         void EventOther_OnResumeDataEnd()
         {
             //恢复持仓数据

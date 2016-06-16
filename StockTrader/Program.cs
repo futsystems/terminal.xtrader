@@ -29,6 +29,7 @@ namespace StockTrader
 
             try
             {
+                
                 WinConsole.Initialize();
 
                 // To make Debug or Trace output to the console, do the following.
@@ -38,6 +39,7 @@ namespace StockTrader
                 Console.SetError(new ConsoleWriter(Console.Error, TradingLib.Common.ConsoleColor.Red | TradingLib.Common.ConsoleColor.Intensified | TradingLib.Common.ConsoleColor.WhiteBG, ConsoleFlashMode.FlashUntilResponse, true));
                 WinConsole.Color = TradingLib.Common.ConsoleColor.Blue | TradingLib.Common.ConsoleColor.Intensified | TradingLib.Common.ConsoleColor.BlueBG;
                 WinConsole.Flash(true);
+                
 
                 Application.Run(new Starter());
             }

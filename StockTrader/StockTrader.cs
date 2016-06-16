@@ -61,7 +61,25 @@ namespace StockTrader
 
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+
+            this.Load += new EventHandler(StockTrader_Load);
+            CoreService.EventCore.OnLoginEvent += new Action<LoginResponse>(EventCore_OnLoginEvent);
         }
+
+        void EventCore_OnLoginEvent(LoginResponse obj)
+        {
+            if(obj.RspInfo.ErrorID == 0)
+            {
+                this.Text = "股票交易终端-{0}".Put(obj.Account);
+            }
+        }
+
+        void StockTrader_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        
 
         void EventOther_OnResumeDataEnd()
         {

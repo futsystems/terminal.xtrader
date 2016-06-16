@@ -111,6 +111,11 @@ namespace TradingLib.TraderCore
                 case MessageTypes.XTICKSNAPSHOTRESPONSE://行情快照回报
                     CliOnXQryTickSnapShot(packet as RspXQryTickSnapShotResponse);
                     break;
+                
+                case MessageTypes.XACCOUNTRESPONSE://交易账户回报
+                    CliOnXQryAccount(packet as RspXQryAccountResponse);
+                    break;
+
                 #endregion
 
                 default:

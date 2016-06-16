@@ -46,6 +46,7 @@ namespace TradingLib.TraderCore
             SendPacket(requets);
             return requestid;
         }
+
         /// <summary>
         /// 直接取消委托
         /// </summary>
@@ -87,7 +88,7 @@ namespace TradingLib.TraderCore
             request.LoginID = loginid;
             request.Passwd = pass;
             request.LoginType = 1;
-            request.ProductInfo = "XTrader.Net";
+            request.ProductInfo = Constants.ProductInfo;
             request.IPAddress = "";// info.IP;
             
             //request.IPAddress = "22.22.22.22";
@@ -123,6 +124,8 @@ namespace TradingLib.TraderCore
             SendPacket(request);
             return requestid;
         }
+
+
         /// <summary>
         /// 请求查询可开手数
         /// </summary>
@@ -403,6 +406,16 @@ namespace TradingLib.TraderCore
             request.Symbol = symbol;
 
             SendPacket(request);
+        }
+
+        /// <summary>
+        /// 查询交易账户
+        /// </summary>
+        public int ReqXQryAccount()
+        {
+            XQryAccountRequest request = RequestTemplate<XQryAccountRequest>.CliSendRequest(++requestid);
+            SendPacket(request);
+            return requestid;
         }
 
         #endregion

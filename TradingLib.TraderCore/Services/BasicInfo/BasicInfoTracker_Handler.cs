@@ -10,6 +10,16 @@ namespace TradingLib.TraderCore
 {
     public partial class BasicInfoTracker
     {
+        /// <summary>
+        /// 请求基础数据
+        /// </summary>
+        public void ResumeData()
+        {
+            logger.Info("Start to resume basic info");
+            CoreService.TLClient.ReqXQryMarketTime();
+        }
+
+
         public void GotMarketTime(MarketTime mt, bool islast)
         {
             if (mt != null)

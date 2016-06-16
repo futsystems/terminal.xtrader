@@ -61,9 +61,12 @@ namespace TradingLib.TraderCore
             CoreService.EventQry.OnRspXQryOrderResponse += new Action<Order, RspInfo, int, bool>(EventQry_OnRspXQryOrderResponse);
             CoreService.EventQry.OnRspXQryYDPositionResponse += new Action<PositionDetail, RspInfo, int, bool>(EventQry_OnRspXQryYDPositionResponse);
             CoreService.EventQry.OnRspXQryFillResponese += new Action<Trade, RspInfo, int, bool>(EventQry_OnRspXQryFillResponese);
-            CoreService.EventQry.OnRspQryAccountInfoResponse += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspQryAccountInfoResponse);
+            //CoreService.EventQry.OnRspQryAccountInfoResponse += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspQryAccountInfoResponse);
+            CoreService.EventQry.OnRspXQryAccountResponse += new Action<AccountLite, RspInfo, int, bool>(EventQry_OnRspXQryAccountResponse);
             PositionTracker.NewPositionEvent += new Action<Position>(PositionTracker_NewPositionEvent);
         }
+
+
 
         void EventIndicator_GotTickEvent(Tick obj)
         {
@@ -156,15 +159,14 @@ namespace TradingLib.TraderCore
             if (arg4)
             {
                 Status("成交查询完毕,查询帐户信息");
-                _qryaccountinfoid = CoreService.TLClient.ReqQryAccountInfo();
+                _qryaccountinfoid = CoreService.TLClient.ReqXQryAccount();
             }
         }
 
-        void EventQry_OnRspQryAccountInfoResponse(AccountInfo arg1, RspInfo arg2, int arg3, bool arg4)
+        void EventQry_OnRspXQryAccountResponse(AccountLite arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qryaccountinfoid) return;
-
-            CoreService.AccountInfo = arg1;
+            CoreService.Account = arg1;
             //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件
             if (!CoreService.Initialized)
             {
@@ -186,8 +188,36 @@ namespace TradingLib.TraderCore
 
             logger.Info("trading data resume finished");
             CoreService.EventOther.FireResumeDataEnd();
-            
         }
+
+        //void EventQry_OnRspQryAccountInfoResponse(AccountInfo arg1, RspInfo arg2, int arg3, bool arg4)
+        //{
+        //    if (arg3 != _qryaccountinfoid) return;
+
+        //    //CoreService.AccountInfo = arg1;
+        //    //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件
+        //    if (!CoreService.Initialized)
+        //    {
+        //        if (arg1 == null)
+        //        {
+        //            Status("帐户信息查询异常");
+        //            return;
+        //        }
+
+        //        if (arg4)
+        //        {
+        //            Status("帐户信息查询完毕");
+        //            CoreService.TLClient.StartTick();
+        //            //核心服务完成初始化
+        //            CoreService.Initialize();
+        //            Status("触发初始化完毕事件");
+        //        }
+        //    }
+
+        //    logger.Info("trading data resume finished");
+        //    CoreService.EventOther.FireResumeDataEnd();
+            
+        //}
 
 
 

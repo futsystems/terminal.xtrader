@@ -226,7 +226,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StockTrader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "终端";
+            this.Text = "股票交易终端";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.mToolBar.ResumeLayout(false);

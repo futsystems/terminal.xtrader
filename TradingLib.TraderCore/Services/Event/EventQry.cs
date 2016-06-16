@@ -61,6 +61,16 @@ namespace TradingLib.TraderCore
         }
 
 
+        public event Action<AccountLite, RspInfo, int, bool> OnRspXQryAccountResponse;
+        internal void FireRspXQryAccountResponse(AccountLite info, RspInfo rsp, int requestId, bool isLast)
+        {
+            if (OnRspXQryAccountResponse != null)
+            {
+                OnRspXQryAccountResponse(info, rsp, requestId, isLast);
+            }
+        }
+
+
         /// <summary>
         /// 查询合约对象
         /// </summary>

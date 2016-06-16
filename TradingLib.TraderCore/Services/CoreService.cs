@@ -53,34 +53,34 @@ namespace TradingLib.TraderCore
             }
         }
 
-        string _account = string.Empty;
-        /// <summary>
-        /// 交易账户
-        /// </summary>
-        public static string Account
+        //string _account = string.Empty;
+        ///// <summary>
+        ///// 交易账户
+        ///// </summary>
+        //public static string Account
+        //{
+        //    get
+        //    {
+        //        return defaultinstance._account;
+        //    }
+        //    set
+        //    {
+        //        defaultinstance._account = value;
+        //    }
+        //}
+
+        AccountLite _accountLite = null;
+
+        public static AccountLite Account
         {
             get
             {
-                return defaultinstance._account;
-            }
-            set
-            {
-                defaultinstance._account = value;
-            }
-        }
-
-        AccountInfo _accountInfo = null;
-
-        public static AccountInfo AccountInfo
-        {
-            get
-            {
-                return defaultinstance._accountInfo;
+                return defaultinstance._accountLite;
             }
 
             internal set
             {
-                defaultinstance._accountInfo = value;
+                defaultinstance._accountLite = value;
             }
         }
 

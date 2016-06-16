@@ -32,6 +32,8 @@ namespace TradingLib.TraderCore
         {
             logger.Debug("got symbol response:" + response.ToString());
             CoreService.BasicInfoTracker.GotSymbol(response.Symbol, response.IsLast);
+
+            //触发查询回调
             Symbol target = null;
             if (response.Symbol != null)
             {

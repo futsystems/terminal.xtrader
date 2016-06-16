@@ -21,7 +21,7 @@ namespace StockTrader
             if (update.Detect())
             {
                 //MessageBox.Show("detected");
-                update.Update("XTraderSTK.exe", true);
+                update.Update("StockTrader.exe", true);
                 return true;
             }
             else
