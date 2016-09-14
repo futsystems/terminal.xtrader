@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12944A07-36A2-4842-B7C5-2E2B62C35938}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CStock</RootNamespace>
+    <AssemblyName>TradingLib.KChart</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddFenLei.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFenLei.Designer.cs">
+      <DependentUpon>AddFenLei.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddString.Designer.cs">
+      <DependentUpon>AddString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChartPanel\ChartPanel_.cs" />
+    <Compile Include="ChartPanel\ChartPanel_OnPaint.cs" />
+    <Compile Include="ChartPanel\ChartPanel_TA.cs" />
+    <Compile Include="ChartPanel\ChartPanel_Data.cs" />
+    <Compile Include="ChartPanel\ChartPanel_Helper.cs" />
+    <Compile Include="CheckPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckPass.Designer.cs">
+      <DependentUpon>CheckPass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClickStyle.cs" />
+    <Compile Include="Common\DetailBoardTabType.cs" />
+    <Compile Include="Common\EventArgs.cs" />
+    <Compile Include="Common\FreqType.cs" />
+    <Compile Include="Common\KChartViewType.cs" />
+    <Compile Include="Common\MenuItems.cs" />
+    <Compile Include="Compile.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Common\delegates.cs" />
+    <Compile Include="DetailsBoard\ctDetailsBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DetailsBoard\ctDetailsBoard.Designer.cs">
+      <DependentUpon>ctDetailsBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditFunc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditFunc.designer.cs">
+      <DependentUpon>EditFunc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FuncEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncEdit.designer.cs">
+      <DependentUpon>FuncEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FuncStr.cs" />
+    <Compile Include="GongSi.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GongSi.designer.cs">
+      <DependentUpon>GongSi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="infolist.cs" />
+    <Compile Include="input.cs" />
+    <Compile Include="InputFm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputFm.designer.cs">
+      <DependentUpon>InputFm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="jia.cs" />
+    <Compile Include="jialist.cs" />
+    <Compile Include="KChart\KChart_.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Mouse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Cmd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Menu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Zoom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Keyboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_OnPaint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_BottomTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Hint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Event.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Data.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Line.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Formula.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Property.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\KChart_Common.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LineShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LineShow.Designer.cs">
+      <DependentUpon>LineShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarkType.cs" />
+    <Compile Include="MyEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notes.designer.cs">
+      <DependentUpon>Notes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="QuanType.cs" />
+    <Compile Include="SelectFunc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectFunc.designer.cs">
+      <DependentUpon>SelectFunc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockTech.cs" />
+    <Compile Include="TBian.cs" />
+    <Compile Include="TDX.cs" />
+    <Compile Include="TechList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TechList.Designer.cs">
+      <DependentUpon>TechList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TFunclist.cs" />
+    <Compile Include="tiao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tiao.designer.cs">
+      <DependentUpon>tiao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tick.cs" />
+    <Compile Include="KChart\TStock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KChart\TStock.designer.cs">
+      <DependentUpon>TStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TStringList.cs" />
+    <Compile Include="xline.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AddFenLei.resx">
+      <DependentUpon>AddFenLei.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddString.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AddString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckPass.resx">
+      <DependentUpon>CheckPass.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailsBoard\ctDetailsBoard.resx">
+      <DependentUpon>ctDetailsBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditFunc.resx">
+      <DependentUpon>EditFunc.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FuncEdit.resx">
+      <DependentUpon>FuncEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GongSi.resx">
+      <DependentUpon>GongSi.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFm.resx">
+      <DependentUpon>InputFm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LineShow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LineShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notes.resx">
+      <DependentUpon>Notes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectFunc.resx">
+      <DependentUpon>SelectFunc.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechList.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TechList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tiao.resx">
+      <DependentUpon>tiao.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KChart\TStock.resx">
+      <DependentUpon>TStock.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\a9.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a10.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a11.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a12.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a13.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a14.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a15.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a16.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a17.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a18.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a19.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a20.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a21.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a22.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a23.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a24.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a25.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a26.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a27.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a28.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a29.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a30.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a31.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a32.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a33.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a34.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a35.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a36.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a37.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a38.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a39.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a40.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a41.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K27.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K28.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K9.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K10.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K11.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K12.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K13.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K14.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K15.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K16.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K17.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K18.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K19.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K20.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K21.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K22.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k23.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k24.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K25.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\K26.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a100.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button12.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1.txt" />
+    <Content Include="KeyWords.xml" />
+    <Content Include="Resources\fx1.bmp" />
+    <Content Include="Resources\fx2.bmp" />
+    <Content Include="Resources\fx3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
