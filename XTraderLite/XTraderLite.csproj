@@ -93,6 +93,57 @@
   <ItemGroup>
     <None Include="Resources\BottomStatusGB.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_01.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_02.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_03.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_04.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_05.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_10.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_12.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_13.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_14.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_15.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_f_11.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_t_1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_t_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_t_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_tool_1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_tool_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toolbar\tb_tool_3.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
