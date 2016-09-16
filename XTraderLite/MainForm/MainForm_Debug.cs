@@ -22,7 +22,7 @@ namespace XTraderLite
             _dataAPI.QrySymbol();
 
             //quoteList.AddSymbol(_dataAPI.Symbols);
-            quoteList.Symbols = _dataAPI.Symbols;
+            quoteView.Symbols = _dataAPI.Symbols;
         }
 
         void btnDemo2_Click(object sender, EventArgs e)

@@ -15,7 +15,7 @@ namespace XTraderLite
 
         void InitQuoteList()
         {
-            quoteList.AddBlock("所有A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("所有A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "1" || symbol.BlockType == "5" || symbol.BlockType == "6")
@@ -24,7 +24,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("中小版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("中小版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "5")
@@ -33,7 +33,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("创业版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("创业版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "6")
@@ -42,7 +42,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "1" && symbol.Exchange=="SH")
@@ -51,7 +51,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "1" && symbol.Exchange == "SZ")
@@ -60,7 +60,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("基金", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("基金", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "4")
@@ -69,7 +69,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("指数", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("指数", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "7")
@@ -79,7 +79,7 @@ namespace XTraderLite
                     return false;
                 }));
 
-            quoteList.AddBlock("债券", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("债券", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "3")
@@ -88,7 +88,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("三板", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("三板", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "8")
@@ -97,7 +97,7 @@ namespace XTraderLite
                     }
                     return false;
                 }));
-            quoteList.AddBlock("自选", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+            quoteView.AddBlock("自选", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     if (symbol.BlockType == "8")

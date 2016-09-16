@@ -1,0 +1,825 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace CStock
+{
+    public partial class ctDetailsBoard : UserControl
+    {
+        //盘口信息下面Tab面板
+        string[] ws = { "笔", "价", "指", "配", "值" };
+        Panel[] PBox = new Panel[5];
+
+        Color mBackColor = Color.Black;
+        Color mBoardColor = Color.Maroon;
+
+
+        public int myTabIndex = 0;
+        public int TabValue
+        {
+            get { return myTabIndex; }
+        }
+
+        /// <summary>
+        /// Tab页切换
+        /// </summary>
+        public event Action<object,TabSwitchEventArgs> TabSwitch;
+
+        //点击位置事件
+        //public delegate void StockEventHandler(object sender, StockEventArgs e);
+        //用event 关键字声明事件对象
+        //public event StockEventHandler StockClick = null;
+
+        /// <summary>
+        /// Tab页双击
+        /// </summary>
+        public event Action<object, TabDoubleClickEventArgs> TabDoubleClick = null;
+        
+        int LineHeight = 15;//输出行高
+
+        Stock FCurStock = null;
+
+        Label[] SellValue = new Label[10];
+        Label[] SellVol = new Label[10];
+        Label[] BuyValue = new Label[10];
+        Label[] BuyVol = new Label[10];
+
+        Label[] Cell = new Label[28];
+        Color volc = Color.FromArgb(192, 192, 0);
+
+        //笔--列表
+        public List<Tick> FenBiList = new List<Tick>();
+
+        //价--列表
+        //public SortedList<double,jia> jialist = new SortedList<double,jia>();
+        public List<jialist> JiaList = new List<jialist>();
+
+        /// <summary>
+        /// 合约标题
+        /// </summary>
+        public string StockLabel
+        {
+            get { return StkLabel.Text; }
+            set
+            {
+                StkLabel.Text = value;
+            }
+        }
+        public ctDetailsBoard()
+        {
+            InitializeComponent();
+            
+            int i = 0;
+
+            DetailTabBox.BackColor = Color.Black;
+            PBox[0] = pbox1;
+            PBox[1] = pbox2;
+            PBox[2] = pbox3;
+            PBox[3] = pbox4;
+            PBox[4] = pbox5;
+            for (i = 0; i < 5; i++)
+            {
+                PBox[i].BackColor = Color.Black;
+                PBox[i].Dock = DockStyle.Fill;
+            }
+
+            DetailTabBox.Dock = DockStyle.Fill;
+            Board.ForeColor = Color.Black;
+
+            //添加买盘label到layoutpanel
+            for (i = 0; i < 5; i++)
+            {
+                Label l = new Label();
+                l.AutoSize = false;
+                l.TextAlign = ContentAlignment.MiddleRight;
+                l.Dock = DockStyle.Top;
+                l.Height = 18;
+                l.ForeColor = Color.Silver;
+                l.Text = i.ToString();// "";
+                SellValue[i] = l;
+                Sell.Controls.Add(l, 1, 4 - i);
+
+                Label l11 = new Label();
+                l11.AutoSize = false;
+                l11.TextAlign = ContentAlignment.MiddleRight;
+                l11.Dock = DockStyle.Top;
+                l11.Height = 18;
+                l11.ForeColor = volc;
+                l11.Text = i.ToString();
+                SellVol[i] = l11;
+                Sell.Controls.Add(l11, 2, 4 - i);
+            }
+
+            //添加卖盘label到layoutpanel
+            for (i = 0; i < 5; i++)
+            {
+                Label l = new Label();
+                l.AutoSize = false;
+                l.TextAlign = ContentAlignment.MiddleRight;
+                l.Dock = DockStyle.Top;
+                l.Height = 18;
+                l.ForeColor = Color.Silver;
+                l.Text = i.ToString();// "";
+                BuyValue[i] = l;
+                Buy.Controls.Add(l, 1, i);
+
+                Label l11 = new Label();
+                l11.AutoSize = false;
+                l11.TextAlign = ContentAlignment.MiddleRight;
+                l11.Dock = DockStyle.Top;
+                l11.Height = 18;
+                l11.ForeColor = volc;
+                l11.Text = i.ToString();
+                BuyVol[i] = l11;
+                Buy.Controls.Add(l11, 2, i);
+            }
+
+            //初始化其他参数标签并加入到layoutpanel
+            for (i = 0; i < 28; i++)
+            {
+                Label l = new Label();
+                l.AutoSize = false;
+                l.TextAlign = ContentAlignment.MiddleRight;
+                l.Dock = DockStyle.Top;
+                l.Height = 18;
+                l.ForeColor = Color.Silver;
+                l.Text = i.ToString();
+                Cell[i] = l;
+            }
+            cell4.Controls.Add(Cell[0], 1, 0);
+            cell4.Controls.Add(Cell[1], 1, 1);
+            cell4.Controls.Add(Cell[2], 1, 2);
+            cell4.Controls.Add(Cell[3], 1, 3);
+            cell4.Controls.Add(Cell[4], 1, 4);
+            cell4.Controls.Add(Cell[5], 1, 5);
+            cell4.Controls.Add(Cell[6], 1, 6);
+
+            cell4.Controls.Add(Cell[7], 3, 0);
+            cell4.Controls.Add(Cell[8], 3, 1);
+            cell4.Controls.Add(Cell[9], 3, 2);
+            cell4.Controls.Add(Cell[10], 3, 3);
+            cell4.Controls.Add(Cell[11], 3, 4);
+            cell4.Controls.Add(Cell[12], 3, 5);
+            cell4.Controls.Add(Cell[13], 3, 6);
+
+
+            cell5.Controls.Add(Cell[14], 1, 0);
+            cell5.Controls.Add(Cell[15], 1, 1);
+            cell5.Controls.Add(Cell[16], 1, 2);
+            cell5.Controls.Add(Cell[17], 3, 0);
+            cell5.Controls.Add(Cell[18], 3, 1);
+            cell5.Controls.Add(Cell[19], 3, 2);
+
+            Cell[21].ForeColor = volc;
+            Cell[23].ForeColor = volc;
+        }
+
+        /// <summary>
+        /// 刷新指定的Tab窗口0~4
+        /// </summary>
+        /// <param name="Index"></param>
+        public void TabPaint(int Index)
+        {
+            if ((Index > -1) && (Index < PBox.Length))
+            {
+                PBox[Index].Invalidate();
+            }
+
+        }
+
+
+        #region 数据操作
+        /// <summary>
+        /// 设置Stock用于更新当前最新盘口数据
+        /// </summary>
+        /// <param name="sk"></param>
+        public void SetStock(Stock sk)
+        {
+            if (sk == null)
+                return;
+            if (BuyValue[0] == null)
+                return;
+            FCurStock = sk;
+
+            if (sk.type == 7)
+            {
+                if (Buy.Visible)
+                {
+                    Buy.Visible = false;
+                    BuySp.Visible = false;
+                    Sell.Visible = false;
+                    SellSp.Visible = false;
+                }
+
+            }
+            else
+            {
+                if (!Buy.Visible)
+                {
+                    Buy.Visible = true;
+                    Sell.Visible = true;
+                    BuySp.Visible = true;
+                    SellSp.Visible = true;
+                }
+            }
+
+            double f1 = sk.now.sellQTY1 + sk.now.sellQTY2 + sk.now.sellQTY3 + sk.now.sellQTY4 + sk.now.sellQTY5;
+            double f2 = sk.now.buyQTY1 + sk.now.buyQTY2 + sk.now.buyQTY3 + sk.now.buyQTY4 + sk.now.buyQTY5;
+            weibi.Text = "";
+            weica.Text = "";
+
+            if ((f1 + f2) > 0)
+            {
+                weibi.Text = string.Format("{0:F2}%", (f1 - f2) * 100 / (f1 + f2));
+                weibi.ForeColor = f2 > f1 ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+            else
+            {
+                weibi.Text = "0%";
+                weibi.ForeColor = Color.White;
+            }
+            if ((f2 + f1) > 0)
+            {
+                weica.Text = string.Format("{0:F0}%", f2 - f1);
+                weica.ForeColor = f2 > f1 ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+            else
+            {
+                weica.Text = "";
+            }
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                SellValue[i].Text = "";
+                SellVol[i].Text = "";
+                BuyValue[i].Text = "";
+                BuyVol[i].Text = "";
+
+            }
+            for (int i = 0; i < 24; i++)
+                Cell[i].Text = "";
+            if (sk.now.buyQTY1 > 0)
+            {
+                BuyValue[0].Text = String.Format("{0:F3}", sk.now.buy1);
+                BuyVol[0].Text = String.Format("{0:F0}", sk.now.buyQTY1);
+                BuyValue[0].ForeColor = sk.now.buy1 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+            if (sk.now.buyQTY2 > 0)
+            {
+                BuyValue[1].Text = String.Format("{0:F3}", sk.now.buy2);
+                BuyVol[1].Text = String.Format("{0:F0}", sk.now.buyQTY2);
+                BuyValue[1].ForeColor = sk.now.buy2 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+            if (sk.now.buyQTY3 > 0)
+            {
+                BuyValue[2].Text = String.Format("{0:F3}", sk.now.buy3);
+                BuyVol[2].Text = String.Format("{0:F0}", sk.now.buyQTY3);
+                BuyValue[2].ForeColor = sk.now.buy3 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+            if (sk.now.buyQTY4 > 0)
+            {
+                BuyValue[3].Text = String.Format("{0:F3}", sk.now.buy4);
+                BuyVol[3].Text = String.Format("{0:F0}", sk.now.buyQTY4);
+                BuyValue[3].ForeColor = sk.now.buy4 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+            if (sk.now.buyQTY5 > 0)
+            {
+                BuyValue[4].Text = String.Format("{0:F3}", sk.now.buy5);
+                BuyVol[4].Text = String.Format("{0:F0}", sk.now.buyQTY5);
+                BuyValue[4].ForeColor = sk.now.buy5 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+
+            if (sk.now.sellQTY1 > 0)
+            {
+                SellValue[0].Text = String.Format("{0:F3}", sk.now.sell1);
+                SellVol[0].Text = String.Format("{0:F0}", sk.now.sellQTY1);
+                SellValue[0].ForeColor = sk.now.sell1 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+            if (sk.now.sellQTY2 > 0)
+            {
+                SellValue[1].Text = String.Format("{0:F3}", sk.now.sell2);
+                SellVol[1].Text = String.Format("{0:F0}", sk.now.sellQTY2);
+                SellValue[1].ForeColor = sk.now.sell2 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+            if (sk.now.sellQTY3 > 0)
+            {
+                SellValue[2].Text = String.Format("{0:F3}", sk.now.sell3);
+                SellVol[2].Text = String.Format("{0:F0}", sk.now.sellQTY3);
+                SellValue[2].ForeColor = sk.now.sell3 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+            if (sk.now.sellQTY4 > 0)
+            {
+                SellValue[3].Text = String.Format("{0:F3}", sk.now.sell4);
+                SellVol[3].Text = String.Format("{0:F0}", sk.now.sellQTY4);
+                SellValue[3].ForeColor = sk.now.sell4 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+            if (sk.now.sellQTY5 > 0)
+            {
+                SellValue[4].Text = String.Format("{0:F3}", sk.now.sell5);
+                SellVol[4].Text = String.Format("{0:F0}", sk.now.sellQTY5);
+                SellValue[4].ForeColor = sk.now.sell5 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+
+
+            Cell[0].Text = String.Format("{0:F3}", sk.now.prize);
+            Cell[0].ForeColor = sk.now.prize > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+
+            Cell[7].Text = String.Format("{0:F3}", sk.now.open);
+            Cell[7].ForeColor = sk.now.open > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+
+            Cell[1].Text = String.Format("{0:F3}", sk.now.prize - sk.now.last);
+            Cell[1].ForeColor = sk.now.prize > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+
+            Cell[8].Text = String.Format("{0:F3}", sk.now.high);
+            Cell[8].ForeColor = sk.now.high > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+
+            if (sk.now.last != 0)
+            {
+                Cell[2].Text = String.Format("{0:F2}%", (sk.now.prize - sk.now.last) * 100 / sk.now.last);
+                Cell[2].ForeColor = sk.now.prize > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+            Cell[9].Text = String.Format("{0:F3}", sk.now.low);
+            Cell[9].ForeColor = sk.now.low > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+
+            Cell[3].Text = String.Format("{0:F0}", sk.now.tradeQTY);
+            double d1 = sk.now.volume;
+            if (d1 > 0)
+            {
+                double d2 = (sk.now.amount / sk.now.volume) / 100.0;
+                Cell[10].Text = String.Format("{0:F3}", d2);
+                Cell[10].ForeColor = d2 > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            }
+            double d3 = sk.now.amount;
+            if (d3 > 100000000)
+            {
+                Cell[4].Text = String.Format("{0:F2}亿", sk.now.amount / 100000000);
+            }
+            else
+                Cell[4].Text = String.Format("{0:F0}万", sk.now.amount / 10000);
+            if (d1 > 1000000)
+            {
+                d1 = d1 / 10000;
+                Cell[11].Text = String.Format("{0:F1}万", d1);
+            }
+            else
+                Cell[11].Text = String.Format("{0:F0}", d1);
+
+            f2 = 0.1;
+            if (sk.codes.IndexOf("ST") > -1)
+                f2 = 0.05;
+            Cell[5].Text = String.Format("{0:F3}", sk.now.last * (1 + f2));
+            Cell[5].ForeColor = Constants.DetailBoard_Color_UP;
+            Cell[12].Text = String.Format("{0:F3}", sk.now.last * (1 - f2));
+            Cell[12].ForeColor = Constants.DetailBoard_Color_Down;
+            Cell[6].Text = String.Format("{0:F0}", sk.now.s);
+            Cell[6].ForeColor = Color.Red;
+            Cell[13].Text = String.Format("{0:F0}", sk.now.b);
+            Cell[13].ForeColor = Constants.DetailBoard_Color_Down;
+            if (sk.cw.LTG > 0)
+            {
+                Cell[14].Text = String.Format("{0:F2}%", sk.now.volume / sk.cw.LTG);
+                Cell[18].Text = String.Format("{0:F1}亿", sk.cw.LTG / 10000);
+            }
+            else
+            {
+                Cell[14].Text = "";
+                Cell[18].Text = "";
+            }
+
+            if (sk.cw.zl != null)
+            {
+                Cell[17].Text = String.Format("{0:F1}亿", sk.cw.zl[0] / 10000);
+                Cell[15].Text = String.Format("{0:F2}", sk.cw.zl[15] / sk.cw.zl[0] / 10);
+                f2 = 0;
+                if (sk.cw.zl[26] > 0)
+                    f2 = sk.cw.zl[26] / sk.cw.zl[0] / 10;
+                Cell[16].Text = String.Format("{0:F3}", f2);
+
+                if ((f2 > 0) && (sk.cw.zl[29] > 0))
+                {
+                    f2 = sk.now.prize / (f2 / sk.cw.zl[29] * 12);
+                    Cell[19].Text = String.Format("{0:F1}", f2);
+                }
+            }
+            else
+            {
+                Cell[15].Text = "";
+                Cell[16].Text = "";
+                Cell[17].Text = "";
+                Cell[19].Text = "";
+            }
+
+
+            Cell[20].Text = String.Format("{0:F3}", sk.now.sellall);
+            Cell[20].ForeColor = sk.now.sellall > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[21].Text = String.Format("{0:F0}", sk.now.sellQTYall);
+
+            Cell[22].Text = String.Format("{0:F3}", sk.now.buyall);
+            Cell[22].ForeColor = sk.now.buyall > sk.now.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[23].Text = String.Format("{0:F0}", sk.now.buyQTYall);
+            //FSGS[0].PreClose = sk.now.last;
+            this.Invalidate();
+
+        }
+
+        /// <summary>
+        /// 增加一行分笔
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="value"></param>
+        /// <param name="vol"></param>
+        /// <param name="tick"></param>
+        public void AddTick(int time, double value, int vol, int tick, int tickcount)
+        {
+            Tick tk = new Tick();
+            tk.time = time;
+            tk.value = value;
+            tk.vol = vol;
+            tk.tick = tick;
+            tk.tickcount = tickcount;
+            FenBiList.Add(tk);
+            pbox1.Invalidate();
+        }
+
+        /// <summary>
+        /// 返回分笔成交明细可显示行数
+        /// </summary>
+        public int TradesRowCount
+        {
+            get
+            {
+                return (pbox1.Height - 2) / LineHeight;
+            }
+        }
+
+        public void ClearFenbi()
+        {
+            FenBiList.Clear();
+            pbox1.Invalidate();
+        }
+
+        public void ClearJia()
+        {
+            JiaList.Clear();
+            pbox2.Invalidate();
+        }
+        public void AddJia(double value, int vol)
+        {
+
+            jialist tk = new jialist();
+            tk.value = value;
+            tk.vol = vol;
+            JiaList.Add(tk);
+            pbox2.Invalidate();//是否可以考虑数据添加完毕后统一Invalidate
+        }
+
+        public void ClearData()
+        {
+            if (SellValue[0] != null)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    SellValue[i].Text = "";
+                    SellVol[i].Text = "";
+                    BuyValue[i].Text = "";
+                    BuyVol[i].Text = "";
+
+                }
+            }
+
+            JiaList.Clear();
+            FenBiList.Clear();
+        }
+        #endregion
+
+
+
+        #region 盘口底部Tab事件
+        private void TabBox_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics cv = e.Graphics;
+            Rectangle TabArea = TabBox.ClientRectangle;
+
+            Brush br = new SolidBrush(mBackColor);
+            cv.FillRectangle(br, TabArea);
+            br.Dispose();
+
+            Pen border = new Pen(mBoardColor);
+            cv.DrawLine(border, TabArea.Left, TabArea.Top, TabArea.Right, TabArea.Top);
+            border.Dispose();
+
+            Brush br1 = new SolidBrush(Color.FromArgb(28, 28, 28));
+            Brush bh1 = new SolidBrush(Color.FromArgb(178, 178, 178));
+            Brush br2 = new SolidBrush(Color.FromArgb(90, 0, 0));
+            Brush bh2 = new SolidBrush(Color.Yellow);
+            Pen pn = new Pen(Color.FromArgb(155, 0, 0));
+
+            Point[] pt = new Point[5];
+            Rectangle r1 = new Rectangle();
+            int ww = TabBox.Width / 5;
+            r1.Width = ww;
+            r1.Height = TabBox.Height;
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+            for (int i = 0; i < 5; i++)
+            {
+                if (i == 4)
+                {
+                    r1.Width = TabBox.Width - ww * (ws.Length - 1) - 1;
+                }
+                r1.X = TabArea.Left + i * ww;
+                pt[0] = new Point(r1.Left, r1.Top);
+                pt[1] = new Point(r1.Left, r1.Bottom - 1);
+                pt[2] = new Point(r1.Right - 5, r1.Bottom - 1);
+                pt[3] = new Point(r1.Right, r1.Bottom - 6);
+                pt[4] = new Point(r1.Right, r1.Top);
+
+                if (myTabIndex != i)
+                {
+                    cv.FillPolygon(br1, pt);
+                    cv.DrawString(ws[i], Font, bh1, r1, stringFormat);
+                }
+                else
+                {
+                    cv.FillPolygon(br2, pt);
+                    cv.DrawString(ws[i], Font, bh2, r1, stringFormat);
+                }
+                cv.DrawPolygon(pn, pt);
+            }
+        }
+
+        private void TabBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            int ButtonWidth = TabBox.Width / ws.Length;
+            int ii = e.X / ButtonWidth;
+            if (ii != myTabIndex)
+            {
+                PBox[myTabIndex].Visible = false;
+                myTabIndex = ii;
+                PBox[myTabIndex].Visible = true; ;
+                TabBox.Invalidate();
+                if (TabSwitch != null)
+                {
+                    //切换Tab时候 清除原有数据 并对外触发事件 用于向服务端请求最新数据
+                    if (myTabIndex == 0)
+                    {
+                        this.ClearFenbi();
+                    }
+                    if (myTabIndex == 1)
+                    {
+                        this.ClearJia();
+                    }
+                    TabSwitch(this, new TabSwitchEventArgs(GetTabType(myTabIndex)));
+                }
+            }
+        }
+
+
+        DetailBoardTabType GetTabType(int index)
+        {
+            if (myTabIndex == 0)
+            {
+                return DetailBoardTabType.TradeDetails;
+            }
+            if (myTabIndex == 1)
+            {
+                return DetailBoardTabType.PriceDistribution;
+            }
+
+            return DetailBoardTabType.Unknown;
+
+        }
+
+
+        #endregion
+
+
+
+
+
+        #region pbox1事件
+        private void pbox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.TabDoubleClick != null)
+            {
+                this.TabDoubleClick(this, new TabDoubleClickEventArgs(DetailBoardTabType.TradeDetails));
+            }
+        }
+
+        private void pbox1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics cv = e.Graphics;
+            Rectangle r1 = pbox1.ClientRectangle;
+            Brush br = new SolidBrush(Color.Black);
+            Pen p = new Pen(Color.Maroon);
+            cv.FillRectangle(br, r1);
+            br.Dispose();
+            p.Dispose();
+
+            if (FenBiList.Count == 0)
+                return;
+            int i = 0;
+            int h = (pbox1.Height - 2) / LineHeight;
+            if (FenBiList.Count > h)
+                i = FenBiList.Count - h;
+
+            string ss;
+            int time = -1, jj = -1;
+            float lw;
+            SizeF si;
+            Tick tk = FenBiList[0];
+            if (FCurStock.type == 7)// tk.value > 300) //为指数
+            {
+                lw = (pbox1.Width - 52) / 2;
+                for (int j = i; j < FenBiList.Count; j++)
+                {
+                    tk = FenBiList[j];
+                    ss = "";
+                    if (time == -1)
+                    {
+                        jj = 1;
+                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+                        time = tk.time;
+                    }
+                    else
+                    {
+                        if (tk.time == time)
+                        {
+                            jj += 1;
+                            ss = string.Format(":{0:D2}", jj);
+                        }
+
+                        if (tk.time > time)// (tk.time - time) > 100)
+                        {
+                            jj = 1;
+                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+                            time = tk.time;
+                        }
+                    }
+                    r1.Y = (j - i) * LineHeight + 2;
+                    si = cv.MeasureString(ss, Font);
+                    if (jj == 1)
+                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
+                    else
+                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
+
+                    ss = string.Format("{0:F2}", tk.value);
+                    si = cv.MeasureString(ss, Font);
+                    cv.DrawString(ss, Font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+
+                    ss = string.Format("{0:D}", tk.vol);
+                    si = cv.MeasureString(ss, Font);
+                    cv.DrawString(ss, Font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
+                }
+            }
+            else
+            {
+                lw = (pbox1.Width - 92) / 2;
+                for (int j = i; j < FenBiList.Count; j++)
+                {
+                    tk = FenBiList[j];
+                    ss = "";
+                    if (time == -1)
+                    {
+                        jj = 1;
+                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+                        time = tk.time;
+                    }
+                    else
+                    {
+                        if (tk.time == time)
+                        {
+                            jj += 1;
+                            ss = string.Format(":{0:D2}", jj);
+                        }
+
+                        if (tk.time > time)// (tk.time - time) > 100)
+                        {
+                            jj = 1;
+                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+                            time = tk.time;
+                        }
+                    }
+                    r1.Y = (j - i) * LineHeight + 2;
+                    si = cv.MeasureString(ss, Font);
+                    if (jj == 1)
+                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
+                    else
+                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
+
+                    ss = string.Format("{0:F2}", tk.value);
+                    si = cv.MeasureString(ss, Font);
+                    cv.DrawString(ss, Font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+
+                    ss = string.Format("{0:D}", tk.vol);
+                    si = cv.MeasureString(ss, Font);
+                    cv.DrawString(ss, Font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
+
+                    if (tk.tick == 1)
+                        ss = "B";
+                    else
+                        ss = "S";
+                    si = cv.MeasureString(ss, Font);
+                    if (tk.tick == 1)
+                        cv.DrawString(ss, Font, Brushes.Red, pbox1.Width - 40, r1.Top);
+                    else
+                        cv.DrawString(ss, Font, Brushes.Lime, pbox1.Width - 40, r1.Top);
+                    ss = tk.tickcount.ToString();
+                    si = cv.MeasureString(ss, Font);
+                    cv.DrawString(ss, Font, Brushes.Gray, pbox1.Width - si.Width, r1.Top);
+                }
+            }
+        }
+
+        private void pbox1_Resize(object sender, EventArgs e)
+        {
+            pbox1.Invalidate();
+        }
+
+        #endregion
+
+
+
+
+        #region pbox2事件
+        private void pbox2_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.TabDoubleClick != null)
+            {
+                this.TabDoubleClick(this, new TabDoubleClickEventArgs(DetailBoardTabType.PriceDistribution));
+            }
+        }
+
+        private void pbox2_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics cv = e.Graphics;
+            Rectangle r1 = pbox2.ClientRectangle;
+            cv.FillRectangle(Brushes.Black, r1);
+
+            if (JiaList.Count == 0)
+                return;
+
+            string ss;
+            float lw = (pbox2.Width - 52) / 2; ;
+            double pr = 0;
+            //if (PreClose != NA)
+            //    pr = PreClose;
+            if (FCurStock != null)
+                pr = FCurStock.GP.YClose;
+
+            SizeF si;
+            int maxvol = 1;
+            for (int j = 0; j < JiaList.Count; j++)
+            {
+                jialist tk = JiaList[j];
+                if (tk.vol > maxvol)
+                    maxvol = tk.vol;
+            }
+            for (int j = JiaList.Count - 1; j > -1; j--)
+            {
+                jialist tk = JiaList[j];
+                r1.Y = (JiaList.Count - 1 - j) * LineHeight + 2;
+
+                ss = string.Format("{0:F2}", tk.value);
+                si = cv.MeasureString(ss, Font);
+                if (tk.value > pr)
+                    cv.DrawString(ss, Font, Brushes.Red, (int)(50 - si.Width), r1.Top);
+                else
+                    cv.DrawString(ss, Font, Brushes.Green, (int)(50 - si.Width), r1.Top);
+
+                ss = string.Format("{0:D}", tk.vol);
+                si = cv.MeasureString(ss, Font);
+                cv.DrawString(ss, Font, Brushes.YellowGreen, (int)(50 + 1 * lw - si.Width), r1.Top);
+                int ww = (int)(tk.vol * (lw - 4) / maxvol);
+                if (ww == 0)
+                    ww = 1;
+                cv.FillRectangle(Brushes.Aqua, (50 + lw + 2), r1.Top + 2, ww, LineHeight - 4);
+
+                if (r1.Y + LineHeight > pbox2.Height)
+                    break;
+            }
+        }
+
+        private void pbox2_Resize(object sender, EventArgs e)
+        {
+            pbox2.Invalidate();
+        }
+        #endregion
+
+
+    }
+}

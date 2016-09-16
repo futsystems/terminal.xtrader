@@ -70,7 +70,7 @@
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             this.holder = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
-            this.bottomStatusPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnQuoteView = new System.Windows.Forms.ToolStripButton();
             this.btnIntraView = new System.Windows.Forms.ToolStripButton();
             this.btnBarView = new System.Windows.Forms.ToolStripButton();
@@ -91,11 +91,14 @@
             this.btnFormula = new System.Windows.Forms.ToolStripButton();
             this.btnWatchList = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
             this.btnDemo1 = new System.Windows.Forms.ToolStripButton();
-            this.quoteList = new TradingLib.KryptonControl.ctrlQuoteList();
+            this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
+            this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
+            this.bottomStatusPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.panelQuoteList = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.panelKChart = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.kChartView = new CStock.TStock();
+            this.quoteView = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
             ((System.ComponentModel.ISupportInitialize)(this.topMenuPanel)).BeginInit();
             this.topMenuPanel.SuspendLayout();
@@ -110,8 +113,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel2)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).BeginInit();
+            this.panelQuoteList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).BeginInit();
+            this.panelKChart.SuspendLayout();
             this.SuspendLayout();
             // 
             // topMenuPanel
@@ -450,7 +457,8 @@
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.quoteList);
+            this.splitContainer.Panel1.Controls.Add(this.panelKChart);
+            this.splitContainer.Panel1.Controls.Add(this.panelQuoteList);
             this.splitContainer.Panel1.Controls.Add(this.toolStrip1);
             this.splitContainer.Panel1MinSize = 250;
             // 
@@ -464,14 +472,39 @@
             this.splitContainer.SplitterWidth = 2;
             this.splitContainer.TabIndex = 2;
             // 
-            // bottomStatusPanel
+            // toolStrip1
             // 
-            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
-            this.bottomStatusPanel.Name = "bottomStatusPanel";
-            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
-            this.bottomStatusPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.BottomStatusBG;
-            this.bottomStatusPanel.TabIndex = 1;
+            this.toolStrip1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnQuoteView,
+            this.btnIntraView,
+            this.btnBarView,
+            this.toolStripSeparator3,
+            this.btnFreqDay,
+            this.btnFreqWeek,
+            this.btnFreqMonth,
+            this.btnFreqQuarter,
+            this.btnFreqYear,
+            this.toolStripSeparator4,
+            this.btnFreq1M,
+            this.btnFreq5M,
+            this.btnFreq15M,
+            this.btnFreq30M,
+            this.btnFreq60M,
+            this.toolStripSeparator5,
+            this.btnDrawBox,
+            this.btnFormula,
+            this.btnWatchList,
+            this.toolStripSeparator8,
+            this.btnDemo1,
+            this.btnDemo2,
+            this.btnDemo3});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1100, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // btnQuoteView
             // 
@@ -637,48 +670,14 @@
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
             // 
-            // btnDemo3
+            // btnDemo1
             // 
-            this.btnDemo3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDemo3.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo3.Image")));
-            this.btnDemo3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDemo3.Name = "btnDemo3";
-            this.btnDemo3.Size = new System.Drawing.Size(28, 22);
-            this.btnDemo3.Text = "D3";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnQuoteView,
-            this.btnIntraView,
-            this.btnBarView,
-            this.toolStripSeparator3,
-            this.btnFreqDay,
-            this.btnFreqWeek,
-            this.btnFreqMonth,
-            this.btnFreqQuarter,
-            this.btnFreqYear,
-            this.toolStripSeparator4,
-            this.btnFreq1M,
-            this.btnFreq5M,
-            this.btnFreq15M,
-            this.btnFreq30M,
-            this.btnFreq60M,
-            this.toolStripSeparator5,
-            this.btnDrawBox,
-            this.btnFormula,
-            this.btnWatchList,
-            this.toolStripSeparator8,
-            this.btnDemo1,
-            this.btnDemo2,
-            this.btnDemo3});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1100, 25);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
+            this.btnDemo1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDemo1.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo1.Image")));
+            this.btnDemo1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDemo1.Name = "btnDemo1";
+            this.btnDemo1.Size = new System.Drawing.Size(28, 22);
+            this.btnDemo1.Text = "D1";
             // 
             // btnDemo2
             // 
@@ -689,22 +688,88 @@
             this.btnDemo2.Size = new System.Drawing.Size(28, 22);
             this.btnDemo2.Text = "D2";
             // 
-            // btnDemo1
+            // btnDemo3
             // 
-            this.btnDemo1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDemo1.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo1.Image")));
-            this.btnDemo1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDemo1.Name = "btnDemo1";
-            this.btnDemo1.Size = new System.Drawing.Size(28, 22);
-            this.btnDemo1.Text = "D1";
+            this.btnDemo3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDemo3.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo3.Image")));
+            this.btnDemo3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDemo3.Name = "btnDemo3";
+            this.btnDemo3.Size = new System.Drawing.Size(28, 22);
+            this.btnDemo3.Text = "D3";
             // 
-            // quoteList
+            // bottomStatusPanel
             // 
-            this.quoteList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quoteList.Location = new System.Drawing.Point(0, 25);
-            this.quoteList.Name = "quoteList";
-            this.quoteList.Size = new System.Drawing.Size(1100, 350);
-            this.quoteList.TabIndex = 1;
+            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
+            this.bottomStatusPanel.Name = "bottomStatusPanel";
+            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
+            this.bottomStatusPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.BottomStatusBG;
+            this.bottomStatusPanel.TabIndex = 1;
+            // 
+            // panelQuoteList
+            // 
+            this.panelQuoteList.Controls.Add(this.quoteView);
+            this.panelQuoteList.Location = new System.Drawing.Point(3, 28);
+            this.panelQuoteList.Name = "panelQuoteList";
+            this.panelQuoteList.Size = new System.Drawing.Size(310, 181);
+            this.panelQuoteList.TabIndex = 3;
+            this.panelQuoteList.Visible = false;
+            // 
+            // panelKChart
+            // 
+            this.panelKChart.Controls.Add(this.kChartView);
+            this.panelKChart.Location = new System.Drawing.Point(319, 28);
+            this.panelKChart.Name = "panelKChart";
+            this.panelKChart.Size = new System.Drawing.Size(324, 181);
+            this.panelKChart.TabIndex = 4;
+            this.panelKChart.Visible = false;
+            // 
+            // kChartView
+            // 
+            this.kChartView.BackColor = System.Drawing.Color.Black;
+            this.kChartView.BarViewWindowCount = 3;
+            this.kChartView.DaysForIntradayView = 1;
+            this.kChartView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kChartView.FsAll = false;
+            this.kChartView.FsFull = false;
+            this.kChartView.HighPicture = false;
+            this.kChartView.IntradayViewWindowCount = 2;
+            this.kChartView.KChartBackColor = System.Drawing.Color.Black;
+            this.kChartView.KChartLineColor = System.Drawing.Color.Maroon;
+            this.kChartView.Location = new System.Drawing.Point(0, 0);
+            this.kChartView.Margin = new System.Windows.Forms.Padding(0);
+            this.kChartView.Name = "kChartView";
+            this.kChartView.NoMoreBarDate = false;
+            this.kChartView.PR10 = false;
+            this.kChartView.PreClose = -1.7976931348623157E+308D;
+            this.kChartView.Quan = CStock.QuanType.qsNone;
+            this.kChartView.ShowBottomCalendar = true;
+            this.kChartView.ShowBottomTabMenu = true;
+            this.kChartView.ShowCrossCursor = true;
+            this.kChartView.ShowCurWindow = false;
+            this.kChartView.ShowDetailPanel = true;
+            this.kChartView.ShowDrawToolBox = false;
+            this.kChartView.ShowLeftAxis = true;
+            this.kChartView.ShowRightAxis = true;
+            this.kChartView.ShowTopHeader = true;
+            this.kChartView.Size = new System.Drawing.Size(324, 181);
+            this.kChartView.StartIndex = 13;
+            this.kChartView.StkCode = "";
+            this.kChartView.StkName = "";
+            this.kChartView.StkWeek = "";
+            this.kChartView.TabIndex = 2;
+            this.kChartView.Train = false;
+            this.kChartView.TrainEnd = 0;
+            this.kChartView.ViewType = CStock.KChartViewType.KView;
+            // 
+            // quoteView
+            // 
+            this.quoteView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quoteView.Location = new System.Drawing.Point(0, 0);
+            this.quoteView.Name = "quoteView";
+            this.quoteView.Size = new System.Drawing.Size(310, 181);
+            this.quoteView.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("quoteView.Symbols")));
+            this.quoteView.TabIndex = 1;
             // 
             // debugControl1
             // 
@@ -747,9 +812,13 @@
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).EndInit();
+            this.panelQuoteList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).EndInit();
+            this.panelKChart.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -819,10 +888,13 @@
         private System.Windows.Forms.ToolStripButton btnWatchList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton btnDemo3;
-        private TradingLib.KryptonControl.ctrlQuoteList quoteList;
+        private TradingLib.KryptonControl.ctrlQuoteList quoteView;
         private TradingLib.KryptonControl.DebugControl debugControl1;
         private System.Windows.Forms.ToolStripButton btnDemo1;
         private System.Windows.Forms.ToolStripButton btnDemo2;
+        private CStock.TStock kChartView;
+        private ComponentFactory.Krypton.Toolkit.KryptonPanel panelQuoteList;
+        private ComponentFactory.Krypton.Toolkit.KryptonPanel panelKChart;
     }
 }
 

@@ -49,6 +49,13 @@ namespace XTraderLite
             splitContainer.Panel2Collapsed = true;
             debugControl1.Dock = DockStyle.Fill;
 
+            viewList.Add(panelQuoteList);
+            viewList.Add(panelKChart);
+
+
+            panelKChart.Dock = DockStyle.Fill;
+            panelQuoteList.Dock = DockStyle.Fill;
+
         }
         void WireEvent()
         {
@@ -66,11 +73,28 @@ namespace XTraderLite
             topMenuPanel.MouseMove += new MouseEventHandler(TopMenuPanel_MouseMove);
             topMenuPanel.DoubleClick += new EventHandler(TopMenuPanel_DoubleClick);
 
+
+            //toolbar
+            btnQuoteView.Click += new EventHandler(btnQuoteView_Click);
+            btnIntraView.Click += new EventHandler(btnIntraView_Click);
+            btnBarView.Click += new EventHandler(btnBarView_Click);
+
+
             menuTrading.Click += new EventHandler(menuTrading_Click);
 
             splitContainer.SplitterMoved += new SplitterEventHandler(splitContainer_SplitterMoved);
             this.SizeChanged += new EventHandler(MainForm_SizeChanged);
+            this.Load += new EventHandler(MainForm_Load);
         }
+
+        void MainForm_Load(object sender, EventArgs e)
+        {
+            SetViewType(EnumTraderViewType.QuoteList);
+        }
+
+        
+
+        
 
         
 
