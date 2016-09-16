@@ -80,6 +80,7 @@ namespace TradingLib.KryptonControl
 
                 if (e.Button == MouseButtons.Left)
                 {
+
                     if (CanMoveColumnWidth)
                     {
                         CanChangeMoveState = false;
@@ -118,6 +119,57 @@ namespace TradingLib.KryptonControl
             //Invalidate();
             //this.Refresh();
         }
+
+
+        private int mouseX2RowID(MouseEventArgs e)
+        {
+            //鼠标Y位置扣除标题高度/行高 就得到对应的行数 需要加上我们的起始现实序号
+            return Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
+        }
+
+        /// <summary>
+        /// 判断鼠标当前所在列
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private int MouseIInYLineIdentity(MouseEventArgs e)
+        {
+            if (e.Y > 0 && e.Y < this.HeaderHeight)//在标题栏进行鼠标位置判定
+            {
+                for (int i = 0; i < quoteColumns.Count; i++)
+                {
+                    if (e.X > quoteColumns[i].StartX - 3 && e.X < quoteColumns[i].StartX + 3)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// 通过拖动改变列宽时显示的虚线
+        /// </summary>
+        /// <param name="e"></param>
+        private void MoveChangeColWidthLine(MouseEventArgs e, int ylineID)
+        {
+            //debug("moving column");
+            //输出当前鼠标坐标
+            _mouseX = e.X;
+            _mouseY = e.Y;
+
+            CurrentYLineMoveWidth = (e.X - quoteColumns[CurrentMoveYLIneID].StartX);//计算移动值
+            ChangeColWidth();//计算新的列宽
+            columnWidthChanged();//重新计算绘制表格需要的列宽 列起点 总宽数据
+            this.Refresh();//刷新
+        }
+        private int _mouseX;
+        private int _mouseY;
+
+
+
+
+
 
         void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
         {
