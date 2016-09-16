@@ -53,16 +53,19 @@ namespace TradingLib.KryptonControl
 
             if (e.ClipRectangle.IntersectsWith(new Rectangle(0, 0, ClientSize.Width, DefaultQuoteStyle.HeaderHeight)))
             {
-                for (int i = 0; i < columns.Length; i++)
+                foreach(var column in quoteColumns)
                 {
-                    PointF cellLocation = new PointF(GetColumnStarX(i), 0);
-                    RectangleF cellRect = new RectangleF(cellLocation.X, cellLocation.Y, GetColumnWidth(i), DefaultQuoteStyle.HeaderHeight);
-                    g.FillRectangle(new SolidBrush(HeaderBackColor), cellRect);
+                    //PointF cellLocation = new PointF(GetColumnStarX(i), 0);
+                    RectangleF cellRect = new RectangleF(column.StartX, 0, column.Width, DefaultQuoteStyle.HeaderHeight);
+                    _brush.Color = HeaderBackColor;
+                    g.FillRectangle(_brush, cellRect);
                     //绘制方形区域边界
                     //绘制单元格
-                    g.DrawRectangle(DefaultQuoteStyle.LinePen, GetColumnStarX(i), 0, GetColumnWidth(i), DefaultQuoteStyle.HeaderHeight);
+                    g.DrawRectangle(DefaultQuoteStyle.LinePen,column.StartX, 0,column.Width, DefaultQuoteStyle.HeaderHeight);
+
+                    _brush.Color = HeaderFontColor;
                     //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-                    g.DrawString(columns[i], HeaderFont, new SolidBrush(HeaderFontColor), cellRect.X, cellRect.Y + DefaultQuoteStyle.HeaderHeight - HeaderFont.Height);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
+                    g.DrawString(column.Title, HeaderFont,_brush, cellRect.X, cellRect.Y + DefaultQuoteStyle.HeaderHeight - HeaderFont.Height);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
                 }
             }
         }

@@ -22,57 +22,62 @@ namespace TradingLib.KryptonControl
 
 
 
-        public string _dispformat;
-        public string DisplayFormat { get { return _dispformat; } set { _dispformat = value; } }
-        string _colname;
-        public string ColumnName { get { return _colname; } set { _colname = value; } }
+        string _dispformat;
+        private string DisplayFormat { get { return _dispformat; } set { _dispformat = value; } }
+
+        QuoteColumn _column;
+
+        internal QuoteColumn Column { get { return _column; } }
+
         string _symbol;
         public string Symbol { get { return _symbol; } set { _symbol = value; } }
+
         decimal _value;
         public decimal Value { get { return _value; } set { _value = value; } }
+
         CellStyle _cellStyle;
         public CellStyle CellStyle { get { return _cellStyle; } set { _cellStyle = value; } }
 
         #region 构造函数
-        public QuoteCell(string colname, CellStyle cellstyle, string disfromat)
+        public QuoteCell(QuoteColumn column, CellStyle cellstyle, string disfromat)
         {
-            _colname = colname;
+            _column = column;
             _cellStyle = new CellStyle(cellstyle);
             _dispformat = disfromat;
             //我们需要通过colname来指定默认的cellstyle中文字颜色以及数字的显示方式
-            switch (colname)
+            switch (_column.FieldType)
             {
-                case QuoteListConst.SYMBOL:
+                case EnumFileldType.SYMBOL:
                     _cellStyle.FontColor = Color.Yellow;
                     break;
-                case QuoteListConst.SYMBOLNAME:
+                case EnumFileldType.SYMBOLNAME:
                     _cellStyle.FontColor = Color.Yellow;
                     break;
-                case QuoteListConst.LASTSIZE:
-                    _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
-                    break;
-                case QuoteListConst.ASKSIZE:
+                case EnumFileldType.LASTSIZE:
                     _cellStyle.FontColor = Color.Yellow;
                     _dispformat = "{0:F0}";
                     break;
-                case QuoteListConst.BIDSIZE:
+                case EnumFileldType.ASKSIZE:
                     _cellStyle.FontColor = Color.Yellow;
                     _dispformat = "{0:F0}";
                     break;
-                case QuoteListConst.VOL:
+                case EnumFileldType.BIDSIZE:
                     _cellStyle.FontColor = Color.Yellow;
                     _dispformat = "{0:F0}";
                     break;
-                case QuoteListConst.OI:
+                case EnumFileldType.VOL:
                     _cellStyle.FontColor = Color.Yellow;
                     _dispformat = "{0:F0}";
                     break;
-                case QuoteListConst.OICHANGE:
+                case EnumFileldType.OI:
                     _cellStyle.FontColor = Color.Yellow;
                     _dispformat = "{0:F0}";
                     break;
-                case QuoteListConst.LASTSETTLEMENT:
+                case EnumFileldType.OICHANGE:
+                    _cellStyle.FontColor = Color.Yellow;
+                    _dispformat = "{0:F0}";
+                    break;
+                case EnumFileldType.PRESETTLEMENT:
                     _cellStyle.FontColor = Color.Silver;
                     break;
                 default:
@@ -82,8 +87,8 @@ namespace TradingLib.KryptonControl
         }
 
 
-        public QuoteCell(string colname, CellStyle cellstyle, decimal value, string disformat)
-            : this(colname, cellstyle, disformat)
+        public QuoteCell(QuoteColumn column, CellStyle cellstyle, decimal value, string disformat)
+            : this(column, cellstyle, disformat)
         {
             _value = value;
         }
@@ -91,24 +96,53 @@ namespace TradingLib.KryptonControl
         #endregion
 
 
+        System.Drawing.RectangleF _cellRect;
+        bool _setRect = false;
+        public bool NeedCalcRect
+        {
+            get { return !_setRect; }
+        }
 
-        public void Paint(PaintEventArgs e, System.Drawing.RectangleF cellRect, QuoteStyle quoteStyle)
+        public RectangleF CellRect
+        {
+            get 
+            {
+                if (!_setRect) return RectangleF.Empty;
+                return _cellRect; 
+            }
+            set 
+            { 
+                _cellRect = value;
+                _setRect = true;
+            }
+        }
+
+        /// <summary>
+        /// 重置Cell绘图区域 尺寸或相关参数改变单元格对应的Rect发生变化 需要重新计算区域
+        /// </summary>
+        public void ResetRect()
+        {
+            _setRect = false;
+        }
+
+
+        public void Paint(PaintEventArgs e, QuoteStyle quoteStyle)
         {
             Graphics g = e.Graphics;
             //用颜色填充单元格
-            g.FillRectangle(CellStyle.BackBrush, cellRect);
+            g.FillRectangle(CellStyle.BackBrush, _cellRect);
             //绘制单元格 提供了单元格的rectangle就得到了 方格位置与长 宽
             //debug("fill the cellrect:"+"x:"+cellRect.X.ToString()+" y:"+cellRect.Y.ToString()+" width:"+cellRect.Width.ToString()+" height"+cellRect.Height.ToString());
-            g.DrawRectangle(CellStyle.LinePen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+            g.DrawRectangle(CellStyle.LinePen, _cellRect.X, _cellRect.Y, _cellRect.Width, _cellRect.Height);
             //绘制出文字
             //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-            if (_colname == QuoteListConst.SYMBOL || _colname == QuoteListConst.SYMBOLNAME)
+            if (_column.FieldType == EnumFileldType.SYMBOL || _column.FieldType == EnumFileldType.SYMBOLNAME)
             {
-                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
+                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
             }
             
             else
-                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, cellRect.X, cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
+                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
         }
     }
 }

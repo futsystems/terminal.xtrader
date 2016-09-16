@@ -125,7 +125,12 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuoteList\QuoteView\EnumFileldType.cs" />
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteColumn.cs" />
     <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Data.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Paint.cs">

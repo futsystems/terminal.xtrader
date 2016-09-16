@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace TradingLib.KryptonControl
 {
-    internal enum EnumFileldType
+    public enum EnumFileldType
     {
         [Description("序号")]
         INDEX,

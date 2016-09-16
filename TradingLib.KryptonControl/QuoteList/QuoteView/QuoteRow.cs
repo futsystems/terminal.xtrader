@@ -90,15 +90,16 @@ namespace TradingLib.KryptonControl
             //根据行号得到列底色基本配置
             CellStyle cellstyle = new CellStyle(RowID % 2 == 0 ? _defaultQuoteStyle.QuoteBackColor1 : _defaultQuoteStyle.QuoteBackColor2, Color.DarkRed, _defaultQuoteStyle.QuoteFont, _defaultQuoteStyle.SymbolFont, _defaultQuoteStyle.LineColor);
             //遍历所有的行名 并初始化单元格
-            for (int i = 0; i < _quotelist.Columns.Length; i++)
+            //for (int i = 0; i < _quotelist.Columns.Length; i++)
+            foreach(var column in _quotelist.Columns)
             {
-                string columnName = _quotelist.Columns[i];
-                QuoteCell cell = new QuoteCell(columnName, cellstyle, 0M, _pricedispformat);
+                QuoteCell cell = new QuoteCell(column, cellstyle, 0M, _pricedispformat);
                 cell.SendDebutEvent += new DebugDelegate(debug);
 
                 //添加Cell到数据结构
-                _columeCellMap.Add(i, cell);
-                _columeName2idx.Add(_quotelist.Columns[i], i);
+                _columeCellMap.Add(column.FieldType, cell);
+                //_columeCellMap.Add(i, cell);
+                //_columeName2idx.Add(_quotelist.Columns[i], i);
 
             }
 
@@ -107,15 +108,17 @@ namespace TradingLib.KryptonControl
 
         void SetUnchangedCell()
         {
+            this[EnumFileldType.SYMBOL].Symbol = _symbol.Symbol;
+            this[EnumFileldType.SYMBOLNAME].Symbol = _symbol.Name;
             //设置合约/名称字段
-            if (_quotelist.Columns.Contains(QuoteListConst.SYMBOL))
-            {
-                this[QuoteListConst.SYMBOL].Symbol = _symbol.Symbol;
-            }
-            if (_quotelist.Columns.Contains(QuoteListConst.SYMBOLNAME))
-            {
-                this[QuoteListConst.SYMBOLNAME].Symbol = _symbol.Name;
-            }
+            //if (_quotelist.Columns.Contains(QuoteListConst.SYMBOL))
+            //{
+            //    this[QuoteListConst.SYMBOL].Symbol = _symbol.Symbol;
+            //}
+            //if (_quotelist.Columns.Contains(QuoteListConst.SYMBOLNAME))
+            //{
+            //    this[QuoteListConst.SYMBOLNAME].Symbol = _symbol.Name;
+            //}
         }
 
  
@@ -129,69 +132,69 @@ namespace TradingLib.KryptonControl
             if (k.IsTrade())
             {
                 //1.更新最新价
-                if (k.Trade != this[QuoteListConst.LAST].Value)
+                if (k.Trade != this[EnumFileldType.LAST].Value)
                 {
                     //选中的行 不执行闪亮操作
                     if (RowID != _quotelist.SelectedQuoteRow)
                     {
-                        this[QuoteListConst.LAST].CellStyle.FontColor = k.Trade < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
-                        CellChangeColor(QuoteListConst.LAST, k.Trade > this[QuoteListConst.LAST].Value ? Color.Tomato : Color.SpringGreen);
+                        this[EnumFileldType.LAST].CellStyle.FontColor = k.Trade < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+                        CellChangeColor(QuoteListConst.LAST, k.Trade > this[EnumFileldType.LAST].Value ? Color.Tomato : Color.SpringGreen);
                     }
-                    this[QuoteListConst.LAST].Value = k.Trade;
+                    this[EnumFileldType.LAST].Value = k.Trade;
                 }
 
                 //更新涨跌
                 decimal baseprice = _quoteType== EnumQuoteType.CNQUOTE?k.PreSettlement:k.PreClose;
-                if ((k.Trade - baseprice) != this[QuoteListConst.CHANGE].Value)
+                if ((k.Trade - baseprice) != this[EnumFileldType.CHANGE].Value)
                 {
-                    this[QuoteListConst.CHANGE].Value = k.Trade - baseprice;
-                    this[QuoteListConst.CHANGE].CellStyle.FontColor = (k.Trade - k.PreSettlement) < 0 ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+                    this[EnumFileldType.CHANGE].Value = k.Trade - baseprice;
+                    this[EnumFileldType.CHANGE].CellStyle.FontColor = (k.Trade - k.PreSettlement) < 0 ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
                 }
 
-                this[QuoteListConst.LASTSIZE].Value = k.Size;
+                this[EnumFileldType.LASTSIZE].Value = k.Size;
             }
 
             
             //更新当前的Tick数据
-            if (k.AskPrice != this[QuoteListConst.ASK].Value)
+            if (k.AskPrice != this[EnumFileldType.ASK].Value)
             {
-                this[QuoteListConst.ASK].Value = k.AskPrice;
-                this[QuoteListConst.ASK].CellStyle.FontColor = k.AskPrice < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+                this[EnumFileldType.ASK].Value = k.AskPrice;
+                this[EnumFileldType.ASK].CellStyle.FontColor = k.AskPrice < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
             }
-            if (k.BidPrice != this[QuoteListConst.BID].Value)
+            if (k.BidPrice != this[EnumFileldType.BID].Value)
             {
-                this[QuoteListConst.BID].Value = k.BidPrice;
-                this[QuoteListConst.BID].CellStyle.FontColor = k.BidPrice < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
-            }
-
-            this[QuoteListConst.BIDSIZE].Value = k.BidSize;
-            this[QuoteListConst.ASKSIZE].Value = k.AskSize;
-
-            this[QuoteListConst.VOL].Value = k.Vol;
-
-            this[QuoteListConst.OI].Value = _quoteType == EnumQuoteType.CNQUOTE ? k.OpenInterest : k.PreOpenInterest;
-
-            this[QuoteListConst.OICHANGE].Value = k.OpenInterest != 0 ? (k.OpenInterest - k.PreOpenInterest) : 0;
-
-            this[QuoteListConst.SETTLEMENT].Value = _quoteType == EnumQuoteType.CNQUOTE ? k.Settlement :0;
-            this[QuoteListConst.LASTSETTLEMENT].Value = _quoteType == EnumQuoteType.CNQUOTE ? k.PreSettlement : k.PreClose;
-
-
-            if (k.Open != this[QuoteListConst.OPEN].Value)
-            {
-                this[QuoteListConst.OPEN].Value = k.Open;
-                this[QuoteListConst.OPEN].CellStyle.FontColor = k.Open < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
-            }
-            if (k.Low != this[QuoteListConst.HIGH].Value)
-            {
-                this[QuoteListConst.HIGH].Value = k.High;
-                this[QuoteListConst.HIGH].CellStyle.FontColor = k.High < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+                this[EnumFileldType.BID].Value = k.BidPrice;
+                this[EnumFileldType.BID].CellStyle.FontColor = k.BidPrice < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
             }
 
-            if (k.Low != this[QuoteListConst.LOW].Value)
+            this[EnumFileldType.BIDSIZE].Value = k.BidSize;
+            this[EnumFileldType.ASKSIZE].Value = k.AskSize;
+
+            this[EnumFileldType.VOL].Value = k.Vol;
+
+            this[EnumFileldType.OI].Value = _quoteType == EnumQuoteType.CNQUOTE ? k.OpenInterest : k.PreOpenInterest;
+
+            this[EnumFileldType.OICHANGE].Value = k.OpenInterest != 0 ? (k.OpenInterest - k.PreOpenInterest) : 0;
+
+            this[EnumFileldType.SETTLEMENT].Value = _quoteType == EnumQuoteType.CNQUOTE ? k.Settlement : 0;
+            this[EnumFileldType.PRESETTLEMENT].Value = _quoteType == EnumQuoteType.CNQUOTE ? k.PreSettlement : k.PreClose;
+
+
+            if (k.Open != this[EnumFileldType.OPEN].Value)
             {
-                this[QuoteListConst.LOW].Value = k.Low;
-                this[QuoteListConst.LOW].CellStyle.FontColor = k.Low < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+                this[EnumFileldType.OPEN].Value = k.Open;
+                this[EnumFileldType.OPEN].CellStyle.FontColor = k.Open < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+            }
+            if (k.Low != this[EnumFileldType.HIGH].Value)
+            {
+                this[EnumFileldType.HIGH].Value = k.High;
+                this[EnumFileldType.HIGH].CellStyle.FontColor = k.High < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
+            }
+
+            if (k.Low != this[EnumFileldType.LOW].Value)
+            {
+                this[EnumFileldType.LOW].Value = k.Low;
+                this[EnumFileldType.LOW].CellStyle.FontColor = k.Low < k.PreSettlement ? _defaultQuoteStyle.DNColor : _defaultQuoteStyle.UPColor;
             }
 
             //重绘该行
@@ -201,34 +204,34 @@ namespace TradingLib.KryptonControl
         //改变某个单元格的背景颜色
         private void CellChangeColor(string col, Color c)
         {
-            this[col].CellStyle.BackColor = c;
+            //this[col].CellStyle.BackColor = c;
             _quotelist.BookLocation(_rowid);
         }
 
 
         #region 数据结构 用于存放序号与Cell
         //序号对应的单元格
-        public Dictionary<int, QuoteCell> _columeCellMap = new Dictionary<int, QuoteCell>();
+        Dictionary<EnumFileldType, QuoteCell> _columeCellMap = new Dictionary<EnumFileldType, QuoteCell>();
         //colume名称对应的序号
-        public Dictionary<string, int> _columeName2idx = new Dictionary<string, int>();
+        //Dictionary<string, int> _columeName2idx = new Dictionary<string, int>();
 
 
-        int column2Idx(string column)
-        {
-            int idx = -1;
-            if (_columeName2idx.TryGetValue(column, out idx))
-                return idx;
-            return idx;
-        }
+        //int column2Idx(string column)
+        //{
+        //    int idx = -1;
+        //    if (_columeName2idx.TryGetValue(column, out idx))
+        //        return idx;
+        //    return idx;
+        //}
 
         /// <summary>
         /// 通过序号返回对应的Cell
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public QuoteCell this[int index]
+        public QuoteCell this[EnumFileldType type]
         {
-            get { return _columeCellMap[index]; }
+            get { return _columeCellMap[type]; }
         }
 
 
@@ -237,11 +240,11 @@ namespace TradingLib.KryptonControl
         /// </summary>
         /// <param name="columnname"></param>
         /// <returns></returns>
-        public QuoteCell this[string columnname]
-        {
+        //public QuoteCell this[string columnname]
+        //{
 
-            get { return _columeCellMap[column2Idx(columnname)]; }
-        }
+        //    get { return _columeCellMap[column2Idx(columnname)]; }
+        //}
 
         #endregion
 
@@ -260,18 +263,18 @@ namespace TradingLib.KryptonControl
         /// </summary>
         /// <param name="colindex"></param>
         /// <returns></returns>
-        Rectangle GetCellRect(int colindex)
-        {
-            int i = colindex;
-            Rectangle cellRect;
-            if (cellRectsMap.TryGetValue(i, out cellRect))
-                return cellRect;
-            //没有缓存单元格序号对应的绘图区域 需要计算该绘图区域
-            Point cellLocation = new Point(_quotelist.GetColumnStarX(i), (RowID - _quotelist.GetBeginIndex()) * _defaultQuoteStyle.RowHeight + _defaultQuoteStyle.HeaderHeight);
-            cellRect = new Rectangle(cellLocation.X, cellLocation.Y, _quotelist.GetColumnWidth(i), _defaultQuoteStyle.RowHeight);
-            cellRectsMap.Add(i, cellRect);
-            return cellRect;
-        }
+        //Rectangle GetCellRect(int colindex)
+        //{
+        //    int i = colindex;
+        //    Rectangle cellRect;
+        //    if (cellRectsMap.TryGetValue(i, out cellRect))
+        //        return cellRect;
+        //    //没有缓存单元格序号对应的绘图区域 需要计算该绘图区域
+        //    Point cellLocation = new Point(_quotelist.GetColumnStarX(i), (RowID - _quotelist.GetBeginIndex()) * _defaultQuoteStyle.RowHeight + _defaultQuoteStyle.HeaderHeight);
+        //    cellRect = new Rectangle(cellLocation.X, cellLocation.Y, _quotelist.GetColumnWidth(i), _defaultQuoteStyle.RowHeight);
+        //    cellRectsMap.Add(i, cellRect);
+        //    return cellRect;
+        //}
 
 
         /// <summary>
@@ -280,12 +283,17 @@ namespace TradingLib.KryptonControl
         public void ResetRowRect()
         {
             _rowrectsetted = false;
-            lock (cellRectsMap)
+            foreach (var cell in _columeCellMap.Values)
             {
-                cellRectsMap.Clear();
+                cell.ResetRect();
             }
 
+            //lock (cellRectsMap)
+            //{
+            //    cellRectsMap.Clear();
+            //}
         }
+
         //返回本row所在区域 每行起点就是从0-整个控件宽度
         private Rectangle _rowrect;
         private bool _rowrectsetted = false;
@@ -322,10 +330,21 @@ namespace TradingLib.KryptonControl
             if (e.ClipRectangle.IntersectsWith(this.Rect))
             {
                 //遍历每一个单元格并绘制
-                for (int i = 0; i < _quotelist.Columns.Length; i++)
+                //for (int i = 0; i < _quotelist.Columns.Length; i++)
+                //{
+                //    Rectangle cellRect = GetCellRect(i);
+                //    _columeCellMap[i].Paint(e,cellRect , _defaultQuoteStyle);
+                //}
+
+                foreach (var cell in _columeCellMap.Values)
                 {
-                    Rectangle cellRect = GetCellRect(i);
-                    _columeCellMap[i].Paint(e,cellRect , _defaultQuoteStyle);
+                    if (cell.NeedCalcRect)
+                    { 
+                         //缓存单元格区域失效 重新计算
+                        Point cellLocation = new Point(cell.Column.StartX, (RowID - _quotelist.GetBeginIndex()) * _defaultQuoteStyle.RowHeight + _defaultQuoteStyle.HeaderHeight);
+                        cell.CellRect =  new Rectangle(cellLocation.X, cellLocation.Y,cell.Column.Width, _defaultQuoteStyle.RowHeight);
+                    }
+                    cell.Paint(e, _defaultQuoteStyle);
                 }
             }
 
