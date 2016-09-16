@@ -16,6 +16,7 @@ namespace TradingLib.KryptonControl
         public const string BIDSIZE = "买量";
         public const string ASK = "卖价";
         public const string ASKSIZE = "卖量";
+
         public const string VOL = "成交量";
         public const string CHANGE = "涨跌";
         public const string OI = "持仓";

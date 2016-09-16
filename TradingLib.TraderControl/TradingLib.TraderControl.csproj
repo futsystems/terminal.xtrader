@@ -134,25 +134,35 @@
       <DependentUpon>ctSymbolSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="demo.cs" />
-    <Compile Include="fmChangePassword.cs" />
+    <Compile Include="fmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="fmChangePassword.Designer.cs">
       <DependentUpon>fmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="fmConfirm.cs" />
+    <Compile Include="fmConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="fmConfirm.Designer.cs">
       <DependentUpon>fmConfirm.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPositionOffset.cs" />
+    <Compile Include="frmPositionOffset.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmPositionOffset.Designer.cs">
       <DependentUpon>frmPositionOffset.cs</DependentUpon>
     </Compile>
     <Compile Include="Fut.Price\FutPriceEditorContentElement.cs" />
     <Compile Include="Fut.Price\FutsPriceArrowButtonElement.cs" />
-    <Compile Include="MessageForm.cs" />
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MessageForm.designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyPanel.cs" />
+    <Compile Include="MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MyPanelElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
@@ -160,7 +170,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="tracker.cs" />
+    <Compile Include="tracker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TraderHelper.cs" />
     <Compile Include="UIConstant.cs" />
     <Compile Include="UIUtil.cs" />
