@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlQuoteList));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.scrollBar = new System.Windows.Forms.VScrollBar();
             this.quotelist = new TradingLib.KryptonControl.ViewQuoteList();
+            this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.blockTab = new TradingLib.KryptonControl.BlockTab();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -42,7 +42,7 @@
             // 
             // kryptonPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.vScrollBar1);
+            this.kryptonPanel1.Controls.Add(this.scrollBar);
             this.kryptonPanel1.Controls.Add(this.quotelist);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
@@ -50,23 +50,14 @@
             this.kryptonPanel1.Size = new System.Drawing.Size(924, 408);
             this.kryptonPanel1.TabIndex = 0;
             // 
-            // vScrollBar1
+            // scrollBar
             // 
-            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar1.Location = new System.Drawing.Point(907, 0);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 408);
-            this.vScrollBar1.TabIndex = 1;
-            // 
-            // blockPanel
-            // 
-            this.blockPanel.Controls.Add(this.blockTab);
-            this.blockPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.blockPanel.Location = new System.Drawing.Point(0, 408);
-            this.blockPanel.Name = "blockPanel";
-            this.blockPanel.Size = new System.Drawing.Size(924, 20);
-            this.blockPanel.StateCommon.Image = ((System.Drawing.Image)(resources.GetObject("blockPanel.StateCommon.Image")));
-            this.blockPanel.TabIndex = 1;
+            this.scrollBar.Dock = System.Windows.Forms.DockStyle.Right;
+            this.scrollBar.Location = new System.Drawing.Point(907, 0);
+            this.scrollBar.Name = "scrollBar";
+            this.scrollBar.Size = new System.Drawing.Size(17, 408);
+            this.scrollBar.TabIndex = 1;
+            this.scrollBar.Visible = false;
             // 
             // quotelist
             // 
@@ -84,8 +75,8 @@
             this.quotelist.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Bold);
             this.quotelist.QuoteType = TradingLib.KryptonControl.EnumQuoteType.CNQUOTE;
             this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.quotelist.SelectedQuoteRow = -1;
             this.quotelist.Size = new System.Drawing.Size(924, 408);
+            this.quotelist.StartIndex = 0;
             this.quotelist.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
             this.quotelist.SymbolFontColor = System.Drawing.Color.Green;
             this.quotelist.TabIndex = 0;
@@ -93,6 +84,16 @@
             this.quotelist.TabStop = false;
             this.quotelist.Text = "viewQuoteList1";
             this.quotelist.UPColor = System.Drawing.Color.Red;
+            // 
+            // blockPanel
+            // 
+            this.blockPanel.Controls.Add(this.blockTab);
+            this.blockPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.blockPanel.Location = new System.Drawing.Point(0, 408);
+            this.blockPanel.Name = "blockPanel";
+            this.blockPanel.Size = new System.Drawing.Size(924, 20);
+            this.blockPanel.StateCommon.Image = ((System.Drawing.Image)(resources.GetObject("blockPanel.StateCommon.Image")));
+            this.blockPanel.TabIndex = 1;
             // 
             // blockTab
             // 
@@ -123,7 +124,7 @@
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.VScrollBar scrollBar;
         private TradingLib.KryptonControl.ViewQuoteList quotelist;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel blockPanel;
         private BlockTab blockTab;

@@ -59,6 +59,9 @@ namespace TradingLib.KryptonControl
                 if (_needInvalidate)
                 {
                     Invalidate(_quoteList[i].Rect);
+
+                    //
+                    FireQuoteViewChange();
                 }
             }
             catch (Exception ex)
@@ -114,7 +117,12 @@ namespace TradingLib.KryptonControl
 
         public void Clear()
         {
-
+            //清除上次选中行
+            QuoteRow row = this[_selectedRow];
+            if (row != null)
+            {
+                row.Selected = false;
+            }
             _count = 0;
             _symbolIdxMap.Clear();
             _beginIdx = 0;

@@ -18,6 +18,23 @@ namespace TradingLib.KryptonControl
     {
         int _beginIdx = 0;
         int _endIdx = 0;
+
+        public int StartIndex
+        {
+            get { return _beginIdx; }
+            set
+            {
+                int showCount = VisibleRowCount;
+                int maxStartIndex = _count - showCount;
+                _beginIdx = Math.Min(value, maxStartIndex);
+
+                _endIdx = _beginIdx + showCount -1;
+
+                this.ResetRect();
+                this.Invalidate();
+            }
+        }
+
         /// <summary>
         /// 更新我们需要显示的起点idx与终点idx 这个运算不需要每次都调用当移动光标使得显示的行改变的时候才需要进行
         /// </summary>

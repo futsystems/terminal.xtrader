@@ -17,6 +17,25 @@ using TradingLib.MarketData;
 namespace TradingLib.KryptonControl
 {
 
+    public class QuoteViewChangedArgs:EventArgs
+    {
+        public QuoteViewChangedArgs()
+        {
+            this.Count = 0;
+            this.MaxShowCount = 0;
+        }
+        /// <summary>
+        /// 数据集数量
+        /// </summary>
+        public int Count{get;set;}
+
+        /// <summary>
+        /// 最大可显示数量
+        /// </summary>
+        public int MaxShowCount{get;set;}
+    }
+
+
     public delegate int IntRetIntDel(int idx);
     public delegate int RetIntDel();
 
@@ -37,6 +56,9 @@ namespace TradingLib.KryptonControl
         /// 捕捉到控件上左右移动事件
         /// </summary>
         public event Action<PreviewKeyDownEventArgs> RightLeftMoveEvent;
+
+        public event EventHandler<QuoteViewChangedArgs> QuoteViewChanged;
+
 
         /// <summary>
         /// 报价单 小下单面板行情事件
@@ -89,6 +111,7 @@ namespace TradingLib.KryptonControl
 
             this.GotFocus += new EventHandler(ViewQuoteList_GotFocus);
             this.LostFocus += new EventHandler(ViewQuoteList_LostFocus);
+            
             //this.PreviewKeyDown += new PreviewKeyDownEventHandler(ViewQuoteList_PreviewKeyDown);
             //this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
             //this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
@@ -104,6 +127,19 @@ namespace TradingLib.KryptonControl
             this.ResetRect();
 
             
+        }
+
+
+        
+        void FireQuoteViewChange()
+        {
+            if (QuoteViewChanged != null)
+            {
+                QuoteViewChangedArgs arg = new QuoteViewChangedArgs();
+                arg.Count = _count;
+                arg.MaxShowCount = VisibleRowCount;
+                QuoteViewChanged(this, arg);
+            }
         }
 
         void ViewQuoteList_LostFocus(object sender, EventArgs e)
@@ -127,6 +163,7 @@ namespace TradingLib.KryptonControl
             UpdateBeginEndIdx();
             ResetRect();
             Refresh();
+            logger.Info("selected row:" + _selectedRow.ToString());
         }
 
        
@@ -208,10 +245,12 @@ namespace TradingLib.KryptonControl
             _needInvalidate = false;
         }
 
+
         public void EndUpdate()
         {
             _needInvalidate = true;
             UpdateBeginEndIdx();
+            FireQuoteViewChange();
             Invalidate();
         }
 
@@ -287,7 +326,23 @@ namespace TradingLib.KryptonControl
         #endregion
 
         int _selectedRow=-1;
-        public int SelectedQuoteRow { get { return _selectedRow; } set { _selectedRow = value; } }
+        public int SelectedQuoteRow 
+        { 
+            get { return _selectedRow; }
+            //set
+            //{
+            //    _selectedRow = value;
+
+            //    SelectRow(_selectedRow);
+
+            //    if (_selectedRow > _endIdx || _selectedRow < _beginIdx)
+            //    {
+            //        UpdateBeginEndIdx();
+            //        Invalidate();
+            //    }
+            //} 
+        
+        }
 
         /// <summary>
         /// 选中某个行，高亮显示该报价行

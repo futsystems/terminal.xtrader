@@ -19,7 +19,38 @@ namespace TradingLib.KryptonControl
         public ctrlQuoteList()
         {
             InitializeComponent();
+            quotelist.QuoteViewChanged += new EventHandler<QuoteViewChangedArgs>(quotelist_QuoteViewChanged);
             blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);
+            scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
+            scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
+
+        }
+
+        void quotelist_QuoteViewChanged(object sender, QuoteViewChangedArgs e)
+        {
+            if (e.Count <= e.MaxShowCount)
+            {
+                scrollBar.Visible = false;
+            }
+            else
+            {
+                scrollBar.Visible = true;
+                scrollBar.Value = 0;
+                scrollBar.Maximum = e.Count - 1;
+            }
+        }
+
+        void scrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            logger.Info("value changed:" + scrollBar.Value.ToString());
+            //quotelist.SelectRow(scrollBar.Value);
+            //quotelist.SelectedQuoteRow = scrollBar.Value;
+            quotelist.StartIndex = scrollBar.Value;
+        }
+
+        void scrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            logger.Info("scroll:" + e.ScrollOrientation + " v:" + e.NewValue.ToString());
         }
 
         void blockTab_BlockTabClick(object sender, BlockTabClickEvent e)
