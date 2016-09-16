@@ -23,7 +23,7 @@ namespace TradingLib.KryptonControl
             if (msg.Msg == 0x100)//WM_KEYDOWN
             {
                 Keys key = (Keys)msg.WParam.ToInt32();
-                logger.Info("key message:"+key.ToString());
+                //logger.Info("key message:"+key.ToString());
                 if (key == Keys.Up)
                 {
                     this.RowUp();

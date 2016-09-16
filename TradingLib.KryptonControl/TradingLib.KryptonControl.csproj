@@ -169,6 +169,12 @@
     <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Keyboard.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Mouse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_.StartEndIndex.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="QuoteList\QuoteView\QuoteRow.cs" />
     <Compile Include="QuoteList\QuoteView\Style.cs" />
     <Compile Include="QuoteList\QuoteView\QuoteList\ViewQuoteList.cs">
@@ -304,6 +310,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

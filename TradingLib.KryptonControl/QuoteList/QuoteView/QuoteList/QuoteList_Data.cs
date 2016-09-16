@@ -94,7 +94,7 @@ namespace TradingLib.KryptonControl
             _symbolIdxMap.Remove(sym);
 
             UpdateBeginEndIdx();
-            this.ResetAllRect();
+            this.ResetRect();
             Invalidate();
 
         }

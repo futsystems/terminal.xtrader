@@ -236,5 +236,16 @@ namespace TradingLib.KryptonControl
 
         #endregion
 
+
+        /// <summary>
+        /// 标题高度
+        /// </summary>
+        private int HeaderHeight { get { return _headFont.Height + 4; } }
+
+        /// <summary>
+        /// 报价行高度
+        /// </summary>
+        private int RowHeight { get { return _symbolFont.Height + 4; } }
+
     }
 }

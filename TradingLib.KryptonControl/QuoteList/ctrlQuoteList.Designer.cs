@@ -73,7 +73,6 @@
             this.quotelist.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.quotelist.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.quotelist.QuoteType = TradingLib.KryptonControl.EnumQuoteType.CNQUOTE;
-            this.quotelist.QuoteViewWidth = 1080;
             this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
             this.quotelist.SelectedQuoteRow = -1;
             this.quotelist.Size = new System.Drawing.Size(924, 408);

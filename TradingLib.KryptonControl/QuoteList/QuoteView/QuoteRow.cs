@@ -60,6 +60,28 @@ namespace TradingLib.KryptonControl
         public EnumQuoteType QuoteType { get { return _quoteType; } set { _quoteType = value; } }
 
 
+        bool _selected = false;
+        public bool Selected {
+            get { return _selected; }
+
+            set {
+                _selected = value;
+
+                foreach (var cell in _columeCellMap.Values)
+                {
+                    if (_selected)
+                    {
+                        cell.CellStyle.BackColor = _quotelist.SelectedColor;
+                        cell.CellStyle.LineColor = _quotelist.SelectedColor;
+                    }
+                    else
+                    {
+                        cell.CellStyle.BackColor = (_rowid % 2 == 0 ? _quotelist.QuoteBackColor1 : _quotelist.QuoteBackColor2);
+                        cell.CellStyle.LineColor = _quotelist.TableLineColor;
+                    }
+                }
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -93,9 +115,8 @@ namespace TradingLib.KryptonControl
             //for (int i = 0; i < _quotelist.Columns.Length; i++)
             foreach(var column in _quotelist.Columns)
             {
-                QuoteCell cell = new QuoteCell(column, cellstyle, 0M, _pricedispformat);
+                QuoteCell cell = new QuoteCell(this,column, cellstyle, 0M, _pricedispformat);
                 cell.SendDebutEvent += new DebugDelegate(debug);
-
                 //添加Cell到数据结构
                 _columeCellMap.Add(column.FieldType, cell);
                 //_columeCellMap.Add(i, cell);
@@ -251,7 +272,7 @@ namespace TradingLib.KryptonControl
 
         #region 序号与RectangleMap
         //获得该行中某个单元格的区域
-        private Dictionary<int, Rectangle> cellRectsMap = new Dictionary<int, Rectangle>();
+       // private Dictionary<int, Rectangle> cellRectsMap = new Dictionary<int, Rectangle>();
         //通过将rect计算后放入映射列表 可以避免每次更新都进行运算,但是当列宽改变的时候我们需要将
         //public void ResetCellRect()
         //{
@@ -280,23 +301,18 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 重置Row绘图区域
         /// </summary>
-        public void ResetRowRect()
+        public void ResetRect()
         {
-            _rowrectsetted = false;
+            _rectSetted = false;
             foreach (var cell in _columeCellMap.Values)
             {
                 cell.ResetRect();
             }
-
-            //lock (cellRectsMap)
-            //{
-            //    cellRectsMap.Clear();
-            //}
         }
 
         //返回本row所在区域 每行起点就是从0-整个控件宽度
         private Rectangle _rowrect;
-        private bool _rowrectsetted = false;
+        private bool _rectSetted = false;
 
         /// <summary>
         /// 获得QuoteRow对应的绘图区域
@@ -306,13 +322,13 @@ namespace TradingLib.KryptonControl
         {
             get
             {
-                if (_rowrectsetted)
+                if (_rectSetted)
                     return _rowrect;
 
                 Point cellLocation = new Point(0, (RowID - _quotelist.GetBeginIndex()) * _defaultQuoteStyle.RowHeight + _defaultQuoteStyle.HeaderHeight);
-                Rectangle cellRect = new Rectangle(cellLocation.X, cellLocation.Y, _quotelist.GetRowWidth(), _defaultQuoteStyle.RowHeight);
-                _rowrect = cellRect;
-                return cellRect;
+                _rowrect = new Rectangle(cellLocation.X, cellLocation.Y, _quotelist.Columns.Where(column=>column.Visible).Sum(column=>column.Width), _defaultQuoteStyle.RowHeight);
+                _rectSetted = true;
+                return _rowrect;
             }
         }
 
@@ -329,13 +345,6 @@ namespace TradingLib.KryptonControl
             //检查需要更新的矩形区域与本单元格的矩形区域是否相交,如果相交则我们进行更新
             if (e.ClipRectangle.IntersectsWith(this.Rect))
             {
-                //遍历每一个单元格并绘制
-                //for (int i = 0; i < _quotelist.Columns.Length; i++)
-                //{
-                //    Rectangle cellRect = GetCellRect(i);
-                //    _columeCellMap[i].Paint(e,cellRect , _defaultQuoteStyle);
-                //}
-
                 foreach (var cell in _columeCellMap.Values)
                 {
                     if (cell.NeedCalcRect)

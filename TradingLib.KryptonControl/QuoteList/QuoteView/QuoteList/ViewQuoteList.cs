@@ -85,7 +85,7 @@ namespace TradingLib.KryptonControl
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
             this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
 
-
+            //this.SizeChanged +=new EventHandler(ViewQuoteList_SizeChanged);
 
             this.GotFocus += new EventHandler(ViewQuoteList_GotFocus);
             this.LostFocus += new EventHandler(ViewQuoteList_LostFocus);
@@ -122,7 +122,12 @@ namespace TradingLib.KryptonControl
         /// <param name="e"></param>
         void ViewQuoteList_SizeChanged(object sender, EventArgs e)
         {
+            //logger.Info("Size changed,totlal width:" + totalWidth.ToString());
             UpdateBeginEndIdx();
+            //CalcColunmTotalWidth();
+            //CalcColunmStartX();
+            this.ResetRect();
+            //logger.Info("2Size changed,totlal width:" + totalWidth.ToString());
         }
 
         
@@ -187,57 +192,6 @@ namespace TradingLib.KryptonControl
 
         private SolidBrush _brush = new SolidBrush(Color.Black);
 
-        #region 计算我们需要显示的行
-        
-        int _beginIdx = 0;
-        int _endIdx = 0;
-        /// <summary>
-        /// 更新我们需要显示的起点idx与终点idx 这个运算不需要每次都调用当移动光标使得显示的行改变的时候才需要进行
-        /// </summary>
-        void UpdateBeginEndIdx()
-        {
-            int[] ids = CalcRowsBeginEndIdx();
-            //debug("caculate:" + _beginIdx.ToString() + "|" + _endIdx.ToString());
-            int oldbegin = _beginIdx;
-            _beginIdx = ids[0];
-            _endIdx = ids[1];
-            //如果更新后的起点与终点发生了变化,我们需要重新计算每个单元格的rect
-            if (oldbegin != _beginIdx)
-                this.ResetAllRect();
-        }
-
-        /// <summary>
-        /// 计算控件显示报价行的开始与结束序号
-        /// </summary>
-        /// <returns></returns>
-        int[] CalcRowsBeginEndIdx()
-        {
-            int rows = CalcRowsCanShow();//计算我们显示的总行数
-            //当选择的行小于我们可以显示的行 则我们显示可以显示的行数与总行数中最小的一个数字
-            if (SelectedQuoteRow + 1 <= rows)
-                return new int[] { 0, Math.Min(rows - 1, Count - 1) };
-            else
-            {   //如果大于可以显示的行了 则我们需要移动表格,把起点与终点都同步向上移动
-                //selectedrows会对行数进行变化,当移动到没有足够的行的时候它会自己跳到首行进行显示
-                return new int[] { 0 + (SelectedQuoteRow - rows + 1), rows + (SelectedQuoteRow - rows + 1) - 1 };
-            }
-        }
-
-
-        /// <summary>
-        /// 计算当前控件高度可以显示的报价行数
-        /// </summary>
-        /// <returns></returns>
-        int CalcRowsCanShow()
-        {
-            int i = ClientSize.Height;
-            //得到可以显示的行数
-            int rnum = Convert.ToInt32((i - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight);
-            //debug("可以显示:"+rnum.ToString());
-            return rnum;
-        }
-        
-        #endregion
 
         int _count = 0;
         List<QuoteRow> _quoteList = new List<QuoteRow>();
@@ -318,53 +272,19 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        //internal string[] Columns { get { return columns; } }
-        //设定列的表头名称
-        //private string[] columns = new string[] { QuoteListConst.SYMBOLNAME, QuoteListConst.LAST, QuoteListConst.LASTSIZE, QuoteListConst.BIDSIZE, QuoteListConst.ASKSIZE, QuoteListConst.BID,QuoteListConst.ASK, QuoteListConst.VOL,QuoteListConst.OI, QuoteListConst.CHANGE, QuoteListConst.OICHANGE, QuoteListConst.SETTLEMENT, QuoteListConst.OPEN, QuoteListConst.HIGH, QuoteListConst.LOW, QuoteListConst.LASTSETTLEMENT };
-        //设定每列的宽度
-        //int[] columnWidth = new int[] { 100, 70, 40, 40, 40, 70, 70, 80, 80, 70, 70, 70, 70, 70, 70, 70 };
-        //记录每行的起点X值
-        //int[] columnStartX;
-        
-        //报价列表总宽
-        int totalWidth;
-        public int QuoteViewWidth { get { return totalWidth; } set { totalWidth = value; } }
 
-        //获得某个序号列的起点
-        //internal int GetColumnStarX(int i)
-        //{
-        //    return columnStartX[i];
-        //}
-        //获得某个序号列的宽度
-        //internal int GetColumnWidth(int i)
-        //{
-        //    return columnWidth[i];
-        //}
-        //获得行总宽
-        internal int GetRowWidth()
-        {
-            return totalWidth;
-        }
         //开始显示的序号
         internal int GetBeginIndex()
         {
             return _beginIdx;
         }
 
-        //计算行总宽
-        void CalcColunmTotalWidth()
-        {
-            //int w = 0;
-            //for (int i = 0; i < columnWidth.Length; i++)
-            //{
-            //    w += columnWidth[i];
-            //}
-            totalWidth = quoteColumns.Where(column=>column.Visible).Sum(column=>column.Width);
-        }
-        //根据列宽重新计算列的起点
+     
+        /// <summary>
+        /// 根据Column宽度 计算每个Column的StartX
+        /// </summary>
         void CalcColunmStartX()
         {
-            //columnStartX = new int[columnWidth.Length];
             for (int i = 0; i < quoteColumns.Count; i++)
             {
                 quoteColumns[i].StartX = 0;
@@ -375,35 +295,30 @@ namespace TradingLib.KryptonControl
                 }
             }
         }
+
         //用于将单元格所缓存的Rect清楚 重新计算 主要用于当列宽差生变化后进行更新,
         //平时更新数据的时候进行这些计算是没有意义 浪费CPU资源
-        void ResetAllRect()
+        /// <summary>
+        /// 重置绘图区域缓存
+        /// 将缓存的Rect清除，需要区域数据时进行重新计算 比如列宽变化,控件大小发生变化等
+        /// 当尺寸未变时 使用缓存数据 避免不需要的计算
+        /// </summary>
+        void ResetRect()
         {
-            for (int i = 0; i < _count;i++)
+            foreach (var row in _quoteList)
             {
-                _quoteList[i].ResetRowRect();
+                row.ResetRect();
             }
-                //foreach (QuoteRow qr in _idxQuoteRowMap.Values)
-                //{
-                //    qr.ResetRowRect();
-                //}
         }
         //当列宽发生变化时候,我们需要重新计算更新列的起点 以及 总宽等数据编译QuoteRow cell进行调用
         void columnWidthChanged()
         {
-            CalcColunmTotalWidth();
+            //CalcColunmTotalWidth();
             CalcColunmStartX();
-            ResetAllRect();
+            this.ResetRect();
         }
 
-        /// <summary>
-        /// 标题高度
-        /// </summary>
-        private int HeaderHeight { get { return _headFont.Height + 4; } }
-        /// <summary>
-        /// 报价行高度
-        /// </summary>
-        private int RowHeight { get { return _symbolFont.Height + 4; } }
+
 
         #endregion
 
@@ -411,54 +326,7 @@ namespace TradingLib.KryptonControl
 
         #region 鼠标修改列宽
 
-        bool CanChangeMoveState = true;
-        bool CanMoveColumnWidth = false;
-        /// 正在拖动的ColLine已拖动距离
-        /// </summary>
-        int CurrentYLineMoveWidth = 0;
-        /// <summary>
-        /// 当前正在移动的ColLine
-        /// </summary>
-        int CurrentMoveYLIneID = -1;
-        /// <summary>
-        /// 鼠标移动事件的处理函数
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ViewQuoteList_MouseMove(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                int ylineID;
-                //判断鼠标在x y的那条线
-                ylineID = MouseIInYLineIdentity(e);
-                if (CanChangeMoveState)
-                {
-                    if (ylineID != -1)
-                    {
-                        //记录当前列序号
-                        CurrentMoveYLIneID = ylineID;
-                        this.Cursor = Cursors.SizeWE;//更改鼠标
-                        CanMoveColumnWidth = true;//打开移动列开关 可以移动列
-                    }
-                    else
-                    {
-                        this.Cursor = Cursors.Arrow;
-                        CanMoveColumnWidth = false;
-                    }
-                }
-
-                if (!CanChangeMoveState && CanMoveColumnWidth && CurrentMoveYLIneID != -1)
-                {
-                    MoveChangeColWidthLine(e, ylineID);
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                debug("quoteview list mouse move error");
-            }
-        }
+        
 
         int _selectedRow=-1;
         public int SelectedQuoteRow { get { return _selectedRow; } set { _selectedRow = value; } }
@@ -473,42 +341,7 @@ namespace TradingLib.KryptonControl
                 return CurrentSymbol;
             }
         }
-        /// <summary>
-        /// 鼠标点击事件处理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void ViewQuoteList_MouseDown(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                this.Focus();
-
-                if (e.Button == MouseButtons.Left)
-                {
-                    if (CanMoveColumnWidth)
-                    {
-                        CanChangeMoveState = false;
-                    }
-                    else
-                    {
-                        //debug("click row:" + mouseX2RowID(e).ToString());
-                        //当我们不处于选择状态我们单击 选择某行报价
-                        int i = mouseX2RowID(e);
-                        SelectRow(i);
-                    }
-                }
-                if (e.Button == MouseButtons.Right)
-                {
-                    if (_cmenu != null)
-                        _cmenu.Show(new Point(MousePosition.X, MousePosition.Y));
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("MouseDown Error:" + ex.ToString());
-            }
-        }
+        
 
         /// <summary>
         /// 选中某个行，高亮显示该报价行
@@ -529,28 +362,7 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
-        {
-            MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
-            if (SymbolSelectedEvent != null)
-            {
-                SymbolSelectedEvent(symbol);
-            }
-            //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
-            debug("Symbol:" + symbol.ToString() + " Selected");
-        }
-
-        //触发选择某个symbol的事件
-        void ViewQuoteList_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
-            if (SymbolSelectedEvent != null)
-            {
-                SymbolSelectedEvent(symbol);
-            }
-            //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
-            debug("Symbol:" + symbol.ToString() + " Selected");
-        }
+        
 
 
         //获得某个行的security
@@ -580,44 +392,26 @@ namespace TradingLib.KryptonControl
         //将某行颜色重置
         void ResetRowBackColor(int rid)
         {
-            if (rid >= 0)
+            QuoteRow row = this[rid];
+            if (row != null)
             {
-                //for (int i = 0; i < columns.Length; i++)
-                //{
-                //    Color c = rid % 2 == 0 ? QuoteBackColor1 : QuoteBackColor2;
-                //    this[rid][i].CellStyle.BackColor = c;
-                //    this[rid][i].CellStyle.LineColor = TableLineColor;
-                //}
-                Invalidate(this[rid].Rect);
+                row.Selected = false;
+                Invalidate(row.Rect);
             }
         }
 
         //更改某行颜色
         void ChangeRowBackColor(int rid)
         {
-            //if (rid == SelectedQuoteRow) return;
-            //for (int i = 0; i < columns.Length; i++)
-            //{
-            //    this[rid][i].CellStyle.BackColor = this.SelectedColor;
-            //    this[rid][i].CellStyle.LineColor = this.SelectedColor;
-            //}
-            Invalidate(this[rid].Rect);
+             QuoteRow row = this[rid];
+             if (row != null)
+             {
+                 row.Selected = true;
+                 Invalidate(row.Rect);
+             }
         }
 
-        void ViewQuoteList_MouseUp(object sender, MouseEventArgs e)
-        {
-
-            if (!CanChangeMoveState)
-            {
-                if (CanMoveColumnWidth)
-                {
-                    ChangeColWidth();
-                }
-            }
-            CanChangeMoveState = true;
-            //Invalidate();
-            //this.Refresh();
-        }
+       
 
         /// <summary>
         /// 拖拽停止后改变列宽
@@ -639,7 +433,7 @@ namespace TradingLib.KryptonControl
         private bool MouseIsInTableArea(MouseEventArgs e)
         {
             //return true;
-            return e.X >= 20 && e.X <= (totalWidth + 20) && e.Y >= 50 && e.Y <= (DefaultQuoteStyle.HeaderHeight + 10);
+            return e.X >= 20 && e.X <= (this.Width + 20) && e.Y >= 50 && e.Y <= (DefaultQuoteStyle.HeaderHeight + 10);
         }
 
         private int mouseX2RowID(MouseEventArgs e)
@@ -685,18 +479,7 @@ namespace TradingLib.KryptonControl
         private int _mouseX;
         private int _mouseY;
 
-        /// <summary>
-        /// 滚动鼠标轮 上下移动选行光标
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void ViewQuoteList_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (e.Delta > 0)
-                RowUp();
-            else
-                RowDown();
-        }
+        
 
         #endregion
 
@@ -784,6 +567,7 @@ namespace TradingLib.KryptonControl
         {
             int rid = SelectedQuoteRow -1;
             SelectRow(rid);
+            //当选择的行超出我们显示的start end区间之后我们需要重新计算对应的起始
             if (rid > _endIdx || rid < _beginIdx)
             {
                 UpdateBeginEndIdx();
@@ -796,9 +580,9 @@ namespace TradingLib.KryptonControl
         public void RowDown()
         {
             int rid = SelectedQuoteRow + 1;
-            SelectRow(rid);//选择某行带有更新该行显示的语句
-            logger.Info("begin:{0} end:{1}".Put(_beginIdx, _endIdx));
-            if (rid > _endIdx || rid < _beginIdx)//当选择的行超出我们显示的start end区间之后我们需要重新计算对应的起始
+            SelectRow(rid);
+            //当选择的行超出我们显示的start end区间之后我们需要重新计算对应的起始
+            if (rid > _endIdx || rid < _beginIdx)
             {
                 UpdateBeginEndIdx();
                 Invalidate();
