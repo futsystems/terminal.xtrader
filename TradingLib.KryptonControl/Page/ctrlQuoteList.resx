@@ -117,71 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tb_f_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_05.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_tool_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_tool_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_14" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_14.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Min.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_13" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_13.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_t_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_t_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_04.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TopMenuBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TopMenuBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BottomStatusBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BottomStatusBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_t_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_t_1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_t_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_t_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_02.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_01.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Max" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Max.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_tool_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_tool_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_03.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_tool_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_tool_1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_11.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_12.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tb_f_15" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\toolbar\tb_f_15.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BottomTabMenuBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BottomTabMenuBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="blockPanel.StateCommon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAIAAAAmWzVxAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAACHSURBVDhPddDNCkFRGEbhdf+34ickO6Xso8OWdEQkIhIRN2Fior3O0xq9g2/w8TG8DS/D0/Aw
+        3A03w9VwMZwNJ8PRcDDsDTvD1rAxrA0rQ2VYGhaGKs3yatZ5SnlMyzKPSVHkMTaMDENDMPQNPUPH0Da0
+        DE1Dw9Ssv0v/6BoGIeTV/CzmYvwCnRHXDqXHBfkAAAAASUVORK5CYII=
+</value>
   </data>
 </root>

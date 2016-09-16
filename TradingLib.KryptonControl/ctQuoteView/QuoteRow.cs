@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.MarketData;
+
 
 namespace TradingLib.KryptonControl
 {
@@ -35,11 +37,11 @@ namespace TradingLib.KryptonControl
         public int RowID { get { return _rowid; } set { _rowid = value; } }
 
 
-        Symbol _symbol = null;
+        MDSymbol _symbol = null;
         /// <summary>
         /// 合约
         /// </summary>
-        public Symbol Symbol { get { return _symbol; } }
+        public MDSymbol Symbol { get { return _symbol; } }
 
 
         EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
@@ -56,14 +58,14 @@ namespace TradingLib.KryptonControl
         /// <param name="rid">行序号</param>
         /// <param name="symbol">合约</param>
         /// <param name="type">报价类别</param>
-        public QuoteRow(ViewQuoteList quotelist, int rid,Symbol symbol, EnumQuoteType type)
+        public QuoteRow(ViewQuoteList quotelist, int rid, MDSymbol symbol, EnumQuoteType type)
         {
             _quotelist = quotelist;
             _symbol = symbol;
             _rowid = rid;
 
             _defaultQuoteStyle = quotelist.DefaultQuoteStyle;
-            _pricedispformat = symbol.SecurityFamily.GetPriceFormat();
+            _pricedispformat = symbol.GetFormat();
             _quoteType = type;
 
             //初始化行
@@ -98,7 +100,7 @@ namespace TradingLib.KryptonControl
             }
             if (_quotelist.Columns.Contains(QuoteListConst.SYMBOLNAME))
             {
-                this[QuoteListConst.SYMBOLNAME].Symbol = _symbol.GetName();
+                this[QuoteListConst.SYMBOLNAME].Symbol = _symbol.Name;
             }
         }
 

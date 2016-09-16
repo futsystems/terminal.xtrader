@@ -157,5 +157,7 @@ namespace TradingLib.KryptonControl
         /// </summary>
         public int HeaderHeight { get { return _headerheight; } set { _headerheight = value; } }
 
+
+
     }
 }

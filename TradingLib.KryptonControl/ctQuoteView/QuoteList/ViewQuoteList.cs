@@ -11,6 +11,8 @@ using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
 using Common.Logging;
+using TradingLib.MarketData;
+
 
 namespace TradingLib.KryptonControl
 {
@@ -29,7 +31,7 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 双击合约时触发选择了某个合约
         /// </summary>
-        public event Action<Symbol> SymbolSelectedEvent;
+        public event Action<MDSymbol> SymbolSelectedEvent;
 
         /// <summary>
         /// 捕捉到控件上左右移动事件
@@ -44,7 +46,7 @@ namespace TradingLib.KryptonControl
         public event OrderDelegate SendOrderEvent;//发送Order
         public event SymbolDelegate SendOpenTimeSalesEvent;//打开盘口窗口
 
-        public event Action<Symbol> OpenKChartEvent;//打开图标窗口
+        public event Action<MDSymbol> OpenKChartEvent;//打开图标窗口
 
         RingBuffer<int> cellLocations = new RingBuffer<int>(1000);//用于记录闪动的最新价格位置
         System.Threading.Timer _timer;
@@ -102,7 +104,7 @@ namespace TradingLib.KryptonControl
             }
         }
         [DefaultValue("Aqua")]
-        Color _headFontColor = Color.Turquoise;
+        Color _headFontColor = Color.FromArgb(0, 255, 255);
         public Color HeaderFontColor
         {
             get
@@ -117,7 +119,7 @@ namespace TradingLib.KryptonControl
         }
 
         [DefaultValue("Aqua")]
-        Color _headBackColor = Color.Turquoise;
+        Color _headBackColor = Color.FromArgb(0, 0, 0);
         public Color HeaderBackColor
         {
             get
@@ -177,7 +179,7 @@ namespace TradingLib.KryptonControl
         }
 
         [DefaultValue("Blue")]
-        Color _selectedColor = Color.Blue;
+        Color _selectedColor = Color.FromArgb(75, 75, 75);
         public Color SelectedColor
         {
             get
@@ -193,7 +195,7 @@ namespace TradingLib.KryptonControl
 
 
         [DefaultValue("SlateGray")]
-        Color _quoteBackColor1 = Color.SlateGray;
+        Color _quoteBackColor1 = Color.FromArgb(0, 0, 0);
         public Color QuoteBackColor1
         {
             get
@@ -210,7 +212,7 @@ namespace TradingLib.KryptonControl
         }
 
         [DefaultValue("LightSlateGray")]
-        Color _quoteBackColor2 = Color.LightSlateGray;
+        Color _quoteBackColor2 = Color.FromArgb(0, 0, 0);
         public Color QuoteBackColor2
         {
             get
@@ -227,7 +229,7 @@ namespace TradingLib.KryptonControl
         }
 
         [DefaultValue("Silver")]
-        Color _tableLineColor = Color.Silver;
+        Color _tableLineColor = Color.FromArgb(0, 0, 0);
         public Color TableLineColor
         {
             get
@@ -285,6 +287,7 @@ namespace TradingLib.KryptonControl
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            this.BackColor = Color.Black;
             //设置单元格样式
             _cellstyle = new CellStyle(QuoteBackColor1, Color.Red, QuoteFont,SymbolFont,TableLineColor);
             _quotestyle = new QuoteStyle(QuoteBackColor1, QuoteBackColor2, QuoteFont,SymbolFont,TableLineColor,UPColor,DNColor,HeaderHeight, RowHeight);
@@ -388,55 +391,9 @@ namespace TradingLib.KryptonControl
 
 
 
+        private SolidBrush _brush = new SolidBrush(Color.Black);
         #region 计算我们需要显示的行
-        //关于绘图:如果不指定更新区域 Invalidate 会更新所有区域,这样会造成更新某个单元各 却需要更新所有的单元格 使得运行起来很不经济
-        //默认模式中我们循环所有的列然后对呗该列区域与更新区域是否相交 若不相交则直接返回不进行更新,若相交则据需遍历所有列进行比较若有相交则更新该单元格。
-        //这种模式是正常工作模式下动态更新价格信息所采用的方式。
-        //我们需要找到效率相对最高的方式来进行工作。
-        private void GDIControl_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            //绘制表头
-            PaintHeader(e);
-            //绘制我们需要显示的数据行
-            //debug("begin:" + _beginIdx.ToString() + " end:" + _endIdx.ToString());
-            try
-            {
-                for (int i = _beginIdx; i <= _endIdx; i++)
-                {
-                    //可以实现行的排列,当排列后我们将_idxQuoteRowMap重新映射到新的QuoteRow队列即可
-                    _idxQuoteRowMap[i].Paint(e);
-                }
-            }
-            catch (Exception ex)
-            { 
-            
-            }
-        }
-
-        /// <summary>
-        /// 绘制标题行
-        /// </summary>
-        /// <param name="e"></param>
-        void PaintHeader(PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-
-            if (e.ClipRectangle.IntersectsWith(new Rectangle(0, 0, ClientSize.Width, DefaultQuoteStyle.HeaderHeight)))
-            {
-                for (int i = 0; i < columns.Length; i++)
-                {
-                    PointF cellLocation = new PointF(GetColumnStarX(i), 0);
-                    RectangleF cellRect = new RectangleF(cellLocation.X, cellLocation.Y, GetColumnWidth(i), DefaultQuoteStyle.HeaderHeight);
-                    g.FillRectangle(new SolidBrush(HeaderBackColor), cellRect);
-                    //绘制方形区域边界
-                    //绘制单元格
-                    g.DrawRectangle(DefaultQuoteStyle.LinePen, GetColumnStarX(i), 0, GetColumnWidth(i), DefaultQuoteStyle.HeaderHeight);
-                    //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-                    g.DrawString(columns[i], HeaderFont, new SolidBrush(HeaderFontColor), cellRect.X, cellRect.Y + DefaultQuoteStyle.HeaderHeight - HeaderFont.Height);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
-                }
-            }
-        }
+        
         int _beginIdx = 0;
         int _endIdx = 0;
         /// <summary>
@@ -496,7 +453,7 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 合约symbol
         /// </summary>
-        ConcurrentDictionary<string, Symbol> symmap = new ConcurrentDictionary<string, Symbol>();
+        ConcurrentDictionary<string, MDSymbol> symmap = new ConcurrentDictionary<string, MDSymbol>();
 
         //symbol到本地idx的转换
         int symbol2idx(string symbol)
@@ -532,15 +489,28 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 返回所有当前加载的合约
         /// </summary>
-        public IEnumerable<Symbol> Symbols { get { return symmap.Values; } }
+        public IEnumerable<MDSymbol> Symbols { get { return symmap.Values; } }
 
+
+        bool _needInvalidate = true;
+        public void BeginUpdate()
+        {
+            _needInvalidate = false;
+        }
+
+        public void EndUpdate()
+        {
+            _needInvalidate = true;
+            UpdateBeginEndIdx();
+            Invalidate();
+        }
 
         #region 添加 删除合约
         /// <summary>
         /// 增加一个合约到显示列表
         /// </summary>
         /// <param name="sec"></param>
-        public void AddSymbol(Symbol symbol)
+        public void AddSymbol(MDSymbol symbol)
         {
            
             string sym = symbol.Symbol;
@@ -552,7 +522,7 @@ namespace TradingLib.KryptonControl
             try
             {
 
-                debug("security:" + sym + "pricetick" + symbol.SecurityFamily.PriceTick.ToString());
+                //debug("security:" + sym + "pricetick" + symbol.SecurityFamily.PriceTick.ToString());
                 //1.在DataGrid中增加新的一行数据
                
                 int i = _idxQuoteRowMap.Count;
@@ -580,7 +550,10 @@ namespace TradingLib.KryptonControl
                 //UpdateBeginEndIdx();
 
                 //重新绘制窗口的某个特定部分
-                Invalidate(qr.Rect);   
+                if (_needInvalidate)
+                {
+                    Invalidate(qr.Rect);
+                }
             }
             catch(Exception ex)
             {
@@ -592,13 +565,13 @@ namespace TradingLib.KryptonControl
         /// 删除某个合约
         /// </summary>
         /// <param name="sec"></param>
-        public void RemoveSymbol(Symbol symbol)
+        public void RemoveSymbol(MDSymbol symbol)
         {
             string sym = symbol.Symbol;//得到该security的symbol代号
             //1.检查是否存在该symbol,如果存在则直接返回
             if (!symmap.Keys.Contains(sym)) return;
             //如果baskect中没有该symbol,我们将其加入
-            Symbol symout=null;
+            MDSymbol symout=null;
             symmap.TryRemove(sym, out symout);
             int rid;
             
@@ -638,12 +611,24 @@ namespace TradingLib.KryptonControl
         /// 外部排序后添加对应的合约
         /// </summary>
         /// <param name="b"></param>
-        public void AddSymbols(IEnumerable<Symbol> symbols)
+        public void AddSymbols(IEnumerable<MDSymbol> symbols)
         {
-            foreach (Symbol s in symbols)
+            foreach (MDSymbol s in symbols)
             {
                 AddSymbol(s);
             }
+        }
+
+        public void Clear()
+        {
+            
+            symmap.Clear();
+            _idxQuoteRowMap.Clear();
+            _symbolIdxMap.Clear();
+            _beginIdx = 0;
+            _endIdx = 0;
+            _selectedRow = 0;
+
         }
         #endregion
 
@@ -806,7 +791,7 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 当前选中的合约
         /// </summary>
-        public Symbol SelectedSymbol
+        public MDSymbol SelectedSymbol
         {
             get
             {
@@ -871,36 +856,36 @@ namespace TradingLib.KryptonControl
 
         void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
         {
-            Symbol symbol = GetVisibleSecurity(SelectedQuoteRow);
+            MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
             if (SymbolSelectedEvent != null)
             {
                 SymbolSelectedEvent(symbol);
             }
-            CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+            //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
             debug("Symbol:" + symbol.ToString() + " Selected");
         }
 
         //触发选择某个symbol的事件
         void ViewQuoteList_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            Symbol symbol = GetVisibleSecurity(SelectedQuoteRow);
+            MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
             if (SymbolSelectedEvent != null)
             {
                 SymbolSelectedEvent(symbol);
             }
-            CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+            //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
             debug("Symbol:" + symbol.ToString() + " Selected");
         }
 
 
         //获得某个行的security
-        Symbol GetVisibleSecurity(int row)
+        MDSymbol GetVisibleSecurity(int row)
         {
-            if ((row < 0) || (row >= Count)) return new SymbolImpl();
+            if ((row < 0) || (row >= Count)) return new MDSymbol();
             return this[row].Symbol;
         }
 
-        Symbol CurrentSymbol
+        MDSymbol CurrentSymbol
         { 
             get
             {
@@ -1058,19 +1043,19 @@ namespace TradingLib.KryptonControl
         }
         void openTimeSales()
         {
-            Symbol sec = GetVisibleSecurity(SelectedQuoteRow);
+            MDSymbol sec = GetVisibleSecurity(SelectedQuoteRow);
             //if (!sec.isValid)
             //    return;
-            if (SendOpenTimeSalesEvent != null)
-                SendOpenTimeSalesEvent(sec);
+            //if (SendOpenTimeSalesEvent != null)
+            //    SendOpenTimeSalesEvent(sec);
         }
         void menuOpenKChart(object sender, EventArgs e)
         {
-            Symbol symbol = GetVisibleSecurity(_selectedRow);
+            MDSymbol symbol = GetVisibleSecurity(_selectedRow);
             //if (!sec.isValid)
             //    return;
-            if (OpenKChartEvent != null)
-                OpenKChartEvent(symbol);
+            //if (OpenKChartEvent != null)
+            //    OpenKChartEvent(symbol);
         }
 
 
@@ -1125,7 +1110,7 @@ namespace TradingLib.KryptonControl
 
                 if (e.KeyCode == Keys.Return)//Q打开K线图//回车打开k线
                 {
-                    Symbol symbol = CurrentSymbol;
+                    MDSymbol symbol = CurrentSymbol;
 
                     logger.Info("Open Chart Symbol:{0}".Put(symbol != null ? symbol.Symbol : "null"));
                     menuOpenKChart(null, null);

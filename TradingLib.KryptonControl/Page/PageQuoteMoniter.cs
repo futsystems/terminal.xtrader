@@ -75,7 +75,7 @@ namespace TradingLib.KryptonControl
             {
                 if (navigator.Pages.Count == 0) return null;
                 ViewQuoteList quote = GetSelectedQuote();
-                if (quote != null) return quote.SelectedSymbol;
+                //if (quote != null) return quote.SelectedSymbol;
                 return null;
             }
         }
@@ -106,7 +106,7 @@ namespace TradingLib.KryptonControl
                         ViewQuoteList quote = GetSelectedQuote();
                         if (quote != null)
                         {
-                            Symbol symbol = quote.SelectedSymbol;
+                            Symbol symbol = null;// quote.SelectedSymbol;
                             if(symbol != null)
                             {
                                 OnOpenKChartEvent(symbol);
@@ -185,7 +185,7 @@ namespace TradingLib.KryptonControl
             quote.QuoteType = GetQuoteType(ex);
             quote.SelectedColor = Color.FromArgb(75, 75, 75);
             quote.MenuEnable = true;
-            quote.OpenKChartEvent += new Action<Symbol>(OnOpenKChartEvent);
+            //quote.OpenKChartEvent += new Action<Symbol>(OnOpenKChartEvent);
             quote.RightLeftMoveEvent += new Action<PreviewKeyDownEventArgs>(OnRightLeftMoveEvent);
 
             ComponentFactory.Krypton.Navigator.KryptonPage page = new ComponentFactory.Krypton.Navigator.KryptonPage(ex.Title);
@@ -229,8 +229,8 @@ namespace TradingLib.KryptonControl
         public void AddSymbol(Symbol symbol)
         {
             ViewQuoteList target = GetQuoteList(symbol.Exchange);
-            if (target != null)
-                target.AddSymbol(symbol);
+            //if (target != null)
+            //    target.AddSymbol(symbol);
         }
 
         /// <summary>
@@ -241,8 +241,8 @@ namespace TradingLib.KryptonControl
         public void AddSymbols(IExchange exchange, IEnumerable<Symbol> symbols)
         {
             ViewQuoteList target = GetQuoteList(exchange.EXCode);
-            if (target != null)
-                target.AddSymbols(symbols);
+            //if (target != null)
+            //    target.AddSymbols(symbols);
         }
 
 

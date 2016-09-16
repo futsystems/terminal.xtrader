@@ -63,9 +63,19 @@ namespace XTraderLite.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BottomStatusGB {
+        internal static System.Drawing.Bitmap BottomStatusBG {
             get {
-                object obj = ResourceManager.GetObject("BottomStatusGB", resourceCulture);
+                object obj = ResourceManager.GetObject("BottomStatusBG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BottomTabMenuBG {
+            get {
+                object obj = ResourceManager.GetObject("BottomTabMenuBG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
