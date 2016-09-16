@@ -144,14 +144,14 @@ namespace TradingLib.KryptonControl
             //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
             if (_column.FieldType == EnumFileldType.SYMBOL || _column.FieldType == EnumFileldType.SYMBOLNAME)
             {
-                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
+                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height)/2);
             }
             else if (_column.FieldType == EnumFileldType.INDEX)
             {
-                g.DrawString((_row.RowID+1).ToString(), CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
+                g.DrawString((_row.RowID+1).ToString(), CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height)/2);
             }
             else
-                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + quoteStyle.RowHeight - CellStyle.QuoteFont.Height);
+                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height)/2);
         }
     }
 }

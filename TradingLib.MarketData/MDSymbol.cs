@@ -8,6 +8,7 @@ namespace TradingLib.MarketData
     /// <summary>
     /// 合约对象
     /// </summary>
+    [Serializable]
     public class MDSymbol
     {
 

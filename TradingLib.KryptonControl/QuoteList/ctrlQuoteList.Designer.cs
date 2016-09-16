@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlQuoteList));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.quotelist = new TradingLib.KryptonControl.ViewQuoteList();
             this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.quotelist = new TradingLib.KryptonControl.ViewQuoteList();
             this.blockTab = new TradingLib.KryptonControl.BlockTab();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -58,32 +58,6 @@
             this.vScrollBar1.Size = new System.Drawing.Size(17, 408);
             this.vScrollBar1.TabIndex = 1;
             // 
-            // quotelist
-            // 
-            this.quotelist.BackColor = System.Drawing.Color.Black;
-            this.quotelist.DNColor = System.Drawing.Color.Green;
-            this.quotelist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quotelist.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.quotelist.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.quotelist.HeaderFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.quotelist.Location = new System.Drawing.Point(0, 0);
-            this.quotelist.MenuEnable = false;
-            this.quotelist.Name = "quotelist";
-            this.quotelist.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.quotelist.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.quotelist.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.quotelist.QuoteType = TradingLib.KryptonControl.EnumQuoteType.CNQUOTE;
-            this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.quotelist.SelectedQuoteRow = -1;
-            this.quotelist.Size = new System.Drawing.Size(924, 408);
-            this.quotelist.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.quotelist.SymbolFontColor = System.Drawing.Color.Green;
-            this.quotelist.TabIndex = 0;
-            this.quotelist.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.quotelist.TabStop = false;
-            this.quotelist.Text = "viewQuoteList1";
-            this.quotelist.UPColor = System.Drawing.Color.Red;
-            // 
             // blockPanel
             // 
             this.blockPanel.Controls.Add(this.blockTab);
@@ -93,6 +67,32 @@
             this.blockPanel.Size = new System.Drawing.Size(924, 20);
             this.blockPanel.StateCommon.Image = ((System.Drawing.Image)(resources.GetObject("blockPanel.StateCommon.Image")));
             this.blockPanel.TabIndex = 1;
+            // 
+            // quotelist
+            // 
+            this.quotelist.BackColor = System.Drawing.Color.Black;
+            this.quotelist.DNColor = System.Drawing.Color.Green;
+            this.quotelist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quotelist.HeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.quotelist.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
+            this.quotelist.HeaderFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.quotelist.Location = new System.Drawing.Point(0, 0);
+            this.quotelist.MenuEnable = false;
+            this.quotelist.Name = "quotelist";
+            this.quotelist.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.quotelist.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.quotelist.QuoteFont = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Bold);
+            this.quotelist.QuoteType = TradingLib.KryptonControl.EnumQuoteType.CNQUOTE;
+            this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.quotelist.SelectedQuoteRow = -1;
+            this.quotelist.Size = new System.Drawing.Size(924, 408);
+            this.quotelist.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
+            this.quotelist.SymbolFontColor = System.Drawing.Color.Green;
+            this.quotelist.TabIndex = 0;
+            this.quotelist.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.quotelist.TabStop = false;
+            this.quotelist.Text = "viewQuoteList1";
+            this.quotelist.UPColor = System.Drawing.Color.Red;
             // 
             // blockTab
             // 

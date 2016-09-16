@@ -72,7 +72,7 @@ namespace TradingLib.KryptonControl
 
                     _brush.Color = HeaderFontColor;
                     //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-                    g.DrawString(column.Title, HeaderFont,_brush, cellRect.X, cellRect.Y + DefaultQuoteStyle.HeaderHeight - HeaderFont.Height);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
+                    g.DrawString(column.Title, HeaderFont,_brush, cellRect.X, cellRect.Y + (DefaultQuoteStyle.HeaderHeight - HeaderFont.Height)/2);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
                 }
             }
         }

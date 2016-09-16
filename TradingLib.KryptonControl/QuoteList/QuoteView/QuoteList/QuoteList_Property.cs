@@ -49,8 +49,8 @@ namespace TradingLib.KryptonControl
         }
 
         //调用Invalidate()可以保证设置属性之后重绘控件
-        [DefaultValue("Arial, 10.5pt, style=Bold")]
-        Font _headFont = new Font("Arial,style=Bold", 10);
+        //[DefaultValue("Arial, 13.5pt, style=Bold")]
+        Font _headFont = new Font("Arial", 11f,FontStyle.Bold);
         public Font HeaderFont
         {
             get
@@ -63,6 +63,38 @@ namespace TradingLib.KryptonControl
                 Invalidate();
             }
         }
+        [DefaultValue("Arial, 10.5pt, style=Bold")]
+        Font _quoteFont = new Font("Aria", 11f, FontStyle.Bold);
+        public Font QuoteFont
+        {
+            get
+            {
+                return _quoteFont;
+            }
+            set
+            {
+                _quoteFont = value;
+                _cellstyle.QuoteFont = value;
+                Invalidate();
+            }
+        }
+
+        [DefaultValue("Arial, 10.5pt")]
+        Font _symbolFont = new Font("Aria", 11f);
+        public Font SymbolFont
+        {
+            get
+            {
+                return _symbolFont;
+            }
+            set
+            {
+                _symbolFont = value;
+                Invalidate();
+            }
+        }
+
+
         [DefaultValue("Aqua")]
         Color _headFontColor = Color.FromArgb(0, 255, 255);
         public Color HeaderFontColor
@@ -93,36 +125,7 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("Arial, 10.5pt, style=Bold")]
-        Font _quoteFont = new Font("Aria", 10, FontStyle.Bold);
-        public Font QuoteFont
-        {
-            get
-            {
-                return _quoteFont;
-            }
-            set
-            {
-                _quoteFont = value;
-                _cellstyle.QuoteFont = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("Arial, 10.5pt")]
-        Font _symbolFont = new Font("Aria", 10);
-        public Font SymbolFont
-        {
-            get
-            {
-                return _symbolFont;
-            }
-            set
-            {
-                _symbolFont = value;
-                Invalidate();
-            }
-        }
+        
         [DefaultValue("Aqua")]
         Color _symbolFontColor = Color.Green;
         public Color SymbolFontColor
@@ -240,12 +243,12 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 标题高度
         /// </summary>
-        private int HeaderHeight { get { return _headFont.Height + 4; } }
+        private int HeaderHeight { get { return _headFont.Height + (int)(_headFont.Height*0.3); } }
 
         /// <summary>
         /// 报价行高度
         /// </summary>
-        private int RowHeight { get { return _symbolFont.Height + 4; } }
+        private int RowHeight { get { return _symbolFont.Height + (int)(_symbolFont.Height*0.3); } }
 
     }
 }
