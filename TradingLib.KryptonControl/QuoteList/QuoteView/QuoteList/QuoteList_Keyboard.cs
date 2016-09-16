@@ -27,17 +27,20 @@ namespace TradingLib.KryptonControl
                 if (key == Keys.Up)
                 {
                     this.RowUp();
-                    return false;
+                    return true;
                 }
                 if (key == Keys.Down)
                 {
                     this.RowDown();
-                    return false;
+                    return true;
+                }
+                if (key == Keys.Left || key == Keys.Right)
+                {
+                    return true;
                 }
 
             }
-            return false;
-            //return base.PreProcessMessage(ref msg);
+            return base.PreProcessMessage(ref msg);
         }
 
 
