@@ -15,10 +15,15 @@ using TradingLib.MarketData;
 
 namespace TradingLib.KryptonControl
 {
+
     public partial class ViewQuoteList
     {
-        bool CanChangeMoveState = true;
-        bool CanMoveColumnWidth = false;
+        CursorType _cursorType = CursorType.NONE;
+
+        //当前鼠标坐标
+        private int _mouseX;
+        private int _mouseY;
+
         /// 正在拖动的ColLine已拖动距离
         /// </summary>
         int CurrentYLineMoveWidth = 0;
@@ -35,29 +40,29 @@ namespace TradingLib.KryptonControl
         {
             try
             {
-                int ylineID;
-                //判断鼠标在x y的那条线
-                ylineID = MouseIInYLineIdentity(e);
-                if (CanChangeMoveState)
+                _mouseX = e.X;
+                _mouseY = e.Y;
+
+                if (_cursorType == CursorType.NONE)
                 {
-                    if (ylineID != -1)
+                    int colIdx = MouseIInYLineIdentity(e);
+                    if (colIdx != -1)
                     {
-                        //记录当前列序号
-                        CurrentMoveYLIneID = ylineID;
-                        this.Cursor = Cursors.SizeWE;//更改鼠标
-                        CanMoveColumnWidth = true;//打开移动列开关 可以移动列
+                        this.Cursor = Cursors.SizeWE;
+                        CurrentMoveYLIneID = colIdx;
                     }
                     else
                     {
                         this.Cursor = Cursors.Arrow;
-                        CanMoveColumnWidth = false;
                     }
+                    
                 }
 
-                if (!CanChangeMoveState && CanMoveColumnWidth && CurrentMoveYLIneID != -1)
+                if (_cursorType == CursorType.CHANGEWIDTH)
                 {
-                    MoveChangeColWidthLine(e, ylineID);
+                    MoveChangeColWidthLine(e, CurrentMoveYLIneID);
                 }
+
 
             }
             catch (Exception ex)
@@ -80,17 +85,20 @@ namespace TradingLib.KryptonControl
 
                 if (e.Button == MouseButtons.Left)
                 {
-
-                    if (CanMoveColumnWidth)
+                    if (e.Y > 0 && e.Y < this.HeaderHeight)//在标题栏进行鼠标位置判定
                     {
-                        CanChangeMoveState = false;
+                        int currentColumn = MouseIInYLineIdentity(e);
+                        if (currentColumn !=-1)
+                        {
+                            logger.Info("can chagne width column:" + currentColumn.ToString());
+                            _cursorType = CursorType.CHANGEWIDTH;
+                            CurrentMoveYLIneID = currentColumn;
+                        }
                     }
-                    else
+                    else //在非标题区域 则选择某行
                     {
-                        //debug("click row:" + mouseX2RowID(e).ToString());
-                        //当我们不处于选择状态我们单击 选择某行报价
-                        int i = mouseX2RowID(e);
-                        SelectRow(i);
+                        int rowId = Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
+                        SelectRow(rowId);
                     }
                 }
                 if (e.Button == MouseButtons.Right)
@@ -107,24 +115,11 @@ namespace TradingLib.KryptonControl
 
         void ViewQuoteList_MouseUp(object sender, MouseEventArgs e)
         {
-
-            if (!CanChangeMoveState)
+            if (_cursorType == CursorType.CHANGEWIDTH)
             {
-                if (CanMoveColumnWidth)
-                {
-                    ChangeColWidth();
-                }
+                _cursorType = CursorType.NONE;
+                this.Refresh();
             }
-            CanChangeMoveState = true;
-            //Invalidate();
-            //this.Refresh();
-        }
-
-
-        private int mouseX2RowID(MouseEventArgs e)
-        {
-            //鼠标Y位置扣除标题高度/行高 就得到对应的行数 需要加上我们的起始现实序号
-            return Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
         }
 
         /// <summary>
@@ -153,23 +148,12 @@ namespace TradingLib.KryptonControl
         /// <param name="e"></param>
         private void MoveChangeColWidthLine(MouseEventArgs e, int ylineID)
         {
-            //debug("moving column");
-            //输出当前鼠标坐标
-            _mouseX = e.X;
-            _mouseY = e.Y;
-
             CurrentYLineMoveWidth = (e.X - quoteColumns[CurrentMoveYLIneID].StartX);//计算移动值
-            ChangeColWidth();//计算新的列宽
-            columnWidthChanged();//重新计算绘制表格需要的列宽 列起点 总宽数据
-            this.Refresh();//刷新
+            quoteColumns[CurrentMoveYLIneID - 1].Width = quoteColumns[CurrentMoveYLIneID - 1].Width + CurrentYLineMoveWidth;
+            CalcColunmStartX();
+            ResetRect();
+            Refresh();
         }
-        private int _mouseX;
-        private int _mouseY;
-
-
-
-
-
 
         void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
         {

@@ -100,7 +100,8 @@ namespace TradingLib.KryptonControl
             if(MenuEnable)
                 initMenu();
             //计算列起点 总宽等参数
-            columnWidthChanged();
+            CalcColunmStartX();
+            this.ResetRect();
 
             
         }
@@ -122,40 +123,11 @@ namespace TradingLib.KryptonControl
         /// <param name="e"></param>
         void ViewQuoteList_SizeChanged(object sender, EventArgs e)
         {
-            //logger.Info("Size changed,totlal width:" + totalWidth.ToString());
+            logger.Info("Size Changed");
             UpdateBeginEndIdx();
-            //CalcColunmTotalWidth();
-            //CalcColunmStartX();
-            this.ResetRect();
-            //logger.Info("2Size changed,totlal width:" + totalWidth.ToString());
+            ResetRect();
+            Refresh();
         }
-
-        
-        //void ViewQuoteList_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        //{
-        //    logger.Info("PreviewKeyDown:" + e.KeyCode.ToString());
-        //    switch(e.KeyCode)
-        //    {
-        //        case Keys.Up:
-        //            this.RowUp();
-        //            break;
-        //        case Keys.Down:
-        //            this.RowDown();
-        //            break;
-        //        case Keys.Left:
-        //        case Keys.Right:
-        //            {
-        //                if (RightLeftMoveEvent != null)
-        //                {
-        //                    RightLeftMoveEvent(e);
-        //                }
-        //                break;
-        //            }
-        //        default:
-        //            break;
-        //    }
-        //}
-
 
        
         /// <summary>
@@ -192,7 +164,7 @@ namespace TradingLib.KryptonControl
 
         private SolidBrush _brush = new SolidBrush(Color.Black);
 
-
+        private Pen _pen = new Pen(Color.Green, 1);
         int _count = 0;
         List<QuoteRow> _quoteList = new List<QuoteRow>();
         //记录symbol代码与对应Row序号的映射
@@ -277,6 +249,7 @@ namespace TradingLib.KryptonControl
         internal int GetBeginIndex()
         {
             return _beginIdx;
+            
         }
 
      
@@ -310,38 +283,11 @@ namespace TradingLib.KryptonControl
                 row.ResetRect();
             }
         }
-        //当列宽发生变化时候,我们需要重新计算更新列的起点 以及 总宽等数据编译QuoteRow cell进行调用
-        void columnWidthChanged()
-        {
-            //CalcColunmTotalWidth();
-            CalcColunmStartX();
-            this.ResetRect();
-        }
-
-
 
         #endregion
 
-
-
-        #region 鼠标修改列宽
-
-        
-
         int _selectedRow=-1;
         public int SelectedQuoteRow { get { return _selectedRow; } set { _selectedRow = value; } }
-
-        /// <summary>
-        /// 当前选中的合约
-        /// </summary>
-        public MDSymbol SelectedSymbol
-        {
-            get
-            {
-                return CurrentSymbol;
-            }
-        }
-        
 
         /// <summary>
         /// 选中某个行，高亮显示该报价行
@@ -349,16 +295,26 @@ namespace TradingLib.KryptonControl
         /// <param name="i"></param>
         void SelectRow(int i)
         {
-            //debug("选择行:"+i.ToString());
-            if (i < 0) i =  Count - 1;//如果选择的行小于0 则返回最后一行
-            if (i > (Count - 1)) i = 0;//如果选择的行 超过当总行数,则返回到第一行
-            int old = SelectedQuoteRow;
-            if (i != old)//两次选择的行步一致
+            if (i < 0) i =  _count - 1;//如果选择的行小于0 则返回最后一行
+            if (i > (_count - 1)) i = 0;//如果选择的行 超过当总行数,则返回到第一行
+            int old = _selectedRow;
+            if (i != old)
             {
-                ChangeRowBackColor(i);//高亮被我们选中的那行
-                //debug("改回原来的颜色");
-                ResetRowBackColor(old);//将原来的行改成原来的样式
-                SelectedQuoteRow = i;//保存我们选定的行
+                QuoteRow row = null;
+                row = this[i];
+                if (row != null)
+                {
+                    row.Selected = true;
+                    Invalidate(row.Rect);
+                }
+                row = this[old];
+                if (row != null)
+                {
+                    Invalidate(row.Rect);
+                    row.Selected = false;
+                }
+                _selectedRow = i;
+
             }
         }
 
@@ -372,7 +328,7 @@ namespace TradingLib.KryptonControl
             return this[row].Symbol;
         }
 
-        MDSymbol CurrentSymbol
+        public MDSymbol SelectedSymbol
         { 
             get
             {
@@ -380,6 +336,7 @@ namespace TradingLib.KryptonControl
                 {
                     return this[_selectedRow].Symbol;
                 }
+                //_selected 不在选择范围内 返回第一个值
                 if (this.Count > 0)
                 {
                     return this[0].Symbol;
@@ -389,47 +346,6 @@ namespace TradingLib.KryptonControl
         
         }
 
-        //将某行颜色重置
-        void ResetRowBackColor(int rid)
-        {
-            QuoteRow row = this[rid];
-            if (row != null)
-            {
-                row.Selected = false;
-                Invalidate(row.Rect);
-            }
-        }
-
-        //更改某行颜色
-        void ChangeRowBackColor(int rid)
-        {
-             QuoteRow row = this[rid];
-             if (row != null)
-             {
-                 row.Selected = true;
-                 Invalidate(row.Rect);
-             }
-        }
-
-       
-
-        /// <summary>
-        /// 拖拽停止后改变列宽
-        /// </summary>
-        private void ChangeColWidth()
-        {
-            try
-            {
-                //debug("改变列宽");
-                quoteColumns[CurrentMoveYLIneID - 1].Width = quoteColumns[CurrentMoveYLIneID - 1].Width + CurrentYLineMoveWidth;
-                columnWidthChanged();
-                this.Refresh();
-            }
-            catch (Exception ex)
-            {
-                debug("changecolwidth error");
-            }
-        }
         private bool MouseIsInTableArea(MouseEventArgs e)
         {
             //return true;
@@ -437,13 +353,6 @@ namespace TradingLib.KryptonControl
         }
 
         
-        
-        
-
-        
-
-        #endregion
-
         #region 右键菜单
 
         ContextMenuStrip _cmenu;
@@ -518,9 +427,7 @@ namespace TradingLib.KryptonControl
 
         #endregion
 
-        #region 键盘响应
 
-       
         /// <summary>
         /// 上移行
         /// </summary>
@@ -549,8 +456,5 @@ namespace TradingLib.KryptonControl
                 Invalidate();
             }
         }
-
-        #endregion
-
     }
 }

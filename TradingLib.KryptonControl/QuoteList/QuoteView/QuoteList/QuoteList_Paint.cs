@@ -36,6 +36,13 @@ namespace TradingLib.KryptonControl
                     //可以实现行的排列,当排列后我们将_idxQuoteRowMap重新映射到新的QuoteRow队列即可
                     _quoteList[i].Paint(e);
                 }
+
+                //移动列宽 绘制虚线
+                if (_cursorType == CursorType.CHANGEWIDTH)
+                { 
+                    _pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    g.DrawLine(_pen, _mouseX-2, 0, _mouseX-2, this.Height);
+                }
             }
             catch (Exception ex)
             {

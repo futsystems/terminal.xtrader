@@ -53,7 +53,7 @@ namespace TradingLib.KryptonControl
 
                 if (e.KeyCode == Keys.Return)//Q打开K线图//回车打开k线
                 {
-                    MDSymbol symbol = CurrentSymbol;
+                    MDSymbol symbol = SelectedSymbol;
 
                     logger.Info("Open Chart Symbol:{0}".Put(symbol != null ? symbol.Symbol : "null"));
                     menuOpenKChart(null, null);
