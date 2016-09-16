@@ -57,225 +57,6 @@ namespace TradingLib.KryptonControl
                 SendDebugEvent(msg);
         }
 
-        #region 属性
-        //属性获得和设置
-        [DefaultValue("Aqua")]
-        Color _UPColor = Color.Red;
-        public Color UPColor
-        {
-            get
-            {
-                return _UPColor;
-            }
-            set
-            {
-                _UPColor= value;
-                Invalidate();
-            }
-        }
-        [DefaultValue("Aqua")]
-        Color _DNColor = Color.Green;
-        public Color DNColor
-        {
-            get
-            {
-                return _DNColor;
-            }
-            set
-            {
-                _DNColor = value;
-                Invalidate();
-            }
-        }
-
-        //调用Invalidate()可以保证设置属性之后重绘控件
-        [DefaultValue("Arial, 10.5pt, style=Bold")]
-        Font _headFont = new Font("Arial,style=Bold",10);
-        public Font HeaderFont
-        {
-            get
-            {
-                return _headFont;
-            }
-            set
-            {
-                _headFont = value;
-                Invalidate();
-            }
-        }
-        [DefaultValue("Aqua")]
-        Color _headFontColor = Color.FromArgb(0, 255, 255);
-        public Color HeaderFontColor
-        {
-            get
-            {
-                return _headFontColor;
-            }
-            set
-            {
-                _headFontColor = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("Aqua")]
-        Color _headBackColor = Color.FromArgb(0, 0, 0);
-        public Color HeaderBackColor
-        {
-            get
-            {
-                return _headBackColor;
-            }
-            set
-            {
-                _headBackColor = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("Arial, 10.5pt, style=Bold")]
-        Font _quoteFont = new Font("Aria", 10,FontStyle.Bold);
-        public Font QuoteFont
-        {
-            get
-            {
-                return _quoteFont;
-            }
-            set
-            {
-                _quoteFont = value;
-                _cellstyle.QuoteFont = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("Arial, 10.5pt")]
-        Font _symbolFont = new Font("Aria", 10);
-        public Font SymbolFont
-        {
-            get
-            {
-                return _symbolFont;
-            }
-            set
-            {
-                _symbolFont = value;
-                Invalidate();
-            }
-        }
-        [DefaultValue("Aqua")]
-        Color _symbolFontColor = Color.Green;
-        public Color SymbolFontColor
-        {
-            get
-            {
-                return _symbolFontColor;
-            }
-            set
-            {
-                _symbolFontColor = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("Blue")]
-        Color _selectedColor = Color.FromArgb(75, 75, 75);
-        public Color SelectedColor
-        {
-            get
-            {
-                return _selectedColor;
-            }
-            set
-            {
-                _selectedColor = value;
-            }
-        }
-
-
-
-        [DefaultValue("SlateGray")]
-        Color _quoteBackColor1 = Color.FromArgb(0, 0, 0);
-        public Color QuoteBackColor1
-        {
-            get
-            {
-                return _quoteBackColor1;
-            }
-            set
-            {
-                _quoteBackColor1 = value;
-                //_cellstyle.BackColor = value;
-                DefaultQuoteStyle.QuoteBackColor1 = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("LightSlateGray")]
-        Color _quoteBackColor2 = Color.FromArgb(0, 0, 0);
-        public Color QuoteBackColor2
-        {
-            get
-            {
-                return _quoteBackColor2;
-            }
-            set
-            {
-                _quoteBackColor2 = value;
-                //_cellstyle.BackColor = value;
-                DefaultQuoteStyle.QuoteBackColor2 = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("Silver")]
-        Color _tableLineColor = Color.FromArgb(0, 0, 0);
-        public Color TableLineColor
-        {
-            get
-            {
-                
-                return _tableLineColor;
-            }
-            set
-            {
-                _tableLineColor = value;
-                
-                DefaultQuoteStyle.LineColor = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue("False")]
-        bool _showmenu = false;
-        public bool MenuEnable
-        {
-            get
-            {
-
-                return _showmenu;
-            }
-            set
-            {
-                _showmenu = value;
-                if (_showmenu)
-                {
-                    initMenu();
-                }
-
-            }
-        }
-
-        [DefaultValue("CNQUOTE")]
-        EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
-        public EnumQuoteType QuoteType
-        {
-            get { return _quoteType; }
-            set { _quoteType = value; }
-        }
-
-        #endregion
-
         //初始
         CellStyle _cellstyle;
         public CellStyle DefaultCellStyle { get { return _cellstyle; } }
@@ -302,13 +83,14 @@ namespace TradingLib.KryptonControl
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
             this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
 
-            
-            
-            
-            this.PreviewKeyDown += new PreviewKeyDownEventHandler(ViewQuoteList_PreviewKeyDown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyUp);
+
+
+            this.GotFocus += new EventHandler(ViewQuoteList_GotFocus);
+            this.LostFocus += new EventHandler(ViewQuoteList_LostFocus);
+            //this.PreviewKeyDown += new PreviewKeyDownEventHandler(ViewQuoteList_PreviewKeyDown);
+            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
+            //this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
+            //this.KeyUp += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyUp);
 
             this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
 
@@ -319,6 +101,16 @@ namespace TradingLib.KryptonControl
             columnWidthChanged();
 
             
+        }
+
+        void ViewQuoteList_LostFocus(object sender, EventArgs e)
+        {
+            logger.Info("lost focus");
+        }
+
+        void ViewQuoteList_GotFocus(object sender, EventArgs e)
+        {
+            logger.Info("got focus");
         }
 
         /// <summary>
@@ -332,30 +124,30 @@ namespace TradingLib.KryptonControl
         }
 
         
-        void ViewQuoteList_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            logger.Info("PreviewKeyDown:" + e.KeyCode.ToString());
-            switch(e.KeyCode)
-            {
-                case Keys.Up:
-                    this.RowUp();
-                    break;
-                case Keys.Down:
-                    this.RowDown();
-                    break;
-                case Keys.Left:
-                case Keys.Right:
-                    {
-                        if (RightLeftMoveEvent != null)
-                        {
-                            RightLeftMoveEvent(e);
-                        }
-                        break;
-                    }
-                default:
-                    break;
-            }
-        }
+        //void ViewQuoteList_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        //{
+        //    logger.Info("PreviewKeyDown:" + e.KeyCode.ToString());
+        //    switch(e.KeyCode)
+        //    {
+        //        case Keys.Up:
+        //            this.RowUp();
+        //            break;
+        //        case Keys.Down:
+        //            this.RowDown();
+        //            break;
+        //        case Keys.Left:
+        //        case Keys.Right:
+        //            {
+        //                if (RightLeftMoveEvent != null)
+        //                {
+        //                    RightLeftMoveEvent(e);
+        //                }
+        //                break;
+        //            }
+        //        default:
+        //            break;
+        //    }
+        //}
 
 
        
@@ -392,6 +184,7 @@ namespace TradingLib.KryptonControl
 
 
         private SolidBrush _brush = new SolidBrush(Color.Black);
+
         #region 计算我们需要显示的行
         
         int _beginIdx = 0;
@@ -444,17 +237,11 @@ namespace TradingLib.KryptonControl
         
         #endregion
 
-        //记录rowid与对应的quoteRow的映射
-        //行号与idx的映射 当进行排列时候 我们就是需要动态的去更改idxQuoteRowMap
-        Dictionary<int, QuoteRow> _idxQuoteRowMap = new Dictionary<int, QuoteRow>();
-        //记录symbol代码与对应ID的映射
+        int _count = 0;
+        List<QuoteRow> _quoteList = new List<QuoteRow>();
+        //记录symbol代码与对应Row序号的映射
         Dictionary<string, int> _symbolIdxMap = new Dictionary<string, int>();
         
-        /// <summary>
-        /// 合约symbol
-        /// </summary>
-        ConcurrentDictionary<string, MDSymbol> symmap = new ConcurrentDictionary<string, MDSymbol>();
-
         //symbol到本地idx的转换
         int symbol2idx(string symbol)
         {
@@ -463,15 +250,16 @@ namespace TradingLib.KryptonControl
                 return idx;
             return -1;
         }
+
         //通过本地idx得到quoterow
         public QuoteRow this[int idx]{
                 get{
-                QuoteRow qr;
-                if(_idxQuoteRowMap.TryGetValue(idx,out qr))
-                    return qr;
-                return null;
+                    if (idx > _count) return null;
+                    if (idx < 0) return null;
+                    return _quoteList[idx];
                 }
         }
+
         //通过symbol得到quoterow
         public QuoteRow this[string symbol] { get { return this[symbol2idx(symbol)]; } }
 
@@ -485,12 +273,6 @@ namespace TradingLib.KryptonControl
         {
             cellLocations.Write(val);
         }
-
-        /// <summary>
-        /// 返回所有当前加载的合约
-        /// </summary>
-        public IEnumerable<MDSymbol> Symbols { get { return symmap.Values; } }
-
 
         bool _needInvalidate = true;
         public void BeginUpdate()
@@ -508,51 +290,45 @@ namespace TradingLib.KryptonControl
         #region 添加 删除合约
         /// <summary>
         /// 增加一个合约到显示列表
+        /// QuoteList初始为空 在添加合约过程中创建，且可以复用，避免视图切换时频繁创建该对象
+        /// QuoteList维护了一个列表 用于存放QuoteRow
+        /// _symbolIdxMap记录了合约->QuoteList下标的映射
         /// </summary>
         /// <param name="sec"></param>
         public void AddSymbol(MDSymbol symbol)
         {
-           
             string sym = symbol.Symbol;
             //1.检查是否存在该symbol,如果存在则直接返回
-            if (symmap.ContainsKey(symbol.Symbol)) return;
-
-            //2.如果没有该symbol则进行数据项目的增加
-            symmap.TryAdd(symbol.Symbol, symbol);
+            if (_symbolIdxMap.Keys.Contains(sym)) return;
             try
             {
-
-                //debug("security:" + sym + "pricetick" + symbol.SecurityFamily.PriceTick.ToString());
-                //1.在DataGrid中增加新的一行数据
-               
-                int i = _idxQuoteRowMap.Count;
-                QuoteRow qr = new QuoteRow(this,i, symbol, _quoteType);
-                qr.SendDebutEvent +=new DebugDelegate(debug);
-
+                int i = _count;
+                _count++;
+                //QuoteList没有足够的QuoteRow则新建
+                if (_quoteList.Count < _count)
+                {
+                    QuoteRow qr = new QuoteRow(this, i, symbol, _quoteType);
+                    qr.SendDebutEvent += new DebugDelegate(debug);
+                    _quoteList.Add(qr);
+                }
+                else//设定QuoteRow现实的合约对象
+                {
+                    _quoteList[i].Symbol = symbol;
+                }
                 _symbolIdxMap.Add(sym, i);
-                _idxQuoteRowMap.Add(i, qr);
                 //更新当前的序号
-                _endIdx = Count - 1;
-
-
+                _endIdx = _count - 1;
 
                 //如果当前没有默认选中某行 则选中第一行
                 if (_selectedRow == -1)
                 {
                     SelectRow(0);
                 }
-                //int rows = CalcRowsCanShow();//计算我们显示的总行数
-                ////当选择的行小于我们可以显示的行 则我们显示可以显示的行数与总行数中最小的一个数字
-                //if (_selectedRow + 1 <= rows)
-                //    _endIdx = Math.Min(rows - 1, Count - 1);
-                //logger.Info("max rows:{0} endidx:{1}".Put(rows, _endIdx));
-                //计算显示的起始行数
-                //UpdateBeginEndIdx();
 
                 //重新绘制窗口的某个特定部分
                 if (_needInvalidate)
                 {
-                    Invalidate(qr.Rect);
+                    Invalidate(_quoteList[i].Rect);
                 }
             }
             catch(Exception ex)
@@ -567,38 +343,25 @@ namespace TradingLib.KryptonControl
         /// <param name="sec"></param>
         public void RemoveSymbol(MDSymbol symbol)
         {
-            string sym = symbol.Symbol;//得到该security的symbol代号
-            //1.检查是否存在该symbol,如果存在则直接返回
-            if (!symmap.Keys.Contains(sym)) return;
-            //如果baskect中没有该symbol,我们将其加入
-            MDSymbol symout=null;
-            symmap.TryRemove(sym, out symout);
+            string sym = symbol.Symbol;
             int rid;
-            
             //如果symbolIdx没有找到Symbol对应的行号 则直接返回
             if (!_symbolIdxMap.TryGetValue(sym, out rid))
             {
                 return;
             }
-            int rnum = this.Count;
 
-            //将删除的该symbol对应的id所映射的QuoteRow删除,同时将它后面的id的往前提1
-            //将rid对应行的QuoteRow设置成下一行的数据
-            for (int i = rid; i < rnum-1; i++)
+            //删除某行对应合约 就是将下一行合约往上赋值
+            for (int i = rid; i < _count-1; i++)
             {
-               
-                QuoteRow qr = _idxQuoteRowMap[i + 1];//获得下一行QuoteRow
-                qr.RowID = i;
-                _symbolIdxMap[qr.Symbol.Symbol] = i;
-                _idxQuoteRowMap[i] = qr;
-                //debug("第" + i.ToString() + "行数据设定为:" + (i + 1).ToString() + " " + qr[0].symbol);
-                //修改quoterow内部的与序号相关的参数
-
+                QuoteRow now = _quoteList[i];
+                QuoteRow next = _quoteList[i+1];
+                now.Symbol = next.Symbol;
+                _symbolIdxMap[now.Symbol.Symbol] = i;
             }
+            _count--;
 
-            _idxQuoteRowMap.Remove(rnum-1);
             _symbolIdxMap.Remove(sym);
-            //debug("剩下数据" + _symbolIdxMap.Count.ToString() + "行");
 
             UpdateBeginEndIdx();
             this.ResetAllRect();
@@ -621,20 +384,19 @@ namespace TradingLib.KryptonControl
 
         public void Clear()
         {
-            
-            symmap.Clear();
-            _idxQuoteRowMap.Clear();
+
+            _count = 0;
             _symbolIdxMap.Clear();
             _beginIdx = 0;
             _endIdx = 0;
-            _selectedRow = 0;
+            _selectedRow = -1;
 
         }
         #endregion
 
 
         //报价表总行数
-        public int Count { get { return _idxQuoteRowMap.Count; } }
+        public int Count { get { return _count; } }//_idxQuoteRowMap.Count; } }
         //得到新的Tick通过索引直接调用QuoteRow进行gottick更新单元格,然后按行进行数据更新
         public void GotTick(Tick k)
         {
@@ -708,10 +470,14 @@ namespace TradingLib.KryptonControl
         //平时更新数据的时候进行这些计算是没有意义 浪费CPU资源
         void ResetAllRect()
         {
-            foreach (QuoteRow qr in _idxQuoteRowMap.Values)
+            for (int i = 0; i < _count;i++)
             {
-                qr.ResetRowRect();
+                _quoteList[i].ResetRowRect();
             }
+                //foreach (QuoteRow qr in _idxQuoteRowMap.Values)
+                //{
+                //    qr.ResetRowRect();
+                //}
         }
         //当列宽发生变化时候,我们需要重新计算更新列的起点 以及 总宽等数据编译QuoteRow cell进行调用
         void columnWidthChanged()
@@ -1101,40 +867,7 @@ namespace TradingLib.KryptonControl
 
         #region 键盘响应
 
-        void ViewQuoteList_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-
-            try
-            {
-                logger.Info("KeyDown:{0}".Put(e.KeyCode));
-
-                if (e.KeyCode == Keys.Return)//Q打开K线图//回车打开k线
-                {
-                    MDSymbol symbol = CurrentSymbol;
-
-                    logger.Info("Open Chart Symbol:{0}".Put(symbol != null ? symbol.Symbol : "null"));
-                    menuOpenKChart(null, null);
-                }
-
-                if (e.KeyCode == Keys.W)//W打开盘口
-                    openTimeSales();
-                if (e.KeyCode == Keys.E)//E打开小下单面板
-                    openTicket();
-
-               
-            }
-            catch (Exception ex)
-            { 
-                
-            }
-
-        }
-
-        void ViewQuoteList_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
-        {
-            //MessageBox.Show("xx");
-            logger.Info("KeyPress:" + e.KeyChar);
-        }
+       
         /// <summary>
         /// 上移行
         /// </summary>

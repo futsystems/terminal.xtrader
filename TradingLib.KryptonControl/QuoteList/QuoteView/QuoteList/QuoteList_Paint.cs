@@ -34,7 +34,7 @@ namespace TradingLib.KryptonControl
                 for (int i = _beginIdx; i <= _endIdx; i++)
                 {
                     //可以实现行的排列,当排列后我们将_idxQuoteRowMap重新映射到新的QuoteRow队列即可
-                    _idxQuoteRowMap[i].Paint(e);
+                    _quoteList[i].Paint(e);
                 }
             }
             catch (Exception ex)

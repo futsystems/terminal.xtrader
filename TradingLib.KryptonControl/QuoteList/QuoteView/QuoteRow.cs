@@ -41,7 +41,16 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 合约
         /// </summary>
-        public MDSymbol Symbol { get { return _symbol; } }
+        public MDSymbol Symbol 
+        { 
+            get { return _symbol; }
+            set {
+                _symbol = value;
+                _pricedispformat = _symbol.GetFormat();
+                this.SetUnchangedCell();
+            }
+        
+        }
 
 
         EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
@@ -93,6 +102,11 @@ namespace TradingLib.KryptonControl
 
             }
 
+            this.SetUnchangedCell();
+        }
+
+        void SetUnchangedCell()
+        {
             //设置合约/名称字段
             if (_quotelist.Columns.Contains(QuoteListConst.SYMBOL))
             {

@@ -65,11 +65,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockTab\BlockButton.cs" />
-    <Compile Include="BlockTab\BlockTab.cs">
+    <Compile Include="QuoteList\BlockTab\BlockButton.cs" />
+    <Compile Include="QuoteList\BlockTab\BlockTab.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BlockTab\BlockTab.Designer.cs">
+    <Compile Include="QuoteList\BlockTab\BlockTab.Designer.cs">
       <DependentUpon>BlockTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\ControlLogFactoryAdapter.cs" />
@@ -79,10 +79,10 @@
     <Compile Include="Control\DebugControl.designer.cs">
       <DependentUpon>DebugControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Page\ctrlQuoteList.cs">
+    <Compile Include="QuoteList\ctrlQuoteList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Page\ctrlQuoteList.Designer.cs">
+    <Compile Include="QuoteList\ctrlQuoteList.Designer.cs">
       <DependentUpon>ctrlQuoteList.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\ChartSetting.cs" />
@@ -125,10 +125,10 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="ctQuoteView\QuoteList\QuoteList_.cs">
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ctQuoteView\QuoteList\QuoteList_Paint.cs">
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Paint.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="fm\fmConfrim.cs">
@@ -155,15 +155,21 @@
     <Compile Include="Page\PageQuoteMoniter.Designer.cs">
       <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </Compile>
-    <Compile Include="ctQuoteView\EnumQuoteType.cs" />
-    <Compile Include="ctQuoteView\QuoteCell.cs" />
-    <Compile Include="ctQuoteView\QuoteListConst.cs" />
-    <Compile Include="ctQuoteView\QuoteRow.cs" />
-    <Compile Include="ctQuoteView\Style.cs" />
-    <Compile Include="ctQuoteView\QuoteList\ViewQuoteList.cs">
+    <Compile Include="QuoteList\QuoteView\EnumQuoteType.cs" />
+    <Compile Include="QuoteList\QuoteView\QuoteCell.cs" />
+    <Compile Include="QuoteList\QuoteView\QuoteListConst.cs" />
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Property.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ctQuoteView\QuoteList\ViewQuoteList.Designer.cs">
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Keyboard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuoteList\QuoteView\QuoteRow.cs" />
+    <Compile Include="QuoteList\QuoteView\Style.cs" />
+    <Compile Include="QuoteList\QuoteView\QuoteList\ViewQuoteList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuoteList\QuoteView\QuoteList\ViewQuoteList.Designer.cs">
       <DependentUpon>ViewQuoteList.cs</DependentUpon>
     </Compile>
     <Compile Include="IDataSource.cs" />
@@ -204,7 +210,7 @@
     <EmbeddedResource Include="Control\DebugControl.resx">
       <DependentUpon>DebugControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Page\ctrlQuoteList.resx">
+    <EmbeddedResource Include="QuoteList\ctrlQuoteList.resx">
       <DependentUpon>ctrlQuoteList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctDeliveryViewSTK.resx">
@@ -237,7 +243,7 @@
     <EmbeddedResource Include="Page\PageQuoteMoniter.resx">
       <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ctQuoteView\QuoteList\ViewQuoteList.resx">
+    <EmbeddedResource Include="QuoteList\QuoteView\QuoteList\ViewQuoteList.resx">
       <DependentUpon>ViewQuoteList.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

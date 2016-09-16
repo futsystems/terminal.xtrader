@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlQuoteList));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.quotelist = new TradingLib.KryptonControl.ViewQuoteList();
+            this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.blockTab = new TradingLib.KryptonControl.BlockTab();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -58,16 +58,6 @@
             this.vScrollBar1.Size = new System.Drawing.Size(17, 408);
             this.vScrollBar1.TabIndex = 1;
             // 
-            // blockPanel
-            // 
-            this.blockPanel.Controls.Add(this.blockTab);
-            this.blockPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.blockPanel.Location = new System.Drawing.Point(0, 408);
-            this.blockPanel.Name = "blockPanel";
-            this.blockPanel.Size = new System.Drawing.Size(924, 20);
-            this.blockPanel.StateCommon.Image = ((System.Drawing.Image)(resources.GetObject("blockPanel.StateCommon.Image")));
-            this.blockPanel.TabIndex = 1;
-            // 
             // quotelist
             // 
             this.quotelist.BackColor = System.Drawing.Color.Black;
@@ -91,8 +81,19 @@
             this.quotelist.SymbolFontColor = System.Drawing.Color.Green;
             this.quotelist.TabIndex = 0;
             this.quotelist.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.quotelist.TabStop = false;
             this.quotelist.Text = "viewQuoteList1";
             this.quotelist.UPColor = System.Drawing.Color.Red;
+            // 
+            // blockPanel
+            // 
+            this.blockPanel.Controls.Add(this.blockTab);
+            this.blockPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.blockPanel.Location = new System.Drawing.Point(0, 408);
+            this.blockPanel.Name = "blockPanel";
+            this.blockPanel.Size = new System.Drawing.Size(924, 20);
+            this.blockPanel.StateCommon.Image = ((System.Drawing.Image)(resources.GetObject("blockPanel.StateCommon.Image")));
+            this.blockPanel.TabIndex = 1;
             // 
             // blockTab
             // 
@@ -100,17 +101,17 @@
             this.blockTab.Dock = System.Windows.Forms.DockStyle.Left;
             this.blockTab.Location = new System.Drawing.Point(0, 0);
             this.blockTab.Name = "blockTab";
-            this.blockTab.Size = new System.Drawing.Size(640, 20);
+            this.blockTab.Size = new System.Drawing.Size(237, 20);
             this.blockTab.TabIndex = 0;
             this.blockTab.Text = "blockButton1";
             // 
-            // Quote
+            // ctrlQuoteList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.kryptonPanel1);
             this.Controls.Add(this.blockPanel);
-            this.Name = "Quote";
+            this.Name = "ctrlQuoteList";
             this.Size = new System.Drawing.Size(924, 428);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
