@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using TradingLib.MarketData;
 
 
 namespace DataAPI.TDX
@@ -79,15 +80,7 @@ namespace DataAPI.TDX
         public ushort w3, w4;
     };
     //财务
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct CaiWu
-    {
-        public double LTG;//流通股数量
-        public ushort t1, t2;
-        public uint day1, day2;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
-        public float[] zl;
-    };
+
     //权息
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct QuanInfo
@@ -113,7 +106,7 @@ namespace DataAPI.TDX
         public String names, codes, keys;
         public TGPNAME GP = new TGPNAME(); // 原始资料
         public Quan qu = new Quan();// QuanInfo[] qu = new QuanInfo[80];
-        public CaiWu cw = new CaiWu();// 财务资料
+        public FinanceData cw = new FinanceData();// 财务资料
         public byte mark, type;//市场和类型
 
         public TDXT now = new TDXT();// 最新盘口资料

@@ -252,17 +252,17 @@ namespace CStock
             if (s2.Length == 0)
                 s2 = s1;
 
-            if (StockInfo != null)
+            if (Symbol != null)
             {
                 if (s1 == "capital")
                 {
-                    f1 = StockInfo.cw.LTG / 100;
+                    f1 = Symbol.FinanceData.LTG / 100;
                     return true;
                 }
 
                 if (s1 == "totalcapital")
                 {
-                    f1 = StockInfo.cw.zl[0] / 100;
+                    f1 = Symbol.FinanceData.zl[0] / 100;
                     return true;
                 }
             }

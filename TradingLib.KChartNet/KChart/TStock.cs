@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using Common.Logging;
-
+using TradingLib.MarketData;
 
 namespace CStock
 {
@@ -68,7 +68,7 @@ namespace CStock
         //数据提示窗口
         Label[] HL = new Label[22];
         Point oriPoint;//保存原来位置 拖动浮动窗口
-        Stock FCurStock = null;
+        MDSymbol FCurStock = null;
 
 
         Label[] debugLabels = new Label[10];
@@ -713,19 +713,19 @@ namespace CStock
         /// <summary>
         /// 设定当前最新数据
         /// </summary>
-        /// <param name="sk"></param>
-        public void SetStock(Stock sk)
+        /// <param name="symbol"></param>
+        public void SetStock(MDSymbol symbol)
         {
-            if (sk == null)
+            if (symbol == null)
                 return;
             //if (BuyValue[0] == null)
             //    return;
-            FCurStock = sk;
-            FSGS[0].StockInfo = sk;
-            GS[0].StockInfo = sk;
+            FCurStock = symbol;
+            FSGS[0].Symbol = symbol;
+            GS[0].Symbol = symbol;
 
-            ctDetailsBoard1.SetStock(sk);
-            FSGS[0].PreClose = sk.now.last;
+            ctDetailsBoard1.SetStock(symbol);
+            FSGS[0].PreClose = symbol.PreClose;// symbol.now.last;
 
             this.BarWidth = 8;
             this.StartFix = false;

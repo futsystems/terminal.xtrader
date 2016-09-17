@@ -118,8 +118,8 @@ namespace CStock
             Bounds.Height = rectHeight - (toph + both);
 
             weilen = 2;
-            if (StockInfo != null)
-                weilen = StockInfo.GP.PriceMag;
+            if (Symbol != null)
+                weilen = Symbol.Precision;
 
             //根据不同的类型 设定分时固定宽度 显示固定个数的分时数据
             int linecount = 240;

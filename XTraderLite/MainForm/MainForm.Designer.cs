@@ -68,7 +68,9 @@
             this.holder = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.panelKChart = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.kChartView = new CStock.TStock();
             this.panelQuoteList = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.quoteView = new TradingLib.KryptonControl.ctrlQuoteList();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnQuoteView = new System.Windows.Forms.ToolStripButton();
             this.btnIntraView = new System.Windows.Forms.ToolStripButton();
@@ -93,10 +95,8 @@
             this.btnDemo1 = new System.Windows.Forms.ToolStripButton();
             this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
             this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
-            this.bottomStatusPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kChartView = new CStock.TStock();
-            this.quoteView = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
+            this.bottomStatusPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             ((System.ComponentModel.ISupportInitialize)(this.topMenuPanel)).BeginInit();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuHolder)).BeginInit();
@@ -136,7 +136,7 @@
             // 
             this.kryptonLabel1.Location = new System.Drawing.Point(563, 4);
             this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(127, 22);
+            this.kryptonLabel1.Size = new System.Drawing.Size(127, 20);
             this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Arial", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonLabel1.TabIndex = 6;
@@ -156,7 +156,7 @@
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.系统ToolStripMenuItem,
             this.技术ToolStripMenuItem,
@@ -165,7 +165,7 @@
             this.帮助ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(237, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(237, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -182,25 +182,25 @@
             this.toolStripSeparator6,
             this.退出系统ToolStripMenuItem});
             this.系统ToolStripMenuItem.Name = "系统ToolStripMenuItem";
-            this.系统ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.系统ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.系统ToolStripMenuItem.Text = "系统";
             // 
             // 断开服务器ToolStripMenuItem
             // 
             this.断开服务器ToolStripMenuItem.Name = "断开服务器ToolStripMenuItem";
-            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.断开服务器ToolStripMenuItem.Text = "连接服务器";
             // 
             // 断开服务器ToolStripMenuItem1
             // 
             this.断开服务器ToolStripMenuItem1.Name = "断开服务器ToolStripMenuItem1";
-            this.断开服务器ToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.断开服务器ToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
             this.断开服务器ToolStripMenuItem1.Text = "断开服务器";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(131, 6);
             // 
             // 视图ToolStripMenuItem
             // 
@@ -208,47 +208,47 @@
             this.工具栏ToolStripMenuItem,
             this.状态栏ToolStripMenuItem});
             this.视图ToolStripMenuItem.Name = "视图ToolStripMenuItem";
-            this.视图ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.视图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.视图ToolStripMenuItem.Text = "视图";
             // 
             // 工具栏ToolStripMenuItem
             // 
             this.工具栏ToolStripMenuItem.Name = "工具栏ToolStripMenuItem";
-            this.工具栏ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.工具栏ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.工具栏ToolStripMenuItem.Text = "工具栏";
             // 
             // 状态栏ToolStripMenuItem
             // 
             this.状态栏ToolStripMenuItem.Name = "状态栏ToolStripMenuItem";
-            this.状态栏ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.状态栏ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.状态栏ToolStripMenuItem.Text = "状态栏";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
             // 
             // 屏幕截图ToolStripMenuItem
             // 
             this.屏幕截图ToolStripMenuItem.Name = "屏幕截图ToolStripMenuItem";
-            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.屏幕截图ToolStripMenuItem.Text = "屏幕截图";
             // 
             // 打印ToolStripMenuItem
             // 
             this.打印ToolStripMenuItem.Name = "打印ToolStripMenuItem";
-            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.打印ToolStripMenuItem.Text = "打印";
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(131, 6);
             // 
             // 退出系统ToolStripMenuItem
             // 
             this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
-            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.退出系统ToolStripMenuItem.Text = "退出系统";
             // 
             // 技术ToolStripMenuItem
@@ -260,38 +260,38 @@
             this.分析图ToolStripMenuItem,
             this.menuSwitchKchart});
             this.技术ToolStripMenuItem.Name = "技术ToolStripMenuItem";
-            this.技术ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.技术ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.技术ToolStripMenuItem.Text = "分析";
             // 
             // 分时走势ToolStripMenuItem
             // 
             this.分时走势ToolStripMenuItem.Name = "分时走势ToolStripMenuItem";
-            this.分时走势ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.分时走势ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.分时走势ToolStripMenuItem.Text = "分时走势图";
             // 
             // 分笔成交明细ToolStripMenuItem
             // 
             this.分笔成交明细ToolStripMenuItem.Name = "分笔成交明细ToolStripMenuItem";
-            this.分笔成交明细ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.分笔成交明细ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.分笔成交明细ToolStripMenuItem.Text = "分笔成交明细";
             // 
             // 分价表ToolStripMenuItem
             // 
             this.分价表ToolStripMenuItem.Name = "分价表ToolStripMenuItem";
-            this.分价表ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.分价表ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.分价表ToolStripMenuItem.Text = "分价表";
             // 
             // 分析图ToolStripMenuItem
             // 
             this.分析图ToolStripMenuItem.Name = "分析图ToolStripMenuItem";
-            this.分析图ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.分析图ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.分析图ToolStripMenuItem.Text = "分析图";
             // 
             // menuSwitchKchart
             // 
             this.menuSwitchKchart.Name = "menuSwitchKchart";
             this.menuSwitchKchart.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.menuSwitchKchart.Size = new System.Drawing.Size(186, 22);
+            this.menuSwitchKchart.Size = new System.Drawing.Size(182, 22);
             this.menuSwitchKchart.Text = "分时/分析图切换";
             // 
             // 交易ToolStripMenuItem
@@ -299,14 +299,14 @@
             this.交易ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuTrading});
             this.交易ToolStripMenuItem.Name = "交易ToolStripMenuItem";
-            this.交易ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.交易ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.交易ToolStripMenuItem.Text = "交易";
             // 
             // menuTrading
             // 
             this.menuTrading.Name = "menuTrading";
             this.menuTrading.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.menuTrading.Size = new System.Drawing.Size(152, 22);
+            this.menuTrading.Size = new System.Drawing.Size(147, 22);
             this.menuTrading.Text = "交易大师";
             // 
             // 工具ToolStripMenuItem
@@ -315,19 +315,19 @@
             this.自选ToolStripMenuItem,
             this.公式管理ToolStripMenuItem});
             this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
-            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.工具ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.工具ToolStripMenuItem.Text = "工具";
             // 
             // 自选ToolStripMenuItem
             // 
             this.自选ToolStripMenuItem.Name = "自选ToolStripMenuItem";
-            this.自选ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.自选ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.自选ToolStripMenuItem.Text = "自选";
             // 
             // 公式管理ToolStripMenuItem
             // 
             this.公式管理ToolStripMenuItem.Name = "公式管理ToolStripMenuItem";
-            this.公式管理ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.公式管理ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.公式管理ToolStripMenuItem.Text = "公式管理";
             // 
             // 帮助ToolStripMenuItem
@@ -339,36 +339,36 @@
             this.免责声明ToolStripMenuItem,
             this.关于ToolStripMenuItem});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.帮助ToolStripMenuItem.Text = "帮助";
             // 
             // 使用说明ToolStripMenuItem
             // 
             this.使用说明ToolStripMenuItem.Name = "使用说明ToolStripMenuItem";
-            this.使用说明ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.使用说明ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.使用说明ToolStripMenuItem.Text = "使用说明";
             // 
             // 快捷键ToolStripMenuItem
             // 
             this.快捷键ToolStripMenuItem.Name = "快捷键ToolStripMenuItem";
-            this.快捷键ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.快捷键ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.快捷键ToolStripMenuItem.Text = "快捷键";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
             // 
             // 免责声明ToolStripMenuItem
             // 
             this.免责声明ToolStripMenuItem.Name = "免责声明ToolStripMenuItem";
-            this.免责声明ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.免责声明ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.免责声明ToolStripMenuItem.Text = "免责条款";
             // 
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
             // btnMin
@@ -473,6 +473,44 @@
             this.panelKChart.TabIndex = 4;
             this.panelKChart.Visible = false;
             // 
+            // kChartView
+            // 
+            this.kChartView.BackColor = System.Drawing.Color.Black;
+            this.kChartView.BarViewWindowCount = 3;
+            this.kChartView.DaysForIntradayView = 1;
+            this.kChartView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kChartView.FsAll = false;
+            this.kChartView.FsFull = false;
+            this.kChartView.HighPicture = false;
+            this.kChartView.IntradayViewWindowCount = 2;
+            this.kChartView.KChartBackColor = System.Drawing.Color.Black;
+            this.kChartView.KChartLineColor = System.Drawing.Color.Maroon;
+            this.kChartView.Location = new System.Drawing.Point(0, 0);
+            this.kChartView.Margin = new System.Windows.Forms.Padding(0);
+            this.kChartView.Name = "kChartView";
+            this.kChartView.NoMoreBarDate = false;
+            this.kChartView.PR10 = false;
+            this.kChartView.PreClose = -1.7976931348623157E+308D;
+            this.kChartView.Quan = CStock.QuanType.qsNone;
+            this.kChartView.ShowBottomCalendar = true;
+            this.kChartView.ShowBottomTabMenu = true;
+            this.kChartView.ShowCrossCursor = false;
+            this.kChartView.ShowCurWindow = true;
+            this.kChartView.ShowDetailPanel = true;
+            this.kChartView.ShowDrawToolBox = false;
+            this.kChartView.ShowLeftAxis = true;
+            this.kChartView.ShowRightAxis = false;
+            this.kChartView.ShowTopHeader = true;
+            this.kChartView.Size = new System.Drawing.Size(324, 181);
+            this.kChartView.StartIndex = 13;
+            this.kChartView.StkCode = "";
+            this.kChartView.StkName = "";
+            this.kChartView.StkWeek = "";
+            this.kChartView.TabIndex = 2;
+            this.kChartView.Train = false;
+            this.kChartView.TrainEnd = 0;
+            this.kChartView.ViewType = CStock.KChartViewType.TimeView;
+            // 
             // panelQuoteList
             // 
             this.panelQuoteList.Controls.Add(this.quoteView);
@@ -482,9 +520,18 @@
             this.panelQuoteList.TabIndex = 3;
             this.panelQuoteList.Visible = false;
             // 
+            // quoteView
+            // 
+            this.quoteView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quoteView.Location = new System.Drawing.Point(0, 0);
+            this.quoteView.Name = "quoteView";
+            this.quoteView.Size = new System.Drawing.Size(310, 181);
+            this.quoteView.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("quoteView.Symbols")));
+            this.quoteView.TabIndex = 1;
+            // 
             // toolStrip1
             // 
-            this.toolStrip1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnQuoteView,
@@ -686,7 +733,7 @@
             this.btnDemo1.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo1.Image")));
             this.btnDemo1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDemo1.Name = "btnDemo1";
-            this.btnDemo1.Size = new System.Drawing.Size(28, 22);
+            this.btnDemo1.Size = new System.Drawing.Size(25, 22);
             this.btnDemo1.Text = "D1";
             // 
             // btnDemo2
@@ -695,7 +742,7 @@
             this.btnDemo2.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo2.Image")));
             this.btnDemo2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDemo2.Name = "btnDemo2";
-            this.btnDemo2.Size = new System.Drawing.Size(28, 22);
+            this.btnDemo2.Size = new System.Drawing.Size(25, 22);
             this.btnDemo2.Text = "D2";
             // 
             // btnDemo3
@@ -704,64 +751,8 @@
             this.btnDemo3.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo3.Image")));
             this.btnDemo3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDemo3.Name = "btnDemo3";
-            this.btnDemo3.Size = new System.Drawing.Size(28, 22);
+            this.btnDemo3.Size = new System.Drawing.Size(25, 22);
             this.btnDemo3.Text = "D3";
-            // 
-            // bottomStatusPanel
-            // 
-            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
-            this.bottomStatusPanel.Name = "bottomStatusPanel";
-            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
-            this.bottomStatusPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.BottomStatusBG;
-            this.bottomStatusPanel.TabIndex = 1;
-            // 
-            // kChartView
-            // 
-            this.kChartView.BackColor = System.Drawing.Color.Black;
-            this.kChartView.BarViewWindowCount = 3;
-            this.kChartView.DaysForIntradayView = 1;
-            this.kChartView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kChartView.FsAll = false;
-            this.kChartView.FsFull = false;
-            this.kChartView.HighPicture = false;
-            this.kChartView.IntradayViewWindowCount = 2;
-            this.kChartView.KChartBackColor = System.Drawing.Color.Black;
-            this.kChartView.KChartLineColor = System.Drawing.Color.Maroon;
-            this.kChartView.Location = new System.Drawing.Point(0, 0);
-            this.kChartView.Margin = new System.Windows.Forms.Padding(0);
-            this.kChartView.Name = "kChartView";
-            this.kChartView.NoMoreBarDate = false;
-            this.kChartView.PR10 = false;
-            this.kChartView.PreClose = -1.7976931348623157E+308D;
-            this.kChartView.Quan = CStock.QuanType.qsNone;
-            this.kChartView.ShowBottomCalendar = true;
-            this.kChartView.ShowBottomTabMenu = true;
-            this.kChartView.ShowCrossCursor = true;
-            this.kChartView.ShowCurWindow = false;
-            this.kChartView.ShowDetailPanel = true;
-            this.kChartView.ShowDrawToolBox = false;
-            this.kChartView.ShowLeftAxis = true;
-            this.kChartView.ShowRightAxis = true;
-            this.kChartView.ShowTopHeader = true;
-            this.kChartView.Size = new System.Drawing.Size(324, 181);
-            this.kChartView.StartIndex = 13;
-            this.kChartView.StkCode = "";
-            this.kChartView.StkName = "";
-            this.kChartView.StkWeek = "";
-            this.kChartView.TabIndex = 2;
-            this.kChartView.Train = false;
-            this.kChartView.TrainEnd = 0;
-            this.kChartView.ViewType = CStock.KChartViewType.KView;
-            // 
-            // quoteView
-            // 
-            this.quoteView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quoteView.Location = new System.Drawing.Point(0, 0);
-            this.quoteView.Name = "quoteView";
-            this.quoteView.Size = new System.Drawing.Size(310, 181);
-            this.quoteView.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("quoteView.Symbols")));
-            this.quoteView.TabIndex = 1;
             // 
             // debugControl1
             // 
@@ -774,6 +765,15 @@
             this.debugControl1.TabIndex = 0;
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
+            // 
+            // bottomStatusPanel
+            // 
+            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
+            this.bottomStatusPanel.Name = "bottomStatusPanel";
+            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
+            this.bottomStatusPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.BottomStatusBG;
+            this.bottomStatusPanel.TabIndex = 1;
             // 
             // MainForm
             // 

@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
+using TradingLib.MarketData;
+
 
 namespace CStock
 {
@@ -1383,12 +1385,12 @@ namespace CStock
                 showerror("DYNAINFO(N)参数N:" + xx[0] + "未定义!");
                 return false;
             }
-            if (StockInfo == null)
+            if (Symbol == null)
             {
                 showerror("DYNAINFO(N)需要设置 StockInfo!");
                 return false;
             }
-            TDX Value = StockInfo.now;
+            TDX Value = Symbol.TickSnapshot;
             double[] dynainfo = new double[24];
 
 
@@ -1431,13 +1433,13 @@ namespace CStock
                 showerror("finance(N)参数N:" + xx[0] + "未定义!");
                 return false;
             }
-            if (StockInfo == null)
+            if (Symbol == null)
             {
                 showerror("finance(N)需要设置 StockInfo!");
                 return false;
             }
             double[] finance = new double[64];
-            CaiWu Value = StockInfo.cw;
+            FinanceData Value = Symbol.FinanceData;
 
             finance[0] = Value.zl[0] * 10000;
             finance[0] = Value.zl[0] * 10000;
@@ -1468,8 +1470,8 @@ namespace CStock
             finance[32] = Value.zl[27] * 1000 / Value.zl[0];
             finance[33] = Value.zl[15] / Value.zl[0] / 10 / Value.zl[29] * 12;
             finance[34] = Value.zl[19] * 1000 / Value.zl[0];
-            finance[40] = StockInfo.now.prize * finance[7];
-            finance[41] = StockInfo.now.prize * finance[0];
+            finance[40] = Symbol.TickSnapshot.prize * finance[7];
+            finance[41] = Symbol.TickSnapshot.prize * finance[0];
             finance[42] = Value.day1;
 
             int id = Convert.ToInt32(d1);

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using TradingLib.MarketData;
+
+
 namespace CStock
 {
     public class Compile
@@ -567,71 +570,72 @@ namespace CStock
             double[] fdate = { 20130326, 20130327, 20130328, 20130329, 20130401, 20130402 };
             double[] ftime = { 930, 930, 930, 930, 930, 930 };
 
-            Stock stockinfo = new Stock();
-            stockinfo.GP = new TGPNAME();
-            stockinfo.GP.code = new byte[6];
+            TradingLib.MarketData.MDSymbol stockinfo = new TradingLib.MarketData.MDSymbol();
+            //stockinfo.GP = new TGPNAME();
+            //stockinfo.GP.code = new byte[6];
             byte[] cd = { 30, 30, 30, 30, 30, 31 };
-            cd.CopyTo(stockinfo.GP.code, 0);
-            stockinfo.codes = "000001";
-            stockinfo.names = "平安银行";
-            stockinfo.GP.PriceMag = 2;
-            stockinfo.GP.YClose = 11.5f;
+            //cd.CopyTo(stockinfo.GP.code, 0);
+            stockinfo.Symbol = "000001";
+            stockinfo.Name = "平安银行";
+            stockinfo.Precision = 2;
+            stockinfo.PreClose = 11.5f;
 
-            stockinfo.now = new TDX();
-            stockinfo.now.sell5 = 11.54;
-            stockinfo.now.sell4 = 11.53;
-            stockinfo.now.sell3 = 11.52;
-            stockinfo.now.sell2 = 11.51;
-            stockinfo.now.sell1 = 11.50;
-            stockinfo.now.buy1 = 11.49;
-            stockinfo.now.buy2 = 11.48;
-            stockinfo.now.buy3 = 11.47;
-            stockinfo.now.buy4 = 11.46;
-            stockinfo.now.buy5 = 11.45;
-            stockinfo.now.sellQTY5 = 1048;
-            stockinfo.now.sellQTY4 = 2080;
-            stockinfo.now.sellQTY3 = 568;
-            stockinfo.now.sellQTY2 = 529;
-            stockinfo.now.sellQTY1 = 782;
-            stockinfo.now.buyQTY1 = 2398;
-            stockinfo.now.buyQTY2 = 2354;
-            stockinfo.now.buyQTY3 = 2714;
-            stockinfo.now.buyQTY4 = 1598;
-            stockinfo.now.buyQTY5 = 1363;
-            stockinfo.now.last = 11.5;
-            stockinfo.now.open = 11.49;
-            stockinfo.now.high = 11.62;
-            stockinfo.now.low = 11.46;
-            stockinfo.now.prize = 11.50;
-            stockinfo.now.volume = 318773;
-            stockinfo.now.amount = 367350848;
-            stockinfo.cw = new CaiWu();
-            stockinfo.cw.LTG = 557590.1875;
-            stockinfo.cw.day1 = 20140506;
-            stockinfo.cw.day2 = 19910403;
-            stockinfo.cw.t1 = 18;
-            stockinfo.cw.t2 = 1;
-            stockinfo.cw.zl = new float[30];
-            stockinfo.cw.zl[0] = 952074.563f;
-            stockinfo.cw.zl[1] = 180199.0f;
-            stockinfo.cw.zl[3] = 3589000.0f;
-            stockinfo.cw.zl[4] = 10802000.0f;
-            stockinfo.cw.zl[7] = 2097102080.0f;
-            stockinfo.cw.zl[9] = 3580000.0f;
-            stockinfo.cw.zl[10] = 5332000.0f;
-            stockinfo.cw.zl[11] = 319109.0f;
-            stockinfo.cw.zl[14] = 51899000.0f;
-            stockinfo.cw.zl[15] = 117300000.0f;
-            stockinfo.cw.zl[16] = 16100000.0f;
-            stockinfo.cw.zl[19] = 6712000.0f;
-            stockinfo.cw.zl[20] = 2185000.0f;
-            stockinfo.cw.zl[21] = 60097000.0f;
-            stockinfo.cw.zl[22] = 77155000.0f;
-            stockinfo.cw.zl[24] = 6697000.0f;
-            stockinfo.cw.zl[25] = 5054000.0f;
-            stockinfo.cw.zl[26] = 5054000.0f;
-            stockinfo.cw.zl[27] = 35017000.0f;
-            stockinfo.cw.zl[29] = 3.0f;
+            stockinfo.TickSnapshot = new TDX();
+            stockinfo.TickSnapshot.sell5 = 11.54;
+            stockinfo.TickSnapshot.sell4 = 11.53;
+            stockinfo.TickSnapshot.sell3 = 11.52;
+            stockinfo.TickSnapshot.sell2 = 11.51;
+            stockinfo.TickSnapshot.sell1 = 11.50;
+            stockinfo.TickSnapshot.buy1 = 11.49;
+            stockinfo.TickSnapshot.buy2 = 11.48;
+            stockinfo.TickSnapshot.buy3 = 11.47;
+            stockinfo.TickSnapshot.buy4 = 11.46;
+            stockinfo.TickSnapshot.buy5 = 11.45;
+            stockinfo.TickSnapshot.sellQTY5 = 1048;
+            stockinfo.TickSnapshot.sellQTY4 = 2080;
+            stockinfo.TickSnapshot.sellQTY3 = 568;
+            stockinfo.TickSnapshot.sellQTY2 = 529;
+            stockinfo.TickSnapshot.sellQTY1 = 782;
+            stockinfo.TickSnapshot.buyQTY1 = 2398;
+            stockinfo.TickSnapshot.buyQTY2 = 2354;
+            stockinfo.TickSnapshot.buyQTY3 = 2714;
+            stockinfo.TickSnapshot.buyQTY4 = 1598;
+            stockinfo.TickSnapshot.buyQTY5 = 1363;
+            stockinfo.TickSnapshot.last = 11.5;
+            stockinfo.TickSnapshot.open = 11.49;
+            stockinfo.TickSnapshot.high = 11.62;
+            stockinfo.TickSnapshot.low = 11.46;
+            stockinfo.TickSnapshot.prize = 11.50;
+            stockinfo.TickSnapshot.volume = 318773;
+            stockinfo.TickSnapshot.amount = 367350848;
+
+            //stockinfo.FinanceData = new TradingLib.MarketData.FinanceData();
+            stockinfo.FinanceData.LTG = 557590.1875;
+            stockinfo.FinanceData.day1 = 20140506;
+            stockinfo.FinanceData.day2 = 19910403;
+            stockinfo.FinanceData.t1 = 18;
+            stockinfo.FinanceData.t2 = 1;
+            stockinfo.FinanceData.zl = new float[30];
+            stockinfo.FinanceData.zl[0] = 952074.563f;
+            stockinfo.FinanceData.zl[1] = 180199.0f;
+            stockinfo.FinanceData.zl[3] = 3589000.0f;
+            stockinfo.FinanceData.zl[4] = 10802000.0f;
+            stockinfo.FinanceData.zl[7] = 2097102080.0f;
+            stockinfo.FinanceData.zl[9] = 3580000.0f;
+            stockinfo.FinanceData.zl[10] = 5332000.0f;
+            stockinfo.FinanceData.zl[11] = 319109.0f;
+            stockinfo.FinanceData.zl[14] = 51899000.0f;
+            stockinfo.FinanceData.zl[15] = 117300000.0f;
+            stockinfo.FinanceData.zl[16] = 16100000.0f;
+            stockinfo.FinanceData.zl[19] = 6712000.0f;
+            stockinfo.FinanceData.zl[20] = 2185000.0f;
+            stockinfo.FinanceData.zl[21] = 60097000.0f;
+            stockinfo.FinanceData.zl[22] = 77155000.0f;
+            stockinfo.FinanceData.zl[24] = 6697000.0f;
+            stockinfo.FinanceData.zl[25] = 5054000.0f;
+            stockinfo.FinanceData.zl[26] = 5054000.0f;
+            stockinfo.FinanceData.zl[27] = 35017000.0f;
+            stockinfo.FinanceData.zl[29] = 3.0f;
 
 
 
@@ -646,7 +650,7 @@ namespace CStock
             }
 
             TGongSi gs = new TGongSi();
-            gs.StockInfo = stockinfo;
+            gs.Symbol = stockinfo;
             gs.Add("open", fopen, fopen.Length);
             gs.Add("high", fhigh, fhigh.Length);
             gs.Add("low", flow, flow.Length);

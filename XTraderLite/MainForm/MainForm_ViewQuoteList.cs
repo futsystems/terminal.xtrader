@@ -125,8 +125,9 @@ namespace XTraderLite
             {
                 case TradingLib.KryptonControl.QuoteMouseEventType.SymbolDoubleClick:
                     {
+                        
                         logger.Info("QuoteView Select Symbol:" + arg1.Symbol);
-
+                        SelectCurrentSymbol(arg1);
                         break;
                     }
             }
@@ -148,15 +149,36 @@ namespace XTraderLite
             //设定当前视图类型
             SetViewType(EnumTraderViewType.KChart);
 
+            
             kChartView.Focus();
             kChartView.ClearData();
-
+            kChartView.ViewType = CStock.KChartViewType.TimeView;
+           
             //GP.SetQuan(sk.qu);
             //GP.PreClose = sk.GP.YClose;
             kChartView.StkCode = symbol.Symbol;
             kChartView.StkName = symbol.Name;
-            kChartView.SetStock(sk);
+            kChartView.SetStock(symbol);
 
+            //如果是分时模式 则请求分时数据
+            if (kChartView.IsIntraView)
+            {
+                //多日分时
+                if ((kChartView.DaysForIntradayView > 1) && changeSymbol)
+                {
+                    minuteData.Clear();
+                    //for (int i = 0; i < 10; i++)
+                    //    dateList[i] = -1;
+
+                    //多日分时 由于不知道交易日信息 因此先查询日线 获得有效日期，然后再按此日期进行历史分时查询
+                    //int reqid = dataApi.QrySeurityBars(FCurStock.mark, FCurStock.codes, 4, 0, 10);
+                    //reqSender_TimeView.TryAdd(reqid, GP);
+                }
+                else //MDService.DataAPI
+                {
+                    MDService.DataAPI.QryMinuteDate(symbol.Exchange,symbol.Symbol,0);
+                }
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace XTraderLite
         List<MinuteData> minuteData = new List<MinuteData>();
         void InitKChart()
         {
-            MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
+            
         }
 
         void DataAPI_OnRspQryMinuteData(Dictionary<string, double[]> arg1, RspInfo arg2, int arg3, int arg4)

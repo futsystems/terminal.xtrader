@@ -39,6 +39,8 @@ namespace XTraderLite
 
             InitQuoteList();
 
+            InitKChart();
+
             InitDataAPI();
         }
 
@@ -116,6 +118,8 @@ namespace XTraderLite
         {
             quoteView.Symbols = MDService.DataAPI.Symbols;
             quoteView.SelectTab(0);
+
+            MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
         }
 
         public void OnDisposed()

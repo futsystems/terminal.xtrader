@@ -331,13 +331,13 @@ namespace CStock
             if (gs.mainbian != null)
             {
                 mainbian = gs.mainbian;
-                StockInfo = gs.StockInfo; 
+                Symbol = gs.Symbol; 
                 comm = true;
             }
             else
             {
                 mainbian = new List<TBian>();
-                StockInfo = null;
+                Symbol = null;
             }
             initdata();
         }
@@ -765,7 +765,7 @@ namespace CStock
             //QuanInfo.Clear();
             //QuanStyle = QuanType.qsNone;
             //PreClose = NA;
-            StockInfo = null;
+            Symbol = null;
             DL = null;
             showk = -1;
             ftechname = "";

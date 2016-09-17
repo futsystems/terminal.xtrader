@@ -90,7 +90,7 @@
             // 
             this._msg.Location = new System.Drawing.Point(221, 335);
             this._msg.Name = "_msg";
-            this._msg.Size = new System.Drawing.Size(171, 22);
+            this._msg.Size = new System.Drawing.Size(172, 20);
             this._msg.TabIndex = 10;
             this._msg.Values.Text = "请联系业务人员购买正版软件";
             // 
@@ -106,7 +106,7 @@
             // 
             this.kryptonCheckBox1.Location = new System.Drawing.Point(401, 294);
             this.kryptonCheckBox1.Name = "kryptonCheckBox1";
-            this.kryptonCheckBox1.Size = new System.Drawing.Size(73, 22);
+            this.kryptonCheckBox1.Size = new System.Drawing.Size(73, 20);
             this.kryptonCheckBox1.TabIndex = 7;
             this.kryptonCheckBox1.Values.Text = "记住密码";
             // 
@@ -128,7 +128,7 @@
             // 
             this.kryptonLabel3.Location = new System.Drawing.Point(221, 293);
             this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(60, 22);
+            this.kryptonLabel3.Size = new System.Drawing.Size(60, 20);
             this.kryptonLabel3.TabIndex = 4;
             this.kryptonLabel3.Values.Text = "登入密码";
             // 
@@ -136,7 +136,7 @@
             // 
             this.kryptonLabel2.Location = new System.Drawing.Point(221, 265);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(60, 22);
+            this.kryptonLabel2.Size = new System.Drawing.Size(60, 20);
             this.kryptonLabel2.TabIndex = 3;
             this.kryptonLabel2.Values.Text = "登入用户";
             // 
@@ -152,7 +152,7 @@
             // 
             this.kryptonLabel1.Location = new System.Drawing.Point(221, 237);
             this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(60, 22);
+            this.kryptonLabel1.Size = new System.Drawing.Size(60, 20);
             this.kryptonLabel1.TabIndex = 1;
             this.kryptonLabel1.Values.Text = "行情站点";
             // 

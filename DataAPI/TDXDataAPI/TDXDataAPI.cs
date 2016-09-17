@@ -271,8 +271,10 @@ namespace DataAPI.TDX
                             symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
                             symbol.Key = htp.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
-                            symbol.Exchange = "SZ";
+                            symbol.Exchange = Exchange.EXCH_SZE;
                             symbol.BlockType = TDXDecoder.GetStockType(0, symbol.Symbol).ToString();
+                            symbol.PreClose = gname.YClose;
+
                             symbolMap[symbol.UniqueKey] = symbol;
 
                             pp = pp + Marshal.SizeOf(type);
@@ -324,8 +326,9 @@ namespace DataAPI.TDX
                             symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
                             symbol.Key = htp.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
-                            symbol.Exchange = "SH";
+                            symbol.Exchange = Exchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
+                            symbol.PreClose = gname.YClose;
                             symbolMap[symbol.UniqueKey] = symbol;
 
                             pp = pp + Marshal.SizeOf(type);

@@ -19,9 +19,11 @@ namespace TradingLib.MarketData
             this.SizeRate = 1;
             this.Multiple = 1;
             this.Precision = 2;
-
+            this.PreClose = 0;
             this.SecurityType = MDSecurityType.STK;
             this.Currency = MDCurrency.RMB;
+            this.FinanceData = new FinanceData();
+            this.TickSnapshot = new TDX();
         }
 
         /// <summary>
@@ -82,6 +84,18 @@ namespace TradingLib.MarketData
         /// </summary>
         public long NCode { get; set; }
 
+        /// <summary>
+        /// 财务数据
+        /// </summary>
+        public FinanceData FinanceData;
+
+        /// <summary>
+        /// 行情快照
+        /// </summary>
+        public TDX TickSnapshot;
+
+
+        public double PreClose { get; set; }
         /// <summary>
         /// 通过交易所-合约 组成唯一Key
         /// </summary>
