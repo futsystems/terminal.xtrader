@@ -13,6 +13,10 @@ namespace TradingLib.KryptonControl
     //单元格样式 单元格背景色,字体颜色,字体等信息
     public class CellStyle
     {
+        //重复使用静态变量Brush以及Pen避免重复重复创建
+        public static SolidBrush _brush = new SolidBrush(Color.Black);
+        public static Pen _pen = new Pen(Color.Black, 1);
+
         public CellStyle(Color backcolor, Color fontcolor, Font quotefont,Font symbolfont,Color gridColor)
         {
             BackColor = backcolor;
@@ -42,11 +46,19 @@ namespace TradingLib.KryptonControl
             {
                 //设定线条颜色的同时 设定了LinePen
                 _lineColor = value;
-                _linepen = new Pen(_lineColor);
+                
             }
         }
-        Pen _linepen;
-        public Pen LinePen { get { return _linepen; } }
+        //Pen _linepen;
+        public Pen LinePen {
+            get 
+            {
+                _pen.Color = _lineColor;
+                return _pen;
+            } 
+        }
+
+
         Color _backColor;
         public Color BackColor
         {
@@ -54,13 +66,19 @@ namespace TradingLib.KryptonControl
             set
             {
                 _backColor = value;
-                
-                _backbrush = new SolidBrush(_backColor);
             }
         }
 
-        Brush _backbrush;
-        public Brush BackBrush { get { return _backbrush; } }
+        
+        public Brush BackBrush 
+        { 
+            get 
+            {
+                _brush.Color = this.BackColor;
+                return _brush;
+            } 
+        
+        }
         Color _FontColor;
         public Color FontColor
         {
@@ -68,12 +86,19 @@ namespace TradingLib.KryptonControl
             set
             {
                 _FontColor = value;
-                _fontbrush = new SolidBrush(_FontColor);
             }
         }
 
-        Brush _fontbrush;
-        public Brush FontBrush { get { return _fontbrush; } }
+
+        public Brush FontBrush
+        {
+            get
+            {
+                _brush.Color = _FontColor;
+                return _brush; 
+            
+            }
+        }
         Font _quoteFont;
         public Font QuoteFont { get { return _quoteFont; } set { _quoteFont = value; } }
 

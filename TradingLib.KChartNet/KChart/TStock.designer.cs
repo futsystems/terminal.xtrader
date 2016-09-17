@@ -612,6 +612,7 @@
             this.Load += new System.EventHandler(this.TStock_Load);
             this.Click += new System.EventHandler(this.TStock_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.TStock_Paint);
+            this.DoubleClick += new System.EventHandler(this.TStock_DoubleClick);
             this.Enter += new System.EventHandler(this.TStock_Enter);
             this.Leave += new System.EventHandler(this.TStock_Leave);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TStock_MouseDown);

@@ -12,7 +12,7 @@ using TradingLib.MarketData;
 
 namespace XTraderLite
 {
-    public partial class LoginForm : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class LoginForm : Form
     {
         ILog logger = LogManager.GetLogger("LoginForm");
         Starter mStarter = null;

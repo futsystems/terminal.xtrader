@@ -21,7 +21,7 @@ public class TBian
     public TBian(string Name, int Len)
     {
         name = Name;
-        value = new double[40000];
+        value = new double[10000];
         len = Len;
         Array.Clear(value, 0, value.Length);
     }

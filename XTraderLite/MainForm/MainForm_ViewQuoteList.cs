@@ -51,7 +51,7 @@ namespace XTraderLite
             quoteView.AddBlock("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
-                    if (symbol.BlockType == "1" && symbol.Exchange=="SH")
+                    if (symbol.BlockType == "1" && symbol.Exchange==Exchange.EXCH_SSE)
                     {
                         return true;
                     }
@@ -60,7 +60,7 @@ namespace XTraderLite
             quoteView.AddBlock("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
-                    if (symbol.BlockType == "1" && symbol.Exchange == "SZ")
+                    if (symbol.BlockType == "1" && symbol.Exchange == Exchange.EXCH_SZE)
                     {
                         return true;
                     }
@@ -152,7 +152,6 @@ namespace XTraderLite
             
             kChartView.Focus();
             kChartView.ClearData();
-            kChartView.ViewType = CStock.KChartViewType.TimeView;
            
             //GP.SetQuan(sk.qu);
             //GP.PreClose = sk.GP.YClose;
@@ -179,6 +178,22 @@ namespace XTraderLite
                     MDService.DataAPI.QryMinuteDate(symbol.Exchange,symbol.Symbol,0);
                 }
             }
+
+            //如果是K线模式则请求K线数据
+            if (kChartView.IsBarView)
+            {
+
+                //if (zq == 12)
+                //{
+                //    //Ticks.Clear();
+                //    //GetFenBiLine(sk, 0, 2000);
+                //}
+                //else
+                {
+                    MDService.DataAPI.QrySeurityBars(symbol.Exchange, symbol.Symbol, ConstFreq.Freq_Day, 0, 800);
+                }
+            }
+
         }
     }
 }

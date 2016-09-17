@@ -1087,6 +1087,12 @@ namespace CStock
             // Raise an event if needed.
         }
 
+
+        private void TStock_DoubleClick(object sender, EventArgs e)
+        {
+            this.ShowCrossCursor ^= true;
+        }
+
         
 
     }

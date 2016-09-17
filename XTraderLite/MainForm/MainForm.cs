@@ -120,7 +120,10 @@ namespace XTraderLite
             quoteView.SelectTab(0);
 
             MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
+            MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
         }
+
+        
 
         public void OnDisposed()
         { 

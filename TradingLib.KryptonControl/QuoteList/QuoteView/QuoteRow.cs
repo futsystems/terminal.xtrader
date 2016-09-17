@@ -116,7 +116,7 @@ namespace TradingLib.KryptonControl
             foreach(var column in _quotelist.Columns)
             {
                 QuoteCell cell = new QuoteCell(this,column, cellstyle, 0M, _pricedispformat);
-                cell.SendDebutEvent += new DebugDelegate(debug);
+                //cell.SendDebutEvent += new DebugDelegate(debug);
                 //添加Cell到数据结构
                 _columeCellMap.Add(column.FieldType, cell);
                 //_columeCellMap.Add(i, cell);

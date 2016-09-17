@@ -44,6 +44,11 @@ namespace TradingLib.MarketData
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
 
         /// <summary>
+        /// Bar数据回报
+        /// </summary>
+        event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQrySecurityBar;
+        
+        /// <summary>
         /// 查询Bar数据
         /// </summary>
         /// <param name="exchange"></param>

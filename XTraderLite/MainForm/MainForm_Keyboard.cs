@@ -33,6 +33,9 @@ namespace XTraderLite
                 case Keys.F12:
                     SwitchTradingBox();
                     break;
+                case Keys.F5:
+                    SwitchMainView(false);
+                    break;
                 default:
                     break;
 

@@ -187,6 +187,8 @@ namespace DataAPI.TDX
                 {
                     //初始化数据查询
                     this.InitData();
+                    //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
+                    MDService.Initialize();
                 }
 
                 if (mainthread == null)
@@ -341,8 +343,7 @@ namespace DataAPI.TDX
                 }
             }
 
-            //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
-            MDService.Initialize();
+           
         }
 
         int GetMarketCode(string exchange)

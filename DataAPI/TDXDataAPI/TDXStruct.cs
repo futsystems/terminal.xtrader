@@ -101,20 +101,20 @@ namespace DataAPI.TDX
         public QuanInfo[] quan;
     };
 
-    public class Stock
-    {
-        public String names, codes, keys;
-        public TGPNAME GP = new TGPNAME(); // 原始资料
-        public Quan qu = new Quan();// QuanInfo[] qu = new QuanInfo[80];
-        public FinanceData cw = new FinanceData();// 财务资料
-        public byte mark, type;//市场和类型
+    //public class Stock
+    //{
+    //    public String names, codes, keys;
+    //    public TGPNAME GP = new TGPNAME(); // 原始资料
+    //    public Quan qu = new Quan();// QuanInfo[] qu = new QuanInfo[80];
+    //    public FinanceData cw = new FinanceData();// 财务资料
+    //    public byte mark, type;//市场和类型
 
-        public TDXT now = new TDXT();// 最新盘口资料
-        public TDXT last = new TDXT();// 盘口资料
-        public Int64 NCode;
-        public double[] List = new double[30];
-        public int bk1, bk2;//行业板块
-    };
+    //    public TDXT now = new TDXT();// 最新盘口资料
+    //    public TDXT last = new TDXT();// 盘口资料
+    //    public Int64 NCode;
+    //    public double[] List = new double[30];
+    //    public int bk1, bk2;//行业板块
+    //};
 
     [Serializable()]
     public struct TDXT
