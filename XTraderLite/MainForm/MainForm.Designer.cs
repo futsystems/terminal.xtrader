@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.topMenuPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -51,7 +50,7 @@
             this.分笔成交明细ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分价表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分析图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分时分析图切换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSwitchKchart = new System.Windows.Forms.ToolStripMenuItem();
             this.交易ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTrading = new System.Windows.Forms.ToolStripMenuItem();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,10 +65,10 @@
             this.btnMin = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnMax = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnClose = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             this.holder = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.panelKChart = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.panelQuoteList = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnQuoteView = new System.Windows.Forms.ToolStripButton();
             this.btnIntraView = new System.Windows.Forms.ToolStripButton();
@@ -95,8 +94,6 @@
             this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
             this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
             this.bottomStatusPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.panelQuoteList = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.panelKChart = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kChartView = new CStock.TStock();
             this.quoteView = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
@@ -113,12 +110,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel2)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).BeginInit();
-            this.panelQuoteList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).BeginInit();
             this.panelKChart.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).BeginInit();
+            this.panelQuoteList.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // topMenuPanel
@@ -261,7 +258,7 @@
             this.分笔成交明细ToolStripMenuItem,
             this.分价表ToolStripMenuItem,
             this.分析图ToolStripMenuItem,
-            this.分时分析图切换ToolStripMenuItem});
+            this.menuSwitchKchart});
             this.技术ToolStripMenuItem.Name = "技术ToolStripMenuItem";
             this.技术ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.技术ToolStripMenuItem.Text = "分析";
@@ -269,32 +266,33 @@
             // 分时走势ToolStripMenuItem
             // 
             this.分时走势ToolStripMenuItem.Name = "分时走势ToolStripMenuItem";
-            this.分时走势ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.分时走势ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.分时走势ToolStripMenuItem.Text = "分时走势图";
             // 
             // 分笔成交明细ToolStripMenuItem
             // 
             this.分笔成交明细ToolStripMenuItem.Name = "分笔成交明细ToolStripMenuItem";
-            this.分笔成交明细ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.分笔成交明细ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.分笔成交明细ToolStripMenuItem.Text = "分笔成交明细";
             // 
             // 分价表ToolStripMenuItem
             // 
             this.分价表ToolStripMenuItem.Name = "分价表ToolStripMenuItem";
-            this.分价表ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.分价表ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.分价表ToolStripMenuItem.Text = "分价表";
             // 
             // 分析图ToolStripMenuItem
             // 
             this.分析图ToolStripMenuItem.Name = "分析图ToolStripMenuItem";
-            this.分析图ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.分析图ToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.分析图ToolStripMenuItem.Text = "分析图";
             // 
-            // 分时分析图切换ToolStripMenuItem
+            // menuSwitchKchart
             // 
-            this.分时分析图切换ToolStripMenuItem.Name = "分时分析图切换ToolStripMenuItem";
-            this.分时分析图切换ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.分时分析图切换ToolStripMenuItem.Text = "分时/分析图切换";
+            this.menuSwitchKchart.Name = "menuSwitchKchart";
+            this.menuSwitchKchart.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.menuSwitchKchart.Size = new System.Drawing.Size(186, 22);
+            this.menuSwitchKchart.Text = "分时/分析图切换";
             // 
             // 交易ToolStripMenuItem
             // 
@@ -389,6 +387,7 @@
             this.btnMin.StateCommon.Border.Rounding = 0;
             this.btnMin.StateCommon.Border.Width = 0;
             this.btnMin.TabIndex = 3;
+            this.btnMin.TabStop = false;
             this.btnMin.Values.Text = "";
             // 
             // btnMax
@@ -406,6 +405,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnMax.StateCommon.Border.Width = 0;
             this.btnMax.TabIndex = 2;
+            this.btnMax.TabStop = false;
             this.btnMax.Values.Text = "";
             // 
             // btnClose
@@ -423,16 +423,8 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnClose.StateCommon.Border.Width = 0;
             this.btnClose.TabIndex = 4;
+            this.btnClose.TabStop = false;
             this.btnClose.Values.Text = "";
-            // 
-            // kryptonPalette1
-            // 
-            this.kryptonPalette1.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            // 
-            // kryptonManager1
-            // 
-            this.kryptonManager1.GlobalPalette = this.kryptonPalette1;
-            this.kryptonManager1.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.Custom;
             // 
             // holder
             // 
@@ -471,6 +463,24 @@
             this.splitContainer.SplitterDistance = 375;
             this.splitContainer.SplitterWidth = 2;
             this.splitContainer.TabIndex = 2;
+            // 
+            // panelKChart
+            // 
+            this.panelKChart.Controls.Add(this.kChartView);
+            this.panelKChart.Location = new System.Drawing.Point(319, 28);
+            this.panelKChart.Name = "panelKChart";
+            this.panelKChart.Size = new System.Drawing.Size(324, 181);
+            this.panelKChart.TabIndex = 4;
+            this.panelKChart.Visible = false;
+            // 
+            // panelQuoteList
+            // 
+            this.panelQuoteList.Controls.Add(this.quoteView);
+            this.panelQuoteList.Location = new System.Drawing.Point(3, 28);
+            this.panelQuoteList.Name = "panelQuoteList";
+            this.panelQuoteList.Size = new System.Drawing.Size(310, 181);
+            this.panelQuoteList.TabIndex = 3;
+            this.panelQuoteList.Visible = false;
             // 
             // toolStrip1
             // 
@@ -706,24 +716,6 @@
             this.bottomStatusPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.BottomStatusBG;
             this.bottomStatusPanel.TabIndex = 1;
             // 
-            // panelQuoteList
-            // 
-            this.panelQuoteList.Controls.Add(this.quoteView);
-            this.panelQuoteList.Location = new System.Drawing.Point(3, 28);
-            this.panelQuoteList.Name = "panelQuoteList";
-            this.panelQuoteList.Size = new System.Drawing.Size(310, 181);
-            this.panelQuoteList.TabIndex = 3;
-            this.panelQuoteList.Visible = false;
-            // 
-            // panelKChart
-            // 
-            this.panelKChart.Controls.Add(this.kChartView);
-            this.panelKChart.Location = new System.Drawing.Point(319, 28);
-            this.panelKChart.Name = "panelKChart";
-            this.panelKChart.Size = new System.Drawing.Size(324, 181);
-            this.panelKChart.TabIndex = 4;
-            this.panelKChart.Visible = false;
-            // 
             // kChartView
             // 
             this.kChartView.BackColor = System.Drawing.Color.Black;
@@ -792,9 +784,9 @@
             this.Controls.Add(this.holder);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.topMenuPanel)).EndInit();
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
@@ -812,13 +804,13 @@
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).EndInit();
+            this.panelKChart.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).EndInit();
+            this.panelQuoteList.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).EndInit();
-            this.panelQuoteList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).EndInit();
-            this.panelKChart.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -827,8 +819,6 @@
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel topMenuPanel;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnMax;
-        private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
-        private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnMin;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnClose;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel holder;
@@ -862,7 +852,7 @@
         private System.Windows.Forms.ToolStripMenuItem 分笔成交明细ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 分价表ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 分析图ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分时分析图切换ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuSwitchKchart;
         private System.Windows.Forms.ToolStripMenuItem 自选ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 公式管理ToolStripMenuItem;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;

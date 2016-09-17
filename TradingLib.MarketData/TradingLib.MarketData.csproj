@@ -31,14 +31,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IEventBinder.cs" />
+    <Compile Include="LogService.cs" />
+    <Compile Include="MarketDataService\Event.cs" />
+    <Compile Include="IMarketDataAPI.cs" />
     <Compile Include="MDCurrency.cs" />
+    <Compile Include="MDLoginResponse.cs" />
     <Compile Include="MDSecurityType.cs" />
+    <Compile Include="MarketDataService\MDService.cs" />
     <Compile Include="MDSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />

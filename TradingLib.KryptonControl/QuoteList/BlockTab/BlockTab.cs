@@ -25,6 +25,7 @@ namespace TradingLib.KryptonControl
     {
 
         public event EventHandler<BlockTabClickEvent> BlockTabClick;
+        List<BlockButton> _btnList = new List<BlockButton>();
         public BlockTab()
         {
             InitializeComponent();
@@ -43,6 +44,37 @@ namespace TradingLib.KryptonControl
                     return true;
                 }));
            
+        }
+
+        BlockButton this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > _btnList.Count - 1) return null;
+                return _btnList[index];
+            }
+        }
+
+        public void SelectTab(int index)
+        {
+            BlockButton btn = this[index];
+            if (btn != null)
+            {
+                foreach(var b in _btnList)
+                {
+                    b.Selected = false;
+                }
+                btn.Selected = true;
+
+
+
+                this.Invalidate();
+                if (BlockTabClick != null)
+                {
+                    BlockTabClick(this, new BlockTabClickEvent(btn));
+                }
+
+            }
         }
 
         void BlockButton_MouseClick(object sender, MouseEventArgs e)
@@ -177,13 +209,14 @@ namespace TradingLib.KryptonControl
             this.Width = totalWidth+200;
         }
 
-        List<BlockButton> _btnList = new List<BlockButton>();
+        
 
         public void AddBlock(string title,Predicate<MDSymbol> filter)
         {
             BlockButton btn = new BlockButton(title,filter);
             _btnList.Add(btn);
         }
+
 
 
 

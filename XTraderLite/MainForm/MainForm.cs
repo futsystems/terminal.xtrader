@@ -9,10 +9,12 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Common.Logging;
 using TradingLib.KryptonControl;
+using TradingLib.MarketData;
+
 
 namespace XTraderLite
 {
-    public partial class MainForm : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class MainForm : ComponentFactory.Krypton.Toolkit.KryptonForm,TradingLib.MarketData.IEventBinder
     {
         ILog logger = LogManager.GetLogger("MainForm");
 
@@ -31,8 +33,6 @@ namespace XTraderLite
             //将控件日志输出时间绑定到debug函数 用于输出到控件
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(debug);
 
-
-            SetClassLong(this.Handle, GCL_STYLE, GetClassLong(this.Handle, GCL_STYLE) | CS_DropSHADOW);
             WireEvent();
 
             InitControls();
@@ -46,6 +46,7 @@ namespace XTraderLite
 
         void InitControls()
         {
+            this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
             splitContainer.Panel2Collapsed = true;
             debugControl1.Dock = DockStyle.Fill;
 
@@ -59,6 +60,16 @@ namespace XTraderLite
         }
         void WireEvent()
         {
+
+            this.KeyPress += new KeyPressEventHandler(MainForm_KeyPress);
+            this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
+            this.SizeChanged += new EventHandler(MainForm_SizeChanged);
+            this.Load += new EventHandler(MainForm_Load);
+
+
+            MDService.EventHub.RegIEventHandler(this);
+
+
 
             btnClose.Click += new EventHandler(btnClose_Click);
             btnMax.Click += new EventHandler(btnMax_Click);
@@ -80,20 +91,37 @@ namespace XTraderLite
             btnBarView.Click += new EventHandler(btnBarView_Click);
 
 
+
             menuTrading.Click += new EventHandler(menuTrading_Click);
+            menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
 
             splitContainer.SplitterMoved += new SplitterEventHandler(splitContainer_SplitterMoved);
-            this.SizeChanged += new EventHandler(MainForm_SizeChanged);
-            this.Load += new EventHandler(MainForm_Load);
+            
         }
+
+
+
+
+
 
         void MainForm_Load(object sender, EventArgs e)
         {
             SetViewType(EnumTraderViewType.QuoteList);
         }
 
-        
+        /// <summary>
+        /// 底层基础数据初始化完毕后被调用
+        /// </summary>
+        public void OnInit()
+        {
+            quoteView.Symbols = MDService.DataAPI.Symbols;
+            quoteView.SelectTab(0);
+        }
 
+        public void OnDisposed()
+        { 
+            
+        }
         
 
         
@@ -112,40 +140,15 @@ namespace XTraderLite
             }
         }
 
-
-
-
-
-
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        int WS_CAPTION = 0xC00000;
-        //        int WS_BORDER = 0x800000;
-        //        CreateParams CP = base.CreateParams;
-        //        CP.Style &= ~WS_CAPTION | WS_BORDER;
-        //        return CP;
-        //    }
-        //}
-
         protected override void OnPaint(PaintEventArgs e)
         {
-            //base.OnPaint(e);
-            //int borderWidth = 2;
-            //Color borderColor = Color.Blue;
-            //ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, borderColor,
-            //  borderWidth, ButtonBorderStyle.Solid, borderColor, borderWidth,
-            //  ButtonBorderStyle.Solid, borderColor, borderWidth, ButtonBorderStyle.Solid,
-            //  borderColor, borderWidth, ButtonBorderStyle.Solid);
-            //e.Graphics.DrawRectangle(Pens.Black, this.Bounds);
-
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
         }
 
+
+        #region 顶部Panel移动窗体
         private bool m_isMouseDown = false;
         private Point m_mousePos = new Point();
-
         void TopMenuPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (m_isMouseDown)
@@ -183,8 +186,12 @@ namespace XTraderLite
                 //max11.Image = stock2.Properties.Resources.C3;
             }
         }
+        #endregion
 
 
+
+
+        #region 最大 最小 关闭操作
         void btnMin_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -208,6 +215,8 @@ namespace XTraderLite
             
             //this.max11.Enabled = false;
             //this.max11.Enabled = true;
+
+           
         }
 
         void btnClose_Click(object sender, EventArgs e)
@@ -215,5 +224,8 @@ namespace XTraderLite
             Application.ExitThread();
             Environment.Exit(0);
         }
+        #endregion
+
+
     }
 }

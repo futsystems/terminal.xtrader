@@ -43,8 +43,6 @@ namespace TradingLib.KryptonControl
         void scrollBar_ValueChanged(object sender, EventArgs e)
         {
             logger.Info("value changed:" + scrollBar.Value.ToString());
-            //quotelist.SelectRow(scrollBar.Value);
-            //quotelist.SelectedQuoteRow = scrollBar.Value;
             quotelist.StartIndex = scrollBar.Value;
         }
 
@@ -85,6 +83,14 @@ namespace TradingLib.KryptonControl
         public void AddBlock(string title,Predicate<MDSymbol> filter)
         {
             blockTab.AddBlock(title, filter);
+        }
+        /// <summary>
+        /// 选中某个Tab
+        /// </summary>
+        /// <param name="index"></param>
+        public void SelectTab(int index)
+        {
+            blockTab.SelectTab(index);
         }
     }
 }

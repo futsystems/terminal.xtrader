@@ -12,13 +12,53 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
-        public override bool PreProcessMessage(ref Message msg)
+        void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((Keys)msg.WParam.ToInt32() == Keys.F12)
-            {
-                SwitchTradingBox();
-            }
-            return base.PreProcessMessage(ref msg);
+            logger.Info("Key Press:" + e.KeyChar);
+           
         }
+
+        void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            logger.Info("Key Down:" + e.KeyCode.ToString());
+            switch (e.KeyCode)
+            { 
+                case Keys.Enter:
+                    logger.Info("active:" + this.ActiveControl.GetType().Name);
+                    SwitchMainView(true);
+                    break;
+                case Keys.Escape:
+                    ViewQuoteList();
+                    break;
+                case Keys.F12:
+                    SwitchTradingBox();
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        //public override bool PreProcessMessage(ref Message msg)
+        //{
+        //    if (msg.Msg == 0x100)//WM_KEYDOWN
+        //    {
+        //        Keys key = (Keys)msg.WParam.ToInt32();
+        //        logger.Info("key message:" + key.ToString());
+        //        switch (key)
+        //        {
+        //            case Keys.F12:
+        //                SwitchTradingBox();
+        //                break;
+        //            case Keys.Enter:
+        //                //ProcessEnter();
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+
+        //    return base.PreProcessMessage(ref msg);
+        //}
     }
 }

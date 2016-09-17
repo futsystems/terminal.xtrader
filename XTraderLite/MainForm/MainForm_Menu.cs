@@ -42,10 +42,47 @@ namespace XTraderLite
         }
 
 
+        void SwitchMainView(bool backQuote)
+        {
+            //当前为报价表状态 则进入分时
+            if (panelQuoteList.Visible)
+            {
+                ViewIntraChart();
+                return;
+            }
+
+            if (panelKChart.Visible)
+            {
+                if (kChartView.IsIntraView)
+                {
+                    ViewBarChart();
+                    return;
+                }
+                if (kChartView.IsBarView)
+                {
+                    if (backQuote)
+                    {
+                        ViewQuoteList();
+                    }
+                    else
+                    {
+                        ViewIntraChart();
+                    }
+                    return;
+                }
+            }
+        }
+
+
         
         void menuTrading_Click(object sender, EventArgs e)
         {
             SwitchTradingBox();
+        }
+
+        void menuSwitchKchart_Click(object sender, EventArgs e)
+        {
+            SwitchMainView(false);
         }
     }
 }

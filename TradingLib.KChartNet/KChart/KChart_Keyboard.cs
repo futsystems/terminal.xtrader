@@ -43,31 +43,32 @@ namespace CStock
 
                 if ((Keys)msg.WParam.ToInt32() == Keys.Enter)
                 {
+                    logger.Info("Enter");
                     //当处于十字光标时 回车取历史分笔数据
-                    if (this.ShowCrossCursor && this.IsIntraView)
-                    {
-                        TGongSi gs = GS[0];
-                        int j = gs.FCurBar;//当前光标所有周期
-                        TBian b1 = gs.check("date");
-                        TBian c1 = gs.check("close");
-                        if ((b1 != null) && (j < b1.len))
-                        {
-                            //if (StockClick != null)
-                            {
-                                double close = c1.value[j];
-                                if (j > 1)
-                                    close = c1.value[j - 1];//上一天的收盘等于今天的昨收价
-                                StockEventArgs ee = new StockEventArgs(b1.value[j], close);
-                                //StockClick(this, ee);
-                            }
-                        }
-                    }
-                    else //其余状态切换显示模式
-                    {
-                        this.SwitchViewType();
-                        //ShowFs ^= true;
-                    }
-                    return true;
+                    //if (this.ShowCrossCursor && this.IsIntraView)
+                    //{
+                    //    TGongSi gs = GS[0];
+                    //    int j = gs.FCurBar;//当前光标所有周期
+                    //    TBian b1 = gs.check("date");
+                    //    TBian c1 = gs.check("close");
+                    //    if ((b1 != null) && (j < b1.len))
+                    //    {
+                    //        //if (StockClick != null)
+                    //        {
+                    //            double close = c1.value[j];
+                    //            if (j > 1)
+                    //                close = c1.value[j - 1];//上一天的收盘等于今天的昨收价
+                    //            StockEventArgs ee = new StockEventArgs(b1.value[j], close);
+                    //            //StockClick(this, ee);
+                    //        }
+                    //    }
+                    //}
+                    //else //其余状态切换显示模式
+                    //{
+                    //    this.SwitchViewType();
+                    //    //ShowFs ^= true;
+                    //}
+                    return false;//直接返回true 窗体就无法捕捉到Enter事件了返回false 则窗体还会捕捉到该按键
                 }
                 //上下键
                 if ((((Keys)msg.WParam.ToInt32()) == Keys.Up) || ((Keys)msg.WParam.ToInt32() == Keys.Down))

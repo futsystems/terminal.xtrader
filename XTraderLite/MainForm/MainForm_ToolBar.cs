@@ -12,13 +12,13 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
-        void btnQuoteView_Click(object sender, EventArgs e)
+        void ViewQuoteList()
         {
             SetViewType(EnumTraderViewType.QuoteList);
-
+            quoteView.Focus();
         }
 
-        void btnBarView_Click(object sender, EventArgs e)
+        void ViewBarChart()
         {
             SetViewType(EnumTraderViewType.KChart);
             if (kChartView.IsIntraView)
@@ -27,13 +27,29 @@ namespace XTraderLite
             }
         }
 
-        void btnIntraView_Click(object sender, EventArgs e)
+        void ViewIntraChart()
         {
             SetViewType(EnumTraderViewType.KChart);
             if (kChartView.IsBarView)
             {
                 kChartView.ViewType = CStock.KChartViewType.TimeView;
             }
+        }
+
+
+        void btnQuoteView_Click(object sender, EventArgs e)
+        {
+            ViewQuoteList();
+        }
+
+        void btnBarView_Click(object sender, EventArgs e)
+        {
+            ViewBarChart();
+        }
+
+        void btnIntraView_Click(object sender, EventArgs e)
+        {
+            ViewIntraChart();
         }
 
     }

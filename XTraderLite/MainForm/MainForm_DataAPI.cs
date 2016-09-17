@@ -15,11 +15,11 @@ namespace XTraderLite
 
         void InitDataAPI()
         {
-            _dataAPI = new DataAPI.TDX.TDXDataAPI();
-            _dataAPI.OnConnected += new Action(_dataAPI_OnConnected);
-            _dataAPI.OnDisconnectd += new Action(_dataAPI_OnDisconnectd);
-            _dataAPI.OnLoginSuccess += new Action(_dataAPI_OnLoginSuccess);
-            _dataAPI.OnLoginFail += new Action(_dataAPI_OnLoginFail);
+            //_dataAPI = new DataAPI.TDX.TDXDataAPI(new string[] {"218.85.137.40"},7709);
+            //_dataAPI.OnConnected += new Action(_dataAPI_OnConnected);
+            //_dataAPI.OnDisconnectd += new Action(_dataAPI_OnDisconnectd);
+            //_dataAPI.OnLoginSuccess += new Action(_dataAPI_OnLoginSuccess);
+            //_dataAPI.OnLoginFail += new Action(_dataAPI_OnLoginFail);
             
         }
 
@@ -41,7 +41,7 @@ namespace XTraderLite
         void _dataAPI_OnConnected()
         {
             logger.Info("DataAPI Connected");
-            _dataAPI.Login();
+            //_dataAPI.Login();
         }
 
     }

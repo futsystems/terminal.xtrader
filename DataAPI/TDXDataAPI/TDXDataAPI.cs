@@ -14,7 +14,7 @@ using TradingLib.MarketData;
 
 namespace DataAPI.TDX
 {
-    public class TDXDataAPI
+    public class TDXDataAPI:IMarketDataAPI
     {
         ILog logger = LogManager.GetLogger("TDXDataAPI");
 
@@ -115,49 +115,49 @@ namespace DataAPI.TDX
                 }
             }
         }
-        public bool Connect(string fhost, int fport)
-        {
 
-            bool bb = false;
+        string[] _hosts = null;
+        int _port = 0;
+        public TDXDataAPI()
+        {
+        }
+
+        public void Connect(string[] hosts, int port)
+        {
+            _hosts = hosts;
+            _port = port;
+
             if (m_hSocket != null)
             {
                 logger.Warn("Server is already connected");
-                return false;
+                return;
             }
             try
             {
                 m_hSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                m_hSocket.Connect(fhost, fport);
+                m_hSocket.Connect(_hosts[0], _port);
 
                 if (m_hSocket.Connected)
                 {
                     logger.Info("Connect to server success");
                     OnConnected();
-                    bb = true;
+                    MDService.EventHub.FireConnectedEvent();
                 }
                 else
                 {
                     logger.Info("Connect to server success");
-                    bb = false;
                 }
             }
             catch(Exception ex)
             {
-                //List1.Items.Add(Ex.ToString());
                 logger.Error("Connect error:"+ex.ToString());
-                bb = false;
                 m_hSocket.Close();
                 m_hSocket = null;
             }
-            if (bb == false)
-            {
-                m_hSocket = null;
-            }
-            return bb;
         }
 
         uint stkDate = 0;
-        public bool Login()
+        public void Login(string user,string pass)
         {
             byte[] RecvBuffer = null;
             byte[] a = { 0xC, 0x2, 0x18, 0x93, 0x0, 0x1, 0x3, 0x0, 0x3, 0x0, 0xD, 0x0, 0x1 };
@@ -176,6 +176,18 @@ namespace DataAPI.TDX
                 {
 
                 }
+                MDLoginResponse respone = new MDLoginResponse();
+                respone.LoginSuccess = true;
+                respone.TradingDay = (int)stkDate;
+
+                MDService.EventHub.FireLoginEvent(respone);
+
+                //登入成功 基础数据未初始化则初始化基础数据
+                if (!MDService.Initialized && respone.LoginSuccess)
+                {
+                    //初始化数据查询
+                    this.InitData();
+                }
 
                 if (mainthread == null)
                 {
@@ -184,17 +196,19 @@ namespace DataAPI.TDX
                     mainthread.IsBackground = true;
                     mainthread.Start();
                 }
-                return true;
+                //return true;
             }
             else
             {
-                //LinkServer.Enabled = true;
-                //CloseLink.Enabled = false;
+                MDLoginResponse respone = new MDLoginResponse();
+                respone.LoginSuccess = false;
+                respone.ErrorMessage = "登入失败";
+                MDService.EventHub.FireLoginEvent(respone);
                 m_hSocket.Close();
                 m_hSocket = null;
                 //FConnect.Text = "登录失败";
                 //FConnect.ForeColor = Color.Red;
-                return false;
+                //return false;
             }
         }
 
@@ -206,11 +220,11 @@ namespace DataAPI.TDX
         public IEnumerable<MDSymbol> Symbols { get { return symbolMap.Values; } }
 
 
-        public void QrySymbol()
+        void InitData()
         {
 
             int i,count,n,j;
-            logger.Info("深圳代码初始化");
+            MDService.EventHub.FireInitializeStatusEvent("深圳代码初始化");
             ConvertHzToPz_Gb2312 htp = new ConvertHzToPz_Gb2312();
             byte[] a1 = { 0xC, 0xC, 0x18, 0x6C, 0x0, 0x1, 0x8, 0x0, 0x8, 0x0, 0x4E, 0x4, 0x0, 0x0, 0x1, 0x2, 0x3, 0x4 };
             byte[] b1;
@@ -271,7 +285,7 @@ namespace DataAPI.TDX
                 }
             }
 
-            logger.Info("上海代码初始化");
+            MDService.EventHub.FireInitializeStatusEvent("上海代码初始化");
             byte[] a3 = { 0xC, 0xC, 0x18, 0x6C, 0x0, 0x1, 0x8, 0x0, 0x8, 0x0, 0x4E, 0x4, 0x1, 0x0, 0x1, 0x2, 0x3, 0x4 };
             byte[] b3 = BitConverter.GetBytes(stkDate);
             a3[14] = b3[0];
@@ -323,6 +337,9 @@ namespace DataAPI.TDX
                         break;
                 }
             }
+
+            //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
+            MDService.Initialize();
         }
 
         /// <summary>

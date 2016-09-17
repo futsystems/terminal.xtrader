@@ -14,15 +14,15 @@ namespace XTraderLite
     {
         void btnDemo1_Click(object sender, EventArgs e)
         {
-            _dataAPI.Connect("218.85.137.40", 7709);
+            //_dataAPI.Connect();//("218.85.137.40", 7709);
         }
 
         void btnDemo3_Click(object sender, EventArgs e)
         {
-            _dataAPI.QrySymbol();
+            //_dataAPI.QrySymbol();
 
             //quoteList.AddSymbol(_dataAPI.Symbols);
-            quoteView.Symbols = _dataAPI.Symbols;
+            //quoteView.Symbols = _dataAPI.Symbols;
         }
 
         void btnDemo2_Click(object sender, EventArgs e)
