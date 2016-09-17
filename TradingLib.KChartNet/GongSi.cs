@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Logging;
+using TradingLib.MarketData;
 
 namespace CStock
 {
@@ -23,8 +24,9 @@ namespace CStock
         public TFunclist func;
        
         public List<TBian> mainbian;//保留原始数据
-        public Stock StockInfo=null;
+        //public Stock StockInfo=null;
 
+        public MDSymbol Symbol = null;
 
         public List<QuanInfo> QuanInfo = new List<QuanInfo>();//权息集合表
         public QuanType QuanStyle = QuanType.qsNone;//不复权

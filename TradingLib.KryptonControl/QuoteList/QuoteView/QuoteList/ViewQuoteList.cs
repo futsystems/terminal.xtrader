@@ -35,6 +35,15 @@ namespace TradingLib.KryptonControl
         public int MaxShowCount{get;set;}
     }
 
+    public enum QuoteMouseEventType
+    { 
+        /// <summary>
+        /// 合约双击 用于进入KChart图标
+        /// </summary>
+        SymbolDoubleClick,
+    }
+
+    
 
     public delegate int IntRetIntDel(int idx);
     public delegate int RetIntDel();
@@ -59,6 +68,10 @@ namespace TradingLib.KryptonControl
 
         public event EventHandler<QuoteViewChangedArgs> QuoteViewChanged;
 
+        /// <summary>
+        /// 聚合鼠标事件
+        /// </summary>
+        public event Action<MDSymbol, QuoteMouseEventType> MouseEvent;
 
         /// <summary>
         /// 报价单 小下单面板行情事件

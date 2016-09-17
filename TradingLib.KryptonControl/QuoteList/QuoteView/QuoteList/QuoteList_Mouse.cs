@@ -170,12 +170,16 @@ namespace TradingLib.KryptonControl
         void ViewQuoteList_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
-            if (SymbolSelectedEvent != null)
+            if (MouseEvent != null && symbol!=null)
             {
-                SymbolSelectedEvent(symbol);
+                MouseEvent(symbol, QuoteMouseEventType.SymbolDoubleClick);
             }
-            //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
-            debug("Symbol:" + symbol.ToString() + " Selected");
+            //if (SymbolSelectedEvent != null)
+            //{
+            //    SymbolSelectedEvent(symbol);
+            //}
+            ////CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+            //debug("Symbol:" + symbol.ToString() + " Selected");
         }
 
         /// <summary>

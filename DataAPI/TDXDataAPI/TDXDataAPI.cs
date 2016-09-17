@@ -61,7 +61,7 @@ namespace DataAPI.TDX
         /// <summary>
         /// 分时数据回报事件
         /// </summary>
-        public event Action<double[][], RspInfo, int,int> OnRspQryMinuteData;
+        public event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
 
         /// <summary>
         /// 历史分时数据回报
@@ -342,6 +342,42 @@ namespace DataAPI.TDX
             MDService.Initialize();
         }
 
+        int GetMarketCode(string exchange)
+        {
+            switch (exchange)
+            { 
+                case Exchange.EXCH_SSE:
+                    return 1;
+                case Exchange.EXCH_SZE:
+                    return 0;
+                default:
+                    return -1;
+            }
+        }
+        /// <summary>
+        /// K线种类, 0->5分钟K线    1->15分钟K线    2->30分钟K线  3->1小时K线    4->日K线  5->周K线  6->月K线  7->1分钟    10->季K线  11->年K线</param>
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <returns></returns>
+        int GetFreqCode(string freq)
+        {
+            switch (freq)
+            {
+                case ConstFreq.Freq_Day: return 4;
+                case ConstFreq.Freq_Week: return 5;
+                case ConstFreq.Freq_Month: return 6;
+                case ConstFreq.Freq_Quarter: return 10;
+                case ConstFreq.Freq_Year: return 11;
+                case ConstFreq.Freq_M1: return 7;
+                case ConstFreq.Freq_M5: return 0;
+                case ConstFreq.Freq_M15: return 1;
+                case ConstFreq.Freq_M30: return 2;
+                case ConstFreq.Freq_M60: return 3;
+                default:
+                    return -1;
+
+            }
+        }
         /// <summary>
         /// 查询当日成交分布数据
         /// </summary>
@@ -442,20 +478,45 @@ namespace DataAPI.TDX
         /// </summary>
         /// <param name="market"></param>
         /// <param name="symbol"></param>
-        public int QryMinuteDate(int market, string symbol)
+        public int QryMinuteDate(string exchange, string symbol,int date)
         {
-            byte[] request = { 0xC, 0x1B, 0x8, 0x0, 0x1, 0x1, 0xE, 0x0, 0xE, 0x0, 0x1D, 0x5, 0xFF, 0x0, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x0, 0x0, 0x0, 0x0 };
-            request[12] = (byte)(ushort)market;
-            Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 14);
+            int market = GetMarketCode(exchange);
+            if (date <= 0)
+            {
+                
+                byte[] request = { 0xC, 0x1B, 0x8, 0x0, 0x1, 0x1, 0xE, 0x0, 0xE, 0x0, 0x1D, 0x5, 0xFF, 0x0, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x0, 0x0, 0x0, 0x0 };
+                request[12] = (byte)(ushort)market;
+                Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 14);
 
-            SendBuf sb = new SendBuf();
-            //sb.sk = null;
-            sb.Send = request;
-            sb.Code = symbol;
-            sb.Market = (byte)(ushort)market;
-            sb.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb);
-            return sb.RequestId;
+                SendBuf sb = new SendBuf();
+                //sb.sk = null;
+                sb.Send = request;
+                sb.Code = symbol;
+                sb.Market = (byte)(ushort)market;
+                sb.RequestId = this.NextRequestId;
+                SendList.Enqueue(sb);
+                return sb.RequestId;
+            }
+            else
+            {
+                byte[] request = { 0xC, 0x1, 0x30, 0x0, 0x1, 0x1, 0xD, 0x0, 0xD, 0x0, 0xB4, 0xF, 0xD1, 0xD2, 0xD3, 0xD4, 0xFF, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36 };
+                byte[] sb = BitConverter.GetBytes(date);
+                request[12] = sb[0];
+                request[13] = sb[1];
+                request[14] = sb[2];
+                request[15] = sb[3];
+                request[16] = (byte)(ushort)market;
+                Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 17);
+                SendBuf sb11 = new SendBuf();
+                //sb11.sk = null;
+                sb11.Send = request;
+                sb11.Code = symbol;
+                sb11.Market = (byte)(ushort)market;
+                //sb11.type = Convert.ToInt32(e.Date);
+                sb11.RequestId = this.NextRequestId;
+                SendList.Enqueue(sb11);
+                return sb11.RequestId;
+            }
         }
 
         /// <summary>
@@ -464,26 +525,26 @@ namespace DataAPI.TDX
         /// <param name="market"></param>
         /// <param name="symbol"></param>
         /// <param name="date"></param>
-        public int QryHistMinuteDate(int market, string symbol, int date)
-        {
-            byte[] request = { 0xC, 0x1, 0x30, 0x0, 0x1, 0x1, 0xD, 0x0, 0xD, 0x0, 0xB4, 0xF, 0xD1, 0xD2, 0xD3, 0xD4, 0xFF, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36 };
-            byte[] sb = BitConverter.GetBytes(date);
-            request[12] = sb[0];
-            request[13] = sb[1];
-            request[14] = sb[2];
-            request[15] = sb[3];
-            request[16] = (byte)(ushort)market;
-            Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 17);
-            SendBuf sb11 = new SendBuf();
-            //sb11.sk = null;
-            sb11.Send = request;
-            sb11.Code = symbol;
-            sb11.Market = (byte)(ushort)market;
-            //sb11.type = Convert.ToInt32(e.Date);
-            sb11.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb11);
-            return sb11.RequestId;
-        }
+        //public int QryHistMinuteDate(int market, string symbol, int date)
+        //{
+        //    byte[] request = { 0xC, 0x1, 0x30, 0x0, 0x1, 0x1, 0xD, 0x0, 0xD, 0x0, 0xB4, 0xF, 0xD1, 0xD2, 0xD3, 0xD4, 0xFF, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36 };
+        //    byte[] sb = BitConverter.GetBytes(date);
+        //    request[12] = sb[0];
+        //    request[13] = sb[1];
+        //    request[14] = sb[2];
+        //    request[15] = sb[3];
+        //    request[16] = (byte)(ushort)market;
+        //    Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 17);
+        //    SendBuf sb11 = new SendBuf();
+        //    //sb11.sk = null;
+        //    sb11.Send = request;
+        //    sb11.Code = symbol;
+        //    sb11.Market = (byte)(ushort)market;
+        //    //sb11.type = Convert.ToInt32(e.Date);
+        //    sb11.RequestId = this.NextRequestId;
+        //    SendList.Enqueue(sb11);
+        //    return sb11.RequestId;
+        //}
 
         //public int QryHistSecurityBars(int market, string symbol, int freq)
         //{
@@ -510,8 +571,11 @@ namespace DataAPI.TDX
         /// <param name="freq">K线种类, 0->5分钟K线    1->15分钟K线    2->30分钟K线  3->1小时K线    4->日K线  5->周K线  6->月K线  7->1分钟    10->季K线  11->年K线</param>
         /// <param name="start">K线开始位置,最后一条K线位置是0, 前一条是1, 依此类推</param>
         /// <param name="count">API执行前,表示用户要请求的K线数目, API执行后,保存了实际返回的K线数目, 最大值800</param>
-        public int QrySeurityBars(int market, string symbol, int freq, int start, int count)
+        public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count)
         {
+            int market = GetMarketCode(exchange);
+            int freq = GetFreqCode(freqStr);
+            
                            //{ 0xC, 0x1, 0x8, 0x64, 0x1, 0x1, 0x12, 0x0, 0x12, 0x0, 0x29, 0x5, 0xFF, 0x0, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0xFE, 0x0, 0x1, 0x0, 0x00, 0x00, 0x0a, 0x0 };
             byte[] request = { 0xC, 0x1, 0x8, 0x64, 0x1, 0x1, 0x12, 0x0, 0x12, 0x0, 0x29, 0x5, 0xFF, 0x0, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0xFE, 0x0, 0x1, 0x0, 0xF1, 0xF2, 0xE1, 0xE2 };
             
@@ -1382,7 +1446,7 @@ namespace DataAPI.TDX
                         {
                             if (OnRspQryMinuteData != null)
                             {
-                                double[][] tmp = new double[4][];
+                                Dictionary<string, double[]> tmp = new Dictionary<string, double[]>();
                                 OnRspQryMinuteData(tmp, null, n, sb.RequestId);
                             }
                         }
@@ -1407,14 +1471,15 @@ namespace DataAPI.TDX
 
                                 //logger.Info("{0} {1} {2}".Put(time[j], close[j], vol[j]));
                             }
+                            
 
                             if (OnRspQryMinuteData != null)
-                            { 
-                                double[][] tmp = new double[4][];
-                                tmp[0] = date;
-                                tmp[1] = time;
-                                tmp[2] = close;
-                                tmp[3] = vol;
+                            {
+                                Dictionary<string, double[]> tmp = new Dictionary<string, double[]>();
+                                tmp["date"] = date;
+                                tmp["time"] = time;
+                                tmp["close"] = close;
+                                tmp["vol"] = vol;
                                 OnRspQryMinuteData(tmp, null, n, sb.RequestId);
                             }
                         }

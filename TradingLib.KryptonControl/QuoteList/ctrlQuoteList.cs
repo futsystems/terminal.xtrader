@@ -16,14 +16,30 @@ namespace TradingLib.KryptonControl
         string[] cmd = { "中金所", "大商所" ,"上海证券交易所"};
         IEnumerable<MDSymbol> symbolMap = new List<MDSymbol>();
         ILog logger = LogManager.GetLogger("Quote");
+
+        /// <summary>
+        /// 聚合鼠标事件
+        /// </summary>
+        public event Action<MDSymbol, QuoteMouseEventType> MouseEvent;
+
+
         public ctrlQuoteList()
         {
             InitializeComponent();
             quotelist.QuoteViewChanged += new EventHandler<QuoteViewChangedArgs>(quotelist_QuoteViewChanged);
+            quotelist.MouseEvent += new Action<MDSymbol, QuoteMouseEventType>(quotelist_MouseEvent);
             blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);
             scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
             scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
 
+        }
+
+        void quotelist_MouseEvent(MDSymbol arg1, QuoteMouseEventType arg2)
+        {
+            if (MouseEvent != null)
+            {
+                MouseEvent(arg1, arg2);
+            }
         }
 
         void quotelist_QuoteViewChanged(object sender, QuoteViewChangedArgs e)

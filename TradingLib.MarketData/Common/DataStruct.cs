@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DataAPI.TDX
+namespace TradingLib.MarketData
 {
     public class RspInfo
     {

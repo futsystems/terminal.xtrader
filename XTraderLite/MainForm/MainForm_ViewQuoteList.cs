@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using TradingLib.MarketData;
+
 
 namespace XTraderLite
 {
     public partial class MainForm
     {
+        /// <summary>
+        /// 当前合约
+        /// </summary>
+        MDSymbol _currentSymbol = null;
 
         void InitQuoteList()
         {
@@ -107,6 +113,49 @@ namespace XTraderLite
                     return false;
                 }));
 
+
+
+            //绑定对外事件
+            quoteView.MouseEvent += new Action<TradingLib.MarketData.MDSymbol, TradingLib.KryptonControl.QuoteMouseEventType>(quoteView_MouseEvent);
+        }
+
+        void quoteView_MouseEvent(TradingLib.MarketData.MDSymbol arg1, TradingLib.KryptonControl.QuoteMouseEventType arg2)
+        {
+            switch (arg2)
+            {
+                case TradingLib.KryptonControl.QuoteMouseEventType.SymbolDoubleClick:
+                    {
+                        logger.Info("QuoteView Select Symbol:" + arg1.Symbol);
+
+                        break;
+                    }
+            }
+        }
+
+        /// <summary>
+        /// 选中当前合约
+        /// </summary>
+        /// <param name="symbol"></param>
+        void SelectCurrentSymbol(MDSymbol symbol)
+        {
+            bool changeSymbol = false;
+            if (_currentSymbol != symbol)
+            {
+                changeSymbol = true;
+            }
+            _currentSymbol = symbol;
+
+            //设定当前视图类型
+            SetViewType(EnumTraderViewType.KChart);
+
+            kChartView.Focus();
+            kChartView.ClearData();
+
+            //GP.SetQuan(sk.qu);
+            //GP.PreClose = sk.GP.YClose;
+            kChartView.StkCode = symbol.Symbol;
+            kChartView.StkName = symbol.Name;
+            kChartView.SetStock(sk);
 
         }
     }

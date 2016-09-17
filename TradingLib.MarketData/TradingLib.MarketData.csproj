@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DataStruct.cs" />
+    <Compile Include="Common\MinuteData.cs" />
+    <Compile Include="Constant\ConstFreq.cs" />
+    <Compile Include="Constant\Exchange.cs" />
     <Compile Include="IEventBinder.cs" />
     <Compile Include="LogService.cs" />
     <Compile Include="MarketDataService\Event.cs" />
