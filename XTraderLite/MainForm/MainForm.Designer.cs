@@ -30,6 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.连接服务器ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.断开服务器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.屏幕截图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打印ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.退出系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.技术ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分时走势ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分笔成交明细ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,42 +81,34 @@
             this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
             this.bottomStatusPanel = new System.Windows.Forms.Panel();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.panelMenu = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.topHeader = new System.Windows.Forms.Label();
+            this.panelControlBox = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.PictureBox();
+            this.btnMax = new System.Windows.Forms.PictureBox();
+            this.btnMin = new System.Windows.Forms.PictureBox();
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
-            this.panelBroker = new System.Windows.Forms.Panel();
-            this.splitter = new System.Windows.Forms.Splitter();
             this.panelMarket = new System.Windows.Forms.Panel();
-            this.panelControlBox = new System.Windows.Forms.Panel();
-            this.btnMin = new System.Windows.Forms.PictureBox();
-            this.btnMax = new System.Windows.Forms.PictureBox();
-            this.btnClose = new System.Windows.Forms.PictureBox();
-            this.topHeader = new System.Windows.Forms.Label();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelMenu = new System.Windows.Forms.Panel();
-            this.连接服务器ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.断开服务器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.屏幕截图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打印ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.退出系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.splitter = new System.Windows.Forms.Splitter();
+            this.panelBroker = new System.Windows.Forms.Panel();
             this.ctrlKChart = new CStock.TStock();
             this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
             this.mainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
-            this.panelHolder.SuspendLayout();
-            this.workPanel.SuspendLayout();
-            this.panelBroker.SuspendLayout();
-            this.panelMarket.SuspendLayout();
-            this.panelControlBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelControlBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
+            this.panelHolder.SuspendLayout();
+            this.workPanel.SuspendLayout();
+            this.panelMarket.SuspendLayout();
+            this.panelBroker.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -127,6 +127,60 @@
             this.mainMenu.Size = new System.Drawing.Size(223, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.连接服务器ToolStripMenuItem1,
+            this.断开服务器ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.屏幕截图ToolStripMenuItem,
+            this.打印ToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.退出系统ToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
+            this.toolStripMenuItem1.Text = "系统";
+            // 
+            // 连接服务器ToolStripMenuItem1
+            // 
+            this.连接服务器ToolStripMenuItem1.Name = "连接服务器ToolStripMenuItem1";
+            this.连接服务器ToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.连接服务器ToolStripMenuItem1.Text = "连接服务器";
+            // 
+            // 断开服务器ToolStripMenuItem
+            // 
+            this.断开服务器ToolStripMenuItem.Name = "断开服务器ToolStripMenuItem";
+            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.断开服务器ToolStripMenuItem.Text = "断开服务器";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
+            // 
+            // 屏幕截图ToolStripMenuItem
+            // 
+            this.屏幕截图ToolStripMenuItem.Name = "屏幕截图ToolStripMenuItem";
+            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.屏幕截图ToolStripMenuItem.Text = "屏幕截图";
+            // 
+            // 打印ToolStripMenuItem
+            // 
+            this.打印ToolStripMenuItem.Name = "打印ToolStripMenuItem";
+            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.打印ToolStripMenuItem.Text = "打印";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(131, 6);
+            // 
+            // 退出系统ToolStripMenuItem
+            // 
+            this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
+            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.退出系统ToolStripMenuItem.Text = "退出系统";
             // 
             // 技术ToolStripMenuItem
             // 
@@ -496,6 +550,79 @@
             this.panelTop.Size = new System.Drawing.Size(1100, 25);
             this.panelTop.TabIndex = 4;
             // 
+            // panelMenu
+            // 
+            this.panelMenu.BackColor = System.Drawing.Color.Transparent;
+            this.panelMenu.Controls.Add(this.mainMenu);
+            this.panelMenu.Location = new System.Drawing.Point(21, 0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(326, 25);
+            this.panelMenu.TabIndex = 5;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // topHeader
+            // 
+            this.topHeader.AutoSize = true;
+            this.topHeader.BackColor = System.Drawing.Color.Transparent;
+            this.topHeader.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.topHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.topHeader.Location = new System.Drawing.Point(489, 1);
+            this.topHeader.Name = "topHeader";
+            this.topHeader.Size = new System.Drawing.Size(113, 20);
+            this.topHeader.TabIndex = 4;
+            this.topHeader.Text = "交易大师-机构版";
+            // 
+            // panelControlBox
+            // 
+            this.panelControlBox.BackColor = System.Drawing.Color.Transparent;
+            this.panelControlBox.Controls.Add(this.btnClose);
+            this.panelControlBox.Controls.Add(this.btnMax);
+            this.panelControlBox.Controls.Add(this.btnMin);
+            this.panelControlBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControlBox.Location = new System.Drawing.Point(1025, 0);
+            this.panelControlBox.Name = "panelControlBox";
+            this.panelControlBox.Size = new System.Drawing.Size(75, 25);
+            this.panelControlBox.TabIndex = 3;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackgroundImage = global::XTraderLite.Properties.Resources.Close;
+            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnClose.Location = new System.Drawing.Point(50, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(25, 25);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.TabStop = false;
+            // 
+            // btnMax
+            // 
+            this.btnMax.BackgroundImage = global::XTraderLite.Properties.Resources.Max;
+            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMax.Location = new System.Drawing.Point(25, 0);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(25, 25);
+            this.btnMax.TabIndex = 1;
+            this.btnMax.TabStop = false;
+            // 
+            // btnMin
+            // 
+            this.btnMin.BackgroundImage = global::XTraderLite.Properties.Resources.Min;
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMin.Location = new System.Drawing.Point(0, 0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(25, 25);
+            this.btnMin.TabIndex = 0;
+            this.btnMin.TabStop = false;
+            // 
             // panelHolder
             // 
             this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -520,26 +647,6 @@
             this.workPanel.Size = new System.Drawing.Size(1100, 630);
             this.workPanel.TabIndex = 5;
             // 
-            // panelBroker
-            // 
-            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
-            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBroker.Location = new System.Drawing.Point(0, 370);
-            this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
-            this.panelBroker.TabIndex = 0;
-            // 
-            // splitter
-            // 
-            this.splitter.BackColor = System.Drawing.Color.Silver;
-            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter.Location = new System.Drawing.Point(0, 368);
-            this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(1100, 2);
-            this.splitter.TabIndex = 1;
-            this.splitter.TabStop = false;
-            // 
             // panelMarket
             // 
             this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
@@ -552,132 +659,27 @@
             this.panelMarket.Size = new System.Drawing.Size(1100, 368);
             this.panelMarket.TabIndex = 2;
             // 
-            // panelControlBox
+            // splitter
             // 
-            this.panelControlBox.BackColor = System.Drawing.Color.Transparent;
-            this.panelControlBox.Controls.Add(this.btnClose);
-            this.panelControlBox.Controls.Add(this.btnMax);
-            this.panelControlBox.Controls.Add(this.btnMin);
-            this.panelControlBox.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControlBox.Location = new System.Drawing.Point(1025, 0);
-            this.panelControlBox.Name = "panelControlBox";
-            this.panelControlBox.Size = new System.Drawing.Size(75, 25);
-            this.panelControlBox.TabIndex = 3;
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 368);
+            this.splitter.MinExtra = 100;
+            this.splitter.MinSize = 260;
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(1100, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
             // 
-            // btnMin
+            // panelBroker
             // 
-            this.btnMin.BackgroundImage = global::XTraderLite.Properties.Resources.Min;
-            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnMin.Location = new System.Drawing.Point(0, 0);
-            this.btnMin.Name = "btnMin";
-            this.btnMin.Size = new System.Drawing.Size(25, 25);
-            this.btnMin.TabIndex = 0;
-            this.btnMin.TabStop = false;
-            // 
-            // btnMax
-            // 
-            this.btnMax.BackgroundImage = global::XTraderLite.Properties.Resources.Max;
-            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnMax.Location = new System.Drawing.Point(25, 0);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(25, 25);
-            this.btnMax.TabIndex = 1;
-            this.btnMax.TabStop = false;
-            // 
-            // btnClose
-            // 
-            this.btnClose.BackgroundImage = global::XTraderLite.Properties.Resources.Close;
-            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnClose.Location = new System.Drawing.Point(50, 0);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(25, 25);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.TabStop = false;
-            // 
-            // topHeader
-            // 
-            this.topHeader.AutoSize = true;
-            this.topHeader.BackColor = System.Drawing.Color.Transparent;
-            this.topHeader.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.topHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.topHeader.Location = new System.Drawing.Point(489, 1);
-            this.topHeader.Name = "topHeader";
-            this.topHeader.Size = new System.Drawing.Size(113, 20);
-            this.topHeader.TabIndex = 4;
-            this.topHeader.Text = "交易大师-机构版";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.连接服务器ToolStripMenuItem1,
-            this.断开服务器ToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.屏幕截图ToolStripMenuItem,
-            this.打印ToolStripMenuItem,
-            this.toolStripSeparator7,
-            this.退出系统ToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
-            this.toolStripMenuItem1.Text = "系统";
-            // 
-            // panelMenu
-            // 
-            this.panelMenu.BackColor = System.Drawing.Color.Transparent;
-            this.panelMenu.Controls.Add(this.mainMenu);
-            this.panelMenu.Location = new System.Drawing.Point(21, 0);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(326, 25);
-            this.panelMenu.TabIndex = 5;
-            // 
-            // 连接服务器ToolStripMenuItem1
-            // 
-            this.连接服务器ToolStripMenuItem1.Name = "连接服务器ToolStripMenuItem1";
-            this.连接服务器ToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
-            this.连接服务器ToolStripMenuItem1.Text = "连接服务器";
-            // 
-            // 断开服务器ToolStripMenuItem
-            // 
-            this.断开服务器ToolStripMenuItem.Name = "断开服务器ToolStripMenuItem";
-            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.断开服务器ToolStripMenuItem.Text = "断开服务器";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
-            // 
-            // 屏幕截图ToolStripMenuItem
-            // 
-            this.屏幕截图ToolStripMenuItem.Name = "屏幕截图ToolStripMenuItem";
-            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.屏幕截图ToolStripMenuItem.Text = "屏幕截图";
-            // 
-            // 打印ToolStripMenuItem
-            // 
-            this.打印ToolStripMenuItem.Name = "打印ToolStripMenuItem";
-            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.打印ToolStripMenuItem.Text = "打印";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(131, 6);
-            // 
-            // 退出系统ToolStripMenuItem
-            // 
-            this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
-            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.退出系统ToolStripMenuItem.Text = "退出系统";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 370);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
+            this.panelBroker.TabIndex = 0;
             // 
             // ctrlKChart
             // 
@@ -755,18 +757,18 @@
             this.toolStrip1.PerformLayout();
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.panelHolder.ResumeLayout(false);
-            this.workPanel.ResumeLayout(false);
-            this.panelBroker.ResumeLayout(false);
-            this.panelMarket.ResumeLayout(false);
-            this.panelMarket.PerformLayout();
-            this.panelControlBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.panelMenu.ResumeLayout(false);
             this.panelMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelControlBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
+            this.panelHolder.ResumeLayout(false);
+            this.workPanel.ResumeLayout(false);
+            this.panelMarket.ResumeLayout(false);
+            this.panelMarket.PerformLayout();
+            this.panelBroker.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

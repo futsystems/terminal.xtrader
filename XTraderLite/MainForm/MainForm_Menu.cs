@@ -12,35 +12,9 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
-
-        //bool _splitterMoved = false;
-        //void splitContainer_SplitterMoved(object sender, SplitterEventArgs e)
-        //{
-        //    _splitterMoved = true;
-        //}
-
-
-        bool _tradingBoxShow = false;
         void SwitchTradingBox()
         {
-            if (!_tradingBoxShow)
-            {
-                panelBroker.Visible = true;
-                ////如果splitter没有移动过则交易面板宽度为最小宽度 设置splitterDistance为最大值 是的panel2为最小值
-                //if (!_splitterMoved)
-                //{
-                //    splitContainer.SplitterDistance = this.Height;// -splitContainer.Panel2MinSize;
-                //    //splitContainer.Panel2.Width = splitContainer.Panel2MinSize;
-                //}
-                //splitContainer.Panel2Collapsed = false;
-                _tradingBoxShow = true;
-            }
-            else
-            {
-                //splitContainer.Panel2Collapsed = true;
-                panelBroker.Visible = false;
-                _tradingBoxShow = false;
-            }
+            panelBroker.Visible ^= true;
         }
 
 

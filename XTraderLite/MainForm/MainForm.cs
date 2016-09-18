@@ -104,8 +104,6 @@ namespace XTraderLite
 
             menuTrading.Click += new EventHandler(menuTrading_Click);
             menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
-
-            //splitContainer.SplitterMoved += new SplitterEventHandler(splitContainer_SplitterMoved);
             
         }
 
