@@ -121,9 +121,11 @@ namespace TradingLib.KryptonControl
             _symbolFont = symbolfront;
             _upcolor = upcolor;
             _dncolor = dncolor;
-
+            _eqColor = Color.Silver;
         }
 
+        Color _eqColor;
+        public Color EQColor { get { return _eqColor; } set { _eqColor = value; } }
         Color _upcolor;
         public Color UPColor { get { return _upcolor; } set { _upcolor = value; } }
         Color _dncolor;

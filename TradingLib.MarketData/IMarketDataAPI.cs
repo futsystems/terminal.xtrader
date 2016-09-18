@@ -34,6 +34,18 @@ namespace TradingLib.MarketData
         #region 查询操作
 
         /// <summary>
+        /// 行情快照查询回报
+        /// </summary>
+        event Action<List<MDSymbol>, RspInfo, int, int> OnRspQryTickSnapshot;
+        /// <summary>
+        /// 查询行情快照
+        /// </summary>
+        /// <param name="symbols"></param>
+        /// <returns></returns>
+        int QryTickSnapshot(MDSymbol[] symbols);
+
+
+        /// <summary>
         /// 查询分时数据
         /// </summary>
         /// <param name="exchange"></param>

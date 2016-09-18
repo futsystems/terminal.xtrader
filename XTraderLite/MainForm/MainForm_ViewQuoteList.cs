@@ -155,7 +155,7 @@ namespace XTraderLite
            
             //GP.SetQuan(sk.qu);
             //GP.PreClose = sk.GP.YClose;
-            ctrlKChart.SetQuan(symbol.PowerData);//设定除权数据
+            //ctrlKChart.SetQuan(symbol.PowerData);//设定除权数据
             ctrlKChart.StkCode = symbol.Symbol;
             ctrlKChart.StkName = symbol.Name;
             ctrlKChart.SetStock(symbol);

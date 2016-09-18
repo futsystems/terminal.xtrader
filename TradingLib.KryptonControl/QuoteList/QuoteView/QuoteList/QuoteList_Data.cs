@@ -27,9 +27,8 @@ namespace TradingLib.KryptonControl
         /// <param name="sec"></param>
         public void AddSymbol(MDSymbol symbol)
         {
-            string sym = symbol.Symbol;
             //1.检查是否存在该symbol,如果存在则直接返回
-            if (_symbolIdxMap.Keys.Contains(sym)) return;
+            if (_symbolIdxMap.Keys.Contains(symbol.UniqueKey)) return;
             try
             {
                 int i = _count;
@@ -45,7 +44,7 @@ namespace TradingLib.KryptonControl
                 {
                     _quoteList[i].Symbol = symbol;
                 }
-                _symbolIdxMap.Add(sym, i);
+                _symbolIdxMap.Add(symbol.UniqueKey, i);
                 //更新当前的序号
                 _endIdx = _count - 1;
 
@@ -70,37 +69,37 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        /// <summary>
-        /// 删除某个合约
-        /// </summary>
-        /// <param name="sec"></param>
-        public void RemoveSymbol(MDSymbol symbol)
-        {
-            string sym = symbol.Symbol;
-            int rid;
-            //如果symbolIdx没有找到Symbol对应的行号 则直接返回
-            if (!_symbolIdxMap.TryGetValue(sym, out rid))
-            {
-                return;
-            }
+        ///// <summary>
+        ///// 删除某个合约
+        ///// </summary>
+        ///// <param name="sec"></param>
+        //public void RemoveSymbol(MDSymbol symbol)
+        //{
+        //    string sym = symbol.Symbol;
+        //    int rid;
+        //    //如果symbolIdx没有找到Symbol对应的行号 则直接返回
+        //    if (!_symbolIdxMap.TryGetValue(sym, out rid))
+        //    {
+        //        return;
+        //    }
 
-            //删除某行对应合约 就是将下一行合约往上赋值
-            for (int i = rid; i < _count - 1; i++)
-            {
-                QuoteRow now = _quoteList[i];
-                QuoteRow next = _quoteList[i + 1];
-                now.Symbol = next.Symbol;
-                _symbolIdxMap[now.Symbol.Symbol] = i;
-            }
-            _count--;
+        //    //删除某行对应合约 就是将下一行合约往上赋值
+        //    for (int i = rid; i < _count - 1; i++)
+        //    {
+        //        QuoteRow now = _quoteList[i];
+        //        QuoteRow next = _quoteList[i + 1];
+        //        now.Symbol = next.Symbol;
+        //        _symbolIdxMap[now.Symbol.Symbol] = i;
+        //    }
+        //    _count--;
 
-            _symbolIdxMap.Remove(sym);
+        //    _symbolIdxMap.Remove(sym);
 
-            UpdateBeginEndIdx();
-            this.ResetRect();
-            Invalidate();
+        //    UpdateBeginEndIdx();
+        //    this.ResetRect();
+        //    Invalidate();
 
-        }
+        //}
 
         /// <summary>
         /// 添加一组合约

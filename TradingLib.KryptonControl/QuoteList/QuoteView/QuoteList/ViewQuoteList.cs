@@ -142,6 +142,13 @@ namespace TradingLib.KryptonControl
             
         }
 
+        public IEnumerable<Symbol> SymbolsShow
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         
         void FireQuoteViewChange()
@@ -221,10 +228,10 @@ namespace TradingLib.KryptonControl
         Dictionary<string, int> _symbolIdxMap = new Dictionary<string, int>();
         
         //symbol到本地idx的转换
-        int symbol2idx(string symbol)
+        int symbol2idx(string symbolkey)
         {
             int idx;
-            if (_symbolIdxMap.TryGetValue(symbol, out idx))
+            if (_symbolIdxMap.TryGetValue(symbolkey, out idx))
                 return idx;
             return -1;
         }
@@ -239,7 +246,7 @@ namespace TradingLib.KryptonControl
         }
 
         //通过symbol得到quoterow
-        public QuoteRow this[string symbol] { get { return this[symbol2idx(symbol)]; } }
+        //public QuoteRow this[string symbol] { get { return this[symbol2idx(symbol)]; } }
 
         
         /// <summary>
@@ -280,6 +287,22 @@ namespace TradingLib.KryptonControl
             if (spillTick != null)
                 spillTick(k);
             this[idx].GotTick(k); 
+        }
+
+        /// <summary>
+        /// 更新某个合约数据
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void Update(MDSymbol symbol)
+        {
+
+            int idx = symbol2idx(symbol.UniqueKey);
+            QuoteRow row = this[idx];
+            if (row != null)
+            {
+                row.Update();
+            }
+
         }
 
         #region 表宽,表名
@@ -355,6 +378,18 @@ namespace TradingLib.KryptonControl
             //    }
             //} 
         
+        }
+
+        /// <summary>
+        /// 当前选中合约
+        /// </summary>
+        public MDSymbol SymbolSelected
+        {
+            get
+            {
+                if (_selectedRow < 0 || _selectedRow >= _count) return null;
+                return this[_selectedRow].Symbol;
+            }
         }
 
         /// <summary>

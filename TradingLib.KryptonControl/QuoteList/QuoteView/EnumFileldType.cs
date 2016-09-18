@@ -30,6 +30,8 @@ namespace TradingLib.KryptonControl
         VOL,
         [Description("涨跌")]
         CHANGE,
+        [Description("涨幅")]
+        CHANGEPECT,
         [Description("持仓")]
         OI,
         [Description("仓差")]
@@ -50,6 +52,11 @@ namespace TradingLib.KryptonControl
         PREOI,
         [Description("交易所")]
         EXCHANGE,
-
+        [Description("均价")]
+        AVGPRICE,
+        [Description("内盘")]
+        BSIDE,
+        [Description("外盘")]
+        SSIDE,
     }
 }

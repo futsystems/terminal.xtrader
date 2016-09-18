@@ -33,8 +33,8 @@ namespace TradingLib.KryptonControl
         string _symbol;
         public string Symbol { get { return _symbol; } set { _symbol = value; } }
 
-        decimal _value;
-        public decimal Value { get { return _value; } set { _value = value; } }
+        double _value;
+        public double Value { get { return _value; } set { _value = value; } }
 
         CellStyle _cellStyle;
         public CellStyle CellStyle { get { return _cellStyle; } set { _cellStyle = value; } }
@@ -82,8 +82,24 @@ namespace TradingLib.KryptonControl
                     _cellStyle.FontColor = Color.Yellow;
                     _dispformat = "{0:F0}";
                     break;
+                case EnumFileldType.CHANGE:
+                    _dispformat = "{0:F2}";
+                    break;
+                case EnumFileldType.CHANGEPECT:
+                    _dispformat = "{0:F2}";
+                    break;
                 case EnumFileldType.PRESETTLEMENT:
+                case EnumFileldType.PRECLOSE:
+                case EnumFileldType.PREOI:
                     _cellStyle.FontColor = Color.Silver;
+                    break;
+                case EnumFileldType.SSIDE:
+                    _cellStyle.FontColor = row._quotelist.DefaultQuoteStyle.UPColor;
+                    _dispformat = "{0:F0}";
+                    break;
+                case EnumFileldType.BSIDE:
+                    _cellStyle.FontColor = row._quotelist.DefaultQuoteStyle.DNColor;
+                    _dispformat = "{0:F0}";
                     break;
                 default:
                     break;
@@ -92,7 +108,7 @@ namespace TradingLib.KryptonControl
         }
 
 
-        public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle, decimal value, string disformat)
+        public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle, double value, string disformat)
             : this(row,column, cellstyle, disformat)
         {
             _value = value;

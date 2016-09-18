@@ -12,59 +12,95 @@ namespace TradingLib.MarketData
         //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         //public byte[] code;
         public int Time;
-        public double high;
+        /// <summary>
+        /// 最高价
+        /// </summary>
+        public double High;
+
+
         public double last;
-        public double low;
-        public double open;
-        public double prize; // 现价
-        public double volume;
-        public double amount;
-        public double tradeQTY;
-        public double b;
-        public double s;
-        public double sell1;
-        public double sell2;
-        public double sell3;
-        public double sell4;
-        public double sell5;
-        public double sell6;
-        public double sell7;
-        public double sell8;
-        public double sell9;
-        public double sell10;
-        public double sellQTY1;
-        public double sellQTY2;
-        public double sellQTY3;
-        public double sellQTY4;
-        public double sellQTY5;
-        public double sellQTY6;
-        public double sellQTY7;
-        public double sellQTY8;
-        public double sellQTY9;
-        public double sellQTY10;
+        /// <summary>
+        /// 最低价
+        /// </summary>
+        public double Low;
+        /// <summary>
+        /// 开盘价
+        /// </summary>
+        public double Open;
+        /// <summary>
+        /// 现价
+        /// </summary>
+        public double Price; // 现价
+        /// <summary>
+        /// 成交量
+        /// </summary>
+        public double Volume;
+        /// <summary>
+        /// 成交额
+        /// </summary>
+        public double Amount;
+        /// <summary>
+        /// 现量
+        /// </summary>
+        public double Size;
 
-        public double buy1;
-        public double buy2;
-        public double buy3;
-        public double buy4;
-        public double buy5;
-        public double buy6;
-        public double buy7;
-        public double buy8;
-        public double buy9;
-        public double buy10;
-        public double buyQTY1;
-        public double buyQTY2;
-        public double buyQTY3;
-        public double buyQTY4;
-        public double buyQTY5;
-        public double buyQTY6;
-        public double buyQTY7;
-        public double buyQTY8;
-        public double buyQTY9;
-        public double buyQTY10;
+        /// <summary>
+        /// 内盘
+        /// </summary>
+        public double B;
+        /// <summary>
+        /// 外盘
+        /// </summary>
+        public double S;
 
+        public double Sell1;
+        public double Sell2;
+        public double Sell3;
+        public double Sell4;
+        public double Sell5;
+        public double Sell6;
+        public double Sell7;
+        public double Sell8;
+        public double Sell9;
+        public double Sell10;
+        public double SellQTY1;
+        public double SellQTY2;
+        public double SellQTY3;
+        public double SellQTY4;
+        public double SellQTY5;
+        public double SellQTY6;
+        public double SellQTY7;
+        public double SellQTY8;
+        public double SellQTY9;
+        public double SellQTY10;
+
+        public double Buy1;
+        public double Buy2;
+        public double Buy3;
+        public double Buy4;
+        public double Buy5;
+        public double Buy6;
+        public double Buy7;
+        public double Buy8;
+        public double Buy9;
+        public double Buy10;
+        public double BuyQTY1;
+        public double BuyQTY2;
+        public double BuyQTY3;
+        public double BuyQTY4;
+        public double BuyQTY5;
+        public double BuyQTY6;
+        public double BuyQTY7;
+        public double BuyQTY8;
+        public double BuyQTY9;
+        public double BuyQTY10;
+
+        /// <summary>
+        /// 逐笔数量
+        /// </summary>
         public int BiCount;
+
+
         public double buyall, sellall, buyQTYall, sellQTYall;
         //d1, d2, d3, d4, d5: single;
     };

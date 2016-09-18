@@ -91,11 +91,11 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
+            this.ctrlKChart = new CStock.TStock();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
-            this.ctrlKChart = new CStock.TStock();
-            this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
+            this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
             this.mainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -238,7 +238,7 @@
             this.menuTrading.BackColor = System.Drawing.SystemColors.Control;
             this.menuTrading.Name = "menuTrading";
             this.menuTrading.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.menuTrading.Size = new System.Drawing.Size(152, 22);
+            this.menuTrading.Size = new System.Drawing.Size(147, 22);
             this.menuTrading.Text = "交易大师";
             // 
             // 工具ToolStripMenuItem
@@ -661,28 +661,6 @@
             this.panelMarket.Size = new System.Drawing.Size(1100, 368);
             this.panelMarket.TabIndex = 2;
             // 
-            // splitter
-            // 
-            this.splitter.BackColor = System.Drawing.Color.Silver;
-            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter.Location = new System.Drawing.Point(0, 368);
-            this.splitter.MinExtra = 100;
-            this.splitter.MinSize = 260;
-            this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(1100, 2);
-            this.splitter.TabIndex = 1;
-            this.splitter.TabStop = false;
-            // 
-            // panelBroker
-            // 
-            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
-            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBroker.Location = new System.Drawing.Point(0, 370);
-            this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
-            this.panelBroker.TabIndex = 0;
-            // 
             // ctrlKChart
             // 
             this.ctrlKChart.BackColor = System.Drawing.Color.Black;
@@ -721,13 +699,27 @@
             this.ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
             this.ctrlKChart.Visible = false;
             // 
-            // ctrlQuoteList
+            // splitter
             // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlQuoteList.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("ctrlQuoteList.Symbols")));
-            this.ctrlQuoteList.TabIndex = 1;
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 368);
+            this.splitter.MinExtra = 100;
+            this.splitter.MinSize = 260;
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(1100, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
+            // 
+            // panelBroker
+            // 
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 370);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
+            this.panelBroker.TabIndex = 0;
             // 
             // debugControl1
             // 
@@ -740,6 +732,14 @@
             this.debugControl1.TabIndex = 0;
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlQuoteList.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("ctrlQuoteList.Symbols")));
+            this.ctrlQuoteList.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -817,7 +817,6 @@
         private System.Windows.Forms.ToolStripButton btnWatchList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton btnDemo3;
-        private TradingLib.KryptonControl.ctrlQuoteList ctrlQuoteList;
         private TradingLib.KryptonControl.DebugControl debugControl1;
         private System.Windows.Forms.ToolStripButton btnDemo1;
         private System.Windows.Forms.ToolStripButton btnDemo2;
@@ -844,6 +843,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem 退出系统ToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private TradingLib.KryptonControl.ctrlQuoteList ctrlQuoteList;
     }
 }
 

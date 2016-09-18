@@ -718,14 +718,23 @@ namespace CStock
         {
             if (symbol == null)
                 return;
+
+            
             //if (BuyValue[0] == null)
             //    return;
             FCurStock = symbol;
             FSGS[0].Symbol = symbol;
             GS[0].Symbol = symbol;
 
+
+
             ctDetailsBoard1.SetStock(symbol);
-            FSGS[0].PreClose = symbol.PreClose;// symbol.now.last;
+
+            this.PreClose = symbol.PreClose;
+            //FSGS[0].PreClose = symbol.PreClose;// symbol.now.last;
+            //this.PreClose = symbol.Precision;
+            //加载除权数据
+            this.SetQuan(symbol.PowerData);
 
             this.BarWidth = 8;
             this.StartFix = false;
@@ -1038,7 +1047,7 @@ namespace CStock
         /// <summary>
         /// 清除权息信息
         /// </summary>
-        public void ClearQuan()
+        void ClearQuan()
         {
             GS[0].QuanInfo.Clear();
         }
@@ -1046,7 +1055,7 @@ namespace CStock
         /// 增加权息信息
         /// </summary>
         /// <param name="value"></param>
-        public void SetQuan(PowerData value)
+        void SetQuan(PowerData value)
         {
             if (value.QuanLen > 0)
             {

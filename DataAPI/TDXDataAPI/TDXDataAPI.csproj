@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertHzToPz_Gb2312.cs" />
+    <Compile Include="MDSymbolUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TDXDataAPI.cs" />
     <Compile Include="TDXDecode.cs" />

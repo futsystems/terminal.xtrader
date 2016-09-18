@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="QuoteList\QuoteView\CursorType.cs" />
     <Compile Include="QuoteList\QuoteView\EnumFileldType.cs" />
+    <Compile Include="QuoteList\QuoteView\pu.cs" />
     <Compile Include="QuoteList\QuoteView\QuoteList\QuoteColumn.cs" />
     <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_.cs">
       <SubType>Component</SubType>
@@ -159,6 +160,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_.StartEndIndex.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuoteList\QuoteView\QuoteList\QuoteList_Utils.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="QuoteList\QuoteView\QuoteRow.cs" />

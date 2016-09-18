@@ -91,6 +91,19 @@ namespace TradingLib.KryptonControl
             set { symbolMap = value; }
         }
 
+
+        /// <summary>
+        /// 当前选中合约
+        /// </summary>
+        public MDSymbol SymbolSelected
+        {
+            get
+            {
+                return quotelist.SymbolSelected;
+            }
+        }
+
+
         /// <summary>
         /// 添加板块按钮
         /// </summary>
@@ -107,6 +120,11 @@ namespace TradingLib.KryptonControl
         public void SelectTab(int index)
         {
             blockTab.SelectTab(index);
+        }
+
+        public void Update(MDSymbol symbol)
+        {
+            quotelist.Update(symbol);
         }
     }
 }

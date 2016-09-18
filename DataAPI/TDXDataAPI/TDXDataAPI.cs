@@ -58,10 +58,20 @@ namespace DataAPI.TDX
         //public event Action<double[][], RspInfo, int> OnRspQrySecurityBar;
 
 
+
+
+        /// <summary>
+        /// 行情快照查询回报
+        /// </summary>
+        public event Action<List<MDSymbol>, RspInfo, int, int> OnRspQryTickSnapshot;
+
+
         /// <summary>
         /// 分时数据回报事件
         /// </summary>
         public event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
+
+
 
         /// <summary>
         /// 历史分时数据回报
@@ -187,8 +197,8 @@ namespace DataAPI.TDX
                 {
                     //初始化数据查询
                     this.InitSymbol();
-                    this.InitFinance();
-                    this.InitPower();
+                    //this.InitFinance();
+                    //this.InitPower();
                     //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
                     MDService.Initialize();
                 }
@@ -224,6 +234,7 @@ namespace DataAPI.TDX
         /// </summary>
         public IEnumerable<MDSymbol> Symbols { get { return symbolMap.Values; } }
 
+        #region 初始化操作
         /// <summary>
         /// 初始化合约信息
         /// </summary>
@@ -533,6 +544,10 @@ namespace DataAPI.TDX
             }
             MDService.EventHub.FireInitializeStatusEvent("权息初始化完成");
         }
+        #endregion
+
+
+
         #region 辅助函数
 
         int GetMarketCode(string exchange)
@@ -587,6 +602,47 @@ namespace DataAPI.TDX
 
         #endregion
 
+
+        /// <summary>
+        /// 查询一组合约的行情快照数据
+        /// </summary>
+        /// <param name="symbols"></param>
+        /// <returns></returns>
+        public int QryTickSnapshot(MDSymbol[] symbols)
+        {
+            //查询列表中的一组合约数据
+            //int hh = Stklist.Height / Stklist.ItemHeight + 1;
+            //if (hh > (Stklist.Items.Count - Stklist.TopIndex))
+            //    hh = Stklist.Items.Count - Stklist.TopIndex;
+            int count = symbols.Length;
+
+            byte[] header = { 0x0C, 0x01, 0x08, 0x00, 0x02, 0x01, 0x0F, 0x00, 0x0F, 0x00, 0x26, 0x05, 0x01, 0x00 };
+            int j = (short)header.Length;
+            byte[] request = new byte[count * 11 + j];
+            header.CopyTo(request, 0);
+            foreach(var sym in symbols)// (int i = 0; i < hh; i++)
+            {
+                //CStock.Stock sk1 = (CStock.Stock)Stklist.Items[Stklist.TopIndex + i];
+                request[j] = (byte)GetMarketCode(sym.Exchange);//sk1.mark;
+                Encoding.GetEncoding("GB2312").GetBytes(sym.Symbol).CopyTo(request, j + 1);
+                //sk1.GP.code.CopyTo(request, j + 1);
+                byte[] btime = BitConverter.GetBytes(sym.TickSnapshot.Time);
+                btime.CopyTo(request, j + 7);
+                j += 11;
+            }
+            request[12] = (byte)count;//数量
+            short len = (short)(count * 11 + 4);
+            byte[] b1 = BitConverter.GetBytes(len);
+            b1.CopyTo(request, 6);
+            b1.CopyTo(request, 8);
+            SendBuf sb = new SendBuf();
+            sb.type = 100;
+            sb.Send = request;
+            sb.RequestId = this.NextRequestId;
+            SendList.Enqueue(sb);
+
+            return sb.RequestId;
+        }
 
         /// <summary>
         /// 查询当日成交分布数据
@@ -1408,107 +1464,117 @@ namespace DataAPI.TDX
                         #endregion
 
                         break;
-                    case 0x526:
-                        //SaveRecvData(RecvBuffer);
+                    case 0x526://查询某组合约行情快照回报
                         i = 0;
                         n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
                         if (n == 0)
                             return;
-                        //sk = null;
                         i = 2;
-                        //for (int j = 0; j < n; j++)
-                        //{
-                        //    byte m = RecvBuffer[i];
-                        //    Array.Copy(RecvBuffer, i + 1, code, 0, 6);
-                        //    codes = System.Text.Encoding.GetEncoding("GB2312").GetString(code);
-                        //    sk = (CStock.Stock)FSH[EnCodeMark(codes, m)];
-                        //    if (sk == null)
-                        //        break;
-                        //    i = i + 9;
-                        //    double prize = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i) / 100.0;
-                        //    sk.now.prize = prize;
-                        //    sk.now.last = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100.0);
-                        //    if (sk.GP.YClose == 0.0)
-                        //        sk.GP.YClose = (float)sk.now.last;
-                        //    sk.now.open = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.high = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.low = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.Time = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //    sk.now.volume = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //    sk.now.tradeQTY = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);// '现量;
-                        //    sk.now.amount = TDX.TDXDecoder.TDXGetDouble(RecvBuffer, i, ref i);
-                        //    sk.now.b = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //    sk.now.s = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
+                        string uniqueKey = string.Empty;
+                        MDSymbol target = null;
+                        List<MDSymbol> list = new List<MDSymbol>();
+                        for (int j = 0; j < n; j++)
+                        {
+                            byte m = RecvBuffer[i];
+                            Array.Copy(RecvBuffer, i + 1, code, 0, 6);
+                            codes = System.Text.Encoding.GetEncoding("GB2312").GetString(code);
+                            uniqueKey = string.Format("{0}-{1}", GetMarketString((int)m), codes);
+                            if (symbolMap.TryGetValue(uniqueKey, out target))
+                            {
+                                //sk = (CStock.Stock)FSH[EnCodeMark(codes, m)];
+                                //if (sk == null)
+                                //    break;
+                                i = i + 9;
+                                double prize = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i) / 100.0;
+                                target.TickSnapshot.Price = prize;
+                                target.TickSnapshot.last = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100.0);
+                                if (target.PreClose == 0.0)
+                                    target.PreClose = (float)target.TickSnapshot.last;
+                                target.TickSnapshot.Open = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.High = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Low = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Time = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
+                                target.TickSnapshot.Volume = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
+                                target.TickSnapshot.Size = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);// '现量;
+                                target.TickSnapshot.Amount = TDX.TDXDecoder.TDXGetDouble(RecvBuffer, i, ref i);
+                                target.TickSnapshot.B = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
+                                target.TickSnapshot.S = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
 
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
 
-                        //    sk.now.buy1 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell1 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY1 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY1 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy1 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell1 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY1 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY1 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
 
-                        //    sk.now.buy2 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell2 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY2 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY2 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy2 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell2 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY2 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY2 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
 
-                        //    sk.now.buy3 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell3 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY3 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY3 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.buy4 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell4 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY4 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY4 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.buy5 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell5 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY5 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY5 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
-                        //    sk.now.BiCount = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);//逐笔 笔数
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy3 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell3 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY3 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY3 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy4 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell4 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY4 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY4 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy5 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell5 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY5 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY5 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
+                                target.TickSnapshot.BiCount = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);//逐笔 笔数
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
 
 
-                        //    sk.now.buy6 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell6 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY6 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY6 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy6 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell6 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY6 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY6 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
 
-                        //    sk.now.buy7 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell7 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY7 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY7 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy7 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell7 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY7 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY7 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
 
-                        //    sk.now.buy8 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell8 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY8 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY8 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.buy9 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell9 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY9 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY9 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.buy10 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.sell10 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                        //    sk.now.buyQTY10 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
-                        //    sk.now.sellQTY10 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy8 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell8 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY8 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY8 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy9 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell9 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY9 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY9 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.Buy10 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.Sell10 = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
+                                target.TickSnapshot.BuyQTY10 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
+                                target.TickSnapshot.SellQTY10 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref  i);
 
-                        //    sk.now.buyall = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);//买均
-                        //    sk.now.sellall = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100); ;//卖均
-                        //    sk.now.buyQTYall = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);//总买
-                        //    sk.now.sellQTYall = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);//总卖
+                                target.TickSnapshot.buyall = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);//买均
+                                target.TickSnapshot.sellall = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100); ;//卖均
+                                target.TickSnapshot.buyQTYall = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);//总买
+                                target.TickSnapshot.sellQTYall = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);//总卖
 
-                        //    if (sk == FCurStock)
-                        //        GP.SetStock(sk);
+                                list.Add(target);
+                                //if (sk == FCurStock)
+                                //    GP.SetStock(sk);
 
-                        //    StockJS(sk);
-                        //}
+                                //StockJS(sk);
+                            }
+                        }
+                        if (OnRspQryTickSnapshot != null)
+                        {
+                            OnRspQryTickSnapshot(list, null, n, sb.RequestId);
+                        }
                         //if (ListBoard.Visible)
                         //{
                         //    if (Block1.Visible)
@@ -1538,8 +1604,10 @@ namespace DataAPI.TDX
                         break;
                     case 0x53e:
                     case 0x53d:
+                        
                         i = 2;
                         n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
+                        logger.Info("TickSnaphost response:" + n.ToString());
                         if (n == 0)
                             return;
                         i = 4;

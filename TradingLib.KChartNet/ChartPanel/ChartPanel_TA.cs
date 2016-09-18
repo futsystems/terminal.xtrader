@@ -1395,23 +1395,23 @@ namespace CStock
 
 
             dynainfo[3] = Value.last;
-            dynainfo[4] = Value.open;
-            dynainfo[5] = Value.high;
-            dynainfo[6] = Value.low;
-            dynainfo[7] = Value.prize;
-            dynainfo[8] = Value.volume;
-            dynainfo[9] = Value.tradeQTY;
-            dynainfo[12] = Value.prize - Value.last;
+            dynainfo[4] = Value.Open;
+            dynainfo[5] = Value.High;
+            dynainfo[6] = Value.Low;
+            dynainfo[7] = Value.Price;
+            dynainfo[8] = Value.Volume;
+            dynainfo[9] = Value.Size;
+            dynainfo[12] = Value.Price - Value.last;
             dynainfo[13] = 0;
             dynainfo[14] = 0;
-            if (Value.low != 0)
-                dynainfo[13] = (Value.high - Value.low) / Value.low;
+            if (Value.Low != 0)
+                dynainfo[13] = (Value.High - Value.Low) / Value.Low;
             if (Value.last != 0)
-                dynainfo[14] = (Value.prize - Value.last) * 100 / Value.last;
-            dynainfo[20] = Value.buy1;
-            dynainfo[21] = Value.sell1;
-            dynainfo[22] = Value.b;
-            dynainfo[23] = Value.s;
+                dynainfo[14] = (Value.Price - Value.last) * 100 / Value.last;
+            dynainfo[20] = Value.Buy1;
+            dynainfo[21] = Value.Sell1;
+            dynainfo[22] = Value.B;
+            dynainfo[23] = Value.S;
 
             int id = Convert.ToInt32(d1);
             if ((id < 0) || (id > 24))
@@ -1470,8 +1470,8 @@ namespace CStock
             finance[32] = Value.zl[27] * 1000 / Value.zl[0];
             finance[33] = Value.zl[15] / Value.zl[0] / 10 / Value.zl[29] * 12;
             finance[34] = Value.zl[19] * 1000 / Value.zl[0];
-            finance[40] = Symbol.TickSnapshot.prize * finance[7];
-            finance[41] = Symbol.TickSnapshot.prize * finance[0];
+            finance[40] = Symbol.TickSnapshot.Price * finance[7];
+            finance[41] = Symbol.TickSnapshot.Price * finance[0];
             finance[42] = Value.day1;
 
             int id = Convert.ToInt32(d1);
