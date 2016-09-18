@@ -46,6 +46,15 @@ namespace TradingLib.KryptonControl
             _column = column;
             _cellStyle = new CellStyle(cellstyle);
             _dispformat = disfromat;
+
+            if (_column.FieldType == EnumFileldType.SYMBOL || _column.FieldType == EnumFileldType.SYMBOLNAME)
+            {
+                _cellStyle.DrawFormat.Alignment = StringAlignment.Near;
+            }
+            else
+            {
+                _cellStyle.DrawFormat.Alignment = StringAlignment.Far;
+            }
             //我们需要通过colname来指定默认的cellstyle中文字颜色以及数字的显示方式
             switch (_column.FieldType)
             {
@@ -152,9 +161,7 @@ namespace TradingLib.KryptonControl
             Graphics g = e.Graphics;
             //用颜色填充单元格
             g.FillRectangle(CellStyle.BackBrush, _cellRect);
-            StringFormat drawFormat = new StringFormat();
-            drawFormat.Alignment = StringAlignment.Far;
-            //StringFormat.LineAlignment = StringAlignment.Center; 
+            
             //绘制单元格 提供了单元格的rectangle就得到了 方格位置与长 宽
             //debug("fill the cellrect:"+"x:"+cellRect.X.ToString()+" y:"+cellRect.Y.ToString()+" width:"+cellRect.Width.ToString()+" height"+cellRect.Height.ToString());
             //绘制单元格 需要考虑线宽 实际绘制宽度需要扣除2倍线宽
@@ -171,10 +178,10 @@ namespace TradingLib.KryptonControl
             }
             else if (_column.FieldType == EnumFileldType.INDEX)
             {
-                g.DrawString((_row.RowID + 1).ToString(), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2);
+                g.DrawString((_row.RowID + 1).ToString(), CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2,_cellStyle.DrawFormat);
             }
             else
-                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X+Column.Width, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height) / 2, drawFormat);
+                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width-5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height) / 2, _cellStyle.DrawFormat);
         }
     }
 }

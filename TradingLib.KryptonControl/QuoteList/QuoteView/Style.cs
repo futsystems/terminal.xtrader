@@ -16,7 +16,7 @@ namespace TradingLib.KryptonControl
         //重复使用静态变量Brush以及Pen避免重复重复创建
         public static SolidBrush _brush = new SolidBrush(Color.Black);
         public static Pen _pen = new Pen(Color.Black, 1);
-
+        
         public CellStyle(Color backcolor, Color fontcolor, Font quotefont,Font symbolfont,Color gridColor)
         {
             BackColor = backcolor;
@@ -24,6 +24,7 @@ namespace TradingLib.KryptonControl
             QuoteFont = quotefont;
             SymbolFont = symbolfont;
             LineColor = gridColor;
+            DrawFormat = new StringFormat();
         }
 
         
@@ -35,6 +36,10 @@ namespace TradingLib.KryptonControl
             QuoteFont = copythis.QuoteFont;
             SymbolFont = copythis.SymbolFont;
             LineColor = copythis.LineColor;
+            DrawFormat = new StringFormat();
+
+            DrawFormat.Alignment = copythis.DrawFormat.Alignment;
+
 
 
         }
@@ -49,7 +54,7 @@ namespace TradingLib.KryptonControl
                 
             }
         }
-        //Pen _linepen;
+
         public Pen LinePen {
             get 
             {
@@ -104,8 +109,9 @@ namespace TradingLib.KryptonControl
 
         Font _symbolFont;
         public Font SymbolFont { get { return _symbolFont; } set { _symbolFont = value; } }
-       
 
+        StringFormat _drawFormat;
+        public StringFormat DrawFormat { get { return _drawFormat; } set { _drawFormat = value; } }
     }
     //报表样式
     public class QuoteStyle
@@ -122,8 +128,20 @@ namespace TradingLib.KryptonControl
             _upcolor = upcolor;
             _dncolor = dncolor;
             _eqColor = Color.Silver;
+
+            _leftFormat = new StringFormat();
+            _leftFormat.Alignment = StringAlignment.Near;
+
+            _rightFormat=new StringFormat();
+            _rightFormat.Alignment = StringAlignment.Far;
         }
 
+        StringFormat _leftFormat = null;
+        StringFormat _rightFormat = null;
+
+        public StringFormat LeftFormat { get { return _leftFormat; } }
+
+        public StringFormat RightFormat { get { return _rightFormat; } }
         Color _eqColor;
         public Color EQColor { get { return _eqColor; } set { _eqColor = value; } }
         Color _upcolor;

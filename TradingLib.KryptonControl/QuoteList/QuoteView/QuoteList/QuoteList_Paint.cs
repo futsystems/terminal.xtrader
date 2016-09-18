@@ -61,7 +61,7 @@ namespace TradingLib.KryptonControl
 
             if (e.ClipRectangle.IntersectsWith(new Rectangle(0, 0, ClientSize.Width, DefaultQuoteStyle.HeaderHeight)))
             {
-                foreach(var column in quoteColumns)
+                foreach (var column in quoteColumns)
                 {
                     //PointF cellLocation = new PointF(GetColumnStarX(i), 0);
                     RectangleF cellRect = new RectangleF(column.StartX, 0, column.Width, DefaultQuoteStyle.HeaderHeight);
@@ -69,11 +69,19 @@ namespace TradingLib.KryptonControl
                     g.FillRectangle(_brush, cellRect);
                     //绘制方形区域边界
                     //绘制单元格
-                    g.DrawRectangle(DefaultQuoteStyle.LinePen,column.StartX, 0,column.Width, DefaultQuoteStyle.HeaderHeight);
+                    g.DrawRectangle(DefaultQuoteStyle.LinePen, column.StartX, 0, column.Width, DefaultQuoteStyle.HeaderHeight);
 
                     _brush.Color = HeaderFontColor;
-                    //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-                    g.DrawString(column.Title, HeaderFont,_brush, cellRect.X, cellRect.Y + (DefaultQuoteStyle.HeaderHeight - HeaderFont.Height)/2);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
+
+                    if (column.FieldType == EnumFileldType.SYMBOL || column.FieldType == EnumFileldType.SYMBOLNAME)
+                    {
+                        g.DrawString(column.Title, HeaderFont, _brush, cellRect.X, cellRect.Y + (DefaultQuoteStyle.HeaderHeight - HeaderFont.Height) / 2, DefaultQuoteStyle.LeftFormat);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
+                    }
+                    else
+                    {
+                        //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
+                        g.DrawString(column.Title, HeaderFont, _brush, cellRect.X + column.Width - 5, cellRect.Y + (DefaultQuoteStyle.HeaderHeight - HeaderFont.Height) / 2, DefaultQuoteStyle.RightFormat);//-DefaultQuoteStyle.HeaderHeightHeaderHeight);
+                    }
                 }
             }
         }
