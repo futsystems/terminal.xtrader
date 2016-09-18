@@ -29,19 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.断开服务器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.断开服务器ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.工具栏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.状态栏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.屏幕截图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打印ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.退出系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.技术ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分时走势ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分笔成交明细ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,10 +83,20 @@
             this.btnMax = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.topHeader = new System.Windows.Forms.Label();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelMenu = new System.Windows.Forms.Panel();
+            this.连接服务器ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.断开服务器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.屏幕截图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打印ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.退出系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ctrlKChart = new CStock.TStock();
             this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
-            this.menuStrip1.SuspendLayout();
+            this.mainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelHolder.SuspendLayout();
@@ -109,106 +107,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            this.panelMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // mainMenu
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.系统ToolStripMenuItem,
+            this.mainMenu.BackColor = System.Drawing.Color.Transparent;
+            this.mainMenu.Dock = System.Windows.Forms.DockStyle.None;
+            this.mainMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
             this.技术ToolStripMenuItem,
             this.交易ToolStripMenuItem,
             this.工具ToolStripMenuItem,
             this.帮助ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(25, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(223, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 系统ToolStripMenuItem
-            // 
-            this.系统ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.断开服务器ToolStripMenuItem,
-            this.断开服务器ToolStripMenuItem1,
-            this.toolStripSeparator7,
-            this.视图ToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.屏幕截图ToolStripMenuItem,
-            this.打印ToolStripMenuItem,
-            this.toolStripSeparator6,
-            this.退出系统ToolStripMenuItem});
-            this.系统ToolStripMenuItem.Name = "系统ToolStripMenuItem";
-            this.系统ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.系统ToolStripMenuItem.Text = "系统";
-            // 
-            // 断开服务器ToolStripMenuItem
-            // 
-            this.断开服务器ToolStripMenuItem.Name = "断开服务器ToolStripMenuItem";
-            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.断开服务器ToolStripMenuItem.Text = "连接服务器";
-            // 
-            // 断开服务器ToolStripMenuItem1
-            // 
-            this.断开服务器ToolStripMenuItem1.Name = "断开服务器ToolStripMenuItem1";
-            this.断开服务器ToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
-            this.断开服务器ToolStripMenuItem1.Text = "断开服务器";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(131, 6);
-            // 
-            // 视图ToolStripMenuItem
-            // 
-            this.视图ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.工具栏ToolStripMenuItem,
-            this.状态栏ToolStripMenuItem});
-            this.视图ToolStripMenuItem.Name = "视图ToolStripMenuItem";
-            this.视图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.视图ToolStripMenuItem.Text = "视图";
-            // 
-            // 工具栏ToolStripMenuItem
-            // 
-            this.工具栏ToolStripMenuItem.Name = "工具栏ToolStripMenuItem";
-            this.工具栏ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.工具栏ToolStripMenuItem.Text = "工具栏";
-            // 
-            // 状态栏ToolStripMenuItem
-            // 
-            this.状态栏ToolStripMenuItem.Name = "状态栏ToolStripMenuItem";
-            this.状态栏ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.状态栏ToolStripMenuItem.Text = "状态栏";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
-            // 
-            // 屏幕截图ToolStripMenuItem
-            // 
-            this.屏幕截图ToolStripMenuItem.Name = "屏幕截图ToolStripMenuItem";
-            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.屏幕截图ToolStripMenuItem.Text = "屏幕截图";
-            // 
-            // 打印ToolStripMenuItem
-            // 
-            this.打印ToolStripMenuItem.Name = "打印ToolStripMenuItem";
-            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.打印ToolStripMenuItem.Text = "打印";
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(131, 6);
-            // 
-            // 退出系统ToolStripMenuItem
-            // 
-            this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
-            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.退出系统ToolStripMenuItem.Text = "退出系统";
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(223, 24);
+            this.mainMenu.TabIndex = 0;
+            this.mainMenu.Text = "menuStrip1";
             // 
             // 技术ToolStripMenuItem
             // 
@@ -568,9 +486,10 @@
             // panelTop
             // 
             this.panelTop.BackgroundImage = global::XTraderLite.Properties.Resources.TopMenuBG;
+            this.panelTop.Controls.Add(this.panelMenu);
+            this.panelTop.Controls.Add(this.pictureBox1);
             this.panelTop.Controls.Add(this.topHeader);
             this.panelTop.Controls.Add(this.panelControlBox);
-            this.panelTop.Controls.Add(this.menuStrip1);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
@@ -679,11 +598,86 @@
             // 
             this.topHeader.AutoSize = true;
             this.topHeader.BackColor = System.Drawing.Color.Transparent;
-            this.topHeader.Location = new System.Drawing.Point(292, 7);
+            this.topHeader.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.topHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.topHeader.Location = new System.Drawing.Point(489, 1);
             this.topHeader.Name = "topHeader";
-            this.topHeader.Size = new System.Drawing.Size(95, 12);
+            this.topHeader.Size = new System.Drawing.Size(113, 20);
             this.topHeader.TabIndex = 4;
             this.topHeader.Text = "交易大师-机构版";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.连接服务器ToolStripMenuItem1,
+            this.断开服务器ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.屏幕截图ToolStripMenuItem,
+            this.打印ToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.退出系统ToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
+            this.toolStripMenuItem1.Text = "系统";
+            // 
+            // panelMenu
+            // 
+            this.panelMenu.BackColor = System.Drawing.Color.Transparent;
+            this.panelMenu.Controls.Add(this.mainMenu);
+            this.panelMenu.Location = new System.Drawing.Point(21, 0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(326, 25);
+            this.panelMenu.TabIndex = 5;
+            // 
+            // 连接服务器ToolStripMenuItem1
+            // 
+            this.连接服务器ToolStripMenuItem1.Name = "连接服务器ToolStripMenuItem1";
+            this.连接服务器ToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.连接服务器ToolStripMenuItem1.Text = "连接服务器";
+            // 
+            // 断开服务器ToolStripMenuItem
+            // 
+            this.断开服务器ToolStripMenuItem.Name = "断开服务器ToolStripMenuItem";
+            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.断开服务器ToolStripMenuItem.Text = "断开服务器";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
+            // 
+            // 屏幕截图ToolStripMenuItem
+            // 
+            this.屏幕截图ToolStripMenuItem.Name = "屏幕截图ToolStripMenuItem";
+            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.屏幕截图ToolStripMenuItem.Text = "屏幕截图";
+            // 
+            // 打印ToolStripMenuItem
+            // 
+            this.打印ToolStripMenuItem.Name = "打印ToolStripMenuItem";
+            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.打印ToolStripMenuItem.Text = "打印";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(131, 6);
+            // 
+            // 退出系统ToolStripMenuItem
+            // 
+            this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
+            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.退出系统ToolStripMenuItem.Text = "退出系统";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // ctrlKChart
             // 
@@ -755,8 +749,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panelTop.ResumeLayout(false);
@@ -770,14 +764,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            this.panelMenu.ResumeLayout(false);
+            this.panelMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 系统ToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem 交易ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuTrading;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
@@ -786,17 +782,6 @@
         private System.Windows.Forms.ToolStripMenuItem 免责声明ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 断开服务器ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 断开服务器ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem 视图ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 工具栏ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 状态栏ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 屏幕截图ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 打印ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem 退出系统ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 使用说明ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 技术ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 分时走势ToolStripMenuItem;
@@ -845,6 +830,16 @@
         private System.Windows.Forms.PictureBox btnMax;
         private System.Windows.Forms.PictureBox btnMin;
         private System.Windows.Forms.Label topHeader;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.Panel panelMenu;
+        private System.Windows.Forms.ToolStripMenuItem 连接服务器ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 断开服务器ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem 屏幕截图ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 打印ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem 退出系统ToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
