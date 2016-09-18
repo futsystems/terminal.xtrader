@@ -26,7 +26,6 @@ namespace XTraderLite
         public static extern int GetClassLong(IntPtr hwnd, int nIndex);
 
 
-        DataAPI.TDX.TDXDataAPI _dataAPI = null;
         public MainForm()
         {
             InitializeComponent();
@@ -82,10 +81,18 @@ namespace XTraderLite
             btnDemo2.Click += new EventHandler(btnDemo2_Click);
             btnDemo1.Click += new EventHandler(btnDemo1_Click);
 
-            panelTop.MouseDown += new MouseEventHandler(TopMenuPanel_MouseDown);
-            panelTop.MouseUp += new MouseEventHandler(TopMenuPanel_MouseUp);
-            panelTop.MouseMove += new MouseEventHandler(TopMenuPanel_MouseMove);
-            panelTop.DoubleClick += new EventHandler(TopMenuPanel_DoubleClick);
+            panelTop.MouseDown += new MouseEventHandler(move_MouseDown);
+            panelTop.MouseUp += new MouseEventHandler(move_MouseUp);
+            panelTop.MouseMove += new MouseEventHandler(move_MouseMove);
+            panelTop.DoubleClick += new EventHandler(Form_DoubleClick);
+            topHeader.MouseDown += new MouseEventHandler(move_MouseDown);
+            topHeader.MouseUp += new MouseEventHandler(move_MouseUp);
+            topHeader.MouseMove += new MouseEventHandler(move_MouseMove);
+            topHeader.DoubleClick += new EventHandler(Form_DoubleClick);
+            panelMenu.MouseDown +=new MouseEventHandler(move_MouseDown);
+            panelMenu.MouseUp +=new MouseEventHandler(move_MouseUp);
+            panelMenu.MouseMove +=new MouseEventHandler(move_MouseMove);
+            panelMenu.DoubleClick +=new EventHandler(Form_DoubleClick);
 
 
             //toolbar
@@ -157,7 +164,7 @@ namespace XTraderLite
         #region 顶部Panel移动窗体
         private bool m_isMouseDown = false;
         private Point m_mousePos = new Point();
-        void TopMenuPanel_MouseMove(object sender, MouseEventArgs e)
+        void move_MouseMove(object sender, MouseEventArgs e)
         {
             if (m_isMouseDown)
             {
@@ -167,12 +174,12 @@ namespace XTraderLite
             }
         }
 
-        void TopMenuPanel_MouseUp(object sender, MouseEventArgs e)
+        void move_MouseUp(object sender, MouseEventArgs e)
         {
             m_isMouseDown = false;
         }
 
-        void TopMenuPanel_MouseDown(object sender, MouseEventArgs e)
+        void move_MouseDown(object sender, MouseEventArgs e)
         {
             m_mousePos = Cursor.Position;
             m_isMouseDown = true;
@@ -180,7 +187,7 @@ namespace XTraderLite
             
         }
 
-        void TopMenuPanel_DoubleClick(object sender, EventArgs e)
+        void Form_DoubleClick(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
             {
