@@ -26,10 +26,18 @@ namespace TradingLib.MarketData
             this.TickSnapshot = new TDX();
         }
 
+        string _symbol = string.Empty;
         /// <summary>
         /// 合约代码
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol 
+        {
+            get { return _symbol; }
+            set {
+                _symbol = value;
+                _uniquekey = string.Format("{0}-{1}", this.Exchange, this.Symbol);
+            }
+        }
 
         /// <summary>
         /// 合约名称
@@ -61,10 +69,19 @@ namespace TradingLib.MarketData
         /// </summary>
         public int Multiple { get; set; }
 
+        string _exch = string.Empty;
         /// <summary>
         /// 交易所
         /// </summary>
-        public string Exchange { get; set; }
+        public string Exchange
+        {
+            get { return _exch; }
+            set
+            { 
+                _exch = value;
+                _uniquekey = string.Format("{0}-{1}", this.Exchange, this.Symbol);
+            }
+        }
 
 
         /// <summary>
@@ -96,10 +113,12 @@ namespace TradingLib.MarketData
 
 
         public double PreClose { get; set; }
+
+        string _uniquekey = string.Empty;
         /// <summary>
         /// 通过交易所-合约 组成唯一Key
         /// </summary>
-        public string UniqueKey { get { return string.Concat(new { this.Exchange, this.Symbol }); } }
+        public string UniqueKey { get { return _uniquekey; } }
 
     }
 }

@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using System.Runtime.InteropServices;
-
+using System.IO;
 using Common.Logging;
 
 using TradingLib.MarketData;
@@ -186,7 +186,8 @@ namespace DataAPI.TDX
                 if (!MDService.Initialized && respone.LoginSuccess)
                 {
                     //初始化数据查询
-                    this.InitData();
+                    this.InitSymbol();
+                    this.InitFinance();
                     //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
                     MDService.Initialize();
                 }
@@ -214,6 +215,7 @@ namespace DataAPI.TDX
             }
         }
 
+        List<MDSymbol> symbolList = new List<MDSymbol>();
         Dictionary<string, MDSymbol> symbolMap = new Dictionary<string, MDSymbol>();
 
         /// <summary>
@@ -221,8 +223,10 @@ namespace DataAPI.TDX
         /// </summary>
         public IEnumerable<MDSymbol> Symbols { get { return symbolMap.Values; } }
 
-
-        void InitData()
+        /// <summary>
+        /// 初始化合约信息
+        /// </summary>
+        void InitSymbol()
         {
 
             int i,count,n,j;
@@ -278,6 +282,7 @@ namespace DataAPI.TDX
                             symbol.PreClose = gname.YClose;
 
                             symbolMap[symbol.UniqueKey] = symbol;
+                            symbolList.Add(symbol);
 
                             pp = pp + Marshal.SizeOf(type);
                             //logger.Info(string.Format("ID:{0} Symbol:{1} Name:{2}", ncode, codes, names));
@@ -332,7 +337,7 @@ namespace DataAPI.TDX
                             symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
                             symbolMap[symbol.UniqueKey] = symbol;
-
+                            symbolList.Add(symbol);
                             pp = pp + Marshal.SizeOf(type);
                             //logger.Info(string.Format("ID:{0} Symbol:{1} Name:{2} PriceMag:{3} Rate:{4} YClose:{5}", ncode, codes, names, gname.PriceMag, gname.rate, gname.YClose));
                         }
@@ -346,6 +351,86 @@ namespace DataAPI.TDX
            
         }
 
+        /// <summary>
+        /// 初始化财务信息
+        /// </summary>
+        void InitFinance()
+        {
+            string codes;
+            byte[] code = new byte[6];
+            byte[] request = new byte[2000];
+            int Len, i, t, n, k, kk;
+            string uniqueKey;
+            int j;
+            Len = 100;
+            byte[] bb = { 0xC, 0x1F, 0x18, 0x75, 0x0, 0x1, 0xB, 0x0, 0xB, 0x0, 0x10, 0x0, 0x0, 0x0 };
+            bb.CopyTo(request, 0);
+            i = 100;
+            MDSymbol target = null;
+            MDService.EventHub.FireInitializeStatusEvent("初始化财务信息");
+            int symCount = this.symbolMap.Count;
+            int TDXBKLen = 0;
+            while (i < symCount - TDXBKLen)
+            {
+                j = bb.Length;
+                Len = Math.Min(100, symCount - i - TDXBKLen);
+                for (t = i; t < i + Len; t++)
+                {
+                    request[j] = (byte)GetMarketCode(symbolList[t].Exchange);//FSK[t].mark;
+                    Encoding.GetEncoding("GB2312").GetBytes(symbolList[t].Symbol).CopyTo(request, j + 1);
+                    j = j + 7;
+                }
+                byte[] b1;
+                ushort jj = (ushort)(j - 10);
+                b1 = BitConverter.GetBytes(jj);
+                b1.CopyTo(request, 6);
+                b1.CopyTo(request, 8);
+                request[12] = (byte)Len;
+                byte[] RecvBuffer = null;
+                MDService.EventHub.FireInitializeStatusEvent("初始化财务信息:" + ((double)i / (double)symCount).ToString("0%"));
+                if (Command(request, j, ref RecvBuffer))
+                {
+                    MemoryStream ms = new MemoryStream(RecvBuffer);
+                    BinaryReader RecvBr = new BinaryReader(ms);
+                    n = RecvBr.ReadInt16();
+                    if (n > 0)
+                    {
+                        for (j = 0; j < n; j++)
+                        {
+                            byte m = RecvBr.ReadByte();
+                            code = RecvBr.ReadBytes(6);
+                            codes = System.Text.Encoding.GetEncoding("GB2312").GetString(code);
+                            uniqueKey = string.Format("{0}-{1}", GetMarketString((int)m), codes);
+                            //查找到对应的Symbol并赋值财务数据
+                            if (symbolMap.TryGetValue(uniqueKey, out target))
+                            {
+                                target.FinanceData.LTG = RecvBr.ReadSingle();
+                                target.FinanceData.t1 = RecvBr.ReadUInt16();
+                                target.FinanceData.t2 = RecvBr.ReadUInt16();
+                                target.FinanceData.day1 = RecvBr.ReadUInt32();
+                                target.FinanceData.day2 = RecvBr.ReadUInt32();
+                                target.FinanceData.zl = new float[30];
+                                for (k = 0; k < 30; k++)
+                                {
+                                    target.FinanceData.zl[k] = RecvBr.ReadSingle();
+                                }
+                            }
+                        }
+                    }
+                    RecvBr.Close();
+                    ms.Close();
+                }
+                else
+                {
+                    break;
+                }
+                i = i + Len;
+
+            }
+            MDService.EventHub.FireInitializeStatusEvent("财务初始化完成");
+        }
+
+
         int GetMarketCode(string exchange)
         {
             switch (exchange)
@@ -357,6 +442,19 @@ namespace DataAPI.TDX
                 default:
                     return -1;
             }
+        }
+
+        string GetMarketString(int market)
+        {
+            if (market == 0)
+            {
+                return Exchange.EXCH_SZE;
+            }
+            if (market == 1)
+            {
+                return Exchange.EXCH_SSE;
+            }
+            return string.Empty;
         }
         /// <summary>
         /// K线种类, 0->5分钟K线    1->15分钟K线    2->30分钟K线  3->1小时K线    4->日K线  5->周K线  6->月K线  7->1分钟    10->季K线  11->年K线</param>
