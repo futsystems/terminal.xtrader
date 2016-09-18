@@ -152,22 +152,29 @@ namespace TradingLib.KryptonControl
             Graphics g = e.Graphics;
             //用颜色填充单元格
             g.FillRectangle(CellStyle.BackBrush, _cellRect);
+            StringFormat drawFormat = new StringFormat();
+            drawFormat.Alignment = StringAlignment.Far;
+            //StringFormat.LineAlignment = StringAlignment.Center; 
             //绘制单元格 提供了单元格的rectangle就得到了 方格位置与长 宽
             //debug("fill the cellrect:"+"x:"+cellRect.X.ToString()+" y:"+cellRect.Y.ToString()+" width:"+cellRect.Width.ToString()+" height"+cellRect.Height.ToString());
             //绘制单元格 需要考虑线宽 实际绘制宽度需要扣除2倍线宽
             //g.DrawRectangle(CellStyle.LinePen, _cellRect.X, _cellRect.Y, _cellRect.Width, _cellRect.Height);
             //绘制出文字
             //矩形区域的定义是由左上角的坐标进行定义的,当要输出文字的时候从左上角坐标 + 本行高度度 - 实际输出文字的高度 + 文字距离下界具体
-            if (_column.FieldType == EnumFileldType.SYMBOL || _column.FieldType == EnumFileldType.SYMBOLNAME)
+            if (_column.FieldType == EnumFileldType.SYMBOL)
             {
-                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height)/2);
+                g.DrawString(_symbol, CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2);
+            }
+            else if (_column.FieldType == EnumFileldType.SYMBOLNAME)
+            {
+                g.DrawString(_symbol, CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2);
             }
             else if (_column.FieldType == EnumFileldType.INDEX)
             {
-                g.DrawString((_row.RowID+1).ToString(), CellStyle.SymbolFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height)/2);
+                g.DrawString((_row.RowID + 1).ToString(), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2);
             }
             else
-                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height)/2);
+                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, _cellRect.X+Column.Width, _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height) / 2, drawFormat);
         }
     }
 }

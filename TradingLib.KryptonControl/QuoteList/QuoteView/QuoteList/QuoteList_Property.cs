@@ -18,9 +18,7 @@ namespace TradingLib.KryptonControl
     {
 
         #region 属性
-        //属性获得和设置
-        [DefaultValue("Aqua")]
-        Color _UPColor = Color.Red;
+        Color _UPColor = Color.FromArgb(255, 60, 57);
         public Color UPColor
         {
             get
@@ -33,8 +31,7 @@ namespace TradingLib.KryptonControl
                 Invalidate();
             }
         }
-        [DefaultValue("Aqua")]
-        Color _DNColor = Color.Green;
+        Color _DNColor = Color.FromArgb(0, 231, 0);
         public Color DNColor
         {
             get
@@ -48,9 +45,11 @@ namespace TradingLib.KryptonControl
             }
         }
 
+       
+
         //调用Invalidate()可以保证设置属性之后重绘控件
         //[DefaultValue("Arial, 13.5pt, style=Bold")]
-        Font _headFont = new Font("Arial", 11f,FontStyle.Bold);
+        Font _headFont = new Font("宋体", 10.5f, FontStyle.Bold);
         public Font HeaderFont
         {
             get
@@ -63,8 +62,9 @@ namespace TradingLib.KryptonControl
                 Invalidate();
             }
         }
-        [DefaultValue("Arial, 10.5pt, style=Bold")]
-        Font _quoteFont = new Font("Aria", 11f, FontStyle.Bold);
+        //[DefaultValue("Arial, 10.5pt, style=Bold")]
+        //Arial,Gulim
+        Font _quoteFont = new Font("Arial", 10f, FontStyle.Bold);
         public Font QuoteFont
         {
             get
@@ -79,8 +79,8 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("Arial, 10.5pt")]
-        Font _symbolFont = new Font("Aria", 11f);
+        //[DefaultValue("Arial, 10.5pt")]
+        Font _symbolFont = new Font("System", 11f);
         public Font SymbolFont
         {
             get
@@ -95,7 +95,6 @@ namespace TradingLib.KryptonControl
         }
 
 
-        [DefaultValue("Aqua")]
         Color _headFontColor = Color.FromArgb(0, 255, 255);
         public Color HeaderFontColor
         {
@@ -110,7 +109,6 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("Aqua")]
         Color _headBackColor = Color.FromArgb(0, 0, 0);
         public Color HeaderBackColor
         {
@@ -126,7 +124,6 @@ namespace TradingLib.KryptonControl
         }
 
         
-        [DefaultValue("Aqua")]
         Color _symbolFontColor = Color.Green;
         public Color SymbolFontColor
         {
@@ -141,7 +138,6 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("Blue")]
         Color _selectedColor = Color.FromArgb(75, 75, 75);
         public Color SelectedColor
         {
@@ -157,7 +153,6 @@ namespace TradingLib.KryptonControl
 
 
 
-        [DefaultValue("SlateGray")]
         Color _quoteBackColor1 = Color.FromArgb(0, 0, 0);
         public Color QuoteBackColor1
         {
@@ -174,7 +169,7 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("LightSlateGray")]
+
         Color _quoteBackColor2 = Color.FromArgb(0, 0, 0);
         public Color QuoteBackColor2
         {
@@ -191,7 +186,7 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("Silver")]
+
         Color _tableLineColor = Color.FromArgb(0, 0, 0);
         public Color TableLineColor
         {
@@ -209,7 +204,6 @@ namespace TradingLib.KryptonControl
             }
         }
 
-        [DefaultValue("False")]
         bool _showmenu = false;
         public bool MenuEnable
         {
@@ -243,7 +237,7 @@ namespace TradingLib.KryptonControl
         /// <summary>
         /// 标题高度
         /// </summary>
-        private int HeaderHeight { get { return _headFont.Height + (int)(_headFont.Height*0.3); } }
+        private int HeaderHeight { get { return _headFont.Height + (int)(_headFont.Height*0.4); } }
 
         /// <summary>
         /// 报价行高度

@@ -393,6 +393,22 @@ namespace TradingLib.KryptonControl
         }
 
         /// <summary>
+        /// 所有可见合约列表
+        /// </summary>
+        public List<MDSymbol> SymbolVisible
+        {
+            get
+            {
+                List<MDSymbol> list = new List<MDSymbol>();
+                for (int i = _beginIdx; i <= _endIdx; i++)
+                {
+                    list.Add(this[i].Symbol);
+                }
+                return list;
+            }
+        }
+
+        /// <summary>
         /// 选中某个行，高亮显示该报价行
         /// </summary>
         /// <param name="i"></param>

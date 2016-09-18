@@ -23,6 +23,7 @@ namespace TradingLib.KryptonControl
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             _brush.Color = this.BackColor;
             e.Graphics.FillRectangle(_brush, e.ClipRectangle);
             //绘制表头

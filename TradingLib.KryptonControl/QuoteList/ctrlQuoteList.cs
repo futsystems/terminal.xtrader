@@ -105,6 +105,18 @@ namespace TradingLib.KryptonControl
 
 
         /// <summary>
+        /// 所有可见合约
+        /// </summary>
+        public List<MDSymbol> SymbolVisible
+        {
+            get
+            {
+                return quotelist.SymbolVisible;
+            }
+        }
+
+
+        /// <summary>
         /// 添加板块按钮
         /// </summary>
         /// <param name="title"></param>

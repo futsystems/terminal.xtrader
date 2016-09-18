@@ -19,9 +19,10 @@ namespace XTraderLite
             MDSymbol symbol = ctrlQuoteList.SymbolSelected;
             if (symbol != null)
             {
-                logger.Info("symbol selected:" + symbol.Symbol);
+                //logger.Info("symbol selected:" + symbol.Symbol);
 
-                MDService.DataAPI.QryTickSnapshot(new MDSymbol[] { symbol });
+                //MDService.DataAPI.QryTickSnapshot(new MDSymbol[] { symbol });
+                MDService.DataAPI.QryTickSnapshot(ctrlQuoteList.SymbolVisible.ToArray());
             }
         }
 

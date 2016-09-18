@@ -150,6 +150,7 @@ namespace TradingLib.KryptonControl
             { 
                 case EnumFileldType.LAST:
                     cell.Value = _symbol.TickSnapshot.Price;
+                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price,_symbol.TickSnapshot.last);
                     break;
                 case EnumFileldType.LASTSIZE:
                     cell.Value = _symbol.TickSnapshot.Size;
