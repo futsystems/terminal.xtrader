@@ -36,13 +36,15 @@ namespace TradingLib.KryptonControl
                 //QuoteList没有足够的QuoteRow则新建
                 if (_quoteList.Count < _count)
                 {
-                    QuoteRow qr = new QuoteRow(this, i, symbol, _quoteType);
+                    QuoteRow qr = new QuoteRow(this, i, symbol);
                     //qr.SendDebutEvent += new DebugDelegate(debug);
                     _quoteList.Add(qr);
                 }
                 else//设定QuoteRow现实的合约对象
                 {
                     _quoteList[i].Symbol = symbol;
+                    _quoteList[i].ResetCellValue();
+                    _quoteList[i].Update();
                 }
                 _symbolIdxMap.Add(symbol.UniqueKey, i);
                 //更新当前的序号
@@ -58,8 +60,6 @@ namespace TradingLib.KryptonControl
                 if (_needInvalidate)
                 {
                     Invalidate(_quoteList[i].Rect);
-
-                    //
                     FireQuoteViewChange();
                 }
             }

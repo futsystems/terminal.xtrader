@@ -117,6 +117,15 @@ namespace XTraderLite
 
             //绑定对外事件
             ctrlQuoteList.MouseEvent += new Action<TradingLib.MarketData.MDSymbol, TradingLib.KryptonControl.QuoteMouseEventType>(quoteView_MouseEvent);
+            ctrlQuoteList.SymbolVisibleChanged += new EventHandler<TradingLib.KryptonControl.SymbolVisibleChangeEventArgs>(ctrlQuoteList_SymbolVisibleChanged);
+        }
+
+        void ctrlQuoteList_SymbolVisibleChanged(object sender, TradingLib.KryptonControl.SymbolVisibleChangeEventArgs e)
+        {
+            if (e.Symbols != null && e.Symbols.Length > 0)
+            {
+                MDService.DataAPI.QryTickSnapshot(e.Symbols);
+            }
         }
 
         void quoteView_MouseEvent(TradingLib.MarketData.MDSymbol arg1, TradingLib.KryptonControl.QuoteMouseEventType arg2)

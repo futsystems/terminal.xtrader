@@ -22,16 +22,29 @@ namespace TradingLib.KryptonControl
         /// </summary>
         public event Action<MDSymbol, QuoteMouseEventType> MouseEvent;
 
+        /// <summary>
+        /// 可视合约发生变化
+        /// </summary>
+        public event EventHandler<SymbolVisibleChangeEventArgs> SymbolVisibleChanged;
 
         public ctrlQuoteList()
         {
             InitializeComponent();
             quotelist.QuoteViewChanged += new EventHandler<QuoteViewChangedArgs>(quotelist_QuoteViewChanged);
             quotelist.MouseEvent += new Action<MDSymbol, QuoteMouseEventType>(quotelist_MouseEvent);
+            quotelist.SymbolVisibleChanged += new EventHandler<SymbolVisibleChangeEventArgs>(quotelist_SymbolVisibleChanged);
             blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);
             scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
             scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
 
+        }
+
+        void quotelist_SymbolVisibleChanged(object sender, SymbolVisibleChangeEventArgs e)
+        {
+            if (SymbolVisibleChanged != null)
+            {
+                SymbolVisibleChanged(this, e);
+            }
         }
 
         void quotelist_MouseEvent(MDSymbol arg1, QuoteMouseEventType arg2)

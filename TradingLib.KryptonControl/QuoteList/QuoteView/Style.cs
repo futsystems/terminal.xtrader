@@ -116,6 +116,11 @@ namespace TradingLib.KryptonControl
     //报表样式
     public class QuoteStyle
     {
+        //重复使用静态变量Brush以及Pen避免重复重复创建
+        public static SolidBrush _brush = new SolidBrush(Color.Black);
+        public static Pen _pen = new Pen(Color.Black, 1);
+
+
         public QuoteStyle(Color quoteback1,Color quoteback2,Font quotefont,Font symbolfront,Color linecolor, Color upcolor,Color dncolor,int headheight, int rowheight)
         {
             _quoteBackColor1 = quoteback1;
@@ -148,6 +153,19 @@ namespace TradingLib.KryptonControl
         public Color UPColor { get { return _upcolor; } set { _upcolor = value; } }
         Color _dncolor;
         public Color DNColor { get { return _dncolor; } set { _dncolor = value; } }
+
+
+        Color _NaNColor = Color.Silver;
+        public Color NaNColor { get { return _NaNColor; } set { _NaNColor = value; ; } }
+
+        public SolidBrush NaNBrush
+        {
+            get
+            {
+                _brush.Color = _NaNColor;
+                return _brush;
+            }
+        }
 
         Font _quoteFont;
         /// <summary>

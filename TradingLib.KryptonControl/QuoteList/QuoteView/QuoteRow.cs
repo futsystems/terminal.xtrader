@@ -53,11 +53,11 @@ namespace TradingLib.KryptonControl
         }
 
 
-        EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
-        /// <summary>
-        /// 报价类别
-        /// </summary>
-        public EnumQuoteType QuoteType { get { return _quoteType; } set { _quoteType = value; } }
+        //EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
+        ///// <summary>
+        ///// 报价类别
+        ///// </summary>
+        //public EnumQuoteType QuoteType { get { return _quoteType; } set { _quoteType = value; } }
 
 
         bool _selected = false;
@@ -89,7 +89,7 @@ namespace TradingLib.KryptonControl
         /// <param name="rid">行序号</param>
         /// <param name="symbol">合约</param>
         /// <param name="type">报价类别</param>
-        public QuoteRow(ViewQuoteList quotelist, int rid, MDSymbol symbol, EnumQuoteType type)
+        public QuoteRow(ViewQuoteList quotelist, int rid, MDSymbol symbol)
         {
             _quotelist = quotelist;
             _symbol = symbol;
@@ -97,7 +97,6 @@ namespace TradingLib.KryptonControl
 
             _defaultQuoteStyle = quotelist.DefaultQuoteStyle;
             _pricedispformat = symbol.GetFormat();
-            _quoteType = type;
 
             //初始化行
             InitRow();
@@ -115,18 +114,31 @@ namespace TradingLib.KryptonControl
             //for (int i = 0; i < _quotelist.Columns.Length; i++)
             foreach(var column in _quotelist.Columns)
             {
-                QuoteCell cell = new QuoteCell(this,column, cellstyle, 0, _pricedispformat);
+                QuoteCell cell = new QuoteCell(this,column, cellstyle,double.NaN, _pricedispformat);
                 //cell.SendDebutEvent += new DebugDelegate(debug);
                 //添加Cell到数据结构
                 _columeCellMap.Add(column.FieldType, cell);
                 //_columeCellMap.Add(i, cell);
                 //_columeName2idx.Add(_quotelist.Columns[i], i);
-
             }
 
             this.SetUnchangedCell();
         }
 
+        /// <summary>
+        /// 重置单元格值
+        /// </summary>
+        public void ResetCellValue()
+        {
+            foreach (var cell in _columeCellMap.Values)
+            {
+                if (cell.Column.FieldType == EnumFileldType.INDEX || cell.Column.FieldType == EnumFileldType.SYMBOL || cell.Column.FieldType == EnumFileldType.SYMBOLNAME)
+                {
+                    continue;
+                }
+                cell.Value = double.NaN;
+            }
+        }
         void SetUnchangedCell()
         {
             this[EnumFileldType.SYMBOL].Symbol = _symbol.Symbol;
@@ -142,92 +154,87 @@ namespace TradingLib.KryptonControl
             //}
         }
 
-
-
-        void UpdateCellValue(QuoteCell cell)
-        {
-            switch (cell.Column.FieldType)
-            { 
-                case EnumFileldType.LAST:
-                    cell.Value = _symbol.TickSnapshot.Price;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price,_symbol.TickSnapshot.last);
-                    break;
-                case EnumFileldType.LASTSIZE:
-                    cell.Value = _symbol.TickSnapshot.Size;
-                    break;
-                case EnumFileldType.BIDSIZE:
-                    cell.Value = _symbol.TickSnapshot.BuyQTY1;
-                    break;
-                case EnumFileldType.BID:
-                    cell.Value = _symbol.TickSnapshot.Buy1;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Buy1, _symbol.TickSnapshot.last);
-                    break;
-                case EnumFileldType.ASK:
-                    cell.Value = _symbol.TickSnapshot.Sell1;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Sell1, _symbol.TickSnapshot.last);
-                    break;
-                case EnumFileldType.ASKSIZE:
-                    cell.Value = _symbol.TickSnapshot.SellQTY1;
-                    break;
-                case EnumFileldType.VOL:
-                    cell.Value = _symbol.TickSnapshot.Volume;
-                    break;
-                case EnumFileldType.CHANGE:
-                    cell.Value = _symbol.TickSnapshot.Price - _symbol.TickSnapshot.last;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - _symbol.TickSnapshot.last,0);
-                    break;
-                case EnumFileldType.CHANGEPECT:
-                    cell.Value = (_symbol.TickSnapshot.Price - _symbol.TickSnapshot.last) / _symbol.TickSnapshot.last * 100;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - _symbol.TickSnapshot.last, 0);
-                    break;
-                case EnumFileldType.OI:
-                case EnumFileldType.OICHANGE:
-                case EnumFileldType.SETTLEMENT:
-                    break;
-                case EnumFileldType.OPEN:
-                    cell.Value = _symbol.TickSnapshot.Open;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Open, _symbol.TickSnapshot.last);
-                    break;
-                case EnumFileldType.HIGH:
-                    cell.Value = _symbol.TickSnapshot.High;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.High, _symbol.TickSnapshot.last);
-                    break;
-                case EnumFileldType.LOW:
-                    cell.Value = _symbol.TickSnapshot.Low;
-                    cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, _symbol.TickSnapshot.last);
-                    break;
-                case EnumFileldType.PRESETTLEMENT:
-                    break;
-                case EnumFileldType.PRECLOSE:
-                    cell.Value = _symbol.TickSnapshot.last;
-                    break;
-                case EnumFileldType.PREOI:
-                    break;
-                case EnumFileldType.EXCHANGE:
-                    break;
-                case EnumFileldType.AVGPRICE:
-                    break;
-                case EnumFileldType.BSIDE:
-                    cell.Value = _symbol.TickSnapshot.B;
-                    break;
-                case EnumFileldType.SSIDE:
-                    cell.Value = _symbol.TickSnapshot.S;
-                    break;
-                default:
-                    break;
-
-
-            }
-        }
-
         /// <summary>
         /// 更新数值
         /// </summary>
         public void Update()
         {
+            //没有有效行情直接返回
+            if (_symbol.TickSnapshot.Time <= 0)
+                return;
+            //遍历所有单元格 按单元格类型进行数据更新 同时设定样式，行情快照 与单元格数据 一一对应
             foreach (var cell in _columeCellMap.Values)
             {
-                UpdateCellValue(cell);
+                switch (cell.Column.FieldType)
+                {
+                    case EnumFileldType.LAST:
+                        cell.Value = _symbol.TickSnapshot.Price;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price, _symbol.TickSnapshot.last);
+                        break;
+                    case EnumFileldType.LASTSIZE:
+                        cell.Value = _symbol.TickSnapshot.Size;
+                        break;
+                    case EnumFileldType.BIDSIZE:
+                        cell.Value = _symbol.TickSnapshot.BuyQTY1;
+                        break;
+                    case EnumFileldType.BID:
+                        cell.Value = _symbol.TickSnapshot.Buy1;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Buy1, _symbol.TickSnapshot.last);
+                        break;
+                    case EnumFileldType.ASK:
+                        cell.Value = _symbol.TickSnapshot.Sell1;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Sell1, _symbol.TickSnapshot.last);
+                        break;
+                    case EnumFileldType.ASKSIZE:
+                        cell.Value = _symbol.TickSnapshot.SellQTY1;
+                        break;
+                    case EnumFileldType.VOL:
+                        cell.Value = _symbol.TickSnapshot.Volume;
+                        break;
+                    case EnumFileldType.CHANGE:
+                        cell.Value = _symbol.TickSnapshot.Price - _symbol.TickSnapshot.last;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - _symbol.TickSnapshot.last, 0);
+                        break;
+                    case EnumFileldType.CHANGEPECT:
+                        cell.Value = (_symbol.TickSnapshot.Price - _symbol.TickSnapshot.last) / _symbol.TickSnapshot.last * 100;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - _symbol.TickSnapshot.last, 0);
+                        break;
+                    case EnumFileldType.OI:
+                    case EnumFileldType.OICHANGE:
+                    case EnumFileldType.SETTLEMENT:
+                        break;
+                    case EnumFileldType.OPEN:
+                        cell.Value = _symbol.TickSnapshot.Open;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Open, _symbol.TickSnapshot.last);
+                        break;
+                    case EnumFileldType.HIGH:
+                        cell.Value = _symbol.TickSnapshot.High;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.High, _symbol.TickSnapshot.last);
+                        break;
+                    case EnumFileldType.LOW:
+                        cell.Value = _symbol.TickSnapshot.Low;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, _symbol.TickSnapshot.last);
+                        break;
+                    case EnumFileldType.PRESETTLEMENT:
+                        break;
+                    case EnumFileldType.PRECLOSE:
+                        cell.Value = _symbol.TickSnapshot.last;
+                        break;
+                    case EnumFileldType.PREOI:
+                        break;
+                    case EnumFileldType.EXCHANGE:
+                        break;
+                    case EnumFileldType.AVGPRICE:
+                        break;
+                    case EnumFileldType.BSIDE:
+                        cell.Value = _symbol.TickSnapshot.B;
+                        break;
+                    case EnumFileldType.SSIDE:
+                        cell.Value = _symbol.TickSnapshot.S;
+                        break;
+                    default:
+                        break;
+                }
             }
             _quotelist.Invalidate(this.Rect);
         }

@@ -161,7 +161,7 @@ namespace TradingLib.KryptonControl
             Graphics g = e.Graphics;
             //用颜色填充单元格
             g.FillRectangle(CellStyle.BackBrush, _cellRect);
-            
+
             //绘制单元格 提供了单元格的rectangle就得到了 方格位置与长 宽
             //debug("fill the cellrect:"+"x:"+cellRect.X.ToString()+" y:"+cellRect.Y.ToString()+" width:"+cellRect.Width.ToString()+" height"+cellRect.Height.ToString());
             //绘制单元格 需要考虑线宽 实际绘制宽度需要扣除2倍线宽
@@ -178,10 +178,13 @@ namespace TradingLib.KryptonControl
             }
             else if (_column.FieldType == EnumFileldType.INDEX)
             {
-                g.DrawString((_row.RowID + 1).ToString(), CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2,_cellStyle.DrawFormat);
+                g.DrawString((_row.RowID + 1).ToString(), CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2, _cellStyle.DrawFormat);
             }
             else
-                g.DrawString(string.Format(DisplayFormat, _value), CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width-5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height) / 2, _cellStyle.DrawFormat);
+            {
+                string val = double.IsNaN(_value) ? "—" : string.Format(DisplayFormat, _value);
+                g.DrawString(val, CellStyle.QuoteFont, double.IsNaN(_value) ? _row._quotelist.DefaultQuoteStyle.NaNBrush : CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height) / 2, _cellStyle.DrawFormat);
+            }
         }
     }
 }

@@ -68,6 +68,8 @@ namespace TradingLib.KryptonControl
 
         public event EventHandler<QuoteViewChangedArgs> QuoteViewChanged;
 
+        public event EventHandler<SymbolVisibleChangeEventArgs> SymbolVisibleChanged;
+
         /// <summary>
         /// 聚合鼠标事件
         /// </summary>

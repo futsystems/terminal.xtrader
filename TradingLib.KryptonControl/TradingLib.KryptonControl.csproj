@@ -116,6 +116,7 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuoteList\EventArgs.cs" />
     <Compile Include="QuoteList\QuoteView\CursorType.cs" />
     <Compile Include="QuoteList\QuoteView\EnumFileldType.cs" />
     <Compile Include="QuoteList\QuoteView\pu.cs" />
@@ -140,12 +141,6 @@
     </Compile>
     <Compile Include="fm\fmMessage.Designer.cs">
       <DependentUpon>fmMessage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Page\PageQuoteMoniter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Page\PageQuoteMoniter.Designer.cs">
-      <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
     </Compile>
     <Compile Include="QuoteList\QuoteView\EnumQuoteType.cs" />
     <Compile Include="QuoteList\QuoteView\QuoteCell.cs" />
@@ -213,9 +208,6 @@
     <EmbeddedResource Include="fm\fmMessage.resx">
       <DependentUpon>fmMessage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Page\PageQuoteMoniter.resx">
-      <DependentUpon>PageQuoteMoniter.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="QuoteList\QuoteView\QuoteList\ViewQuoteList.resx">
       <DependentUpon>ViewQuoteList.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -236,7 +228,9 @@
       <Name>TradingLib.TraderCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Page\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

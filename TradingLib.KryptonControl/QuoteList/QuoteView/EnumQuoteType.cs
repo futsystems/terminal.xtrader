@@ -5,15 +5,19 @@ using System.Text;
 
 namespace TradingLib.KryptonControl
 {
-    public enum EnumQuoteType
+
+    /// <summary>
+    /// 根据不同的报价类型 设置需要显示的列与顺序
+    /// </summary>
+    public enum EnumQuoteListType
     {
         /// <summary>
-        /// 内盘报价
+        /// 国内期货
         /// </summary>
-        CNQUOTE,
+        FUTURE_CN,
         /// <summary>
-        /// 外盘报价
+        /// 国内股票
         /// </summary>
-        FOREIGNQUOTE,
+        STOCK_CN,
     }
 }

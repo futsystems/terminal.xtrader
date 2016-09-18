@@ -44,12 +44,19 @@ namespace TradingLib.KryptonControl
             int[] ids = CalcRowsBeginEndIdx();
             //debug("caculate:" + _beginIdx.ToString() + "|" + _endIdx.ToString());
             int oldbegin = _beginIdx;
+            int oldend = _endIdx;
             _beginIdx = ids[0];
             _endIdx = ids[1];
             //如果更新后的起点与终点发生了变化,我们需要重新计算每个单元格的rect
-            if (oldbegin != _beginIdx)
+            if (oldbegin != _beginIdx || oldend != _endIdx)
+            {
                 this.ResetRect();
-            logger.Info(string.Format("start:{0} end:{1} selectd:{2}", _beginIdx, _endIdx, _selectedRow));
+                if (SymbolVisibleChanged != null)
+                {
+                    SymbolVisibleChanged(this, new SymbolVisibleChangeEventArgs(_beginIdx, _endIdx, this.SymbolVisible.ToArray()));
+                }
+                logger.Info(string.Format("start:{0} end:{1} selectd:{2}", _beginIdx, _endIdx, _selectedRow));
+            }
         }
 
         /// <summary>

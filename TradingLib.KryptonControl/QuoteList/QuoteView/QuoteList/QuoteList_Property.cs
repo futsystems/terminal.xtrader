@@ -224,8 +224,11 @@ namespace TradingLib.KryptonControl
         }
 
         [DefaultValue("CNQUOTE")]
-        EnumQuoteType _quoteType = EnumQuoteType.CNQUOTE;
-        public EnumQuoteType QuoteType
+        EnumQuoteListType _quoteType = EnumQuoteListType.STOCK_CN;
+        /// <summary>
+        /// 报价列表类别 用于显示不同市场的字段与排列顺序
+        /// </summary>
+        public EnumQuoteListType QuoteType
         {
             get { return _quoteType; }
             set { _quoteType = value; }
