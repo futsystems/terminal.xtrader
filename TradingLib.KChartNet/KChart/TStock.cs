@@ -1046,7 +1046,7 @@ namespace CStock
         /// 增加权息信息
         /// </summary>
         /// <param name="value"></param>
-        public void SetQuan(Quan value)
+        public void SetQuan(PowerData value)
         {
             if (value.QuanLen > 0)
             {

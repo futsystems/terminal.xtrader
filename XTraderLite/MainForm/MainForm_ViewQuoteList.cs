@@ -155,9 +155,11 @@ namespace XTraderLite
            
             //GP.SetQuan(sk.qu);
             //GP.PreClose = sk.GP.YClose;
+            ctrlKChart.SetQuan(symbol.PowerData);//设定除权数据
             ctrlKChart.StkCode = symbol.Symbol;
             ctrlKChart.StkName = symbol.Name;
             ctrlKChart.SetStock(symbol);
+
 
             //如果是分时模式 则请求分时数据
             if (ctrlKChart.IsIntraView)

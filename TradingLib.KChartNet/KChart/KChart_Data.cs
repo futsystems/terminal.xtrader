@@ -213,7 +213,7 @@ namespace CStock
             FCurStock = null;
             this.ClearIntraViewData();
             this.ClearKViewData();
-
+            this.ClearQuan();
             //if (SellValue[0] != null)
             //{
             //    for (int i = 0; i < 5; i++)

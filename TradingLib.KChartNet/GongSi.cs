@@ -28,7 +28,7 @@ namespace CStock
 
         public MDSymbol Symbol = null;
 
-        public List<QuanInfo> QuanInfo = new List<QuanInfo>();//权息集合表
+        public List<PowerItem> QuanInfo = new List<PowerItem>();//权息集合表
         public QuanType QuanStyle = QuanType.qsNone;//不复权
 
 

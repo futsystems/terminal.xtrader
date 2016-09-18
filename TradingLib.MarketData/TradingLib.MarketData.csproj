@@ -47,6 +47,7 @@
     <Compile Include="Common\DataStruct.cs" />
     <Compile Include="Common\Finance.cs" />
     <Compile Include="Common\MinuteData.cs" />
+    <Compile Include="Common\PowerData.cs" />
     <Compile Include="Common\Tick.cs" />
     <Compile Include="Constant\ConstFreq.cs" />
     <Compile Include="Constant\Exchange.cs" />

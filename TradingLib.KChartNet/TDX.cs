@@ -44,25 +44,7 @@ namespace CStock
     //    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
     //    public float[] zl;
     //};
-    //权息
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct QuanInfo
-    {
-        public byte style;
-        public uint Date;
-        public float Money;
-        public float PeiMoney;
-        public float Number;
-        public float PeiNumber;
-    };
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct Quan
-    {
-        public int QuanLen;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)]
-        public QuanInfo[] quan;
-    };
 
     //public class Stock
     //{

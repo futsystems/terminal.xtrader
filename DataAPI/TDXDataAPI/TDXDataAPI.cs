@@ -188,6 +188,7 @@ namespace DataAPI.TDX
                     //初始化数据查询
                     this.InitSymbol();
                     this.InitFinance();
+                    this.InitPower();
                     //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
                     MDService.Initialize();
                 }
@@ -368,12 +369,11 @@ namespace DataAPI.TDX
             i = 100;
             MDSymbol target = null;
             MDService.EventHub.FireInitializeStatusEvent("初始化财务信息");
-            int symCount = this.symbolMap.Count;
             int TDXBKLen = 0;
-            while (i < symCount - TDXBKLen)
+            while (i < symbolMap.Count - TDXBKLen)
             {
                 j = bb.Length;
-                Len = Math.Min(100, symCount - i - TDXBKLen);
+                Len = Math.Min(100, symbolMap.Count - i - TDXBKLen);
                 for (t = i; t < i + Len; t++)
                 {
                     request[j] = (byte)GetMarketCode(symbolList[t].Exchange);//FSK[t].mark;
@@ -387,7 +387,7 @@ namespace DataAPI.TDX
                 b1.CopyTo(request, 8);
                 request[12] = (byte)Len;
                 byte[] RecvBuffer = null;
-                MDService.EventHub.FireInitializeStatusEvent("初始化财务信息:" + ((double)i / (double)symCount).ToString("0%"));
+                MDService.EventHub.FireInitializeStatusEvent("初始化财务信息:" + ((double)i / (double)symbolMap.Count).ToString("0%"));
                 if (Command(request, j, ref RecvBuffer))
                 {
                     MemoryStream ms = new MemoryStream(RecvBuffer);
@@ -430,6 +430,110 @@ namespace DataAPI.TDX
             MDService.EventHub.FireInitializeStatusEvent("财务初始化完成");
         }
 
+        /// <summary>
+        /// 初始化话除权数据
+        /// </summary>
+        void InitPower()
+        {
+            string codes;
+            byte[] code = new byte[6];
+            byte[] request = new byte[2000];
+            int Len, i, t, n, k, ii, tt;
+            string uniqueKey;
+            int j;
+            Len = 100;
+            byte[] bb = { 0xC, 0x1F, 0x18, 0x75, 0x0, 0x1, 0xB, 0x0, 0xB, 0x0, 0xF, 0x0, 0x0, 0x0 };
+            bb.CopyTo(request, 0);
+            i = 100;
+            int TDXBKLen = 0;
+            MDSymbol target = null;
+            MDService.EventHub.FireInitializeStatusEvent("初始化权息信息");
+            while (i < symbolMap.Count - TDXBKLen)
+            {
+                j = bb.Length;
+                Len = Math.Min(100, symbolMap.Count - i - TDXBKLen);
+                for (t = i; t < i + Len; t++)
+                {
+                    request[j] = (byte)GetMarketCode(symbolList[t].Exchange);
+                    Encoding.GetEncoding("GB2312").GetBytes(symbolList[t].Symbol).CopyTo(request, j + 1);
+                    j = j + 7;
+                }
+                byte[] b1;
+                ushort jj = (ushort)(j - 10);
+                b1 = BitConverter.GetBytes(jj);
+                b1.CopyTo(request, 6);
+                b1.CopyTo(request, 8);
+                request[12] = (byte)Len;
+                byte[] RecvBuffer = null;
+                MDService.EventHub.FireInitializeStatusEvent("初始化权息信息:" + ((double)i / (double)symbolMap.Count).ToString("0%"));
+                if (Command(request, j, ref RecvBuffer))
+                {
+                    ii = 0;
+                    n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, ii, ref ii);// RecvBr.ReadUInt16();
+                    if (n > 0)
+                    {
+                        ii = 2;
+                        int num5;
+                        for (j = 0; j < n; j++)
+                        {
+                            byte m = RecvBuffer[ii];
+                            Array.Copy(RecvBuffer, ii + 1, code, 0, 6);
+                            codes = System.Text.Encoding.GetEncoding("GB2312").GetString(code);
+
+                            uniqueKey = string.Format("{0}-{1}", GetMarketString((int)m), codes);
+                            //查找到对应的Symbol并赋值财务数据
+                            if (symbolMap.TryGetValue(uniqueKey, out target))
+                            {
+
+                                //CStock.Stock sk = (CStock.Stock)FSH[TDX.TDXDecoder.EnCodeMark(codes, m)];
+                                //if (sk == null)
+                                //    break;
+                                if (target.PowerData.quan == null)
+                                {
+                                    target.PowerData.quan = new PowerItem[80];
+                                }
+                                //if (sk.qu.quan == null)
+                                //    sk.qu.quan = new CStock.QuanInfo[80];
+                                ii = ii + 7;
+                                k = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, ii, ref ii);
+                                if (k == 0)
+                                    continue;
+                                tt = 0;
+                                for (t = 0; t < k; t++)
+                                {
+                                    m = RecvBuffer[ii];
+                                    num5 = ii + 8;
+                                    int date1 = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, num5, ref  num5);
+                                    byte t1 = RecvBuffer[ii + 12];
+
+                                    if (t1 == 1)
+                                    {
+                                        target.PowerData.quan[tt].Date = (uint)date1;
+                                        target.PowerData.quan[tt].style = t1;
+                                        num5 = ii + 13;
+                                        target.PowerData.quan[tt].Money = TDX.TDXDecoder.TDXGetDouble(RecvBuffer, num5, ref num5);
+                                        target.PowerData.quan[tt].PeiMoney = TDX.TDXDecoder.TDXGetDouble(RecvBuffer, num5, ref  num5);
+                                        target.PowerData.quan[tt].Number = TDX.TDXDecoder.TDXGetDouble(RecvBuffer, num5, ref  num5);
+                                        target.PowerData.quan[tt].PeiNumber = TDX.TDXDecoder.TDXGetDouble(RecvBuffer, num5, ref  num5);
+                                        tt = tt + 1;
+                                    }
+                                    target.PowerData.QuanLen = tt;
+                                    ii = ii + 29;
+                                }
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+                i = i + Len;
+            }
+            MDService.EventHub.FireInitializeStatusEvent("权息初始化完成");
+        }
+        #region 辅助函数
 
         int GetMarketCode(string exchange)
         {
@@ -480,6 +584,10 @@ namespace DataAPI.TDX
 
             }
         }
+
+        #endregion
+
+
         /// <summary>
         /// 查询当日成交分布数据
         /// </summary>

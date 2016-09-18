@@ -107,6 +107,11 @@ namespace TradingLib.MarketData
         public FinanceData FinanceData;
 
         /// <summary>
+        /// 除权数据
+        /// </summary>
+        public PowerData PowerData;
+
+        /// <summary>
         /// 行情快照
         /// </summary>
         public TDX TickSnapshot;
