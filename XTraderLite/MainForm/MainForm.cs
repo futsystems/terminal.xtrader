@@ -48,7 +48,8 @@ namespace XTraderLite
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
-            //splitContainer.Panel2Collapsed = true;
+
+            panelMarket.BackColor = Color.Black;
             panelBroker.Visible = false;
             debugControl1.Dock = DockStyle.Fill;
 

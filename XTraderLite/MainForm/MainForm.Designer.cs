@@ -235,9 +235,10 @@
             // 
             // menuTrading
             // 
+            this.menuTrading.BackColor = System.Drawing.SystemColors.Control;
             this.menuTrading.Name = "menuTrading";
             this.menuTrading.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.menuTrading.Size = new System.Drawing.Size(147, 22);
+            this.menuTrading.Size = new System.Drawing.Size(152, 22);
             this.menuTrading.Text = "交易大师";
             // 
             // 工具ToolStripMenuItem
@@ -628,6 +629,7 @@
             this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelHolder.BackColor = System.Drawing.Color.Black;
             this.panelHolder.Controls.Add(this.workPanel);
             this.panelHolder.Controls.Add(this.panelTop);
             this.panelHolder.Controls.Add(this.bottomStatusPanel);
