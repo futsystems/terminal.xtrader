@@ -40,6 +40,7 @@ namespace TradingLib.KryptonControl
         /// </summary>
         void UpdateBeginEndIdx()
         {
+
             int[] ids = CalcRowsBeginEndIdx();
             //debug("caculate:" + _beginIdx.ToString() + "|" + _endIdx.ToString());
             int oldbegin = _beginIdx;
@@ -48,6 +49,7 @@ namespace TradingLib.KryptonControl
             //如果更新后的起点与终点发生了变化,我们需要重新计算每个单元格的rect
             if (oldbegin != _beginIdx)
                 this.ResetRect();
+            logger.Info(string.Format("start:{0} end:{1} selectd:{2}", _beginIdx, _endIdx, _selectedRow));
         }
 
         /// <summary>
@@ -58,8 +60,8 @@ namespace TradingLib.KryptonControl
         {
             int rows = VisibleRowCount;//计算我们显示的总行数
             //当选择的行小于我们可以显示的行 则我们显示可以显示的行数与总行数中最小的一个数字
-            if (SelectedQuoteRow + 1 <= rows)
-                return new int[] { 0, Math.Min(rows - 1, Count - 1) };
+            if (_selectedRow <= rows-1)
+                return new int[] { 0, Math.Min(rows - 1, _count - 1) };
             else
             {   //如果大于可以显示的行了 则我们需要移动表格,把起点与终点都同步向上移动
                 //selectedrows会对行数进行变化,当移动到没有足够的行的时候它会自己跳到首行进行显示

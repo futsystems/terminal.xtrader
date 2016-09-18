@@ -67,6 +67,31 @@ namespace XTraderLite
         }
 
 
+        #region 登入过程
+        bool _connected = false;
+        bool _loggedin = false;
+        bool _gotloginrep = false;
+
+        bool _connectstart = false;
+        DateTime _connecttime = DateTime.Now;
+        /// <summary>
+        /// 执行连接请求
+        /// 连接动作
+        /// </summary>
+        void Connect()
+        {
+            //string address = serverlist.SelectedValue.ToString();
+
+            //登入过程开始
+            _connectstart = true;
+            _connecttime = DateTime.Now;
+            //
+            //logger.Info("client try to connec to:" + address + " port:" + port.ToString());
+            MDService.InitDataAPI("TradingLib.MarketData.IMarketDataAPI");
+            MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
+
+        }
+
         bool _loginstart = false;
         DateTime _logintime = DateTime.Now;
 
@@ -109,9 +134,7 @@ namespace XTraderLite
             initsuccess = true;
         }
 
-
-
-
+        #endregion
 
 
 
@@ -256,7 +279,6 @@ namespace XTraderLite
 
 
 
-
         void btnCancel_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.GetCurrentProcess().Kill();
@@ -272,35 +294,6 @@ namespace XTraderLite
             }).Start();
             this.btnLogin.Enabled = false;
         }
-
-        #region 连接服务端
-        bool _connected = false;
-        bool _loggedin = false;
-        bool _gotloginrep = false;
-
-        bool _connectstart = false;
-        DateTime _connecttime = DateTime.Now;
-        /// <summary>
-        /// 执行连接请求
-        /// 连接动作
-        /// </summary>
-        void Connect()
-        {
-            //string address = serverlist.SelectedValue.ToString();
-
-            //登入过程开始
-            _connectstart = true;
-            _connecttime = DateTime.Now;
-            //
-            //logger.Info("client try to connec to:" + address + " port:" + port.ToString());
-            MDService.InitDataAPI("TradingLib.MarketData.IMarketDataAPI");
-            MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
-            
-        }
-
-
-        #endregion
-
 
         protected override void OnPaint(PaintEventArgs e)
         {

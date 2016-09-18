@@ -38,7 +38,7 @@ namespace TradingLib.KryptonControl
                 if (_quoteList.Count < _count)
                 {
                     QuoteRow qr = new QuoteRow(this, i, symbol, _quoteType);
-                    qr.SendDebutEvent += new DebugDelegate(debug);
+                    //qr.SendDebutEvent += new DebugDelegate(debug);
                     _quoteList.Add(qr);
                 }
                 else//设定QuoteRow现实的合约对象

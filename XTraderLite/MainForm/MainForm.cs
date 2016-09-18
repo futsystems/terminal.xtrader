@@ -14,7 +14,7 @@ using TradingLib.MarketData;
 
 namespace XTraderLite
 {
-    public partial class MainForm : ComponentFactory.Krypton.Toolkit.KryptonForm,TradingLib.MarketData.IEventBinder
+    public partial class MainForm : Form,TradingLib.MarketData.IEventBinder
     {
         ILog logger = LogManager.GetLogger("MainForm");
 
