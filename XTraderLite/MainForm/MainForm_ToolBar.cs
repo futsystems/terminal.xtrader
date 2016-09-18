@@ -15,24 +15,24 @@ namespace XTraderLite
         void ViewQuoteList()
         {
             SetViewType(EnumTraderViewType.QuoteList);
-            quoteView.Focus();
+            ctrlQuoteList.Focus();
         }
 
         void ViewBarChart()
         {
             SetViewType(EnumTraderViewType.KChart);
-            if (kChartView.IsIntraView)
+            if (ctrlKChart.IsIntraView)
             {
-                kChartView.ViewType = CStock.KChartViewType.KView;
+                ctrlKChart.ViewType = CStock.KChartViewType.KView;
             }
         }
 
         void ViewIntraChart()
         {
             SetViewType(EnumTraderViewType.KChart);
-            if (kChartView.IsBarView)
+            if (ctrlKChart.IsBarView)
             {
-                kChartView.ViewType = CStock.KChartViewType.TimeView;
+                ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
             }
         }
 

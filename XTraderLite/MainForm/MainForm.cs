@@ -49,15 +49,16 @@ namespace XTraderLite
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
-            splitContainer.Panel2Collapsed = true;
+            //splitContainer.Panel2Collapsed = true;
+            panelBroker.Visible = false;
             debugControl1.Dock = DockStyle.Fill;
 
-            viewList.Add(panelQuoteList);
-            viewList.Add(panelKChart);
+            viewList.Add(ctrlQuoteList);
+            viewList.Add(ctrlKChart);
 
 
-            panelKChart.Dock = DockStyle.Fill;
-            panelQuoteList.Dock = DockStyle.Fill;
+            ctrlKChart.Dock = DockStyle.Fill;
+            ctrlQuoteList.Dock = DockStyle.Fill;
 
         }
         void WireEvent()
@@ -81,10 +82,10 @@ namespace XTraderLite
             btnDemo2.Click += new EventHandler(btnDemo2_Click);
             btnDemo1.Click += new EventHandler(btnDemo1_Click);
 
-            topMenuPanel.MouseDown += new MouseEventHandler(TopMenuPanel_MouseDown);
-            topMenuPanel.MouseUp += new MouseEventHandler(TopMenuPanel_MouseUp);
-            topMenuPanel.MouseMove += new MouseEventHandler(TopMenuPanel_MouseMove);
-            topMenuPanel.DoubleClick += new EventHandler(TopMenuPanel_DoubleClick);
+            panelTop.MouseDown += new MouseEventHandler(TopMenuPanel_MouseDown);
+            panelTop.MouseUp += new MouseEventHandler(TopMenuPanel_MouseUp);
+            panelTop.MouseMove += new MouseEventHandler(TopMenuPanel_MouseMove);
+            panelTop.DoubleClick += new EventHandler(TopMenuPanel_DoubleClick);
 
 
             //toolbar
@@ -97,7 +98,7 @@ namespace XTraderLite
             menuTrading.Click += new EventHandler(menuTrading_Click);
             menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
 
-            splitContainer.SplitterMoved += new SplitterEventHandler(splitContainer_SplitterMoved);
+            //splitContainer.SplitterMoved += new SplitterEventHandler(splitContainer_SplitterMoved);
             
         }
 
@@ -116,8 +117,8 @@ namespace XTraderLite
         /// </summary>
         public void OnInit()
         {
-            quoteView.Symbols = MDService.DataAPI.Symbols;
-            quoteView.SelectTab(0);
+            ctrlQuoteList.Symbols = MDService.DataAPI.Symbols;
+            ctrlQuoteList.SelectTab(0);
 
             MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
             MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
@@ -141,10 +142,10 @@ namespace XTraderLite
         void MainForm_SizeChanged(object sender, EventArgs e)
         {
             //调节交易面板为最小值 如果移动的splitter则设置为当前值
-            if (!_splitterMoved)
-            {
-                splitContainer.SplitterDistance = this.Height;
-            }
+            //if (!_splitterMoved)
+            //{
+            //    splitContainer.SplitterDistance = this.Height;
+            //}
         }
 
         protected override void OnPaint(PaintEventArgs e)

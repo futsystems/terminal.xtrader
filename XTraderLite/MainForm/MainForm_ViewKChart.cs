@@ -17,7 +17,7 @@ namespace XTraderLite
         void InitKChart()
         {
 
-            kChartView.KChartModeChange += new Action<object, CStock.KChartModeChangeEventArgs>(kChartView_KChartModeChange);
+            ctrlKChart.KChartModeChange += new Action<object, CStock.KChartModeChangeEventArgs>(kChartView_KChartModeChange);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace XTraderLite
             double[] d3 = arg1["close"];//close
             double[] d4 = arg1["vol"];//vol
             //多日分时查询将历史分时数据与今日数据拼接后传递给绘图控件
-            if ((kChartView.DaysForIntradayView > 1) && (minuteData.Count > 0))
+            if ((ctrlKChart.DaysForIntradayView > 1) && (minuteData.Count > 0))
             {
                 double[] date1 = new double[minuteData.Count + arg3 + 1];
                 double[] time11 = new double[minuteData.Count + arg3 + 1];
@@ -85,17 +85,17 @@ namespace XTraderLite
                     vol1[minuteData.Count + j] = d4[j];
                 }
                 int total = minuteData.Count + arg3;
-                kChartView.FS_AddAll("date", date1, total, false);
-                kChartView.FS_AddAll("time", time11, total, false);
-                kChartView.FS_AddAll("vol", vol1, total, false);
-                kChartView.FS_AddAll("close", close1, total, true);
+                ctrlKChart.FS_AddAll("date", date1, total, false);
+                ctrlKChart.FS_AddAll("time", time11, total, false);
+                ctrlKChart.FS_AddAll("vol", vol1, total, false);
+                ctrlKChart.FS_AddAll("close", close1, total, true);
             }
             else//当日历史分时数据直接传递给绘图控件
             {
-                kChartView.FS_AddAll("date", d1, arg3, false);
-                kChartView.FS_AddAll("time", d2, arg3, false);
-                kChartView.FS_AddAll("close", d3, arg3, false);
-                kChartView.FS_AddAll("vol", d4, arg3, true);
+                ctrlKChart.FS_AddAll("date", d1, arg3, false);
+                ctrlKChart.FS_AddAll("time", d2, arg3, false);
+                ctrlKChart.FS_AddAll("close", d3, arg3, false);
+                ctrlKChart.FS_AddAll("vol", d4, arg3, true);
             }
         }
 
@@ -103,12 +103,12 @@ namespace XTraderLite
         {
 
             //K线图初始化数据查询回报处理 通过AddAll将数组一次性添加到数据集
-            if (panelKChart.Visible)
+            if (ctrlKChart.Visible)
             {
                 logger.Info("Fill  bar into KView");
                 //int ll = GP.StartIndex;
 
-                kChartView.ClearKViewData();
+                ctrlKChart.ClearKViewData();
 
                 int loadnum = arg3;
                 double[] date1, time1, high1, low1, open1, close1, amount1, upcount, downcount, vol1;
@@ -122,24 +122,24 @@ namespace XTraderLite
                 arg1.TryGetValue("vol", out vol1);
 
 
-                kChartView.AddKViewData("date", date1, loadnum);
-                kChartView.AddKViewData("time", time1, loadnum);
-                kChartView.AddKViewData("high", high1, loadnum);
-                kChartView.AddKViewData("low", low1, loadnum);
-                kChartView.AddKViewData("open", open1, loadnum);
-                kChartView.AddKViewData("close", close1, loadnum);
-                kChartView.AddKViewData("amount", amount1, loadnum);
+                ctrlKChart.AddKViewData("date", date1, loadnum);
+                ctrlKChart.AddKViewData("time", time1, loadnum);
+                ctrlKChart.AddKViewData("high", high1, loadnum);
+                ctrlKChart.AddKViewData("low", low1, loadnum);
+                ctrlKChart.AddKViewData("open", open1, loadnum);
+                ctrlKChart.AddKViewData("close", close1, loadnum);
+                ctrlKChart.AddKViewData("amount", amount1, loadnum);
 
                 bool have = arg1.TryGetValue("upcount", out upcount);
                 arg1.TryGetValue("downcount", out downcount); ;
                 if (have)
                 {
-                    kChartView.AddKViewData("upcount", upcount, loadnum);
-                    kChartView.AddKViewData("downcount", downcount, loadnum);
+                    ctrlKChart.AddKViewData("upcount", upcount, loadnum);
+                    ctrlKChart.AddKViewData("downcount", downcount, loadnum);
                 }
-                kChartView.AddKViewData("vol", vol1, loadnum);
-                kChartView.ReCalculate("Init");
-                kChartView.ReDraw();
+                ctrlKChart.AddKViewData("vol", vol1, loadnum);
+                ctrlKChart.ReCalculate("Init");
+                ctrlKChart.ReDraw();
 
             }
         }

@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.topMenuPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.menuHolder = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.断开服务器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,15 +59,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.免责声明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnMin = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnMax = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnClose = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.holder = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
-            this.panelKChart = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kChartView = new CStock.TStock();
-            this.panelQuoteList = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.quoteView = new TradingLib.KryptonControl.ctrlQuoteList();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnQuoteView = new System.Windows.Forms.ToolStripButton();
             this.btnIntraView = new System.Windows.Forms.ToolStripButton();
@@ -95,67 +83,38 @@
             this.btnDemo1 = new System.Windows.Forms.ToolStripButton();
             this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
             this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
+            this.bottomStatusPanel = new System.Windows.Forms.Panel();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.panelHolder = new System.Windows.Forms.Panel();
+            this.workPanel = new System.Windows.Forms.Panel();
+            this.panelBroker = new System.Windows.Forms.Panel();
+            this.splitter = new System.Windows.Forms.Splitter();
+            this.panelMarket = new System.Windows.Forms.Panel();
+            this.panelControlBox = new System.Windows.Forms.Panel();
+            this.btnMin = new System.Windows.Forms.PictureBox();
+            this.btnMax = new System.Windows.Forms.PictureBox();
+            this.btnClose = new System.Windows.Forms.PictureBox();
+            this.topHeader = new System.Windows.Forms.Label();
+            this.ctrlKChart = new CStock.TStock();
+            this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
-            this.bottomStatusPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.topMenuPanel)).BeginInit();
-            this.topMenuPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.menuHolder)).BeginInit();
-            this.menuHolder.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.holder)).BeginInit();
-            this.holder.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel1)).BeginInit();
-            this.splitContainer.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel2)).BeginInit();
-            this.splitContainer.Panel2.SuspendLayout();
-            this.splitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).BeginInit();
-            this.panelKChart.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).BeginInit();
-            this.panelQuoteList.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).BeginInit();
+            this.panelTop.SuspendLayout();
+            this.panelHolder.SuspendLayout();
+            this.workPanel.SuspendLayout();
+            this.panelBroker.SuspendLayout();
+            this.panelMarket.SuspendLayout();
+            this.panelControlBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
-            // 
-            // topMenuPanel
-            // 
-            this.topMenuPanel.Controls.Add(this.kryptonLabel1);
-            this.topMenuPanel.Controls.Add(this.menuHolder);
-            this.topMenuPanel.Controls.Add(this.btnMin);
-            this.topMenuPanel.Controls.Add(this.btnMax);
-            this.topMenuPanel.Controls.Add(this.btnClose);
-            this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
-            this.topMenuPanel.Name = "topMenuPanel";
-            this.topMenuPanel.Size = new System.Drawing.Size(1100, 25);
-            this.topMenuPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.TopMenuBG;
-            this.topMenuPanel.TabIndex = 0;
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(563, 4);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(127, 20);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Arial", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel1.TabIndex = 6;
-            this.kryptonLabel1.Values.Text = "交易大师-机构版";
-            // 
-            // menuHolder
-            // 
-            this.menuHolder.Controls.Add(this.menuStrip1);
-            this.menuHolder.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menuHolder.Location = new System.Drawing.Point(0, 0);
-            this.menuHolder.Name = "menuHolder";
-            this.menuHolder.Size = new System.Drawing.Size(237, 25);
-            this.menuHolder.StateCommon.Color1 = System.Drawing.Color.Transparent;
-            this.menuHolder.StateCommon.Color2 = System.Drawing.Color.Transparent;
-            this.menuHolder.TabIndex = 5;
             // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.系统ToolStripMenuItem,
@@ -163,9 +122,9 @@
             this.交易ToolStripMenuItem,
             this.工具ToolStripMenuItem,
             this.帮助ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(25, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(237, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(223, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -370,164 +329,6 @@
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.关于ToolStripMenuItem.Text = "关于";
-            // 
-            // btnMin
-            // 
-            this.btnMin.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnMin.Location = new System.Drawing.Point(1016, 0);
-            this.btnMin.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMin.Name = "btnMin";
-            this.btnMin.Size = new System.Drawing.Size(28, 25);
-            this.btnMin.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMin.StateCommon.Back.Image = ((System.Drawing.Image)(resources.GetObject("btnMin.StateCommon.Back.Image")));
-            this.btnMin.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterMiddle;
-            this.btnMin.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnMin.StateCommon.Border.Rounding = 0;
-            this.btnMin.StateCommon.Border.Width = 0;
-            this.btnMin.TabIndex = 3;
-            this.btnMin.TabStop = false;
-            this.btnMin.Values.Text = "";
-            // 
-            // btnMax
-            // 
-            this.btnMax.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnMax.Location = new System.Drawing.Point(1044, 0);
-            this.btnMax.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(28, 25);
-            this.btnMax.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMax.StateCommon.Back.Image = ((System.Drawing.Image)(resources.GetObject("btnMax.StateCommon.Back.Image")));
-            this.btnMax.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterMiddle;
-            this.btnMax.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnMax.StateCommon.Border.Width = 0;
-            this.btnMax.TabIndex = 2;
-            this.btnMax.TabStop = false;
-            this.btnMax.Values.Text = "";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnClose.Location = new System.Drawing.Point(1072, 0);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(0);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(28, 25);
-            this.btnClose.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnClose.StateCommon.Back.Image = global::XTraderLite.Properties.Resources.Close;
-            this.btnClose.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterMiddle;
-            this.btnClose.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnClose.StateCommon.Border.Width = 0;
-            this.btnClose.TabIndex = 4;
-            this.btnClose.TabStop = false;
-            this.btnClose.Values.Text = "";
-            // 
-            // holder
-            // 
-            this.holder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.holder.Controls.Add(this.splitContainer);
-            this.holder.Controls.Add(this.bottomStatusPanel);
-            this.holder.Controls.Add(this.topMenuPanel);
-            this.holder.Location = new System.Drawing.Point(1, 1);
-            this.holder.Name = "holder";
-            this.holder.Size = new System.Drawing.Size(1100, 680);
-            this.holder.TabIndex = 2;
-            // 
-            // splitContainer
-            // 
-            this.splitContainer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(0, 25);
-            this.splitContainer.Name = "splitContainer";
-            this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer.Panel1
-            // 
-            this.splitContainer.Panel1.Controls.Add(this.panelKChart);
-            this.splitContainer.Panel1.Controls.Add(this.panelQuoteList);
-            this.splitContainer.Panel1.Controls.Add(this.toolStrip1);
-            this.splitContainer.Panel1MinSize = 250;
-            // 
-            // splitContainer.Panel2
-            // 
-            this.splitContainer.Panel2.Controls.Add(this.debugControl1);
-            this.splitContainer.Panel2.StateCommon.Color1 = System.Drawing.Color.LightGray;
-            this.splitContainer.Panel2MinSize = 250;
-            this.splitContainer.Size = new System.Drawing.Size(1100, 630);
-            this.splitContainer.SplitterDistance = 375;
-            this.splitContainer.SplitterWidth = 2;
-            this.splitContainer.TabIndex = 2;
-            // 
-            // panelKChart
-            // 
-            this.panelKChart.Controls.Add(this.kChartView);
-            this.panelKChart.Location = new System.Drawing.Point(319, 28);
-            this.panelKChart.Name = "panelKChart";
-            this.panelKChart.Size = new System.Drawing.Size(324, 181);
-            this.panelKChart.TabIndex = 4;
-            this.panelKChart.Visible = false;
-            // 
-            // kChartView
-            // 
-            this.kChartView.BackColor = System.Drawing.Color.Black;
-            this.kChartView.BarViewWindowCount = 3;
-            this.kChartView.DaysForIntradayView = 1;
-            this.kChartView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kChartView.FsAll = false;
-            this.kChartView.FsFull = false;
-            this.kChartView.HighPicture = false;
-            this.kChartView.IntradayViewWindowCount = 2;
-            this.kChartView.KChartBackColor = System.Drawing.Color.Black;
-            this.kChartView.KChartLineColor = System.Drawing.Color.Maroon;
-            this.kChartView.Location = new System.Drawing.Point(0, 0);
-            this.kChartView.Margin = new System.Windows.Forms.Padding(0);
-            this.kChartView.Name = "kChartView";
-            this.kChartView.NoMoreBarDate = false;
-            this.kChartView.PR10 = false;
-            this.kChartView.PreClose = -1.7976931348623157E+308D;
-            this.kChartView.Quan = CStock.QuanType.qsNone;
-            this.kChartView.ShowBottomCalendar = true;
-            this.kChartView.ShowBottomTabMenu = true;
-            this.kChartView.ShowCrossCursor = false;
-            this.kChartView.ShowCurWindow = true;
-            this.kChartView.ShowDetailPanel = true;
-            this.kChartView.ShowDrawToolBox = false;
-            this.kChartView.ShowLeftAxis = true;
-            this.kChartView.ShowRightAxis = false;
-            this.kChartView.ShowTopHeader = true;
-            this.kChartView.Size = new System.Drawing.Size(324, 181);
-            this.kChartView.StartIndex = 13;
-            this.kChartView.StkCode = "";
-            this.kChartView.StkName = "";
-            this.kChartView.StkWeek = "";
-            this.kChartView.TabIndex = 2;
-            this.kChartView.Train = false;
-            this.kChartView.TrainEnd = 0;
-            this.kChartView.ViewType = CStock.KChartViewType.TimeView;
-            // 
-            // panelQuoteList
-            // 
-            this.panelQuoteList.Controls.Add(this.quoteView);
-            this.panelQuoteList.Location = new System.Drawing.Point(3, 28);
-            this.panelQuoteList.Name = "panelQuoteList";
-            this.panelQuoteList.Size = new System.Drawing.Size(310, 181);
-            this.panelQuoteList.TabIndex = 3;
-            this.panelQuoteList.Visible = false;
-            // 
-            // quoteView
-            // 
-            this.quoteView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quoteView.Location = new System.Drawing.Point(0, 0);
-            this.quoteView.Name = "quoteView";
-            this.quoteView.Size = new System.Drawing.Size(310, 181);
-            this.quoteView.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("quoteView.Symbols")));
-            this.quoteView.TabIndex = 1;
             // 
             // toolStrip1
             // 
@@ -754,26 +555,193 @@
             this.btnDemo3.Size = new System.Drawing.Size(25, 22);
             this.btnDemo3.Text = "D3";
             // 
+            // bottomStatusPanel
+            // 
+            this.bottomStatusPanel.BackgroundImage = global::XTraderLite.Properties.Resources.BottomStatusBG;
+            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
+            this.bottomStatusPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.bottomStatusPanel.Name = "bottomStatusPanel";
+            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
+            this.bottomStatusPanel.TabIndex = 3;
+            // 
+            // panelTop
+            // 
+            this.panelTop.BackgroundImage = global::XTraderLite.Properties.Resources.TopMenuBG;
+            this.panelTop.Controls.Add(this.topHeader);
+            this.panelTop.Controls.Add(this.panelControlBox);
+            this.panelTop.Controls.Add(this.menuStrip1);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(1100, 25);
+            this.panelTop.TabIndex = 4;
+            // 
+            // panelHolder
+            // 
+            this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelHolder.Controls.Add(this.workPanel);
+            this.panelHolder.Controls.Add(this.panelTop);
+            this.panelHolder.Controls.Add(this.bottomStatusPanel);
+            this.panelHolder.Location = new System.Drawing.Point(1, 1);
+            this.panelHolder.Name = "panelHolder";
+            this.panelHolder.Size = new System.Drawing.Size(1100, 680);
+            this.panelHolder.TabIndex = 5;
+            // 
+            // workPanel
+            // 
+            this.workPanel.Controls.Add(this.panelMarket);
+            this.workPanel.Controls.Add(this.splitter);
+            this.workPanel.Controls.Add(this.panelBroker);
+            this.workPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.workPanel.Location = new System.Drawing.Point(0, 25);
+            this.workPanel.Name = "workPanel";
+            this.workPanel.Size = new System.Drawing.Size(1100, 630);
+            this.workPanel.TabIndex = 5;
+            // 
+            // panelBroker
+            // 
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 370);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
+            this.panelBroker.TabIndex = 0;
+            // 
+            // splitter
+            // 
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 368);
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(1100, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
+            // 
+            // panelMarket
+            // 
+            this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
+            this.panelMarket.Controls.Add(this.ctrlKChart);
+            this.panelMarket.Controls.Add(this.ctrlQuoteList);
+            this.panelMarket.Controls.Add(this.toolStrip1);
+            this.panelMarket.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMarket.Location = new System.Drawing.Point(0, 0);
+            this.panelMarket.Name = "panelMarket";
+            this.panelMarket.Size = new System.Drawing.Size(1100, 368);
+            this.panelMarket.TabIndex = 2;
+            // 
+            // panelControlBox
+            // 
+            this.panelControlBox.BackColor = System.Drawing.Color.Transparent;
+            this.panelControlBox.Controls.Add(this.btnClose);
+            this.panelControlBox.Controls.Add(this.btnMax);
+            this.panelControlBox.Controls.Add(this.btnMin);
+            this.panelControlBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControlBox.Location = new System.Drawing.Point(1025, 0);
+            this.panelControlBox.Name = "panelControlBox";
+            this.panelControlBox.Size = new System.Drawing.Size(75, 25);
+            this.panelControlBox.TabIndex = 3;
+            // 
+            // btnMin
+            // 
+            this.btnMin.BackgroundImage = global::XTraderLite.Properties.Resources.Min;
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMin.Location = new System.Drawing.Point(0, 0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(25, 25);
+            this.btnMin.TabIndex = 0;
+            this.btnMin.TabStop = false;
+            // 
+            // btnMax
+            // 
+            this.btnMax.BackgroundImage = global::XTraderLite.Properties.Resources.Max;
+            this.btnMax.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnMax.Location = new System.Drawing.Point(25, 0);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(25, 25);
+            this.btnMax.TabIndex = 1;
+            this.btnMax.TabStop = false;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackgroundImage = global::XTraderLite.Properties.Resources.Close;
+            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnClose.Location = new System.Drawing.Point(50, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(25, 25);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.TabStop = false;
+            // 
+            // topHeader
+            // 
+            this.topHeader.AutoSize = true;
+            this.topHeader.BackColor = System.Drawing.Color.Transparent;
+            this.topHeader.Location = new System.Drawing.Point(292, 7);
+            this.topHeader.Name = "topHeader";
+            this.topHeader.Size = new System.Drawing.Size(95, 12);
+            this.topHeader.TabIndex = 4;
+            this.topHeader.Text = "交易大师-机构版";
+            // 
+            // ctrlKChart
+            // 
+            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.BarViewWindowCount = 3;
+            this.ctrlKChart.DaysForIntradayView = 1;
+            this.ctrlKChart.FsAll = false;
+            this.ctrlKChart.FsFull = false;
+            this.ctrlKChart.HighPicture = false;
+            this.ctrlKChart.IntradayViewWindowCount = 2;
+            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
+            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
+            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
+            this.ctrlKChart.Name = "ctrlKChart";
+            this.ctrlKChart.NoMoreBarDate = false;
+            this.ctrlKChart.PR10 = false;
+            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
+            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
+            this.ctrlKChart.ShowBottomCalendar = true;
+            this.ctrlKChart.ShowBottomTabMenu = true;
+            this.ctrlKChart.ShowCrossCursor = false;
+            this.ctrlKChart.ShowCurWindow = true;
+            this.ctrlKChart.ShowDetailPanel = true;
+            this.ctrlKChart.ShowDrawToolBox = false;
+            this.ctrlKChart.ShowLeftAxis = true;
+            this.ctrlKChart.ShowRightAxis = false;
+            this.ctrlKChart.ShowTopHeader = true;
+            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
+            this.ctrlKChart.StartIndex = 24;
+            this.ctrlKChart.StkCode = "";
+            this.ctrlKChart.StkName = "";
+            this.ctrlKChart.StkWeek = "";
+            this.ctrlKChart.TabIndex = 2;
+            this.ctrlKChart.Train = false;
+            this.ctrlKChart.TrainEnd = 0;
+            this.ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
+            this.ctrlKChart.Visible = false;
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlQuoteList.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("ctrlQuoteList.Symbols")));
+            this.ctrlQuoteList.TabIndex = 1;
+            // 
             // debugControl1
             // 
             this.debugControl1.EnableSearching = true;
             this.debugControl1.ExternalTimeStamp = 0;
-            this.debugControl1.Location = new System.Drawing.Point(2, 3);
+            this.debugControl1.Location = new System.Drawing.Point(0, 0);
             this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
             this.debugControl1.Name = "debugControl1";
-            this.debugControl1.Size = new System.Drawing.Size(195, 162);
+            this.debugControl1.Size = new System.Drawing.Size(261, 127);
             this.debugControl1.TabIndex = 0;
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
-            // 
-            // bottomStatusPanel
-            // 
-            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
-            this.bottomStatusPanel.Name = "bottomStatusPanel";
-            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
-            this.bottomStatusPanel.StateCommon.Image = global::XTraderLite.Properties.Resources.BottomStatusBG;
-            this.bottomStatusPanel.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -781,50 +749,33 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 682);
             this.ControlBox = false;
-            this.Controls.Add(this.holder);
+            this.Controls.Add(this.panelHolder);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            ((System.ComponentModel.ISupportInitialize)(this.topMenuPanel)).EndInit();
-            this.topMenuPanel.ResumeLayout(false);
-            this.topMenuPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.menuHolder)).EndInit();
-            this.menuHolder.ResumeLayout(false);
-            this.menuHolder.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.holder)).EndInit();
-            this.holder.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel1)).EndInit();
-            this.splitContainer.Panel1.ResumeLayout(false);
-            this.splitContainer.Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel2)).EndInit();
-            this.splitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
-            this.splitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelKChart)).EndInit();
-            this.panelKChart.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelQuoteList)).EndInit();
-            this.panelQuoteList.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomStatusPanel)).EndInit();
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
+            this.panelHolder.ResumeLayout(false);
+            this.workPanel.ResumeLayout(false);
+            this.panelBroker.ResumeLayout(false);
+            this.panelMarket.ResumeLayout(false);
+            this.panelMarket.PerformLayout();
+            this.panelControlBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel topMenuPanel;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnMax;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnMin;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnClose;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel holder;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel bottomStatusPanel;
-        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer splitContainer;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel menuHolder;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 系统ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 交易ToolStripMenuItem;
@@ -855,7 +806,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuSwitchKchart;
         private System.Windows.Forms.ToolStripMenuItem 自选ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 公式管理ToolStripMenuItem;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnQuoteView;
         private System.Windows.Forms.ToolStripButton btnIntraView;
@@ -878,13 +828,23 @@
         private System.Windows.Forms.ToolStripButton btnWatchList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton btnDemo3;
-        private TradingLib.KryptonControl.ctrlQuoteList quoteView;
+        private TradingLib.KryptonControl.ctrlQuoteList ctrlQuoteList;
         private TradingLib.KryptonControl.DebugControl debugControl1;
         private System.Windows.Forms.ToolStripButton btnDemo1;
         private System.Windows.Forms.ToolStripButton btnDemo2;
-        private CStock.TStock kChartView;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel panelQuoteList;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel panelKChart;
+        private CStock.TStock ctrlKChart;
+        private System.Windows.Forms.Panel bottomStatusPanel;
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.Panel panelHolder;
+        private System.Windows.Forms.Panel workPanel;
+        private System.Windows.Forms.Panel panelMarket;
+        private System.Windows.Forms.Splitter splitter;
+        private System.Windows.Forms.Panel panelBroker;
+        private System.Windows.Forms.Panel panelControlBox;
+        private System.Windows.Forms.PictureBox btnClose;
+        private System.Windows.Forms.PictureBox btnMax;
+        private System.Windows.Forms.PictureBox btnMin;
+        private System.Windows.Forms.Label topHeader;
     }
 }
 

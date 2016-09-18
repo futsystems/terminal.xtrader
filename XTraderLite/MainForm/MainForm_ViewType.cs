@@ -13,7 +13,7 @@ namespace XTraderLite
     public partial class MainForm
     {
 
-        List<Panel> viewList = new List<Panel>();
+        List<Control> viewList = new List<Control>();
 
 
         void SetViewType(EnumTraderViewType type)
