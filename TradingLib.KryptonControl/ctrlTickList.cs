@@ -18,16 +18,14 @@ namespace TradingLib.KryptonControl
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            
 
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             this.Invalidate();
-            base.OnResize(e);
         }
-
-
 
 
         int _defaultColumnWidth = 220;

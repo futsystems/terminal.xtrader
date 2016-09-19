@@ -190,12 +190,6 @@
     <Compile Include="SplashScreenApplicationContext.cs" />
     <Compile Include="TraderHelper.cs" />
     <Compile Include="UIConstant.cs" />
-    <Compile Include="ctrlTickList0.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ctrlTickList0.Designer.cs">
-      <DependentUpon>ctrlTickList0.cs</DependentUpon>
-    </Compile>
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,9 +232,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="ctrlTickList0.resx">
-      <DependentUpon>ctrlTickList0.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
