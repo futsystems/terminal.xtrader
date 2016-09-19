@@ -71,6 +71,35 @@ namespace TradingLib.MarketData
         /// <returns></returns>
         int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count);
 
+
+
+        /// <summary>
+        /// 量价信息回报
+        /// </summary>
+        event Action<List<PriceVolPair>, RspInfo, int, int> OnRspQryPriceVolPair;
+        /// <summary>
+        /// 查询价量信息
+        /// 在什么价位 成交多少数量
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        int QryPriceVol(string exchange, string symbol);
+
+
+        /// <summary>
+        /// 分笔数据回报
+        /// </summary>
+        event Action<List<TradeSplit>, RspInfo, int, int> OnRspQryTradeSplit;
+        /// <summary>
+        /// 查询分笔数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="start"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
+        int QryTradeSplitData(string exchange, string symbol, int start, int Count);
         #endregion
     }
 }

@@ -18,6 +18,31 @@ namespace XTraderLite
         {
 
             ctrlKChart.KChartModeChange += new Action<object, CStock.KChartModeChangeEventArgs>(kChartView_KChartModeChange);
+
+            ctrlKChart.TabSwitch += new Action<object, CStock.TabSwitchEventArgs>(ctrlKChart_TabSwitch);
+        }
+
+        /// <summary>
+        /// 盘口面板下方Tab切换
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        void ctrlKChart_TabSwitch(object arg1, CStock.TabSwitchEventArgs arg2)
+        {
+            logger.Info(string.Format("TabSwitch Event,tab:{0}", arg2.TabType));
+            switch (arg2.TabType)
+            {
+                case CStock.DetailBoardTabType.TradeDetails:
+                    {
+                        MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlKChart.TabHigh);
+                        return;
+                    }
+                case CStock.DetailBoardTabType.PriceDistribution:
+                    {
+                        MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
+                        return;
+                    }
+            }
         }
 
         /// <summary>
@@ -37,7 +62,7 @@ namespace XTraderLite
                         //if (FCurStock == null)
                         //    FCurStock = (CStock.Stock)Stklist.Items[Stklist.SelectedIndex];
                         if (_currentSymbol != null)
-                            SelectCurrentSymbol(_currentSymbol);
+                            SetKChartSymbol(_currentSymbol);
                         return;
                     }
                 case CStock.KChartViewType.KView:
@@ -47,7 +72,7 @@ namespace XTraderLite
                         //if (FCurStock == null)
                         //    FCurStock = (CStock.Stock)Stklist.Items[Stklist.SelectedIndex];
                         if (_currentSymbol != null)
-                            SelectCurrentSymbol(_currentSymbol);
+                            SetKChartSymbol(_currentSymbol);
                         return;
                     }
                 default:

@@ -24,6 +24,40 @@ namespace XTraderLite
             
         }
 
+        /// <summary>
+        /// 响应量价数据
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        /// <param name="arg4"></param>
+        void DataAPI_OnRspQryPriceVolPair(List<PriceVolPair> arg1, RspInfo arg2, int arg3, int arg4)
+        {
+            foreach (var v in arg1)
+            {
+                ctrlKChart.AddPriceVol(v.Price, v.Vol);
+            }
+        }
+
+        /// <summary>
+        /// 响应分笔数据
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        /// <param name="arg4"></param>
+        void DataAPI_OnRspQryTradeSplit(List<TradeSplit> arg1, RspInfo arg2, int arg3, int arg4)
+        {
+            foreach (var v in arg1)
+            {
+                ctrlKChart.AddTxnData(v.Time, v.Price, v.Vol, v.Flag, v.TradeCount);
+            }
+        }
+
+
+
+
+
         void DataAPI_OnRspQryMinuteData(Dictionary<string, double[]> arg1, RspInfo arg2, int arg3, int arg4)
         {
 

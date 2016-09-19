@@ -38,13 +38,13 @@ namespace DataAPI.TDX
         /// <summary>
         /// 查询价格分布信息回报事件
         /// </summary>
-        public event Action<PriceVolPair, RspInfo, int, bool> OnRspQryPriceVolPair;
+        public event Action<List<PriceVolPair>, RspInfo, int, int> OnRspQryPriceVolPair;
 
         
         /// <summary>
         /// 查询当日分笔数据回报事件
         /// </summary>
-        public event Action<TradeSplit, RspInfo, int, bool> OnRspQryTradeSplit;
+        public event Action<List<TradeSplit>, RspInfo, int, int> OnRspQryTradeSplit;
 
         /// <summary>
         /// 查询历史分笔数据回报事件
@@ -649,8 +649,10 @@ namespace DataAPI.TDX
         /// </summary>
         /// <param name="market"></param>bb
         /// <param name="symbol"></param>
-        public int QryPriceVol(int market, string symbol)
+        public int QryPriceVol(string exchange, string symbol)
         {
+            int market = GetMarketCode(exchange);
+
             byte[] bb = { 0x0C, 0x25, 0x08, 0x00, 0x03, 0x01, 0x0A, 0x00, 0x0A, 0x00, 0x1A, 0x05, 0x00, 0x00, 0x30, 0x30, 0x30, 0x30, 0x30, 0x32 };
             bb[13] = (byte)(ushort)market;
             Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(bb, 14);
@@ -671,8 +673,10 @@ namespace DataAPI.TDX
         /// <param name="symbol">股票代码</param>
         /// <param name="start">起始位置 最后一条为0 前一条为1，以此类推</param>
         /// <param name="Count">请求记录数量</param>
-        public int QryTransactionData(int market,string symbol, int start, int Count)
+        public int QryTradeSplitData(string exchange,string symbol, int start, int Count)
         {
+            int market = GetMarketCode(exchange);
+
             byte[] request = { 0x0C, 0x24, 0x08, 0x00, 0x03, 0x01, 0x0E, 0x00, 0x0E, 0x00, 0xC5, 0x0F, 0x00, 0x00, 0x30, 0x30, 0x30, 0x30, 0x30, 0x32, 0x00, 0x00, 0x14, 0x00 };
             request[13] = (byte)(ushort)market;
             Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 14);
@@ -1200,6 +1204,7 @@ namespace DataAPI.TDX
                             TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                         i += 2;
                         num4 = 0;
+                        List<PriceVolPair> pvlist = new List<PriceVolPair>();
                         for (int j = 0; j < n; j++)
                         {
                             num4 = num4 + TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
@@ -1209,10 +1214,16 @@ namespace DataAPI.TDX
                             double v1 = (double)num4 / 100.0;
                             //logger.Info("PV {0} {1}".Put(v1, num5));
                             //GP.AddJia(v1, num5);
-                            if (OnRspQryPriceVolPair != null)
-                            {
-                                OnRspQryPriceVolPair(new PriceVolPair(v1, num5), null, sb.RequestId, j == n - 1);
-                            }
+                            //if (OnRspQryPriceVolPair != null)
+                            //{
+                            //    OnRspQryPriceVolPair(new PriceVolPair(v1, num5), null, sb.RequestId, j == n - 1);
+                            //}
+                            //
+                            pvlist.Add(new PriceVolPair(v1, num5));
+                        }
+                        if (OnRspQryPriceVolPair != null)
+                        {
+                            OnRspQryPriceVolPair(pvlist, null, n, sb.RequestId);
                         }
                         #endregion
 
@@ -1281,13 +1292,14 @@ namespace DataAPI.TDX
                         i = 0;
                         n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
                         logger.Info(string.Format("QryTransactionData Response Count:{0}", n));
+                        List<TradeSplit> tslist = new List<TradeSplit>();
                         //不存在分笔数据
                         if (n == 0)
                         {
                             //Ticks.Clear();
                             if (OnRspQryTradeSplit != null)
                             {
-                                OnRspQryTradeSplit(null, null, 0, true);
+                                OnRspQryTradeSplit(tslist, null, 0, sb.RequestId);
                             }
                             return;
                         }
@@ -1310,13 +1322,15 @@ namespace DataAPI.TDX
                                 num4 = num5 + num4;
                                 i = i + 1;
                                 //GP.AddTick(time1, close, vol, sellorbuy, dealcount);
-                                TradeSplit split = new TradeSplit(time1, close, vol, sellorbuy, dealcount);
+                                tslist.Add(new TradeSplit(time1, close, vol, sellorbuy, dealcount));
                                 //logger.Info(split.ToString());
-                                if (OnRspQryTradeSplit != null)
-                                {
-                                    OnRspQryTradeSplit(split, null, sb.RequestId, j == n - 1);
-                                }
+                                
                             }
+                            if (OnRspQryTradeSplit != null)
+                            {
+                                OnRspQryTradeSplit(tslist, null, n, sb.RequestId);
+                            }
+
                         }
                         //sb.type为请求时候设定，用于标记返回数据更新的回路100更新分笔Tab 1则更新分笔图
                         //if (sb.type == 1)

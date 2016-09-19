@@ -25,6 +25,9 @@ namespace XTraderLite
                 v.Visible = false;
             }
             viewList[index].Visible = true;
+
+
+            
         }
     }
 }

@@ -49,6 +49,32 @@ namespace XTraderLite
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
 
+            #region 设置频率切换按钮的Tag 并放入list方便访问
+            btnFreqDay.Tag = ConstFreq.Freq_Day;
+            btnFreqWeek.Tag = ConstFreq.Freq_Week;
+            btnFreqMonth.Tag = ConstFreq.Freq_Month;
+            btnFreqQuarter.Tag = ConstFreq.Freq_Quarter;
+            btnFreqYear.Tag = ConstFreq.Freq_Year;
+            btnFreqM1.Tag = ConstFreq.Freq_M1;
+            btnFreqM5.Tag = ConstFreq.Freq_M5;
+            btnFreqM15.Tag = ConstFreq.Freq_M15;
+            btnFreqM30.Tag = ConstFreq.Freq_M30;
+            btnFreqM60.Tag = ConstFreq.Freq_M60;
+
+            freqButtons.Add(btnFreqDay);
+            freqButtons.Add(btnFreqWeek);
+            freqButtons.Add(btnFreqMonth);
+            freqButtons.Add(btnFreqQuarter);
+            freqButtons.Add(btnFreqYear);
+            freqButtons.Add(btnFreqM1);
+            freqButtons.Add(btnFreqM5);
+            freqButtons.Add(btnFreqM15);
+            freqButtons.Add(btnFreqM30);
+            freqButtons.Add(btnFreqM60);
+            #endregion
+
+
+
             panelMarket.BackColor = Color.Black;
             panelBroker.Visible = false;
             debugControl1.Dock = DockStyle.Fill;
@@ -101,6 +127,18 @@ namespace XTraderLite
             btnIntraView.Click += new EventHandler(btnIntraView_Click);
             btnBarView.Click += new EventHandler(btnBarView_Click);
 
+            btnFreqDay.Click += new EventHandler(btnFreq_Click);
+            btnFreqWeek.Click += new EventHandler(btnFreq_Click);
+            btnFreqMonth.Click += new EventHandler(btnFreq_Click);
+            btnFreqQuarter.Click += new EventHandler(btnFreq_Click);
+            btnFreqYear.Click += new EventHandler(btnFreq_Click);
+            btnFreqM1.Click += new EventHandler(btnFreq_Click);
+            btnFreqM5.Click += new EventHandler(btnFreq_Click);
+            btnFreqM15.Click += new EventHandler(btnFreq_Click);
+            btnFreqM30.Click += new EventHandler(btnFreq_Click);
+            btnFreqM60.Click += new EventHandler(btnFreq_Click);
+
+
 
 
             menuTrading.Click += new EventHandler(menuTrading_Click);
@@ -129,7 +167,14 @@ namespace XTraderLite
             MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
             MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
             MDService.DataAPI.OnRspQryTickSnapshot += new Action<List<MDSymbol>, RspInfo, int, int>(DataAPI_OnRspQryTickSnapshot);
+
+            //量价信息
+            MDService.DataAPI.OnRspQryPriceVolPair += new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair);
+            //分笔数据
+            MDService.DataAPI.OnRspQryTradeSplit += new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit);
         }
+
+
 
 
         

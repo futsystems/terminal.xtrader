@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using TradingLib.MarketData;
 
 namespace XTraderLite
 {
@@ -18,13 +19,13 @@ namespace XTraderLite
         }
 
 
-        void SwitchMainView(bool backQuote)
+        bool  SwitchMainView(bool backQuote)
         {
             //当前为报价表状态 则进入分时
             if (ctrlQuoteList.Visible)
             {
                 ViewIntraChart();
-                return;
+                return true;
             }
 
             if (ctrlKChart.Visible)
@@ -32,21 +33,24 @@ namespace XTraderLite
                 if (ctrlKChart.IsIntraView)
                 {
                     ViewBarChart();
-                    return;
+                    return true;
                 }
                 if (ctrlKChart.IsBarView)
                 {
                     if (backQuote)
                     {
                         ViewQuoteList();
+                        return false;
                     }
                     else
                     {
                         ViewIntraChart();
+                        return true;
                     }
-                    return;
+                  
                 }
             }
+            return false;
         }
 
 

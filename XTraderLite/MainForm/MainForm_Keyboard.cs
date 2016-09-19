@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using TradingLib.MarketData;
 
 namespace XTraderLite
 {
@@ -23,18 +24,33 @@ namespace XTraderLite
             logger.Info("Key Down:" + e.KeyCode.ToString());
             switch (e.KeyCode)
             { 
-                case Keys.Enter:
-                    logger.Info("active:" + this.ActiveControl.GetType().Name);
-                    SwitchMainView(true);
-                    break;
+
                 case Keys.Escape:
                     ViewQuoteList();
                     break;
                 case Keys.F12:
                     SwitchTradingBox();
                     break;
+                case Keys.Enter:
                 case Keys.F5:
-                    SwitchMainView(false);
+                    {
+                        MDSymbol tmp = null;
+                        if (ctrlQuoteList.Visible)
+                        {
+                            tmp = ctrlQuoteList.SymbolSelected;
+                            if (tmp == null) return;
+                        }
+
+                        if (tmp == null)
+                        {
+                            tmp = this.CurrentKChartSymbol;
+                            if (tmp == null)
+                                return;
+                        }
+
+                        bool needset=SwitchMainView(e.KeyCode== Keys.Enter?true:false);
+                        if (needset) SetKChartSymbol(tmp);
+                    }
                     break;
                 default:
                     break;
