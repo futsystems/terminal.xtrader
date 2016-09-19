@@ -61,7 +61,7 @@ namespace TradingLib.KryptonControl
 
             if (e.ClipRectangle.IntersectsWith(new Rectangle(0, 0, ClientSize.Width, DefaultQuoteStyle.HeaderHeight)))
             {
-                foreach (var column in quoteColumns)
+                foreach (var column in visibleColumns)
                 {
                     //PointF cellLocation = new PointF(GetColumnStarX(i), 0);
                     RectangleF cellRect = new RectangleF(column.StartX, 0, column.Width, DefaultQuoteStyle.HeaderHeight);

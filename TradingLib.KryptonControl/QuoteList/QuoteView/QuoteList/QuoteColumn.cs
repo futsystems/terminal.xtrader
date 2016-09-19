@@ -71,8 +71,11 @@ namespace TradingLib.KryptonControl
             this.StartX = 0;
             this.Width = GetDefaultWidth(this.FieldType);
             this.Visible = true;
+            this.Index = -1;
 
         }
+
+        public int Index { get; set; }
         /// <summary>
         /// 标体头
         /// </summary>

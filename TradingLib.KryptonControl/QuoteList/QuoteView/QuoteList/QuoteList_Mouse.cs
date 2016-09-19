@@ -131,9 +131,9 @@ namespace TradingLib.KryptonControl
         {
             if (e.Y > 0 && e.Y < this.HeaderHeight)//在标题栏进行鼠标位置判定
             {
-                for (int i = 0; i < quoteColumns.Count; i++)
+                for (int i = 0; i < visibleColumns.Count; i++)
                 {
-                    if (e.X > quoteColumns[i].StartX - 3 && e.X < quoteColumns[i].StartX + 3)
+                    if (e.X > visibleColumns[i].StartX - 3 && e.X < visibleColumns[i].StartX + 3)
                     {
                         return i;
                     }
@@ -148,8 +148,8 @@ namespace TradingLib.KryptonControl
         /// <param name="e"></param>
         private void MoveChangeColWidthLine(MouseEventArgs e, int ylineID)
         {
-            CurrentYLineMoveWidth = (e.X - quoteColumns[CurrentMoveYLIneID].StartX);//计算移动值
-            quoteColumns[CurrentMoveYLIneID - 1].Width = quoteColumns[CurrentMoveYLIneID - 1].Width + CurrentYLineMoveWidth;
+            CurrentYLineMoveWidth = (e.X - visibleColumns[CurrentMoveYLIneID].StartX);//计算移动值
+            visibleColumns[CurrentMoveYLIneID - 1].Width = visibleColumns[CurrentMoveYLIneID - 1].Width + CurrentYLineMoveWidth;
             CalcColunmStartX();
             ResetRect();
             Refresh();

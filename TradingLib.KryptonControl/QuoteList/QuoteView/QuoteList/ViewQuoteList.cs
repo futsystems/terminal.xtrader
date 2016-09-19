@@ -106,7 +106,10 @@ namespace TradingLib.KryptonControl
             InitializeComponent();
             this.DoubleBuffered = true;
             this.BackColor = Color.Black;
+
             InitQuoteColumns();
+
+            InitConfig();
 
             //设置单元格样式
             _cellstyle = new CellStyle(QuoteBackColor1, Color.Red, QuoteFont,SymbolFont,TableLineColor);
@@ -134,6 +137,7 @@ namespace TradingLib.KryptonControl
 
             this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
 
+            ApplyConfig(EnumQuoteListType.STOCK_CN);
             //初始化右键菜单
             if(MenuEnable)
                 initMenu();
@@ -309,14 +313,23 @@ namespace TradingLib.KryptonControl
 
         #region 表宽,表名
 
-        internal List<QuoteColumn> Columns { get { return quoteColumns; } }
+        /// <summary>
+        /// 所有列
+        /// </summary>
+        internal List<QuoteColumn> Columns { get { return totalColumns; } }
+        List<QuoteColumn> totalColumns = new List<QuoteColumn>();
 
-        List<QuoteColumn> quoteColumns = new List<QuoteColumn>();
+        /// <summary>
+        /// 所有可视列
+        /// </summary>
+        internal List<QuoteColumn> VisibleColumns { get { return visibleColumns; } }
+        List<QuoteColumn> visibleColumns = new List<QuoteColumn>();
+
         void InitQuoteColumns()
         {
             foreach (int code in Enum.GetValues(typeof(EnumFileldType)))
             {
-                quoteColumns.Add(new QuoteColumn((EnumFileldType)code));
+                totalColumns.Add(new QuoteColumn((EnumFileldType)code));
                 
             }
         }
@@ -335,15 +348,26 @@ namespace TradingLib.KryptonControl
         /// </summary>
         void CalcColunmStartX()
         {
-            for (int i = 0; i < quoteColumns.Count; i++)
+            //QuoteColumn[] columns = quoteColumns.Where(c => c.Visible).OrderBy(c => c.Index).ToArray();//获得需要显示的列并按index排列
+            for(int i=0;i<visibleColumns.Count;i++)
             {
-                quoteColumns[i].StartX = 0;
+                visibleColumns[i].StartX = 0;
                 //循环计算起点
                 for (int j = 0; j < i; j++)
                 {
-                    quoteColumns[i].StartX += quoteColumns[j].Width;
+                    visibleColumns[i].StartX += visibleColumns[j].Width;
                 }
             }
+
+            //for (int i = 0; i < columns.Count(); i++)
+            //{
+            //    quoteColumns[i].StartX = 0;
+            //    //循环计算起点
+            //    for (int j = 0; j < i; j++)
+            //    {
+            //        quoteColumns[i].StartX += quoteColumns[j].Width;
+            //    }
+            //}
         }
 
         //用于将单元格所缓存的Rect清楚 重新计算 主要用于当列宽差生变化后进行更新,

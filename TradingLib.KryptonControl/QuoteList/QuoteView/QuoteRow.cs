@@ -423,7 +423,7 @@ namespace TradingLib.KryptonControl
                     return _rowrect;
 
                 Point cellLocation = new Point(0, (RowID - _quotelist.GetBeginIndex()) * _defaultQuoteStyle.RowHeight + _defaultQuoteStyle.HeaderHeight);
-                _rowrect = new Rectangle(cellLocation.X, cellLocation.Y, _quotelist.Columns.Where(column=>column.Visible).Sum(column=>column.Width), _defaultQuoteStyle.RowHeight);
+                _rowrect = new Rectangle(cellLocation.X, cellLocation.Y, _quotelist.VisibleColumns.Sum(column=>column.Width), _defaultQuoteStyle.RowHeight);
                 _rectSetted = true;
                 return _rowrect;
             }
@@ -442,7 +442,7 @@ namespace TradingLib.KryptonControl
             //检查需要更新的矩形区域与本单元格的矩形区域是否相交,如果相交则我们进行更新
             if (e.ClipRectangle.IntersectsWith(this.Rect))
             {
-                foreach (var cell in _columeCellMap.Values)
+                foreach (var cell in _columeCellMap.Values.Where(cell=>cell.Column.Visible))
                 {
                     if (cell.NeedCalcRect)
                     { 
