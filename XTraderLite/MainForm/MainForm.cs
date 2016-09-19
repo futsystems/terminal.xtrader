@@ -138,6 +138,7 @@ namespace XTraderLite
             btnFreqM30.Click += new EventHandler(btnFreq_Click);
             btnFreqM60.Click += new EventHandler(btnFreq_Click);
 
+            btnDrawBox.Click += new EventHandler(btnDrawBox_Click);
 
 
 
@@ -145,6 +146,8 @@ namespace XTraderLite
             menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
             
         }
+
+
 
 
 

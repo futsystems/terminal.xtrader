@@ -229,8 +229,11 @@ namespace CStock
             get { return DrawBoard.Visible; }
             set
             {
-                DrawBoard.Visible = value;
-                ReSize();
+                if (this.IsBarView)
+                {
+                    DrawBoard.Visible = value;
+                    ReSizeBarChart(false);
+                }
             }
         }
 
@@ -244,7 +247,7 @@ namespace CStock
             {
                 SP1.Visible = value;
                 Board.Visible = value;
-                ReSize();
+                ReSizeBarChart(false);
                 //this.Invalidate();
             }
         }
@@ -306,7 +309,7 @@ namespace CStock
                 Ftab = value;
                 if (this.IsBarView)
                     Tab.Visible = Ftab;
-                ReSize();
+                ReSizeBarChart(false);
             }
         }
 
@@ -393,7 +396,7 @@ namespace CStock
                     GS[techwindows - 1].ShowBottom = false;
                     techwindows = value;
                     GS[techwindows - 1].ShowBottom = FShowBottom;
-                    ReSize();
+                    ReSizeBarChart(false);
                 }
 
             }

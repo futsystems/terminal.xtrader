@@ -262,7 +262,7 @@ namespace CStock
         /// 重新计算数据
         /// 设定StartIndex
         /// </summary>
-        public void ReCalculate(object obj)
+        public void ReCalculate(object obj,bool calcInd = true)
         {
             logger.Info("ReCalculate:"+obj.ToString());
             int dataLength, detailBoardWidth, leftW, rightW, showCount;
@@ -281,9 +281,12 @@ namespace CStock
                 showCount = (int)(Math.Floor((Width - detailBoardWidth - leftW - rightW - (!this.StartFix?this.ExtendedRightSpace:0)) / GS[0].FScale));
                 this.StartIndex = dataLength - showCount;
             }
-            //执行计算
-            for (int i = 0; i < techwindows; i++)//只计算显示的窗口指标数据
-                GS[i].run();
+            if (calcInd)
+            {
+                //执行计算
+                for (int i = 0; i < techwindows; i++)//只计算显示的窗口指标数据
+                    GS[i].run();
+            }
         }
 
         /// <summary>

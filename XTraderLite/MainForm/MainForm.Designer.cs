@@ -91,10 +91,10 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
-            this.splitter = new System.Windows.Forms.Splitter();
-            this.panelBroker = new System.Windows.Forms.Panel();
             this.ctrlKChart = new CStock.TStock();
             this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
+            this.splitter = new System.Windows.Forms.Splitter();
+            this.panelBroker = new System.Windows.Forms.Panel();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
@@ -337,7 +337,6 @@
             this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolBar.Size = new System.Drawing.Size(1100, 25);
             this.toolBar.TabIndex = 0;
-            this.toolBar.Text = "toolStrip1";
             // 
             // btnQuoteView
             // 
@@ -597,9 +596,9 @@
             this.topHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.topHeader.Location = new System.Drawing.Point(489, 1);
             this.topHeader.Name = "topHeader";
-            this.topHeader.Size = new System.Drawing.Size(113, 20);
+            this.topHeader.Size = new System.Drawing.Size(127, 20);
             this.topHeader.TabIndex = 4;
-            this.topHeader.Text = "交易大师-机构版";
+            this.topHeader.Text = "巨融交易端-机构版";
             // 
             // panelControlBox
             // 
@@ -680,28 +679,6 @@
             this.panelMarket.Size = new System.Drawing.Size(1100, 368);
             this.panelMarket.TabIndex = 2;
             // 
-            // splitter
-            // 
-            this.splitter.BackColor = System.Drawing.Color.Silver;
-            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter.Location = new System.Drawing.Point(0, 368);
-            this.splitter.MinExtra = 100;
-            this.splitter.MinSize = 260;
-            this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(1100, 2);
-            this.splitter.TabIndex = 1;
-            this.splitter.TabStop = false;
-            // 
-            // panelBroker
-            // 
-            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
-            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBroker.Location = new System.Drawing.Point(0, 370);
-            this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
-            this.panelBroker.TabIndex = 0;
-            // 
             // ctrlKChart
             // 
             this.ctrlKChart.BackColor = System.Drawing.Color.Black;
@@ -747,6 +724,28 @@
             this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
             this.ctrlQuoteList.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("ctrlQuoteList.Symbols")));
             this.ctrlQuoteList.TabIndex = 1;
+            // 
+            // splitter
+            // 
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 368);
+            this.splitter.MinExtra = 100;
+            this.splitter.MinSize = 260;
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(1100, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
+            // 
+            // panelBroker
+            // 
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 370);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
+            this.panelBroker.TabIndex = 0;
             // 
             // debugControl1
             // 

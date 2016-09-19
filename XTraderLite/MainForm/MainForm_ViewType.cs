@@ -25,9 +25,42 @@ namespace XTraderLite
                 v.Visible = false;
             }
             viewList[index].Visible = true;
+        }
+        /// <summary>
+        /// 查看报价列表
+        /// </summary>
+        void ViewQuoteList()
+        {
+            SetViewType(EnumTraderViewType.QuoteList);
+            ctrlQuoteList.Focus();
+            UpdateToolBarStatus();
+        }
+
+        /// <summary>
+        /// 查看K线图
+        /// </summary>
+        void ViewBarChart()
+        {
+            SetViewType(EnumTraderViewType.KChart);
+            if (ctrlKChart.IsIntraView)
+            {
+                ctrlKChart.ViewType = CStock.KChartViewType.KView;
+            }
+            UpdateToolBarStatus();
+        }
 
 
-            
+        /// <summary>
+        /// 查看分时图
+        /// </summary>
+        void ViewIntraChart()
+        {
+            SetViewType(EnumTraderViewType.KChart);
+            if (ctrlKChart.IsBarView)
+            {
+                ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
+            }
+            UpdateToolBarStatus();
         }
     }
 }

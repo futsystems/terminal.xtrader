@@ -91,32 +91,7 @@ namespace XTraderLite
 
 
 
-        void ViewQuoteList()
-        {
-            SetViewType(EnumTraderViewType.QuoteList);
-            ctrlQuoteList.Focus();
-            UpdateToolBarStatus();
-        }
-
-        void ViewBarChart()
-        {
-            SetViewType(EnumTraderViewType.KChart);
-            if (ctrlKChart.IsIntraView)
-            {
-                ctrlKChart.ViewType = CStock.KChartViewType.KView;
-            }
-            UpdateToolBarStatus();
-        }
-
-        void ViewIntraChart()
-        {
-            SetViewType(EnumTraderViewType.KChart);
-            if (ctrlKChart.IsBarView)
-            {
-                ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
-            }
-            UpdateToolBarStatus();
-        }
+       
 
         /// <summary>
         /// 查看报价列表
@@ -179,5 +154,20 @@ namespace XTraderLite
             SetKChartSymbol(tmp);
         }
 
+
+        /// <summary>
+        /// 打开自绘工具栏
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnDrawBox_Click(object sender, EventArgs e)
+        {
+            
+            if (ctrlKChart.Visible && ctrlKChart.IsBarView)
+            { 
+                ctrlKChart.ShowDrawToolBox = !btnDrawBox.Checked;
+                btnDrawBox.Checked = !btnDrawBox.Checked;
+            }
+        }
     }
 }

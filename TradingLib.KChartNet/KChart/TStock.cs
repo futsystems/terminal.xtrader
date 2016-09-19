@@ -808,7 +808,7 @@ namespace CStock
 
         #region TSotck控件相关事件与函数覆写
 
-        void ReSize()
+        void ReSizeBarChart(bool calcInd)
         {
             int h1 = Height;
             if (Ftab)
@@ -822,7 +822,7 @@ namespace CStock
                 GSH[techwindows - 1] = h1 - hh * techwindows;
             if (Ftab)
                 Tab.Invalidate();
-            this.ReCalculate("Resize");
+            this.ReCalculate("Resize", calcInd);
             this.Invalidate();
         }
 
@@ -836,7 +836,7 @@ namespace CStock
                 FSGSH[i] = hh0;
             if (fswindows > 1)
                 FSGSH[fswindows - 1] = h1 - hh0 * fswindows;
-            ReSize();
+            ReSizeBarChart(false);
         }
 
 
