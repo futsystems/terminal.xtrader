@@ -23,10 +23,26 @@ namespace TradingLib.KryptonControl
             QuoteColumnConfigs tmp = null;
 
             tmp = new QuoteColumnConfigs(EnumQuoteListType.STOCK_CN);
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 2));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 2));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 3));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGEPECT, 3));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL,5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME,7));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGEPECT, 4));
+
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGE, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BID, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.ASK, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.VOL, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.OPEN, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.HIGH, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LOW, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.PRECLOSE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.AVGPRICE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BSIDE,7));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SSIDE, 7));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BIDSIZE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.ASKSIZE, 5));
             configMap.Add(EnumQuoteListType.STOCK_CN, tmp);
 
 
@@ -39,7 +55,7 @@ namespace TradingLib.KryptonControl
 
         }
 
-        void ApplyConfig(EnumQuoteListType type)
+        public void ApplyConfig(EnumQuoteListType type)
         {
             QuoteColumnConfigs configs = null;
             if (configMap.TryGetValue(type, out configs))
@@ -55,7 +71,7 @@ namespace TradingLib.KryptonControl
                     {
                         column.Visible = true;
                         column.Index = cfg.Index;
-                        column.Width = cfg.Width * 50;
+                        column.Width = (int)Math.Ceiling(cfg.Width * this.DefaultQuoteStyle.FontWidth);
                     }
                 }
 
@@ -63,6 +79,11 @@ namespace TradingLib.KryptonControl
                 visibleColumns = totalColumns.Where(c => c.Visible).OrderBy(c => c.Index).ToList();
 
             }
+
+            //计算列起点 总宽等参数
+            CalcColunmStartX();
+            //重置所有绘图区域
+            this.ResetRect();
         }
     }
 }

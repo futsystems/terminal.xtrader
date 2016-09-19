@@ -121,7 +121,7 @@ namespace TradingLib.KryptonControl
         public static Pen _pen = new Pen(Color.Black, 1);
 
 
-        public QuoteStyle(Color quoteback1,Color quoteback2,Font quotefont,Font symbolfront,Color linecolor, Color upcolor,Color dncolor,int headheight, int rowheight)
+        public QuoteStyle(Color quoteback1,Color quoteback2,Font quotefont,Font symbolfront,Color linecolor, Color upcolor,Color dncolor,int headheight, int rowheight,float fontwidth)
         {
             _quoteBackColor1 = quoteback1;
             _quoteBackColor2 = quoteback2;
@@ -139,6 +139,9 @@ namespace TradingLib.KryptonControl
 
             _rightFormat=new StringFormat();
             _rightFormat.Alignment = StringAlignment.Far;
+
+            _fontWidth = fontwidth;
+            
         }
 
         StringFormat _leftFormat = null;
@@ -220,7 +223,10 @@ namespace TradingLib.KryptonControl
         /// </summary>
         public int HeaderHeight { get { return _headerheight; } set { _headerheight = value; } }
 
-
-
+        float _fontWidth = 0;
+        /// <summary>
+        /// 报价字体宽度
+        /// </summary>
+        public float FontWidth { get { return _fontWidth; } }
     }
 }

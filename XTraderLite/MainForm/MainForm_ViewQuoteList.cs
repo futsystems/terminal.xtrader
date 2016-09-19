@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using TradingLib.MarketData;
+using TradingLib.KryptonControl;
 
 
 namespace XTraderLite
@@ -29,7 +30,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("中小版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -38,7 +39,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }),EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("创业版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -47,7 +48,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -56,7 +57,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -65,7 +66,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("基金", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -74,7 +75,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("指数", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -83,7 +84,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
 
             ctrlQuoteList.AddBlock("债券", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
@@ -93,7 +94,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("三板", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -102,7 +103,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
             ctrlQuoteList.AddBlock("自选", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
@@ -111,7 +112,7 @@ namespace XTraderLite
                         return true;
                     }
                     return false;
-                }));
+                }), EnumQuoteListType.STOCK_CN);
 
 
 

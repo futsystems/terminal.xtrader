@@ -8,7 +8,7 @@ namespace TradingLib.KryptonControl
 {
     public class BlockButton
     {
-        public BlockButton(string title, Predicate<MDSymbol> filter)
+        public BlockButton(string title, Predicate<MDSymbol> filter,EnumQuoteListType quoteType)
         {
             this.Title = title;
             this.SymbolFilter = filter;
@@ -18,6 +18,7 @@ namespace TradingLib.KryptonControl
             this.Index = 0;
             this.MouseOver = false;
             this.Selected = false;
+            this.QuoteType = quoteType;
         }
 
         public Predicate<MDSymbol> SymbolFilter { get; set; }
@@ -26,6 +27,8 @@ namespace TradingLib.KryptonControl
         /// </summary>
         public string Title { get; set; }
 
+
+        internal EnumQuoteListType QuoteType { get; set; }
         /// <summary>
         /// 按钮宽度
         /// </summary>
@@ -48,5 +51,7 @@ namespace TradingLib.KryptonControl
         /// 选中
         /// </summary>
         internal bool Selected { get; set; }
+
+
     }
 }

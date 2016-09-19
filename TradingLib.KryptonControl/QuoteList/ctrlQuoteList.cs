@@ -89,6 +89,7 @@ namespace TradingLib.KryptonControl
                     quotelist.Clear();
                     quotelist.BeginUpdate();
                     quotelist.AddSymbols(symbolMap.Where(sym=>e.TargtButton.SymbolFilter(sym)));
+                    quotelist.ApplyConfig(e.TargtButton.QuoteType);
                     quotelist.EndUpdate();
                 }
             }
@@ -134,9 +135,9 @@ namespace TradingLib.KryptonControl
         /// </summary>
         /// <param name="title"></param>
         /// <param name="filter"></param>
-        public void AddBlock(string title,Predicate<MDSymbol> filter)
+        public void AddBlock(string title,Predicate<MDSymbol> filter,EnumQuoteListType type)
         {
-            blockTab.AddBlock(title, filter);
+            blockTab.AddBlock(title, filter,type);
         }
         /// <summary>
         /// 选中某个Tab

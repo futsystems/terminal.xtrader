@@ -113,41 +113,54 @@ namespace TradingLib.KryptonControl
 
             //设置单元格样式
             _cellstyle = new CellStyle(QuoteBackColor1, Color.Red, QuoteFont,SymbolFont,TableLineColor);
-            _quotestyle = new QuoteStyle(QuoteBackColor1, QuoteBackColor2, QuoteFont,SymbolFont,TableLineColor,UPColor,DNColor,HeaderHeight, RowHeight);
+            Graphics g = this.CreateGraphics();
+            float fontWidth = g.MeasureString("9", this.QuoteFont).Width;
+
+            _quotestyle = new QuoteStyle(QuoteBackColor1, QuoteBackColor2, QuoteFont, SymbolFont, TableLineColor, UPColor, DNColor, HeaderHeight, RowHeight, fontWidth);
 
             _timer = new System.Threading.Timer(ChangeColorBack, null, 800, 1500);
-           
+
+
+
+
+            WireEvent();
             
-            this.MouseMove +=new MouseEventHandler(ViewQuoteList_MouseMove);
+
+            ApplyConfig(EnumQuoteListType.STOCK_CN);
+            //初始化右键菜单
+            if(MenuEnable)
+                initMenu();
+            
+
+            
+        }
+
+
+        void WireEvent()
+        {
+            this.GotFocus += new EventHandler(ViewQuoteList_GotFocus);
+            this.LostFocus += new EventHandler(ViewQuoteList_LostFocus);
+
+
+            this.MouseMove += new MouseEventHandler(ViewQuoteList_MouseMove);
             this.MouseDown += new MouseEventHandler(ViewQuoteList_MouseDown);
             this.MouseUp += new MouseEventHandler(ViewQuoteList_MouseUp);
             this.MouseWheel += new MouseEventHandler(ViewQuoteList_MouseWheel);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
             this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
 
+            this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
+
             //this.SizeChanged +=new EventHandler(ViewQuoteList_SizeChanged);
 
-            this.GotFocus += new EventHandler(ViewQuoteList_GotFocus);
-            this.LostFocus += new EventHandler(ViewQuoteList_LostFocus);
-            
+
+
             //this.PreviewKeyDown += new PreviewKeyDownEventHandler(ViewQuoteList_PreviewKeyDown);
             //this.KeyDown += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyDown);
             //this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ViewQuoteList_KeyPress);
             //this.KeyUp += new System.Windows.Forms.KeyEventHandler(ViewQuoteList_KeyUp);
 
-            this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
-
-            ApplyConfig(EnumQuoteListType.STOCK_CN);
-            //初始化右键菜单
-            if(MenuEnable)
-                initMenu();
-            //计算列起点 总宽等参数
-            CalcColunmStartX();
-            this.ResetRect();
-
-            
         }
-
         public IEnumerable<Symbol> SymbolsShow
         {
             get

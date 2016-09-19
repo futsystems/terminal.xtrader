@@ -42,7 +42,9 @@ namespace TradingLib.KryptonControl
                 =>
                 {
                     return true;
-                }));
+                })
+                
+                ,EnumQuoteListType.FUTURE_CN);
            
         }
 
@@ -211,9 +213,9 @@ namespace TradingLib.KryptonControl
 
         
 
-        public void AddBlock(string title,Predicate<MDSymbol> filter)
+        public void AddBlock(string title,Predicate<MDSymbol> filter,EnumQuoteListType type)
         {
-            BlockButton btn = new BlockButton(title,filter);
+            BlockButton btn = new BlockButton(title,filter,type);
             _btnList.Add(btn);
         }
 
