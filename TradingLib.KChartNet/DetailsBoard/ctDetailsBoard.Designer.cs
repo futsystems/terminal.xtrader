@@ -236,7 +236,8 @@
             // label40
             // 
             this.label40.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label40.ForeColor = System.Drawing.Color.Gray;
+            this.label40.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label40.ForeColor = System.Drawing.Color.White;
             this.label40.Location = new System.Drawing.Point(3, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(60, 18);
@@ -247,7 +248,8 @@
             // label42
             // 
             this.label42.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label42.ForeColor = System.Drawing.Color.Gray;
+            this.label42.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label42.ForeColor = System.Drawing.Color.White;
             this.label42.Location = new System.Drawing.Point(3, 18);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(60, 18);
@@ -258,7 +260,8 @@
             // label43
             // 
             this.label43.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label43.ForeColor = System.Drawing.Color.Gray;
+            this.label43.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label43.ForeColor = System.Drawing.Color.White;
             this.label43.Location = new System.Drawing.Point(153, 0);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(60, 18);
@@ -269,7 +272,8 @@
             // label44
             // 
             this.label44.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label44.ForeColor = System.Drawing.Color.Gray;
+            this.label44.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label44.ForeColor = System.Drawing.Color.White;
             this.label44.Location = new System.Drawing.Point(153, 18);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(60, 18);
@@ -280,7 +284,8 @@
             // label57
             // 
             this.label57.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label57.ForeColor = System.Drawing.Color.Gray;
+            this.label57.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label57.ForeColor = System.Drawing.Color.White;
             this.label57.Location = new System.Drawing.Point(3, 36);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(60, 18);
@@ -291,7 +296,8 @@
             // label59
             // 
             this.label59.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label59.ForeColor = System.Drawing.Color.Gray;
+            this.label59.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label59.ForeColor = System.Drawing.Color.White;
             this.label59.Location = new System.Drawing.Point(153, 36);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(60, 18);
@@ -350,7 +356,8 @@
             // 
             this.label7.BackColor = System.Drawing.Color.Black;
             this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.ForeColor = System.Drawing.Color.Gray;
+            this.label7.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(153, 72);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 18);
@@ -362,7 +369,8 @@
             // 
             this.label8.BackColor = System.Drawing.Color.Black;
             this.label8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label8.ForeColor = System.Drawing.Color.Gray;
+            this.label8.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(3, 72);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 18);
@@ -374,7 +382,8 @@
             // 
             this.label15.BackColor = System.Drawing.Color.Black;
             this.label15.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label15.ForeColor = System.Drawing.Color.Gray;
+            this.label15.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.ForeColor = System.Drawing.Color.White;
             this.label15.Location = new System.Drawing.Point(153, 54);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(60, 18);
@@ -386,7 +395,8 @@
             // 
             this.label13.BackColor = System.Drawing.Color.Black;
             this.label13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label13.ForeColor = System.Drawing.Color.Gray;
+            this.label13.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.ForeColor = System.Drawing.Color.White;
             this.label13.Location = new System.Drawing.Point(3, 54);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(60, 18);
@@ -398,7 +408,8 @@
             // 
             this.label9.BackColor = System.Drawing.Color.Black;
             this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.ForeColor = System.Drawing.Color.Gray;
+            this.label9.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(153, 36);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 18);
@@ -410,7 +421,8 @@
             // 
             this.label10.BackColor = System.Drawing.Color.Black;
             this.label10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label10.ForeColor = System.Drawing.Color.Gray;
+            this.label10.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(3, 36);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(60, 18);
@@ -422,7 +434,8 @@
             // 
             this.label12.BackColor = System.Drawing.Color.Black;
             this.label12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label12.ForeColor = System.Drawing.Color.Gray;
+            this.label12.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(153, 18);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(60, 18);
@@ -434,7 +447,8 @@
             // 
             this.label14.BackColor = System.Drawing.Color.Black;
             this.label14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label14.ForeColor = System.Drawing.Color.Gray;
+            this.label14.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(3, 18);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(60, 18);
@@ -446,7 +460,8 @@
             // 
             this.label21.BackColor = System.Drawing.Color.Black;
             this.label21.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label21.ForeColor = System.Drawing.Color.Gray;
+            this.label21.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.ForeColor = System.Drawing.Color.White;
             this.label21.Location = new System.Drawing.Point(153, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(60, 18);
@@ -458,7 +473,8 @@
             // 
             this.label22.BackColor = System.Drawing.Color.Black;
             this.label22.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label22.ForeColor = System.Drawing.Color.Gray;
+            this.label22.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.ForeColor = System.Drawing.Color.White;
             this.label22.Location = new System.Drawing.Point(3, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(60, 18);
@@ -469,7 +485,8 @@
             // label49
             // 
             this.label49.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label49.ForeColor = System.Drawing.Color.Gray;
+            this.label49.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label49.ForeColor = System.Drawing.Color.White;
             this.label49.Location = new System.Drawing.Point(3, 110);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(60, 18);
@@ -480,7 +497,8 @@
             // label51
             // 
             this.label51.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label51.ForeColor = System.Drawing.Color.Gray;
+            this.label51.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label51.ForeColor = System.Drawing.Color.White;
             this.label51.Location = new System.Drawing.Point(153, 110);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(60, 18);
@@ -491,7 +509,8 @@
             // label54
             // 
             this.label54.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label54.ForeColor = System.Drawing.Color.Gray;
+            this.label54.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label54.ForeColor = System.Drawing.Color.White;
             this.label54.Location = new System.Drawing.Point(153, 90);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(60, 18);
@@ -502,7 +521,8 @@
             // label56
             // 
             this.label56.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label56.ForeColor = System.Drawing.Color.Gray;
+            this.label56.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label56.ForeColor = System.Drawing.Color.White;
             this.label56.Location = new System.Drawing.Point(3, 90);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(60, 18);
@@ -552,7 +572,8 @@
             // label11
             // 
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label11.ForeColor = System.Drawing.Color.Gray;
+            this.label11.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(3, 72);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(60, 18);
@@ -563,7 +584,8 @@
             // label17
             // 
             this.label17.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label17.ForeColor = System.Drawing.Color.Gray;
+            this.label17.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.ForeColor = System.Drawing.Color.White;
             this.label17.Location = new System.Drawing.Point(3, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(60, 18);
@@ -574,7 +596,8 @@
             // label18
             // 
             this.label18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label18.ForeColor = System.Drawing.Color.Gray;
+            this.label18.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.ForeColor = System.Drawing.Color.White;
             this.label18.Location = new System.Drawing.Point(3, 18);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(60, 18);
@@ -585,7 +608,8 @@
             // label19
             // 
             this.label19.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label19.ForeColor = System.Drawing.Color.Gray;
+            this.label19.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label19.ForeColor = System.Drawing.Color.White;
             this.label19.Location = new System.Drawing.Point(3, 36);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(60, 18);
@@ -596,7 +620,8 @@
             // label20
             // 
             this.label20.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label20.ForeColor = System.Drawing.Color.Gray;
+            this.label20.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.ForeColor = System.Drawing.Color.White;
             this.label20.Location = new System.Drawing.Point(3, 54);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(60, 18);
@@ -646,7 +671,8 @@
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.ForeColor = System.Drawing.Color.Gray;
+            this.label1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 18);
@@ -657,7 +683,8 @@
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 18);
@@ -668,7 +695,8 @@
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.ForeColor = System.Drawing.Color.Gray;
+            this.label3.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(3, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 18);
@@ -679,7 +707,8 @@
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.ForeColor = System.Drawing.Color.Gray;
+            this.label4.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(3, 54);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 18);
@@ -690,7 +719,8 @@
             // label5
             // 
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.ForeColor = System.Drawing.Color.Gray;
+            this.label5.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(3, 72);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 18);
@@ -731,6 +761,7 @@
             // weica
             // 
             this.weica.Dock = System.Windows.Forms.DockStyle.Top;
+            this.weica.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.weica.ForeColor = System.Drawing.Color.Gray;
             this.weica.Location = new System.Drawing.Point(228, 0);
             this.weica.Name = "weica";
@@ -742,6 +773,7 @@
             // weibi
             // 
             this.weibi.Dock = System.Windows.Forms.DockStyle.Top;
+            this.weibi.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.weibi.ForeColor = System.Drawing.Color.Gray;
             this.weibi.Location = new System.Drawing.Point(78, 0);
             this.weibi.Name = "weibi";
@@ -753,7 +785,8 @@
             // label16
             // 
             this.label16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label16.ForeColor = System.Drawing.Color.Gray;
+            this.label16.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.ForeColor = System.Drawing.Color.White;
             this.label16.Location = new System.Drawing.Point(153, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(69, 18);
@@ -764,7 +797,8 @@
             // label6
             // 
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.ForeColor = System.Drawing.Color.Gray;
+            this.label6.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(69, 18);
@@ -785,7 +819,7 @@
             // 
             // StkLabel
             // 
-            this.StkLabel.BackColor = System.Drawing.Color.Gray;
+            this.StkLabel.BackColor = System.Drawing.Color.Black;
             this.StkLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.StkLabel.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StkLabel.ForeColor = System.Drawing.Color.Yellow;

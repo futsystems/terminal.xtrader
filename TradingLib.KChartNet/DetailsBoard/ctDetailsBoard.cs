@@ -41,7 +41,7 @@ namespace CStock
         /// </summary>
         public event Action<object, TabDoubleClickEventArgs> TabDoubleClick = null;
         
-        int LineHeight = 15;//输出行高
+        int LineHeight = 18;//输出行高
 
         MDSymbol FCurStock = null;
 
@@ -92,6 +92,9 @@ namespace CStock
             DetailTabBox.Dock = DockStyle.Fill;
             Board.ForeColor = Color.Black;
 
+            weibi.Font = Constants.QuoteFont;
+            weica.Font = Constants.QuoteFont;
+
             //添加买盘label到layoutpanel
             for (i = 0; i < 5; i++)
             {
@@ -101,6 +104,7 @@ namespace CStock
                 l.Dock = DockStyle.Top;
                 l.Height = 18;
                 l.ForeColor = Color.Silver;
+                l.Font = Constants.QuoteFont;
                 l.Text = i.ToString();// "";
                 SellValue[i] = l;
                 Sell.Controls.Add(l, 1, 4 - i);
@@ -110,7 +114,8 @@ namespace CStock
                 l11.TextAlign = ContentAlignment.MiddleRight;
                 l11.Dock = DockStyle.Top;
                 l11.Height = 18;
-                l11.ForeColor = volc;
+                l11.ForeColor = Constants.ColorSize;
+                l11.Font = Constants.QuoteFont;
                 l11.Text = i.ToString();
                 SellVol[i] = l11;
                 Sell.Controls.Add(l11, 2, 4 - i);
@@ -125,6 +130,7 @@ namespace CStock
                 l.Dock = DockStyle.Top;
                 l.Height = 18;
                 l.ForeColor = Color.Silver;
+                l.Font = Constants.QuoteFont;
                 l.Text = i.ToString();// "";
                 BuyValue[i] = l;
                 Buy.Controls.Add(l, 1, i);
@@ -134,7 +140,8 @@ namespace CStock
                 l11.TextAlign = ContentAlignment.MiddleRight;
                 l11.Dock = DockStyle.Top;
                 l11.Height = 18;
-                l11.ForeColor = volc;
+                l11.ForeColor = Constants.ColorSize;
+                l11.Font = Constants.QuoteFont;
                 l11.Text = i.ToString();
                 BuyVol[i] = l11;
                 Buy.Controls.Add(l11, 2, i);
@@ -149,6 +156,7 @@ namespace CStock
                 l.Dock = DockStyle.Top;
                 l.Height = 18;
                 l.ForeColor = Color.Silver;
+                l.Font = Constants.QuoteFont;
                 l.Text = i.ToString();
                 Cell[i] = l;
             }
@@ -237,7 +245,7 @@ namespace CStock
             if ((f1 + f2) > 0)
             {
                 weibi.Text = string.Format("{0:F2}%", (f1 - f2) * 100 / (f1 + f2));
-                weibi.ForeColor = f2 > f1 ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                weibi.ForeColor = f2 > f1 ? Constants.ColorUp : Constants.ColorDown;
             }
             else
             {
@@ -247,7 +255,7 @@ namespace CStock
             if ((f2 + f1) > 0)
             {
                 weica.Text = string.Format("{0:F0}%", f2 - f1);
-                weica.ForeColor = f2 > f1 ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                weica.ForeColor = f2 > f1 ? Constants.ColorUp : Constants.ColorDown;
             }
             else
             {
@@ -269,34 +277,34 @@ namespace CStock
             {
                 BuyValue[0].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy1);
                 BuyVol[0].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY1);
-                BuyValue[0].ForeColor = symbol.TickSnapshot.Buy1 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                BuyValue[0].ForeColor = symbol.TickSnapshot.Buy1 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.BuyQTY2 > 0)
             {
                 BuyValue[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy2);
                 BuyVol[1].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY2);
-                BuyValue[1].ForeColor = symbol.TickSnapshot.Buy2 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                BuyValue[1].ForeColor = symbol.TickSnapshot.Buy2 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.BuyQTY3 > 0)
             {
                 BuyValue[2].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy3);
                 BuyVol[2].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY3);
-                BuyValue[2].ForeColor = symbol.TickSnapshot.Buy3 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                BuyValue[2].ForeColor = symbol.TickSnapshot.Buy3 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.BuyQTY4 > 0)
             {
                 BuyValue[3].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy4);
                 BuyVol[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY4);
-                BuyValue[3].ForeColor = symbol.TickSnapshot.Buy4 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                BuyValue[3].ForeColor = symbol.TickSnapshot.Buy4 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
             if (symbol.TickSnapshot.BuyQTY5 > 0)
             {
                 BuyValue[4].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy5);
                 BuyVol[4].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY5);
-                BuyValue[4].ForeColor = symbol.TickSnapshot.Buy5 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                BuyValue[4].ForeColor = symbol.TickSnapshot.Buy5 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
 
@@ -304,56 +312,56 @@ namespace CStock
             {
                 SellValue[0].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell1);
                 SellVol[0].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY1);
-                SellValue[0].ForeColor = symbol.TickSnapshot.Sell1 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                SellValue[0].ForeColor = symbol.TickSnapshot.Sell1 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.SellQTY2 > 0)
             {
                 SellValue[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell2);
                 SellVol[1].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY2);
-                SellValue[1].ForeColor = symbol.TickSnapshot.Sell2 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                SellValue[1].ForeColor = symbol.TickSnapshot.Sell2 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.SellQTY3 > 0)
             {
                 SellValue[2].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell3);
                 SellVol[2].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY3);
-                SellValue[2].ForeColor = symbol.TickSnapshot.Sell3 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                SellValue[2].ForeColor = symbol.TickSnapshot.Sell3 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.SellQTY4 > 0)
             {
                 SellValue[3].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell4);
                 SellVol[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY4);
-                SellValue[3].ForeColor = symbol.TickSnapshot.Sell4 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                SellValue[3].ForeColor = symbol.TickSnapshot.Sell4 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
             if (symbol.TickSnapshot.SellQTY5 > 0)
             {
                 SellValue[4].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell5);
                 SellVol[4].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY5);
-                SellValue[4].ForeColor = symbol.TickSnapshot.Sell5 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                SellValue[4].ForeColor = symbol.TickSnapshot.Sell5 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
 
 
             Cell[0].Text = String.Format("{0:F3}", symbol.TickSnapshot.Price);
-            Cell[0].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[0].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[7].Text = String.Format("{0:F3}", symbol.TickSnapshot.Open);
-            Cell[7].ForeColor = symbol.TickSnapshot.Open > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[7].ForeColor = symbol.TickSnapshot.Open > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Price - symbol.TickSnapshot.last);
-            Cell[1].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[1].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[8].Text = String.Format("{0:F3}", symbol.TickSnapshot.High);
-            Cell[8].ForeColor = symbol.TickSnapshot.High > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[8].ForeColor = symbol.TickSnapshot.High > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
 
             if (symbol.TickSnapshot.last != 0)
             {
                 Cell[2].Text = String.Format("{0:F2}%", (symbol.TickSnapshot.Price - symbol.TickSnapshot.last) * 100 / symbol.TickSnapshot.last);
-                Cell[2].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                Cell[2].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
             Cell[9].Text = String.Format("{0:F3}", symbol.TickSnapshot.Low);
-            Cell[9].ForeColor = symbol.TickSnapshot.Low > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[9].ForeColor = symbol.TickSnapshot.Low > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.Size);
             double d1 = symbol.TickSnapshot.Volume;
@@ -361,7 +369,7 @@ namespace CStock
             {
                 double d2 = (symbol.TickSnapshot.Amount / symbol.TickSnapshot.Volume) / 100.0;
                 Cell[10].Text = String.Format("{0:F3}", d2);
-                Cell[10].ForeColor = d2 > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+                Cell[10].ForeColor = d2 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             }
             double d3 = symbol.TickSnapshot.Amount;
             if (d3 > 100000000)
@@ -382,13 +390,13 @@ namespace CStock
             if (symbol.Symbol.IndexOf("ST") > -1)
                 f2 = 0.05;
             Cell[5].Text = String.Format("{0:F3}", symbol.TickSnapshot.last * (1 + f2));
-            Cell[5].ForeColor = Constants.DetailBoard_Color_UP;
+            Cell[5].ForeColor = Constants.ColorUp;
             Cell[12].Text = String.Format("{0:F3}", symbol.TickSnapshot.last * (1 - f2));
-            Cell[12].ForeColor = Constants.DetailBoard_Color_Down;
+            Cell[12].ForeColor = Constants.ColorDown;
             Cell[6].Text = String.Format("{0:F0}", symbol.TickSnapshot.S);
             Cell[6].ForeColor = Color.Red;
             Cell[13].Text = String.Format("{0:F0}", symbol.TickSnapshot.B);
-            Cell[13].ForeColor = Constants.DetailBoard_Color_Down;
+            Cell[13].ForeColor = Constants.ColorDown;
             if (symbol.FinanceData.LTG > 0)
             {
                 Cell[14].Text = String.Format("{0:F2}%", symbol.TickSnapshot.Volume / symbol.FinanceData.LTG);
@@ -425,11 +433,11 @@ namespace CStock
 
 
             Cell[20].Text = String.Format("{0:F3}", symbol.TickSnapshot.sellall);
-            Cell[20].ForeColor = symbol.TickSnapshot.sellall > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[20].ForeColor = symbol.TickSnapshot.sellall > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             Cell[21].Text = String.Format("{0:F0}", symbol.TickSnapshot.sellQTYall);
 
             Cell[22].Text = String.Format("{0:F3}", symbol.TickSnapshot.buyall);
-            Cell[22].ForeColor = symbol.TickSnapshot.buyall > symbol.TickSnapshot.last ? Constants.DetailBoard_Color_UP : Constants.DetailBoard_Color_Down;
+            Cell[22].ForeColor = symbol.TickSnapshot.buyall > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
             Cell[23].Text = String.Format("{0:F0}", symbol.TickSnapshot.buyQTYall);
             //FSGS[0].PreClose = symbol.TickSnapshot.last;
             this.Invalidate();
@@ -649,6 +657,7 @@ namespace CStock
             float lw;
             SizeF si;
             Tick tk = FenBiList[0];
+            System.Drawing.Font font = Constants.QuoteFont;
             if (FCurStock.BlockType == "7")// tk.value > 300) //为指数
             {
                 lw = (pbox1.Width - 52) / 2;
@@ -678,19 +687,19 @@ namespace CStock
                         }
                     }
                     r1.Y = (j - i) * LineHeight + 2;
-                    si = cv.MeasureString(ss, Font);
+                    si = cv.MeasureString(ss, font);
                     if (jj == 1)
-                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
+                        cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
                     else
-                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
+                        cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
 
                     ss = string.Format("{0:F2}", tk.value);
-                    si = cv.MeasureString(ss, Font);
-                    cv.DrawString(ss, Font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+                    si = cv.MeasureString(ss, font);
+                    cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
 
                     ss = string.Format("{0:D}", tk.vol);
-                    si = cv.MeasureString(ss, Font);
-                    cv.DrawString(ss, Font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
+                    si = cv.MeasureString(ss, font);
+                    cv.DrawString(ss, font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
                 }
             }
             else
@@ -722,32 +731,32 @@ namespace CStock
                         }
                     }
                     r1.Y = (j - i) * LineHeight + 2;
-                    si = cv.MeasureString(ss, Font);
+                    si = cv.MeasureString(ss, font);
                     if (jj == 1)
-                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
+                        cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width), r1.Top);
                     else
-                        cv.DrawString(ss, Font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
+                        cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width - 1), r1.Top);
 
                     ss = string.Format("{0:F2}", tk.value);
-                    si = cv.MeasureString(ss, Font);
-                    cv.DrawString(ss, Font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+                    si = cv.MeasureString(ss, font);
+                    cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
 
                     ss = string.Format("{0:D}", tk.vol);
-                    si = cv.MeasureString(ss, Font);
-                    cv.DrawString(ss, Font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
+                    si = cv.MeasureString(ss, font);
+                    cv.DrawString(ss, font, Brushes.Yellow, (int)(50 + 2 * lw - si.Width), r1.Top);
 
                     if (tk.tick == 1)
                         ss = "B";
                     else
                         ss = "S";
-                    si = cv.MeasureString(ss, Font);
+                    si = cv.MeasureString(ss, font);
                     if (tk.tick == 1)
-                        cv.DrawString(ss, Font, Brushes.Red, pbox1.Width - 40, r1.Top);
+                        cv.DrawString(ss, font, Brushes.Red, pbox1.Width - 40, r1.Top);
                     else
-                        cv.DrawString(ss, Font, Brushes.Lime, pbox1.Width - 40, r1.Top);
+                        cv.DrawString(ss, font, Brushes.Lime, pbox1.Width - 40, r1.Top);
                     ss = tk.tickcount.ToString();
-                    si = cv.MeasureString(ss, Font);
-                    cv.DrawString(ss, Font, Brushes.Gray, pbox1.Width - si.Width, r1.Top);
+                    si = cv.MeasureString(ss, font);
+                    cv.DrawString(ss, font, Brushes.Gray, pbox1.Width - si.Width, r1.Top);
                 }
             }
         }
@@ -802,15 +811,15 @@ namespace CStock
                 r1.Y = (JiaList.Count - 1 - j) * LineHeight + 2;
 
                 ss = string.Format("{0:F2}", tk.value);
-                si = cv.MeasureString(ss, Font);
+                si = cv.MeasureString(ss, Constants.QuoteFont);
                 if (tk.value > pr)
-                    cv.DrawString(ss, Font, Brushes.Red, (int)(50 - si.Width), r1.Top);
+                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Red, (int)(50 - si.Width), r1.Top);
                 else
-                    cv.DrawString(ss, Font, Brushes.Green, (int)(50 - si.Width), r1.Top);
+                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Green, (int)(50 - si.Width), r1.Top);
 
                 ss = string.Format("{0:D}", tk.vol);
-                si = cv.MeasureString(ss, Font);
-                cv.DrawString(ss, Font, Brushes.YellowGreen, (int)(50 + 1 * lw - si.Width), r1.Top);
+                si = cv.MeasureString(ss, Constants.QuoteFont);
+                cv.DrawString(ss, Constants.QuoteFont, Brushes.Yellow, (int)(50 + 1 * lw - si.Width), r1.Top);
                 int ww = (int)(tk.vol * (lw - 4) / maxvol);
                 if (ww == 0)
                     ww = 1;
