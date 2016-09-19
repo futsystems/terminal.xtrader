@@ -49,7 +49,7 @@ namespace XTraderLite
                         }
 
                         bool needset=SwitchMainView(e.KeyCode== Keys.Enter?true:false);
-                        if (needset) SetKChartSymbol(tmp);
+                        //if (needset) SetKChartSymbol(tmp);
                     }
                     break;
                 default:

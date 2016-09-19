@@ -166,9 +166,9 @@ namespace CStock
         /// <param name="value"></param>
         /// <param name="vol"></param>
         /// <param name="tick"></param>
-        public void AddTxnData(int time, double value, int vol, int tick, int tickcount)
+        public void AddTxnData(int time, double value, int vol, int tick, int tickcount,bool update=false)
         {
-            ctDetailsBoard1.AddTick(time, value, vol, tick, tickcount);
+            ctDetailsBoard1.AddTick(time, value, vol, tick, tickcount,update);
         }
 
         /// <summary>
@@ -176,10 +176,10 @@ namespace CStock
         /// </summary>
         /// <param name="value"></param>
         /// <param name="vol"></param>
-        public void AddPriceVol(double value, int vol)
+        public void AddPriceVol(double value, int vol,bool update=false)
         {
             //调用控件执行操作
-            ctDetailsBoard1.AddJia(value, vol);
+            ctDetailsBoard1.AddJia(value, vol,update);
         }
 
 

@@ -18,7 +18,7 @@ namespace DataAPI.TDX
     {
         ILog logger = LogManager.GetLogger("TDXDataAPI");
 
-
+        Profiler _profiler = new Profiler();
         /// <summary>
         /// 连接建立事件
         /// </summary>
@@ -207,7 +207,7 @@ namespace DataAPI.TDX
                 {
                     keepalive = true;
                     mainthread = new Thread(ReceiveChat);
-                    mainthread.IsBackground = true;
+                    //mainthread.IsBackground = true;
                     mainthread.Start();
                 }
                 //return true;
@@ -639,8 +639,7 @@ namespace DataAPI.TDX
             sb.type = 100;
             sb.Send = request;
             sb.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb);
-
+            NewRequest(sb);
             return sb.RequestId;
         }
 
@@ -661,7 +660,9 @@ namespace DataAPI.TDX
             //sb11.sk = null;
             sb11.Send = bb;
             sb11.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb11);
+            
+            NewRequest(sb11);
+
             return sb11.RequestId;
 
         }
@@ -675,6 +676,7 @@ namespace DataAPI.TDX
         /// <param name="Count">请求记录数量</param>
         public int QryTradeSplitData(string exchange,string symbol, int start, int Count)
         {
+            logger.Info(string.Format("QryTradeSplitData exchange:{0} symbol:{1} start:{2} count:{3}", exchange, symbol, start, Count));
             int market = GetMarketCode(exchange);
 
             byte[] request = { 0x0C, 0x24, 0x08, 0x00, 0x03, 0x01, 0x0E, 0x00, 0x0E, 0x00, 0xC5, 0x0F, 0x00, 0x00, 0x30, 0x30, 0x30, 0x30, 0x30, 0x32, 0x00, 0x00, 0x14, 0x00 };
@@ -696,8 +698,8 @@ namespace DataAPI.TDX
             sb11.Code = symbol;
             sb11.Market = (byte)(ushort)market;
             sb11.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb11);
-
+            NewRequest(sb11);
+            logger.Info("put tradesplit request into Enqueue");
             return sb11.RequestId;
         }
 
@@ -738,7 +740,7 @@ namespace DataAPI.TDX
             sb11.Code = symbol;
             sb11.Market = (byte)(ushort)market;
             sb11.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb11);
+            NewRequest(sb11);
             return sb11.RequestId;
         }
 
@@ -750,6 +752,7 @@ namespace DataAPI.TDX
         /// <param name="symbol"></param>
         public int QryMinuteDate(string exchange, string symbol,int date)
         {
+            logger.Info(string.Format("QryMinuteDate exchange:{0} symbol:{1} date:{2}", exchange, symbol, date));
             int market = GetMarketCode(exchange);
             if (date <= 0)
             {
@@ -764,7 +767,8 @@ namespace DataAPI.TDX
                 sb.Code = symbol;
                 sb.Market = (byte)(ushort)market;
                 sb.RequestId = this.NextRequestId;
-                SendList.Enqueue(sb);
+                NewRequest(sb);
+                logger.Info("put minute request into Enqueue");
                 return sb.RequestId;
             }
             else
@@ -784,7 +788,7 @@ namespace DataAPI.TDX
                 sb11.Market = (byte)(ushort)market;
                 //sb11.type = Convert.ToInt32(e.Date);
                 sb11.RequestId = this.NextRequestId;
-                SendList.Enqueue(sb11);
+                NewRequest(sb11);
                 return sb11.RequestId;
             }
         }
@@ -843,6 +847,7 @@ namespace DataAPI.TDX
         /// <param name="count">API执行前,表示用户要请求的K线数目, API执行后,保存了实际返回的K线数目, 最大值800</param>
         public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count)
         {
+            logger.Info(string.Format("QrySecurityBars exchange:{0} symbol:{1} start:{2} count:{3}", exchange, symbol,start,count));
             int market = GetMarketCode(exchange);
             int freq = GetFreqCode(freqStr);
             
@@ -867,7 +872,8 @@ namespace DataAPI.TDX
             sb11.Code = symbol;
             sb11.Market = (byte)(ushort)market;
             sb11.RequestId = this.NextRequestId;
-            SendList.Enqueue(sb11);
+            NewRequest(sb11);
+            logger.Info("put sec bar request into Enqueue");
             return sb11.RequestId;
         }
 
@@ -1039,6 +1045,18 @@ namespace DataAPI.TDX
             return false;
         }
 
+        static ManualResetEvent _processWaiting = new ManualResetEvent(false);
+
+        private void NewRequest( SendBuf request)
+        {
+            SendList.Enqueue(request);
+            if ((mainthread != null) && (mainthread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
+            {
+                logger.Info("reset signal");
+                _processWaiting.Set();
+            }
+        }
+
 
         private void ReceiveChat()
         {
@@ -1052,93 +1070,90 @@ namespace DataAPI.TDX
                 try
                 {
 
+                    //logger.Info("xxxxx");
                     if (m_hSocket == null)
-                        break; ;
-                    if (busying)
-                    {
-                        Thread.Sleep(1000);
-                        continue;
-                    }
+                        break;
+                    //if (busying)
+                    //{
+                    //    //logger.Info("busying sleep");
+                    //    Thread.Sleep(20);
+                    //    continue;
+                    //}
 
                     sb = null;
-                    if (m_hSocket.Available == 0)
+                    while (SendList.Count > 0)
                     {
-                        //发送请求
-                        if (SendList.Count > 0)
+                        _profiler.EnterSection("数据处理/含网络");
+                        sb = (SendBuf)SendList.Dequeue();
+                        logger.Info("       process send request:" + sb.RequestId.ToString());
+                        m_hSocket.Send(sb.Send, sb.Send.Length, SocketFlags.None);
+                        //获取消息头
+                        int Len = m_hSocket.Receive(DataHeader, 16, SocketFlags.None);
+                        //读取数据失败
+                        if (Len != 16)
                         {
-                            sb = (SendBuf)SendList.Dequeue();
-                            m_hSocket.Send(sb.Send, sb.Send.Length, SocketFlags.None);
-                            Thread.Sleep(10);
+                            m_hSocket.Close();
+                            m_hSocket = null;
+                            break;
+                        }
+                        head = (RecvDataHeader)TDX.TDXDecoder.BytesToStuct(DataHeader, 0, head.GetType());
+                        //数据检查
+                        if (head.CheckSum != 7654321)
+                            continue;
+
+                        //根据消息头中的size获得对应长度的服务端传输过来的消息
+                        byte[] buf = new byte[head.Size];
+                        int elen = head.Size;
+                        int fcur = 0;
+                        int Len1, min1 = 1024;
+                        while (fcur < elen)
+                        {
+                            min1 = Math.Min(1024, elen - fcur);
+                            Len1 = m_hSocket.Receive(buf, fcur, min1, SocketFlags.None);
+                            if (Len1 > 0)
+                                fcur += Len1;
+                        }
+                        //数据长度异常
+                        if (fcur != elen)
+                        {
+                            m_hSocket.Close();
+                            m_hSocket = null;
+                            break;
+                        }
+                        byte[] recvbuf = new byte[head.DePackSize + 1];
+                        if ((head.EncodeMode & 0x10) == 0x10)
+                        {
+                            int LL = TDX.TDXDecoder.Decompress(buf, head.DePackSize, ref recvbuf);
+                            if (LL != head.DePackSize)
+                            {
+                                logger.Error("解压出错:长度不同=depacksize=" + head.DePackSize.ToString() + " 解压长度:=" + LL.ToString());
+                            }
                         }
                         else
+                            Array.Copy(buf, recvbuf, head.DePackSize);
+                        int t = 0;
+                        switch (head.msgid)
                         {
-
-                            Thread.Sleep(10);
-                            continue;
+                            case 0x526:
+                            case 0x527: t = 0x39; break;
+                            case 0x551: t = 0x49; break;
+                            case 0x556: t = 0x69; break;
+                            case 0x56e:
+                            case 0x573: t = 0x77; break;
                         }
-                    }
-                    //获取消息头
-                    int Len = m_hSocket.Receive(DataHeader, 16, SocketFlags.None);
-                    if (Len != 16)
-                    {
-                        m_hSocket.Close();
-                        m_hSocket = null;
-                        break;
-                    }
-                    head = (RecvDataHeader)TDX.TDXDecoder.BytesToStuct(DataHeader, 0, head.GetType());
-                    if (head.CheckSum != 7654321)
-                        continue;
-
-                    //根据消息头中的size获得对应长度的服务端传输过来的消息
-                    byte[] buf = new byte[head.Size];
-                    int elen = head.Size;
-                    int fcur = 0;
-                    int Len1, min1 = 1024;
-                    while (fcur < elen)
-                    {
-                        min1 = Math.Min(1024, elen - fcur);
-                        Len1 = m_hSocket.Receive(buf, fcur, min1, SocketFlags.None);
-                        if (Len1 > 0)
-                            fcur += Len1;
-                    }
-                    if (fcur != elen)
-                    {
-                        m_hSocket.Close();
-                        m_hSocket = null;
-                        break;
-                    }
-                    byte[] recvbuf = new byte[head.DePackSize + 1];
-                    if ((head.EncodeMode & 0x10) == 0x10)
-                    {
-                        int LL = TDX.TDXDecoder.Decompress(buf, head.DePackSize, ref recvbuf);
-                        if (LL != head.DePackSize)
+                        if (t > 0)
                         {
-                            //SaveRecvData(recvbuf);
-                            //s1 = "解压出错:长度不同=depacksize=" + hd.DePackSize.ToString() + " 解压长度:=" + LL.ToString();
-                            //MessageBox.Show(s1);
-                            //return false;
+                            for (int i = 0; i < head.DePackSize; i++)
+                                recvbuf[i] = (byte)(recvbuf[i] ^ t);
                         }
+                        sb.hd = head;
+                        sb.Buffer = recvbuf;
+                        _profiler.EnterSection("数据处理");
+                        ProcessData(sb);
+                        _profiler.LeaveSection();
+                        logger.Info("       process request done:" + sb.RequestId.ToString());
+                        _profiler.LeaveSection();
                     }
-                    else
-                        Array.Copy(buf, recvbuf, head.DePackSize);
-                    int t = 0;
-                    switch (head.msgid)
-                    {
-                        case 0x526:
-                        case 0x527: t = 0x39; break;
-                        case 0x551: t = 0x49; break;
-                        case 0x556: t = 0x69; break;
-                        case 0x56e:
-                        case 0x573: t = 0x77; break;
-                    }
-                    if (t > 0)
-                    {
-                        for (int i = 0; i < head.DePackSize; i++)
-                            recvbuf[i] = (byte)(recvbuf[i] ^ t);
-                    }
-                    sb.hd = head;
-                    sb.Buffer = recvbuf;
-                    ProcessData(sb);
                     //sr = this.BeginInvoke(DataCuLi, sb);//处理数据
                     //this.EndInvoke(sr);
                     //String data = myDelegate.EndInvoke(result, null, null);
@@ -1147,6 +1162,19 @@ namespace DataAPI.TDX
                     //    Thread.Sleep(30); 
                     //}
                     //this.BeginInvoke(DataCuLi, sb);
+
+                    logger.Info("thread wait new request----------");
+                    // clear current flag signal
+                    _processWaiting.Reset();
+
+                    // wait for a new signal to continue reading
+                    _processWaiting.WaitOne(5000);
+
+                    foreach(var msg in _profiler.GetStatsStringList())
+                    {
+                        logger.Info(msg);
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -1159,6 +1187,8 @@ namespace DataAPI.TDX
             }
             //this.BeginInvoke(ExitRecv);
         }
+
+        
 
         public void ProcessData(DataAPI.TDX.SendBuf sb)
         {
@@ -1288,6 +1318,7 @@ namespace DataAPI.TDX
 
                         break;
                     case 0xfc5://分笔
+                        _profiler.EnterSection("分笔处理");
                         #region 当日分笔数据处理
                         i = 0;
                         n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
@@ -1476,9 +1507,12 @@ namespace DataAPI.TDX
 
                         //}
                         #endregion
+                        _profiler.LeaveSection();
 
                         break;
                     case 0x526://查询某组合约行情快照回报
+
+                        #region 合约快照处理
                         i = 0;
                         n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
                         if (n == 0)
@@ -1616,6 +1650,8 @@ namespace DataAPI.TDX
 
                         //}
                         break;
+                        #endregion
+
                     case 0x53e:
                     case 0x53d:
                         
@@ -1731,6 +1767,7 @@ namespace DataAPI.TDX
                         //}
                         break;
                     case 0x51d://当日分时
+                        _profiler.EnterSection("分时处理");
                         #region 当日分时数据处理
                         n = RecvBuffer[1] * 256 + RecvBuffer[0];
                         logger.Info(string.Format("QryMinuteDate Response Count:{0}", n));
@@ -1884,8 +1921,9 @@ namespace DataAPI.TDX
                             //}
                         //}
                         #endregion
-
+                        _profiler.LeaveSection();
                         break;
+
                     case 0xfb4://历史分时
                         #region 历史分时数据处理
                         n = RecvBuffer[1] * 256 + RecvBuffer[0];
@@ -1982,9 +2020,10 @@ namespace DataAPI.TDX
 
                         break;
                     case 0x529://日线
+                        _profiler.EnterSection("K线处理");
                         #region K线数据处理
                         n = RecvBuffer[1] * 256 + RecvBuffer[0];
-                        //logger.Info("QrySecurityBars Response Count:{0}".Put(n));
+                        logger.Info(string.Format("QrySecurityBars Response Count:{0}", n));
                         if (n == 0)
                         {
                             Dictionary<string, double[]> tmp = new Dictionary<string, double[]>();
@@ -2203,6 +2242,7 @@ namespace DataAPI.TDX
                         //}
                         break;
                         #endregion
+                        _profiler.LeaveSection();
 
                     case 0x2cf:
                         i = 0;

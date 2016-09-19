@@ -58,6 +58,20 @@ namespace XTraderLite
             ctrlKChart.SetStock(symbol);
 
 
+            if (ctrlKChart.ShowDetailPanel)
+            {
+                if (ctrlKChart.TabValue == 0)
+                {
+                    MDService.DataAPI.QryTradeSplitData(symbol.Exchange, symbol.Symbol, 0, ctrlKChart.TabHigh);
+                }
+                if (ctrlKChart.TabValue == 1)
+                {
+                    MDService.DataAPI.QryPriceVol(symbol.Exchange, symbol.Symbol);
+                }
+
+            }
+
+
             //如果是分时模式 则请求分时数据
             if (ctrlKChart.IsIntraView)
             {
@@ -93,18 +107,7 @@ namespace XTraderLite
                 }
             }
 
-            if (ctrlKChart.ShowDetailPanel)
-            {
-                if (ctrlKChart.TabValue == 0)
-                {
-                    MDService.DataAPI.QryTradeSplitData(symbol.Exchange, symbol.Symbol, 0, ctrlKChart.TabHigh);
-                }
-                if (ctrlKChart.TabValue == 1)
-                {
-                    MDService.DataAPI.QryPriceVol(symbol.Exchange, symbol.Symbol);
-                }
 
-            }
 
         }
 

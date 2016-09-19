@@ -48,6 +48,9 @@
     <Compile Include="Common\Finance.cs" />
     <Compile Include="Common\MinuteData.cs" />
     <Compile Include="Common\PowerData.cs" />
+    <Compile Include="Profiler\Profiler.cs" />
+    <Compile Include="Profiler\SectionStackEntry.cs" />
+    <Compile Include="Profiler\SectionStats.cs" />
     <Compile Include="Common\Tick.cs" />
     <Compile Include="Constant\ConstFreq.cs" />
     <Compile Include="Constant\Exchange.cs" />

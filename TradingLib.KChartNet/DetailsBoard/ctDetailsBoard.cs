@@ -443,7 +443,7 @@ namespace CStock
         /// <param name="value"></param>
         /// <param name="vol"></param>
         /// <param name="tick"></param>
-        public void AddTick(int time, double value, int vol, int tick, int tickcount)
+        public void AddTick(int time, double value, int vol, int tick, int tickcount,bool update=false)
         {
             Tick tk = new Tick();
             tk.time = time;
@@ -452,7 +452,10 @@ namespace CStock
             tk.tick = tick;
             tk.tickcount = tickcount;
             FenBiList.Add(tk);
-            pbox1.Invalidate();
+            if (update)
+            {
+                pbox1.Invalidate();
+            }
         }
 
         /// <summary>
@@ -477,14 +480,17 @@ namespace CStock
             JiaList.Clear();
             pbox2.Invalidate();
         }
-        public void AddJia(double value, int vol)
+        public void AddJia(double value, int vol,bool update=false)
         {
 
             jialist tk = new jialist();
             tk.value = value;
             tk.vol = vol;
             JiaList.Add(tk);
-            pbox2.Invalidate();//是否可以考虑数据添加完毕后统一Invalidate
+            if (update)
+            {
+                pbox2.Invalidate();//是否可以考虑数据添加完毕后统一Invalidate
+            }
         }
 
         public void ClearData()

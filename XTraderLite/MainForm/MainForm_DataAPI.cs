@@ -33,9 +33,20 @@ namespace XTraderLite
         /// <param name="arg4"></param>
         void DataAPI_OnRspQryPriceVolPair(List<PriceVolPair> arg1, RspInfo arg2, int arg3, int arg4)
         {
-            foreach (var v in arg1)
+            if (this.InvokeRequired)
             {
-                ctrlKChart.AddPriceVol(v.Price, v.Vol);
+                logger.Info("invoked required");
+                this.Invoke(new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair), new object[] { arg1, arg2, arg3, arg4 });
+            }
+            else
+            {
+
+                int i = 0;
+                foreach (var v in arg1)
+                {
+                    i++;
+                    ctrlKChart.AddPriceVol(v.Price, v.Vol, i == arg1.Count);
+                }
             }
         }
 
@@ -48,9 +59,19 @@ namespace XTraderLite
         /// <param name="arg4"></param>
         void DataAPI_OnRspQryTradeSplit(List<TradeSplit> arg1, RspInfo arg2, int arg3, int arg4)
         {
-            foreach (var v in arg1)
+            if (this.InvokeRequired)
             {
-                ctrlKChart.AddTxnData(v.Time, v.Price, v.Vol, v.Flag, v.TradeCount);
+                logger.Info("invoked required");
+                this.Invoke(new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit), new object[] { arg1, arg2, arg3, arg4 });
+            }
+            else
+            {
+                int i = 0;
+                foreach (var v in arg1)
+                {
+                    i++;
+                    ctrlKChart.AddTxnData(v.Time, v.Price, v.Vol, v.Flag, v.TradeCount, i == arg1.Count);
+                }
             }
         }
 
@@ -145,6 +166,7 @@ namespace XTraderLite
                 ctrlKChart.ReDraw();
 
             }
+            logger.Info("KChart Updated");
         }
 
 
