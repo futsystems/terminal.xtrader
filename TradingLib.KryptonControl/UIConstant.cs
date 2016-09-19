@@ -21,6 +21,19 @@ namespace TradingLib.KryptonControl
         public static System.Drawing.Font BoldFont = new Font("微软雅黑", 9, FontStyle.Bold);
         public static System.Drawing.Font DefaultFont = new Font("微软雅黑", 9, FontStyle.Regular);
 
+
+        public static Font QuoteFont = new Font("Arial", 10f, FontStyle.Bold);
+
+        public static Font LableFont = new Font("宋体", 10.5f, FontStyle.Bold);
+
+        public static Color DebugColor = System.Drawing.Color.White;
+
+        public static Color ColorUp = Color.FromArgb(255, 60, 57);
+        public static Color ColorDown = Color.FromArgb(0, 231, 0);
+
+        public static Color ColorSize = Color.FromArgb(255, 255, 0);
+        public static Color ColorLine = Color.FromArgb(255, 60, 57);
+
         public static string DefaultDecimalFormat = "{0:F2}";
 
         /// <summary>

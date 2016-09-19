@@ -56,6 +56,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ctrlTickList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ctrlTickList.Designer.cs">
+      <DependentUpon>ctrlTickList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="QuoteList\BlockTab\BlockButton.cs" />
     <Compile Include="QuoteList\BlockTab\BlockTab.cs">
       <SubType>Component</SubType>
@@ -179,11 +190,21 @@
     <Compile Include="SplashScreenApplicationContext.cs" />
     <Compile Include="TraderHelper.cs" />
     <Compile Include="UIConstant.cs" />
+    <Compile Include="ctrlTickList0.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlTickList0.Designer.cs">
+      <DependentUpon>ctrlTickList0.cs</DependentUpon>
+    </Compile>
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\DebugControl.resx">
       <DependentUpon>DebugControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="QuoteList\ctrlQuoteList.resx">
       <DependentUpon>ctrlQuoteList.cs</DependentUpon>
@@ -217,6 +238,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="ctrlTickList0.resx">
+      <DependentUpon>ctrlTickList0.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">

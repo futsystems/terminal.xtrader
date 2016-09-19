@@ -16,6 +16,9 @@ namespace XTraderLite
         /// </summary>
         KChart=1,
 
-
+        /// <summary>
+        /// 分笔明细
+        /// </summary>
+        TradeSplit=2,
     }
 }

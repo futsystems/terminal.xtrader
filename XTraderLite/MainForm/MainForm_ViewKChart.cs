@@ -20,6 +20,24 @@ namespace XTraderLite
             ctrlKChart.KChartModeChange += new Action<object, CStock.KChartModeChangeEventArgs>(kChartView_KChartModeChange);
 
             ctrlKChart.TabSwitch += new Action<object, CStock.TabSwitchEventArgs>(ctrlKChart_TabSwitch);
+
+            ctrlKChart.TabDoubleClick += new Action<object, CStock.TabDoubleClickEventArgs>(ctrlKChart_TabDoubleClick);
+        }
+
+        void ctrlKChart_TabDoubleClick(object arg1, CStock.TabDoubleClickEventArgs arg2)
+        {
+            switch (arg2.TabType)
+            { 
+                case CStock.DetailBoardTabType.TradeDetails:
+                    ViewTickList();
+                    break;
+                case CStock.DetailBoardTabType.PriceDistribution:
+                    break;
+                default:
+                    break;
+            
+            }
+
         }
 
         /// <summary>

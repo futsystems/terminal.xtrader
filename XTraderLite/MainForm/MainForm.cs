@@ -81,10 +81,12 @@ namespace XTraderLite
 
             viewList.Add(ctrlQuoteList);
             viewList.Add(ctrlKChart);
+            viewList.Add(ctrlTickList);
 
 
             ctrlKChart.Dock = DockStyle.Fill;
             ctrlQuoteList.Dock = DockStyle.Fill;
+            ctrlTickList.Dock = DockStyle.Fill;
 
         }
         void WireEvent()

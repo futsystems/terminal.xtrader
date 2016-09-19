@@ -62,5 +62,10 @@ namespace XTraderLite
             }
             UpdateToolBarStatus();
         }
+
+        void ViewTickList()
+        {
+            SetViewType(EnumTraderViewType.TradeSplit);
+        }
     }
 }

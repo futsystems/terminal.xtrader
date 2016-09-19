@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.MarketData", "Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.KChartNet", "TradingLib.KChartNet\TradingLib.KChartNet.csproj", "{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo2", "..\Futs.KChartNet\Demo2\Demo2.csproj", "{C06538E6-C475-460B-9FEC-7D1AAD562AA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -421,6 +423,26 @@ Global
 		{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}.ReleaseMono|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}.ReleaseMono|Mixed Platforms.Build.0 = Release|Any CPU
 		{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}.ReleaseMono|x86.ActiveCfg = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug-OEM|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug-OEM|Any CPU.Build.0 = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug-OEM|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug-OEM|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Debug-OEM|x86.ActiveCfg = Debug|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.Release|x86.ActiveCfg = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.ReleaseMono|Any CPU.ActiveCfg = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.ReleaseMono|Any CPU.Build.0 = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.ReleaseMono|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.ReleaseMono|Mixed Platforms.Build.0 = Release|Any CPU
+		{C06538E6-C475-460B-9FEC-7D1AAD562AA7}.ReleaseMono|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
