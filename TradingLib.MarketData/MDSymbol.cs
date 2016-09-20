@@ -36,13 +36,25 @@ namespace TradingLib.MarketData
             set {
                 _symbol = value;
                 _uniquekey = string.Format("{0}-{1}", this.Exchange, this.Symbol);
+                _keyTitle = string.Format("{0} {1}", this.Symbol, this.Name);
             }
         }
 
+
+        string _name = string.Empty;
         /// <summary>
         /// 合约名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name 
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                _keyTitle = string.Format("{0} {1}", this.Symbol, this.Name);
+            }
+        
+        }
 
         /// <summary>
         /// 品种
@@ -80,6 +92,7 @@ namespace TradingLib.MarketData
             { 
                 _exch = value;
                 _uniquekey = string.Format("{0}-{1}", this.Exchange, this.Symbol);
+                
             }
         }
 
@@ -124,6 +137,10 @@ namespace TradingLib.MarketData
         /// 通过交易所-合约 组成唯一Key
         /// </summary>
         public string UniqueKey { get { return _uniquekey; } }
+
+
+        string _keyTitle = string.Empty;
+        public string KeyTitle { get { return _keyTitle; } }
 
     }
 }

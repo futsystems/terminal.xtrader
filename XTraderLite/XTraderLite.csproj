@@ -61,6 +61,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="XTraderLite, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginForm.cs">
@@ -113,6 +116,12 @@
     </Compile>
     <Compile Include="MainForm\MainForm_Timer.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\MainForm_SearchBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyEdit.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

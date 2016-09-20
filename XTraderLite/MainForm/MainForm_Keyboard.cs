@@ -15,7 +15,21 @@ namespace XTraderLite
     {
         void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            logger.Info("Key Press:" + e.KeyChar);
+            int key = e.KeyChar;
+            string ks = e.KeyChar.ToString();
+            ks = ks.ToUpper();
+            if (((key >= '0') && (key <= '9')) || ((key >= 'A') && (key <= 'Z')) || ((key >= 'a') && (key <= 'z')))
+            {
+                this.KeyPreview = false;
+                GpKey.BringToFront();
+                GpKey.SetBounds(this.Width - GpKey.Width - 10, this.Height - GpKey.Height - 35, GpKey.Width, GpKey.Height);
+                GpKey.Visible = true;
+
+                KeyCode.Text = ks;
+                KeyCode.Focus();
+                KeyCode.SelectionStart = 1;
+                KeyCode.SelectionLength = 0;
+            }
            
         }
 

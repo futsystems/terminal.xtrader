@@ -133,11 +133,11 @@ namespace CStock
                 Invalidate();
 
 
-                if (KChartModeChange != null)// && oldShowfs != this.FShowFS)
-                {
-                    KChartModeChange(this, new KChartModeChangeEventArgs(_viewType));
+                //if (KChartModeChange != null)// && oldShowfs != this.FShowFS)
+                //{
+                //    KChartModeChange(this, new KChartModeChangeEventArgs(_viewType));
 
-                }
+                //}
             }
         }
 

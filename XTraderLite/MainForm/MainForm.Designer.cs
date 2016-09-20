@@ -98,6 +98,10 @@
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
+            this.GpKey = new System.Windows.Forms.Panel();
+            this.KeyClose = new System.Windows.Forms.Panel();
+            this.GpListBox = new System.Windows.Forms.ListBox();
+            this.KeyCode = new MyEdit();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -111,6 +115,7 @@
             this.workPanel.SuspendLayout();
             this.panelMarket.SuspendLayout();
             this.panelBroker.SuspendLayout();
+            this.GpKey.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -672,6 +677,7 @@
             // panelMarket
             // 
             this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
+            this.panelMarket.Controls.Add(this.GpKey);
             this.panelMarket.Controls.Add(this.ctrlPriceVolList);
             this.panelMarket.Controls.Add(this.ctrlTickList);
             this.panelMarket.Controls.Add(this.ctrlKChart);
@@ -780,6 +786,44 @@
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
+            // GpKey
+            // 
+            this.GpKey.BackColor = System.Drawing.Color.Transparent;
+            this.GpKey.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("GpKey.BackgroundImage")));
+            this.GpKey.Controls.Add(this.KeyCode);
+            this.GpKey.Controls.Add(this.KeyClose);
+            this.GpKey.Controls.Add(this.GpListBox);
+            this.GpKey.Location = new System.Drawing.Point(836, 134);
+            this.GpKey.Name = "GpKey";
+            this.GpKey.Size = new System.Drawing.Size(174, 228);
+            this.GpKey.TabIndex = 149;
+            this.GpKey.Visible = false;
+            // 
+            // KeyClose
+            // 
+            this.KeyClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.KeyClose.Location = new System.Drawing.Point(151, 3);
+            this.KeyClose.Name = "KeyClose";
+            this.KeyClose.Size = new System.Drawing.Size(18, 18);
+            this.KeyClose.TabIndex = 2;
+            // 
+            // GpListBox
+            // 
+            this.GpListBox.FormattingEnabled = true;
+            this.GpListBox.IntegralHeight = false;
+            this.GpListBox.ItemHeight = 12;
+            this.GpListBox.Location = new System.Drawing.Point(4, 52);
+            this.GpListBox.Name = "GpListBox";
+            this.GpListBox.Size = new System.Drawing.Size(165, 172);
+            this.GpListBox.TabIndex = 0;
+            // 
+            // KeyCode
+            // 
+            this.KeyCode.Location = new System.Drawing.Point(4, 25);
+            this.KeyCode.Name = "KeyCode";
+            this.KeyCode.Size = new System.Drawing.Size(165, 21);
+            this.KeyCode.TabIndex = 3;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -810,6 +854,8 @@
             this.panelMarket.ResumeLayout(false);
             this.panelMarket.PerformLayout();
             this.panelBroker.ResumeLayout(false);
+            this.GpKey.ResumeLayout(false);
+            this.GpKey.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -885,6 +931,10 @@
         private System.Windows.Forms.ToolStrip toolBar;
         private TradingLib.KryptonControl.ctrlTickList ctrlTickList;
         private TradingLib.KryptonControl.ctrlPriceVolList ctrlPriceVolList;
+        private System.Windows.Forms.Panel GpKey;
+        private System.Windows.Forms.Panel KeyClose;
+        private System.Windows.Forms.ListBox GpListBox;
+        private MyEdit KeyCode;
     }
 }
 

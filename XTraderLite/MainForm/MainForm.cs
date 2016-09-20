@@ -42,6 +42,8 @@ namespace XTraderLite
 
             InitOtherView();
 
+            InitSearchBox();
+
             InitDataAPI();
         }
 
