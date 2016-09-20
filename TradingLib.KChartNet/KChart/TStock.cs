@@ -681,7 +681,23 @@ namespace CStock
             //}
             #endregion
 
+
+            this.LostFocus += new EventHandler(TStock_LostFocus);
+            this.GotFocus += new EventHandler(TStock_GotFocus);
+
         }
+
+        void TStock_GotFocus(object sender, EventArgs e)
+        {
+            logger.Info("Got Focus");
+        }
+
+        void TStock_LostFocus(object sender, EventArgs e)
+        {
+            logger.Info("Lost Focus");
+        }
+
+        
 
         void ctDetailsBoard1_TabDoubleClick(object arg1, TabDoubleClickEventArgs arg2)
         {

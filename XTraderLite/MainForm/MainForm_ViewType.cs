@@ -15,7 +15,7 @@ namespace XTraderLite
 
         List<Control> viewList = new List<Control>();
 
-
+        Control _curView = null;
         void SetViewType(EnumTraderViewType type)
         {
             int index = (int)type;
@@ -24,7 +24,9 @@ namespace XTraderLite
             {
                 v.Visible = false;
             }
-            viewList[index].Visible = true;
+            _curView = viewList[index];
+            _curView.Visible = true;
+            _curView.Focus();//设置某个视图则将其获得焦点
         }
         /// <summary>
         /// 查看报价列表

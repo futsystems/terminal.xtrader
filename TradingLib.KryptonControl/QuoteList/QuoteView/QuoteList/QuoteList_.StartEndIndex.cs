@@ -55,7 +55,7 @@ namespace TradingLib.KryptonControl
                 {
                     SymbolVisibleChanged(this, new SymbolVisibleChangeEventArgs(_beginIdx, _endIdx, this.SymbolVisible.ToArray()));
                 }
-                logger.Info(string.Format("start:{0} end:{1} selectd:{2}", _beginIdx, _endIdx, _selectedRow));
+                //logger.Info(string.Format("start:{0} end:{1} selectd:{2}", _beginIdx, _endIdx, _selectedRow));
             }
         }
 

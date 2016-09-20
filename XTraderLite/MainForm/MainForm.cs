@@ -53,7 +53,9 @@ namespace XTraderLite
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
             this.panelHolder.Width = this.Width - 1;
-            
+
+            _curView = ctrlQuoteList;//设置默认当前视图控件
+
             #region 设置频率切换按钮的Tag 并放入list方便访问
             btnFreqDay.Tag = ConstFreq.Freq_Day;
             btnFreqWeek.Tag = ConstFreq.Freq_Week;
@@ -106,6 +108,7 @@ namespace XTraderLite
             this.SizeChanged += new EventHandler(MainForm_SizeChanged);
             this.Load += new EventHandler(MainForm_Load);
 
+            
 
             MDService.EventHub.RegIEventHandler(this);
 

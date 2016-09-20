@@ -83,6 +83,7 @@
             this.quotelist.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.quotelist.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.quotelist.QuoteFont = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quotelist.QuoteType = TradingLib.KryptonControl.EnumQuoteListType.STOCK_CN;
             this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
             this.quotelist.Size = new System.Drawing.Size(924, 408);
             this.quotelist.StartIndex = -19;
@@ -90,7 +91,6 @@
             this.quotelist.SymbolFontColor = System.Drawing.Color.Green;
             this.quotelist.TabIndex = 0;
             this.quotelist.TableLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.quotelist.TabStop = false;
             this.quotelist.Text = "viewQuoteList1";
             this.quotelist.UPColor = System.Drawing.Color.Red;
             // 
@@ -102,6 +102,7 @@
             this.blockTab.Name = "blockTab";
             this.blockTab.Size = new System.Drawing.Size(237, 20);
             this.blockTab.TabIndex = 0;
+            this.blockTab.TabStop = false;
             this.blockTab.Text = "blockButton1";
             // 
             // ctrlQuoteList

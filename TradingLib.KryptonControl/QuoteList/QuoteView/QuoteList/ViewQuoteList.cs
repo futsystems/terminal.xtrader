@@ -183,12 +183,12 @@ namespace TradingLib.KryptonControl
 
         void ViewQuoteList_LostFocus(object sender, EventArgs e)
         {
-            logger.Info("lost focus");
+            logger.Info("Lost Focus");
         }
 
         void ViewQuoteList_GotFocus(object sender, EventArgs e)
         {
-            logger.Info("got focus");
+            logger.Info("Got Focus");
         }
 
         /// <summary>
@@ -198,11 +198,11 @@ namespace TradingLib.KryptonControl
         /// <param name="e"></param>
         void ViewQuoteList_SizeChanged(object sender, EventArgs e)
         {
-            logger.Info("Size Changed");
+            //logger.Info("Size Changed");
             UpdateBeginEndIdx();
             ResetRect();
             Refresh();
-            logger.Info("selected row:" + _selectedRow.ToString());
+            //logger.Info("selected row:" + _selectedRow.ToString());
         }
 
        
