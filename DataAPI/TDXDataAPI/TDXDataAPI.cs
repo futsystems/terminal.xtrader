@@ -1318,26 +1318,24 @@ namespace DataAPI.TDX
 
                         break;
                     case 0xfc5://分笔
-                        _profiler.EnterSection("分笔处理");
-                        #region 当日分笔数据处理
-                        i = 0;
-                        n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
-                        logger.Info(string.Format("QryTransactionData Response Count:{0}", n));
-                        List<TradeSplit> tslist = new List<TradeSplit>();
-                        //不存在分笔数据
-                        if (n == 0)
                         {
-                            //Ticks.Clear();
-                            if (OnRspQryTradeSplit != null)
+                            _profiler.EnterSection("分笔处理");
+                            #region 当日分笔数据处理
+                            i = 0;
+                            n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
+                            logger.Info(string.Format("QryTransactionData Response Count:{0}", n));
+                            List<TradeSplit> tslist = new List<TradeSplit>();
+                            //不存在分笔数据
+                            if (n == 0)
                             {
-                                OnRspQryTradeSplit(tslist, null, 0, sb.RequestId);
+                                //Ticks.Clear();
+                                if (OnRspQryTradeSplit != null)
+                                {
+                                    OnRspQryTradeSplit(tslist, null, 0, sb.RequestId);
+                                }
+                                return;
                             }
-                            return;
-                        }
-                        //if (StockBoard.Visible && (GP.TabValue == 0) && (sb.type == 100))
-                        {
-                            //GP.FenBiList.Clear();
-                            //GP.ClearFenbi();
+
                             double close;
                             int vol, dealcount, sellorbuy;
                             num4 = 0;
@@ -1352,163 +1350,17 @@ namespace DataAPI.TDX
                                 sellorbuy = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 num4 = num5 + num4;
                                 i = i + 1;
-                                //GP.AddTick(time1, close, vol, sellorbuy, dealcount);
                                 tslist.Add(new TradeSplit(time1, close, vol, sellorbuy, dealcount));
-                                //logger.Info(split.ToString());
-                                
                             }
                             if (OnRspQryTradeSplit != null)
                             {
                                 OnRspQryTradeSplit(tslist, null, n, sb.RequestId);
                             }
 
+
+                            #endregion
+                            _profiler.LeaveSection();
                         }
-                        //sb.type为请求时候设定，用于标记返回数据更新的回路100更新分笔Tab 1则更新分笔图
-                        //if (sb.type == 1)
-                        //{
-                        //    List<CStock.Tick> lt = new List<CStock.Tick>();
-                        //    num4 = 0;
-                        //    i = 2;
-                        //    for (int j = 0; j < n; j++)
-                        //    {
-                        //        CStock.Tick tk = new CStock.Tick();
-
-                        //        tk.time = TDX.TDXDecoder.TDXGetTime(RecvBuffer, i, ref i);
-                        //        num5 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //        tk.value = (num4 + num5) / 100.0;
-                        //        tk.vol = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //        tk.tickcount = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //        tk.tick = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
-                        //        num4 = num5 + num4;
-                        //        i = i + 1;
-                        //        lt.Add(tk);
-                        //    }
-                            
-                        //    Ticks.InsertRange(0, lt);
-
-                        //    if ((zq == 12) && (StockBoard.Visible))
-                        //    {
-                        //        int m = Ticks.Count;
-                        //        time = new double[m + 1];
-                        //        close = new double[m + 1];
-                        //        vol = new double[m + 1];
-                        //        for (i = 0; i < m; i++)
-                        //        {
-                        //            CStock.Tick tk = Ticks[i];
-                        //            time[i] = tk.time;
-                        //            close[i] = tk.value;
-                        //            vol[i] = tk.vol;
-                        //        }
-
-                        //        GP.K_cleardata();
-                        //        sk = sb.sk;
-                        //        if (sk != null)
-                        //        {
-                        //            GP.PreClose = sk.GP.YClose;
-                        //            if (sk.now.last != 0)
-                        //                GP.PreClose = sk.now.last;
-                        //            GP.StkCode = sk.codes;
-                        //            GP.StkName = sk.names;
-                        //            GP.StkWeek = WeekString[zq];
-                        //        }
-                        //        GP.AddAll("time", time, m, false);
-                        //        GP.AddAll("close", close, m, false);
-                        //        GP.AddAll("vol", vol, m, true);
-                        //    }
-                        //    if (TickBoard.Visible)
-                        //    {
-                        //        TickList.Items.Clear();
-                        //        TickList.BeginUpdate();
-                        //        for (i = 0; i < Ticks.Count; i++)
-                        //        {
-                        //            CStock.Tick tk = Ticks[i];
-                        //            string ss = string.Format("{0:D2}:{1:D2}  ", tk.time / 100, tk.time % 100);
-                        //            ss += string.Format("{0:F2}  ", tk.value);
-                        //            ss += tk.vol.ToString("D5") + "  ";// string.Format("{0:D}  ", tk.vol);
-                        //            if (tk.tick == 1)
-                        //                ss += "B ";
-                        //            else if (tk.tick == 0)
-                        //                ss += "S ";
-                        //            else
-                        //                ss += "  ";
-                        //            ss += tk.tickcount.ToString("D3");
-                        //            TickList.Items.Add(ss);
-                        //        }
-                        //        TickList.SelectedIndex = Ticks.Count - 1;
-                        //        TickList.EndUpdate();
-
-                        //        TickName.Text = sb.sk.codes + "  " + sb.sk.names;
-
-                        //    }
-                        //    if (JiaBoard.Visible)
-                        //    {
-                        //        SortedList<double, int> sl = new SortedList<double, int>();
-                        //        for (i = 0; i < Ticks.Count; i++)
-                        //        {
-                        //            CStock.Tick tk = Ticks[i];
-
-                        //            if (sl.IndexOfKey(tk.value) > -1)
-                        //                sl[tk.value] += tk.vol;
-                        //            else
-                        //                sl[tk.value] = tk.vol;
-                        //        }
-                        //        Bitmap bm = (Bitmap)JiaBox.Image;
-                        //        if (bm != null)
-                        //            bm.Dispose();
-                        //        int hc = JiaBox.Height / 20;
-                        //        int cc = sl.Count / hc + 1;
-                        //        double preclose = sb.sk.GP.YClose;//昨收价
-                        //        bm = new Bitmap(Math.Max(cc * 180, JiaBoard1.Width), JiaBox.Height);
-                        //        JiaBox.Width = bm.Width;
-                        //        Graphics cv = Graphics.FromImage(bm);
-                        //        SizeF si;
-                        //        cv.FillRectangle(Brushes.Black, 0, 0, bm.Width - 1, bm.Height - 1);
-                        //        int maxvol = 0;
-                        //        for (i = 0; i < sl.Count; i++)
-                        //        {
-                        //            if (sl.Values[i] > maxvol)
-                        //                maxvol = sl.Values[i];
-                        //        }
-
-                        //        for (i = 0; i < sl.Count; i++)
-                        //        {
-                        //            int x = i / hc;
-                        //            int y = i % hc;
-                        //            double value = sl.Keys[i];
-                        //            string s1 = value.ToString("F3");
-                        //            float ww = (float)sl.Values[i] / (float)maxvol * 50;
-                        //            //cv.FillRectangle(Brushes.White, x * 180 + 127, y * 20 + 3, ww, 14);
-                        //            if (value > preclose)
-                        //            {
-                        //                cv.FillRectangle(Brushes.Red, x * 180 + 127, y * 20 + 3, ww, 14);
-                        //                cv.DrawString(s1, Font, Brushes.Red, x * 180 + 4, y * 20 + 3);
-                        //            }
-                        //            if (value == preclose)
-                        //            {
-                        //                cv.FillRectangle(Brushes.White, x * 180 + 127, y * 20 + 3, ww, 14);
-                        //                cv.DrawString(s1, Font, Brushes.White, x * 180 + 4, y * 20 + 3);
-                        //            }
-                        //            if (value < preclose)
-                        //            {
-                        //                cv.DrawString(s1, Font, Brushes.Lime, x * 180 + 4, y * 20 + 3);
-                        //                cv.FillRectangle(Brushes.Aqua, x * 180 + 127, y * 20 + 3, ww, 14);
-                        //            }
-                        //            s1 = sl.Values[i].ToString();
-                        //            si = cv.MeasureString(s1, Font);
-                        //            cv.DrawString(s1, Font, Brushes.YellowGreen, x * 180 + 125 - si.Width, y * 20);
-                        //        }
-                        //        JiaBox.Image = bm;
-                        //        JiaName.Text = sb.sk.codes + "  " + sb.sk.names;
-                        //    }
-                        //    if (n == 2000)
-                        //        GetFenBiLine(sb.sk, Ticks.Count, 2000);
-                        //    else
-                        //        Ticks.Clear();
-
-                        //}
-                        #endregion
-                        _profiler.LeaveSection();
-
                         break;
                     case 0x526://查询某组合约行情快照回报
 

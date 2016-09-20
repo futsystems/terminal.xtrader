@@ -15,6 +15,7 @@ namespace XTraderLite
     public partial class MainForm
     {
         ConcurrentDictionary<int, object> tickListViewRequest = new ConcurrentDictionary<int, object>();
+        ConcurrentDictionary<int, object> tickListUpdateRequest = new ConcurrentDictionary<int, object>();
 
         void InitDataAPI()
         {
@@ -74,15 +75,26 @@ namespace XTraderLite
                 {
                     logger.Info("Got TradeSplit for TickList");
                     ctrlTickList.BeginUpdate();
-                    foreach(var tick in arg1)
-                    {
-                        ctrlTickList.AddTrade(tick);
-                    }
+                    ctrlTickList.AddFirst(arg1);
                     ctrlTickList.EndUpdate();
-
+                    //如果返回的数量与我们请求数量一致 表面可能还有更多数据需要加载 因此再次请求 起始位置为我们当前已经获得数据量
+                    if (arg3 == 2000)
+                    {
+                        logger.Info("there are more data");
+                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ctrlTickList.Count, 2000);
+                        tickListViewRequest.TryAdd(reqId, ctrlTickList);
+                    }
                     return;
                 }
 
+                //分笔明细视图 实时更新
+                if (tickListUpdateRequest.TryRemove(arg4, out target))
+                {
+                    logger.Info("Got TradeSplit update for ticklist");
+                    ctrlTickList.BeginUpdate();
+                    ctrlTickList.Update(arg1);
+                    ctrlTickList.EndUpdate();
+                }
 
                 int i = 0;
                 foreach (var v in arg1)

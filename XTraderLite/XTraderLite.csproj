@@ -111,6 +111,9 @@
     <Compile Include="MainForm\MainForm_ViewOther.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm\MainForm_Timer.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreenApplicationContext.cs" />

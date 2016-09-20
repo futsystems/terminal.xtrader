@@ -181,6 +181,10 @@ namespace XTraderLite
             MDService.DataAPI.OnRspQryPriceVolPair += new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair);
             //分笔数据
             MDService.DataAPI.OnRspQryTradeSplit += new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit);
+
+
+            //启动定时任务
+            InitTimer();
         }
 
 
