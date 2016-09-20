@@ -450,17 +450,17 @@ namespace TradingLib.KryptonControl
                     text = string.Format("{0:F2}", split.Price);
                     si = g.MeasureString(text,UIConstant.QuoteFont);
                     if (split.Price > pr)
-                        g.DrawString(text, UIConstant.QuoteFont, Brushes.Red, (int)(50 - si.Width), rect.Top + (lineHeight - fontHeight) / 2);
+                        g.DrawString(text, UIConstant.QuoteFont, Brushes.Red, rect.X + (int)(50 - si.Width), rect.Top + (lineHeight - fontHeight) / 2);
                     else
-                        g.DrawString(text, UIConstant.QuoteFont, Brushes.Green, (int)(50 - si.Width), rect.Top + (lineHeight - fontHeight) / 2);
+                        g.DrawString(text, UIConstant.QuoteFont, Brushes.Green, rect.X + (int)(50 - si.Width), rect.Top + (lineHeight - fontHeight) / 2);
 
                     text = string.Format("{0:D}", split.Vol);
                     si = g.MeasureString(text, UIConstant.QuoteFont);
-                    g.DrawString(text, UIConstant.QuoteFont, Brushes.Yellow, (int)(50 + 1 * lw - si.Width), rect.Top + (lineHeight - fontHeight) / 2);
+                    g.DrawString(text, UIConstant.QuoteFont, Brushes.Yellow, rect.X + (int)(50 + 1 * lw - si.Width), rect.Top + (lineHeight - fontHeight) / 2);
                     int ww = (int)(split.Vol * (lw - 4) / maxvol);
                     if (ww == 0)
                         ww = 1;
-                    g.FillRectangle(Brushes.Aqua, (50 + lw + 2), rect.Top + 2, ww, lineHeight - 4);
+                    g.FillRectangle(Brushes.Aqua, rect.X + (50 + lw + 2), rect.Top + 2, ww, lineHeight - 4);
 
                     text = string.Format("{0:P0}", (double)split.Vol / (double)totalvol);
                     si = g.MeasureString(text, UIConstant.QuoteFont);
