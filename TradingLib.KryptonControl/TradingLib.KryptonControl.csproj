@@ -62,6 +62,12 @@
     <Compile Include="Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="ctrlPriceVolList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ctrlPriceVolList.Designer.cs">
+      <DependentUpon>ctrlPriceVolList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ctrlTickList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -237,7 +243,6 @@
       <DependentUpon>ViewQuoteList.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
