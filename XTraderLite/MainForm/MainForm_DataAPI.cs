@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,6 +14,7 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
+        ConcurrentDictionary<int, object> tickListViewRequest = new ConcurrentDictionary<int, object>();
 
         void InitDataAPI()
         {
@@ -66,6 +68,22 @@ namespace XTraderLite
             }
             else
             {
+                object target = null;
+                //分笔明细视图 查询
+                if (tickListViewRequest.TryRemove(arg4, out target))
+                {
+                    logger.Info("Got TradeSplit for TickList");
+                    ctrlTickList.BeginUpdate();
+                    foreach(var tick in arg1)
+                    {
+                        ctrlTickList.AddTrade(tick);
+                    }
+                    ctrlTickList.EndUpdate();
+
+                    return;
+                }
+
+
                 int i = 0;
                 foreach (var v in arg1)
                 {

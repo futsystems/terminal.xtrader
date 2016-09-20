@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using TradingLib.MarketData;
+using Common.Logging;
 
 namespace TradingLib.KryptonControl
 {
@@ -16,6 +17,7 @@ namespace TradingLib.KryptonControl
     public partial class ctrlTickList : System.Windows.Forms.Control
     {
 
+        ILog logger = LogManager.GetLogger("ctrlTickList");
         public event EventHandler ExitView;
         public ctrlTickList()
         {
@@ -23,6 +25,113 @@ namespace TradingLib.KryptonControl
             this.DoubleBuffered = true;
             this.MouseClick += new MouseEventHandler(ctrlTickList_MouseClick);
             this.MouseMove += new MouseEventHandler(ctrlTickList_MouseMove);
+            this.MouseWheel += new MouseEventHandler(ctrlTickList_MouseWheel);
+
+            this.GotFocus += new EventHandler(ctrlTickList_GotFocus);
+            this.LostFocus += new EventHandler(ctrlTickList_LostFocus);
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Up:
+                    {
+                        ScrollPage(false);
+                        break;
+                    }
+                case Keys.Down:
+                    {
+                        ScrollPage(true);
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            return base.ProcessDialogKey(keyData);
+        }
+       
+
+        void ctrlTickList_LostFocus(object sender, EventArgs e)
+        {
+            logger.Info("lost focus");
+        }
+
+        void ctrlTickList_GotFocus(object sender, EventArgs e)
+        {
+            logger.Info("got focus");
+        }
+
+        
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                ScrollPage(false);
+            }
+            else
+            {
+                ScrollPage(true);
+            }
+        }
+
+        
+
+
+        void ScrollPage(bool after)
+        {
+            int rowCnt = (this.Height - topHeight - columHeight) / lineHeight;//计算每列可显示数据量
+            int dataColCnt = tradeSplitList.Count / rowCnt; 
+            dataColCnt += tradeSplitList.Count % rowCnt > 0 ? 1 : 0;//计算所有数据的列数量
+
+            //显示列数
+            int columnCnt = this.Width / _defaultColumnWidth;//计算当前可显示的列数
+            if (dataColCnt > columnCnt)
+            {
+                if (after)
+                {
+                    startDataColumn++;
+
+                }
+                else
+                {
+                    startDataColumn--;
+                }
+                if (startDataColumn > dataColCnt - columnCnt)
+                    startDataColumn = dataColCnt - columnCnt;
+                if (startDataColumn < 0)
+                    startDataColumn = 0;
+                this.Invalidate();
+            }
+        }
+        void ctrlTickList_MouseWheel(object sender, MouseEventArgs e)
+        {
+            int rowCnt = (this.Height - topHeight - columHeight) / lineHeight;
+            int dataColCnt = tradeSplitList.Count / rowCnt;
+            dataColCnt += tradeSplitList.Count % rowCnt > 0 ? 1 : 0;
+
+            //显示列数
+            int columnCnt = this.Width / _defaultColumnWidth;
+            if (dataColCnt > columnCnt)
+            {
+                if (e.Delta > 0)
+                {
+                    startDataColumn++;
+                    
+                }
+                else
+                {
+                    startDataColumn--;
+                }
+                if (startDataColumn > dataColCnt - columnCnt)
+                    startDataColumn = dataColCnt - columnCnt;
+                if (startDataColumn < 0)
+                    startDataColumn = 0;
+                this.Invalidate();
+            }
+
+            //throw new NotImplementedException();
         }
 
         bool _mouseInClose = false;
@@ -45,11 +154,11 @@ namespace TradingLib.KryptonControl
             {
                 this.Invalidate();
             }
-            //DrawCloseBotton(g, p, btnSize);
         }
 
         void ctrlTickList_MouseClick(object sender, MouseEventArgs e)
         {
+            Focus();
             int btnSize = 14;
             Point p = new Point(this.Width - (btnSize + (topHeight - btnSize) / 2), (topHeight - btnSize) / 2);
             if (e.X > p.X && e.X < p.X + btnSize && e.Y > p.Y && e.Y < p.Y + btnSize)
@@ -90,6 +199,7 @@ namespace TradingLib.KryptonControl
         int lineHeight = 22;
         int fontHeight = UIConstant.QuoteFont.Height;
         SolidBrush _brushTime = new SolidBrush(Color.Silver);
+        SolidBrush _brushPrice = new SolidBrush(Color.Silver);
 
         Pen _btnPen = new Pen(Color.Red, 1);
         void DrawCloseBotton(Graphics g,Color color, Point p, int size)
@@ -107,7 +217,47 @@ namespace TradingLib.KryptonControl
             g.DrawLine(_btnPen, p2, p3);
         }
 
-       
+        List<TradeSplit> tradeSplitList = new List<TradeSplit>();
+
+        public void AddTrade(TradeSplit trade)
+        {
+            tradeSplitList.Add(trade);
+            if (!update)
+            {
+                this.Invalidate();
+            }
+        }
+
+        public void Clear()
+        {
+            tradeSplitList.Clear();
+            if (!update)
+            {
+                this.Invalidate();
+            }
+
+            
+        }
+
+        bool update = false;
+        public void BeginUpdate()
+        {
+            update = true;
+        
+        }
+
+        public void EndUpdate()
+        {
+            update = false;
+            this.Invalidate();
+        }
+
+
+        /// <summary>
+        /// 其实绘制数据列
+        /// 数据太多 在一个屏幕无法显示时 需要进行翻页
+        /// </summary>
+        int startDataColumn = 0;
 
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
@@ -132,7 +282,7 @@ namespace TradingLib.KryptonControl
             //string d = string.Format("{0}-{1}", columnCnt, columnWidth);
             //g.DrawString(d, UIConstant.QuoteFont, Brushes.Red, 10, 10);
             g.DrawString(string.IsNullOrEmpty(_symbol.Symbol) ? "000000" : _symbol.Symbol, UIConstant.QuoteFont, Brushes.Yellow, 20, (topHeight - fontHeight) / 2);
-            g.DrawString(string.IsNullOrEmpty(_symbol.Name) ? "中国平安" : _symbol.Symbol, UIConstant.LableFont, Brushes.Yellow, 70, (topHeight - fontHeight) / 2);
+            g.DrawString(string.IsNullOrEmpty(_symbol.Name) ? "中国平安" : _symbol.Name, UIConstant.LableFont, Brushes.Yellow, 70, (topHeight - fontHeight) / 2);
             g.DrawString("请使用鼠标滚轮或上下键翻页", UIConstant.HelpFont, Brushes.Gray, 140, (topHeight - fontHeight) / 2 + 2);
 
             g.DrawString("按Esc键返回", UIConstant.HelpFont, Brushes.Red, this.Width - 110, (topHeight - fontHeight) / 2 + 3);
@@ -142,9 +292,12 @@ namespace TradingLib.KryptonControl
             Point p = new Point(this.Width - (btnSize + (topHeight - btnSize) / 2), (topHeight - btnSize) / 2);
             DrawCloseBotton(g,_mouseInClose?Color.Orange: Color.Red, p, btnSize);
 
+            int rowCnt = (this.Height - topHeight - columHeight) / lineHeight;
 
             string text = string.Empty;
             int lw = (columnWidth - 90) / 2;
+            int cnt = rowCnt*startDataColumn;//从0列开始则cnt起始为0，如果从第一列开始显示则对应的位为rowCnt则图形第一列显示的是数据第二列
+            TradeSplit split = null;
             for (int i = 0; i < columnCnt; i++)
             {
                 rect.X = i * columnWidth;
@@ -152,50 +305,63 @@ namespace TradingLib.KryptonControl
                 if (i == columnCnt - 1)
                     columnWidth = this.Width - (columnCnt - 1) * columnWidth;
 
-                int rowCnt = (this.Height - topHeight -columHeight) / lineHeight;
-
-                g.DrawLine(_pen, rect.X, topHeight, rect.X + columnWidth, topHeight);
-                g.DrawLine(_pen, rect.X, topHeight + columHeight, rect.X + columnWidth, topHeight + columHeight);
-
-                if (i > 0)
-                    g.DrawLine(_pen, rect.X, topHeight, rect.X, this.Height);
-
                 
 
+                //绘制顶部列标题
+                g.DrawLine(_pen, rect.X, topHeight, rect.X + columnWidth, topHeight);
+                g.DrawLine(_pen, rect.X, topHeight + columHeight, rect.X + columnWidth, topHeight + columHeight);
                 g.DrawString("时间", UIConstant.LableFont, Brushes.White, rect.X + 60 - 40, topHeight + (lineHeight - fontHeight) / 2);
                 g.DrawString("价格", UIConstant.LableFont, Brushes.White, rect.X + 60 + lw - 40, topHeight + (lineHeight - fontHeight) / 2);
                 g.DrawString("数量", UIConstant.LableFont, Brushes.White, rect.X + columnWidth - 50, topHeight + (lineHeight - fontHeight) / 2);
 
-
+                //绘制竖线
+                if (i > 0)
+                    g.DrawLine(_pen, rect.X, topHeight, rect.X, this.Height);
+                
                 for (int j = 0; j < rowCnt; j++)
                 {
+                    cnt++;
+                    if (cnt >tradeSplitList.Count)
+                        continue;
+                    split = tradeSplitList[cnt-1];
+                    
+
                     rect.Y = (j) * lineHeight + topHeight + columHeight;
 
-                    int timeval = 1132;
-                    double value = 12.22;
-                    int vol = 2322;
-                    int t = 1;
 
-                    text = string.Format("{0:D2}:{1:D2}:{2:D2}", timeval / 100, timeval % 100, 1);
+
+                    text = string.Format("{0:D2}:{1:D2}:{2:D2}", split.Time / 100, split.Time % 100, 1);
                     tWidth = g.MeasureString(text, font).Width;
                     g.DrawString(text, UIConstant.QuoteFont, _brushTime, rect.X + 60 - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
 
 
-                    text = string.Format("{0:F2}", value);
+                    text = string.Format("{0:F2}", split.Price);
                     tWidth = g.MeasureString(text, font).Width;
-                    g.DrawString(text, font, Brushes.Gray, rect.X + 60 + lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+                    if (split.Price == _symbol.PreClose)
+                    {
+                        _brushPrice.Color = Color.White;
+                    }
+                    else if (split.Price > _symbol.PreClose)
+                    {
+                        _brushPrice.Color = UIConstant.ColorUp;
+                    }
+                    else
+                    {
+                        _brushPrice.Color = UIConstant.ColorDown;
+                    }
+                    g.DrawString(text, font, _brushPrice, rect.X + 60 + lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
 
 
-                    text = string.Format("{0:D}", vol);
+                    text = string.Format("{0:D}", split.Vol);
                     tWidth = g.MeasureString(text, font).Width;
                     g.DrawString(text, font, Brushes.Gray, rect.X + 60 + 2 * lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
 
-                    if (t == 1)
+                    if (split.Flag == 1)
                         text = "B";
                     else
                         text = "S";
                     tWidth = g.MeasureString(text, font).Width;
-                    if (t == 1)
+                    if (split.Flag == 1)
                         g.DrawString(text, font, Brushes.Red, rect.X + columnWidth - 25, rect.Y + (lineHeight - fontHeight) / 2);
                     else
                         g.DrawString(text, font, Brushes.Lime, rect.X + columnWidth - 25, rect.Y + (lineHeight - fontHeight) / 2);

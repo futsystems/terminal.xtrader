@@ -1170,10 +1170,10 @@ namespace DataAPI.TDX
                     // wait for a new signal to continue reading
                     _processWaiting.WaitOne(5000);
 
-                    foreach(var msg in _profiler.GetStatsStringList())
-                    {
-                        logger.Info(msg);
-                    }
+                    //foreach(var msg in _profiler.GetStatsStringList())
+                    //{
+                    //    logger.Info(msg);
+                    //}
 
                 }
                 catch (Exception ex)

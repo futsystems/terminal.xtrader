@@ -13,6 +13,7 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
+        
         List<MinuteData> minuteData = new List<MinuteData>();
         void InitKChart()
         {
@@ -27,9 +28,15 @@ namespace XTraderLite
         void ctrlKChart_TabDoubleClick(object arg1, CStock.TabDoubleClickEventArgs arg2)
         {
             switch (arg2.TabType)
-            { 
+            {
                 case CStock.DetailBoardTabType.TradeDetails:
-                    ViewTickList();
+                    {
+                        ViewTickList();
+                        ctrlTickList.Clear();
+                        ctrlTickList.Symbol = CurrentKChartSymbol;
+                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, 2000);
+                        tickListViewRequest.TryAdd(reqId, ctrlTickList);
+                    }
                     break;
                 case CStock.DetailBoardTabType.PriceDistribution:
                     break;
