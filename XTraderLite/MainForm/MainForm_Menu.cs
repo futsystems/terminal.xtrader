@@ -18,14 +18,57 @@ namespace XTraderLite
             panelBroker.Visible ^= true;
         }
 
+        /// <summary>
+        /// 回退
+        /// </summary>
+        void RollBackView()
+        {
 
-        bool  SwitchMainView(bool backQuote)
+            //报价表 回退不执行任何操作
+            if (ctrlQuoteList.Visible)
+            {
+                return;
+            }
+            //K线图 回退到报价表
+            if (ctrlKChart.Visible)
+            {
+                ViewQuoteList();
+                return;
+            }
+            else
+            {
+                SetViewType(EnumTraderViewType.KChart);
+                UpdateToolBarStatus();
+                SetKChartSymbol(CurrentKChartSymbol);
+            }
+
+            
+        }
+        
+        void  SwitchMainView()
         {
             //当前为报价表状态 则进入分时
             if (ctrlQuoteList.Visible)
             {
-                ViewIntraChart();
-                return true;
+                MDSymbol tmp = null;
+                if (ctrlQuoteList.Visible)
+                {
+                    tmp = ctrlQuoteList.SymbolSelected;
+                    if (tmp == null) return;
+                }
+
+                if (tmp == null)
+                {
+                    tmp = this.CurrentKChartSymbol;
+                    if (tmp == null)
+                        return;
+                }
+
+
+                SetViewType(EnumTraderViewType.KChart);
+                UpdateToolBarStatus();
+                SetKChartSymbol(tmp);
+                return;
             }
 
             if (ctrlKChart.Visible)
@@ -33,24 +76,24 @@ namespace XTraderLite
                 if (ctrlKChart.IsIntraView)
                 {
                     ViewBarChart();
-                    return true;
+                    return;
                 }
                 if (ctrlKChart.IsBarView)
                 {
-                    if (backQuote)
-                    {
-                        ViewQuoteList();
-                        return false;
-                    }
-                    else
-                    {
+                    //if (backQuote)
+                    //{
+                    //    ViewQuoteList();
+                    //    return false;
+                    //}
+                    //else
+                    //{
                         ViewIntraChart();
-                        return true;
-                    }
+                        return;
+                    //}
                   
                 }
             }
-            return false;
+            //return false;
         }
 
 
@@ -62,7 +105,7 @@ namespace XTraderLite
 
         void menuSwitchKchart_Click(object sender, EventArgs e)
         {
-            SwitchMainView(false);
+            SwitchMainView();
         }
     }
 }

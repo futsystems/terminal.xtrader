@@ -26,7 +26,7 @@ namespace XTraderLite
             { 
 
                 case Keys.Escape:
-                    ViewQuoteList();
+                    RollBackView();
                     break;
                 case Keys.F12:
                     SwitchTradingBox();
@@ -48,7 +48,8 @@ namespace XTraderLite
                                 return;
                         }
 
-                        bool needset=SwitchMainView(e.KeyCode== Keys.Enter?true:false);
+                        SwitchMainView();
+                        SetKChartSymbol(tmp);
                         //if (needset) SetKChartSymbol(tmp);
                     }
                     break;

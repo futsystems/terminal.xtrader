@@ -44,7 +44,7 @@ namespace XTraderLite
             _currentSymbol = symbol;
 
             //设定当前视图类型
-            SetViewType(EnumTraderViewType.KChart);
+            //SetViewType(EnumTraderViewType.KChart);
 
 
             ctrlKChart.Focus();
