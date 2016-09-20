@@ -91,17 +91,17 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
+            this.SearchBox = new System.Windows.Forms.Panel();
+            this.KeyClose = new System.Windows.Forms.Panel();
+            this.SymbolListBox = new System.Windows.Forms.ListBox();
+            this.splitter = new System.Windows.Forms.Splitter();
+            this.panelBroker = new System.Windows.Forms.Panel();
+            this.KeyCode = new MyEdit();
             this.ctrlPriceVolList = new TradingLib.KryptonControl.ctrlPriceVolList();
             this.ctrlTickList = new TradingLib.KryptonControl.ctrlTickList();
             this.ctrlKChart = new CStock.TStock();
             this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
-            this.splitter = new System.Windows.Forms.Splitter();
-            this.panelBroker = new System.Windows.Forms.Panel();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
-            this.GpKey = new System.Windows.Forms.Panel();
-            this.KeyClose = new System.Windows.Forms.Panel();
-            this.GpListBox = new System.Windows.Forms.ListBox();
-            this.KeyCode = new MyEdit();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -114,8 +114,8 @@
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
             this.panelMarket.SuspendLayout();
+            this.SearchBox.SuspendLayout();
             this.panelBroker.SuspendLayout();
-            this.GpKey.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -342,7 +342,7 @@
             this.toolBar.Margin = new System.Windows.Forms.Padding(1);
             this.toolBar.Name = "toolBar";
             this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolBar.Size = new System.Drawing.Size(1100, 25);
+            this.toolBar.Size = new System.Drawing.Size(771, 25);
             this.toolBar.TabIndex = 0;
             // 
             // btnQuoteView
@@ -557,10 +557,10 @@
             // 
             this.bottomStatusPanel.BackgroundImage = global::XTraderLite.Properties.Resources.BottomStatusBG;
             this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 655);
+            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 678);
             this.bottomStatusPanel.Margin = new System.Windows.Forms.Padding(0);
             this.bottomStatusPanel.Name = "bottomStatusPanel";
-            this.bottomStatusPanel.Size = new System.Drawing.Size(1100, 25);
+            this.bottomStatusPanel.Size = new System.Drawing.Size(771, 25);
             this.bottomStatusPanel.TabIndex = 3;
             // 
             // panelTop
@@ -573,7 +573,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1100, 25);
+            this.panelTop.Size = new System.Drawing.Size(771, 25);
             this.panelTop.TabIndex = 4;
             // 
             // panelMenu
@@ -614,7 +614,7 @@
             this.panelControlBox.Controls.Add(this.btnMax);
             this.panelControlBox.Controls.Add(this.btnMin);
             this.panelControlBox.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControlBox.Location = new System.Drawing.Point(1025, 0);
+            this.panelControlBox.Location = new System.Drawing.Point(696, 0);
             this.panelControlBox.Name = "panelControlBox";
             this.panelControlBox.Size = new System.Drawing.Size(75, 25);
             this.panelControlBox.TabIndex = 3;
@@ -660,7 +660,7 @@
             this.panelHolder.Controls.Add(this.bottomStatusPanel);
             this.panelHolder.Location = new System.Drawing.Point(1, 1);
             this.panelHolder.Name = "panelHolder";
-            this.panelHolder.Size = new System.Drawing.Size(1100, 680);
+            this.panelHolder.Size = new System.Drawing.Size(771, 703);
             this.panelHolder.TabIndex = 5;
             // 
             // workPanel
@@ -671,13 +671,12 @@
             this.workPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.workPanel.Location = new System.Drawing.Point(0, 25);
             this.workPanel.Name = "workPanel";
-            this.workPanel.Size = new System.Drawing.Size(1100, 630);
+            this.workPanel.Size = new System.Drawing.Size(771, 653);
             this.workPanel.TabIndex = 5;
             // 
             // panelMarket
             // 
             this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
-            this.panelMarket.Controls.Add(this.GpKey);
             this.panelMarket.Controls.Add(this.ctrlPriceVolList);
             this.panelMarket.Controls.Add(this.ctrlTickList);
             this.panelMarket.Controls.Add(this.ctrlKChart);
@@ -686,14 +685,74 @@
             this.panelMarket.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMarket.Location = new System.Drawing.Point(0, 0);
             this.panelMarket.Name = "panelMarket";
-            this.panelMarket.Size = new System.Drawing.Size(1100, 368);
+            this.panelMarket.Size = new System.Drawing.Size(771, 391);
             this.panelMarket.TabIndex = 2;
+            // 
+            // SearchBox
+            // 
+            this.SearchBox.BackColor = System.Drawing.Color.Transparent;
+            this.SearchBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("SearchBox.BackgroundImage")));
+            this.SearchBox.Controls.Add(this.KeyCode);
+            this.SearchBox.Controls.Add(this.KeyClose);
+            this.SearchBox.Controls.Add(this.SymbolListBox);
+            this.SearchBox.Location = new System.Drawing.Point(796, 515);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Size = new System.Drawing.Size(174, 178);
+            this.SearchBox.TabIndex = 149;
+            this.SearchBox.Visible = false;
+            // 
+            // KeyClose
+            // 
+            this.KeyClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.KeyClose.Location = new System.Drawing.Point(151, 3);
+            this.KeyClose.Name = "KeyClose";
+            this.KeyClose.Size = new System.Drawing.Size(18, 18);
+            this.KeyClose.TabIndex = 2;
+            // 
+            // SymbolListBox
+            // 
+            this.SymbolListBox.FormattingEnabled = true;
+            this.SymbolListBox.IntegralHeight = false;
+            this.SymbolListBox.ItemHeight = 12;
+            this.SymbolListBox.Location = new System.Drawing.Point(4, 52);
+            this.SymbolListBox.Name = "SymbolListBox";
+            this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
+            this.SymbolListBox.TabIndex = 0;
+            // 
+            // splitter
+            // 
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 391);
+            this.splitter.MinExtra = 100;
+            this.splitter.MinSize = 260;
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(771, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
+            // 
+            // panelBroker
+            // 
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 393);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(771, 260);
+            this.panelBroker.TabIndex = 0;
+            // 
+            // KeyCode
+            // 
+            this.KeyCode.Location = new System.Drawing.Point(4, 25);
+            this.KeyCode.Name = "KeyCode";
+            this.KeyCode.Size = new System.Drawing.Size(165, 21);
+            this.KeyCode.TabIndex = 3;
             // 
             // ctrlPriceVolList
             // 
-            this.ctrlPriceVolList.Location = new System.Drawing.Point(647, 30);
+            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
             this.ctrlPriceVolList.Name = "ctrlPriceVolList";
-            this.ctrlPriceVolList.Size = new System.Drawing.Size(223, 150);
+            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
             this.ctrlPriceVolList.TabIndex = 5;
             this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
             this.ctrlPriceVolList.Visible = false;
@@ -702,7 +761,7 @@
             // 
             this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
             this.ctrlTickList.Name = "ctrlTickList";
-            this.ctrlTickList.Size = new System.Drawing.Size(228, 150);
+            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
             this.ctrlTickList.TabIndex = 4;
             this.ctrlTickList.Text = "ctrlTickList1";
             this.ctrlTickList.Visible = false;
@@ -752,28 +811,6 @@
             this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
             this.ctrlQuoteList.TabIndex = 1;
             // 
-            // splitter
-            // 
-            this.splitter.BackColor = System.Drawing.Color.Silver;
-            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter.Location = new System.Drawing.Point(0, 368);
-            this.splitter.MinExtra = 100;
-            this.splitter.MinSize = 260;
-            this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(1100, 2);
-            this.splitter.TabIndex = 1;
-            this.splitter.TabStop = false;
-            // 
-            // panelBroker
-            // 
-            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
-            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBroker.Location = new System.Drawing.Point(0, 370);
-            this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
-            this.panelBroker.TabIndex = 0;
-            // 
             // debugControl1
             // 
             this.debugControl1.EnableSearching = true;
@@ -786,50 +823,13 @@
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
-            // GpKey
-            // 
-            this.GpKey.BackColor = System.Drawing.Color.Transparent;
-            this.GpKey.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("GpKey.BackgroundImage")));
-            this.GpKey.Controls.Add(this.KeyCode);
-            this.GpKey.Controls.Add(this.KeyClose);
-            this.GpKey.Controls.Add(this.GpListBox);
-            this.GpKey.Location = new System.Drawing.Point(836, 134);
-            this.GpKey.Name = "GpKey";
-            this.GpKey.Size = new System.Drawing.Size(174, 228);
-            this.GpKey.TabIndex = 149;
-            this.GpKey.Visible = false;
-            // 
-            // KeyClose
-            // 
-            this.KeyClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.KeyClose.Location = new System.Drawing.Point(151, 3);
-            this.KeyClose.Name = "KeyClose";
-            this.KeyClose.Size = new System.Drawing.Size(18, 18);
-            this.KeyClose.TabIndex = 2;
-            // 
-            // GpListBox
-            // 
-            this.GpListBox.FormattingEnabled = true;
-            this.GpListBox.IntegralHeight = false;
-            this.GpListBox.ItemHeight = 12;
-            this.GpListBox.Location = new System.Drawing.Point(4, 52);
-            this.GpListBox.Name = "GpListBox";
-            this.GpListBox.Size = new System.Drawing.Size(165, 172);
-            this.GpListBox.TabIndex = 0;
-            // 
-            // KeyCode
-            // 
-            this.KeyCode.Location = new System.Drawing.Point(4, 25);
-            this.KeyCode.Name = "KeyCode";
-            this.KeyCode.Size = new System.Drawing.Size(165, 21);
-            this.KeyCode.TabIndex = 3;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1102, 682);
+            this.ClientSize = new System.Drawing.Size(1003, 705);
             this.ControlBox = false;
+            this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.panelHolder);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -853,9 +853,9 @@
             this.workPanel.ResumeLayout(false);
             this.panelMarket.ResumeLayout(false);
             this.panelMarket.PerformLayout();
+            this.SearchBox.ResumeLayout(false);
+            this.SearchBox.PerformLayout();
             this.panelBroker.ResumeLayout(false);
-            this.GpKey.ResumeLayout(false);
-            this.GpKey.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -931,9 +931,9 @@
         private System.Windows.Forms.ToolStrip toolBar;
         private TradingLib.KryptonControl.ctrlTickList ctrlTickList;
         private TradingLib.KryptonControl.ctrlPriceVolList ctrlPriceVolList;
-        private System.Windows.Forms.Panel GpKey;
+        private System.Windows.Forms.Panel SearchBox;
         private System.Windows.Forms.Panel KeyClose;
-        private System.Windows.Forms.ListBox GpListBox;
+        private System.Windows.Forms.ListBox SymbolListBox;
         private MyEdit KeyCode;
     }
 }

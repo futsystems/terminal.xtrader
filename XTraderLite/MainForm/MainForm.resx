@@ -263,13 +263,10 @@
   <metadata name="panelControlBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="panelHolder.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="workPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="GpKey.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SearchBox.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         Qk32oAAAAAAAADYEAAAoAAAArQAAAOQAAAABAAgAAAAAAAAAAADDDgAAww4AAAABAAAAAQAAAAAA////
         ///FxcX/pKSk/+NmE/+ZmZn/48/C/2ZmZv/hdzH/AP8A//Ds6f+1rKb/6J9u/8eIX/+/u7n/zMzM/+nl

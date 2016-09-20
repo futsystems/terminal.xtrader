@@ -13,6 +13,10 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
+
+
+
+
         void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             int key = e.KeyChar;
@@ -21,9 +25,10 @@ namespace XTraderLite
             if (((key >= '0') && (key <= '9')) || ((key >= 'A') && (key <= 'Z')) || ((key >= 'a') && (key <= 'z')))
             {
                 this.KeyPreview = false;
-                GpKey.BringToFront();
-                GpKey.SetBounds(this.Width - GpKey.Width - 10, this.Height - GpKey.Height - 35, GpKey.Width, GpKey.Height);
-                GpKey.Visible = true;
+                SearchBox.BringToFront();
+                
+                SearchBox.SetBounds(this.Width - SearchBox.Width - 15, this.Height - SearchBox.Height-70, SearchBox.Width, SearchBox.Height);
+                SearchBox.Visible = true;
 
                 KeyCode.Text = ks;
                 KeyCode.Focus();

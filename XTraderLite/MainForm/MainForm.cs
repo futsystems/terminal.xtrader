@@ -52,7 +52,8 @@ namespace XTraderLite
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
-
+            this.panelHolder.Width = this.Width - 1;
+            
             #region 设置频率切换按钮的Tag 并放入list方便访问
             btnFreqDay.Tag = ConstFreq.Freq_Day;
             btnFreqWeek.Tag = ConstFreq.Freq_Week;
@@ -246,8 +247,6 @@ namespace XTraderLite
         {
             m_mousePos = Cursor.Position;
             m_isMouseDown = true;
-
-            
         }
 
         void Form_DoubleClick(object sender, EventArgs e)
