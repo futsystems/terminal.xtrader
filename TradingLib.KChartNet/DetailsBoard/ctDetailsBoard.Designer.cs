@@ -34,7 +34,6 @@
             this.pbox4 = new System.Windows.Forms.Panel();
             this.pbox3 = new System.Windows.Forms.Panel();
             this.pbox2 = new System.Windows.Forms.Panel();
-            this.pbox1 = new System.Windows.Forms.Panel();
             this.TabBox = new System.Windows.Forms.PictureBox();
             this.splitter8 = new System.Windows.Forms.Splitter();
             this.cell5 = new System.Windows.Forms.TableLayoutPanel();
@@ -82,6 +81,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.StkLabel = new System.Windows.Forms.Label();
+            this.pbox1 = new TradingLib.KryptonControl.ctrlTabTradeList();
             this.Board.SuspendLayout();
             this.DetailTabBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabBox)).BeginInit();
@@ -118,11 +118,11 @@
             // DetailTabBox
             // 
             this.DetailTabBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.DetailTabBox.Controls.Add(this.pbox1);
             this.DetailTabBox.Controls.Add(this.pbox5);
             this.DetailTabBox.Controls.Add(this.pbox4);
             this.DetailTabBox.Controls.Add(this.pbox3);
             this.DetailTabBox.Controls.Add(this.pbox2);
-            this.DetailTabBox.Controls.Add(this.pbox1);
             this.DetailTabBox.Controls.Add(this.TabBox);
             this.DetailTabBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.DetailTabBox.Location = new System.Drawing.Point(0, 444);
@@ -173,18 +173,6 @@
             this.pbox2.Paint += new System.Windows.Forms.PaintEventHandler(this.pbox2_Paint);
             this.pbox2.DoubleClick += new System.EventHandler(this.pbox2_DoubleClick);
             this.pbox2.Resize += new System.EventHandler(this.pbox2_Resize);
-            // 
-            // pbox1
-            // 
-            this.pbox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pbox1.Location = new System.Drawing.Point(7, 15);
-            this.pbox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pbox1.Name = "pbox1";
-            this.pbox1.Size = new System.Drawing.Size(46, 36);
-            this.pbox1.TabIndex = 1;
-            this.pbox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pbox1_Paint);
-            this.pbox1.DoubleClick += new System.EventHandler(this.pbox1_DoubleClick);
-            this.pbox1.Resize += new System.EventHandler(this.pbox1_Resize);
             // 
             // TabBox
             // 
@@ -830,6 +818,16 @@
             this.StkLabel.Text = "00001 深发展A";
             this.StkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pbox1
+            // 
+            this.pbox1.Location = new System.Drawing.Point(71, 132);
+            this.pbox1.Name = "pbox1";
+            this.pbox1.Size = new System.Drawing.Size(57, 40);
+            this.pbox1.Symbol = null;
+            this.pbox1.TabIndex = 6;
+            this.pbox1.Text = "ctrlTabTradeList1";
+            this.pbox1.DoubleClick += new System.EventHandler(this.pbox1_DoubleClick);
+            // 
             // ctDetailsBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -857,7 +855,6 @@
         private System.Windows.Forms.Panel pbox4;
         private System.Windows.Forms.Panel pbox3;
         private System.Windows.Forms.Panel pbox2;
-        private System.Windows.Forms.Panel pbox1;
         private System.Windows.Forms.PictureBox TabBox;
         private System.Windows.Forms.Splitter splitter8;
         private System.Windows.Forms.TableLayoutPanel cell5;
@@ -905,5 +902,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Label StkLabel;
+        private TradingLib.KryptonControl.ctrlTabTradeList pbox1;
     }
 }

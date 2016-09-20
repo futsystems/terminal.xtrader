@@ -35,7 +35,7 @@ namespace XTraderLite
                         ctrlTickList.Clear();
                         ctrlTickList.Symbol = CurrentKChartSymbol;
                         int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, 2000);
-                        tickListViewRequest.TryAdd(reqId, ctrlTickList);
+                        tickListLoadRequest.TryAdd(reqId, ctrlTickList);
                     }
                     break;
                 case CStock.DetailBoardTabType.PriceDistribution:
@@ -59,7 +59,9 @@ namespace XTraderLite
             {
                 case CStock.DetailBoardTabType.TradeDetails:
                     {
-                        MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlKChart.TabHigh);
+
+                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlKChart.TabHigh);
+                        kChartLoadTradeRequest.TryAdd(reqId, ctrlTickList);
                         return;
                     }
                 case CStock.DetailBoardTabType.PriceDistribution:

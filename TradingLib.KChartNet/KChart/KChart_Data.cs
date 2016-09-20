@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TradingLib.MarketData;
+
 
 namespace CStock
 {
@@ -166,9 +168,18 @@ namespace CStock
         /// <param name="value"></param>
         /// <param name="vol"></param>
         /// <param name="tick"></param>
-        public void AddTxnData(int time, double value, int vol, int tick, int tickcount,bool update=false)
+        //public void AddTxnData(int time, double value, int vol, int tick, int tickcount,bool update=false)
+        //{
+        //    ctDetailsBoard1.AddTick(time, value, vol, tick, tickcount,update);
+        //}
+
+        public void AddTrade(TradeSplit trade,bool update)
+        { 
+            ctDetailsBoard1.AddTrade(trade,update);
+        }
+        public void AddTrade(List<TradeSplit> trades, bool update)
         {
-            ctDetailsBoard1.AddTick(time, value, vol, tick, tickcount,update);
+            ctDetailsBoard1.AddTrade(trades, update);
         }
 
         /// <summary>

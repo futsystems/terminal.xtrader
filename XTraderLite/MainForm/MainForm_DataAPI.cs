@@ -14,9 +14,11 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
-        ConcurrentDictionary<int, object> tickListViewRequest = new ConcurrentDictionary<int, object>();
+        ConcurrentDictionary<int, object> tickListLoadRequest = new ConcurrentDictionary<int, object>();
         ConcurrentDictionary<int, object> tickListUpdateRequest = new ConcurrentDictionary<int, object>();
 
+        ConcurrentDictionary<int, object> kChartLoadTradeRequest = new ConcurrentDictionary<int, object>();
+        ConcurrentDictionary<int, object> kChartUpdateRequest = new ConcurrentDictionary<int, object>();
         void InitDataAPI()
         {
             //_dataAPI = new DataAPI.TDX.TDXDataAPI(new string[] {"218.85.137.40"},7709);
@@ -70,8 +72,21 @@ namespace XTraderLite
             else
             {
                 object target = null;
+                //绘图控件盘口明细加载分笔
+                if (kChartLoadTradeRequest.TryRemove(arg4, out target))
+                {
+                    ctrlKChart.ClearTxnData();
+                    ctrlKChart.AddTrade(arg1, true);
+                }
+                //绘图控件 更新分笔
+                if (kChartUpdateRequest.TryRemove(arg4, out target))
+                {
+                    
+                    ctrlKChart.ClearTxnData();
+                    ctrlKChart.AddTrade(arg1, true);
+                }
                 //分笔明细视图 查询
-                if (tickListViewRequest.TryRemove(arg4, out target))
+                if (tickListLoadRequest.TryRemove(arg4, out target))
                 {
                     logger.Info("Got TradeSplit for TickList");
                     ctrlTickList.BeginUpdate();
@@ -82,7 +97,7 @@ namespace XTraderLite
                     {
                         logger.Info("there are more data");
                         int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ctrlTickList.Count, 2000);
-                        tickListViewRequest.TryAdd(reqId, ctrlTickList);
+                        tickListLoadRequest.TryAdd(reqId, ctrlTickList);
                     }
                     return;
                 }
@@ -96,12 +111,10 @@ namespace XTraderLite
                     ctrlTickList.EndUpdate();
                 }
 
-                int i = 0;
-                foreach (var v in arg1)
-                {
-                    i++;
-                    ctrlKChart.AddTxnData(v.Time, v.Price, v.Vol, v.Flag, v.TradeCount, i == arg1.Count);
-                }
+
+
+
+                
             }
         }
 

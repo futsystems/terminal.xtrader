@@ -13,6 +13,8 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
+
+        bool timeGo = true;
         System.Timers.Timer timer;
 
         /// <summary>
@@ -21,7 +23,7 @@ namespace XTraderLite
         void InitTimer()
         {
             timer = new System.Timers.Timer();
-            timer.Interval = 2000;
+            timer.Interval = 1000;
             timer.Enabled = true;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
             timer.Start();
@@ -29,11 +31,30 @@ namespace XTraderLite
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            if (!timeGo) return;
 
-            logger.Info("do timer work");
+
+            if (ctrlKChart.Visible)
+            {
+
+                //盘口明细显示 根据Tab页实时请求更新
+                if (ctrlKChart.ShowDetailPanel)
+                {
+                    if (ctrlKChart.TabValue == 0)
+                    {
+                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlKChart.TabHigh);
+                        kChartUpdateRequest.TryAdd(reqId, this);
+                    }
+                    if (ctrlKChart.TabValue == 1)
+                    {
+                        MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
+                    }
+
+                }
+            }
             if (ctrlTickList.Visible)
             {
-                int reqId = MDService.DataAPI.QryTradeSplitData(_currentSymbol.Exchange, _currentSymbol.Symbol, 0, ctrlTickList.RowCount);//*ctrlTickList.ColumnCount);
+                int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlTickList.RowCount);//*ctrlTickList.ColumnCount);
                 tickListUpdateRequest.TryAdd(reqId, this);
 
             }

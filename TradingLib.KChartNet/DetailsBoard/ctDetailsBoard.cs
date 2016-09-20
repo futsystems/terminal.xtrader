@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TradingLib.MarketData;
+using Common.Logging;
 
 namespace CStock
 {
     public partial class ctDetailsBoard : UserControl
     {
+
+        ILog logger = LogManager.GetLogger("ctDetailsBoard");
         //盘口信息下面Tab面板
         string[] ws = { "笔", "价", "指", "配", "值" };
-        Panel[] PBox = new Panel[5];
+        Control[] PBox = new Control[5];
 
         Color mBackColor = Color.Black;
         Color mBoardColor = Color.Maroon;
@@ -43,7 +46,9 @@ namespace CStock
         
         int LineHeight = 18;//输出行高
 
-        MDSymbol FCurStock = null;
+        MDSymbol _FCurStock = null;
+
+        public MDSymbol Symbol { get { return _FCurStock; } }
 
         Label[] SellValue = new Label[10];
         Label[] SellVol = new Label[10];
@@ -54,7 +59,7 @@ namespace CStock
         Color volc = Color.FromArgb(192, 192, 0);
 
         //笔--列表
-        public List<Tick> FenBiList = new List<Tick>();
+        //public List<Tick> FenBiList = new List<Tick>();
 
         //价--列表
         //public SortedList<double,jia> jialist = new SortedList<double,jia>();
@@ -74,15 +79,19 @@ namespace CStock
         public ctDetailsBoard()
         {
             InitializeComponent();
+
+            this.DoubleBuffered = true;
             
             int i = 0;
 
+
+            
             DetailTabBox.BackColor = Color.Black;
             PBox[0] = pbox1;
-            PBox[1] = pbox2;
-            PBox[2] = pbox3;
-            PBox[3] = pbox4;
-            PBox[4] = pbox5;
+            PBox[1] = pbox2 as Control;
+            PBox[2] = pbox3 as Control;
+            PBox[3] = pbox4 as Control;
+            PBox[4] = pbox5 as Control;
             for (i = 0; i < 5; i++)
             {
                 PBox[i].BackColor = Color.Black;
@@ -213,7 +222,9 @@ namespace CStock
                 return;
             if (BuyValue[0] == null)
                 return;
-            FCurStock = symbol;
+            _FCurStock = symbol;
+
+            pbox1.Symbol = symbol;
 
             if (symbol.BlockType == "7")
             {
@@ -451,19 +462,28 @@ namespace CStock
         /// <param name="value"></param>
         /// <param name="vol"></param>
         /// <param name="tick"></param>
-        public void AddTick(int time, double value, int vol, int tick, int tickcount,bool update=false)
+        //public void AddTick(int time, double value, int vol, int tick, int tickcount,bool update=false)
+        //{
+        //    Tick tk = new Tick();
+        //    tk.time = time;
+        //    tk.value = value;
+        //    tk.vol = vol;
+        //    tk.tick = tick;
+        //    tk.tickcount = tickcount;
+        //    FenBiList.Add(tk);
+        //    if (update)
+        //    {
+        //        pbox1.Invalidate();
+        //    }
+        //}
+
+        public void AddTrade(TradeSplit trade,bool update)
         {
-            Tick tk = new Tick();
-            tk.time = time;
-            tk.value = value;
-            tk.vol = vol;
-            tk.tick = tick;
-            tk.tickcount = tickcount;
-            FenBiList.Add(tk);
-            if (update)
-            {
-                pbox1.Invalidate();
-            }
+            pbox1.AddTrade(trade, update);
+        }
+        public void AddTrade(List<TradeSplit> trades, bool update)
+        {
+            pbox1.AddTrade(trades, update);
         }
 
         /// <summary>
@@ -473,14 +493,13 @@ namespace CStock
         {
             get
             {
-                return (pbox1.Height - 2) / LineHeight;
+                return pbox1.RowCount;
             }
         }
 
         public void ClearFenbi()
         {
-            FenBiList.Clear();
-            pbox1.Invalidate();
+            pbox1.Clear();
         }
 
         public void ClearJia()
@@ -516,7 +535,8 @@ namespace CStock
             }
 
             JiaList.Clear();
-            FenBiList.Clear();
+            //FenBiList.Clear();
+            pbox1.Clear();
         }
         #endregion
 
@@ -635,136 +655,137 @@ namespace CStock
             }
         }
 
-        private void pbox1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics cv = e.Graphics;
-            Rectangle r1 = pbox1.ClientRectangle;
-            Brush br = new SolidBrush(Color.Black);
-            Pen p = new Pen(Color.Maroon);
-            cv.FillRectangle(br, r1);
-            br.Dispose();
-            p.Dispose();
+        //private void pbox1_Paint(object sender, PaintEventArgs e)
+        //{
+        //    logger.Info("paint .....");
+        //    Graphics cv = e.Graphics;
+        //    Rectangle r1 = pbox1.ClientRectangle;
+        //    Brush br = new SolidBrush(Color.Black);
+        //    Pen p = new Pen(Color.Maroon);
+        //    cv.FillRectangle(br, r1);
+        //    br.Dispose();
+        //    p.Dispose();
 
-            if (FenBiList.Count == 0)
-                return;
-            int i = 0;
-            int h = (pbox1.Height - 2) / LineHeight;
-            if (FenBiList.Count > h)
-                i = FenBiList.Count - h;
+        //    if (FenBiList.Count == 0)
+        //        return;
+        //    int i = 0;
+        //    int h = (pbox1.Height - 2) / LineHeight;
+        //    if (FenBiList.Count > h)
+        //        i = FenBiList.Count - h;
 
-            string ss;
-            int time = -1, jj = -1;
-            float lw;
-            SizeF si;
-            Tick tk = FenBiList[0];
-            System.Drawing.Font font = Constants.QuoteFont;
-            if (FCurStock.BlockType == "7")// tk.value > 300) //为指数
-            {
-                lw = (pbox1.Width - 52) / 2;
-                for (int j = i; j < FenBiList.Count; j++)
-                {
-                    tk = FenBiList[j];
-                    ss = "";
-                    if (time == -1)
-                    {
-                        jj = 1;
-                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-                        time = tk.time;
-                    }
-                    else
-                    {
-                        if (tk.time == time)
-                        {
-                            jj += 1;
-                            ss = string.Format(":{0:D2}", jj);
-                        }
+        //    string ss;
+        //    int time = -1, jj = -1;
+        //    float lw;
+        //    SizeF si;
+        //    Tick tk = FenBiList[0];
+        //    System.Drawing.Font font = Constants.QuoteFont;
+        //    if (FCurStock.BlockType == "7")// tk.value > 300) //为指数
+        //    {
+        //        lw = (pbox1.Width - 52) / 2;
+        //        for (int j = i; j < FenBiList.Count; j++)
+        //        {
+        //            tk = FenBiList[j];
+        //            ss = "";
+        //            if (time == -1)
+        //            {
+        //                jj = 1;
+        //                ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+        //                time = tk.time;
+        //            }
+        //            else
+        //            {
+        //                if (tk.time == time)
+        //                {
+        //                    jj += 1;
+        //                    ss = string.Format(":{0:D2}", jj);
+        //                }
 
-                        if (tk.time > time)// (tk.time - time) > 100)
-                        {
-                            jj = 1;
-                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-                            time = tk.time;
-                        }
-                    }
-                    r1.Y = (j - i) * LineHeight + 2;
-                    si = cv.MeasureString(ss, font);
-                    if (jj == 1)
-                        cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
-                    else
-                        cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
+        //                if (tk.time > time)// (tk.time - time) > 100)
+        //                {
+        //                    jj = 1;
+        //                    ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+        //                    time = tk.time;
+        //                }
+        //            }
+        //            r1.Y = (j - i) * LineHeight + 2;
+        //            si = cv.MeasureString(ss, font);
+        //            if (jj == 1)
+        //                cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
+        //            else
+        //                cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
 
-                    ss = string.Format("{0:F2}", tk.value);
-                    si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+        //            ss = string.Format("{0:F2}", tk.value);
+        //            si = cv.MeasureString(ss, font);
+        //            cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
 
-                    ss = string.Format("{0:D}", tk.vol);
-                    si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
-                }
-            }
-            else
-            {
-                lw = (pbox1.Width - 92) / 2;
-                for (int j = i; j < FenBiList.Count; j++)
-                {
-                    tk = FenBiList[j];
-                    ss = "";
-                    if (time == -1)
-                    {
-                        jj = 1;
-                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-                        time = tk.time;
-                    }
-                    else
-                    {
-                        if (tk.time == time)
-                        {
-                            jj += 1;
-                            ss = string.Format(":{0:D2}", jj);
-                        }
+        //            ss = string.Format("{0:D}", tk.vol);
+        //            si = cv.MeasureString(ss, font);
+        //            cv.DrawString(ss, font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        lw = (pbox1.Width - 92) / 2;
+        //        for (int j = i; j < FenBiList.Count; j++)
+        //        {
+        //            tk = FenBiList[j];
+        //            ss = "";
+        //            if (time == -1)
+        //            {
+        //                jj = 1;
+        //                ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+        //                time = tk.time;
+        //            }
+        //            else
+        //            {
+        //                if (tk.time == time)
+        //                {
+        //                    jj += 1;
+        //                    ss = string.Format(":{0:D2}", jj);
+        //                }
 
-                        if (tk.time > time)// (tk.time - time) > 100)
-                        {
-                            jj = 1;
-                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-                            time = tk.time;
-                        }
-                    }
-                    r1.Y = (j - i) * LineHeight + 2;
-                    si = cv.MeasureString(ss, font);
-                    if (jj == 1)
-                        cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width), r1.Top);
-                    else
-                        cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width - 1), r1.Top);
+        //                if (tk.time > time)// (tk.time - time) > 100)
+        //                {
+        //                    jj = 1;
+        //                    ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
+        //                    time = tk.time;
+        //                }
+        //            }
+        //            r1.Y = (j - i) * LineHeight + 2;
+        //            si = cv.MeasureString(ss, font);
+        //            if (jj == 1)
+        //                cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width), r1.Top);
+        //            else
+        //                cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width - 1), r1.Top);
 
-                    ss = string.Format("{0:F2}", tk.value);
-                    si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+        //            ss = string.Format("{0:F2}", tk.value);
+        //            si = cv.MeasureString(ss, font);
+        //            cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
 
-                    ss = string.Format("{0:D}", tk.vol);
-                    si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.Yellow, (int)(50 + 2 * lw - si.Width), r1.Top);
+        //            ss = string.Format("{0:D}", tk.vol);
+        //            si = cv.MeasureString(ss, font);
+        //            cv.DrawString(ss, font, Brushes.Yellow, (int)(50 + 2 * lw - si.Width), r1.Top);
 
-                    if (tk.tick == 1)
-                        ss = "B";
-                    else
-                        ss = "S";
-                    si = cv.MeasureString(ss, font);
-                    if (tk.tick == 1)
-                        cv.DrawString(ss, font, Brushes.Red, pbox1.Width - 40, r1.Top);
-                    else
-                        cv.DrawString(ss, font, Brushes.Lime, pbox1.Width - 40, r1.Top);
-                    ss = tk.tickcount.ToString();
-                    si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.Gray, pbox1.Width - si.Width, r1.Top);
-                }
-            }
-        }
+        //            if (tk.tick == 1)
+        //                ss = "B";
+        //            else
+        //                ss = "S";
+        //            si = cv.MeasureString(ss, font);
+        //            if (tk.tick == 1)
+        //                cv.DrawString(ss, font, Brushes.Red, pbox1.Width - 40, r1.Top);
+        //            else
+        //                cv.DrawString(ss, font, Brushes.Lime, pbox1.Width - 40, r1.Top);
+        //            ss = tk.tickcount.ToString();
+        //            si = cv.MeasureString(ss, font);
+        //            cv.DrawString(ss, font, Brushes.Gray, pbox1.Width - si.Width, r1.Top);
+        //        }
+        //    }
+        //}
 
-        private void pbox1_Resize(object sender, EventArgs e)
-        {
-            pbox1.Invalidate();
-        }
+        //private void pbox1_Resize(object sender, EventArgs e)
+        //{
+        //    pbox1.Invalidate();
+        //}
 
         #endregion
 
@@ -794,8 +815,8 @@ namespace CStock
             double pr = 0;
             //if (PreClose != NA)
             //    pr = PreClose;
-            if (FCurStock != null)
-                pr = FCurStock.PreClose;//.GP.YClose;
+            if (_FCurStock != null)
+                pr = _FCurStock.PreClose;//.GP.YClose;
 
             SizeF si;
             int maxvol = 1;

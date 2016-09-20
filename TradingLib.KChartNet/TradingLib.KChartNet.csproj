@@ -58,11 +58,21 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="XTrader.TraderCore">
+      <HintPath>..\TradingLib.TraderCore\bin\Debug\XTrader.TraderCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddFenLei.cs">
@@ -76,6 +86,12 @@
     </Compile>
     <Compile Include="AddString.Designer.cs">
       <DependentUpon>AddString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Canvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Canvas.Designer.cs">
+      <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
     <Compile Include="ChartPanel\ChartPanel_.cs" />
     <Compile Include="ChartPanel\ChartPanel_OnPaint.cs" />
@@ -97,6 +113,12 @@
     <Compile Include="Compile.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Common\delegates.cs" />
+    <Compile Include="DetailsBoard\ctrlTabTradeList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DetailsBoard\ctrlTabTradeList.Designer.cs">
+      <DependentUpon>ctrlTabTradeList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailsBoard\ctDetailsBoard.cs">
       <SubType>UserControl</SubType>
     </Compile>

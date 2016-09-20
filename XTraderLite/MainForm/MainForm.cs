@@ -31,7 +31,7 @@ namespace XTraderLite
             InitializeComponent();
             //将控件日志输出时间绑定到debug函数 用于输出到控件
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(debug);
-
+            this.DoubleBuffered = true;
             WireEvent();
 
             InitControls();

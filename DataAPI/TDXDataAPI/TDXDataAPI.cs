@@ -699,7 +699,7 @@ namespace DataAPI.TDX
             sb11.Market = (byte)(ushort)market;
             sb11.RequestId = this.NextRequestId;
             NewRequest(sb11);
-            logger.Info("put tradesplit request into Enqueue");
+            //logger.Info("put tradesplit request into Enqueue");
             return sb11.RequestId;
         }
 
@@ -768,7 +768,7 @@ namespace DataAPI.TDX
                 sb.Market = (byte)(ushort)market;
                 sb.RequestId = this.NextRequestId;
                 NewRequest(sb);
-                logger.Info("put minute request into Enqueue");
+                //logger.Info("put minute request into Enqueue");
                 return sb.RequestId;
             }
             else
@@ -788,7 +788,7 @@ namespace DataAPI.TDX
                 sb11.Market = (byte)(ushort)market;
                 //sb11.type = Convert.ToInt32(e.Date);
                 sb11.RequestId = this.NextRequestId;
-                NewRequest(sb11);
+                //NewRequest(sb11);
                 return sb11.RequestId;
             }
         }
@@ -1052,7 +1052,7 @@ namespace DataAPI.TDX
             SendList.Enqueue(request);
             if ((mainthread != null) && (mainthread.ThreadState == System.Threading.ThreadState.WaitSleepJoin))
             {
-                logger.Info("reset signal");
+                //logger.Info("reset signal");
                 _processWaiting.Set();
             }
         }
@@ -1085,7 +1085,7 @@ namespace DataAPI.TDX
                     {
                         _profiler.EnterSection("数据处理/含网络");
                         sb = (SendBuf)SendList.Dequeue();
-                        logger.Info("       process send request:" + sb.RequestId.ToString());
+                        //logger.Info("       process send request:" + sb.RequestId.ToString());
                         m_hSocket.Send(sb.Send, sb.Send.Length, SocketFlags.None);
                         //获取消息头
                         int Len = m_hSocket.Receive(DataHeader, 16, SocketFlags.None);
@@ -1148,11 +1148,11 @@ namespace DataAPI.TDX
                         }
                         sb.hd = head;
                         sb.Buffer = recvbuf;
-                        _profiler.EnterSection("数据处理");
+                        //_profiler.EnterSection("数据处理");
                         ProcessData(sb);
-                        _profiler.LeaveSection();
-                        logger.Info("       process request done:" + sb.RequestId.ToString());
-                        _profiler.LeaveSection();
+                        //_profiler.LeaveSection();
+                        //logger.Info("       process request done:" + sb.RequestId.ToString());
+                        //_profiler.LeaveSection();
                     }
                     //sr = this.BeginInvoke(DataCuLi, sb);//处理数据
                     //this.EndInvoke(sr);
@@ -1163,7 +1163,7 @@ namespace DataAPI.TDX
                     //}
                     //this.BeginInvoke(DataCuLi, sb);
 
-                    logger.Info("thread wait new request----------");
+                    //logger.Info("thread wait new request----------");
                     // clear current flag signal
                     _processWaiting.Reset();
 

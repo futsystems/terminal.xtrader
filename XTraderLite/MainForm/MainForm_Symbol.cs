@@ -62,7 +62,8 @@ namespace XTraderLite
             {
                 if (ctrlKChart.TabValue == 0)
                 {
-                    MDService.DataAPI.QryTradeSplitData(symbol.Exchange, symbol.Symbol, 0, ctrlKChart.TabHigh);
+                    int reqId = MDService.DataAPI.QryTradeSplitData(symbol.Exchange, symbol.Symbol, 0, ctrlKChart.TabHigh);
+                    kChartLoadTradeRequest.TryAdd(reqId, this);
                 }
                 if (ctrlKChart.TabValue == 1)
                 {
