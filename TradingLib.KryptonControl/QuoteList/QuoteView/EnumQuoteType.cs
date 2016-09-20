@@ -12,6 +12,10 @@ namespace TradingLib.KryptonControl
     public enum EnumQuoteListType
     {
         /// <summary>
+        /// 显示所有合约
+        /// </summary>
+        ALL,
+        /// <summary>
         /// 国内期货
         /// </summary>
         FUTURE_CN,

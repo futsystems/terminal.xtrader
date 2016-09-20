@@ -22,6 +22,20 @@ namespace TradingLib.KryptonControl
         {
             QuoteColumnConfigs tmp = null;
 
+            tmp = new QuoteColumnConfigs(EnumQuoteListType.ALL);
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 6));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 8));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BID, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BIDSIZE, 6));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.ASK, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.ASKSIZE, 6));
+
+            configMap.Add(EnumQuoteListType.ALL, tmp);
+
+
             tmp = new QuoteColumnConfigs(EnumQuoteListType.STOCK_CN);
             tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL,5));

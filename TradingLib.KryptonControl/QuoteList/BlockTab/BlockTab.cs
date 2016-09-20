@@ -44,7 +44,7 @@ namespace TradingLib.KryptonControl
                     return true;
                 })
                 
-                ,EnumQuoteListType.FUTURE_CN);
+                ,EnumQuoteListType.ALL);
            
         }
 
