@@ -117,6 +117,9 @@
     <Compile Include="MainForm\MainForm_SearchBox.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm\MainForm_Resize.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MyEdit.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -37,6 +37,8 @@ namespace TradingLib.KryptonControl
             scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
             scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
 
+           
+
         }
 
         void quotelist_SymbolVisibleChanged(object sender, SymbolVisibleChangeEventArgs e)

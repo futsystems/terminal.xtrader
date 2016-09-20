@@ -52,8 +52,8 @@ namespace XTraderLite
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
-            this.panelHolder.Width = this.Width - 1;
-
+            this.panelHolder.Width = this.Width - 2;
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
             _curView = ctrlQuoteList;//设置默认当前视图控件
 
             #region 设置频率切换按钮的Tag 并放入list方便访问
@@ -107,8 +107,9 @@ namespace XTraderLite
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
             this.SizeChanged += new EventHandler(MainForm_SizeChanged);
             this.Load += new EventHandler(MainForm_Load);
-
-            
+            //this.MouseDown += new MouseEventHandler(MainForm_MouseDown);
+            //this.MouseUp += new MouseEventHandler(MainForm_MouseUp);
+            //this.MouseMove += new MouseEventHandler(MainForm_MouseMove);
 
             MDService.EventHub.RegIEventHandler(this);
 
@@ -160,6 +161,10 @@ namespace XTraderLite
             menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
             
         }
+
+
+
+
 
 
 
@@ -222,10 +227,10 @@ namespace XTraderLite
             //}
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
-        }
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
+        //}
 
 
         #region 顶部Panel移动窗体
