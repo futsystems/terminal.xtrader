@@ -189,14 +189,10 @@ namespace TradingLib.KryptonControl
 
 
         MDSymbol _symbol = new MDSymbol();
-        public MDSymbol Symbol
+        public void SetSymbol(MDSymbol symbol)
         {
-            get { return _symbol; }
-
-            set {
-                _symbol = value;
-                this.Invalidate();
-            }
+            _symbol = symbol;
+            this.Invalidate();
         }
 
         protected override void OnSizeChanged(EventArgs e)

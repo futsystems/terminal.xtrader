@@ -187,10 +187,10 @@ namespace CStock
         /// </summary>
         /// <param name="value"></param>
         /// <param name="vol"></param>
-        public void AddPriceVol(double value, int vol,bool update=false)
+        public void AddPriceVol(List<PriceVolPair> pvs,bool update)
         {
             //调用控件执行操作
-            ctDetailsBoard1.AddJia(value, vol,update);
+            ctDetailsBoard1.AddPriceVol(pvs, update);
         }
 
 

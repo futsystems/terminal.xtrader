@@ -33,12 +33,19 @@ namespace XTraderLite
                     {
                         ViewTickList();
                         ctrlTickList.Clear();
-                        ctrlTickList.Symbol = CurrentKChartSymbol;
+                        ctrlTickList.SetSymbol(CurrentKChartSymbol);
                         int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, 2000);
                         tickListLoadRequest.TryAdd(reqId, ctrlTickList);
                     }
                     break;
                 case CStock.DetailBoardTabType.PriceDistribution:
+                    {
+                        ViewPriceVolList();
+                        ctrlPriceVolList.Clear();
+                        ctrlPriceVolList.SetSymbol(CurrentKChartSymbol);
+                        int reqId = MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
+                        priceVolLoadRequest.TryAdd(reqId, this);
+                    }
                     break;
                 default:
                     break;

@@ -63,9 +63,21 @@ namespace XTraderLite
             UpdateToolBarStatus();
         }
 
+        /// <summary>
+        /// 查看分笔明细
+        /// </summary>
         void ViewTickList()
         {
             SetViewType(EnumTraderViewType.TradeSplit);
+        }
+
+
+        /// <summary>
+        /// 查看粉价明细
+        /// </summary>
+        void ViewPriceVolList()
+        {
+            SetViewType(EnumTraderViewType.PriceVol);
         }
     }
 }

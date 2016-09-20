@@ -20,5 +20,10 @@ namespace XTraderLite
         /// 分笔明细
         /// </summary>
         TradeSplit=2,
+
+        /// <summary>
+        /// 分价明细
+        /// </summary>
+        PriceVol=3,
     }
 }

@@ -122,6 +122,12 @@
     <Compile Include="DetailsBoard\ctDetailsBoard.Designer.cs">
       <DependentUpon>ctDetailsBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetailsBoard\ctrlTabPriceVolList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DetailsBoard\ctrlTabPriceVolList.Designer.cs">
+      <DependentUpon>ctrlTabPriceVolList.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditFunc.cs">
       <SubType>Form</SubType>
     </Compile>

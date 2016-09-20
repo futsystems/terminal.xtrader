@@ -69,17 +69,17 @@ namespace TradingLib.KryptonControl
 
 
         MDSymbol symbol = null;
-        public MDSymbol Symbol
+        public void SetSymbol(MDSymbol sym)
         {
-            get { return symbol; }
-            set { symbol = value; }
+            symbol = sym;
         }
+
 
         int lineHeight = 18;
         List<TradeSplit> tradeList = new List<TradeSplit>();
         void ctrlTradeListTab_Paint(object sender, PaintEventArgs e)
         {
-            //logger.Info("paint .....");
+            logger.Info("paint .....");
             Graphics cv = e.Graphics;
             Rectangle r1 = this.ClientRectangle;
             Brush br = new SolidBrush(Color.Black);
@@ -101,7 +101,7 @@ namespace TradingLib.KryptonControl
             SizeF si;
             TradeSplit tk = tradeList[0];
             System.Drawing.Font font = Constants.QuoteFont;
-            if (Symbol.BlockType == "7")// tk.value > 300) //为指数
+            if (symbol.BlockType == "7")// tk.value > 300) //为指数
             {
                 lw = (this.Width - 52) / 2;
                 for (int j = i; j < tradeList.Count; j++)

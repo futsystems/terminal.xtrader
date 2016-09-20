@@ -95,15 +95,19 @@ namespace TradingLib.KryptonControl
             }
         }
 
+
         /// <summary>
         /// 设置合约数据集
         /// 通过板块按钮进行合约数据过滤
         /// </summary>
-        public IEnumerable<MDSymbol> Symbols
+        public void SetSymbols(IEnumerable<MDSymbol> symbols)
         {
-            get { return symbolMap; }
-            set { symbolMap = value; }
+            symbolMap = symbols;
         }
+        //{
+        //    get { return symbolMap; }
+        //    set { symbolMap = value; }
+        //}
 
 
         /// <summary>

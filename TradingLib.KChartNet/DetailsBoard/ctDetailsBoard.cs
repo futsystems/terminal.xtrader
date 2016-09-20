@@ -63,7 +63,7 @@ namespace CStock
 
         //价--列表
         //public SortedList<double,jia> jialist = new SortedList<double,jia>();
-        public List<jialist> JiaList = new List<jialist>();
+        //public List<jialist> JiaList = new List<jialist>();
 
         /// <summary>
         /// 合约标题
@@ -224,7 +224,7 @@ namespace CStock
                 return;
             _FCurStock = symbol;
 
-            pbox1.Symbol = symbol;
+            pbox1.SetSymbol(symbol);
 
             if (symbol.BlockType == "7")
             {
@@ -477,14 +477,6 @@ namespace CStock
         //    }
         //}
 
-        public void AddTrade(TradeSplit trade,bool update)
-        {
-            pbox1.AddTrade(trade, update);
-        }
-        public void AddTrade(List<TradeSplit> trades, bool update)
-        {
-            pbox1.AddTrade(trades, update);
-        }
 
         /// <summary>
         /// 返回分笔成交明细可显示行数
@@ -497,28 +489,34 @@ namespace CStock
             }
         }
 
+
+
+        public void AddTrade(TradeSplit trade,bool update)
+        {
+            pbox1.AddTrade(trade, update);
+        }
+        public void AddTrade(List<TradeSplit> trades, bool update)
+        {
+            pbox1.AddTrade(trades, update);
+        }
         public void ClearFenbi()
         {
             pbox1.Clear();
         }
 
+
+
+        public void AddPriceVol(List<PriceVolPair> pvs, bool update)
+        {
+            pbox2.AddPriceVol(pvs, update);
+        }
         public void ClearJia()
         {
-            JiaList.Clear();
-            pbox2.Invalidate();
+            pbox2.Clear();
         }
-        public void AddJia(double value, int vol,bool update=false)
-        {
+      
 
-            jialist tk = new jialist();
-            tk.value = value;
-            tk.vol = vol;
-            JiaList.Add(tk);
-            if (update)
-            {
-                pbox2.Invalidate();//是否可以考虑数据添加完毕后统一Invalidate
-            }
-        }
+
 
         public void ClearData()
         {
@@ -534,9 +532,11 @@ namespace CStock
                 }
             }
 
-            JiaList.Clear();
+            //JiaList.Clear();
+            
             //FenBiList.Clear();
             pbox1.Clear();
+            pbox2.Clear();
         }
         #endregion
 
@@ -642,11 +642,6 @@ namespace CStock
 
         #endregion
 
-
-
-
-
-        #region pbox1事件
         private void pbox1_DoubleClick(object sender, EventArgs e)
         {
             if (this.TabDoubleClick != null)
@@ -655,139 +650,6 @@ namespace CStock
             }
         }
 
-        //private void pbox1_Paint(object sender, PaintEventArgs e)
-        //{
-        //    logger.Info("paint .....");
-        //    Graphics cv = e.Graphics;
-        //    Rectangle r1 = pbox1.ClientRectangle;
-        //    Brush br = new SolidBrush(Color.Black);
-        //    Pen p = new Pen(Color.Maroon);
-        //    cv.FillRectangle(br, r1);
-        //    br.Dispose();
-        //    p.Dispose();
-
-        //    if (FenBiList.Count == 0)
-        //        return;
-        //    int i = 0;
-        //    int h = (pbox1.Height - 2) / LineHeight;
-        //    if (FenBiList.Count > h)
-        //        i = FenBiList.Count - h;
-
-        //    string ss;
-        //    int time = -1, jj = -1;
-        //    float lw;
-        //    SizeF si;
-        //    Tick tk = FenBiList[0];
-        //    System.Drawing.Font font = Constants.QuoteFont;
-        //    if (FCurStock.BlockType == "7")// tk.value > 300) //为指数
-        //    {
-        //        lw = (pbox1.Width - 52) / 2;
-        //        for (int j = i; j < FenBiList.Count; j++)
-        //        {
-        //            tk = FenBiList[j];
-        //            ss = "";
-        //            if (time == -1)
-        //            {
-        //                jj = 1;
-        //                ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-        //                time = tk.time;
-        //            }
-        //            else
-        //            {
-        //                if (tk.time == time)
-        //                {
-        //                    jj += 1;
-        //                    ss = string.Format(":{0:D2}", jj);
-        //                }
-
-        //                if (tk.time > time)// (tk.time - time) > 100)
-        //                {
-        //                    jj = 1;
-        //                    ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-        //                    time = tk.time;
-        //                }
-        //            }
-        //            r1.Y = (j - i) * LineHeight + 2;
-        //            si = cv.MeasureString(ss, font);
-        //            if (jj == 1)
-        //                cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width), r1.Top);
-        //            else
-        //                cv.DrawString(ss, font, Brushes.Gray, (int)(52 - si.Width - 1), r1.Top);
-
-        //            ss = string.Format("{0:F2}", tk.value);
-        //            si = cv.MeasureString(ss, font);
-        //            cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
-
-        //            ss = string.Format("{0:D}", tk.vol);
-        //            si = cv.MeasureString(ss, font);
-        //            cv.DrawString(ss, font, Brushes.YellowGreen, (int)(50 + 2 * lw - si.Width), r1.Top);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        lw = (pbox1.Width - 92) / 2;
-        //        for (int j = i; j < FenBiList.Count; j++)
-        //        {
-        //            tk = FenBiList[j];
-        //            ss = "";
-        //            if (time == -1)
-        //            {
-        //                jj = 1;
-        //                ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-        //                time = tk.time;
-        //            }
-        //            else
-        //            {
-        //                if (tk.time == time)
-        //                {
-        //                    jj += 1;
-        //                    ss = string.Format(":{0:D2}", jj);
-        //                }
-
-        //                if (tk.time > time)// (tk.time - time) > 100)
-        //                {
-        //                    jj = 1;
-        //                    ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.time / 100, tk.time % 100, jj);
-        //                    time = tk.time;
-        //                }
-        //            }
-        //            r1.Y = (j - i) * LineHeight + 2;
-        //            si = cv.MeasureString(ss, font);
-        //            if (jj == 1)
-        //                cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width), r1.Top);
-        //            else
-        //                cv.DrawString(ss, font, Brushes.White, (int)(52 - si.Width - 1), r1.Top);
-
-        //            ss = string.Format("{0:F2}", tk.value);
-        //            si = cv.MeasureString(ss, font);
-        //            cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
-
-        //            ss = string.Format("{0:D}", tk.vol);
-        //            si = cv.MeasureString(ss, font);
-        //            cv.DrawString(ss, font, Brushes.Yellow, (int)(50 + 2 * lw - si.Width), r1.Top);
-
-        //            if (tk.tick == 1)
-        //                ss = "B";
-        //            else
-        //                ss = "S";
-        //            si = cv.MeasureString(ss, font);
-        //            if (tk.tick == 1)
-        //                cv.DrawString(ss, font, Brushes.Red, pbox1.Width - 40, r1.Top);
-        //            else
-        //                cv.DrawString(ss, font, Brushes.Lime, pbox1.Width - 40, r1.Top);
-        //            ss = tk.tickcount.ToString();
-        //            si = cv.MeasureString(ss, font);
-        //            cv.DrawString(ss, font, Brushes.Gray, pbox1.Width - si.Width, r1.Top);
-        //        }
-        //    }
-        //}
-
-        //private void pbox1_Resize(object sender, EventArgs e)
-        //{
-        //    pbox1.Invalidate();
-        //}
-
-        #endregion
 
 
 
@@ -801,60 +663,60 @@ namespace CStock
             }
         }
 
-        private void pbox2_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics cv = e.Graphics;
-            Rectangle r1 = pbox2.ClientRectangle;
-            cv.FillRectangle(Brushes.Black, r1);
+        //private void pbox2_Paint(object sender, PaintEventArgs e)
+        //{
+        //    Graphics cv = e.Graphics;
+        //    Rectangle r1 = pbox2.ClientRectangle;
+        //    cv.FillRectangle(Brushes.Black, r1);
 
-            if (JiaList.Count == 0)
-                return;
+        //    if (JiaList.Count == 0)
+        //        return;
 
-            string ss;
-            float lw = (pbox2.Width - 52) / 2; ;
-            double pr = 0;
-            //if (PreClose != NA)
-            //    pr = PreClose;
-            if (_FCurStock != null)
-                pr = _FCurStock.PreClose;//.GP.YClose;
+        //    string ss;
+        //    float lw = (pbox2.Width - 52) / 2; ;
+        //    double pr = 0;
+        //    //if (PreClose != NA)
+        //    //    pr = PreClose;
+        //    if (_FCurStock != null)
+        //        pr = _FCurStock.PreClose;//.GP.YClose;
 
-            SizeF si;
-            int maxvol = 1;
-            for (int j = 0; j < JiaList.Count; j++)
-            {
-                jialist tk = JiaList[j];
-                if (tk.vol > maxvol)
-                    maxvol = tk.vol;
-            }
-            for (int j = JiaList.Count - 1; j > -1; j--)
-            {
-                jialist tk = JiaList[j];
-                r1.Y = (JiaList.Count - 1 - j) * LineHeight + 2;
+        //    SizeF si;
+        //    int maxvol = 1;
+        //    for (int j = 0; j < JiaList.Count; j++)
+        //    {
+        //        jialist tk = JiaList[j];
+        //        if (tk.vol > maxvol)
+        //            maxvol = tk.vol;
+        //    }
+        //    for (int j = JiaList.Count - 1; j > -1; j--)
+        //    {
+        //        jialist tk = JiaList[j];
+        //        r1.Y = (JiaList.Count - 1 - j) * LineHeight + 2;
 
-                ss = string.Format("{0:F2}", tk.value);
-                si = cv.MeasureString(ss, Constants.QuoteFont);
-                if (tk.value > pr)
-                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Red, (int)(50 - si.Width), r1.Top);
-                else
-                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Green, (int)(50 - si.Width), r1.Top);
+        //        ss = string.Format("{0:F2}", tk.value);
+        //        si = cv.MeasureString(ss, Constants.QuoteFont);
+        //        if (tk.value > pr)
+        //            cv.DrawString(ss, Constants.QuoteFont, Brushes.Red, (int)(50 - si.Width), r1.Top);
+        //        else
+        //            cv.DrawString(ss, Constants.QuoteFont, Brushes.Green, (int)(50 - si.Width), r1.Top);
 
-                ss = string.Format("{0:D}", tk.vol);
-                si = cv.MeasureString(ss, Constants.QuoteFont);
-                cv.DrawString(ss, Constants.QuoteFont, Brushes.Yellow, (int)(50 + 1 * lw - si.Width), r1.Top);
-                int ww = (int)(tk.vol * (lw - 4) / maxvol);
-                if (ww == 0)
-                    ww = 1;
-                cv.FillRectangle(Brushes.Aqua, (50 + lw + 2), r1.Top + 2, ww, LineHeight - 4);
+        //        ss = string.Format("{0:D}", tk.vol);
+        //        si = cv.MeasureString(ss, Constants.QuoteFont);
+        //        cv.DrawString(ss, Constants.QuoteFont, Brushes.Yellow, (int)(50 + 1 * lw - si.Width), r1.Top);
+        //        int ww = (int)(tk.vol * (lw - 4) / maxvol);
+        //        if (ww == 0)
+        //            ww = 1;
+        //        cv.FillRectangle(Brushes.Aqua, (50 + lw + 2), r1.Top + 2, ww, LineHeight - 4);
 
-                if (r1.Y + LineHeight > pbox2.Height)
-                    break;
-            }
-        }
+        //        if (r1.Y + LineHeight > pbox2.Height)
+        //            break;
+        //    }
+        //}
 
-        private void pbox2_Resize(object sender, EventArgs e)
-        {
-            pbox2.Invalidate();
-        }
+        //private void pbox2_Resize(object sender, EventArgs e)
+        //{
+        //    pbox2.Invalidate();
+        //}
         #endregion
 
 

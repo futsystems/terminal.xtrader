@@ -16,6 +16,12 @@ namespace XTraderLite
         void InitOtherView()
         {
             ctrlTickList.ExitView += new EventHandler(ctrlTickList_ExitView);
+            ctrlPriceVolList.ExitView += new EventHandler(ctrlPriceVolList_ExitView);
+        }
+
+        void ctrlPriceVolList_ExitView(object sender, EventArgs e)
+        {
+            ViewQuoteList();
         }
 
         void ctrlTickList_ExitView(object sender, EventArgs e)

@@ -91,11 +91,12 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
-            this.splitter = new System.Windows.Forms.Splitter();
-            this.panelBroker = new System.Windows.Forms.Panel();
+            this.ctrlPriceVolList = new TradingLib.KryptonControl.ctrlPriceVolList();
             this.ctrlTickList = new TradingLib.KryptonControl.ctrlTickList();
             this.ctrlKChart = new CStock.TStock();
             this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
+            this.splitter = new System.Windows.Forms.Splitter();
+            this.panelBroker = new System.Windows.Forms.Panel();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
             this.mainMenu.SuspendLayout();
             this.toolBar.SuspendLayout();
@@ -671,6 +672,7 @@
             // panelMarket
             // 
             this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
+            this.panelMarket.Controls.Add(this.ctrlPriceVolList);
             this.panelMarket.Controls.Add(this.ctrlTickList);
             this.panelMarket.Controls.Add(this.ctrlKChart);
             this.panelMarket.Controls.Add(this.ctrlQuoteList);
@@ -681,33 +683,20 @@
             this.panelMarket.Size = new System.Drawing.Size(1100, 368);
             this.panelMarket.TabIndex = 2;
             // 
-            // splitter
+            // ctrlPriceVolList
             // 
-            this.splitter.BackColor = System.Drawing.Color.Silver;
-            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter.Location = new System.Drawing.Point(0, 368);
-            this.splitter.MinExtra = 100;
-            this.splitter.MinSize = 260;
-            this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(1100, 2);
-            this.splitter.TabIndex = 1;
-            this.splitter.TabStop = false;
-            // 
-            // panelBroker
-            // 
-            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
-            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBroker.Location = new System.Drawing.Point(0, 370);
-            this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
-            this.panelBroker.TabIndex = 0;
+            this.ctrlPriceVolList.Location = new System.Drawing.Point(647, 30);
+            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
+            this.ctrlPriceVolList.Size = new System.Drawing.Size(223, 150);
+            this.ctrlPriceVolList.TabIndex = 5;
+            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
+            this.ctrlPriceVolList.Visible = false;
             // 
             // ctrlTickList
             // 
             this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
             this.ctrlTickList.Name = "ctrlTickList";
-            this.ctrlTickList.Size = new System.Drawing.Size(341, 150);
+            this.ctrlTickList.Size = new System.Drawing.Size(228, 150);
             this.ctrlTickList.TabIndex = 4;
             this.ctrlTickList.Text = "ctrlTickList1";
             this.ctrlTickList.Visible = false;
@@ -755,8 +744,29 @@
             this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
             this.ctrlQuoteList.Name = "ctrlQuoteList";
             this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlQuoteList.Symbols = ((System.Collections.Generic.IEnumerable<TradingLib.MarketData.MDSymbol>)(resources.GetObject("ctrlQuoteList.Symbols")));
             this.ctrlQuoteList.TabIndex = 1;
+            // 
+            // splitter
+            // 
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 368);
+            this.splitter.MinExtra = 100;
+            this.splitter.MinSize = 260;
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(1100, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
+            // 
+            // panelBroker
+            // 
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 370);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(1100, 260);
+            this.panelBroker.TabIndex = 0;
             // 
             // debugControl1
             // 
@@ -874,6 +884,7 @@
         private TradingLib.KryptonControl.ctrlQuoteList ctrlQuoteList;
         private System.Windows.Forms.ToolStrip toolBar;
         private TradingLib.KryptonControl.ctrlTickList ctrlTickList;
+        private TradingLib.KryptonControl.ctrlPriceVolList ctrlPriceVolList;
     }
 }
 

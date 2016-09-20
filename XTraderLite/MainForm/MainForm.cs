@@ -84,11 +84,13 @@ namespace XTraderLite
             viewList.Add(ctrlQuoteList);
             viewList.Add(ctrlKChart);
             viewList.Add(ctrlTickList);
+            viewList.Add(ctrlPriceVolList);
 
 
             ctrlKChart.Dock = DockStyle.Fill;
             ctrlQuoteList.Dock = DockStyle.Fill;
             ctrlTickList.Dock = DockStyle.Fill;
+            ctrlPriceVolList.Dock = DockStyle.Fill;
 
 
 
@@ -170,7 +172,7 @@ namespace XTraderLite
         /// </summary>
         public void OnInit()
         {
-            ctrlQuoteList.Symbols = MDService.DataAPI.Symbols;
+            ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
             ctrlQuoteList.SelectTab(0);
 
             MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);

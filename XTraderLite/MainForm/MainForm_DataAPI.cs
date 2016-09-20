@@ -19,6 +19,10 @@ namespace XTraderLite
 
         ConcurrentDictionary<int, object> kChartLoadTradeRequest = new ConcurrentDictionary<int, object>();
         ConcurrentDictionary<int, object> kChartUpdateRequest = new ConcurrentDictionary<int, object>();
+
+        ConcurrentDictionary<int, object> priceVolLoadRequest = new ConcurrentDictionary<int, object>();
+        ConcurrentDictionary<int, object> priceVolUpdateRequest = new ConcurrentDictionary<int, object>();
+
         void InitDataAPI()
         {
             //_dataAPI = new DataAPI.TDX.TDXDataAPI(new string[] {"218.85.137.40"},7709);
@@ -45,13 +49,18 @@ namespace XTraderLite
             }
             else
             {
-
-                int i = 0;
-                foreach (var v in arg1)
+                object target = null;
+                if (priceVolLoadRequest.TryGetValue(arg4, out target))
                 {
-                    i++;
-                    ctrlKChart.AddPriceVol(v.Price, v.Vol, i == arg1.Count);
+                    ctrlPriceVolList.BeginUpdate();
+                    ctrlPriceVolList.Clear();
+                    ctrlPriceVolList.Add(arg1);
+                    ctrlPriceVolList.EndUpdate();
+                    return;
                 }
+
+                ctrlKChart.ClearPriceVol();
+                ctrlKChart.AddPriceVol(arg1, true);
             }
         }
 
@@ -85,6 +94,7 @@ namespace XTraderLite
                     ctrlKChart.ClearTxnData();
                     ctrlKChart.AddTrade(arg1, true);
                 }
+
                 //分笔明细视图 查询
                 if (tickListLoadRequest.TryRemove(arg4, out target))
                 {
