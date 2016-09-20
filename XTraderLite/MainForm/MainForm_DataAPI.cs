@@ -20,8 +20,8 @@ namespace XTraderLite
         ConcurrentDictionary<int, object> kChartLoadTradeRequest = new ConcurrentDictionary<int, object>();
         ConcurrentDictionary<int, object> kChartUpdateRequest = new ConcurrentDictionary<int, object>();
 
-        ConcurrentDictionary<int, object> priceVolLoadRequest = new ConcurrentDictionary<int, object>();
-        ConcurrentDictionary<int, object> priceVolUpdateRequest = new ConcurrentDictionary<int, object>();
+        ConcurrentDictionary<int, object> priceVolListRequest = new ConcurrentDictionary<int, object>();
+        //ConcurrentDictionary<int, object> priceVolUpdateRequest = new ConcurrentDictionary<int, object>();
 
         void InitDataAPI()
         {
@@ -50,7 +50,7 @@ namespace XTraderLite
             else
             {
                 object target = null;
-                if (priceVolLoadRequest.TryGetValue(arg4, out target))
+                if (priceVolListRequest.TryGetValue(arg4, out target))
                 {
                     ctrlPriceVolList.BeginUpdate();
                     ctrlPriceVolList.Clear();

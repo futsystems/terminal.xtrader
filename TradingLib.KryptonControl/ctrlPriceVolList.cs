@@ -352,6 +352,7 @@ namespace TradingLib.KryptonControl
 
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
+            logger.Info("paint ............");
             Graphics g = e.Graphics;
             g.FillRectangle(Brushes.Black, this.ClientRectangle);
 

@@ -44,7 +44,7 @@ namespace XTraderLite
                         ctrlPriceVolList.Clear();
                         ctrlPriceVolList.SetSymbol(CurrentKChartSymbol);
                         int reqId = MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
-                        priceVolLoadRequest.TryAdd(reqId, this);
+                        priceVolListRequest.TryAdd(reqId, this);
                     }
                     break;
                 default:
