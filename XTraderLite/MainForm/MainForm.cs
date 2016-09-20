@@ -40,6 +40,8 @@ namespace XTraderLite
 
             InitKChart();
 
+            InitOtherView();
+
             InitDataAPI();
         }
 
@@ -87,6 +89,8 @@ namespace XTraderLite
             ctrlKChart.Dock = DockStyle.Fill;
             ctrlQuoteList.Dock = DockStyle.Fill;
             ctrlTickList.Dock = DockStyle.Fill;
+
+
 
         }
         void WireEvent()

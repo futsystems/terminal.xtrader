@@ -88,7 +88,7 @@ namespace XTraderLite
             //
             //logger.Info("client try to connec to:" + address + " port:" + port.ToString());
             MDService.InitDataAPI("TradingLib.MarketData.IMarketDataAPI");
-            MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
+            MDService.DataAPI.Connect(new string[] { "210.21.198.182" }, 7709);
 
         }
 
