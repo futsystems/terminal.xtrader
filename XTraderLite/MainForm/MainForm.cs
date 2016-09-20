@@ -220,6 +220,18 @@ namespace XTraderLite
 
         void MainForm_SizeChanged(object sender, EventArgs e)
         {
+            //调节标题logo位置
+            
+            if (this.Width < 250 + 75 + topHeader.Width + 50)
+            {
+                topHeader.Visible = false;
+            }
+            else
+            {
+                topHeader.Visible = true;
+                //250 菜单宽度 75 ControlBox宽度
+                topHeader.Location = new Point(250 + (this.Width - 250 - 75 - topHeader.Width) / 2, topHeader.Location.Y);
+            }
             //调节交易面板为最小值 如果移动的splitter则设置为当前值
             //if (!_splitterMoved)
             //{
