@@ -240,6 +240,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
+    <None Include="Resources\toolbar\F10.bmp" />
+    <None Include="Resources\toolbar\refresh.png" />
+    <None Include="Resources\toolbar\back.png" />
+    <None Include="Resources\toolbar\home.png" />
     <None Include="Resources\login.png" />
   </ItemGroup>
   <ItemGroup>

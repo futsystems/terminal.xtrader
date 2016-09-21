@@ -23,15 +23,37 @@ namespace XTraderLite
         ConcurrentDictionary<int, object> priceVolListRequest = new ConcurrentDictionary<int, object>();
         //ConcurrentDictionary<int, object> priceVolUpdateRequest = new ConcurrentDictionary<int, object>();
 
-        void InitDataAPI()
-        {
-            //_dataAPI = new DataAPI.TDX.TDXDataAPI(new string[] {"218.85.137.40"},7709);
-            //_dataAPI.OnConnected += new Action(_dataAPI_OnConnected);
-            //_dataAPI.OnDisconnectd += new Action(_dataAPI_OnDisconnectd);
-            //_dataAPI.OnLoginSuccess += new Action(_dataAPI_OnLoginSuccess);
-            //_dataAPI.OnLoginFail += new Action(_dataAPI_OnLoginFail);
+        //void InitDataAPI()
+        //{
+        //    //_dataAPI = new DataAPI.TDX.TDXDataAPI(new string[] {"218.85.137.40"},7709);
+        //    //_dataAPI.OnConnected += new Action(_dataAPI_OnConnected);
+        //    //_dataAPI.OnDisconnectd += new Action(_dataAPI_OnDisconnectd);
+        //    //_dataAPI.OnLoginSuccess += new Action(_dataAPI_OnLoginSuccess);
+        //    //_dataAPI.OnLoginFail += new Action(_dataAPI_OnLoginFail);
             
+        //}
+
+        /// <summary>
+        /// 绑定行情接口回调
+        /// </summary>
+        void BindDataAPICallBack()
+        {
+            MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
+            MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
+            MDService.DataAPI.OnRspQryTickSnapshot += new Action<List<MDSymbol>, RspInfo, int, int>(DataAPI_OnRspQryTickSnapshot);
+
+            //量价信息
+            MDService.DataAPI.OnRspQryPriceVolPair += new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair);
+            //分笔数据
+            MDService.DataAPI.OnRspQryTradeSplit += new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit);
+
+            //合约信息类别
+            MDService.DataAPI.OnRspQrySymbolInfoType += new Action<List<SymbolInfoType>, RspInfo, int, int>(DataAPI_OnRspQrySymbolInfoType);
+            //合约信息回报
+            MDService.DataAPI.OnRspQrySymbolInfo += new Action<string, RspInfo, int, int>(DataAPI_OnRspQrySymbolInfo);
         }
+
+
 
         /// <summary>
         /// 响应量价数据
@@ -237,6 +259,34 @@ namespace XTraderLite
 
 
         }
+
+
+        /// <summary>
+        /// 响应基本信息查询中的类别回报
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        /// <param name="arg4"></param>
+        void DataAPI_OnRspQrySymbolInfoType(List<SymbolInfoType> arg1, RspInfo arg2, int arg3, int arg4)
+        {
+            if (ctrlSymbolInfo.Visible)
+            {
+                ctrlSymbolInfo.BeginUpdate();
+                ctrlSymbolInfo.Clear();
+                ctrlSymbolInfo.AddType(arg1);
+                ctrlSymbolInfo.EndUpdate();
+            }
+        }
+
+        void DataAPI_OnRspQrySymbolInfo(string arg1, RspInfo arg2, int arg3, int arg4)
+        {
+            if (ctrlSymbolInfo.Visible)
+            {
+                ctrlSymbolInfo.SetInfo(arg1);
+            }
+        }
+
 
     }
 }

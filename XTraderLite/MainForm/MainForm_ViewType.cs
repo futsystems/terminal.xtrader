@@ -81,5 +81,13 @@ namespace XTraderLite
         {
             SetViewType(EnumTraderViewType.PriceVol);
         }
+
+        /// <summary>
+        /// 查看基础信息
+        /// </summary>
+        void ViewSymbolInfo()
+        {
+            SetViewType(EnumTraderViewType.BasicInfo);
+        }
     }
 }

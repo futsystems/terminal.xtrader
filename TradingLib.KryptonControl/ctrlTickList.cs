@@ -391,7 +391,7 @@ namespace TradingLib.KryptonControl
             colCnt = this.Width / _defaultColumnWidth;
             if (colCnt == 0)
             {
-                g.DrawString("控件太窄", UIConstant.QuoteFont, Brushes.Red, 10, 10);
+                g.DrawString("TickList", UIConstant.LableFont, Brushes.Yellow, 10, 10);
                 return;
             }
             int columnWidth = this.Width / colCnt;

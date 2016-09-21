@@ -32,19 +32,19 @@ namespace XTraderLite
             //将控件日志输出时间绑定到debug函数 用于输出到控件
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(debug);
             this.DoubleBuffered = true;
+
+            //绑定界面事件
             WireEvent();
-
+            //初始化控件
             InitControls();
-
+            //初始化报价列表
             InitQuoteList();
-
+            //初始化绘图控件
             InitKChart();
-
+            //初始化其他视图
             InitOtherView();
-
+            //初始化键盘精灵
             InitSearchBox();
-
-            InitDataAPI();
         }
 
        
@@ -90,12 +90,14 @@ namespace XTraderLite
             viewList.Add(ctrlKChart);
             viewList.Add(ctrlTickList);
             viewList.Add(ctrlPriceVolList);
+            viewList.Add(ctrlSymbolInfo);
 
 
             ctrlKChart.Dock = DockStyle.Fill;
             ctrlQuoteList.Dock = DockStyle.Fill;
             ctrlTickList.Dock = DockStyle.Fill;
             ctrlPriceVolList.Dock = DockStyle.Fill;
+            ctrlSymbolInfo.Dock = DockStyle.Fill;
 
 
 
@@ -107,9 +109,7 @@ namespace XTraderLite
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
             this.SizeChanged += new EventHandler(MainForm_SizeChanged);
             this.Load += new EventHandler(MainForm_Load);
-            //this.MouseDown += new MouseEventHandler(MainForm_MouseDown);
-            //this.MouseUp += new MouseEventHandler(MainForm_MouseUp);
-            //this.MouseMove += new MouseEventHandler(MainForm_MouseMove);
+
 
             MDService.EventHub.RegIEventHandler(this);
 
@@ -138,6 +138,9 @@ namespace XTraderLite
 
 
             //toolbar
+            btnBack.Click += new EventHandler(btnBack_Click);
+            btnHome.Click += new EventHandler(btnHome_Click);
+            btnRefresh.Click += new EventHandler(btnRefresh_Click);
             btnQuoteView.Click += new EventHandler(btnQuoteView_Click);
             btnIntraView.Click += new EventHandler(btnIntraView_Click);
             btnBarView.Click += new EventHandler(btnBarView_Click);
@@ -154,6 +157,7 @@ namespace XTraderLite
             btnFreqM60.Click += new EventHandler(btnFreq_Click);
 
             btnDrawBox.Click += new EventHandler(btnDrawBox_Click);
+            btnF10.Click += new EventHandler(btnF10_Click);
 
 
 
@@ -173,9 +177,16 @@ namespace XTraderLite
 
 
 
+
+
+
+
+
+
         void MainForm_Load(object sender, EventArgs e)
         {
-            SetViewType(EnumTraderViewType.QuoteList);
+            //初始视图为报价列表
+            ViewQuoteList();
         }
 
         /// <summary>
@@ -183,22 +194,20 @@ namespace XTraderLite
         /// </summary>
         public void OnInit()
         {
+
+            BindDataAPICallBack();
+
+
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
             ctrlQuoteList.SelectTab(0);
 
-            MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
-            MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
-            MDService.DataAPI.OnRspQryTickSnapshot += new Action<List<MDSymbol>, RspInfo, int, int>(DataAPI_OnRspQryTickSnapshot);
-
-            //量价信息
-            MDService.DataAPI.OnRspQryPriceVolPair += new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair);
-            //分笔数据
-            MDService.DataAPI.OnRspQryTradeSplit += new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit);
-
+            
 
             //启动定时任务
             InitTimer();
         }
+
+
 
 
 

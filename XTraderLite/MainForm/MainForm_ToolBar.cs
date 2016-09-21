@@ -91,7 +91,36 @@ namespace XTraderLite
 
 
 
-       
+        /// <summary>
+        /// 返回首页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnHome_Click(object sender, EventArgs e)
+        {
+            ViewQuoteList();
+        }
+
+        /// <summary>
+        /// 返回上一个视图
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnBack_Click(object sender, EventArgs e)
+        {
+            RollBackView();
+        }
+
+        /// <summary>
+        /// 刷新数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnRefresh_Click(object sender, EventArgs e)
+        {
+            logger.Info("refresh data");
+        }
+
 
         /// <summary>
         /// 查看报价列表
@@ -101,7 +130,6 @@ namespace XTraderLite
         void btnQuoteView_Click(object sender, EventArgs e)
         {
             ViewQuoteList();
-            
         }
 
         /// <summary>
@@ -169,5 +197,21 @@ namespace XTraderLite
                 btnDrawBox.Checked = !btnDrawBox.Checked;
             }
         }
+
+        /// <summary>
+        /// 查看F10资料
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnF10_Click(object sender, EventArgs e)
+        {
+            MDSymbol tmp = ctrlQuoteList.SymbolSelected;
+            if (tmp == null) return;
+
+            ViewSymbolInfo();
+            ctrlSymbolInfo.SetSymbol(tmp);
+            MDService.DataAPI.QrySymbolInfoType(tmp.Exchange, tmp.Symbol);
+        }
+
     }
 }

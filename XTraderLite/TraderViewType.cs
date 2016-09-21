@@ -25,5 +25,10 @@ namespace XTraderLite
         /// 分价明细
         /// </summary>
         PriceVol=3,
+
+        /// <summary>
+        /// 基础信息
+        /// </summary>
+        BasicInfo=4,
     }
 }

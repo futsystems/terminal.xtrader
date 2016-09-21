@@ -87,6 +87,17 @@ namespace DataAPI.TDX
         public event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQrySecurityBar;
 
 
+        /// <summary>
+        /// 查询基础信息类别回报
+        /// </summary>
+        public event Action<List<SymbolInfoType>, RspInfo, int, int> OnRspQrySymbolInfoType;
+
+        /// <summary>
+        /// 查询基础信息回报
+        /// </summary>
+        public event Action<string, RspInfo, int, int> OnRspQrySymbolInfo;
+
+
         Thread mainthread = null;
         Socket m_hSocket = null;
         bool keepalive = false;
@@ -792,6 +803,67 @@ namespace DataAPI.TDX
                 return sb11.RequestId;
             }
         }
+
+        /// <summary>
+        /// 查询合约信息类别
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        public int QrySymbolInfoType(string exchange, string symbol)
+        {
+            int market = GetMarketCode(exchange);
+            byte[] request = { 0xC, 0xF, 0x10, 0x9B, 0x0, 0x1, 0xE, 0x0, 0xE, 0x0, 0xCF, 0x2, 0x0, 0xFF, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x0, 0x0, 0x0, 0x0 };
+            request[13] = (byte)market;
+            Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 14);
+            SendBuf sb = new SendBuf();
+            sb.Send = request;
+            sb.Code = symbol;
+            sb.Market = (byte)(ushort)market;
+            sb.RequestId = this.NextRequestId;
+            NewRequest(sb);
+            return sb.RequestId;
+        }
+
+        /// <summary>
+        /// 查询合约信息
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        public int QrySymbolInfo(string exchange, string symbol,SymbolInfoType type)
+        {
+            int market = GetMarketCode(exchange);
+            byte[] request = {0xC, 0x7, 0x10, 0x9C, 0x0, 0x1, 0x68, 0x0, 0x68, 0x0, 0xD0, 0x2, 0x0, 0xFF, 0x31, 0x32,
+               0x33, 0x34, 0x35, 0x36, 0xAA, 0x0, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x2E, 0x74, 0x78, 0x74,
+               0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 
+               0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+               0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+               0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+               0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5, 0xD7, 0xD8, 0x0, 0x0, 0x0, 0x0, 0x0};
+            request[13] = (byte)market;
+            request[20] = (byte)type.TypeCode; //资料分类 -序号0~15
+            Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 14);
+            Encoding.GetEncoding("GB2312").GetBytes(symbol).CopyTo(request, 22);
+            byte[] tmp = BitConverter.GetBytes(type.Start);
+            request[102] = tmp[0];
+            request[103] = tmp[1];
+            request[104] = tmp[2];
+            request[105] = tmp[3];
+            byte[] tmp1 = BitConverter.GetBytes(type.Length);
+            request[106] = tmp1[0];
+            request[107] = tmp1[1];
+            request[108] = tmp1[2];
+            request[109] = tmp1[3];
+            SendBuf sb = new SendBuf();
+            sb.Send = request;
+            sb.Code = symbol;
+            sb.Market = (byte)(ushort)market;
+            sb.RequestId = this.NextRequestId;
+            NewRequest(sb);
+            return sb.RequestId;
+        }
+
 
         /// <summary>
         /// 查询历史分时
@@ -2096,36 +2168,50 @@ namespace DataAPI.TDX
                         #endregion
                         _profiler.LeaveSection();
 
-                    case 0x2cf:
-                        i = 0;
-                        n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
-                        //if (n > 0)
-                        //{
-                        //    i = 2;
-                        //    for (int j = 0; j < n; j++)
-                        //    {
-                        //        Array.Copy(RecvBuffer, i, name, 0, 8);
-                        //        i = i + 64;
-                        //        Array.Copy(RecvBuffer, i, code, 0, 6);
-                        //        i = i + 80;
-                        //        int start = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
-                        //        int Len = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
-                        //        names = System.Text.Encoding.GetEncoding("GB2312").GetString(name);
-                        //        codes = System.Text.Encoding.GetEncoding("GB2312").GetString(code);
-                        //        info[j].name = names;
-                        //        info[j].code = codes;
-                        //        info[j].start = start;
-                        //        info[j].len = Len;
-                        //        Binfo[j].Text = names;
-                        //    }
-                        //    bt1_Click(Binfo[0], null);
-                        //}
+                    case 0x2cf://F10资料类别
+                        {
+                            i = 0;
+                            n = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);
+                            List<SymbolInfoType> typelist = new List<SymbolInfoType>();
+                            if (n > 0)
+                            {
+                                i = 2;
+                                for (int j = 0; j < n; j++)
+                                {
+                                    Array.Copy(RecvBuffer, i, name, 0, 8);
+                                    i = i + 64;
+                                    Array.Copy(RecvBuffer, i, code, 0, 6);
+                                    i = i + 80;
+                                    int start = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
+                                    int len = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
+                                    names = System.Text.Encoding.GetEncoding("GB2312").GetString(name);
+                                    codes = System.Text.Encoding.GetEncoding("GB2312").GetString(code);
+                                    //info[j].name = names;
+                                    //info[j].code = codes;
+                                    //info[j].start = start;
+                                    //info[j].len = Len;
+                                    //Binfo[j].Text = names;
+                                    typelist.Add(new SymbolInfoType(codes, names, start, len,j));
+                                }
+
+                                if (OnRspQrySymbolInfoType != null)
+                                {
+                                    OnRspQrySymbolInfoType(typelist, null, n, sb.RequestId);
+                                }
+
+                                //bt1_Click(Binfo[0], null);
+                            }
+                        }
                         break;
-                    case 0x2d0:
+                    case 0x2d0://F10资料
                         int k = RecvBuffer.Length - 24;
-                        //byte[] txt = new byte[k];
-                        //Array.Copy(RecvBuffer, 24, txt, 0, k);
-                        //Info1.Text = System.Text.Encoding.GetEncoding("GB2312").GetString(txt);
+                        byte[] txt = new byte[k];
+                        Array.Copy(RecvBuffer, 24, txt, 0, k);
+                        string msg= System.Text.Encoding.GetEncoding("GB2312").GetString(txt);
+                        if (OnRspQrySymbolInfo != null)
+                        {
+                            OnRspQrySymbolInfo(msg, null, 1, sb.RequestId);
+                        }
                         break;
                 }
             }

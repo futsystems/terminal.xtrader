@@ -203,6 +203,12 @@
     <Compile Include="TraderHelper.cs" />
     <Compile Include="UIConstant.cs" />
     <Compile Include="ValueObject.cs" />
+    <Compile Include="ctrlSymbolInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ctrlSymbolInfo.Designer.cs">
+      <DependentUpon>ctrlSymbolInfo.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\DebugControl.resx">

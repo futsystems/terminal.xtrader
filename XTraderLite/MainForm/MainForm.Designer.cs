@@ -29,6 +29,42 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.toolBar = new System.Windows.Forms.ToolStrip();
+            this.btnBack = new System.Windows.Forms.ToolStripButton();
+            this.btnHome = new System.Windows.Forms.ToolStripButton();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnQuoteView = new System.Windows.Forms.ToolStripButton();
+            this.btnIntraView = new System.Windows.Forms.ToolStripButton();
+            this.btnBarView = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFreqDay = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqWeek = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqMonth = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqQuarter = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqYear = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFreqM1 = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqM5 = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqM15 = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqM30 = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqM60 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDrawBox = new System.Windows.Forms.ToolStripButton();
+            this.btnFormula = new System.Windows.Forms.ToolStripButton();
+            this.btnF10 = new System.Windows.Forms.ToolStripButton();
+            this.btnWatchList = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDemo1 = new System.Windows.Forms.ToolStripButton();
+            this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
+            this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
+            this.panelHolder = new System.Windows.Forms.Panel();
+            this.workPanel = new System.Windows.Forms.Panel();
+            this.panelMarket = new System.Windows.Forms.Panel();
+            this.splitter = new System.Windows.Forms.Splitter();
+            this.panelBroker = new System.Windows.Forms.Panel();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.panelMenu = new System.Windows.Forms.Panel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.连接服务器ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,68 +91,416 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.免责声明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolBar = new System.Windows.Forms.ToolStrip();
-            this.btnQuoteView = new System.Windows.Forms.ToolStripButton();
-            this.btnIntraView = new System.Windows.Forms.ToolStripButton();
-            this.btnBarView = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnFreqDay = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqWeek = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqMonth = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqQuarter = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqYear = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnFreqM1 = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqM5 = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqM15 = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqM30 = new System.Windows.Forms.ToolStripButton();
-            this.btnFreqM60 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnDrawBox = new System.Windows.Forms.ToolStripButton();
-            this.btnFormula = new System.Windows.Forms.ToolStripButton();
-            this.btnWatchList = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnDemo1 = new System.Windows.Forms.ToolStripButton();
-            this.btnDemo2 = new System.Windows.Forms.ToolStripButton();
-            this.btnDemo3 = new System.Windows.Forms.ToolStripButton();
-            this.bottomStatusPanel = new System.Windows.Forms.Panel();
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.panelMenu = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.topHeader = new System.Windows.Forms.Label();
             this.panelControlBox = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.btnMax = new System.Windows.Forms.PictureBox();
             this.btnMin = new System.Windows.Forms.PictureBox();
-            this.panelHolder = new System.Windows.Forms.Panel();
-            this.workPanel = new System.Windows.Forms.Panel();
-            this.panelMarket = new System.Windows.Forms.Panel();
+            this.bottomStatusPanel = new System.Windows.Forms.Panel();
             this.SearchBox = new System.Windows.Forms.Panel();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
-            this.splitter = new System.Windows.Forms.Splitter();
-            this.panelBroker = new System.Windows.Forms.Panel();
-            this.KeyCode = new MyEdit();
+            this.ctrlSymbolInfo = new TradingLib.KryptonControl.ctrlSymbolInfo();
             this.ctrlPriceVolList = new TradingLib.KryptonControl.ctrlPriceVolList();
             this.ctrlTickList = new TradingLib.KryptonControl.ctrlTickList();
-            this.ctrlKChart = new CStock.TStock();
             this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
             this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
-            this.mainMenu.SuspendLayout();
+            this.KeyCode = new MyEdit();
+            this.ctrlKChart = new CStock.TStock();
             this.toolBar.SuspendLayout();
+            this.panelHolder.SuspendLayout();
+            this.workPanel.SuspendLayout();
+            this.panelMarket.SuspendLayout();
+            this.panelBroker.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelMenu.SuspendLayout();
+            this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelControlBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
-            this.panelHolder.SuspendLayout();
-            this.workPanel.SuspendLayout();
-            this.panelMarket.SuspendLayout();
             this.SearchBox.SuspendLayout();
-            this.panelBroker.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolBar
+            // 
+            this.toolBar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnBack,
+            this.btnHome,
+            this.btnRefresh,
+            this.toolStripSeparator6,
+            this.btnQuoteView,
+            this.btnIntraView,
+            this.btnBarView,
+            this.toolStripSeparator3,
+            this.btnFreqDay,
+            this.btnFreqWeek,
+            this.btnFreqMonth,
+            this.btnFreqQuarter,
+            this.btnFreqYear,
+            this.toolStripSeparator4,
+            this.btnFreqM1,
+            this.btnFreqM5,
+            this.btnFreqM15,
+            this.btnFreqM30,
+            this.btnFreqM60,
+            this.toolStripSeparator5,
+            this.btnDrawBox,
+            this.btnFormula,
+            this.btnF10,
+            this.btnWatchList,
+            this.toolStripSeparator8,
+            this.btnDemo1,
+            this.btnDemo2,
+            this.btnDemo3});
+            this.toolBar.Location = new System.Drawing.Point(0, 0);
+            this.toolBar.Margin = new System.Windows.Forms.Padding(1);
+            this.toolBar.Name = "toolBar";
+            this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolBar.Size = new System.Drawing.Size(771, 25);
+            this.toolBar.TabIndex = 0;
+            // 
+            // btnBack
+            // 
+            this.btnBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnBack.Image = global::XTraderLite.Properties.Resources.back;
+            this.btnBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBack.Margin = new System.Windows.Forms.Padding(1);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(23, 23);
+            this.btnBack.Text = "报价";
+            // 
+            // btnHome
+            // 
+            this.btnHome.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnHome.Image = global::XTraderLite.Properties.Resources.home;
+            this.btnHome.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnHome.Margin = new System.Windows.Forms.Padding(1);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(23, 23);
+            this.btnHome.Text = "报价";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefresh.Image = global::XTraderLite.Properties.Resources.refresh;
+            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(1);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(23, 23);
+            this.btnRefresh.Text = "报价";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnQuoteView
+            // 
+            this.btnQuoteView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnQuoteView.Image = global::XTraderLite.Properties.Resources.tb_t_1;
+            this.btnQuoteView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnQuoteView.Margin = new System.Windows.Forms.Padding(1);
+            this.btnQuoteView.Name = "btnQuoteView";
+            this.btnQuoteView.Size = new System.Drawing.Size(23, 23);
+            this.btnQuoteView.Text = "报价";
+            // 
+            // btnIntraView
+            // 
+            this.btnIntraView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnIntraView.Image = global::XTraderLite.Properties.Resources.tb_t_2;
+            this.btnIntraView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnIntraView.Margin = new System.Windows.Forms.Padding(1);
+            this.btnIntraView.Name = "btnIntraView";
+            this.btnIntraView.Size = new System.Drawing.Size(23, 23);
+            this.btnIntraView.Text = "走势";
+            // 
+            // btnBarView
+            // 
+            this.btnBarView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnBarView.Image = global::XTraderLite.Properties.Resources.tb_t_3;
+            this.btnBarView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBarView.Margin = new System.Windows.Forms.Padding(1);
+            this.btnBarView.Name = "btnBarView";
+            this.btnBarView.Size = new System.Drawing.Size(23, 23);
+            this.btnBarView.Text = "K线";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnFreqDay
+            // 
+            this.btnFreqDay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqDay.Image = global::XTraderLite.Properties.Resources.tb_f_01;
+            this.btnFreqDay.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqDay.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqDay.Name = "btnFreqDay";
+            this.btnFreqDay.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqDay.Tag = "ConstFreq.Freq_Day";
+            this.btnFreqDay.Text = "日线图";
+            // 
+            // btnFreqWeek
+            // 
+            this.btnFreqWeek.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqWeek.Image = global::XTraderLite.Properties.Resources.tb_f_02;
+            this.btnFreqWeek.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqWeek.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqWeek.Name = "btnFreqWeek";
+            this.btnFreqWeek.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqWeek.Text = "周线图";
+            // 
+            // btnFreqMonth
+            // 
+            this.btnFreqMonth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqMonth.Image = global::XTraderLite.Properties.Resources.tb_f_03;
+            this.btnFreqMonth.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqMonth.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqMonth.Name = "btnFreqMonth";
+            this.btnFreqMonth.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqMonth.Text = "月线图";
+            // 
+            // btnFreqQuarter
+            // 
+            this.btnFreqQuarter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqQuarter.Image = global::XTraderLite.Properties.Resources.tb_f_04;
+            this.btnFreqQuarter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqQuarter.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqQuarter.Name = "btnFreqQuarter";
+            this.btnFreqQuarter.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqQuarter.Text = "季线图";
+            // 
+            // btnFreqYear
+            // 
+            this.btnFreqYear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqYear.Image = global::XTraderLite.Properties.Resources.tb_f_05;
+            this.btnFreqYear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqYear.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqYear.Name = "btnFreqYear";
+            this.btnFreqYear.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqYear.Text = "年线图";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnFreqM1
+            // 
+            this.btnFreqM1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqM1.Image = global::XTraderLite.Properties.Resources.tb_f_11;
+            this.btnFreqM1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqM1.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqM1.Name = "btnFreqM1";
+            this.btnFreqM1.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqM1.Text = "1分钟图";
+            // 
+            // btnFreqM5
+            // 
+            this.btnFreqM5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqM5.Image = global::XTraderLite.Properties.Resources.tb_f_12;
+            this.btnFreqM5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqM5.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqM5.Name = "btnFreqM5";
+            this.btnFreqM5.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqM5.Text = "5分钟图";
+            // 
+            // btnFreqM15
+            // 
+            this.btnFreqM15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqM15.Image = global::XTraderLite.Properties.Resources.tb_f_13;
+            this.btnFreqM15.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqM15.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqM15.Name = "btnFreqM15";
+            this.btnFreqM15.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqM15.Text = "15分钟图";
+            // 
+            // btnFreqM30
+            // 
+            this.btnFreqM30.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqM30.Image = global::XTraderLite.Properties.Resources.tb_f_14;
+            this.btnFreqM30.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqM30.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqM30.Name = "btnFreqM30";
+            this.btnFreqM30.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqM30.Text = "30分钟图";
+            // 
+            // btnFreqM60
+            // 
+            this.btnFreqM60.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqM60.Image = global::XTraderLite.Properties.Resources.tb_f_15;
+            this.btnFreqM60.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqM60.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFreqM60.Name = "btnFreqM60";
+            this.btnFreqM60.Size = new System.Drawing.Size(23, 23);
+            this.btnFreqM60.Text = "60分钟图";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnDrawBox
+            // 
+            this.btnDrawBox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDrawBox.Image = global::XTraderLite.Properties.Resources.tb_tool_1;
+            this.btnDrawBox.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDrawBox.Margin = new System.Windows.Forms.Padding(1);
+            this.btnDrawBox.Name = "btnDrawBox";
+            this.btnDrawBox.Size = new System.Drawing.Size(23, 23);
+            this.btnDrawBox.Text = "画线";
+            // 
+            // btnFormula
+            // 
+            this.btnFormula.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFormula.Image = global::XTraderLite.Properties.Resources.tb_tool_2;
+            this.btnFormula.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFormula.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFormula.Name = "btnFormula";
+            this.btnFormula.Size = new System.Drawing.Size(23, 23);
+            this.btnFormula.Text = "公式";
+            this.btnFormula.Visible = false;
+            // 
+            // btnF10
+            // 
+            this.btnF10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnF10.Image = global::XTraderLite.Properties.Resources.F10;
+            this.btnF10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnF10.Margin = new System.Windows.Forms.Padding(1);
+            this.btnF10.Name = "btnF10";
+            this.btnF10.Size = new System.Drawing.Size(23, 23);
+            this.btnF10.Text = "画线";
+            // 
+            // btnWatchList
+            // 
+            this.btnWatchList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnWatchList.Image = global::XTraderLite.Properties.Resources.tb_tool_3;
+            this.btnWatchList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnWatchList.Margin = new System.Windows.Forms.Padding(1);
+            this.btnWatchList.Name = "btnWatchList";
+            this.btnWatchList.Size = new System.Drawing.Size(23, 23);
+            this.btnWatchList.Text = "自选";
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnDemo1
+            // 
+            this.btnDemo1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDemo1.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo1.Image")));
+            this.btnDemo1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDemo1.Name = "btnDemo1";
+            this.btnDemo1.Size = new System.Drawing.Size(25, 22);
+            this.btnDemo1.Text = "D1";
+            // 
+            // btnDemo2
+            // 
+            this.btnDemo2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDemo2.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo2.Image")));
+            this.btnDemo2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDemo2.Name = "btnDemo2";
+            this.btnDemo2.Size = new System.Drawing.Size(25, 22);
+            this.btnDemo2.Text = "D2";
+            // 
+            // btnDemo3
+            // 
+            this.btnDemo3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDemo3.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo3.Image")));
+            this.btnDemo3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDemo3.Name = "btnDemo3";
+            this.btnDemo3.Size = new System.Drawing.Size(25, 22);
+            this.btnDemo3.Text = "D3";
+            // 
+            // panelHolder
+            // 
+            this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelHolder.BackColor = System.Drawing.Color.Black;
+            this.panelHolder.Controls.Add(this.workPanel);
+            this.panelHolder.Controls.Add(this.panelTop);
+            this.panelHolder.Controls.Add(this.bottomStatusPanel);
+            this.panelHolder.Location = new System.Drawing.Point(1, 1);
+            this.panelHolder.Name = "panelHolder";
+            this.panelHolder.Size = new System.Drawing.Size(771, 703);
+            this.panelHolder.TabIndex = 5;
+            // 
+            // workPanel
+            // 
+            this.workPanel.Controls.Add(this.panelMarket);
+            this.workPanel.Controls.Add(this.splitter);
+            this.workPanel.Controls.Add(this.panelBroker);
+            this.workPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.workPanel.Location = new System.Drawing.Point(0, 25);
+            this.workPanel.Name = "workPanel";
+            this.workPanel.Size = new System.Drawing.Size(771, 653);
+            this.workPanel.TabIndex = 5;
+            // 
+            // panelMarket
+            // 
+            this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
+            this.panelMarket.Controls.Add(this.ctrlSymbolInfo);
+            this.panelMarket.Controls.Add(this.ctrlPriceVolList);
+            this.panelMarket.Controls.Add(this.ctrlTickList);
+            this.panelMarket.Controls.Add(this.ctrlKChart);
+            this.panelMarket.Controls.Add(this.ctrlQuoteList);
+            this.panelMarket.Controls.Add(this.toolBar);
+            this.panelMarket.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMarket.Location = new System.Drawing.Point(0, 0);
+            this.panelMarket.Name = "panelMarket";
+            this.panelMarket.Size = new System.Drawing.Size(771, 391);
+            this.panelMarket.TabIndex = 2;
+            // 
+            // splitter
+            // 
+            this.splitter.BackColor = System.Drawing.Color.Silver;
+            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter.Location = new System.Drawing.Point(0, 391);
+            this.splitter.MinExtra = 100;
+            this.splitter.MinSize = 260;
+            this.splitter.Name = "splitter";
+            this.splitter.Size = new System.Drawing.Size(771, 2);
+            this.splitter.TabIndex = 1;
+            this.splitter.TabStop = false;
+            // 
+            // panelBroker
+            // 
+            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBroker.Controls.Add(this.debugControl1);
+            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBroker.Location = new System.Drawing.Point(0, 393);
+            this.panelBroker.Name = "panelBroker";
+            this.panelBroker.Size = new System.Drawing.Size(771, 260);
+            this.panelBroker.TabIndex = 0;
+            // 
+            // panelTop
+            // 
+            this.panelTop.BackgroundImage = global::XTraderLite.Properties.Resources.TopMenuBG;
+            this.panelTop.Controls.Add(this.panelMenu);
+            this.panelTop.Controls.Add(this.pictureBox1);
+            this.panelTop.Controls.Add(this.topHeader);
+            this.panelTop.Controls.Add(this.panelControlBox);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(771, 25);
+            this.panelTop.TabIndex = 4;
+            // 
+            // panelMenu
+            // 
+            this.panelMenu.BackColor = System.Drawing.Color.Transparent;
+            this.panelMenu.Controls.Add(this.mainMenu);
+            this.panelMenu.Location = new System.Drawing.Point(21, 0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(326, 25);
+            this.panelMenu.TabIndex = 5;
             // 
             // mainMenu
             // 
@@ -310,281 +694,6 @@
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
-            // toolBar
-            // 
-            this.toolBar.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnQuoteView,
-            this.btnIntraView,
-            this.btnBarView,
-            this.toolStripSeparator3,
-            this.btnFreqDay,
-            this.btnFreqWeek,
-            this.btnFreqMonth,
-            this.btnFreqQuarter,
-            this.btnFreqYear,
-            this.toolStripSeparator4,
-            this.btnFreqM1,
-            this.btnFreqM5,
-            this.btnFreqM15,
-            this.btnFreqM30,
-            this.btnFreqM60,
-            this.toolStripSeparator5,
-            this.btnDrawBox,
-            this.btnFormula,
-            this.btnWatchList,
-            this.toolStripSeparator8,
-            this.btnDemo1,
-            this.btnDemo2,
-            this.btnDemo3});
-            this.toolBar.Location = new System.Drawing.Point(0, 0);
-            this.toolBar.Margin = new System.Windows.Forms.Padding(1);
-            this.toolBar.Name = "toolBar";
-            this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolBar.Size = new System.Drawing.Size(771, 25);
-            this.toolBar.TabIndex = 0;
-            // 
-            // btnQuoteView
-            // 
-            this.btnQuoteView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnQuoteView.Image = global::XTraderLite.Properties.Resources.tb_t_1;
-            this.btnQuoteView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnQuoteView.Margin = new System.Windows.Forms.Padding(1);
-            this.btnQuoteView.Name = "btnQuoteView";
-            this.btnQuoteView.Size = new System.Drawing.Size(23, 23);
-            this.btnQuoteView.Text = "报价";
-            // 
-            // btnIntraView
-            // 
-            this.btnIntraView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnIntraView.Image = global::XTraderLite.Properties.Resources.tb_t_2;
-            this.btnIntraView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnIntraView.Margin = new System.Windows.Forms.Padding(1);
-            this.btnIntraView.Name = "btnIntraView";
-            this.btnIntraView.Size = new System.Drawing.Size(23, 23);
-            this.btnIntraView.Text = "走势";
-            // 
-            // btnBarView
-            // 
-            this.btnBarView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBarView.Image = global::XTraderLite.Properties.Resources.tb_t_3;
-            this.btnBarView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBarView.Margin = new System.Windows.Forms.Padding(1);
-            this.btnBarView.Name = "btnBarView";
-            this.btnBarView.Size = new System.Drawing.Size(23, 23);
-            this.btnBarView.Text = "K线";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // btnFreqDay
-            // 
-            this.btnFreqDay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqDay.Image = global::XTraderLite.Properties.Resources.tb_f_01;
-            this.btnFreqDay.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqDay.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqDay.Name = "btnFreqDay";
-            this.btnFreqDay.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqDay.Tag = "ConstFreq.Freq_Day";
-            this.btnFreqDay.Text = "日线图";
-            // 
-            // btnFreqWeek
-            // 
-            this.btnFreqWeek.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqWeek.Image = global::XTraderLite.Properties.Resources.tb_f_02;
-            this.btnFreqWeek.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqWeek.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqWeek.Name = "btnFreqWeek";
-            this.btnFreqWeek.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqWeek.Text = "周线图";
-            // 
-            // btnFreqMonth
-            // 
-            this.btnFreqMonth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqMonth.Image = global::XTraderLite.Properties.Resources.tb_f_03;
-            this.btnFreqMonth.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqMonth.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqMonth.Name = "btnFreqMonth";
-            this.btnFreqMonth.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqMonth.Text = "月线图";
-            // 
-            // btnFreqQuarter
-            // 
-            this.btnFreqQuarter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqQuarter.Image = global::XTraderLite.Properties.Resources.tb_f_04;
-            this.btnFreqQuarter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqQuarter.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqQuarter.Name = "btnFreqQuarter";
-            this.btnFreqQuarter.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqQuarter.Text = "季线图";
-            // 
-            // btnFreqYear
-            // 
-            this.btnFreqYear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqYear.Image = global::XTraderLite.Properties.Resources.tb_f_05;
-            this.btnFreqYear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqYear.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqYear.Name = "btnFreqYear";
-            this.btnFreqYear.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqYear.Text = "年线图";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // btnFreqM1
-            // 
-            this.btnFreqM1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqM1.Image = global::XTraderLite.Properties.Resources.tb_f_11;
-            this.btnFreqM1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqM1.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqM1.Name = "btnFreqM1";
-            this.btnFreqM1.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqM1.Text = "1分钟图";
-            // 
-            // btnFreqM5
-            // 
-            this.btnFreqM5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqM5.Image = global::XTraderLite.Properties.Resources.tb_f_12;
-            this.btnFreqM5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqM5.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqM5.Name = "btnFreqM5";
-            this.btnFreqM5.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqM5.Text = "5分钟图";
-            // 
-            // btnFreqM15
-            // 
-            this.btnFreqM15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqM15.Image = global::XTraderLite.Properties.Resources.tb_f_13;
-            this.btnFreqM15.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqM15.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqM15.Name = "btnFreqM15";
-            this.btnFreqM15.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqM15.Text = "15分钟图";
-            // 
-            // btnFreqM30
-            // 
-            this.btnFreqM30.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqM30.Image = global::XTraderLite.Properties.Resources.tb_f_14;
-            this.btnFreqM30.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqM30.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqM30.Name = "btnFreqM30";
-            this.btnFreqM30.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqM30.Text = "30分钟图";
-            // 
-            // btnFreqM60
-            // 
-            this.btnFreqM60.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFreqM60.Image = global::XTraderLite.Properties.Resources.tb_f_15;
-            this.btnFreqM60.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFreqM60.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFreqM60.Name = "btnFreqM60";
-            this.btnFreqM60.Size = new System.Drawing.Size(23, 23);
-            this.btnFreqM60.Text = "60分钟图";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // btnDrawBox
-            // 
-            this.btnDrawBox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDrawBox.Image = global::XTraderLite.Properties.Resources.tb_tool_1;
-            this.btnDrawBox.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDrawBox.Margin = new System.Windows.Forms.Padding(1);
-            this.btnDrawBox.Name = "btnDrawBox";
-            this.btnDrawBox.Size = new System.Drawing.Size(23, 23);
-            this.btnDrawBox.Text = "画线";
-            // 
-            // btnFormula
-            // 
-            this.btnFormula.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFormula.Image = global::XTraderLite.Properties.Resources.tb_tool_2;
-            this.btnFormula.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFormula.Margin = new System.Windows.Forms.Padding(1);
-            this.btnFormula.Name = "btnFormula";
-            this.btnFormula.Size = new System.Drawing.Size(23, 23);
-            this.btnFormula.Text = "公式";
-            // 
-            // btnWatchList
-            // 
-            this.btnWatchList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnWatchList.Image = global::XTraderLite.Properties.Resources.tb_tool_3;
-            this.btnWatchList.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnWatchList.Margin = new System.Windows.Forms.Padding(1);
-            this.btnWatchList.Name = "btnWatchList";
-            this.btnWatchList.Size = new System.Drawing.Size(23, 23);
-            this.btnWatchList.Text = "自选";
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
-            // 
-            // btnDemo1
-            // 
-            this.btnDemo1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDemo1.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo1.Image")));
-            this.btnDemo1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDemo1.Name = "btnDemo1";
-            this.btnDemo1.Size = new System.Drawing.Size(25, 22);
-            this.btnDemo1.Text = "D1";
-            // 
-            // btnDemo2
-            // 
-            this.btnDemo2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDemo2.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo2.Image")));
-            this.btnDemo2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDemo2.Name = "btnDemo2";
-            this.btnDemo2.Size = new System.Drawing.Size(25, 22);
-            this.btnDemo2.Text = "D2";
-            // 
-            // btnDemo3
-            // 
-            this.btnDemo3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDemo3.Image = ((System.Drawing.Image)(resources.GetObject("btnDemo3.Image")));
-            this.btnDemo3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDemo3.Name = "btnDemo3";
-            this.btnDemo3.Size = new System.Drawing.Size(25, 22);
-            this.btnDemo3.Text = "D3";
-            // 
-            // bottomStatusPanel
-            // 
-            this.bottomStatusPanel.BackgroundImage = global::XTraderLite.Properties.Resources.BottomStatusBG;
-            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 678);
-            this.bottomStatusPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.bottomStatusPanel.Name = "bottomStatusPanel";
-            this.bottomStatusPanel.Size = new System.Drawing.Size(771, 25);
-            this.bottomStatusPanel.TabIndex = 3;
-            // 
-            // panelTop
-            // 
-            this.panelTop.BackgroundImage = global::XTraderLite.Properties.Resources.TopMenuBG;
-            this.panelTop.Controls.Add(this.panelMenu);
-            this.panelTop.Controls.Add(this.pictureBox1);
-            this.panelTop.Controls.Add(this.topHeader);
-            this.panelTop.Controls.Add(this.panelControlBox);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(771, 25);
-            this.panelTop.TabIndex = 4;
-            // 
-            // panelMenu
-            // 
-            this.panelMenu.BackColor = System.Drawing.Color.Transparent;
-            this.panelMenu.Controls.Add(this.mainMenu);
-            this.panelMenu.Location = new System.Drawing.Point(21, 0);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(326, 25);
-            this.panelMenu.TabIndex = 5;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
@@ -649,44 +758,15 @@
             this.btnMin.TabIndex = 0;
             this.btnMin.TabStop = false;
             // 
-            // panelHolder
+            // bottomStatusPanel
             // 
-            this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelHolder.BackColor = System.Drawing.Color.Black;
-            this.panelHolder.Controls.Add(this.workPanel);
-            this.panelHolder.Controls.Add(this.panelTop);
-            this.panelHolder.Controls.Add(this.bottomStatusPanel);
-            this.panelHolder.Location = new System.Drawing.Point(1, 1);
-            this.panelHolder.Name = "panelHolder";
-            this.panelHolder.Size = new System.Drawing.Size(771, 703);
-            this.panelHolder.TabIndex = 5;
-            // 
-            // workPanel
-            // 
-            this.workPanel.Controls.Add(this.panelMarket);
-            this.workPanel.Controls.Add(this.splitter);
-            this.workPanel.Controls.Add(this.panelBroker);
-            this.workPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.workPanel.Location = new System.Drawing.Point(0, 25);
-            this.workPanel.Name = "workPanel";
-            this.workPanel.Size = new System.Drawing.Size(771, 653);
-            this.workPanel.TabIndex = 5;
-            // 
-            // panelMarket
-            // 
-            this.panelMarket.BackColor = System.Drawing.SystemColors.Control;
-            this.panelMarket.Controls.Add(this.ctrlPriceVolList);
-            this.panelMarket.Controls.Add(this.ctrlTickList);
-            this.panelMarket.Controls.Add(this.ctrlKChart);
-            this.panelMarket.Controls.Add(this.ctrlQuoteList);
-            this.panelMarket.Controls.Add(this.toolBar);
-            this.panelMarket.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMarket.Location = new System.Drawing.Point(0, 0);
-            this.panelMarket.Name = "panelMarket";
-            this.panelMarket.Size = new System.Drawing.Size(771, 391);
-            this.panelMarket.TabIndex = 2;
+            this.bottomStatusPanel.BackgroundImage = global::XTraderLite.Properties.Resources.BottomStatusBG;
+            this.bottomStatusPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomStatusPanel.Location = new System.Drawing.Point(0, 678);
+            this.bottomStatusPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.bottomStatusPanel.Name = "bottomStatusPanel";
+            this.bottomStatusPanel.Size = new System.Drawing.Size(771, 25);
+            this.bottomStatusPanel.TabIndex = 3;
             // 
             // SearchBox
             // 
@@ -719,34 +799,14 @@
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
             // 
-            // splitter
+            // ctrlSymbolInfo
             // 
-            this.splitter.BackColor = System.Drawing.Color.Silver;
-            this.splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter.Location = new System.Drawing.Point(0, 391);
-            this.splitter.MinExtra = 100;
-            this.splitter.MinSize = 260;
-            this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(771, 2);
-            this.splitter.TabIndex = 1;
-            this.splitter.TabStop = false;
-            // 
-            // panelBroker
-            // 
-            this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
-            this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBroker.Location = new System.Drawing.Point(0, 393);
-            this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(771, 260);
-            this.panelBroker.TabIndex = 0;
-            // 
-            // KeyCode
-            // 
-            this.KeyCode.Location = new System.Drawing.Point(4, 25);
-            this.KeyCode.Name = "KeyCode";
-            this.KeyCode.Size = new System.Drawing.Size(165, 21);
-            this.KeyCode.TabIndex = 3;
+            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
+            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
+            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
+            this.ctrlSymbolInfo.TabIndex = 6;
+            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
+            this.ctrlSymbolInfo.Visible = false;
             // 
             // ctrlPriceVolList
             // 
@@ -765,6 +825,32 @@
             this.ctrlTickList.TabIndex = 4;
             this.ctrlTickList.Text = "ctrlTickList1";
             this.ctrlTickList.Visible = false;
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlQuoteList.TabIndex = 1;
+            // 
+            // debugControl1
+            // 
+            this.debugControl1.EnableSearching = true;
+            this.debugControl1.ExternalTimeStamp = 0;
+            this.debugControl1.Location = new System.Drawing.Point(0, 0);
+            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.debugControl1.Name = "debugControl1";
+            this.debugControl1.Size = new System.Drawing.Size(261, 127);
+            this.debugControl1.TabIndex = 0;
+            this.debugControl1.TimeStamps = true;
+            this.debugControl1.UseExternalTimeStamp = false;
+            // 
+            // KeyCode
+            // 
+            this.KeyCode.Location = new System.Drawing.Point(4, 25);
+            this.KeyCode.Name = "KeyCode";
+            this.KeyCode.Size = new System.Drawing.Size(165, 21);
+            this.KeyCode.TabIndex = 3;
             // 
             // ctrlKChart
             // 
@@ -804,25 +890,6 @@
             this.ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
             this.ctrlKChart.Visible = false;
             // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlQuoteList.TabIndex = 1;
-            // 
-            // debugControl1
-            // 
-            this.debugControl1.EnableSearching = true;
-            this.debugControl1.ExternalTimeStamp = 0;
-            this.debugControl1.Location = new System.Drawing.Point(0, 0);
-            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.debugControl1.Name = "debugControl1";
-            this.debugControl1.Size = new System.Drawing.Size(261, 127);
-            this.debugControl1.TabIndex = 0;
-            this.debugControl1.TimeStamps = true;
-            this.debugControl1.UseExternalTimeStamp = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -836,26 +903,26 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.mainMenu.ResumeLayout(false);
-            this.mainMenu.PerformLayout();
             this.toolBar.ResumeLayout(false);
             this.toolBar.PerformLayout();
+            this.panelHolder.ResumeLayout(false);
+            this.workPanel.ResumeLayout(false);
+            this.panelMarket.ResumeLayout(false);
+            this.panelMarket.PerformLayout();
+            this.panelBroker.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelMenu.ResumeLayout(false);
             this.panelMenu.PerformLayout();
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelControlBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
-            this.panelHolder.ResumeLayout(false);
-            this.workPanel.ResumeLayout(false);
-            this.panelMarket.ResumeLayout(false);
-            this.panelMarket.PerformLayout();
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
-            this.panelBroker.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -935,6 +1002,12 @@
         private System.Windows.Forms.Panel KeyClose;
         private System.Windows.Forms.ListBox SymbolListBox;
         private MyEdit KeyCode;
+        private System.Windows.Forms.ToolStripButton btnBack;
+        private System.Windows.Forms.ToolStripButton btnRefresh;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton btnHome;
+        private System.Windows.Forms.ToolStripButton btnF10;
+        private TradingLib.KryptonControl.ctrlSymbolInfo ctrlSymbolInfo;
     }
 }
 
