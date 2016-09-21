@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.topImage = new System.Windows.Forms.PictureBox();
             this._msg = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -171,9 +172,10 @@
             this.ClientSize = new System.Drawing.Size(562, 372);
             this.Controls.Add(this.holder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LoginForm";
+            this.Text = "登入交易大师";
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
             this.holder.ResumeLayout(false);
             this.holder.PerformLayout();
