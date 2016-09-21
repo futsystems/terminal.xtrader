@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TradingLib.KryptonControl</RootNamespace>
-    <AssemblyName>TradingLib.KryptonControl</AssemblyName>
+    <AssemblyName>TradingLib.Xtrader.Control</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -62,18 +62,6 @@
     <Compile Include="Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
-    <Compile Include="ctrlPriceVolList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ctrlPriceVolList.Designer.cs">
-      <DependentUpon>ctrlPriceVolList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ctrlTickList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ctrlTickList.Designer.cs">
-      <DependentUpon>ctrlTickList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,12 +75,6 @@
       <DependentUpon>BlockTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\ControlLogFactoryAdapter.cs" />
-    <Compile Include="Control\DebugControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Control\DebugControl.designer.cs">
-      <DependentUpon>DebugControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="QuoteList\ctrlQuoteList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -203,17 +185,8 @@
     <Compile Include="TraderHelper.cs" />
     <Compile Include="UIConstant.cs" />
     <Compile Include="ValueObject.cs" />
-    <Compile Include="ctrlSymbolInfo.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ctrlSymbolInfo.Designer.cs">
-      <DependentUpon>ctrlSymbolInfo.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Control\DebugControl.resx">
-      <DependentUpon>DebugControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

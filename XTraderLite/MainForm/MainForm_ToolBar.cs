@@ -213,7 +213,7 @@ namespace XTraderLite
                 if (tmp == null) return;
             }
 
-            if (ctrlKChart.Visible)
+            else if (ctrlKChart.Visible)
             {
                 tmp = CurrentKChartSymbol;
                 if (tmp == null) return;

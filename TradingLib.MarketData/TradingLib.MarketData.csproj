@@ -48,6 +48,7 @@
     <Compile Include="Common\Finance.cs" />
     <Compile Include="Common\MinuteData.cs" />
     <Compile Include="Common\PowerData.cs" />
+    <Compile Include="Common\RingBuffer.cs" />
     <Compile Include="Common\SymbolInfoType.cs" />
     <Compile Include="Profiler\Profiler.cs" />
     <Compile Include="Profiler\SectionStackEntry.cs" />

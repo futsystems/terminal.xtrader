@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CStock</RootNamespace>
-    <AssemblyName>TradingLib.KChartNet</AssemblyName>
+    <AssemblyName>TradingLib.XTrader.Control</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -64,12 +64,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TradingLib.API">
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
-    </Reference>
-    <Reference Include="TradingLib.Common">
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddFenLei.cs">
@@ -102,6 +96,7 @@
       <DependentUpon>CheckPass.cs</DependentUpon>
     </Compile>
     <Compile Include="ClickStyle.cs" />
+    <Compile Include="Common\ControlLogFactoryAdapter.cs" />
     <Compile Include="Common\DetailBoardTabType.cs" />
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\FreqType.cs" />
@@ -110,6 +105,87 @@
     <Compile Include="Compile.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Common\delegates.cs" />
+    <Compile Include="Control\ctrlPriceVolList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlPriceVolList.Designer.cs">
+      <DependentUpon>ctrlPriceVolList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlSymbolInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlSymbolInfo.Designer.cs">
+      <DependentUpon>ctrlSymbolInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlTickList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlTickList.Designer.cs">
+      <DependentUpon>ctrlTickList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\DebugControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\DebugControl.Designer.cs">
+      <DependentUpon>DebugControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\BlockTab\BlockButton.cs" />
+    <Compile Include="Control\ctrlQuoteList\BlockTab\BlockTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\BlockTab\BlockTab.Designer.cs">
+      <DependentUpon>BlockTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\ctrlQuoteList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\ctrlQuoteList.Designer.cs">
+      <DependentUpon>ctrlQuoteList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\EventArgs.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\ColumnCfg.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\CursorType.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\EnumFileldType.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\EnumQuoteType.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\pu.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteCell.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteListConst.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteColumn.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_.StartEndIndex.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Config.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Data.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Keyboard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Mouse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Paint.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Property.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Utils.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\ViewQuoteList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\ViewQuoteList.Designer.cs">
+      <DependentUpon>ViewQuoteList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteRow.cs" />
+    <Compile Include="Control\ctrlQuoteList\QuoteView\Style.cs" />
     <Compile Include="DetailsBoard\ctrlTabTradeList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -266,6 +342,7 @@
       <DependentUpon>TStock.cs</DependentUpon>
     </Compile>
     <Compile Include="TStringList.cs" />
+    <Compile Include="UIConstant.cs" />
     <Compile Include="xline.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +356,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CheckPass.resx">
       <DependentUpon>CheckPass.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\DebugControl.resx">
+      <DependentUpon>DebugControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctrlQuoteList\ctrlQuoteList.resx">
+      <DependentUpon>ctrlQuoteList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctrlQuoteList\QuoteView\QuoteList\ViewQuoteList.resx">
+      <DependentUpon>ViewQuoteList.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailsBoard\ctDetailsBoard.resx">
