@@ -11,6 +11,7 @@ namespace TradingLib.XTrader.Control
         /// 报价面板
         /// </summary>
         QuoteList=0,
+
         /// <summary>
         /// K线绘图面板
         /// </summary>

@@ -22,7 +22,7 @@ namespace XTraderLite
 
         void btnDemo3_Click(object sender, EventArgs e)
         {
-          
+            UpdateConnImg(false);
         }
 
         void btnDemo2_Click(object sender, EventArgs e)

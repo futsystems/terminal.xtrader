@@ -105,6 +105,8 @@ namespace XTraderLite
             _logintime = DateTime.Now;
 
             MDService.DataAPI.Login("", "");
+
+            
             
         }
 
@@ -120,6 +122,8 @@ namespace XTraderLite
                 _loggedin = true;
                 _qrybasicinfo = true;
                 qrybasicinfoTime = DateTime.Now;
+
+                
             }
             else
             {

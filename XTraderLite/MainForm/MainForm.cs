@@ -107,6 +107,9 @@ namespace XTraderLite
 
 
 
+            UpdateTime();
+
+
         }
         void WireEvent()
         {
@@ -118,6 +121,9 @@ namespace XTraderLite
 
 
             MDService.EventHub.RegIEventHandler(this);
+            MDService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
+            MDService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
+            
 
 
 
@@ -173,6 +179,16 @@ namespace XTraderLite
             
         }
 
+        void EventHub_OnDisconnectedEvent()
+        {
+            UpdateConnImg(false);
+        }
+
+        void EventHub_OnConnectedEvent()
+        {
+            UpdateConnImg(true);
+        }
+
 
 
 
@@ -203,14 +219,14 @@ namespace XTraderLite
         /// </summary>
         public void OnInit()
         {
-
             BindDataAPICallBack();
 
             //数据完毕后 初始化报价面板并以第一个tab为默认视图
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
             ctrlQuoteList.SelectTab(0);
 
-            
+            //设置底部跑马灯
+            InitHightLight();
 
             //启动定时任务
             InitTimer();

@@ -106,6 +106,12 @@
     <Compile Include="Compile.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Common\delegates.cs" />
+    <Compile Include="Control\Canvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\Canvas.Designer.cs">
+      <DependentUpon>Canvas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\ctrlPriceVolList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -186,6 +192,12 @@
     </Compile>
     <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteRow.cs" />
     <Compile Include="Control\ctrlQuoteList\QuoteView\Style.cs" />
+    <Compile Include="Control\ctrlSymbolHighLight.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlSymbolHighLight.Designer.cs">
+      <DependentUpon>ctrlSymbolHighLight.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailsBoard\ctrlTabTradeList.cs">
       <SubType>Component</SubType>
     </Compile>

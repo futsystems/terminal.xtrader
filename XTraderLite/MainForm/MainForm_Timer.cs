@@ -63,6 +63,13 @@ namespace XTraderLite
                 int reqId = MDService.DataAPI.QryPriceVol(ctrlPriceVolList.Symbol.Exchange, ctrlPriceVolList.Symbol.Symbol);
                 priceVolListRequest.TryAdd(reqId, this);
             }
+
+
+            //查询实时行情
+            MDService.DataAPI.QryTickSnapshot(ctrlSymbolHighLight.Symbols.ToArray());
+
+
+            UpdateTime();
         }
 
 
