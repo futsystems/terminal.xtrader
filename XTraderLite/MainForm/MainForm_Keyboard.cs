@@ -72,6 +72,9 @@ namespace XTraderLite
                         //if (needset) SetKChartSymbol(tmp);
                     }
                     break;
+                case Keys.F10:
+                    btnF10_Click(null, null);
+                    break;
                 default:
                     break;
 

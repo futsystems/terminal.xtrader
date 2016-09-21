@@ -205,8 +205,19 @@ namespace XTraderLite
         /// <param name="e"></param>
         void btnF10_Click(object sender, EventArgs e)
         {
-            MDSymbol tmp = ctrlQuoteList.SymbolSelected;
-            if (tmp == null) return;
+            MDSymbol tmp = null;
+            //在报价页面 通过报价页面获得F10资料
+            if (ctrlQuoteList.Visible)
+            {
+                tmp = ctrlQuoteList.SymbolSelected;
+                if (tmp == null) return;
+            }
+
+            if (ctrlKChart.Visible)
+            {
+                tmp = CurrentKChartSymbol;
+                if (tmp == null) return;
+            }
 
             ViewSymbolInfo();
             ctrlSymbolInfo.SetSymbol(tmp);

@@ -319,6 +319,7 @@ namespace TradingLib.KryptonControl
         public void AddType(List<SymbolInfoType> types)
         {
             typeList.AddRange(types);
+            SelectType(1);
             if (!update)
             {
                 this.Invalidate();
