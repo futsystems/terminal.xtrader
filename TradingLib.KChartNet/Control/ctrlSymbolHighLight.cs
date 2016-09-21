@@ -99,7 +99,7 @@ namespace TradingLib.XTrader.Control
                 }
                 space += (int)g.MeasureString(h.Title, titleFont).Width;
                 t = string.Format("{0:F2}", h.Symbol.TickSnapshot.Price);
-                g.DrawString(t, priceFont, brush, space += 5, (this.Height - priceFont.Height) / 2);
+                g.DrawString(t, priceFont, brush, space += 5, (this.Height - titleFont.Height) / 2);
 
                 space += (int)g.MeasureString(t, titleFont).Width;
                 t = string.Format("{0:F2}", Math.Abs(h.Symbol.TickSnapshot.Price - h.Symbol.PreClose));

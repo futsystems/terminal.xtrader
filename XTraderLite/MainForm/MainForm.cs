@@ -212,6 +212,8 @@ namespace XTraderLite
         {
             //初始视图为报价列表
             ViewQuoteList();
+
+          
         }
 
         /// <summary>
@@ -273,11 +275,6 @@ namespace XTraderLite
             //}
         }
 
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
-        //}
-
 
         #region 顶部Panel移动窗体
         private bool m_isMouseDown = false;
@@ -319,35 +316,24 @@ namespace XTraderLite
         }
         #endregion
 
-
-
-
         #region 最大 最小 关闭操作
         void btnMin_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-            //this.btnMin.Enabled = false;
         }
 
         void btnMax_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (this.WindowState == FormWindowState.Maximized)
             {
-                WindowState = FormWindowState.Maximized;
-                //max11.Image = stock2.Properties.Resources.C2;
-
+                this.WindowState = FormWindowState.Normal;
             }
             else
             {
-                WindowState = FormWindowState.Normal;
-                //max11.Image = stock2.Properties.Resources.C3;
-               
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+                this.WindowState = FormWindowState.Maximized;
             }
-            
-            //this.max11.Enabled = false;
-            //this.max11.Enabled = true;
-
-           
         }
 
         void btnClose_Click(object sender, EventArgs e)
