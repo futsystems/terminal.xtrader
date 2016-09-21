@@ -450,9 +450,9 @@
             // 
             // panelHolder
             // 
-            this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panelHolder.BackColor = System.Drawing.Color.Black;
             this.panelHolder.Controls.Add(this.workPanel);
             this.panelHolder.Controls.Add(this.panelTop);
@@ -630,7 +630,7 @@
             this.帮助ToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(315, 24);
+            this.mainMenu.Size = new System.Drawing.Size(223, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -789,30 +789,30 @@
             // 使用说明ToolStripMenuItem
             // 
             this.使用说明ToolStripMenuItem.Name = "使用说明ToolStripMenuItem";
-            this.使用说明ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.使用说明ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.使用说明ToolStripMenuItem.Text = "使用说明";
             // 
             // menuShortCutKey
             // 
             this.menuShortCutKey.Name = "menuShortCutKey";
-            this.menuShortCutKey.Size = new System.Drawing.Size(152, 22);
+            this.menuShortCutKey.Size = new System.Drawing.Size(122, 22);
             this.menuShortCutKey.Text = "快捷键";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
             // 
             // menuRelief
             // 
             this.menuRelief.Name = "menuRelief";
-            this.menuRelief.Size = new System.Drawing.Size(152, 22);
+            this.menuRelief.Size = new System.Drawing.Size(122, 22);
             this.menuRelief.Text = "免责条款";
             // 
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
-            this.menuAbout.Size = new System.Drawing.Size(152, 22);
+            this.menuAbout.Size = new System.Drawing.Size(122, 22);
             this.menuAbout.Text = "关于";
             // 
             // pictureBox1
@@ -915,8 +915,8 @@
             // 
             // lbTime
             // 
-            this.lbTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTime.AutoSize = true;
             this.lbTime.BackColor = System.Drawing.Color.Transparent;
             this.lbTime.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -977,6 +977,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "交易大师";
             this.toolBar.ResumeLayout(false);
             this.toolBar.PerformLayout();
             this.panelHolder.ResumeLayout(false);

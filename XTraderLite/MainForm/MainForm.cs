@@ -278,16 +278,15 @@ namespace XTraderLite
 
         void Form_DoubleClick(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (this.WindowState == FormWindowState.Maximized)
             {
-                WindowState = FormWindowState.Maximized;
-                //max11.Image = stock2.Properties.Resources.C2;
-
+                this.WindowState = FormWindowState.Normal;
             }
             else
             {
-                WindowState = FormWindowState.Normal;
-                //max11.Image = stock2.Properties.Resources.C3;
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+                this.WindowState = FormWindowState.Maximized;
             }
         }
         #endregion
