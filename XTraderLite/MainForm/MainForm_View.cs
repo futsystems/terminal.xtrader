@@ -137,10 +137,14 @@ namespace XTraderLite
         /// <summary>
         /// 查看K线图
         /// </summary>
-        void ViewKChart()
+        void ViewKChart(MDSymbol symbol=null)
         {
-            MDSymbol tmp = GetAvabileSymbol();
-            if (tmp == null) return;
+            MDSymbol tmp = symbol;
+            if (tmp == null)
+            {
+                tmp = GetAvabileSymbol();
+                if (tmp == null) return;
+            }
 
             SetCurrentViewType(EnumViewType.KChart);
             SetKChartSymbol(tmp);

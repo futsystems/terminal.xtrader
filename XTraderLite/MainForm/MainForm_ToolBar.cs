@@ -170,6 +170,7 @@ namespace XTraderLite
             if (btn == null || !freqButtons.Any(b=>b==btn)) return;
             //设定当前频率
             _currentFreq = btn.Tag.ToString();
+            ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
             //设定当前显示视图
             ViewKChart();
         }
