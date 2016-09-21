@@ -8,20 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.MarketData;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
-    public class BlockTabClickEvent : EventArgs
-    {
-        public BlockButton TargtButton { get; set; }
-
-        public BlockTabClickEvent(BlockButton btn)
-        {
-            this.TargtButton = btn;
-        }
-    }
 
 
-    public partial class BlockTab : Control
+
+    public partial class BlockTab : System.Windows.Forms.Control
     {
 
         public event EventHandler<BlockTabClickEvent> BlockTabClick;
@@ -228,5 +220,15 @@ namespace TradingLib.KryptonControl
         //    //e.Graphics.FillRectangle(_brush, e.ClipRectangle);
         //}
         
+    }
+
+    public class BlockTabClickEvent : EventArgs
+    {
+        public BlockButton TargtButton { get; set; }
+
+        public BlockTabClickEvent(BlockButton btn)
+        {
+            this.TargtButton = btn;
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     //单元格样式 单元格背景色,字体颜色,字体等信息
     public class CellStyle

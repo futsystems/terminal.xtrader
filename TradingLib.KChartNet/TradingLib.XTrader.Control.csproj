@@ -8,7 +8,7 @@
     <ProjectGuid>{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CStock</RootNamespace>
+    <RootNamespace>TradingLib.XTrader</RootNamespace>
     <AssemblyName>TradingLib.XTrader.Control</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
@@ -78,6 +78,8 @@
     <Compile Include="AddString.Designer.cs">
       <DependentUpon>AddString.cs</DependentUpon>
     </Compile>
+    <Compile Include="API\IView.cs" />
+    <Compile Include="API\EnumViewType.cs" />
     <Compile Include="Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -147,7 +149,6 @@
     <Compile Include="Control\ctrlQuoteList\QuoteView\CursorType.cs" />
     <Compile Include="Control\ctrlQuoteList\QuoteView\EnumFileldType.cs" />
     <Compile Include="Control\ctrlQuoteList\QuoteView\EnumQuoteType.cs" />
-    <Compile Include="Control\ctrlQuoteList\QuoteView\pu.cs" />
     <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteCell.cs" />
     <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteListConst.cs" />
     <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteColumn.cs" />

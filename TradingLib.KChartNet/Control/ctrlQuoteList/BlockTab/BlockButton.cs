@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using TradingLib.MarketData;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     public class BlockButton
     {

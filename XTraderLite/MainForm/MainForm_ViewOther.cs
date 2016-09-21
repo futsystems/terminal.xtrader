@@ -25,11 +25,11 @@ namespace XTraderLite
             ctrlSymbolInfo.DoubleClick += new EventHandler(ctrlSymbolInfo_DoubleClick);
 
 
-            ctrlSymbolInfo.QrySymbolInfo += new EventHandler<TradingLib.KryptonControl.QrySymbolInfoArgs>(ctrlSymbolInfo_QrySymbolInfo);
+            ctrlSymbolInfo.QrySymbolInfo += new EventHandler<TradingLib.XTrader.Control.QrySymbolInfoArgs>(ctrlSymbolInfo_QrySymbolInfo);
         }
 
         //查询合约信息
-        void ctrlSymbolInfo_QrySymbolInfo(object sender, TradingLib.KryptonControl.QrySymbolInfoArgs e)
+        void ctrlSymbolInfo_QrySymbolInfo(object sender, TradingLib.XTrader.Control.QrySymbolInfoArgs e)
         {
             MDService.DataAPI.QrySymbolInfo(e.Symbol.Exchange, e.Symbol.Symbol, e.Type);
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     internal class QuoteListConst
     {

@@ -6,7 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     //绘制的一个单元格
     public class QuoteCell

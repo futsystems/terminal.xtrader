@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using TradingLib.XTrader.Control;
 
 namespace XTraderLite
 {
@@ -16,7 +17,7 @@ namespace XTraderLite
         List<Control> viewList = new List<Control>();
 
         Control _curView = null;
-        void SetViewType(EnumTraderViewType type)
+        void SetViewType(EnumViewType type)
         {
             int index = (int)type;
             if (viewList[index].Visible) return;
@@ -33,7 +34,7 @@ namespace XTraderLite
         /// </summary>
         void ViewQuoteList()
         {
-            SetViewType(EnumTraderViewType.QuoteList);
+            SetViewType(EnumViewType.QuoteList);
             ctrlQuoteList.Focus();
             UpdateToolBarStatus();
         }
@@ -43,10 +44,10 @@ namespace XTraderLite
         /// </summary>
         void ViewBarChart()
         {
-            SetViewType(EnumTraderViewType.KChart);
+            SetViewType(EnumViewType.KChart);
             if (ctrlKChart.IsIntraView)
             {
-                ctrlKChart.ViewType = CStock.KChartViewType.KView;
+                ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
             }
             UpdateToolBarStatus();
         }
@@ -57,10 +58,10 @@ namespace XTraderLite
         /// </summary>
         void ViewIntraChart()
         {
-            SetViewType(EnumTraderViewType.KChart);
+            SetViewType(EnumViewType.KChart);
             if (ctrlKChart.IsBarView)
             {
-                ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
+                ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
             }
             UpdateToolBarStatus();
         }
@@ -70,7 +71,7 @@ namespace XTraderLite
         /// </summary>
         void ViewTickList()
         {
-            SetViewType(EnumTraderViewType.TradeSplit);
+            SetViewType(EnumViewType.TradeSplit);
         }
 
 
@@ -79,7 +80,7 @@ namespace XTraderLite
         /// </summary>
         void ViewPriceVolList()
         {
-            SetViewType(EnumTraderViewType.PriceVol);
+            SetViewType(EnumViewType.PriceVol);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace XTraderLite
         /// </summary>
         void ViewSymbolInfo()
         {
-            SetViewType(EnumTraderViewType.BasicInfo);
+            SetViewType(EnumViewType.BasicInfo);
         }
     }
 }

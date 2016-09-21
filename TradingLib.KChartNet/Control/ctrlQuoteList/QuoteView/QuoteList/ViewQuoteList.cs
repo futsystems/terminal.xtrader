@@ -11,7 +11,7 @@ using Common.Logging;
 using TradingLib.MarketData;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
 
     public class QuoteViewChangedArgs:EventArgs

@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Control
 {
     partial class ctrlPriceVolList
     {

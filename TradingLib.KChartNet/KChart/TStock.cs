@@ -11,13 +11,16 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using Common.Logging;
 using TradingLib.MarketData;
+using TradingLib.XTrader.Control;
 
 namespace CStock
 {
-    public partial class TStock : UserControl
+    public partial class TStock : UserControl,IView
     {
         ILog logger = LogManager.GetLogger("KChart");
+        EnumViewType vietype = EnumViewType.KChart;
 
+        public EnumViewType ViewType { get { return vietype; } }
         
 
         void D(string msg)

@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Control
 {
     partial class ctrlQuoteList
     {
@@ -32,8 +32,8 @@
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.scrollBar = new System.Windows.Forms.VScrollBar();
             this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.quotelist = new TradingLib.KryptonControl.ViewQuoteList();
-            this.blockTab = new TradingLib.KryptonControl.BlockTab();
+            this.quotelist = new TradingLib.XTrader.Control.ViewQuoteList();
+            this.blockTab = new TradingLib.XTrader.Control.BlockTab();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blockPanel)).BeginInit();
@@ -83,7 +83,7 @@
             this.quotelist.QuoteBackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.quotelist.QuoteBackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.quotelist.QuoteFont = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quotelist.QuoteType = TradingLib.KryptonControl.EnumQuoteListType.STOCK_CN;
+            this.quotelist.QuoteType = TradingLib.XTrader.Control.EnumQuoteListType.STOCK_CN;
             this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
             this.quotelist.Size = new System.Drawing.Size(924, 408);
             this.quotelist.StartIndex = -19;
@@ -125,7 +125,7 @@
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private System.Windows.Forms.VScrollBar scrollBar;
-        private TradingLib.KryptonControl.ViewQuoteList quotelist;
+        private TradingLib.XTrader.Control.ViewQuoteList quotelist;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel blockPanel;
         private BlockTab blockTab;
 

@@ -262,7 +262,7 @@
             // 
             // button8
             // 
-            this.button8.BackgroundImage = global::CStock.Properties.Resources.button12;
+            this.button8.BackgroundImage = global::TradingLib.XTrader.Properties.Resources.button12;
             this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button8.Location = new System.Drawing.Point(212, 97);
@@ -275,7 +275,7 @@
             // 
             // button7
             // 
-            this.button7.BackgroundImage = global::CStock.Properties.Resources.button12;
+            this.button7.BackgroundImage = global::TradingLib.XTrader.Properties.Resources.button12;
             this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Location = new System.Drawing.Point(277, 97);
@@ -288,7 +288,7 @@
             // 
             // button6
             // 
-            this.button6.BackgroundImage = global::CStock.Properties.Resources.button12;
+            this.button6.BackgroundImage = global::TradingLib.XTrader.Properties.Resources.button12;
             this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button6.Enabled = false;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -303,7 +303,7 @@
             // 
             // button5
             // 
-            this.button5.BackgroundImage = global::CStock.Properties.Resources.button12;
+            this.button5.BackgroundImage = global::TradingLib.XTrader.Properties.Resources.button12;
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.Location = new System.Drawing.Point(71, 97);
@@ -316,7 +316,7 @@
             // 
             // button4
             // 
-            this.button4.BackgroundImage = global::CStock.Properties.Resources.button12;
+            this.button4.BackgroundImage = global::TradingLib.XTrader.Properties.Resources.button12;
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Location = new System.Drawing.Point(4, 97);
@@ -2120,7 +2120,7 @@
             // 
             // button1
             // 
-            this.button1.BackgroundImage = global::CStock.Properties.Resources.button12;
+            this.button1.BackgroundImage = global::TradingLib.XTrader.Properties.Resources.button12;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Location = new System.Drawing.Point(677, 3);

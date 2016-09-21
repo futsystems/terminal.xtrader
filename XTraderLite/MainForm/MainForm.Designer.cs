@@ -101,11 +101,11 @@
             this.SearchBox = new System.Windows.Forms.Panel();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
-            this.ctrlSymbolInfo = new TradingLib.KryptonControl.ctrlSymbolInfo();
-            this.ctrlPriceVolList = new TradingLib.KryptonControl.ctrlPriceVolList();
-            this.ctrlTickList = new TradingLib.KryptonControl.ctrlTickList();
-            this.ctrlQuoteList = new TradingLib.KryptonControl.ctrlQuoteList();
-            this.debugControl1 = new TradingLib.KryptonControl.DebugControl();
+            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
+            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
+            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
+            this.debugControl1 = new TradingLib.XTrader.Control.DebugControl();
             this.KeyCode = new MyEdit();
             this.ctrlKChart = new CStock.TStock();
             this.toolBar.SuspendLayout();
@@ -887,7 +887,7 @@
             this.ctrlKChart.TabIndex = 2;
             this.ctrlKChart.Train = false;
             this.ctrlKChart.TrainEnd = 0;
-            this.ctrlKChart.ViewType = CStock.KChartViewType.TimeView;
+            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
             this.ctrlKChart.Visible = false;
             // 
             // MainForm
@@ -968,7 +968,7 @@
         private System.Windows.Forms.ToolStripButton btnWatchList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton btnDemo3;
-        private TradingLib.KryptonControl.DebugControl debugControl1;
+        private TradingLib.XTrader.Control.DebugControl debugControl1;
         private System.Windows.Forms.ToolStripButton btnDemo1;
         private System.Windows.Forms.ToolStripButton btnDemo2;
         private CStock.TStock ctrlKChart;
@@ -994,10 +994,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem 退出系统ToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private TradingLib.KryptonControl.ctrlQuoteList ctrlQuoteList;
+        private TradingLib.XTrader.Control.ctrlQuoteList ctrlQuoteList;
         private System.Windows.Forms.ToolStrip toolBar;
-        private TradingLib.KryptonControl.ctrlTickList ctrlTickList;
-        private TradingLib.KryptonControl.ctrlPriceVolList ctrlPriceVolList;
+        private TradingLib.XTrader.Control.ctrlTickList ctrlTickList;
+        private TradingLib.XTrader.Control.ctrlPriceVolList ctrlPriceVolList;
         private System.Windows.Forms.Panel SearchBox;
         private System.Windows.Forms.Panel KeyClose;
         private System.Windows.Forms.ListBox SymbolListBox;
@@ -1007,7 +1007,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton btnHome;
         private System.Windows.Forms.ToolStripButton btnF10;
-        private TradingLib.KryptonControl.ctrlSymbolInfo ctrlSymbolInfo;
+        private TradingLib.XTrader.Control.ctrlSymbolInfo ctrlSymbolInfo;
     }
 }
 

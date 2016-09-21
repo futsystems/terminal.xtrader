@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XTraderLite
+namespace TradingLib.XTrader.Control
 {
-    public enum EnumTraderViewType
+    public enum EnumViewType
     {
         /// <summary>
         /// 报价面板

@@ -9,10 +9,16 @@ using System.Windows.Forms;
 using Common.Logging;
 using TradingLib.MarketData;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
-    public partial class ctrlQuoteList : UserControl
+    public partial class ctrlQuoteList : UserControl,IView
     {
+
+        EnumViewType vietype = EnumViewType.QuoteList;
+
+        public EnumViewType ViewType { get { return vietype; } }
+
+
         string[] cmd = { "中金所", "大商所" ,"上海证券交易所"};
         IEnumerable<MDSymbol> symbolMap = new List<MDSymbol>();
         ILog logger = LogManager.GetLogger("Quote");

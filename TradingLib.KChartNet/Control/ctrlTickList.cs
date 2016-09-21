@@ -9,18 +9,23 @@ using System.Drawing;
 using TradingLib.MarketData;
 using Common.Logging;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     /// <summary>
     /// 通过Panel绘制以及Control控件直接绘制 比较发现原生控件效率高
     /// </summary>
-    public partial class ctrlTickList : System.Windows.Forms.Control
+    public partial class ctrlTickList : System.Windows.Forms.Control,IView
     {
+
+        EnumViewType vietype = EnumViewType.TradeSplit;
+
+        public EnumViewType ViewType { get { return vietype; } }
 
         ILog logger = LogManager.GetLogger("ctrlTickList");
         public event EventHandler ExitView;
         public ctrlTickList()
         {
+            
             InitializeComponent();
             this.DoubleBuffered = true;
             this.MouseClick += new MouseEventHandler(ctrlTickList_MouseClick);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using TradingLib.MarketData;
+using TradingLib.XTrader.Control;
 
 namespace XTraderLite
 {
@@ -42,7 +43,7 @@ namespace XTraderLite
             }
             else
             {
-                SetViewType(EnumTraderViewType.KChart);
+                SetViewType(EnumViewType.KChart);
                 UpdateToolBarStatus();
                 SetKChartSymbol(CurrentKChartSymbol);
             }
@@ -70,7 +71,7 @@ namespace XTraderLite
                 }
 
 
-                SetViewType(EnumTraderViewType.KChart);
+                SetViewType(EnumViewType.KChart);
                 UpdateToolBarStatus();
                 SetKChartSymbol(tmp);
                 return;

@@ -197,7 +197,7 @@
             // toolStripButton16
             // 
             this.toolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton16.Image = global::CStock.Properties.Resources.K15;
+            this.toolStripButton16.Image = global::TradingLib.XTrader.Properties.Resources.K15;
             this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton16.Name = "toolStripButton16";
             this.toolStripButton16.Size = new System.Drawing.Size(22, 20);
@@ -209,7 +209,7 @@
             // toolStripButton18
             // 
             this.toolStripButton18.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton18.Image = global::CStock.Properties.Resources.K16;
+            this.toolStripButton18.Image = global::TradingLib.XTrader.Properties.Resources.K16;
             this.toolStripButton18.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton18.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton18.Name = "toolStripButton18";
@@ -222,7 +222,7 @@
             // toolStripButton19
             // 
             this.toolStripButton19.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton19.Image = global::CStock.Properties.Resources.K17;
+            this.toolStripButton19.Image = global::TradingLib.XTrader.Properties.Resources.K17;
             this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton19.Name = "toolStripButton19";
             this.toolStripButton19.Size = new System.Drawing.Size(22, 20);
@@ -234,7 +234,7 @@
             // toolStripButton20
             // 
             this.toolStripButton20.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton20.Image = global::CStock.Properties.Resources.K18;
+            this.toolStripButton20.Image = global::TradingLib.XTrader.Properties.Resources.K18;
             this.toolStripButton20.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton20.Name = "toolStripButton20";
             this.toolStripButton20.Size = new System.Drawing.Size(22, 20);
@@ -246,7 +246,7 @@
             // toolStripButton21
             // 
             this.toolStripButton21.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton21.Image = global::CStock.Properties.Resources.K19;
+            this.toolStripButton21.Image = global::TradingLib.XTrader.Properties.Resources.K19;
             this.toolStripButton21.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton21.Name = "toolStripButton21";
             this.toolStripButton21.Size = new System.Drawing.Size(22, 20);
@@ -258,7 +258,7 @@
             // toolStripButton22
             // 
             this.toolStripButton22.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton22.Image = global::CStock.Properties.Resources.K20;
+            this.toolStripButton22.Image = global::TradingLib.XTrader.Properties.Resources.K20;
             this.toolStripButton22.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton22.Name = "toolStripButton22";
             this.toolStripButton22.Size = new System.Drawing.Size(22, 20);
@@ -270,7 +270,7 @@
             // toolStripButton23
             // 
             this.toolStripButton23.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton23.Image = global::CStock.Properties.Resources.K21;
+            this.toolStripButton23.Image = global::TradingLib.XTrader.Properties.Resources.K21;
             this.toolStripButton23.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton23.Name = "toolStripButton23";
             this.toolStripButton23.Size = new System.Drawing.Size(22, 20);
@@ -282,7 +282,7 @@
             // toolStripButton24
             // 
             this.toolStripButton24.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton24.Image = global::CStock.Properties.Resources.K22;
+            this.toolStripButton24.Image = global::TradingLib.XTrader.Properties.Resources.K22;
             this.toolStripButton24.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton24.Name = "toolStripButton24";
             this.toolStripButton24.Size = new System.Drawing.Size(22, 20);
@@ -294,7 +294,7 @@
             // toolStripButton25
             // 
             this.toolStripButton25.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton25.Image = global::CStock.Properties.Resources.k23;
+            this.toolStripButton25.Image = global::TradingLib.XTrader.Properties.Resources.k23;
             this.toolStripButton25.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton25.Name = "toolStripButton25";
             this.toolStripButton25.Size = new System.Drawing.Size(22, 20);
@@ -306,7 +306,7 @@
             // toolStripButton26
             // 
             this.toolStripButton26.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton26.Image = global::CStock.Properties.Resources.k24;
+            this.toolStripButton26.Image = global::TradingLib.XTrader.Properties.Resources.k24;
             this.toolStripButton26.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton26.Name = "toolStripButton26";
             this.toolStripButton26.Size = new System.Drawing.Size(22, 20);
@@ -318,7 +318,7 @@
             // toolStripButton27
             // 
             this.toolStripButton27.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton27.Image = global::CStock.Properties.Resources.K25;
+            this.toolStripButton27.Image = global::TradingLib.XTrader.Properties.Resources.K25;
             this.toolStripButton27.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton27.Name = "toolStripButton27";
             this.toolStripButton27.Size = new System.Drawing.Size(22, 20);
@@ -330,7 +330,7 @@
             // toolStripButton28
             // 
             this.toolStripButton28.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton28.Image = global::CStock.Properties.Resources.K26;
+            this.toolStripButton28.Image = global::TradingLib.XTrader.Properties.Resources.K26;
             this.toolStripButton28.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton28.Name = "toolStripButton28";
             this.toolStripButton28.Size = new System.Drawing.Size(22, 20);
@@ -342,7 +342,7 @@
             // toolStripButton29
             // 
             this.toolStripButton29.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton29.Image = global::CStock.Properties.Resources.K27;
+            this.toolStripButton29.Image = global::TradingLib.XTrader.Properties.Resources.K27;
             this.toolStripButton29.ImageTransparentColor = System.Drawing.Color.White;
             this.toolStripButton29.Name = "toolStripButton29";
             this.toolStripButton29.Size = new System.Drawing.Size(22, 20);
@@ -354,7 +354,7 @@
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::CStock.Properties.Resources.K28;
+            this.toolStripButton1.Image = global::TradingLib.XTrader.Properties.Resources.K28;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(22, 20);
@@ -407,7 +407,7 @@
             // bt1
             // 
             this.bt1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt1.Image = global::CStock.Properties.Resources.K1;
+            this.bt1.Image = global::TradingLib.XTrader.Properties.Resources.K1;
             this.bt1.ImageTransparentColor = System.Drawing.Color.White;
             this.bt1.Name = "bt1";
             this.bt1.Size = new System.Drawing.Size(22, 20);
@@ -418,7 +418,7 @@
             // bt2
             // 
             this.bt2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt2.Image = global::CStock.Properties.Resources.K2;
+            this.bt2.Image = global::TradingLib.XTrader.Properties.Resources.K2;
             this.bt2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.bt2.ImageTransparentColor = System.Drawing.Color.White;
             this.bt2.Name = "bt2";
@@ -431,7 +431,7 @@
             // bt3
             // 
             this.bt3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt3.Image = global::CStock.Properties.Resources.K3;
+            this.bt3.Image = global::TradingLib.XTrader.Properties.Resources.K3;
             this.bt3.ImageTransparentColor = System.Drawing.Color.White;
             this.bt3.Name = "bt3";
             this.bt3.Size = new System.Drawing.Size(22, 20);
@@ -443,7 +443,7 @@
             // bt4
             // 
             this.bt4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt4.Image = global::CStock.Properties.Resources.K4;
+            this.bt4.Image = global::TradingLib.XTrader.Properties.Resources.K4;
             this.bt4.ImageTransparentColor = System.Drawing.Color.White;
             this.bt4.Name = "bt4";
             this.bt4.Size = new System.Drawing.Size(22, 20);
@@ -455,7 +455,7 @@
             // bt5
             // 
             this.bt5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt5.Image = global::CStock.Properties.Resources.K5;
+            this.bt5.Image = global::TradingLib.XTrader.Properties.Resources.K5;
             this.bt5.ImageTransparentColor = System.Drawing.Color.White;
             this.bt5.Name = "bt5";
             this.bt5.Size = new System.Drawing.Size(22, 20);
@@ -468,7 +468,7 @@
             // 
             this.bt6.BackColor = System.Drawing.Color.Gray;
             this.bt6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt6.Image = global::CStock.Properties.Resources.K6;
+            this.bt6.Image = global::TradingLib.XTrader.Properties.Resources.K6;
             this.bt6.ImageTransparentColor = System.Drawing.Color.Maroon;
             this.bt6.Name = "bt6";
             this.bt6.Size = new System.Drawing.Size(22, 20);
@@ -481,7 +481,7 @@
             // 
             this.bt7.BackColor = System.Drawing.Color.Gray;
             this.bt7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt7.Image = global::CStock.Properties.Resources.K7;
+            this.bt7.Image = global::TradingLib.XTrader.Properties.Resources.K7;
             this.bt7.ImageTransparentColor = System.Drawing.Color.White;
             this.bt7.Name = "bt7";
             this.bt7.Size = new System.Drawing.Size(22, 20);
@@ -493,7 +493,7 @@
             // bt8
             // 
             this.bt8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt8.Image = global::CStock.Properties.Resources.K8;
+            this.bt8.Image = global::TradingLib.XTrader.Properties.Resources.K8;
             this.bt8.ImageTransparentColor = System.Drawing.Color.White;
             this.bt8.Name = "bt8";
             this.bt8.Size = new System.Drawing.Size(22, 20);
@@ -505,7 +505,7 @@
             // bt9
             // 
             this.bt9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt9.Image = global::CStock.Properties.Resources.K9;
+            this.bt9.Image = global::TradingLib.XTrader.Properties.Resources.K9;
             this.bt9.ImageTransparentColor = System.Drawing.Color.White;
             this.bt9.Name = "bt9";
             this.bt9.Size = new System.Drawing.Size(22, 20);
@@ -517,7 +517,7 @@
             // bt10
             // 
             this.bt10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt10.Image = global::CStock.Properties.Resources.K10;
+            this.bt10.Image = global::TradingLib.XTrader.Properties.Resources.K10;
             this.bt10.ImageTransparentColor = System.Drawing.Color.White;
             this.bt10.Name = "bt10";
             this.bt10.Size = new System.Drawing.Size(22, 20);
@@ -529,7 +529,7 @@
             // bt11
             // 
             this.bt11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt11.Image = global::CStock.Properties.Resources.K11;
+            this.bt11.Image = global::TradingLib.XTrader.Properties.Resources.K11;
             this.bt11.ImageTransparentColor = System.Drawing.Color.White;
             this.bt11.Name = "bt11";
             this.bt11.Size = new System.Drawing.Size(22, 20);
@@ -541,7 +541,7 @@
             // bt12
             // 
             this.bt12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt12.Image = global::CStock.Properties.Resources.K12;
+            this.bt12.Image = global::TradingLib.XTrader.Properties.Resources.K12;
             this.bt12.ImageTransparentColor = System.Drawing.Color.White;
             this.bt12.Name = "bt12";
             this.bt12.Size = new System.Drawing.Size(22, 20);
@@ -553,7 +553,7 @@
             // bt13
             // 
             this.bt13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt13.Image = global::CStock.Properties.Resources.K13;
+            this.bt13.Image = global::TradingLib.XTrader.Properties.Resources.K13;
             this.bt13.ImageTransparentColor = System.Drawing.Color.White;
             this.bt13.Name = "bt13";
             this.bt13.Size = new System.Drawing.Size(22, 20);
@@ -565,7 +565,7 @@
             // bt14
             // 
             this.bt14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bt14.Image = global::CStock.Properties.Resources.K14;
+            this.bt14.Image = global::TradingLib.XTrader.Properties.Resources.K14;
             this.bt14.ImageTransparentColor = System.Drawing.Color.White;
             this.bt14.Name = "bt14";
             this.bt14.Size = new System.Drawing.Size(22, 20);

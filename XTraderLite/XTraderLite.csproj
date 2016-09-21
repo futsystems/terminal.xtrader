@@ -127,7 +127,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreenApplicationContext.cs" />
     <Compile Include="Starter.cs" />
-    <Compile Include="TraderViewType.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -372,12 +372,12 @@ namespace CStock
 
             if (str == ChartMenuItems.MENU_VIEW_TIME)
             {
-                this.ViewType = KChartViewType.TimeView;
+                this.KChartViewType = KChartViewType.TimeView;
             }
 
             if (str == ChartMenuItems.MENU_VIEW_K)
             {
-                this.ViewType = KChartViewType.KView;
+                this.KChartViewType = KChartViewType.KView;
             }
 
             //if (str == "分时切换")

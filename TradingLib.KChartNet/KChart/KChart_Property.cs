@@ -99,7 +99,7 @@ namespace CStock
         /// <summary>
         /// 显示类别
         /// </summary>
-        public KChartViewType ViewType
+        public KChartViewType KChartViewType
         {
             get
             {

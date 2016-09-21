@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using TradingLib.MarketData;
+using TradingLib.XTrader.Control;
 
 namespace XTraderLite
 {
@@ -90,7 +91,7 @@ namespace XTraderLite
             {
                 case CStock.KChartViewType.TimeView:
                     {
-                        SetViewType(EnumTraderViewType.KChart);
+                        SetViewType(EnumViewType.KChart);
                         //SetCurBoard(BoardStyle.Stock);
                         //GP.ShowFs ^= true;
                         //if (FCurStock == null)
@@ -101,7 +102,7 @@ namespace XTraderLite
                     }
                 case CStock.KChartViewType.KView:
                     {
-                        SetViewType(EnumTraderViewType.KChart);
+                        SetViewType(EnumViewType.KChart);
                         //GP.ShowFs ^= true;
                         //if (FCurStock == null)
                         //    FCurStock = (CStock.Stock)Stklist.Items[Stklist.SelectedIndex];

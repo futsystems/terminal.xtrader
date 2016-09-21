@@ -11,13 +11,13 @@ namespace CStock
 
         public void SwitchViewType()
         {
-            switch (this.ViewType)
+            switch (this.KChartViewType)
             {
                 case KChartViewType.TimeView:
-                    this.ViewType = KChartViewType.KView;
+                    this.KChartViewType = KChartViewType.KView;
                     break;
                 case KChartViewType.KView:
-                    this.ViewType = KChartViewType.TimeView;
+                    this.KChartViewType = KChartViewType.TimeView;
                     break;
                 default:
                     break;

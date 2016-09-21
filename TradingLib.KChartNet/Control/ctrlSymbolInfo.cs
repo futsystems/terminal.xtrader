@@ -9,7 +9,7 @@ using System.Drawing;
 using TradingLib.MarketData;
 using Common.Logging;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     public class QrySymbolInfoArgs:EventArgs
     {
@@ -40,6 +40,10 @@ namespace TradingLib.KryptonControl
     {
 
         public event EventHandler<QrySymbolInfoArgs> QrySymbolInfo;
+
+        EnumViewType vietype = EnumViewType.BasicInfo;
+
+        public EnumViewType ViewType { get { return vietype; } }
 
         ILog logger = LogManager.GetLogger("ctrlTickList");
         public event EventHandler ExitView;

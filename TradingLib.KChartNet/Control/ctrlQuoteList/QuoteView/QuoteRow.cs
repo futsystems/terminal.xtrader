@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using TradingLib.MarketData;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     public class QuoteRow
     {

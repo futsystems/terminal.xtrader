@@ -5,7 +5,7 @@ using System.Text;
 using TradingLib.MarketData;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     /// <summary>
     /// 报价列表显示合约变化事件参数

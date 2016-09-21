@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     public enum EnumFileldType
     {

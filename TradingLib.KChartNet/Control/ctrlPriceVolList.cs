@@ -9,7 +9,8 @@ using System.Drawing;
 using TradingLib.MarketData;
 using Common.Logging;
 
-namespace TradingLib.KryptonControl
+
+namespace TradingLib.XTrader.Control
 {
     /// <summary>
     /// 通过Panel绘制以及Control控件直接绘制 比较发现原生控件效率高
@@ -17,10 +18,15 @@ namespace TradingLib.KryptonControl
     public partial class ctrlPriceVolList : System.Windows.Forms.Control
     {
 
+        EnumViewType vietype = EnumViewType.PriceVol;
+
+        public EnumViewType ViewType { get { return vietype; } }
+
         ILog logger = LogManager.GetLogger("ctrlTickList");
         public event EventHandler ExitView;
         public ctrlPriceVolList()
         {
+            
             InitializeComponent();
             this.DoubleBuffered = true;
             this.MouseClick += new MouseEventHandler(ctrlTickList_MouseClick);

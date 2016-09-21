@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using TradingLib.MarketData;
-using TradingLib.KryptonControl;
+using TradingLib.XTrader.Control;
 
 
 namespace XTraderLite
@@ -114,11 +114,11 @@ namespace XTraderLite
 
 
             //绑定对外事件
-            ctrlQuoteList.MouseEvent += new Action<TradingLib.MarketData.MDSymbol, TradingLib.KryptonControl.QuoteMouseEventType>(quoteView_MouseEvent);
-            ctrlQuoteList.SymbolVisibleChanged += new EventHandler<TradingLib.KryptonControl.SymbolVisibleChangeEventArgs>(ctrlQuoteList_SymbolVisibleChanged);
+            ctrlQuoteList.MouseEvent += new Action<TradingLib.MarketData.MDSymbol, TradingLib.XTrader.Control.QuoteMouseEventType>(quoteView_MouseEvent);
+            ctrlQuoteList.SymbolVisibleChanged += new EventHandler<TradingLib.XTrader.Control.SymbolVisibleChangeEventArgs>(ctrlQuoteList_SymbolVisibleChanged);
         }
 
-        void ctrlQuoteList_SymbolVisibleChanged(object sender, TradingLib.KryptonControl.SymbolVisibleChangeEventArgs e)
+        void ctrlQuoteList_SymbolVisibleChanged(object sender, TradingLib.XTrader.Control.SymbolVisibleChangeEventArgs e)
         {
             if (e.Symbols != null && e.Symbols.Length > 0)
             {
@@ -126,11 +126,11 @@ namespace XTraderLite
             }
         }
 
-        void quoteView_MouseEvent(TradingLib.MarketData.MDSymbol arg1, TradingLib.KryptonControl.QuoteMouseEventType arg2)
+        void quoteView_MouseEvent(TradingLib.MarketData.MDSymbol arg1, TradingLib.XTrader.Control.QuoteMouseEventType arg2)
         {
             switch (arg2)
             {
-                case TradingLib.KryptonControl.QuoteMouseEventType.SymbolDoubleClick:
+                case TradingLib.XTrader.Control.QuoteMouseEventType.SymbolDoubleClick:
                     {
                         SwitchMainView();
                         logger.Info("QuoteView Select Symbol:" + arg1.Symbol);

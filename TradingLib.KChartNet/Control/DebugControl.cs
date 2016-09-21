@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     public partial class DebugControl : UserControl
     {

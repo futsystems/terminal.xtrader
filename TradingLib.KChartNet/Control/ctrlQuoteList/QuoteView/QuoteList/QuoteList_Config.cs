@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Common.Logging;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Control
 {
     public partial class ViewQuoteList
     {
