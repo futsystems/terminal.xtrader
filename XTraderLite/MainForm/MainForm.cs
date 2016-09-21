@@ -164,13 +164,16 @@ namespace XTraderLite
 
             btnDrawBox.Click += new EventHandler(btnDrawBox_Click);
             btnF10.Click += new EventHandler(btnF10_Click);
-
+            btnTickList.Click += new EventHandler(btnTickList_Click);
+            btnPriceVolList.Click += new EventHandler(btnPriceVolList_Click);
 
 
             menuTrading.Click += new EventHandler(menuTrading_Click);
             menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
             
         }
+
+
 
 
 

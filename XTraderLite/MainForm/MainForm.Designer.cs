@@ -108,6 +108,8 @@
             this.KeyCode = new MyEdit();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
+            this.btnPriceVolList = new System.Windows.Forms.ToolStripButton();
+            this.btnTickList = new System.Windows.Forms.ToolStripButton();
             this.toolBar.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
@@ -152,6 +154,8 @@
             this.btnDrawBox,
             this.btnFormula,
             this.btnF10,
+            this.btnTickList,
+            this.btnPriceVolList,
             this.btnWatchList,
             this.toolStripSeparator8,
             this.btnDemo1,
@@ -891,6 +895,26 @@
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
             // 
+            // btnPriceVolList
+            // 
+            this.btnPriceVolList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnPriceVolList.Image = global::XTraderLite.Properties.Resources.tb_tool_3;
+            this.btnPriceVolList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPriceVolList.Margin = new System.Windows.Forms.Padding(1);
+            this.btnPriceVolList.Name = "btnPriceVolList";
+            this.btnPriceVolList.Size = new System.Drawing.Size(23, 23);
+            this.btnPriceVolList.Text = "P";
+            // 
+            // btnTickList
+            // 
+            this.btnTickList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnTickList.Image = global::XTraderLite.Properties.Resources.tb_tool_3;
+            this.btnTickList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTickList.Margin = new System.Windows.Forms.Padding(1);
+            this.btnTickList.Name = "btnTickList";
+            this.btnTickList.Size = new System.Drawing.Size(23, 23);
+            this.btnTickList.Text = "T";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1009,6 +1033,8 @@
         private System.Windows.Forms.ToolStripButton btnHome;
         private System.Windows.Forms.ToolStripButton btnF10;
         private TradingLib.XTrader.Control.ctrlSymbolInfo ctrlSymbolInfo;
+        private System.Windows.Forms.ToolStripButton btnTickList;
+        private System.Windows.Forms.ToolStripButton btnPriceVolList;
     }
 }
 

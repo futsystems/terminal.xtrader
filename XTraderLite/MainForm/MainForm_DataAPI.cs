@@ -128,7 +128,7 @@ namespace XTraderLite
                     if (arg3 == 2000)
                     {
                         logger.Info("there are more data");
-                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ctrlTickList.Count, 2000);
+                        int reqId = MDService.DataAPI.QryTradeSplitData(ctrlTickList.Symbol.Exchange, ctrlTickList.Symbol.Symbol, ctrlTickList.Count, 2000);
                         tickListLoadRequest.TryAdd(reqId, ctrlTickList);
                     }
                     return;

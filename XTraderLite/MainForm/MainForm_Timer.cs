@@ -55,12 +55,12 @@ namespace XTraderLite
             //实时更新分笔视图
             if (ctrlTickList.Visible)
             {
-                int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlTickList.RowCount);//*ctrlTickList.ColumnCount);
+                int reqId = MDService.DataAPI.QryTradeSplitData(ctrlTickList.Symbol.Exchange, ctrlTickList.Symbol.Symbol, 0, ctrlTickList.RowCount);//*ctrlTickList.ColumnCount);
                 tickListUpdateRequest.TryAdd(reqId, this);
             }
             if (ctrlPriceVolList.Visible)
             {
-                int reqId = MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
+                int reqId = MDService.DataAPI.QryPriceVol(ctrlPriceVolList.Symbol.Exchange, ctrlPriceVolList.Symbol.Symbol);
                 priceVolListRequest.TryAdd(reqId, this);
             }
         }

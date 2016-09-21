@@ -163,7 +163,7 @@ namespace XTraderLite
         /// <param name="e"></param>
         void btnFreq_Click(object sender, EventArgs e)
         {
-            MDSymbol tmp = ctrlQuoteList.SymbolSelected;
+            MDSymbol tmp = GetAvabileSymbol();
             if (tmp == null) return;
 
             ToolStripButton btn = sender as ToolStripButton;
@@ -199,6 +199,18 @@ namespace XTraderLite
         {
             ViewSymbolInfo();
         }
+
+        void btnPriceVolList_Click(object sender, EventArgs e)
+        {
+            ViewPriceVolList();
+        }
+
+        void btnTickList_Click(object sender, EventArgs e)
+        {
+            ViewTickList();
+        }
+
+
 
     }
 }

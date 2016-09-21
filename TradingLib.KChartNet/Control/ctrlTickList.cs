@@ -192,7 +192,7 @@ namespace TradingLib.XTrader.Control
 
 
 
-
+        public MDSymbol Symbol { get { return _symbol; } }
         MDSymbol _symbol = new MDSymbol();
         public void SetSymbol(MDSymbol symbol)
         {

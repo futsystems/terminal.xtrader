@@ -29,26 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlQuoteList));
-            this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.scrollBar = new System.Windows.Forms.VScrollBar();
-            this.blockPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.quotelist = new TradingLib.XTrader.Control.ViewQuoteList();
             this.blockTab = new TradingLib.XTrader.Control.BlockTab();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
-            this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blockPanel)).BeginInit();
+            this.blockPanel = new System.Windows.Forms.Panel();
             this.blockPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // kryptonPanel1
-            // 
-            this.kryptonPanel1.Controls.Add(this.scrollBar);
-            this.kryptonPanel1.Controls.Add(this.quotelist);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(924, 408);
-            this.kryptonPanel1.TabIndex = 0;
             // 
             // scrollBar
             // 
@@ -58,16 +44,6 @@
             this.scrollBar.Size = new System.Drawing.Size(17, 408);
             this.scrollBar.TabIndex = 1;
             this.scrollBar.Visible = false;
-            // 
-            // blockPanel
-            // 
-            this.blockPanel.Controls.Add(this.blockTab);
-            this.blockPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.blockPanel.Location = new System.Drawing.Point(0, 408);
-            this.blockPanel.Name = "blockPanel";
-            this.blockPanel.Size = new System.Drawing.Size(924, 20);
-            this.blockPanel.StateCommon.Image = ((System.Drawing.Image)(resources.GetObject("blockPanel.StateCommon.Image")));
-            this.blockPanel.TabIndex = 1;
             // 
             // quotelist
             // 
@@ -85,8 +61,8 @@
             this.quotelist.QuoteFont = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.quotelist.QuoteType = TradingLib.XTrader.Control.EnumQuoteListType.STOCK_CN;
             this.quotelist.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.quotelist.Size = new System.Drawing.Size(924, 408);
-            this.quotelist.StartIndex = -19;
+            this.quotelist.Size = new System.Drawing.Size(907, 408);
+            this.quotelist.StartIndex = 0;
             this.quotelist.SymbolFont = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
             this.quotelist.SymbolFontColor = System.Drawing.Color.Green;
             this.quotelist.TabIndex = 0;
@@ -105,17 +81,25 @@
             this.blockTab.TabStop = false;
             this.blockTab.Text = "blockButton1";
             // 
+            // blockPanel
+            // 
+            this.blockPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("blockPanel.BackgroundImage")));
+            this.blockPanel.Controls.Add(this.blockTab);
+            this.blockPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.blockPanel.Location = new System.Drawing.Point(0, 408);
+            this.blockPanel.Name = "blockPanel";
+            this.blockPanel.Size = new System.Drawing.Size(924, 20);
+            this.blockPanel.TabIndex = 2;
+            // 
             // ctrlQuoteList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.kryptonPanel1);
+            this.Controls.Add(this.quotelist);
+            this.Controls.Add(this.scrollBar);
             this.Controls.Add(this.blockPanel);
             this.Name = "ctrlQuoteList";
             this.Size = new System.Drawing.Size(924, 428);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
-            this.kryptonPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.blockPanel)).EndInit();
             this.blockPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -123,11 +107,10 @@
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private System.Windows.Forms.VScrollBar scrollBar;
         private TradingLib.XTrader.Control.ViewQuoteList quotelist;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel blockPanel;
         private BlockTab blockTab;
+        private System.Windows.Forms.Panel blockPanel;
 
 
     }

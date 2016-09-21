@@ -159,7 +159,7 @@ namespace XTraderLite
             SetCurrentViewType(EnumViewType.TradeSplit);
             ctrlTickList.Clear();
             ctrlTickList.SetSymbol(tmp);
-            int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, 2000);
+            int reqId = MDService.DataAPI.QryTradeSplitData(tmp.Exchange, tmp.Symbol, 0, 2000);
             tickListLoadRequest.TryAdd(reqId, ctrlTickList);
 
         }
@@ -175,7 +175,7 @@ namespace XTraderLite
             SetCurrentViewType(EnumViewType.PriceVol);
             ctrlPriceVolList.Clear();
             ctrlPriceVolList.SetSymbol(tmp);
-            int reqId = MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
+            int reqId = MDService.DataAPI.QryPriceVol(tmp.Exchange, tmp.Symbol);
             priceVolListRequest.TryAdd(reqId, this);
         }
 
