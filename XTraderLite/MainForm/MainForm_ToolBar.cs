@@ -83,12 +83,6 @@ namespace XTraderLite
             }
         }
 
-        //void UncheckToolButton(ToolStripButton btn)
-        //{
-        //    btn.Checked = false;
-        //    checkedButtons.Remove(btn);
-        //}
-
 
 
         /// <summary>
@@ -98,7 +92,7 @@ namespace XTraderLite
         /// <param name="e"></param>
         void btnHome_Click(object sender, EventArgs e)
         {
-            ViewQuoteList();
+            RollBackView(true);//返回到第一个视图
         }
 
         /// <summary>
@@ -143,10 +137,9 @@ namespace XTraderLite
             MDSymbol tmp = ctrlQuoteList.SymbolSelected;
             if (tmp == null) return;
 
-            //设定当前视图类别与相关参数
-            ViewBarChart();
-            //设定当前合约
-            SetKChartSymbol(tmp);
+            ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
+            ViewKChart();
+
         }
 
         /// <summary>
@@ -159,8 +152,8 @@ namespace XTraderLite
             MDSymbol tmp = ctrlQuoteList.SymbolSelected;
             if (tmp == null) return;
 
-            ViewIntraChart();
-            SetKChartSymbol(tmp);
+            ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
+            ViewKChart();
         }
 
         /// <summary>
@@ -178,8 +171,7 @@ namespace XTraderLite
             //设定当前频率
             _currentFreq = btn.Tag.ToString();
             //设定当前显示视图
-            ViewBarChart();
-            SetKChartSymbol(tmp);
+            ViewKChart();
         }
 
 
@@ -205,23 +197,7 @@ namespace XTraderLite
         /// <param name="e"></param>
         void btnF10_Click(object sender, EventArgs e)
         {
-            MDSymbol tmp = null;
-            //在报价页面 通过报价页面获得F10资料
-            if (ctrlQuoteList.Visible)
-            {
-                tmp = ctrlQuoteList.SymbolSelected;
-                if (tmp == null) return;
-            }
-
-            else if (ctrlKChart.Visible)
-            {
-                tmp = CurrentKChartSymbol;
-                if (tmp == null) return;
-            }
-
             ViewSymbolInfo();
-            ctrlSymbolInfo.SetSymbol(tmp);
-            MDService.DataAPI.QrySymbolInfoType(tmp.Exchange, tmp.Symbol);
         }
 
     }

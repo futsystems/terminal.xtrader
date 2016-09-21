@@ -16,13 +16,13 @@ namespace XTraderLite
 
         void InitOtherView()
         {
-            ctrlTickList.ExitView += new EventHandler(ctrlTickList_ExitView);
-            ctrlPriceVolList.ExitView += new EventHandler(ctrlPriceVolList_ExitView);
-            ctrlSymbolInfo.ExitView += new EventHandler(ctrlSymbolInfo_ExitView);
+            ctrlTickList.ExitView += new EventHandler(Exit_Handler);
+            ctrlPriceVolList.ExitView += new EventHandler(Exit_Handler);
+            ctrlSymbolInfo.ExitView += new EventHandler(Exit_Handler);
 
-            ctrlTickList.DoubleClick += new EventHandler(ctrlTickList_ExitView);
-            ctrlPriceVolList.DoubleClick += new EventHandler(ctrlPriceVolList_ExitView);
-            ctrlSymbolInfo.DoubleClick += new EventHandler(ctrlSymbolInfo_DoubleClick);
+            ctrlTickList.DoubleClick += new EventHandler(Exit_Handler);
+            ctrlPriceVolList.DoubleClick += new EventHandler(Exit_Handler);
+            ctrlSymbolInfo.DoubleClick += new EventHandler(Exit_Handler);
 
 
             ctrlSymbolInfo.QrySymbolInfo += new EventHandler<TradingLib.XTrader.Control.QrySymbolInfoArgs>(ctrlSymbolInfo_QrySymbolInfo);
@@ -34,25 +34,11 @@ namespace XTraderLite
             MDService.DataAPI.QrySymbolInfo(e.Symbol.Exchange, e.Symbol.Symbol, e.Type);
         }
 
-        void ctrlSymbolInfo_DoubleClick(object sender, EventArgs e)
+        void Exit_Handler(object sender, EventArgs e)
         {
             RollBackView();
         }
 
-        void ctrlSymbolInfo_ExitView(object sender, EventArgs e)
-        {
-            RollBackView();
-        }
-
-        void ctrlPriceVolList_ExitView(object sender, EventArgs e)
-        {
-            RollBackView();
-        }
-
-        void ctrlTickList_ExitView(object sender, EventArgs e)
-        {
-            RollBackView();
-            
-        }
+        
     }
 }

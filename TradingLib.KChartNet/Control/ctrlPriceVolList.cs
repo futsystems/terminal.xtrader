@@ -15,7 +15,7 @@ namespace TradingLib.XTrader.Control
     /// <summary>
     /// 通过Panel绘制以及Control控件直接绘制 比较发现原生控件效率高
     /// </summary>
-    public partial class ctrlPriceVolList : System.Windows.Forms.Control
+    public partial class ctrlPriceVolList : System.Windows.Forms.Control,IView
     {
 
         EnumViewType vietype = EnumViewType.PriceVol;

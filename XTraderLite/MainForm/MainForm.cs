@@ -54,7 +54,8 @@ namespace XTraderLite
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
             this.panelHolder.Width = this.Width - 2;
             this.SetStyle(ControlStyles.ResizeRedraw, true);
-            _curView = ctrlQuoteList;//设置默认当前视图控件
+
+            //_curView = ctrlQuoteList;//设置默认当前视图控件
 
             #region 设置频率切换按钮的Tag 并放入list方便访问
             btnFreqDay.Tag = ConstFreq.Freq_Day;
@@ -86,11 +87,16 @@ namespace XTraderLite
             panelBroker.Visible = false;
             debugControl1.Dock = DockStyle.Fill;
 
-            viewList.Add(ctrlQuoteList);
-            viewList.Add(ctrlKChart);
-            viewList.Add(ctrlTickList);
-            viewList.Add(ctrlPriceVolList);
-            viewList.Add(ctrlSymbolInfo);
+            viewMap.Add(ctrlQuoteList.ViewType, ctrlQuoteList);
+            viewMap.Add(ctrlKChart.ViewType, ctrlKChart);
+            viewMap.Add(ctrlTickList.ViewType, ctrlTickList);
+            viewMap.Add(ctrlPriceVolList.ViewType, ctrlPriceVolList);
+            viewMap.Add(ctrlSymbolInfo.ViewType, ctrlSymbolInfo);
+            //viewList.Add(ctrlQuoteList);
+            //viewList.Add(ctrlKChart);
+            //viewList.Add(ctrlTickList);
+            //viewList.Add(ctrlPriceVolList);
+            //viewList.Add(ctrlSymbolInfo);
 
 
             ctrlKChart.Dock = DockStyle.Fill;
@@ -197,7 +203,7 @@ namespace XTraderLite
 
             BindDataAPICallBack();
 
-
+            //数据完毕后 初始化报价面板并以第一个tab为默认视图
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
             ctrlQuoteList.SelectTab(0);
 

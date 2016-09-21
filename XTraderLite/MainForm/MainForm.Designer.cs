@@ -61,8 +61,14 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
+            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
+            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
+            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
+            this.ctrlKChart = new CStock.TStock();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
+            this.debugControl1 = new TradingLib.XTrader.Control.DebugControl();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelMenu = new System.Windows.Forms.Panel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
@@ -99,15 +105,9 @@
             this.btnMin = new System.Windows.Forms.PictureBox();
             this.bottomStatusPanel = new System.Windows.Forms.Panel();
             this.SearchBox = new System.Windows.Forms.Panel();
+            this.KeyCode = new MyEdit();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
-            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
-            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
-            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
-            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
-            this.debugControl1 = new TradingLib.XTrader.Control.DebugControl();
-            this.KeyCode = new MyEdit();
-            this.ctrlKChart = new CStock.TStock();
             this.toolBar.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
@@ -458,6 +458,79 @@
             this.panelMarket.Size = new System.Drawing.Size(771, 391);
             this.panelMarket.TabIndex = 2;
             // 
+            // ctrlSymbolInfo
+            // 
+            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
+            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
+            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
+            this.ctrlSymbolInfo.TabIndex = 6;
+            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
+            this.ctrlSymbolInfo.Visible = false;
+            // 
+            // ctrlPriceVolList
+            // 
+            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
+            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
+            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlPriceVolList.TabIndex = 5;
+            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
+            this.ctrlPriceVolList.Visible = false;
+            // 
+            // ctrlTickList
+            // 
+            this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
+            this.ctrlTickList.Name = "ctrlTickList";
+            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
+            this.ctrlTickList.TabIndex = 4;
+            this.ctrlTickList.Text = "ctrlTickList1";
+            this.ctrlTickList.Visible = false;
+            // 
+            // ctrlKChart
+            // 
+            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.BarViewWindowCount = 3;
+            this.ctrlKChart.DaysForIntradayView = 1;
+            this.ctrlKChart.FsAll = false;
+            this.ctrlKChart.FsFull = false;
+            this.ctrlKChart.HighPicture = false;
+            this.ctrlKChart.IntradayViewWindowCount = 2;
+            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
+            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
+            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
+            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
+            this.ctrlKChart.Name = "ctrlKChart";
+            this.ctrlKChart.NoMoreBarDate = false;
+            this.ctrlKChart.PR10 = false;
+            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
+            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
+            this.ctrlKChart.ShowBottomCalendar = true;
+            this.ctrlKChart.ShowBottomTabMenu = true;
+            this.ctrlKChart.ShowCrossCursor = false;
+            this.ctrlKChart.ShowCurWindow = true;
+            this.ctrlKChart.ShowDetailPanel = true;
+            this.ctrlKChart.ShowDrawToolBox = false;
+            this.ctrlKChart.ShowLeftAxis = true;
+            this.ctrlKChart.ShowRightAxis = false;
+            this.ctrlKChart.ShowTopHeader = true;
+            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
+            this.ctrlKChart.StartIndex = 24;
+            this.ctrlKChart.StkCode = "";
+            this.ctrlKChart.StkName = "";
+            this.ctrlKChart.StkWeek = "";
+            this.ctrlKChart.TabIndex = 2;
+            this.ctrlKChart.Train = false;
+            this.ctrlKChart.TrainEnd = 0;
+            this.ctrlKChart.Visible = false;
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlQuoteList.TabIndex = 1;
+            this.ctrlQuoteList.Visible = false;
+            // 
             // splitter
             // 
             this.splitter.BackColor = System.Drawing.Color.Silver;
@@ -479,6 +552,18 @@
             this.panelBroker.Name = "panelBroker";
             this.panelBroker.Size = new System.Drawing.Size(771, 260);
             this.panelBroker.TabIndex = 0;
+            // 
+            // debugControl1
+            // 
+            this.debugControl1.EnableSearching = true;
+            this.debugControl1.ExternalTimeStamp = 0;
+            this.debugControl1.Location = new System.Drawing.Point(0, 0);
+            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.debugControl1.Name = "debugControl1";
+            this.debugControl1.Size = new System.Drawing.Size(261, 127);
+            this.debugControl1.TabIndex = 0;
+            this.debugControl1.TimeStamps = true;
+            this.debugControl1.UseExternalTimeStamp = false;
             // 
             // panelTop
             // 
@@ -781,6 +866,13 @@
             this.SearchBox.TabIndex = 149;
             this.SearchBox.Visible = false;
             // 
+            // KeyCode
+            // 
+            this.KeyCode.Location = new System.Drawing.Point(4, 25);
+            this.KeyCode.Name = "KeyCode";
+            this.KeyCode.Size = new System.Drawing.Size(165, 21);
+            this.KeyCode.TabIndex = 3;
+            // 
             // KeyClose
             // 
             this.KeyClose.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -798,97 +890,6 @@
             this.SymbolListBox.Name = "SymbolListBox";
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
-            // 
-            // ctrlSymbolInfo
-            // 
-            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
-            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
-            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
-            this.ctrlSymbolInfo.TabIndex = 6;
-            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
-            this.ctrlSymbolInfo.Visible = false;
-            // 
-            // ctrlPriceVolList
-            // 
-            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
-            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
-            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlPriceVolList.TabIndex = 5;
-            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
-            this.ctrlPriceVolList.Visible = false;
-            // 
-            // ctrlTickList
-            // 
-            this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
-            this.ctrlTickList.Name = "ctrlTickList";
-            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
-            this.ctrlTickList.TabIndex = 4;
-            this.ctrlTickList.Text = "ctrlTickList1";
-            this.ctrlTickList.Visible = false;
-            // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlQuoteList.TabIndex = 1;
-            // 
-            // debugControl1
-            // 
-            this.debugControl1.EnableSearching = true;
-            this.debugControl1.ExternalTimeStamp = 0;
-            this.debugControl1.Location = new System.Drawing.Point(0, 0);
-            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.debugControl1.Name = "debugControl1";
-            this.debugControl1.Size = new System.Drawing.Size(261, 127);
-            this.debugControl1.TabIndex = 0;
-            this.debugControl1.TimeStamps = true;
-            this.debugControl1.UseExternalTimeStamp = false;
-            // 
-            // KeyCode
-            // 
-            this.KeyCode.Location = new System.Drawing.Point(4, 25);
-            this.KeyCode.Name = "KeyCode";
-            this.KeyCode.Size = new System.Drawing.Size(165, 21);
-            this.KeyCode.TabIndex = 3;
-            // 
-            // ctrlKChart
-            // 
-            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
-            this.ctrlKChart.BarViewWindowCount = 3;
-            this.ctrlKChart.DaysForIntradayView = 1;
-            this.ctrlKChart.FsAll = false;
-            this.ctrlKChart.FsFull = false;
-            this.ctrlKChart.HighPicture = false;
-            this.ctrlKChart.IntradayViewWindowCount = 2;
-            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
-            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
-            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
-            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
-            this.ctrlKChart.Name = "ctrlKChart";
-            this.ctrlKChart.NoMoreBarDate = false;
-            this.ctrlKChart.PR10 = false;
-            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
-            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
-            this.ctrlKChart.ShowBottomCalendar = true;
-            this.ctrlKChart.ShowBottomTabMenu = true;
-            this.ctrlKChart.ShowCrossCursor = false;
-            this.ctrlKChart.ShowCurWindow = true;
-            this.ctrlKChart.ShowDetailPanel = true;
-            this.ctrlKChart.ShowDrawToolBox = false;
-            this.ctrlKChart.ShowLeftAxis = true;
-            this.ctrlKChart.ShowRightAxis = false;
-            this.ctrlKChart.ShowTopHeader = true;
-            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
-            this.ctrlKChart.StartIndex = 24;
-            this.ctrlKChart.StkCode = "";
-            this.ctrlKChart.StkName = "";
-            this.ctrlKChart.StkWeek = "";
-            this.ctrlKChart.TabIndex = 2;
-            this.ctrlKChart.Train = false;
-            this.ctrlKChart.TrainEnd = 0;
-            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
-            this.ctrlKChart.Visible = false;
             // 
             // MainForm
             // 

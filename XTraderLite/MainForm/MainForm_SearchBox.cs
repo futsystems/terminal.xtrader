@@ -137,8 +137,7 @@ namespace XTraderLite
                     SearchBox.Visible = false;
                     this.KeyPreview = true;
 
-                    ViewBarChart();
-                    SetKChartSymbol(stk);
+                    ViewKChart();
                     break;
                 }
             }

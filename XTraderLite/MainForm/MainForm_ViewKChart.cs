@@ -33,19 +33,11 @@ namespace XTraderLite
                 case CStock.DetailBoardTabType.TradeDetails:
                     {
                         ViewTickList();
-                        ctrlTickList.Clear();
-                        ctrlTickList.SetSymbol(CurrentKChartSymbol);
-                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, 2000);
-                        tickListLoadRequest.TryAdd(reqId, ctrlTickList);
                     }
                     break;
                 case CStock.DetailBoardTabType.PriceDistribution:
                     {
                         ViewPriceVolList();
-                        ctrlPriceVolList.Clear();
-                        ctrlPriceVolList.SetSymbol(CurrentKChartSymbol);
-                        int reqId = MDService.DataAPI.QryPriceVol(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol);
-                        priceVolListRequest.TryAdd(reqId, this);
                     }
                     break;
                 default:
@@ -91,7 +83,7 @@ namespace XTraderLite
             {
                 case CStock.KChartViewType.TimeView:
                     {
-                        SetViewType(EnumViewType.KChart);
+                        SetCurrentViewType(EnumViewType.KChart);
                         //SetCurBoard(BoardStyle.Stock);
                         //GP.ShowFs ^= true;
                         //if (FCurStock == null)
@@ -102,7 +94,7 @@ namespace XTraderLite
                     }
                 case CStock.KChartViewType.KView:
                     {
-                        SetViewType(EnumViewType.KChart);
+                        SetCurrentViewType(EnumViewType.KChart);
                         //GP.ShowFs ^= true;
                         //if (FCurStock == null)
                         //    FCurStock = (CStock.Stock)Stklist.Items[Stklist.SelectedIndex];

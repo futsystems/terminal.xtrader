@@ -93,7 +93,7 @@
     <Compile Include="MainForm\MainForm_ViewQuoteList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm\MainForm_ViewType.cs">
+    <Compile Include="MainForm\MainForm_View.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm\MainForm_ToolBar.cs">

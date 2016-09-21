@@ -40,10 +40,8 @@ namespace XTraderLite
 
         void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            logger.Info("Key Down:" + e.KeyCode.ToString());
             switch (e.KeyCode)
             { 
-
                 case Keys.Escape:
                     RollBackView();
                     break;
@@ -52,55 +50,15 @@ namespace XTraderLite
                     break;
                 case Keys.Enter:
                 case Keys.F5:
-                    {
-                        MDSymbol tmp = null;
-                        if (ctrlQuoteList.Visible)
-                        {
-                            tmp = ctrlQuoteList.SymbolSelected;
-                            if (tmp == null) return;
-                        }
-
-                        if (tmp == null)
-                        {
-                            tmp = this.CurrentKChartSymbol;
-                            if (tmp == null)
-                                return;
-                        }
-
-                        SwitchMainView();
-                        SetKChartSymbol(tmp);
-                        //if (needset) SetKChartSymbol(tmp);
-                    }
+                    SwitchMainView();
                     break;
                 case Keys.F10:
-                    btnF10_Click(null, null);
+                    ViewSymbolInfo();
                     break;
                 default:
                     break;
 
             }
         }
-
-        //public override bool PreProcessMessage(ref Message msg)
-        //{
-        //    if (msg.Msg == 0x100)//WM_KEYDOWN
-        //    {
-        //        Keys key = (Keys)msg.WParam.ToInt32();
-        //        logger.Info("key message:" + key.ToString());
-        //        switch (key)
-        //        {
-        //            case Keys.F12:
-        //                SwitchTradingBox();
-        //                break;
-        //            case Keys.Enter:
-        //                //ProcessEnter();
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //    }
-
-        //    return base.PreProcessMessage(ref msg);
-        //}
     }
 }
