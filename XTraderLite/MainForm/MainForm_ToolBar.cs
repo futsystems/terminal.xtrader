@@ -14,6 +14,33 @@ namespace XTraderLite
     public partial class MainForm
     {
 
+
+        void WireToolBar()
+        {
+            //toolbar
+            btnBack.Click += new EventHandler(btnBack_Click);
+            btnHome.Click += new EventHandler(btnHome_Click);
+            btnRefresh.Click += new EventHandler(btnRefresh_Click);
+            btnQuoteView.Click += new EventHandler(btnQuoteView_Click);
+            btnIntraView.Click += new EventHandler(btnIntraView_Click);
+            btnBarView.Click += new EventHandler(btnBarView_Click);
+
+            btnFreqDay.Click += new EventHandler(btnFreq_Click);
+            btnFreqWeek.Click += new EventHandler(btnFreq_Click);
+            btnFreqMonth.Click += new EventHandler(btnFreq_Click);
+            btnFreqQuarter.Click += new EventHandler(btnFreq_Click);
+            btnFreqYear.Click += new EventHandler(btnFreq_Click);
+            btnFreqM1.Click += new EventHandler(btnFreq_Click);
+            btnFreqM5.Click += new EventHandler(btnFreq_Click);
+            btnFreqM15.Click += new EventHandler(btnFreq_Click);
+            btnFreqM30.Click += new EventHandler(btnFreq_Click);
+            btnFreqM60.Click += new EventHandler(btnFreq_Click);
+
+            btnDrawBox.Click += new EventHandler(btnDrawBox_Click);
+            btnF10.Click += new EventHandler(btnF10_Click);
+            btnTickList.Click += new EventHandler(btnTickList_Click);
+            btnPriceVolList.Click += new EventHandler(btnPriceVolList_Click);
+        }
         List<ToolStripButton> checkedButtons = new List<ToolStripButton>();
         List<ToolStripButton> hiddenButtons = new List<ToolStripButton>();
         List<ToolStripButton> freqButtons = new List<ToolStripButton>();

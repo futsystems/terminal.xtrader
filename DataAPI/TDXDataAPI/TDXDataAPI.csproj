@@ -50,8 +50,10 @@
     <Compile Include="MDSymbolUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TDXDataAPI.cs" />
+    <Compile Include="TDXDataAPI_ProcessData.cs" />
     <Compile Include="TDXDecode.cs" />
     <Compile Include="TDXStruct.cs" />
+    <Compile Include="TDXDataAPI_.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">

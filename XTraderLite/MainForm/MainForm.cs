@@ -92,12 +92,6 @@ namespace XTraderLite
             viewMap.Add(ctrlTickList.ViewType, ctrlTickList);
             viewMap.Add(ctrlPriceVolList.ViewType, ctrlPriceVolList);
             viewMap.Add(ctrlSymbolInfo.ViewType, ctrlSymbolInfo);
-            //viewList.Add(ctrlQuoteList);
-            //viewList.Add(ctrlKChart);
-            //viewList.Add(ctrlTickList);
-            //viewList.Add(ctrlPriceVolList);
-            //viewList.Add(ctrlSymbolInfo);
-
 
             ctrlKChart.Dock = DockStyle.Fill;
             ctrlQuoteList.Dock = DockStyle.Fill;
@@ -119,73 +113,31 @@ namespace XTraderLite
             this.SizeChanged += new EventHandler(MainForm_SizeChanged);
             this.Load += new EventHandler(MainForm_Load);
 
-
             MDService.EventHub.RegIEventHandler(this);
             MDService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
             MDService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
-            
 
+            WireFormOperation();
 
+            WireToolBar();
 
-            btnClose.Click += new EventHandler(btnClose_Click);
-            btnMax.Click += new EventHandler(btnMax_Click);
-            btnMin.Click += new EventHandler(btnMin_Click);
+            WireMenu();
 
-            btnDemo3.Click += new EventHandler(btnDemo3_Click);
-            btnDemo2.Click += new EventHandler(btnDemo2_Click);
-            btnDemo1.Click += new EventHandler(btnDemo1_Click);
-
-            panelTop.MouseDown += new MouseEventHandler(move_MouseDown);
-            panelTop.MouseUp += new MouseEventHandler(move_MouseUp);
-            panelTop.MouseMove += new MouseEventHandler(move_MouseMove);
-            panelTop.DoubleClick += new EventHandler(Form_DoubleClick);
-            topHeader.MouseDown += new MouseEventHandler(move_MouseDown);
-            topHeader.MouseUp += new MouseEventHandler(move_MouseUp);
-            topHeader.MouseMove += new MouseEventHandler(move_MouseMove);
-            topHeader.DoubleClick += new EventHandler(Form_DoubleClick);
-            panelMenu.MouseDown +=new MouseEventHandler(move_MouseDown);
-            panelMenu.MouseUp +=new MouseEventHandler(move_MouseUp);
-            panelMenu.MouseMove +=new MouseEventHandler(move_MouseMove);
-            panelMenu.DoubleClick +=new EventHandler(Form_DoubleClick);
-
-
-            //toolbar
-            btnBack.Click += new EventHandler(btnBack_Click);
-            btnHome.Click += new EventHandler(btnHome_Click);
-            btnRefresh.Click += new EventHandler(btnRefresh_Click);
-            btnQuoteView.Click += new EventHandler(btnQuoteView_Click);
-            btnIntraView.Click += new EventHandler(btnIntraView_Click);
-            btnBarView.Click += new EventHandler(btnBarView_Click);
-
-            btnFreqDay.Click += new EventHandler(btnFreq_Click);
-            btnFreqWeek.Click += new EventHandler(btnFreq_Click);
-            btnFreqMonth.Click += new EventHandler(btnFreq_Click);
-            btnFreqQuarter.Click += new EventHandler(btnFreq_Click);
-            btnFreqYear.Click += new EventHandler(btnFreq_Click);
-            btnFreqM1.Click += new EventHandler(btnFreq_Click);
-            btnFreqM5.Click += new EventHandler(btnFreq_Click);
-            btnFreqM15.Click += new EventHandler(btnFreq_Click);
-            btnFreqM30.Click += new EventHandler(btnFreq_Click);
-            btnFreqM60.Click += new EventHandler(btnFreq_Click);
-
-            btnDrawBox.Click += new EventHandler(btnDrawBox_Click);
-            btnF10.Click += new EventHandler(btnF10_Click);
-            btnTickList.Click += new EventHandler(btnTickList_Click);
-            btnPriceVolList.Click += new EventHandler(btnPriceVolList_Click);
-
-
-            menuTrading.Click += new EventHandler(menuTrading_Click);
-            menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
+            WireUI();
             
         }
 
         void EventHub_OnDisconnectedEvent()
         {
+            menuConnect.Enabled = true;
+            menuDisconnect.Enabled = false;
             UpdateConnImg(false);
         }
 
         void EventHub_OnConnectedEvent()
         {
+            menuConnect.Enabled = false;
+            menuDisconnect.Enabled = true;
             UpdateConnImg(true);
         }
 
@@ -275,6 +227,30 @@ namespace XTraderLite
             //}
         }
 
+
+        void WireFormOperation()
+        {
+            btnClose.Click += new EventHandler(btnClose_Click);
+            btnMax.Click += new EventHandler(btnMax_Click);
+            btnMin.Click += new EventHandler(btnMin_Click);
+
+            btnDemo3.Click += new EventHandler(btnDemo3_Click);
+            btnDemo2.Click += new EventHandler(btnDemo2_Click);
+            btnDemo1.Click += new EventHandler(btnDemo1_Click);
+
+            panelTop.MouseDown += new MouseEventHandler(move_MouseDown);
+            panelTop.MouseUp += new MouseEventHandler(move_MouseUp);
+            panelTop.MouseMove += new MouseEventHandler(move_MouseMove);
+            panelTop.DoubleClick += new EventHandler(Form_DoubleClick);
+            topHeader.MouseDown += new MouseEventHandler(move_MouseDown);
+            topHeader.MouseUp += new MouseEventHandler(move_MouseUp);
+            topHeader.MouseMove += new MouseEventHandler(move_MouseMove);
+            topHeader.DoubleClick += new EventHandler(Form_DoubleClick);
+            panelMenu.MouseDown += new MouseEventHandler(move_MouseDown);
+            panelMenu.MouseUp += new MouseEventHandler(move_MouseUp);
+            panelMenu.MouseMove += new MouseEventHandler(move_MouseMove);
+            panelMenu.DoubleClick += new EventHandler(Form_DoubleClick);
+        }
 
         #region 顶部Panel移动窗体
         private bool m_isMouseDown = false;

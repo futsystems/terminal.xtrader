@@ -13,6 +13,18 @@ namespace TradingLib.MarketData
         /// </summary>
         void Connect(string[] hosts, int port);
 
+
+        /// <summary>
+        /// 断开链接
+        /// </summary>
+        void Disconnect();
+
+        /// <summary>
+        /// 是否处于链接状态
+        /// </summary>
+        bool Connected { get; }
+
+
         /// <summary>
         /// 登入服务端
         /// </summary>

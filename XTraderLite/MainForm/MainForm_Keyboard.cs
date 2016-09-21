@@ -45,6 +45,24 @@ namespace XTraderLite
                 case Keys.Escape:
                     RollBackView();
                     break;
+                case Keys.F1:
+                    ViewTickList();
+                    break;
+                case Keys.F2:
+                    ViewPriceVolList();
+                    break;
+                case Keys.F3:
+                    {
+                        MDSymbol sym = MDService.DataAPI.GetSymbol(Exchange.EXCH_SSE, "999999");
+                        ViewKChart(sym);
+                        break;
+                    }
+                case Keys.F4:
+                    {
+                        MDSymbol sym = MDService.DataAPI.GetSymbol(Exchange.EXCH_SZE, "399001");
+                        ViewKChart(sym);
+                        break;
+                    }
                 case Keys.F12:
                     SwitchTradingBox();
                     break;

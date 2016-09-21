@@ -9,14 +9,158 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using TradingLib.MarketData;
 using TradingLib.XTrader.Control;
-
+using System.Drawing.Drawing2D;
+using System.Drawing.Printing;
 namespace XTraderLite
 {
     public partial class MainForm
     {
-        
 
 
+        void WireMenu()
+        {
+
+            //工具
+            menuConnect.Click += new EventHandler(menuConnect_Click);
+            menuDisconnect.Click += new EventHandler(menuDisconnect_Click);
+            menuScreen.Click += new EventHandler(menuScreen_Click);
+            menuPrint.Click += new EventHandler(menuPrint_Click);
+            printDocument.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+           
+            menuExit.Click += new EventHandler(menuExit_Click);
+
+            //分析
+            menuIntraView.Click += new EventHandler(menuIntraView_Click);
+            menuBarView.Click += new EventHandler(menuBarView_Click);
+            menuTradeSplit.Click += new EventHandler(menuTradeSplit_Click);
+            menuPriceVol.Click += new EventHandler(menuPriceVol_Click);
+            menuSwitchKchart.Click += new EventHandler(menuSwitchKchart_Click);
+
+
+            //交易
+            menuTrading.Click += new EventHandler(menuTrading_Click);
+
+            //帮助
+            menuRelief.Click += new EventHandler(menuRelief_Click);
+            menuAbout.Click += new EventHandler(menuAbout_Click);
+            menuShortCutKey.Click += new EventHandler(menuShortCutKey_Click);
+        }
+
+        void menuShortCutKey_Click(object sender, EventArgs e)
+        {
+            frmShortCutKey fm = new frmShortCutKey();
+            fm.ShowDialog();
+        }
+
+        void menuAbout_Click(object sender, EventArgs e)
+        {
+            frmAbout fm = new frmAbout();
+            fm.ShowDialog();
+        }
+
+        void menuRelief_Click(object sender, EventArgs e)
+        {
+            frmRelief fm = new frmRelief();
+            fm.ShowDialog();
+        }
+
+        void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.DrawImage(memoryImage, 0, 0);
+        }
+
+        void menuExit_Click(object sender, EventArgs e)
+        {
+            Application.ExitThread();
+            Environment.Exit(0);
+        }
+
+
+        #region 打印屏幕
+
+        Bitmap memoryImage;
+        PrintDocument printDocument = new PrintDocument();
+
+        private void CaptureScreen()
+        {
+            Graphics myGraphics = this.CreateGraphics();
+            Size s = this.Size;
+            memoryImage = new Bitmap(s.Width, s.Height, myGraphics);
+            Graphics memoryGraphics = Graphics.FromImage(memoryImage);
+            memoryGraphics.CopyFromScreen(this.Location.X, this.Location.Y, 0, 0, s);
+        }
+
+        void menuPrint_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("确认打印屏幕?", "打印", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                CaptureScreen();
+                printDocument.Print();
+            }
+        }
+        #endregion
+
+
+        void menuScreen_Click(object sender, EventArgs e)
+        {
+
+            Bitmap bit = new Bitmap(Width, Height);//实例化一个和窗体一样大的bitmap
+            Graphics g = Graphics.FromImage(bit);
+            g.CompositingQuality = CompositingQuality.HighQuality;//质量设为最高
+            g.CopyFromScreen(PointToScreen(Point.Empty), Point.Empty, Size);//只保存某个控件（这里是panel游戏区）
+            //bit.Save("weiboTemp.png");//默认保存格式为PNG，保存成jpg格式质量不是很好
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "*.png";
+            sfd.Filter = "png|*.png";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                bit.Save(sfd.FileName);
+            }
+            bit.Dispose();
+        }
+
+        void menuDisconnect_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(delegate()
+           {
+               MDService.DataAPI.Disconnect();
+           }).Start();
+        }
+
+        void menuConnect_Click(object sender, EventArgs e)
+        {
+            new System.Threading.Thread(delegate()
+            {
+                MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
+            }).Start();
+
+            
+        }
+
+
+
+        void menuPriceVol_Click(object sender, EventArgs e)
+        {
+            ViewPriceVolList();
+        }
+
+        void menuTradeSplit_Click(object sender, EventArgs e)
+        {
+            ViewTickList();
+        }
+
+        void menuBarView_Click(object sender, EventArgs e)
+        {
+            ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
+            ViewKChart();
+        }
+
+        void menuIntraView_Click(object sender, EventArgs e)
+        {
+            ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
+            ViewKChart();
+        }
         
         void menuTrading_Click(object sender, EventArgs e)
         {

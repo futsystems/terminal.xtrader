@@ -63,24 +63,31 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
+            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
+            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
+            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
+            this.ctrlKChart = new CStock.TStock();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
+            this.debugControl1 = new TradingLib.XTrader.Control.DebugControl();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelMenu = new System.Windows.Forms.Panel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.连接服务器ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.断开服务器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuConnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.屏幕截图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打印ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuScreen = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.退出系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.技术ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分时走势ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分笔成交明细ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分价表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分析图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuIntraView = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBarView = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuTradeSplit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPriceVol = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.menuSwitchKchart = new System.Windows.Forms.ToolStripMenuItem();
             this.交易ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTrading = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,10 +96,10 @@
             this.公式管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.使用说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.快捷键ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuShortCutKey = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.免责声明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRelief = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.topHeader = new System.Windows.Forms.Label();
             this.panelControlBox = new System.Windows.Forms.Panel();
@@ -100,19 +107,13 @@
             this.btnMax = new System.Windows.Forms.PictureBox();
             this.btnMin = new System.Windows.Forms.PictureBox();
             this.bottomStatusPanel = new System.Windows.Forms.Panel();
+            this.ctrlSymbolHighLight = new TradingLib.XTrader.Control.ctrlSymbolHighLight();
             this.imgConn = new System.Windows.Forms.PictureBox();
             this.lbTime = new System.Windows.Forms.Label();
             this.SearchBox = new System.Windows.Forms.Panel();
+            this.KeyCode = new MyEdit();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
-            this.KeyCode = new MyEdit();
-            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
-            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
-            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
-            this.ctrlKChart = new CStock.TStock();
-            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
-            this.debugControl1 = new TradingLib.XTrader.Control.DebugControl();
-            this.ctrlSymbolHighLight = new TradingLib.XTrader.Control.ctrlSymbolHighLight();
             this.toolBar.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
@@ -487,6 +488,79 @@
             this.panelMarket.Size = new System.Drawing.Size(771, 391);
             this.panelMarket.TabIndex = 2;
             // 
+            // ctrlSymbolInfo
+            // 
+            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
+            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
+            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
+            this.ctrlSymbolInfo.TabIndex = 6;
+            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
+            this.ctrlSymbolInfo.Visible = false;
+            // 
+            // ctrlPriceVolList
+            // 
+            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
+            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
+            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlPriceVolList.TabIndex = 5;
+            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
+            this.ctrlPriceVolList.Visible = false;
+            // 
+            // ctrlTickList
+            // 
+            this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
+            this.ctrlTickList.Name = "ctrlTickList";
+            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
+            this.ctrlTickList.TabIndex = 4;
+            this.ctrlTickList.Text = "ctrlTickList1";
+            this.ctrlTickList.Visible = false;
+            // 
+            // ctrlKChart
+            // 
+            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.BarViewWindowCount = 3;
+            this.ctrlKChart.DaysForIntradayView = 1;
+            this.ctrlKChart.FsAll = false;
+            this.ctrlKChart.FsFull = false;
+            this.ctrlKChart.HighPicture = false;
+            this.ctrlKChart.IntradayViewWindowCount = 2;
+            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
+            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
+            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
+            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
+            this.ctrlKChart.Name = "ctrlKChart";
+            this.ctrlKChart.NoMoreBarDate = false;
+            this.ctrlKChart.PR10 = false;
+            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
+            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
+            this.ctrlKChart.ShowBottomCalendar = true;
+            this.ctrlKChart.ShowBottomTabMenu = true;
+            this.ctrlKChart.ShowCrossCursor = false;
+            this.ctrlKChart.ShowCurWindow = true;
+            this.ctrlKChart.ShowDetailPanel = true;
+            this.ctrlKChart.ShowDrawToolBox = false;
+            this.ctrlKChart.ShowLeftAxis = true;
+            this.ctrlKChart.ShowRightAxis = false;
+            this.ctrlKChart.ShowTopHeader = true;
+            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
+            this.ctrlKChart.StartIndex = 24;
+            this.ctrlKChart.StkCode = "";
+            this.ctrlKChart.StkName = "";
+            this.ctrlKChart.StkWeek = "";
+            this.ctrlKChart.TabIndex = 2;
+            this.ctrlKChart.Train = false;
+            this.ctrlKChart.TrainEnd = 0;
+            this.ctrlKChart.Visible = false;
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlQuoteList.TabIndex = 1;
+            this.ctrlQuoteList.Visible = false;
+            // 
             // splitter
             // 
             this.splitter.BackColor = System.Drawing.Color.Silver;
@@ -508,6 +582,18 @@
             this.panelBroker.Name = "panelBroker";
             this.panelBroker.Size = new System.Drawing.Size(771, 260);
             this.panelBroker.TabIndex = 0;
+            // 
+            // debugControl1
+            // 
+            this.debugControl1.EnableSearching = true;
+            this.debugControl1.ExternalTimeStamp = 0;
+            this.debugControl1.Location = new System.Drawing.Point(0, 0);
+            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.debugControl1.Name = "debugControl1";
+            this.debugControl1.Size = new System.Drawing.Size(261, 127);
+            this.debugControl1.TabIndex = 0;
+            this.debugControl1.TimeStamps = true;
+            this.debugControl1.UseExternalTimeStamp = false;
             // 
             // panelTop
             // 
@@ -544,99 +630,105 @@
             this.帮助ToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(223, 24);
+            this.mainMenu.Size = new System.Drawing.Size(315, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.连接服务器ToolStripMenuItem1,
-            this.断开服务器ToolStripMenuItem,
+            this.menuConnect,
+            this.menuDisconnect,
             this.toolStripSeparator2,
-            this.屏幕截图ToolStripMenuItem,
-            this.打印ToolStripMenuItem,
+            this.menuScreen,
+            this.menuPrint,
             this.toolStripSeparator7,
-            this.退出系统ToolStripMenuItem});
+            this.menuExit});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
             this.toolStripMenuItem1.Text = "系统";
             // 
-            // 连接服务器ToolStripMenuItem1
+            // menuConnect
             // 
-            this.连接服务器ToolStripMenuItem1.Name = "连接服务器ToolStripMenuItem1";
-            this.连接服务器ToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
-            this.连接服务器ToolStripMenuItem1.Text = "连接服务器";
+            this.menuConnect.Name = "menuConnect";
+            this.menuConnect.Size = new System.Drawing.Size(134, 22);
+            this.menuConnect.Text = "连接服务器";
             // 
-            // 断开服务器ToolStripMenuItem
+            // menuDisconnect
             // 
-            this.断开服务器ToolStripMenuItem.Name = "断开服务器ToolStripMenuItem";
-            this.断开服务器ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.断开服务器ToolStripMenuItem.Text = "断开服务器";
+            this.menuDisconnect.Name = "menuDisconnect";
+            this.menuDisconnect.Size = new System.Drawing.Size(134, 22);
+            this.menuDisconnect.Text = "断开服务器";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
             // 
-            // 屏幕截图ToolStripMenuItem
+            // menuScreen
             // 
-            this.屏幕截图ToolStripMenuItem.Name = "屏幕截图ToolStripMenuItem";
-            this.屏幕截图ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.屏幕截图ToolStripMenuItem.Text = "屏幕截图";
+            this.menuScreen.Name = "menuScreen";
+            this.menuScreen.Size = new System.Drawing.Size(134, 22);
+            this.menuScreen.Text = "屏幕截图";
             // 
-            // 打印ToolStripMenuItem
+            // menuPrint
             // 
-            this.打印ToolStripMenuItem.Name = "打印ToolStripMenuItem";
-            this.打印ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.打印ToolStripMenuItem.Text = "打印";
+            this.menuPrint.Name = "menuPrint";
+            this.menuPrint.Size = new System.Drawing.Size(134, 22);
+            this.menuPrint.Text = "打印";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(131, 6);
             // 
-            // 退出系统ToolStripMenuItem
+            // menuExit
             // 
-            this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
-            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.退出系统ToolStripMenuItem.Text = "退出系统";
+            this.menuExit.Name = "menuExit";
+            this.menuExit.Size = new System.Drawing.Size(134, 22);
+            this.menuExit.Text = "退出系统";
             // 
             // 技术ToolStripMenuItem
             // 
             this.技术ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.分时走势ToolStripMenuItem,
-            this.分笔成交明细ToolStripMenuItem,
-            this.分价表ToolStripMenuItem,
-            this.分析图ToolStripMenuItem,
+            this.menuIntraView,
+            this.menuBarView,
+            this.menuTradeSplit,
+            this.menuPriceVol,
+            this.toolStripSeparator9,
             this.menuSwitchKchart});
             this.技术ToolStripMenuItem.Name = "技术ToolStripMenuItem";
             this.技术ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.技术ToolStripMenuItem.Text = "分析";
             // 
-            // 分时走势ToolStripMenuItem
+            // menuIntraView
             // 
-            this.分时走势ToolStripMenuItem.Name = "分时走势ToolStripMenuItem";
-            this.分时走势ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.分时走势ToolStripMenuItem.Text = "分时走势图";
+            this.menuIntraView.Name = "menuIntraView";
+            this.menuIntraView.Size = new System.Drawing.Size(182, 22);
+            this.menuIntraView.Text = "分时走势图";
             // 
-            // 分笔成交明细ToolStripMenuItem
+            // menuBarView
             // 
-            this.分笔成交明细ToolStripMenuItem.Name = "分笔成交明细ToolStripMenuItem";
-            this.分笔成交明细ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.分笔成交明细ToolStripMenuItem.Text = "分笔成交明细";
+            this.menuBarView.Name = "menuBarView";
+            this.menuBarView.Size = new System.Drawing.Size(182, 22);
+            this.menuBarView.Text = "分析图";
             // 
-            // 分价表ToolStripMenuItem
+            // menuTradeSplit
             // 
-            this.分价表ToolStripMenuItem.Name = "分价表ToolStripMenuItem";
-            this.分价表ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.分价表ToolStripMenuItem.Text = "分价表";
+            this.menuTradeSplit.Name = "menuTradeSplit";
+            this.menuTradeSplit.Size = new System.Drawing.Size(182, 22);
+            this.menuTradeSplit.Text = "分笔成交明细";
             // 
-            // 分析图ToolStripMenuItem
+            // menuPriceVol
             // 
-            this.分析图ToolStripMenuItem.Name = "分析图ToolStripMenuItem";
-            this.分析图ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.分析图ToolStripMenuItem.Text = "分析图";
+            this.menuPriceVol.Name = "menuPriceVol";
+            this.menuPriceVol.Size = new System.Drawing.Size(182, 22);
+            this.menuPriceVol.Text = "分价表";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(179, 6);
             // 
             // menuSwitchKchart
             // 
@@ -686,10 +778,10 @@
             // 
             this.帮助ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.使用说明ToolStripMenuItem,
-            this.快捷键ToolStripMenuItem,
+            this.menuShortCutKey,
             this.toolStripSeparator1,
-            this.免责声明ToolStripMenuItem,
-            this.关于ToolStripMenuItem});
+            this.menuRelief,
+            this.menuAbout});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
             this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.帮助ToolStripMenuItem.Text = "帮助";
@@ -697,31 +789,31 @@
             // 使用说明ToolStripMenuItem
             // 
             this.使用说明ToolStripMenuItem.Name = "使用说明ToolStripMenuItem";
-            this.使用说明ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.使用说明ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.使用说明ToolStripMenuItem.Text = "使用说明";
             // 
-            // 快捷键ToolStripMenuItem
+            // menuShortCutKey
             // 
-            this.快捷键ToolStripMenuItem.Name = "快捷键ToolStripMenuItem";
-            this.快捷键ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.快捷键ToolStripMenuItem.Text = "快捷键";
+            this.menuShortCutKey.Name = "menuShortCutKey";
+            this.menuShortCutKey.Size = new System.Drawing.Size(152, 22);
+            this.menuShortCutKey.Text = "快捷键";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
-            // 免责声明ToolStripMenuItem
+            // menuRelief
             // 
-            this.免责声明ToolStripMenuItem.Name = "免责声明ToolStripMenuItem";
-            this.免责声明ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.免责声明ToolStripMenuItem.Text = "免责条款";
+            this.menuRelief.Name = "menuRelief";
+            this.menuRelief.Size = new System.Drawing.Size(152, 22);
+            this.menuRelief.Text = "免责条款";
             // 
-            // 关于ToolStripMenuItem
+            // menuAbout
             // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.关于ToolStripMenuItem.Text = "关于";
+            this.menuAbout.Name = "menuAbout";
+            this.menuAbout.Size = new System.Drawing.Size(152, 22);
+            this.menuAbout.Text = "关于";
             // 
             // pictureBox1
             // 
@@ -800,6 +892,16 @@
             this.bottomStatusPanel.Size = new System.Drawing.Size(771, 25);
             this.bottomStatusPanel.TabIndex = 3;
             // 
+            // ctrlSymbolHighLight
+            // 
+            this.ctrlSymbolHighLight.BackColor = System.Drawing.Color.Transparent;
+            this.ctrlSymbolHighLight.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ctrlSymbolHighLight.Location = new System.Drawing.Point(0, 0);
+            this.ctrlSymbolHighLight.Name = "ctrlSymbolHighLight";
+            this.ctrlSymbolHighLight.Size = new System.Drawing.Size(632, 25);
+            this.ctrlSymbolHighLight.TabIndex = 2;
+            this.ctrlSymbolHighLight.Text = "ctrlSymbolHighLight1";
+            // 
             // imgConn
             // 
             this.imgConn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -837,6 +939,13 @@
             this.SearchBox.TabIndex = 149;
             this.SearchBox.Visible = false;
             // 
+            // KeyCode
+            // 
+            this.KeyCode.Location = new System.Drawing.Point(4, 25);
+            this.KeyCode.Name = "KeyCode";
+            this.KeyCode.Size = new System.Drawing.Size(165, 21);
+            this.KeyCode.TabIndex = 3;
+            // 
             // KeyClose
             // 
             this.KeyClose.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -854,108 +963,6 @@
             this.SymbolListBox.Name = "SymbolListBox";
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
-            // 
-            // KeyCode
-            // 
-            this.KeyCode.Location = new System.Drawing.Point(4, 25);
-            this.KeyCode.Name = "KeyCode";
-            this.KeyCode.Size = new System.Drawing.Size(165, 21);
-            this.KeyCode.TabIndex = 3;
-            // 
-            // ctrlSymbolInfo
-            // 
-            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
-            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
-            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
-            this.ctrlSymbolInfo.TabIndex = 6;
-            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
-            this.ctrlSymbolInfo.Visible = false;
-            // 
-            // ctrlPriceVolList
-            // 
-            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
-            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
-            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlPriceVolList.TabIndex = 5;
-            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
-            this.ctrlPriceVolList.Visible = false;
-            // 
-            // ctrlTickList
-            // 
-            this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
-            this.ctrlTickList.Name = "ctrlTickList";
-            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
-            this.ctrlTickList.TabIndex = 4;
-            this.ctrlTickList.Text = "ctrlTickList1";
-            this.ctrlTickList.Visible = false;
-            // 
-            // ctrlKChart
-            // 
-            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
-            this.ctrlKChart.BarViewWindowCount = 3;
-            this.ctrlKChart.DaysForIntradayView = 1;
-            this.ctrlKChart.FsAll = false;
-            this.ctrlKChart.FsFull = false;
-            this.ctrlKChart.HighPicture = false;
-            this.ctrlKChart.IntradayViewWindowCount = 2;
-            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
-            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
-            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
-            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
-            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
-            this.ctrlKChart.Name = "ctrlKChart";
-            this.ctrlKChart.NoMoreBarDate = false;
-            this.ctrlKChart.PR10 = false;
-            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
-            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
-            this.ctrlKChart.ShowBottomCalendar = true;
-            this.ctrlKChart.ShowBottomTabMenu = true;
-            this.ctrlKChart.ShowCrossCursor = false;
-            this.ctrlKChart.ShowCurWindow = true;
-            this.ctrlKChart.ShowDetailPanel = true;
-            this.ctrlKChart.ShowDrawToolBox = false;
-            this.ctrlKChart.ShowLeftAxis = true;
-            this.ctrlKChart.ShowRightAxis = false;
-            this.ctrlKChart.ShowTopHeader = true;
-            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
-            this.ctrlKChart.StartIndex = 24;
-            this.ctrlKChart.StkCode = "";
-            this.ctrlKChart.StkName = "";
-            this.ctrlKChart.StkWeek = "";
-            this.ctrlKChart.TabIndex = 2;
-            this.ctrlKChart.Train = false;
-            this.ctrlKChart.TrainEnd = 0;
-            this.ctrlKChart.Visible = false;
-            // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlQuoteList.TabIndex = 1;
-            this.ctrlQuoteList.Visible = false;
-            // 
-            // debugControl1
-            // 
-            this.debugControl1.EnableSearching = true;
-            this.debugControl1.ExternalTimeStamp = 0;
-            this.debugControl1.Location = new System.Drawing.Point(0, 0);
-            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.debugControl1.Name = "debugControl1";
-            this.debugControl1.Size = new System.Drawing.Size(261, 127);
-            this.debugControl1.TabIndex = 0;
-            this.debugControl1.TimeStamps = true;
-            this.debugControl1.UseExternalTimeStamp = false;
-            // 
-            // ctrlSymbolHighLight
-            // 
-            this.ctrlSymbolHighLight.BackColor = System.Drawing.Color.Transparent;
-            this.ctrlSymbolHighLight.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ctrlSymbolHighLight.Location = new System.Drawing.Point(0, 0);
-            this.ctrlSymbolHighLight.Name = "ctrlSymbolHighLight";
-            this.ctrlSymbolHighLight.Size = new System.Drawing.Size(632, 25);
-            this.ctrlSymbolHighLight.TabIndex = 2;
-            this.ctrlSymbolHighLight.Text = "ctrlSymbolHighLight1";
             // 
             // MainForm
             // 
@@ -1003,17 +1010,17 @@
         private System.Windows.Forms.ToolStripMenuItem 交易ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuTrading;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 快捷键ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuShortCutKey;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem 免责声明ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuRelief;
+        private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 使用说明ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 技术ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分时走势ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分笔成交明细ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分价表ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分析图ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuIntraView;
+        private System.Windows.Forms.ToolStripMenuItem menuTradeSplit;
+        private System.Windows.Forms.ToolStripMenuItem menuPriceVol;
+        private System.Windows.Forms.ToolStripMenuItem menuBarView;
         private System.Windows.Forms.ToolStripMenuItem menuSwitchKchart;
         private System.Windows.Forms.ToolStripMenuItem 自选ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 公式管理ToolStripMenuItem;
@@ -1056,13 +1063,13 @@
         private System.Windows.Forms.Label topHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.ToolStripMenuItem 连接服务器ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 断开服务器ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuConnect;
+        private System.Windows.Forms.ToolStripMenuItem menuDisconnect;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem 屏幕截图ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 打印ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuScreen;
+        private System.Windows.Forms.ToolStripMenuItem menuPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem 退出系统ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuExit;
         private System.Windows.Forms.PictureBox pictureBox1;
         private TradingLib.XTrader.Control.ctrlQuoteList ctrlQuoteList;
         private System.Windows.Forms.ToolStrip toolBar;
@@ -1083,6 +1090,7 @@
         private System.Windows.Forms.Label lbTime;
         private System.Windows.Forms.PictureBox imgConn;
         private TradingLib.XTrader.Control.ctrlSymbolHighLight ctrlSymbolHighLight;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
     }
 }
 
