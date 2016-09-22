@@ -47,8 +47,8 @@ namespace XTraderLite
             InitSearchBox();
         }
 
-       
 
+        LinkedList<string> freqLink = new LinkedList<string>();//频率双向链表 用于F8循环切换
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
@@ -68,6 +68,17 @@ namespace XTraderLite
             btnFreqM15.Tag = ConstFreq.Freq_M15;
             btnFreqM30.Tag = ConstFreq.Freq_M30;
             btnFreqM60.Tag = ConstFreq.Freq_M60;
+
+            freqLink.AddLast(ConstFreq.Freq_M1);
+            freqLink.AddLast(ConstFreq.Freq_M5);
+            freqLink.AddLast(ConstFreq.Freq_M15);
+            freqLink.AddLast(ConstFreq.Freq_M30);
+            freqLink.AddLast(ConstFreq.Freq_M60);
+            freqLink.AddLast(ConstFreq.Freq_Day);
+            freqLink.AddLast(ConstFreq.Freq_Week);
+            freqLink.AddLast(ConstFreq.Freq_Month);
+            freqLink.AddLast(ConstFreq.Freq_Quarter);
+            freqLink.AddLast(ConstFreq.Freq_Year);
 
             freqButtons.Add(btnFreqDay);
             freqButtons.Add(btnFreqWeek);
@@ -210,7 +221,7 @@ namespace XTraderLite
         {
             //调节标题logo位置
             
-            if (this.Width < 250 + 75 + topHeader.Width + 50)
+            if (this.Width < 250 + 150 + topHeader.Width + 260)
             {
                 topHeader.Visible = false;
             }
@@ -218,7 +229,7 @@ namespace XTraderLite
             {
                 topHeader.Visible = true;
                 //250 菜单宽度 75 ControlBox宽度
-                topHeader.Location = new Point(250 + (this.Width - 250 - 75 - topHeader.Width) / 2, topHeader.Location.Y);
+                topHeader.Location = new Point(250 + (this.Width - 250 - 260 - topHeader.Width) / 2, topHeader.Location.Y);
             }
             //调节交易面板为最小值 如果移动的splitter则设置为当前值
             //if (!_splitterMoved)

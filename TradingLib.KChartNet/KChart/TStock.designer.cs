@@ -134,7 +134,7 @@
             this.ctDetailsBoard1.Location = new System.Drawing.Point(0, 0);
             this.ctDetailsBoard1.Name = "ctDetailsBoard1";
             this.ctDetailsBoard1.Size = new System.Drawing.Size(246, 660);
-            this.ctDetailsBoard1.StockLabel = "00001 深发展A";
+            //this.ctDetailsBoard1.StockLabel = "00001 深发展A";
             this.ctDetailsBoard1.TabIndex = 25;
             this.ctDetailsBoard1.TabStop = false;
             // 

@@ -44,11 +44,11 @@ namespace CStock
         /// </summary>
         public event Action<object, TabDoubleClickEventArgs> TabDoubleClick = null;
         
-        int LineHeight = 18;//输出行高
+        //int LineHeight = 18;//输出行高
 
-        MDSymbol _FCurStock = null;
+        MDSymbol _symbol = null;
 
-        public MDSymbol Symbol { get { return _FCurStock; } }
+        public MDSymbol Symbol { get { return _symbol; } }
 
         Label[] SellValue = new Label[10];
         Label[] SellVol = new Label[10];
@@ -65,17 +65,17 @@ namespace CStock
         //public SortedList<double,jia> jialist = new SortedList<double,jia>();
         //public List<jialist> JiaList = new List<jialist>();
 
-        /// <summary>
-        /// 合约标题
-        /// </summary>
-        public string StockLabel
-        {
-            get { return StkLabel.Text; }
-            set
-            {
-                StkLabel.Text = value;
-            }
-        }
+        ///// <summary>
+        ///// 合约标题
+        ///// </summary>
+        //public string StockLabel
+        //{
+        //    get { return StkLabel.Text; }
+        //    set
+        //    {
+        //        StkLabel.Text = value;
+        //    }
+        //}
         public ctDetailsBoard()
         {
             InitializeComponent();
@@ -197,21 +197,7 @@ namespace CStock
             Cell[23].ForeColor = volc;
         }
 
-        /// <summary>
-        /// 刷新指定的Tab窗口0~4
-        /// </summary>
-        /// <param name="Index"></param>
-        public void TabPaint(int Index)
-        {
-            if ((Index > -1) && (Index < PBox.Length))
-            {
-                PBox[Index].Invalidate();
-            }
 
-        }
-
-
-        #region 数据操作
         /// <summary>
         /// 设置Stock用于更新当前最新盘口数据
         /// </summary>
@@ -222,9 +208,11 @@ namespace CStock
                 return;
             if (BuyValue[0] == null)
                 return;
-            _FCurStock = symbol;
+            _symbol = symbol;
 
             pbox1.SetSymbol(symbol);
+
+            StkLabel.Text = string.Format("{0} {1}", _symbol.Symbol, _symbol.Name);
 
             if (symbol.BlockType == "7")
             {
@@ -248,6 +236,32 @@ namespace CStock
                 }
             }
 
+            this.Update(symbol);
+
+        }
+
+
+        /// <summary>
+        /// 刷新指定的Tab窗口0~4
+        /// </summary>
+        /// <param name="Index"></param>
+        public void TabPaint(int Index)
+        {
+            if ((Index > -1) && (Index < PBox.Length))
+            {
+                PBox[Index].Invalidate();
+            }
+
+        }
+
+
+        #region 数据操作
+        /// <summary>
+        /// 更新盘口数据
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void Update(MDSymbol symbol)
+        {
             double f1 = symbol.TickSnapshot.SellQTY1 + symbol.TickSnapshot.SellQTY2 + symbol.TickSnapshot.SellQTY3 + symbol.TickSnapshot.SellQTY4 + symbol.TickSnapshot.SellQTY5;
             double f2 = symbol.TickSnapshot.BuyQTY1 + symbol.TickSnapshot.BuyQTY2 + symbol.TickSnapshot.BuyQTY3 + symbol.TickSnapshot.BuyQTY4 + symbol.TickSnapshot.BuyQTY5;
             weibi.Text = "";
@@ -255,7 +269,7 @@ namespace CStock
 
             if ((f1 + f2) > 0)
             {
-                weibi.Text = string.Format("{0:F2}%", (f1 - f2) * 100 / (f1 + f2));
+                weibi.Text = string.Format("{0:F2}%", (f2 - f1) * 100 / (f1 + f2));
                 weibi.ForeColor = f2 > f1 ? Constants.ColorUp : Constants.ColorDown;
             }
             else
@@ -265,7 +279,7 @@ namespace CStock
             }
             if ((f2 + f1) > 0)
             {
-                weica.Text = string.Format("{0:F0}%", f2 - f1);
+                weica.Text = string.Format("{0:F0}", f2 - f1);
                 weica.ForeColor = f2 > f1 ? Constants.ColorUp : Constants.ColorDown;
             }
             else
@@ -452,8 +466,9 @@ namespace CStock
             Cell[23].Text = String.Format("{0:F0}", symbol.TickSnapshot.buyQTYall);
             //FSGS[0].PreClose = symbol.TickSnapshot.last;
             this.Invalidate();
-
         }
+
+
 
         /// <summary>
         /// 增加一行分笔

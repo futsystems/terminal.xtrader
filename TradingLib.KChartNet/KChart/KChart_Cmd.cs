@@ -54,7 +54,7 @@ namespace CStock
                 }
                 if (((int)m1.Tag >= 0x1000) & ((int)m1.Tag < 0x1999))
                 {
-                    StkWeek = m1.Text;
+                    _cycle = m1.Text;
                     return;
                 }
 
@@ -73,7 +73,12 @@ namespace CStock
                 //响应日期菜单
                 if (((int)m1.Tag >= 0x5000) & ((int)m1.Tag < 0x5999))
                 {
+                    int old = this.DaysForIntradayView;
                     this.DaysForIntradayView = (int)m1.Tag - 0x5000 + 1;
+                    if (TimeViewDaysChanged != null && old != this.DaysForIntradayView)
+                    {
+                        TimeViewDaysChanged(this, this.DaysForIntradayView);
+                    }
                     return;
                 }
             }

@@ -90,6 +90,10 @@ namespace XTraderLite
             IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
             //底部高亮合约
             symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
+
+            //当前K线图合约
+            symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
+
             //如果合约报价列表可见 合并对应可见合约
             if(ctrlQuoteList.Visible)
             {

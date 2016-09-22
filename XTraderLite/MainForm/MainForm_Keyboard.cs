@@ -63,6 +63,14 @@ namespace XTraderLite
                         ViewKChart(sym);
                         break;
                     }
+                case Keys.F8:
+                    {
+                        if (ctrlKChart.Visible && ctrlKChart.IsBarView)
+                        {
+                            SwitchFreq();
+                        }
+                        break;
+                    }
                 case Keys.F12:
                     SwitchTradingBox();
                     break;

@@ -221,7 +221,7 @@ namespace CStock
             //设置服务端数据请求完备标示
             noMoreData = false;
             DL = null;
-            FCurStock = null;
+            _symbol = null;
             this.ClearIntraViewData();
             this.ClearKViewData();
             this.ClearQuan();
@@ -325,5 +325,72 @@ namespace CStock
 
         }
 
+
+
+        #region 行情快照更新
+
+        /// <summary>
+        /// 更新实时行情
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void Update(MDSymbol symbol)
+        {
+            if (symbol == null || symbol.UniqueKey != _symbol.UniqueKey) return;
+            
+            //更新盘口数据
+            if (ctDetailsBoard1.Visible)
+            {
+                ctDetailsBoard1.Update(symbol);
+            }
+            
+        }
+        #endregion
+
+        MDSymbol _symbol = null;
+
+        public MDSymbol Symbol { get { return _symbol; } }
+        /// <summary>
+        /// 设定当前最新数据
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void SetSymbol(MDSymbol symbol)
+        {
+            if (symbol == null)
+                return;
+
+            _symbol = symbol;
+            FSGS[0].Symbol = symbol;
+            GS[0].Symbol = symbol;
+            ctDetailsBoard1.SetStock(symbol);
+
+            this.PreClose = symbol.PreClose;
+            //加载除权数据
+            this.SetQuan(symbol.PowerData);
+
+            this.BarWidth = 8;
+            this.StartFix = false;
+            this.Invalidate();
+        }
+
+
+        string _cycle = string.Empty;
+
+        public string Cycle
+        {
+            get { return _cycle; }
+
+        }
+
+        /// <summary>
+        /// 设置周期
+        /// </summary>
+        /// <param name="cycle"></param>
+        public void SetCycle(string cycle)
+        {
+            _cycle = cycle;
+            FSGS[0].StkWeek = cycle;
+            GS[0].StkWeek = cycle;
+            this.Invalidate();
+        }
     }
 }

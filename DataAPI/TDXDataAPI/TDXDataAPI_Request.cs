@@ -34,6 +34,7 @@ namespace DataAPI.TDX
             header.CopyTo(request, 0);
             foreach (var sym in symbols)// (int i = 0; i < hh; i++)
             {
+                if (sym == null) continue;
                 //CStock.Stock sk1 = (CStock.Stock)Stklist.Items[Stklist.TopIndex + i];
                 request[j] = (byte)GetMarketCode(sym.Exchange);//sk1.mark;
                 Encoding.GetEncoding("GB2312").GetBytes(sym.Symbol).CopyTo(request, j + 1);

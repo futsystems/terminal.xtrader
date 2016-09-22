@@ -202,6 +202,26 @@ namespace XTraderLite
             ViewKChart();
         }
 
+        /// <summary>
+        /// 循环切换频率
+        /// </summary>
+        void SwitchFreq()
+        {
+            //为空设置为默认 日线
+            if (_currentFreq == string.Empty)
+                _currentFreq = ConstFreq.Freq_Day;
+            //最后一个频率 返回第一个频率
+            if (_currentFreq == freqLink.Last.Value)
+                _currentFreq = freqLink.First.Value;
+
+            LinkedListNode<string> node =  freqLink.Find(_currentFreq);
+            _currentFreq = node.Next.Value;
+
+            ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
+            //设定当前显示视图
+            ViewKChart();
+
+        }
 
         /// <summary>
         /// 打开自绘工具栏

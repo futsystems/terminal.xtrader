@@ -422,6 +422,11 @@ namespace XTraderLite
                     {
                         ctrlQuoteList.Update(symbol);
                     }
+
+                    if (ctrlKChart.Visible)
+                    {
+                        ctrlKChart.Update(symbol);
+                    }
                     ctrlSymbolHighLight.Update(symbol);
 
                     //保存LastTick

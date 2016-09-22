@@ -389,11 +389,11 @@ namespace CStock
             #region 显示指标窗口头部信息 用于输出合约代码,名称,指标值
             if (showtop)
             {
-                string topTitle = !string.IsNullOrEmpty(this.SymbolName) ? this.SymbolName : this.SymbolCode;
+                string topTitle = !string.IsNullOrEmpty(this.pCtrl.Symbol.Name) ? this.pCtrl.Symbol.Name : this.pCtrl.Symbol.Symbol;
                 if (showfs == false)
                 {
-                    if (!string.IsNullOrEmpty(this.DataCycleName))
-                        topTitle = topTitle + "(" + this.DataCycleName + ")";
+                    if (!string.IsNullOrEmpty(_cycleTitle))
+                        topTitle = topTitle + "<" + _cycleTitle + ">";
                     if (ftechname.Length > 0)
                         topTitle = topTitle + " " + ftechname.ToUpper() + " ";
                 }
@@ -666,7 +666,7 @@ namespace CStock
                 if (main && showfs && percent10 && (prevclose != NA)) //按10%显示
                 {
                     double pv = 0.1;
-                    if (StkName.IndexOf("st") > -1)
+                    if (pCtrl.Symbol.Name.IndexOf("st") > -1)
                         pv = 0.05;
                     if ((prevclose * (1 + pv) > max1) && (prevclose * (1 - pv) < min1))
                     {

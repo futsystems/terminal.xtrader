@@ -34,6 +34,38 @@ namespace XTraderLite
             ctrlKChart.KViewLoadMoreData += new Action<object, CStock.KViewLoadMoreDataEventArgs>(ctrlKChart_KViewLoadMoreData);
             //查看分时天数发生变化 需要加载更多分时数据
             ctrlKChart.TimeViewDaysChanged += new Action<object, int>(ctrlKChart_TimeViewDaysChanged);
+            //菜单点击频率切换
+            ctrlKChart.KFrequencyMenuClick += new Action<object, CStock.KFrequencyMenuClickEventAargs>(ctrlKChart_KFrequencyMenuClick);
+        }
+
+
+        string GetFreq(CStock.KFrequencyType type)
+        {
+            switch (type)
+            {
+                case CStock.KFrequencyType.F_1Min: return ConstFreq.Freq_M1;
+                case CStock.KFrequencyType.F_5Min: return ConstFreq.Freq_M5;
+                case CStock.KFrequencyType.F_15Min: return ConstFreq.Freq_M15;
+                case CStock.KFrequencyType.F_30Min: return ConstFreq.Freq_M30;
+                case CStock.KFrequencyType.F_60Min: return ConstFreq.Freq_M60;
+                case CStock.KFrequencyType.F_Day: return ConstFreq.Freq_Day;
+                case CStock.KFrequencyType.F_Week: return ConstFreq.Freq_Week;
+                case CStock.KFrequencyType.F_Month: return ConstFreq.Freq_Month;
+                case CStock.KFrequencyType.F_Quarter: return ConstFreq.Freq_Quarter;
+                case CStock.KFrequencyType.F_Year: return ConstFreq.Freq_Year;
+                default:
+                    return ConstFreq.Freq_Day;
+            }
+            
+        }
+
+        void ctrlKChart_KFrequencyMenuClick(object arg1, CStock.KFrequencyMenuClickEventAargs arg2)
+        {
+            //设定当前频率
+            _currentFreq = GetFreq(arg2.KFrequencyType);
+            ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
+            //设定当前显示视图
+            ViewKChart();
         }
 
         void ctrlKChart_TimeViewDaysChanged(object arg1, int arg2)

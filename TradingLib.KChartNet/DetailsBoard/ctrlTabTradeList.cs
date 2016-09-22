@@ -189,14 +189,14 @@ namespace TradingLib.KryptonControl
                     cv.DrawString(ss, font, Brushes.Yellow, (int)(50 + 2 * lw - si.Width), r1.Top);
 
                     if (tk.Flag == 1)
-                        ss = "B";
-                    else
                         ss = "S";
+                    else
+                        ss = "B";
                     si = cv.MeasureString(ss, font);
                     if (tk.Flag == 1)
-                        cv.DrawString(ss, font, Brushes.Red, this.Width - 40, r1.Top);
-                    else
                         cv.DrawString(ss, font, Brushes.Lime, this.Width - 40, r1.Top);
+                    else
+                        cv.DrawString(ss, font, Brushes.Red, this.Width - 40, r1.Top);
                     ss = tk.TradeCount.ToString();
                     si = cv.MeasureString(ss, font);
                     cv.DrawString(ss, font, Brushes.Gray, this.Width - si.Width, r1.Top);

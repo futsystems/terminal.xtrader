@@ -59,7 +59,8 @@ namespace CStock
         public MarkType marktype = MarkType.MarkA;//默认A股市
 
         public List<infolist> DL;
-        string stkname, stklabel, week;
+        //string stkname, stklabel, 
+        string week;
         public string ffilename;
 
         public string ftechname;
@@ -156,54 +157,60 @@ namespace CStock
 
         int curx, cury;
         public double FScale = 8;//默认值 8
-        public String StkName
-        {
-            get { return stkname; }
-            set
-            {
-                stkname = value;
-            }
-        }
+        //public String StkName
+        //{
+        //    get { return stkname; }
+        //    set
+        //    {
+        //        stkname = value;
+        //    }
+        //}
 
-        /// <summary>
-        /// 合约名称
-        /// </summary>
-        public string SymbolName
-        {
-            get { return stkname; }
-        }
+        ///// <summary>
+        ///// 合约名称
+        ///// </summary>
+        //public string SymbolName
+        //{
+        //    get { return stkname; }
+        //}
 
-        /// <summary>
-        /// 合约代码
-        /// </summary>
-        public string SymbolCode
-        {
-            get { return stklabel; }
-        }
+        ///// <summary>
+        ///// 合约代码
+        ///// </summary>
+        //public string SymbolCode
+        //{
+        //    get { return stklabel; }
+        //}
 
         /// <summary>
         /// 数据周期名称
         /// </summary>
-        public string DataCycleName
-        {
-            get { return "周期" + this.week; }
-        }
+        //public string DataCycleName
+        //{
+        //    get { return "周期" + this.week; }
+        //}
 
 
         public String FuncList()
         {
             return func.GetFuncList();
         }
-        public string StkCode
-        {
-            get { return stklabel; }
-            set { stklabel = value; }
-        }
+        //public string StkCode
+        //{
+        //    get { return stklabel; }
+        //    set { stklabel = value; }
+        //}
         public string StkWeek
         {
             get { return week; }
-            set { week = value; }
+            set 
+            { 
+                week = value;
+                _cycleTitle = TradingLib.MarketData.Utils.GetCycleName(week);
+            }
         }
+        string _cycleTitle = string.Empty;
+
         public Boolean ShowCursor
         {
             get { return cursor; }
@@ -436,8 +443,8 @@ namespace CStock
             yValue = "";
             digit = 0;
 
-            stkname = "";
-            stklabel = "";
+            //stkname = "";
+            //stklabel = "";
             week = "";
 
             showfs = false;

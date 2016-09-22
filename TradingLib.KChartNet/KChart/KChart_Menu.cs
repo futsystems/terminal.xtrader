@@ -126,10 +126,10 @@ namespace CStock
                 subitem.Tag = 0x4000 + (int)KFrequencyType.F_60Min;
                 item.DropDownItems.Add(subitem);
                 subitem.Click += StockMenu_Click;
-                subitem = new ToolStripMenuItem("分笔");
-                subitem.Tag = 0x4000 + (int)KFrequencyType.F_Trade;
-                item.DropDownItems.Add(subitem);
-                subitem.Click += StockMenu_Click;
+                //subitem = new ToolStripMenuItem("分笔");
+                //subitem.Tag = 0x4000 + (int)KFrequencyType.F_Trade;
+                //item.DropDownItems.Add(subitem);
+                //subitem.Click += StockMenu_Click;
 
 
                 //复权菜单

@@ -266,6 +266,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
+    <None Include="Resources\Min2.png" />
+    <None Include="Resources\Max2.png" />
+    <None Include="Resources\Close2.png" />
+    <None Include="Resources\bbs.png" />
+    <None Include="Resources\trade.png" />
     <None Include="Resources\disconnected.png" />
     <None Include="Resources\connected.png" />
     <None Include="Resources\toolbar\F10.bmp" />

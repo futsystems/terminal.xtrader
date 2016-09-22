@@ -71,7 +71,7 @@ namespace CStock
         //数据提示窗口
         Label[] HL = new Label[22];
         Point oriPoint;//保存原来位置 拖动浮动窗口
-        MDSymbol FCurStock = null;
+        
 
 
         Label[] debugLabels = new Label[10];
@@ -138,7 +138,7 @@ namespace CStock
         TGongSi zs_vol;
         public void zs_SetName(string name)
         {
-            zs_k.StkName = name;
+            //zs_k.StkName = name;
             //pbox3.Invalidate();
         }
         public void zs_Clear()
@@ -320,45 +320,53 @@ namespace CStock
         /// <summary>
         /// 设置证券名称
         /// </summary>
-        public String StkName
-        {
-            get { return GS[0].StkName; }
-            set
-            {
-                FSGS[0].StkName = value;
-                GS[0].StkName = value;
-                ctDetailsBoard1.StockLabel = StkCode + " " + value;
-                //StkLabel.Text = StkCode + " " + value;
-                this.Invalidate();
-            }
-        }
+        //public String StkName
+        //{
+        //    get
+        //    {
+        //        if (_symbol == null) return "NoSymbol";
+        //        return _symbol.Name;
+        //    }
+        //    //set
+        //    //{
+        //    //    //FSGS[0].StkName = value;
+        //    //    //GS[0].StkName = value;
+        //    //    ctDetailsBoard1.StockLabel = StkCode + " " + value;
+        //    //    //StkLabel.Text = StkCode + " " + value;
+        //    //    this.Invalidate();
+        //    //}
+        //}
 
         /// <summary>
         /// 设置证券代码
         /// </summary>
-        public string StkCode
-        {
-            get { return GS[0].StkCode; }
-            set
-            {
-                FSGS[0].StkCode = value;
-                GS[0].StkCode = value;
-                ctDetailsBoard1.StockLabel = value + " " + StkName;
-                //StkLabel.Text = value + " " + StkName;
-                this.Invalidate();
-            }
-        }
+        //public string StkCode
+        //{
+        //    get 
+        //    {
+        //        if (_symbol == null) return "NoSymbol";
+        //        return _symbol.Symbol;
+        //    }
+        //    //set
+        //    //{
+        //    //    //FSGS[0].StkCode = value;
+        //    //    //GS[0].StkCode = value;
+        //    //    ctDetailsBoard1.StockLabel = value + " " + StkName;
+        //    //    //StkLabel.Text = value + " " + StkName;
+        //    //    this.Invalidate();
+        //    //}
+        //}
 
-        public string StkWeek
-        {
-            get { return GS[0].StkWeek; }
-            set
-            {
-                FSGS[0].StkWeek = value;
-                GS[0].StkWeek = value;
-                this.Invalidate();
-            }
-        }
+        //public string StkWeek
+        //{
+        //    get { return GS[0].StkWeek; }
+        //    set
+        //    {
+        //        FSGS[0].StkWeek = value;
+        //        GS[0].StkWeek = value;
+        //        this.Invalidate();
+        //    }
+        //}
 
 
 
@@ -494,7 +502,7 @@ namespace CStock
             zs_k.ShowRight = true;
             zs_k.ShowFs = true;
             zs_k.LoadWfc("fs");
-            zs_k.StkName = "深证指数-399001";
+            //zs_k.StkName = "深证指数-399001";
             zs_k.ShowCursor = true;
             zs_k.CurWindow = false;
 
@@ -729,36 +737,7 @@ namespace CStock
 
         #region 向控件中添加,更新,清空数据
 
-        /// <summary>
-        /// 设定当前最新数据
-        /// </summary>
-        /// <param name="symbol"></param>
-        public void SetStock(MDSymbol symbol)
-        {
-            if (symbol == null)
-                return;
-
-            
-            //if (BuyValue[0] == null)
-            //    return;
-            FCurStock = symbol;
-            FSGS[0].Symbol = symbol;
-            GS[0].Symbol = symbol;
-
-
-
-            ctDetailsBoard1.SetStock(symbol);
-
-            this.PreClose = symbol.PreClose;
-            //FSGS[0].PreClose = symbol.PreClose;// symbol.now.last;
-            //this.PreClose = symbol.Precision;
-            //加载除权数据
-            this.SetQuan(symbol.PowerData);
-
-            this.BarWidth = 8;
-            this.StartFix = false;
-            this.Invalidate();
-        }
+        
 
         /// <summary>
         /// 最近一个Bar日期

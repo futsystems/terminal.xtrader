@@ -30,6 +30,7 @@ namespace XTraderLite
         /// </summary>
         string CurrentKChartFreq { get { return _currentFreq; } }
 
+
         /// <summary>
         /// 选中当前合约
         /// </summary>
@@ -43,21 +44,20 @@ namespace XTraderLite
             }
             _currentSymbol = symbol;
 
-            //设定当前视图类型
-            //SetViewType(EnumTraderViewType.KChart);
-
-
             ctrlKChart.Focus();
-            ctrlKChart.ClearData();
+            bool symChange = (symbol != ctrlKChart.Symbol);
+            bool cycleChange = _currentFreq != ctrlKChart.Cycle;
+            
 
-            //GP.SetQuan(sk.qu);
-            //GP.PreClose = sk.GP.YClose;
-            //ctrlKChart.SetQuan(symbol.PowerData);//设定除权数据
-            ctrlKChart.StkCode = symbol.Symbol;
-            ctrlKChart.StkName = symbol.Name;
-            ctrlKChart.SetStock(symbol);
+            if (symChange || cycleChange)
+            {
+                logger.Info("symbol change clear data");//需要重新获得数据
+                ctrlKChart.ClearData();
+                ctrlKChart.SetSymbol(symbol);
+                ctrlKChart.SetCycle(_currentFreq);
+            }
 
-
+            //盘口面板信息与频率和合约无关 直接查询获得更新
             if (ctrlKChart.ShowDetailPanel)
             {
                 if (ctrlKChart.TabValue == 0)
@@ -69,47 +69,26 @@ namespace XTraderLite
                 {
                     MDService.DataAPI.QryPriceVol(symbol.Exchange, symbol.Symbol);
                 }
-
             }
 
-
-            //如果是分时模式 则请求分时数据
-            if (ctrlKChart.IsIntraView)
+            //合约或频率任何一个数据改变 需要重新查询所有数据
+            if (symChange || cycleChange)
             {
-                //多日分时
-                if ((ctrlKChart.DaysForIntradayView > 1) && changeSymbol)
+                //分时数据查询
+                if (ctrlKChart.DaysForIntradayView > 1)
                 {
                     minuteData.Clear();
-                    //for (int i = 0; i < 10; i++)
-                    //    dateList[i] = -1;
-
-                    //多日分时 由于不知道交易日信息 因此先查询日线 获得有效日期，然后再按此日期进行历史分时查询
-                    //int reqid = dataApi.QrySeurityBars(FCurStock.mark, FCurStock.codes, 4, 0, 10);
-                    //reqSender_TimeView.TryAdd(reqid, GP);
+                    int reqid = MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ConstFreq.Freq_Day, 1, 10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
+                    kChartIntraViewDayBarRequest.TryAdd(reqid, this);
                 }
-                else //MDService.DataAPI
+                else
                 {
                     MDService.DataAPI.QryMinuteDate(symbol.Exchange, symbol.Symbol, 0);
                 }
+
+                //Bar数据查询
+                MDService.DataAPI.QrySeurityBars(symbol.Exchange, symbol.Symbol, _currentFreq, 0, 800);
             }
-
-            //如果是K线模式则请求K线数据
-            if (ctrlKChart.IsBarView)
-            {
-
-                //if (zq == 12)
-                //{
-                //    //Ticks.Clear();
-                //    //GetFenBiLine(sk, 0, 2000);
-                //}
-                //else
-                {
-                    MDService.DataAPI.QrySeurityBars(symbol.Exchange, symbol.Symbol, _currentFreq, 0, 800);
-                }
-            }
-
-
-
         }
 
 

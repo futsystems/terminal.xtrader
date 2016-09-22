@@ -327,5 +327,26 @@ namespace TradingLib.MarketData
 
         }
 
+
+        public static string GetCycleName(string freq)
+        {
+            switch (freq)
+            {
+                case ConstFreq.Freq_Day: return "日线";
+                case ConstFreq.Freq_Week: return "周线";
+                case ConstFreq.Freq_Month: return "月线";
+                case ConstFreq.Freq_Quarter: return "季线";
+                case ConstFreq.Freq_Year: return "年线";
+                case ConstFreq.Freq_M1: return "1分";
+                case ConstFreq.Freq_M5: return "5分";
+                case ConstFreq.Freq_M15: return "15分";
+                case ConstFreq.Freq_M30: return "30分";
+                case ConstFreq.Freq_M60: return "60分";
+                default:
+                    return "未知";
+
+            }
+
+        }
     }
 }

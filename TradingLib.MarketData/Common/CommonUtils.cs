@@ -19,6 +19,6 @@ namespace TradingLib.MarketData
             return false;
         }
 
-
+        
     }
 }

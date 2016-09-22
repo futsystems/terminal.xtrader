@@ -34,10 +34,7 @@ namespace CStock
                     //    StockClick(this, ee);
                     //}
 
-                    if (TimeViewDaysChanged != null && old != value)
-                    {
-                        TimeViewDaysChanged(this, value);
-                    }
+                    
                 }
             }
         }

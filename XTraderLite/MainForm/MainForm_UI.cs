@@ -20,6 +20,18 @@ namespace XTraderLite
         void WireUI()
         {
             imgConn.DoubleClick += new EventHandler(imgConn_DoubleClick);
+            btnTrade.Click += new EventHandler(btnTrade_Click);
+            btnBBS.Click += new EventHandler(btnBBS_Click);
+        }
+
+        void btnBBS_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("欢迎访问");
+        }
+
+        void btnTrade_Click(object sender, EventArgs e)
+        {
+            SwitchTradingBox();
         }
 
         void imgConn_DoubleClick(object sender, EventArgs e)
