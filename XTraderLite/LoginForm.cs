@@ -22,17 +22,38 @@ namespace XTraderLite
             CheckForIllegalCrossThreadCalls = false;
 
             InitializeComponent();
+            InitContrl();
             mStarter = start;
             btnLogin.Enabled = false;
 
             WireEvent();
 
             InitBW();
+
+            
         }
 
+        void InitContrl()
+        {
+            
+            
+
+            foreach (var v in (new ServerConfig()).GetServerNodes())
+            {
+                cbServer.Items.Add(v);
+            }
+            if (cbServer.Items.Count > 0)
+            {
+                cbServer.SelectedIndex = 0;
+            }
+
+            this.AcceptButton = btnLogin;
+        }
 
         void WireEvent()
         {
+            this.Load += new EventHandler(LoginForm_Load);
+            this.Activated += new EventHandler(LoginForm_Activated);
             btnLogin.Click += new EventHandler(btnLogin_Click);
             btnCancel.Click += new EventHandler(btnCancel_Click);
 
@@ -49,6 +70,16 @@ namespace XTraderLite
             MDService.EventHub.OnLoginEvent += new Action<MDLoginResponse>(EventHub_OnLoginEvent);
             MDService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
             MDService.EventHub.OnInitializeStatusEvent += new Action<string>(EventHub_OnInitializeStatusEvent);
+            
+        }
+
+        void LoginForm_Activated(object sender, EventArgs e)
+        {
+            username.Focus();
+        }
+
+        void LoginForm_Load(object sender, EventArgs e)
+        {
             
         }
 
@@ -89,8 +120,11 @@ namespace XTraderLite
             //logger.Info("client try to connec to:" + address + " port:" + port.ToString());
             MDService.InitDataAPI("TradingLib.MarketData.IMarketDataAPI");
             //MDService.DataAPI.Connect(new string[] { "210.21.198.182" }, 7709);
-            MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
-
+            ServerNode node = cbServer.SelectedItem as ServerNode;
+            if (node != null)
+            {
+                MDService.DataAPI.Connect(new string[] { node.Address }, node.Port);
+            }
         }
 
         bool _loginstart = false;

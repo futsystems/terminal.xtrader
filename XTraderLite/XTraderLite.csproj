@@ -63,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Config.cs" />
+    <Compile Include="Common\ServerNode.cs" />
     <Compile Include="DataAPIUtils.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
@@ -267,6 +269,10 @@
     <None Include="Resources\BottomTabMenuBG.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TraderAPI\TradingLib.TraderAPI.Future\TradingLib.TraderAPI.Future.csproj">
+      <Project>{64E6EAA4-11EE-43E2-B72B-EB803AE1952C}</Project>
+      <Name>TradingLib.TraderAPI.Future</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradingLib.KChartNet\TradingLib.XTrader.Control.csproj">
       <Project>{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}</Project>
       <Name>TradingLib.XTrader.Control</Name>

@@ -34,13 +34,13 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.username = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbServer = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
+            this.password = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
             this.holder.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.btnCancel.Location = new System.Drawing.Point(460, 290);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 25);
-            this.btnCancel.TabIndex = 20;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "取 消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -80,7 +80,7 @@
             this.btnLogin.Location = new System.Drawing.Point(460, 236);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 48);
-            this.btnLogin.TabIndex = 19;
+            this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "登 入";
             this.btnLogin.UseVisualStyleBackColor = true;
             // 
@@ -91,23 +91,17 @@
             this.checkBox1.Location = new System.Drawing.Point(382, 295);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(72, 16);
-            this.checkBox1.TabIndex = 18;
+            this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "记住密码";
             this.checkBox1.UseVisualStyleBackColor = false;
             // 
-            // textBox2
+            // username
             // 
-            this.textBox2.Location = new System.Drawing.Point(302, 292);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(76, 21);
-            this.textBox2.TabIndex = 17;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(302, 263);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(155, 21);
-            this.textBox1.TabIndex = 16;
+            this.username.Location = new System.Drawing.Point(302, 263);
+            this.username.Name = "username";
+            this.username.Size = new System.Drawing.Size(155, 21);
+            this.username.TabIndex = 2;
+            this.username.Text = "88888888";
             // 
             // label3
             // 
@@ -129,13 +123,13 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "登入用户";
             // 
-            // comboBox1
+            // cbServer
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(302, 236);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(155, 20);
-            this.comboBox1.TabIndex = 13;
+            this.cbServer.FormattingEnabled = true;
+            this.cbServer.Location = new System.Drawing.Point(302, 236);
+            this.cbServer.Name = "cbServer";
+            this.cbServer.Size = new System.Drawing.Size(155, 20);
+            this.cbServer.TabIndex = 1;
             // 
             // label1
             // 
@@ -149,21 +143,30 @@
             // 
             // holder
             // 
+            this.holder.Controls.Add(this.password);
             this.holder.Controls.Add(this._msg);
             this.holder.Controls.Add(this.topImage);
             this.holder.Controls.Add(this.btnCancel);
             this.holder.Controls.Add(this.btnLogin);
             this.holder.Controls.Add(this.label1);
             this.holder.Controls.Add(this.checkBox1);
-            this.holder.Controls.Add(this.comboBox1);
-            this.holder.Controls.Add(this.textBox2);
+            this.holder.Controls.Add(this.cbServer);
             this.holder.Controls.Add(this.label2);
-            this.holder.Controls.Add(this.textBox1);
+            this.holder.Controls.Add(this.username);
             this.holder.Controls.Add(this.label3);
             this.holder.Location = new System.Drawing.Point(1, 1);
             this.holder.Name = "holder";
             this.holder.Size = new System.Drawing.Size(560, 370);
             this.holder.TabIndex = 2;
+            // 
+            // password
+            // 
+            this.password.Location = new System.Drawing.Point(302, 290);
+            this.password.Name = "password";
+            this.password.PasswordChar = '*';
+            this.password.Size = new System.Drawing.Size(74, 21);
+            this.password.TabIndex = 3;
+            this.password.Text = "888888";
             // 
             // LoginForm
             // 
@@ -187,15 +190,15 @@
 
         private System.Windows.Forms.PictureBox topImage;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbServer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox username;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label _msg;
         private System.Windows.Forms.Panel holder;
+        private System.Windows.Forms.MaskedTextBox password;
     }
 }

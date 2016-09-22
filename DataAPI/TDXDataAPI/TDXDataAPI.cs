@@ -145,6 +145,7 @@ namespace DataAPI.TDX
         bool _connected = false;
         public void Connect(string[] hosts, int port)
         {
+            logger.Info(string.Format("Try to connect to server:{0} port:{1}", hosts[0], port));
             _hosts = hosts;
             _port = port;
 

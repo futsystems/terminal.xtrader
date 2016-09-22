@@ -208,6 +208,7 @@ namespace TradingLib.TraderControl
             return pos.isFlat ? 0 : (pos.UnsignedSize - ot.GetPendingExitSize(pos.Symbol,pos.DirectionType== QSEnumPositionDirectionType.Long?true:false));
         }
 
+        
         /// <summary>
         /// 插入一条新的持仓对象
         /// </summary>
