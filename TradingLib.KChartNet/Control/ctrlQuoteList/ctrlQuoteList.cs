@@ -112,11 +112,6 @@ namespace TradingLib.XTrader.Control
         {
             symbolMap = symbols;
         }
-        //{
-        //    get { return symbolMap; }
-        //    set { symbolMap = value; }
-        //}
-
 
         /// <summary>
         /// 当前选中合约

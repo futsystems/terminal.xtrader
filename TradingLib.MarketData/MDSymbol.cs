@@ -24,6 +24,7 @@ namespace TradingLib.MarketData
             this.Currency = MDCurrency.RMB;
             this.FinanceData = new FinanceData();
             this.TickSnapshot = new TDX();
+            this.LastTickSnapshot = new TDX();
         }
 
         string _symbol = string.Empty;
@@ -128,6 +129,11 @@ namespace TradingLib.MarketData
         /// 行情快照
         /// </summary>
         public TDX TickSnapshot;
+
+        /// <summary>
+        /// 上次行情快照
+        /// </summary>
+        public TDX LastTickSnapshot;
 
 
         public double PreClose { get; set; }

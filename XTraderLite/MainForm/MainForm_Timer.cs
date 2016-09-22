@@ -87,8 +87,18 @@ namespace XTraderLite
             }
 
 
-            //查询实时行情
-            MDService.DataAPI.QryTickSnapshot(ctrlSymbolHighLight.Symbols.ToArray());
+            IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
+            //底部高亮合约
+            symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
+            //如果合约报价列表可见 合并对应可见合约
+            if(ctrlQuoteList.Visible)
+            {
+                symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
+            }
+            if (symlist.Count() > 0)
+            {
+                MDService.DataAPI.QryTickSnapshot(symlist.ToArray());
+            }
 
 
             UpdateTime();

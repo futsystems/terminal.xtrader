@@ -117,9 +117,6 @@ namespace TradingLib.XTrader.Control
 
             _timer = new System.Threading.Timer(ChangeColorBack, null, 800, 1500);
 
-
-
-
             WireEvent();
             
 
@@ -127,8 +124,6 @@ namespace TradingLib.XTrader.Control
             //初始化右键菜单
             if(MenuEnable)
                 initMenu();
-            
-
             
         }
 
@@ -261,9 +256,6 @@ namespace TradingLib.XTrader.Control
                 }
         }
 
-        //通过symbol得到quoterow
-        //public QuoteRow this[string symbol] { get { return this[symbol2idx(symbol)]; } }
-
         
         /// <summary>
         /// 记录改变最新价颜色的行号
@@ -313,6 +305,7 @@ namespace TradingLib.XTrader.Control
         {
 
             int idx = symbol2idx(symbol.UniqueKey);
+            if (idx < _beginIdx || idx > _endIdx) return;
             QuoteRow row = this[idx];
             if (row != null)
             {

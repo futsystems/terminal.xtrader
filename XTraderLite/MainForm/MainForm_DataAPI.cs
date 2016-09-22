@@ -415,20 +415,24 @@ namespace XTraderLite
             }
             else
             {
-                //更新报价面板
-                if (ctrlQuoteList.Visible)
+                foreach (var symbol in arg1)
                 {
-                    logger.Info("更新报价面板");
-                    foreach (var symbol in arg1)
+
+                    if (ctrlQuoteList.Visible)
                     {
                         ctrlQuoteList.Update(symbol);
                     }
+                    ctrlSymbolHighLight.Update(symbol);
+
+                    //保存LastTick
+                    if (symbol.TickSnapshot.Time != symbol.LastTickSnapshot.Time)
+                    {
+                        symbol.LastTickSnapshot = symbol.TickSnapshot;
+                    }
                 }
 
-                foreach (var symbol in arg1)
-                {
-                    ctrlSymbolHighLight.Update(symbol);
-                }
+                //驱动完毕所有行情快照监听者之后 更新last
+                
             }
 
 

@@ -12,5 +12,13 @@ namespace TradingLib.MarketData
         {
             return "{0:F" + symbol.Precision.ToString() + "}";
         }
+
+        public static bool IsValid(this TDX ticksanpshot)
+        {
+            if (ticksanpshot.Price > 0) return true;
+            return false;
+        }
+
+
     }
 }

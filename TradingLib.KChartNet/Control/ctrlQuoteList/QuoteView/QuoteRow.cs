@@ -163,11 +163,29 @@ namespace TradingLib.XTrader.Control
             //遍历所有单元格 按单元格类型进行数据更新 同时设定样式，行情快照 与单元格数据 一一对应
             foreach (var cell in _columeCellMap.Values)
             {
+                //行情没有最新价 则该合约处于停盘或其他情况
+                if(!_symbol.TickSnapshot.IsValid())
+                {
+                    if (cell.Column.FieldType != EnumFileldType.PRECLOSE)//
+                    {
+                        continue;
+                    }
+
+                }
                 switch (cell.Column.FieldType)
                 {
+                    case EnumFileldType.PRECLOSE:
+                        cell.Value = _symbol.TickSnapshot.last;
+                        break;
+
                     case EnumFileldType.LAST:
                         cell.Value = _symbol.TickSnapshot.Price;
                         cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price, _symbol.TickSnapshot.last);
+                        if (_symbol.LastTickSnapshot.Price > 0 && _symbol.TickSnapshot.Price != _symbol.LastTickSnapshot.Price)
+                        {
+                            cell.CellStyle.BackColor = _symbol.TickSnapshot.Price > _symbol.LastTickSnapshot.Price ? Color.Tomato : Color.SpringGreen;
+                            _quotelist.BookLocation(_rowid);
+                        }
                         break;
                     case EnumFileldType.LASTSIZE:
                         cell.Value = _symbol.TickSnapshot.Size;
@@ -215,9 +233,7 @@ namespace TradingLib.XTrader.Control
                         break;
                     case EnumFileldType.PRESETTLEMENT:
                         break;
-                    case EnumFileldType.PRECLOSE:
-                        cell.Value = _symbol.TickSnapshot.last;
-                        break;
+                    
                     case EnumFileldType.PREOI:
                         break;
                     case EnumFileldType.EXCHANGE:
