@@ -33,10 +33,13 @@ namespace XTraderLite
         {
             if (!timeGo) return;
 
-
+            //KChart视图
             if (ctrlKChart.Visible)
             {
-
+                if (ctrlKChart.IsIntraView)
+                {
+                    MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0);
+                }
 
                 //处于K线图模式 实时更新最新的Bar数据
                 if (ctrlKChart.IsBarView)
@@ -69,13 +72,14 @@ namespace XTraderLite
             }
 
 
-            //实时更新分笔视图
+            //分笔视图
             if (ctrlTickList.Visible)
             {
                 int reqId = MDService.DataAPI.QryTradeSplitData(ctrlTickList.Symbol.Exchange, ctrlTickList.Symbol.Symbol, 0, ctrlTickList.RowCount);//*ctrlTickList.ColumnCount);
                 tickListUpdateRequest.TryAdd(reqId, this);
             }
-            //实时更新分价数据
+
+            //分价视图
             if (ctrlPriceVolList.Visible)
             {
                 int reqId = MDService.DataAPI.QryPriceVol(ctrlPriceVolList.Symbol.Exchange, ctrlPriceVolList.Symbol.Symbol);

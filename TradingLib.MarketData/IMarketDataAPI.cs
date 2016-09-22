@@ -56,7 +56,10 @@ namespace TradingLib.MarketData
         /// <returns></returns>
         int QryTickSnapshot(MDSymbol[] symbols);
 
-
+        /// <summary>
+        /// 返回历史分时数据
+        /// </summary>
+        event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryHistMinuteData;
         /// <summary>
         /// 查询分时数据
         /// </summary>
@@ -65,7 +68,11 @@ namespace TradingLib.MarketData
         /// <returns></returns>
         int QryMinuteDate(string exchange, string symbol,int date);
 
+        /// <summary>
+        /// 返回当日分时数据
+        /// </summary>
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
+
 
         /// <summary>
         /// Bar数据回报

@@ -32,6 +32,30 @@ namespace XTraderLite
 
             //加载更多K线
             ctrlKChart.KViewLoadMoreData += new Action<object, CStock.KViewLoadMoreDataEventArgs>(ctrlKChart_KViewLoadMoreData);
+            //查看分时天数发生变化 需要加载更多分时数据
+            ctrlKChart.TimeViewDaysChanged += new Action<object, int>(ctrlKChart_TimeViewDaysChanged);
+        }
+
+        void ctrlKChart_TimeViewDaysChanged(object arg1, int arg2)
+        {
+            if(CurrentKChartSymbol == null) return;
+            ctrlKChart.ClearIntraViewData();//分时显示日期数量变化时 立即执行分时数据清理并重绘 如果在等待历史数据到达时候再清理数据会造成老数据任然在屏幕且有明显的切换感
+
+            if (ctrlKChart.DaysForIntradayView>1)
+            {
+                //DayTicks.Clear();
+                //for (int i = 0; i < 10; i++)
+                //    dateList[i] = -1;
+                //多日分时 由于不知道交易日信息 因此先查询日线 获得有效日期，然后再按此日期进行历史分时查询
+                int reqid = MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange,CurrentKChartSymbol.Symbol,ConstFreq.Freq_Day,1,10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
+                kChartIntraViewDayBarRequest.TryAdd(reqid, this);
+
+            }
+            else//查询今日分时
+            {
+
+                MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol,0);
+            }
         }
 
         void ctrlKChart_KViewLoadMoreData(object arg1, CStock.KViewLoadMoreDataEventArgs arg2)

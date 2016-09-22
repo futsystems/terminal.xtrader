@@ -132,9 +132,8 @@ namespace XTraderLite
             {
                 case TradingLib.XTrader.Control.QuoteMouseEventType.SymbolDoubleClick:
                     {
-                        SwitchMainView();
                         logger.Info("QuoteView Select Symbol:" + arg1.Symbol);
-                        SetKChartSymbol(arg1);
+                        ViewKChart();
                         break;
                     }
             }

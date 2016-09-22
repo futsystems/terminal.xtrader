@@ -791,13 +791,13 @@ namespace DataAPI.TDX
                                 //logger.Info("{0} {1} {2}".Put(time[j], close[j], vol[j]));
                             }
 
-                            if (OnRspQryHistMinuteData != null)
+                            if (OnRspQryMinuteData != null)
                             {
-                                double[][] tmp = new double[4][];
-                                tmp[0] = date;
-                                tmp[1] = time;
-                                tmp[2] = close;
-                                tmp[3] = vol;
+                                Dictionary<string, double[]> tmp = new Dictionary<string, double[]>();
+                                tmp["date"] = date;
+                                tmp["time"] = time;
+                                tmp["close"] = close;
+                                tmp["vol"] = vol;
                                 OnRspQryHistMinuteData(tmp, null, n, sb.RequestId);
                             }
 

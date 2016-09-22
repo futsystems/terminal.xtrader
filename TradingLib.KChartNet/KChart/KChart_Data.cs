@@ -265,7 +265,7 @@ namespace CStock
         {
             for (int i = 0; i < 10; i++)
                 FSGS[i].cleardata();
-            //this.Invalidate();
+            this.Invalidate();
         }
 
 

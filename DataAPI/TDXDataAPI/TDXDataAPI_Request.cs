@@ -200,7 +200,7 @@ namespace DataAPI.TDX
                 sb11.Market = (byte)(ushort)market;
                 //sb11.type = Convert.ToInt32(e.Date);
                 sb11.RequestId = this.NextRequestId;
-                //NewRequest(sb11);
+                NewRequest(sb11);
                 return sb11.RequestId;
             }
         }

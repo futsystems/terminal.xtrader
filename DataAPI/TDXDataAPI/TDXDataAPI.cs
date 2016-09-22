@@ -72,11 +72,10 @@ namespace DataAPI.TDX
         public event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
 
 
-
         /// <summary>
-        /// 历史分时数据回报
+        /// 分时数据回报事件
         /// </summary>
-        public event Action<double[][], RspInfo, int, int> OnRspQryHistMinuteData;
+        public event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryHistMinuteData;
 
 
 
