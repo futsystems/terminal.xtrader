@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,15 +17,32 @@ namespace XTraderLite
     {
         
         List<MinuteData> minuteData = new List<MinuteData>();
+
+        
+
         void InitKChart()
         {
 
             ctrlKChart.KChartModeChange += new Action<object, CStock.KChartModeChangeEventArgs>(kChartView_KChartModeChange);
 
+            //盘口面板Tab页切换
             ctrlKChart.TabSwitch += new Action<object, CStock.TabSwitchEventArgs>(ctrlKChart_TabSwitch);
-
+            //盘口慢板Tab页面双击
             ctrlKChart.TabDoubleClick += new Action<object, CStock.TabDoubleClickEventArgs>(ctrlKChart_TabDoubleClick);
+
+            //加载更多K线
+            ctrlKChart.KViewLoadMoreData += new Action<object, CStock.KViewLoadMoreDataEventArgs>(ctrlKChart_KViewLoadMoreData);
         }
+
+        void ctrlKChart_KViewLoadMoreData(object arg1, CStock.KViewLoadMoreDataEventArgs arg2)
+        {
+            logger.Info(string.Format("load more data from server current data count:{0}", arg2.Count));
+
+            int reqid = MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange,CurrentKChartSymbol.Symbol, CurrentKChartFreq, arg2.Count, 800);
+            kChartLoadMoreDataRequest.TryAdd(reqid, this);
+        }
+
+
 
         void ctrlKChart_TabDoubleClick(object arg1, CStock.TabDoubleClickEventArgs arg2)
         {

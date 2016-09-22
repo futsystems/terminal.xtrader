@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TradingLib.MarketData
 {
-    public static class Util
+    public static class CommonUtils
     {
 
         public static string GetFormat(this MDSymbol symbol)

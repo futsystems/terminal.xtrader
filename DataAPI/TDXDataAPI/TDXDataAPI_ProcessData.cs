@@ -150,7 +150,7 @@ namespace DataAPI.TDX
                     //}
                     //this.BeginInvoke(DataCuLi, sb);
 
-                    logger.Info("thread wait new request----------");
+                    //logger.Info("thread wait new request----------");
                     // clear current flag signal
                     _processWaiting.Reset();
 

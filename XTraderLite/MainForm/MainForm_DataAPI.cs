@@ -21,6 +21,13 @@ namespace XTraderLite
         ConcurrentDictionary<int, object> kChartUpdateRequest = new ConcurrentDictionary<int, object>();
 
         ConcurrentDictionary<int, object> priceVolListRequest = new ConcurrentDictionary<int, object>();
+
+        //K线图加载更多历史数据请求
+        ConcurrentDictionary<int, object> kChartLoadMoreDataRequest = new ConcurrentDictionary<int, object>();
+        //K线图实时Bar数据请起
+        ConcurrentDictionary<int, object> kChartRealTimeBarRequest = new ConcurrentDictionary<int, object>();
+
+
         //ConcurrentDictionary<int, object> priceVolUpdateRequest = new ConcurrentDictionary<int, object>();
 
         //void InitDataAPI()
@@ -199,8 +206,116 @@ namespace XTraderLite
             }
         }
 
+        /// <summary>
+        /// 响应Bar数据
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        /// <param name="arg4"></param>
         void DataAPI_OnRspQrySecurityBar(Dictionary<string, double[]> arg1, RspInfo arg2, int arg3, int arg4)
         {
+
+
+            object target = null;
+            //查询最近的Bar数据并实时插入更新
+            if (kChartRealTimeBarRequest.TryRemove(arg4, out target))
+            {
+                if (arg3 == 0)
+                {
+                    logger.Info("There is no realtime bar request,return");
+                    return;
+                }
+                double[] date1, time1, high1, low1, open1, close1, amount1, upcount, downcount, vol1;
+                arg1.TryGetValue("date", out date1);
+                arg1.TryGetValue("time", out time1);
+                arg1.TryGetValue("high", out high1);
+                arg1.TryGetValue("low", out low1);
+                arg1.TryGetValue("open", out open1);
+                arg1.TryGetValue("close", out close1);
+                arg1.TryGetValue("amount", out amount1);
+                arg1.TryGetValue("vol", out vol1);
+                bool have = arg1.TryGetValue("upcount", out upcount);
+                arg1.TryGetValue("downcount", out downcount);
+
+
+                string first = string.Format("{0}-{1}", (int)date1[0], (int)time1[0] * 100);
+                string last = string.Format("{0}-{1}", (int)date1[arg3 - 1], (int)time1[arg3 - 1] * 100);
+                //logger.Info("Got RelaTime Bar, Count:{0} FirstTime:{1} LastTime:{2}".Put(arg3, first, last));
+                //获得返回数据的第一个时间 并查找该时间index然后SetValue
+                long dt = Utils.ToTLDateTime((int)date1[0], (int)time1[0] * 100);
+                int index = ctrlKChart.GetIndex(dt);
+
+                //将数据集重置到该index
+                ctrlKChart.ResetIndex(index);
+
+                ctrlKChart.AddKViewData("date", date1, arg3);//在数据集之后添加新的数据
+                ctrlKChart.AddKViewData("time", time1, arg3);
+                ctrlKChart.AddKViewData("high", high1, arg3);
+                ctrlKChart.AddKViewData("low", low1, arg3);
+                ctrlKChart.AddKViewData("open", open1, arg3);
+                ctrlKChart.AddKViewData("close", close1, arg3);
+                ctrlKChart.AddKViewData("amount", amount1, arg3);
+
+                if (have)
+                {
+                    ctrlKChart.AddKViewData("upcount", upcount, arg3);
+                    ctrlKChart.AddKViewData("downcount", downcount, arg3);
+                }
+                ctrlKChart.AddKViewData("vol", vol1, arg3);
+                ctrlKChart.ReCalculate("RealTimeBar");
+                ctrlKChart.ReDraw();
+                return;
+            }
+
+            //K线图加载更多历史数据返回处理
+            if (kChartLoadMoreDataRequest.TryRemove(arg4, out target))
+            {
+                if (arg3 == 0)
+                {
+                    logger.Info("there is no more data from server");
+                    ctrlKChart.NoMoreBarDate = true;
+                    return;
+                }
+                //从行情源返回的数据中加载所有数据 并插入到当前数据集前面
+                double[] date1, time1, high1, low1, open1, close1, amount1, upcount, downcount, vol1;
+                arg1.TryGetValue("date", out date1);
+                arg1.TryGetValue("time", out time1);
+                arg1.TryGetValue("high", out high1);
+                arg1.TryGetValue("low", out low1);
+                arg1.TryGetValue("open", out open1);
+                arg1.TryGetValue("close", out close1);
+                arg1.TryGetValue("amount", out amount1);
+                arg1.TryGetValue("vol", out vol1);
+
+                
+                ctrlKChart.AddKViewData("date", date1, arg3, true);
+                ctrlKChart.AddKViewData("time", time1, arg3, true);
+                ctrlKChart.AddKViewData("high", high1, arg3, true);
+                ctrlKChart.AddKViewData("low", low1, arg3, true);
+                ctrlKChart.AddKViewData("open", open1, arg3, true);
+                ctrlKChart.AddKViewData("close", close1, arg3, true);
+                ctrlKChart.AddKViewData("amount", amount1, arg3, true);
+
+                bool have = arg1.TryGetValue("upcount", out upcount);
+                arg1.TryGetValue("downcount", out downcount); ;
+                if (have)
+                {
+                    ctrlKChart.AddKViewData("upcount", upcount, arg3, true);
+                    ctrlKChart.AddKViewData("downcount", downcount, arg3, true);
+                }
+                ctrlKChart.AddKViewData("vol", vol1, arg3, true);
+                //CStock.Constants.Profiler.EnterSection("Calculate");
+                ctrlKChart.ReCalculate("MoreData");
+                //CStock.Constants.Profiler.LeaveSection();
+
+                //CStock.Constants.Profiler.EnterSection("Draw");
+                ctrlKChart.ZoomOut();
+                //CStock.Constants.Profiler.LeaveSection();
+
+                //logger.Info(CStock.Constants.Profiler.GetStatsString());
+                return;
+            }
 
             //K线图初始化数据查询回报处理 通过AddAll将数组一次性添加到数据集
             if (ctrlKChart.Visible)

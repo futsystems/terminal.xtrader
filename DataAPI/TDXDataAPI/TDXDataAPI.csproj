@@ -54,6 +54,7 @@
     <Compile Include="TDXDecode.cs" />
     <Compile Include="TDXStruct.cs" />
     <Compile Include="TDXDataAPI_.cs" />
+    <Compile Include="TDXDataAPI_Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">
