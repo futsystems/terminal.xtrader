@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Reflection;
 
 namespace TradingLib.MarketData
 {
@@ -347,6 +349,110 @@ namespace TradingLib.MarketData
 
             }
 
+        }
+
+
+
+        /// <summary>
+        /// 加载交易API
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static ITraderAPI LoadTraderAPI(string name)
+        {
+            return LoadAPI<ITraderAPI>("TraderAPI",name);
+        }
+
+        /// <summary>
+        /// 加载行情API
+        /// </summary>
+        public static IMarketDataAPI LoadDataAPI(string name)
+        {
+            return LoadAPI<IMarketDataAPI>("DataAPI", name);
+            //string[] aDLLs = null;
+
+            //try
+            //{
+            //    aDLLs = Directory.GetFiles("DataAPI", "*.dll");
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogService.Error("Load ServiceHost Error:" + ex.ToString());
+            //}
+            //if (aDLLs.Length == 0)
+            //    return null;
+
+            //foreach (string item in aDLLs)
+            //{
+            //    Assembly aDLL = Assembly.UnsafeLoadFrom(item);
+            //    Type[] types = aDLL.GetTypes();
+
+            //    foreach (Type type in types)
+            //    {
+            //        try
+            //        {
+
+            //            //connection service must support IDataServerServiceHost interface
+            //            if (type.GetInterface(name) != null)
+            //            {
+            //                object o = Activator.CreateInstance(type);
+
+            //                if (o is IMarketDataAPI)
+            //                {
+            //                    return o as IMarketDataAPI; ;
+            //                }
+            //            }
+            //        }
+            //        catch
+            //        {
+            //        }
+            //    }
+            //}
+            //return null;
+        }
+
+        static T LoadAPI<T>(string dir, string name)
+        {
+            string[] aDLLs = null;
+
+            try
+            {
+                aDLLs = Directory.GetFiles(dir, "*.dll");
+            }
+            catch (Exception ex)
+            {
+                LogService.Error("Load ServiceHost Error:" + ex.ToString());
+            }
+            if (aDLLs.Length == 0)
+                return default(T);
+
+            foreach (string item in aDLLs)
+            {
+                Assembly aDLL = Assembly.UnsafeLoadFrom(item);
+                Type[] types = aDLL.GetTypes();
+
+                foreach (Type type in types)
+                {
+                    try
+                    {
+
+                        //connection service must support IDataServerServiceHost interface
+                        if (type.GetInterface(name) != null)
+                        {
+                            object o = Activator.CreateInstance(type);
+
+                            if (o is T)
+                            {
+                                return (T)o;
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return default(T);
         }
     }
 }

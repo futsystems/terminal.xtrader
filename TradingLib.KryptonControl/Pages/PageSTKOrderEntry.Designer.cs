@@ -1,4 +1,4 @@
-﻿namespace StockTrader
+﻿namespace TradingLib.KryptonControl
 {
     partial class PageSTKOrderEntry
     {
@@ -33,7 +33,6 @@
             this.btnCancelBuy = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancelAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnRefresh = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.ctOrderSenderSTK2 = new TradingLib.KryptonControl.ctOrderSenderSTK();
             this.ctOrderSenderSTK1 = new TradingLib.KryptonControl.ctOrderSenderSTK();
             this.ctQuoteViewSTK1 = new TradingLib.KryptonControl.ctQuoteViewSTK();
             this.kryptonNavigator1 = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
@@ -61,19 +60,19 @@
             this.kryptonPanel1.Controls.Add(this.btnCancelBuy);
             this.kryptonPanel1.Controls.Add(this.btnCancelAll);
             this.kryptonPanel1.Controls.Add(this.btnRefresh);
-            this.kryptonPanel1.Controls.Add(this.ctOrderSenderSTK2);
             this.kryptonPanel1.Controls.Add(this.ctOrderSenderSTK1);
             this.kryptonPanel1.Controls.Add(this.ctQuoteViewSTK1);
             this.kryptonPanel1.Controls.Add(this.kryptonNavigator1);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(1199, 457);
+            this.kryptonPanel1.Size = new System.Drawing.Size(1119, 253);
             this.kryptonPanel1.TabIndex = 0;
             // 
             // btnCancelSell
             // 
-            this.btnCancelSell.Location = new System.Drawing.Point(617, 219);
+            this.btnCancelSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelSell.Location = new System.Drawing.Point(1048, 65);
             this.btnCancelSell.Name = "btnCancelSell";
             this.btnCancelSell.Size = new System.Drawing.Size(70, 25);
             this.btnCancelSell.TabIndex = 6;
@@ -81,7 +80,8 @@
             // 
             // btnCancelBuy
             // 
-            this.btnCancelBuy.Location = new System.Drawing.Point(541, 219);
+            this.btnCancelBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelBuy.Location = new System.Drawing.Point(1049, 34);
             this.btnCancelBuy.Name = "btnCancelBuy";
             this.btnCancelBuy.Size = new System.Drawing.Size(70, 25);
             this.btnCancelBuy.TabIndex = 5;
@@ -89,7 +89,8 @@
             // 
             // btnCancelAll
             // 
-            this.btnCancelAll.Location = new System.Drawing.Point(465, 219);
+            this.btnCancelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelAll.Location = new System.Drawing.Point(1049, 3);
             this.btnCancelAll.Name = "btnCancelAll";
             this.btnCancelAll.Size = new System.Drawing.Size(70, 25);
             this.btnCancelAll.TabIndex = 4;
@@ -103,26 +104,18 @@
             this.btnRefresh.TabIndex = 3;
             this.btnRefresh.Values.Text = "刷 新";
             // 
-            // ctOrderSenderSTK2
-            // 
-            this.ctOrderSenderSTK2.Location = new System.Drawing.Point(454, 3);
-            this.ctOrderSenderSTK2.Name = "ctOrderSenderSTK2";
-            this.ctOrderSenderSTK2.Side = false;
-            this.ctOrderSenderSTK2.Size = new System.Drawing.Size(220, 212);
-            this.ctOrderSenderSTK2.TabIndex = 2;
-            // 
             // ctOrderSenderSTK1
             // 
-            this.ctOrderSenderSTK1.Location = new System.Drawing.Point(3, 3);
+            this.ctOrderSenderSTK1.Location = new System.Drawing.Point(0, 0);
             this.ctOrderSenderSTK1.Name = "ctOrderSenderSTK1";
             this.ctOrderSenderSTK1.Side = true;
-            this.ctOrderSenderSTK1.Size = new System.Drawing.Size(220, 212);
+            this.ctOrderSenderSTK1.Size = new System.Drawing.Size(200, 212);
             this.ctOrderSenderSTK1.TabIndex = 1;
             // 
             // ctQuoteViewSTK1
             // 
             this.ctQuoteViewSTK1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ctQuoteViewSTK1.Location = new System.Drawing.Point(226, 3);
+            this.ctQuoteViewSTK1.Location = new System.Drawing.Point(200, 0);
             this.ctQuoteViewSTK1.Margin = new System.Windows.Forms.Padding(0);
             this.ctQuoteViewSTK1.Name = "ctQuoteViewSTK1";
             this.ctQuoteViewSTK1.Size = new System.Drawing.Size(220, 250);
@@ -136,14 +129,14 @@
             this.kryptonNavigator1.Bar.TabStyle = ComponentFactory.Krypton.Toolkit.TabStyle.LowProfile;
             this.kryptonNavigator1.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
             this.kryptonNavigator1.Button.ContextButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
-            this.kryptonNavigator1.Location = new System.Drawing.Point(0, 256);
+            this.kryptonNavigator1.Location = new System.Drawing.Point(423, 0);
             this.kryptonNavigator1.Name = "kryptonNavigator1";
             this.kryptonNavigator1.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.kryptonPage1,
             this.kryptonPage2,
             this.kryptonPage3});
             this.kryptonNavigator1.SelectedIndex = 2;
-            this.kryptonNavigator1.Size = new System.Drawing.Size(1199, 201);
+            this.kryptonNavigator1.Size = new System.Drawing.Size(620, 250);
             this.kryptonNavigator1.TabIndex = 0;
             this.kryptonNavigator1.Text = "kryptonNavigator1";
             // 
@@ -199,7 +192,7 @@
             this.kryptonPage3.LastVisibleSet = true;
             this.kryptonPage3.MinimumSize = new System.Drawing.Size(50, 50);
             this.kryptonPage3.Name = "kryptonPage3";
-            this.kryptonPage3.Size = new System.Drawing.Size(1197, 174);
+            this.kryptonPage3.Size = new System.Drawing.Size(618, 223);
             this.kryptonPage3.Text = "委 托";
             this.kryptonPage3.ToolTipTitle = "Page ToolTip";
             this.kryptonPage3.UniqueName = "5BEDEEF8AB6F4F204F917E95F24B1A0E";
@@ -210,7 +203,7 @@
             this.ctOrderViewSTK1.Location = new System.Drawing.Point(0, 0);
             this.ctOrderViewSTK1.Name = "ctOrderViewSTK1";
             this.ctOrderViewSTK1.RealView = true;
-            this.ctOrderViewSTK1.Size = new System.Drawing.Size(1197, 174);
+            this.ctOrderViewSTK1.Size = new System.Drawing.Size(618, 223);
             this.ctOrderViewSTK1.TabIndex = 0;
             // 
             // PageSTKOrderEntry
@@ -219,7 +212,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.kryptonPanel1);
             this.Name = "PageSTKOrderEntry";
-            this.Size = new System.Drawing.Size(1199, 457);
+            this.Size = new System.Drawing.Size(1119, 253);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).EndInit();
@@ -246,7 +239,6 @@
         private TradingLib.KryptonControl.ctOrderViewSTK ctOrderViewSTK1;
         private TradingLib.KryptonControl.ctQuoteViewSTK ctQuoteViewSTK1;
         private TradingLib.KryptonControl.ctOrderSenderSTK ctOrderSenderSTK1;
-        private TradingLib.KryptonControl.ctOrderSenderSTK ctOrderSenderSTK2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnRefresh;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelSell;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelBuy;

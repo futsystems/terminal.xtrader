@@ -70,7 +70,6 @@
             this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
-            this.debugControl1 = new TradingLib.XTrader.Control.DebugControl();
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnBBS = new System.Windows.Forms.PictureBox();
             this.btnTrade = new System.Windows.Forms.PictureBox();
@@ -116,11 +115,12 @@
             this.KeyCode = new MyEdit();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
+            this.btnDebugForm = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolBar.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
             this.panelMarket.SuspendLayout();
-            this.panelBroker.SuspendLayout();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnBBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnTrade)).BeginInit();
@@ -170,7 +170,9 @@
             this.toolStripSeparator8,
             this.btnDemo1,
             this.btnDemo2,
-            this.btnDemo3});
+            this.btnDemo3,
+            this.toolStripSeparator10,
+            this.btnDebugForm});
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Margin = new System.Windows.Forms.Padding(1);
             this.toolBar.Name = "toolBar";
@@ -580,24 +582,11 @@
             // panelBroker
             // 
             this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.debugControl1);
             this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBroker.Location = new System.Drawing.Point(0, 393);
             this.panelBroker.Name = "panelBroker";
             this.panelBroker.Size = new System.Drawing.Size(920, 260);
             this.panelBroker.TabIndex = 0;
-            // 
-            // debugControl1
-            // 
-            this.debugControl1.EnableSearching = true;
-            this.debugControl1.ExternalTimeStamp = 0;
-            this.debugControl1.Location = new System.Drawing.Point(0, 0);
-            this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.debugControl1.Name = "debugControl1";
-            this.debugControl1.Size = new System.Drawing.Size(261, 127);
-            this.debugControl1.TabIndex = 0;
-            this.debugControl1.TimeStamps = true;
-            this.debugControl1.UseExternalTimeStamp = false;
             // 
             // panelTop
             // 
@@ -992,6 +981,20 @@
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
             // 
+            // btnDebugForm
+            // 
+            this.btnDebugForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDebugForm.Image = ((System.Drawing.Image)(resources.GetObject("btnDebugForm.Image")));
+            this.btnDebugForm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDebugForm.Name = "btnDebugForm";
+            this.btnDebugForm.Size = new System.Drawing.Size(48, 22);
+            this.btnDebugForm.Text = "DEBUG";
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 25);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1012,7 +1015,6 @@
             this.workPanel.ResumeLayout(false);
             this.panelMarket.ResumeLayout(false);
             this.panelMarket.PerformLayout();
-            this.panelBroker.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnBBS)).EndInit();
@@ -1076,7 +1078,6 @@
         private System.Windows.Forms.ToolStripButton btnWatchList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton btnDemo3;
-        private TradingLib.XTrader.Control.DebugControl debugControl1;
         private System.Windows.Forms.ToolStripButton btnDemo1;
         private System.Windows.Forms.ToolStripButton btnDemo2;
         private CStock.TStock ctrlKChart;
@@ -1124,6 +1125,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.PictureBox btnTrade;
         private System.Windows.Forms.PictureBox btnBBS;
+        private System.Windows.Forms.ToolStripButton btnDebugForm;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }
 

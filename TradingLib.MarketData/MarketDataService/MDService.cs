@@ -75,55 +75,10 @@ namespace TradingLib.MarketData
         {
             if (defaultInstance._dataAPI == null)
             {
-                defaultInstance._dataAPI = LoadDataAPI(name);
+                defaultInstance._dataAPI = Utils.LoadDataAPI(name);
             }
         }
 
-        /// <summary>
-        /// 加载ServiceHost
-        /// </summary>
-        static IMarketDataAPI  LoadDataAPI(string name)
-        {
-            string[] aDLLs = null;
-
-            try
-            {
-                aDLLs = Directory.GetFiles("DataAPI", "*.dll");
-            }
-            catch (Exception ex)
-            {
-                LogService.Error("Load ServiceHost Error:" + ex.ToString());
-            }
-            if (aDLLs.Length == 0)
-                return null;
-
-            foreach (string item in aDLLs)
-            {
-                Assembly aDLL = Assembly.UnsafeLoadFrom(item);
-                Type[] types = aDLL.GetTypes();
-
-                foreach (Type type in types)
-                {
-                    try
-                    {
-
-                        //connection service must support IDataServerServiceHost interface
-                        if (type.GetInterface(name) != null)
-                        {
-                            object o = Activator.CreateInstance(type);
-
-                            if (o is IMarketDataAPI)
-                            {
-                                return o as IMarketDataAPI;;
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return null;
-        }
+        
     }
 }

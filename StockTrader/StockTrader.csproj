@@ -200,9 +200,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TradingLib.KryptonControl\TradingLib.KryptonControl.csproj">
+    <ProjectReference Include="..\TradingLib.KryptonControl\TradingLib.TraderAPI.Stock.csproj">
       <Project>{F02819E0-B738-4531-9C6D-29DBAE3049F4}</Project>
-      <Name>TradingLib.KryptonControl</Name>
+      <Name>TradingLib.TraderAPI.Stock</Name>
     </ProjectReference>
     <ProjectReference Include="..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
       <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>

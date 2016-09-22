@@ -70,16 +70,7 @@ namespace XTraderLite
             }
         }
 
-
-        void SwitchTradingBox()
-        {
-            panelBroker.Visible ^= true;
-            //隐藏交易面板时 将当前行情视图获取焦点
-            if (!panelBroker.Visible)
-            {
-                if (viewLink.Last != null) viewLink.Last.Value.Focus();
-            }
-        }
+        
 
 
         void SwitchMainView()

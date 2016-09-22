@@ -26,11 +26,14 @@ namespace XTraderLite
         public static extern int GetClassLong(IntPtr hwnd, int nIndex);
 
 
+        frmDebug _debugForm = null;
+
         public MainForm()
         {
             InitializeComponent();
+            _debugForm = new frmDebug();
             //将控件日志输出时间绑定到debug函数 用于输出到控件
-            ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(debug);
+            ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(_debugForm.Debug);
             this.DoubleBuffered = true;
 
             //绑定界面事件
@@ -45,6 +48,8 @@ namespace XTraderLite
             InitOtherView();
             //初始化键盘精灵
             InitSearchBox();
+
+            //LoadTrader();
         }
 
 
@@ -96,7 +101,7 @@ namespace XTraderLite
 
             panelMarket.BackColor = Color.Black;
             panelBroker.Visible = false;
-            debugControl1.Dock = DockStyle.Fill;
+            //debugControl1.Dock = DockStyle.Fill;
 
             viewMap.Add(ctrlQuoteList.ViewType, ctrlQuoteList);
             viewMap.Add(ctrlKChart.ViewType, ctrlKChart);
@@ -214,7 +219,7 @@ namespace XTraderLite
 
         void debug(string msg)
         {
-            debugControl1.GotDebug(msg);
+            _debugForm.Debug(msg);
         }
 
         void MainForm_SizeChanged(object sender, EventArgs e)

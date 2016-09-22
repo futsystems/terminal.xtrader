@@ -50,6 +50,7 @@
     <Compile Include="Common\PowerData.cs" />
     <Compile Include="Common\RingBuffer.cs" />
     <Compile Include="Common\SymbolInfoType.cs" />
+    <Compile Include="ITraderAPI.cs" />
     <Compile Include="Profiler\Profiler.cs" />
     <Compile Include="Profiler\SectionStackEntry.cs" />
     <Compile Include="Profiler\SectionStats.cs" />

@@ -70,6 +70,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDebug.Designer.cs">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRelief.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,7 +109,7 @@
     <Compile Include="MainForm\MainForm_Keyboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm\MainForm_DataAPI.cs">
+    <Compile Include="MainForm\MainForm_APIData.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm\MainForm_Debug.cs">
@@ -142,6 +148,9 @@
     <Compile Include="MainForm\MainForm_UI.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm\MainForm_APITrader.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MyEdit.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -151,6 +160,9 @@
     <Compile Include="Starter.cs" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDebug.resx">
+      <DependentUpon>frmDebug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRelief.resx">
       <DependentUpon>frmRelief.cs</DependentUpon>

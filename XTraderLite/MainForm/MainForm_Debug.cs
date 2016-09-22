@@ -15,19 +15,17 @@ namespace XTraderLite
     {
         void btnDemo1_Click(object sender, EventArgs e)
         {
-
             timeGo ^= true;
-
         }
 
         void btnDemo3_Click(object sender, EventArgs e)
         {
-            UpdateConnImg(false);
+            
         }
 
         void btnDemo2_Click(object sender, EventArgs e)
         {
-            
+            _debugForm.Show();
         }
 
 

@@ -40,6 +40,14 @@ namespace XTraderLite
             btnF10.Click += new EventHandler(btnF10_Click);
             btnTickList.Click += new EventHandler(btnTickList_Click);
             btnPriceVolList.Click += new EventHandler(btnPriceVolList_Click);
+
+
+            btnDebugForm.Click += new EventHandler(btnDebugForm_Click);
+        }
+
+        void btnDebugForm_Click(object sender, EventArgs e)
+        {
+            _debugForm.Show();
         }
         List<ToolStripButton> checkedButtons = new List<ToolStripButton>();
         List<ToolStripButton> hiddenButtons = new List<ToolStripButton>();
