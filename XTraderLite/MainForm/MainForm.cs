@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using Common.Logging;
 using TradingLib.KryptonControl;
 using TradingLib.MarketData;
+using System.Reflection;
 
 
 namespace XTraderLite
@@ -48,12 +49,11 @@ namespace XTraderLite
             InitOtherView();
             //初始化键盘精灵
             InitSearchBox();
-
-            //LoadTrader();
         }
 
 
         LinkedList<string> freqLink = new LinkedList<string>();//频率双向链表 用于F8循环切换
+
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
@@ -115,12 +115,15 @@ namespace XTraderLite
             ctrlPriceVolList.Dock = DockStyle.Fill;
             ctrlSymbolInfo.Dock = DockStyle.Fill;
 
-
+            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
+            //this.Update();
+            //typeof(Panel).InvokeMember("DoubleBuffered",BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,null, panelBroker, new object[] { true });
 
             UpdateTime();
 
 
         }
+
         void WireEvent()
         {
 
@@ -158,29 +161,12 @@ namespace XTraderLite
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         void MainForm_Load(object sender, EventArgs e)
         {
             //初始视图为报价列表
             ViewQuoteList();
 
+            //new System.Threading.Thread(LoadTrader).Start(); 
           
         }
 

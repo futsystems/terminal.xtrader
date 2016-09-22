@@ -38,7 +38,7 @@ namespace XTraderLite
             //加载交易控件
             if (panelBroker.Visible && _traderApi == null)
             {
-                new System.Threading.Thread(LoadTrader).Start(); 
+                //new System.Threading.Thread(LoadTrader).Start(); 
 
             }
         }
@@ -60,7 +60,6 @@ namespace XTraderLite
                     _traderCtrl = _traderApi as Control;
                     if (_traderCtrl != null)
                     {
-
                         panelBroker.Controls.Add(_traderCtrl);
                         _traderCtrl.Dock = DockStyle.Fill;
                         _traderApi.Show();
