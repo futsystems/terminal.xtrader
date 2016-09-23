@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\XTraderLite\bin\Debug\TraderAPI\</OutputPath>
+    <OutputPath>..\..\XTraderLite\bin\Debug\TraderAPI\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\Futs.base\lib\Common.Logging.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+      <HintPath>..\..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,10 +49,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TradingLib.API">
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+      <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
     </Reference>
     <Reference Include="TradingLib.Common">
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+      <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -263,11 +263,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TradingLib.MarketData\TradingLib.MarketData.csproj">
+    <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">
       <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
       <Name>TradingLib.MarketData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
+    <ProjectReference Include="..\..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
       <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>
       <Name>TradingLib.TraderCore</Name>
     </ProjectReference>
