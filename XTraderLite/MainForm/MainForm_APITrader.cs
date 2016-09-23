@@ -38,7 +38,7 @@ namespace XTraderLite
             //加载交易控件
             if (panelBroker.Visible && _traderApi == null)
             {
-                //new System.Threading.Thread(LoadTrader).Start(); 
+                new System.Threading.Thread(LoadTrader).Start(); 
 
             }
         }

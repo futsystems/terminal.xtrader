@@ -28,17 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.positionGrid = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.positionGrid = new TradingLib.KryptonControl.FGrid();
             ((System.ComponentModel.ISupportInitialize)(this.positionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // positionGrid
             // 
+            this.positionGrid.AllowUserToAddRows = false;
+            this.positionGrid.AllowUserToDeleteRows = false;
+            this.positionGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.positionGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.positionGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.positionGrid.BackgroundColor = System.Drawing.Color.White;
             this.positionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.positionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.positionGrid.Location = new System.Drawing.Point(0, 0);
+            this.positionGrid.Margin = new System.Windows.Forms.Padding(0);
             this.positionGrid.Name = "positionGrid";
+            this.positionGrid.ReadOnly = true;
+            this.positionGrid.RowHeadersVisible = false;
             this.positionGrid.RowTemplate.Height = 23;
+            this.positionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.positionGrid.Size = new System.Drawing.Size(707, 316);
             this.positionGrid.TabIndex = 0;
             // 
@@ -56,7 +68,8 @@
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView positionGrid;
+        private FGrid positionGrid;
+
 
     }
 }

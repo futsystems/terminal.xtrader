@@ -24,7 +24,6 @@ namespace TradingLib.KryptonControl
         public ctTradeViewSTK()
         {
             InitializeComponent();
-            SetPreferences();
             InitTable();
             BindToTable();
 
@@ -191,27 +190,7 @@ namespace TradingLib.KryptonControl
 
         DataTable tb = new DataTable();
         BindingSource datasource = new BindingSource();
-        /// <summary>
-        /// 设定表格控件的属性
-        /// </summary>
-        private void SetPreferences()
-        {
-            KryptonDataGridView grid = tradeGrid;
 
-            grid.AllowUserToAddRows = false;
-            grid.AllowUserToDeleteRows = false;
-            grid.AllowUserToResizeRows = false;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            grid.ColumnHeadersHeight = 25;
-            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            grid.ReadOnly = true;
-            grid.RowHeadersVisible = false;
-            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
-
-            grid.Margin = new Padding(0);
-
-        }
         /// <summary>
         /// 初始化数据表格
         /// </summary>
@@ -233,7 +212,7 @@ namespace TradingLib.KryptonControl
 
         void ResetColumeSize()
         {
-            ComponentFactory.Krypton.Toolkit.KryptonDataGridView grid = tradeGrid;
+            DataGridView grid = tradeGrid;
             grid.Columns[DATETIME].Width = _realview?80:160;
             grid.Columns[SYMBOL].Width = 100;
             grid.Columns[SYMBOLNAME].Width = 100;
@@ -251,7 +230,7 @@ namespace TradingLib.KryptonControl
         /// </summary>
         private void BindToTable()
         {
-            KryptonDataGridView grid = tradeGrid;
+            DataGridView grid = tradeGrid;
             //grid.TableElement.BeginUpdate();             
             //grid.MasterTemplate.Columns.Clear(); 
             datasource.DataSource = tb;

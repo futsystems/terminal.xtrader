@@ -28,7 +28,6 @@ namespace TradingLib.KryptonControl
         public ctOrderViewSTK()
         {
             InitializeComponent();
-            SetPreferences();
             InitTable();
             BindToTable();
             //控件创建时_realview为默认True 这里还没有设置成自定义参数
@@ -258,26 +257,7 @@ namespace TradingLib.KryptonControl
 
         DataTable tb = new DataTable();
         BindingSource datasource = new BindingSource();
-        /// <summary>
-        /// 设定表格控件的属性
-        /// </summary>
-        private void SetPreferences()
-        {
-            KryptonDataGridView grid = orderGrid;
 
-            grid.AllowUserToAddRows = false;
-            grid.AllowUserToDeleteRows = false;
-            grid.AllowUserToResizeRows = false;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            grid.ColumnHeadersHeight = 25;
-            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            grid.ReadOnly = true;
-            grid.RowHeadersVisible = false;
-            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
-
-            grid.Margin = new Padding(0);
-        }
 
         /// <summary>
         /// 初始化数据表格
@@ -305,7 +285,7 @@ namespace TradingLib.KryptonControl
 
         void ResetColumeSize()
         {
-            ComponentFactory.Krypton.Toolkit.KryptonDataGridView grid = orderGrid;
+            DataGridView grid = orderGrid;
             grid.Columns[SYMBOL].Width = 100;
             grid.Columns[SYMBOLNAME].Width = 100;
             grid.Columns[SIZE].Width = 80;
@@ -323,7 +303,7 @@ namespace TradingLib.KryptonControl
         /// </summary>
         private void BindToTable()
         {
-            KryptonDataGridView grid = orderGrid;
+            DataGridView grid = orderGrid;
             datasource.DataSource = tb;
             datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;

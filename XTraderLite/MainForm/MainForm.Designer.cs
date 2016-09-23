@@ -72,7 +72,6 @@
             this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
-            this.ctrlTraderLogin1 = new TradingLib.XTrader.Control.ctrlTraderLogin();
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnBBS = new System.Windows.Forms.PictureBox();
             this.btnTrade = new System.Windows.Forms.PictureBox();
@@ -122,7 +121,6 @@
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
             this.panelMarket.SuspendLayout();
-            this.panelBroker.SuspendLayout();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnBBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnTrade)).BeginInit();
@@ -598,21 +596,11 @@
             // panelBroker
             // 
             this.panelBroker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBroker.Controls.Add(this.ctrlTraderLogin1);
             this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBroker.Location = new System.Drawing.Point(0, 393);
             this.panelBroker.Name = "panelBroker";
             this.panelBroker.Size = new System.Drawing.Size(920, 260);
             this.panelBroker.TabIndex = 0;
-            // 
-            // ctrlTraderLogin1
-            // 
-            this.ctrlTraderLogin1.BackColor = System.Drawing.Color.White;
-            this.ctrlTraderLogin1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlTraderLogin1.Location = new System.Drawing.Point(0, 0);
-            this.ctrlTraderLogin1.Name = "ctrlTraderLogin1";
-            this.ctrlTraderLogin1.Size = new System.Drawing.Size(920, 260);
-            this.ctrlTraderLogin1.TabIndex = 0;
             // 
             // panelTop
             // 
@@ -1027,7 +1015,6 @@
             this.workPanel.ResumeLayout(false);
             this.panelMarket.ResumeLayout(false);
             this.panelMarket.PerformLayout();
-            this.panelBroker.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnBBS)).EndInit();
@@ -1140,7 +1127,6 @@
         private System.Windows.Forms.PictureBox btnBBS;
         private System.Windows.Forms.ToolStripButton btnDebugForm;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
-        private TradingLib.XTrader.Control.ctrlTraderLogin ctrlTraderLogin1;
     }
 }
 

@@ -60,13 +60,20 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
+    <Reference Include="TradingLib.Trader.STock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\FGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ctrlStockTrader.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ctrlStockTrader.Designer.cs">
       <DependentUpon>ctrlStockTrader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Pages\PageSTKAccountPosition.cs">
       <SubType>UserControl</SubType>
@@ -261,7 +268,21 @@
       <Name>TradingLib.TraderCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Images\topbarbg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\min.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\max.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\mainPanelbg.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

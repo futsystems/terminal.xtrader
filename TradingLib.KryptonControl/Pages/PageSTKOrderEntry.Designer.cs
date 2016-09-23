@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.btnCancelSell = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnCancelBuy = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnCancelAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnRefresh = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ctOrderSenderSTK1 = new TradingLib.KryptonControl.ctOrderSenderSTK();
             this.ctQuoteViewSTK1 = new TradingLib.KryptonControl.ctQuoteViewSTK();
@@ -56,9 +53,6 @@
             // 
             // kryptonPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.btnCancelSell);
-            this.kryptonPanel1.Controls.Add(this.btnCancelBuy);
-            this.kryptonPanel1.Controls.Add(this.btnCancelAll);
             this.kryptonPanel1.Controls.Add(this.btnRefresh);
             this.kryptonPanel1.Controls.Add(this.ctOrderSenderSTK1);
             this.kryptonPanel1.Controls.Add(this.ctQuoteViewSTK1);
@@ -68,33 +62,6 @@
             this.kryptonPanel1.Name = "kryptonPanel1";
             this.kryptonPanel1.Size = new System.Drawing.Size(1119, 253);
             this.kryptonPanel1.TabIndex = 0;
-            // 
-            // btnCancelSell
-            // 
-            this.btnCancelSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelSell.Location = new System.Drawing.Point(1048, 65);
-            this.btnCancelSell.Name = "btnCancelSell";
-            this.btnCancelSell.Size = new System.Drawing.Size(70, 25);
-            this.btnCancelSell.TabIndex = 6;
-            this.btnCancelSell.Values.Text = "撤 卖";
-            // 
-            // btnCancelBuy
-            // 
-            this.btnCancelBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelBuy.Location = new System.Drawing.Point(1049, 34);
-            this.btnCancelBuy.Name = "btnCancelBuy";
-            this.btnCancelBuy.Size = new System.Drawing.Size(70, 25);
-            this.btnCancelBuy.TabIndex = 5;
-            this.btnCancelBuy.Values.Text = "撤 买";
-            // 
-            // btnCancelAll
-            // 
-            this.btnCancelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelAll.Location = new System.Drawing.Point(1049, 3);
-            this.btnCancelAll.Name = "btnCancelAll";
-            this.btnCancelAll.Size = new System.Drawing.Size(70, 25);
-            this.btnCancelAll.TabIndex = 4;
-            this.btnCancelAll.Values.Text = "全 撤";
             // 
             // btnRefresh
             // 
@@ -170,7 +137,7 @@
             this.kryptonPage2.LastVisibleSet = true;
             this.kryptonPage2.MinimumSize = new System.Drawing.Size(50, 50);
             this.kryptonPage2.Name = "kryptonPage2";
-            this.kryptonPage2.Size = new System.Drawing.Size(763, 174);
+            this.kryptonPage2.Size = new System.Drawing.Size(618, 223);
             this.kryptonPage2.Text = "成 交";
             this.kryptonPage2.ToolTipTitle = "Page ToolTip";
             this.kryptonPage2.UniqueName = "C4515BBC7621474309ABB010533562CD";
@@ -181,7 +148,7 @@
             this.ctTradeViewSTK1.Location = new System.Drawing.Point(0, 0);
             this.ctTradeViewSTK1.Name = "ctTradeViewSTK1";
             this.ctTradeViewSTK1.RealView = true;
-            this.ctTradeViewSTK1.Size = new System.Drawing.Size(763, 174);
+            this.ctTradeViewSTK1.Size = new System.Drawing.Size(618, 223);
             this.ctTradeViewSTK1.TabIndex = 0;
             // 
             // kryptonPage3
@@ -240,9 +207,6 @@
         private TradingLib.KryptonControl.ctQuoteViewSTK ctQuoteViewSTK1;
         private TradingLib.KryptonControl.ctOrderSenderSTK ctOrderSenderSTK1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnRefresh;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelSell;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelBuy;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelAll;
 
     }
 }

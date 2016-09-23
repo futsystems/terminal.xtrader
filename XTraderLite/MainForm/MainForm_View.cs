@@ -68,6 +68,7 @@ namespace XTraderLite
                     viewLink.AddFirst(first.Value);
                 }
             }
+            UpdateToolBarStatus();
         }
 
         

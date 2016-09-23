@@ -24,7 +24,6 @@ namespace TradingLib.KryptonControl
         public ctDeliveryViewSTK()
         {
             InitializeComponent();
-            SetPreferences();
             InitTable();
             BindToTable();
 
@@ -101,25 +100,6 @@ namespace TradingLib.KryptonControl
 
         DataTable tb = new DataTable();
         BindingSource datasource = new BindingSource();
-        /// <summary>
-        /// 设定表格控件的属性
-        /// </summary>
-        private void SetPreferences()
-        {
-            KryptonDataGridView grid = deliveryGrid;
-
-            grid.AllowUserToAddRows = false;
-            grid.AllowUserToDeleteRows = false;
-            grid.AllowUserToResizeRows = false;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            grid.ColumnHeadersHeight = 25;
-            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            grid.ReadOnly = true;
-            grid.RowHeadersVisible = false;
-            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
-
-        }
 
         /// <summary>
         /// 初始化数据表格
@@ -147,7 +127,7 @@ namespace TradingLib.KryptonControl
         /// </summary>
         private void BindToTable()
         {
-            KryptonDataGridView grid = deliveryGrid;
+            DataGridView grid = deliveryGrid;
             //grid.TableElement.BeginUpdate();             
             //grid.MasterTemplate.Columns.Clear(); 
             datasource.DataSource = tb;

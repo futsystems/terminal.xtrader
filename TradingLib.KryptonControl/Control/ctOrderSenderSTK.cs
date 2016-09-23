@@ -23,7 +23,7 @@ namespace TradingLib.KryptonControl
         public ctOrderSenderSTK()
         {
             InitializeComponent();
-            kryptonLabel1.Font = TITLEFONT;
+            //kryptonLabel1.Font = TITLEFONT;
             this.Side = true;
 
 
@@ -176,7 +176,7 @@ namespace TradingLib.KryptonControl
             {
                 _symbol = null;
                 lbSymbolName.Text = "--";
-                lbMaxOrderVol.Text = "0";
+                lbMoneyAvabile.Text = "0";
                 price.Maximum = 0;
                 price.Minimum = 0;
                 price.DecimalPlaces = 0;
@@ -227,7 +227,7 @@ namespace TradingLib.KryptonControl
         void EventOther_OnRspQryMaxOrderVolResponse(RspQryMaxOrderVolResponse obj)
         {
             if (obj.RequestID != qryMaxOrderId) return;
-            lbMaxOrderVol.Text = obj.MaxVol.ToString();
+            lbMoneyAvabile.Text = obj.MaxVol.ToString();
         }
 
 
@@ -298,19 +298,19 @@ namespace TradingLib.KryptonControl
             set
             {
                 _side = value;
-                kryptonLabel1.Text = _side ? "买入股票" : "卖出股票";
-                kryptonLabel6.Text = _side ? "可买(股):" : "可卖(股):";
-                kryptonLabel8.Text = _side ? "买入数量:" : "买出数量:";
-                btnSubmit.Text = _side ? "买 入" : "卖 出";
+                //kryptonLabel1.Text = _side ? "买入股票" : "卖出股票";
+                //kryptonLabel6.Text = _side ? "可买(股):" : "可卖(股):";
+                //kryptonLabel8.Text = _side ? "买入数量:" : "买出数量:";
+                //btnSubmit.Text = _side ? "买 入" : "卖 出";
 
-                kryptonLabel1.StateCommon.ShortText.Color1 = LabelColor;
-                kryptonLabel2.StateCommon.ShortText.Color1 = LabelColor;
-                kryptonLabel3.StateCommon.ShortText.Color1 = LabelColor;
-                //label4.ForeColor = LabelColor;
-                kryptonLabel5.StateCommon.ShortText.Color1 = LabelColor;
-                kryptonLabel6.StateCommon.ShortText.Color1 = LabelColor;
-                //label7.ForeColor = LabelColor;
-                kryptonLabel8.StateCommon.ShortText.Color1 = LabelColor;
+                //kryptonLabel1.StateCommon.ShortText.Color1 = LabelColor;
+                //kryptonLabel2.StateCommon.ShortText.Color1 = LabelColor;
+                //kryptonLabel3.StateCommon.ShortText.Color1 = LabelColor;
+                ////label4.ForeColor = LabelColor;
+                //kryptonLabel5.StateCommon.ShortText.Color1 = LabelColor;
+                //kryptonLabel6.StateCommon.ShortText.Color1 = LabelColor;
+                ////label7.ForeColor = LabelColor;
+                //kryptonLabel8.StateCommon.ShortText.Color1 = LabelColor;
 
                 
                 _inputControlAdjuestd = false;

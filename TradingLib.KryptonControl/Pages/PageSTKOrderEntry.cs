@@ -32,9 +32,9 @@ namespace TradingLib.KryptonControl
 
         void WireEvent()
         {
-            btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
-            btnCancelBuy.Click += new EventHandler(btnCancelBuy_Click);
-            btnCancelSell.Click += new EventHandler(btnCancelSell_Click);
+            //btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
+            //btnCancelBuy.Click += new EventHandler(btnCancelBuy_Click);
+            //btnCancelSell.Click += new EventHandler(btnCancelSell_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
 
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
@@ -48,18 +48,18 @@ namespace TradingLib.KryptonControl
 
         void EventOther_OnResumeDataEnd()
         {
-            btnCancelAll.Enabled = true;
-            btnCancelBuy.Enabled = true;
-            btnCancelSell.Enabled = true;
+            //btnCancelAll.Enabled = true;
+            //btnCancelBuy.Enabled = true;
+            //btnCancelSell.Enabled = true;
 
             btnRefresh.Enabled = true;
         }
 
         void EventOther_OnResumeDataStart()
         {
-            btnCancelAll.Enabled = false;
-            btnCancelBuy.Enabled = false;
-            btnCancelSell.Enabled = false;
+            //btnCancelAll.Enabled = false;
+            //btnCancelBuy.Enabled = false;
+            //btnCancelSell.Enabled = false;
 
             btnRefresh.Enabled = false;
         }

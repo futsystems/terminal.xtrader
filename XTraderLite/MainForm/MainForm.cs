@@ -254,6 +254,17 @@ namespace XTraderLite
             panelMenu.DoubleClick += new EventHandler(Form_DoubleClick);
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style = cp.Style | 0x20000;//允许最小化操作
+                return cp;
+            }
+        }
+
+
         #region 顶部Panel移动窗体
         private bool m_isMouseDown = false;
         private Point m_mousePos = new Point();

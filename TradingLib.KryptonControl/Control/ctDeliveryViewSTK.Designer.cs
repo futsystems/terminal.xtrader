@@ -28,17 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.deliveryGrid = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.deliveryGrid = new TradingLib.KryptonControl.FGrid();
             ((System.ComponentModel.ISupportInitialize)(this.deliveryGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // deliveryGrid
             // 
+            this.deliveryGrid.AllowUserToAddRows = false;
+            this.deliveryGrid.AllowUserToDeleteRows = false;
+            this.deliveryGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.deliveryGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.deliveryGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.deliveryGrid.BackgroundColor = System.Drawing.Color.White;
             this.deliveryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.deliveryGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.deliveryGrid.Location = new System.Drawing.Point(0, 0);
+            this.deliveryGrid.Margin = new System.Windows.Forms.Padding(0);
             this.deliveryGrid.Name = "deliveryGrid";
+            this.deliveryGrid.ReadOnly = true;
+            this.deliveryGrid.RowHeadersVisible = false;
             this.deliveryGrid.RowTemplate.Height = 23;
+            this.deliveryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.deliveryGrid.Size = new System.Drawing.Size(788, 385);
             this.deliveryGrid.TabIndex = 0;
             // 
@@ -56,7 +68,8 @@
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView deliveryGrid;
+        private FGrid deliveryGrid;
+
 
     }
 }

@@ -30,33 +30,30 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlStockTrader));
-            this.Holder = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.menuTree = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.mainPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.Holder)).BeginInit();
-            this.Holder.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.menuTree = new System.Windows.Forms.TreeView();
+            this.topPanel = new System.Windows.Forms.Panel();
+            this.cbAccount = new System.Windows.Forms.ComboBox();
+            this.panelControlBox = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.PictureBox();
+            this.btnMax = new System.Windows.Forms.PictureBox();
+            this.btnMin = new System.Windows.Forms.PictureBox();
+            this.btnRefresh = new System.Windows.Forms.CheckBox();
+            this.btnPosition = new System.Windows.Forms.CheckBox();
+            this.btnTodayTrade = new System.Windows.Forms.CheckBox();
+            this.btnCancel = new System.Windows.Forms.CheckBox();
+            this.btnSell = new System.Windows.Forms.CheckBox();
+            this.btnBuy = new System.Windows.Forms.CheckBox();
+            this.mainPanel = new TradingLib.KryptonControl.FPanel();
+            this.panel1.SuspendLayout();
+            this.topPanel.SuspendLayout();
+            this.panelControlBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Holder
-            // 
-            this.Holder.Controls.Add(this.mainPanel);
-            this.Holder.Controls.Add(this.menuTree);
-            this.Holder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Holder.Location = new System.Drawing.Point(0, 0);
-            this.Holder.Name = "Holder";
-            this.Holder.Size = new System.Drawing.Size(1006, 307);
-            this.Holder.TabIndex = 0;
-            // 
-            // menuTree
-            // 
-            this.menuTree.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menuTree.Location = new System.Drawing.Point(0, 0);
-            this.menuTree.Name = "menuTree";
-            this.menuTree.Size = new System.Drawing.Size(160, 307);
-            this.menuTree.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(230)))), ((int)(((byte)(232)))));
-            this.menuTree.TabIndex = 1;
             // 
             // imageList1
             // 
@@ -71,33 +68,202 @@
             this.imageList1.Images.SetKeyName(6, "06_qry_item.png");
             this.imageList1.Images.SetKeyName(7, "07_changepass.png");
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.menuTree);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 307);
+            this.panel1.TabIndex = 0;
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(200, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 307);
+            this.splitter1.TabIndex = 1;
+            this.splitter1.TabStop = false;
+            // 
+            // menuTree
+            // 
+            this.menuTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.menuTree.Location = new System.Drawing.Point(0, 0);
+            this.menuTree.Name = "menuTree";
+            this.menuTree.Size = new System.Drawing.Size(200, 307);
+            this.menuTree.TabIndex = 0;
+            // 
+            // topPanel
+            // 
+            this.topPanel.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.topbarbg;
+            this.topPanel.Controls.Add(this.cbAccount);
+            this.topPanel.Controls.Add(this.panelControlBox);
+            this.topPanel.Controls.Add(this.btnRefresh);
+            this.topPanel.Controls.Add(this.btnPosition);
+            this.topPanel.Controls.Add(this.btnTodayTrade);
+            this.topPanel.Controls.Add(this.btnCancel);
+            this.topPanel.Controls.Add(this.btnSell);
+            this.topPanel.Controls.Add(this.btnBuy);
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Location = new System.Drawing.Point(203, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(803, 30);
+            this.topPanel.TabIndex = 2;
+            // 
+            // cbAccount
+            // 
+            this.cbAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbAccount.FormattingEnabled = true;
+            this.cbAccount.Location = new System.Drawing.Point(598, 4);
+            this.cbAccount.Name = "cbAccount";
+            this.cbAccount.Size = new System.Drawing.Size(142, 20);
+            this.cbAccount.TabIndex = 7;
+            // 
+            // panelControlBox
+            // 
+            this.panelControlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControlBox.BackColor = System.Drawing.Color.Transparent;
+            this.panelControlBox.Controls.Add(this.btnClose);
+            this.panelControlBox.Controls.Add(this.btnMax);
+            this.panelControlBox.Controls.Add(this.btnMin);
+            this.panelControlBox.Location = new System.Drawing.Point(746, 6);
+            this.panelControlBox.Name = "panelControlBox";
+            this.panelControlBox.Size = new System.Drawing.Size(54, 18);
+            this.panelControlBox.TabIndex = 0;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.close;
+            this.btnClose.Location = new System.Drawing.Point(36, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(18, 18);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.TabStop = false;
+            // 
+            // btnMax
+            // 
+            this.btnMax.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.max;
+            this.btnMax.Location = new System.Drawing.Point(18, 0);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(18, 18);
+            this.btnMax.TabIndex = 1;
+            this.btnMax.TabStop = false;
+            // 
+            // btnMin
+            // 
+            this.btnMin.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.min;
+            this.btnMin.Location = new System.Drawing.Point(0, 0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(18, 18);
+            this.btnMin.TabIndex = 0;
+            this.btnMin.TabStop = false;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnRefresh.Location = new System.Drawing.Point(231, 3);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(39, 24);
+            this.btnRefresh.TabIndex = 6;
+            this.btnRefresh.Text = "刷新";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            // 
+            // btnPosition
+            // 
+            this.btnPosition.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnPosition.Location = new System.Drawing.Point(186, 3);
+            this.btnPosition.Name = "btnPosition";
+            this.btnPosition.Size = new System.Drawing.Size(39, 24);
+            this.btnPosition.TabIndex = 5;
+            this.btnPosition.Text = "持仓";
+            this.btnPosition.UseVisualStyleBackColor = true;
+            // 
+            // btnTodayTrade
+            // 
+            this.btnTodayTrade.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnTodayTrade.Location = new System.Drawing.Point(141, 3);
+            this.btnTodayTrade.Name = "btnTodayTrade";
+            this.btnTodayTrade.Size = new System.Drawing.Size(39, 24);
+            this.btnTodayTrade.TabIndex = 4;
+            this.btnTodayTrade.Text = "成交";
+            this.btnTodayTrade.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnCancel.Location = new System.Drawing.Point(96, 3);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(39, 24);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "撤单";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnSell
+            // 
+            this.btnSell.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnSell.Location = new System.Drawing.Point(51, 3);
+            this.btnSell.Name = "btnSell";
+            this.btnSell.Size = new System.Drawing.Size(39, 24);
+            this.btnSell.TabIndex = 2;
+            this.btnSell.Text = "卖出";
+            this.btnSell.UseVisualStyleBackColor = true;
+            // 
+            // btnBuy
+            // 
+            this.btnBuy.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnBuy.Location = new System.Drawing.Point(6, 3);
+            this.btnBuy.Name = "btnBuy";
+            this.btnBuy.Size = new System.Drawing.Size(39, 24);
+            this.btnBuy.TabIndex = 1;
+            this.btnBuy.Text = "买入";
+            this.btnBuy.UseVisualStyleBackColor = true;
+            // 
             // mainPanel
             // 
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(160, 0);
+            this.mainPanel.Location = new System.Drawing.Point(203, 30);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(846, 307);
-            this.mainPanel.TabIndex = 2;
+            this.mainPanel.Size = new System.Drawing.Size(803, 277);
+            this.mainPanel.TabIndex = 3;
             // 
             // ctrlStockTrader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.Holder);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.topPanel);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.panel1);
             this.Name = "ctrlStockTrader";
             this.Size = new System.Drawing.Size(1006, 307);
-            ((System.ComponentModel.ISupportInitialize)(this.Holder)).EndInit();
-            this.Holder.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.topPanel.ResumeLayout(false);
+            this.panelControlBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel Holder;
-        private ComponentFactory.Krypton.Toolkit.KryptonTreeView menuTree;
         private System.Windows.Forms.ImageList imageList1;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel mainPanel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.TreeView menuTree;
+        private System.Windows.Forms.Panel topPanel;
+        private System.Windows.Forms.CheckBox btnBuy;
+        private System.Windows.Forms.CheckBox btnSell;
+        private System.Windows.Forms.CheckBox btnCancel;
+        private System.Windows.Forms.CheckBox btnTodayTrade;
+        private System.Windows.Forms.CheckBox btnPosition;
+        private System.Windows.Forms.CheckBox btnRefresh;
+        private System.Windows.Forms.Panel panelControlBox;
+        private System.Windows.Forms.PictureBox btnClose;
+        private System.Windows.Forms.PictureBox btnMax;
+        private System.Windows.Forms.PictureBox btnMin;
+        private System.Windows.Forms.ComboBox cbAccount;
+        private FPanel mainPanel;
     }
 }
