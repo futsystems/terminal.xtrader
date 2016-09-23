@@ -9,11 +9,12 @@ using System.Windows.Forms;
 using TradingLib.MarketData;
 using System.Drawing.Drawing2D;
 using System.Reflection;
+using TradingLib.TraderCore;
 
 
 namespace TradingLib.KryptonControl
 {
-    public partial class ctrlStockTrader : UserControl
+    public partial class ctrlStockTrader : UserControl,TradingLib.API.IEventBinder
     {
         public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
         public ctrlStockTrader()
@@ -22,6 +23,7 @@ namespace TradingLib.KryptonControl
             //typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, mainPanel, new object[] { true });
 
             this.DoubleBuffered = true;
+
             InitPage();
 
             InitMenuTree();
@@ -29,6 +31,7 @@ namespace TradingLib.KryptonControl
 
             WireEvent();
         }
+
 
         void WireEvent() 
         {
@@ -38,27 +41,42 @@ namespace TradingLib.KryptonControl
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
 
+            btnRefresh.Click += new EventHandler(btnRefresh_Click);
+
 
             btnMin.Click += new EventHandler(btnMin_Click);
             btnMax.Click += new EventHandler(btnMax_Click);
             btnClose.Click += new EventHandler(btnClose_Click);
 
-            //mainPanel.Paint += new PaintEventHandler(mainPanel_Paint);
- 
-        }
+            CoreService.EventCore.RegIEventHandler(this);
+            
+            }
 
-        void mainPanel_Paint(object sender, PaintEventArgs e)
+        void btnRefresh_Click(object sender, EventArgs e)
         {
-            Rectangle rect1 = mainPanel.ClientRectangle;
-            Rectangle rect2 = mainPanel.ClientRectangle;
-            rect1.Height = 20;
-            rect2.Y = 19;
-
-            LinearGradientBrush brush1 = new LinearGradientBrush(rect1, Color.WhiteSmoke, Color.LightGray, LinearGradientMode.Vertical);
-            LinearGradientBrush brush2 = new LinearGradientBrush(rect2, Color.LightGray, Color.WhiteSmoke, LinearGradientMode.Vertical);
-            e.Graphics.FillRectangle(brush1, rect1);
-            e.Graphics.FillRectangle(brush2, rect2);
+            
         }
+
+
+        public void OnInit()
+        {
+
+            if (InvokeRequired)
+            {
+                Invoke(new Action(OnInit), new object[] { });
+            }
+            else
+            {
+                cbAccount.Items.Add(string.Format("{0}-{1}", CoreService.TradingInfoTracker.Account.Name,CoreService.TradingInfoTracker.Account.Account));
+                cbAccount.SelectedIndex = 0;
+            }
+        }
+
+        public void OnDisposed()
+        {
+        
+        }
+
 
         
 

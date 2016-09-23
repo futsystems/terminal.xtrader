@@ -36,5 +36,10 @@ namespace TradingLib.XTrader.Control
         /// 获得焦点
         /// </summary>
         bool Focus();
+
+        /// <summary>
+        /// 是否获得焦点
+        /// </summary>
+        bool Focused { get; }
     }
 }

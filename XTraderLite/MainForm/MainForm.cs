@@ -86,7 +86,7 @@ namespace XTraderLite
             freqLink.AddLast(ConstFreq.Freq_Month);
             freqLink.AddLast(ConstFreq.Freq_Quarter);
             freqLink.AddLast(ConstFreq.Freq_Year);
-
+            
             freqButtons.Add(btnFreqDay);
             freqButtons.Add(btnFreqWeek);
             freqButtons.Add(btnFreqMonth);

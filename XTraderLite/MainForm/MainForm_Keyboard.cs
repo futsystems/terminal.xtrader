@@ -15,7 +15,10 @@ namespace XTraderLite
     {
 
 
-
+        bool FocusInMarket
+        {
+            get { return viewMap.Values.Any(view => view.Focused); }
+        }
 
         void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -24,16 +27,19 @@ namespace XTraderLite
             ks = ks.ToUpper();
             if (((key >= '0') && (key <= '9')) || ((key >= 'A') && (key <= 'Z')) || ((key >= 'a') && (key <= 'z')))
             {
-                this.KeyPreview = false;
-                SearchBox.BringToFront();
-                
-                SearchBox.SetBounds(this.Width - SearchBox.Width - 15, this.Height - SearchBox.Height-70, SearchBox.Width, SearchBox.Height);
-                SearchBox.Visible = true;
+                if (FocusInMarket)
+                {
+                    this.KeyPreview = false;
+                    SearchBox.BringToFront();
 
-                KeyCode.Text = ks;
-                KeyCode.Focus();
-                KeyCode.SelectionStart = 1;
-                KeyCode.SelectionLength = 0;
+                    SearchBox.SetBounds(this.Width - SearchBox.Width - 15, this.Height - SearchBox.Height - 70, SearchBox.Width, SearchBox.Height);
+                    SearchBox.Visible = true;
+
+                    KeyCode.Text = ks;
+                    KeyCode.Focus();
+                    KeyCode.SelectionStart = 1;
+                    KeyCode.SelectionLength = 0;
+                }
             }
            
         }

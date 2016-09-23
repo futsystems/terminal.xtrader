@@ -55,9 +55,6 @@
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
     <Reference Include="TradingLib.Trader.STock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="TradingLib.XTrader.Control">
-      <HintPath>..\TradingLib.KChartNet\obj\Debug\TradingLib.XTrader.Control.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ctrlTraderLogin.cs">

@@ -30,12 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbPrice = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbMaxSize = new System.Windows.Forms.Label();
+            this.lbSize = new System.Windows.Forms.Label();
             this.symbol = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbStockAccount = new System.Windows.Forms.ComboBox();
             this.price = new System.Windows.Forms.NumericUpDown();
             this.lbMoneyAvabile = new System.Windows.Forms.Label();
             this.lbMaxOrderVol = new System.Windows.Forms.Label();
@@ -67,15 +67,15 @@
             this.label2.TabIndex = 27;
             this.label2.Text = "证券代码";
             // 
-            // label3
+            // lbPrice
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(3, 57);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "买入价格";
+            this.lbPrice.AutoSize = true;
+            this.lbPrice.BackColor = System.Drawing.Color.Transparent;
+            this.lbPrice.Location = new System.Drawing.Point(3, 57);
+            this.lbPrice.Name = "lbPrice";
+            this.lbPrice.Size = new System.Drawing.Size(53, 12);
+            this.lbPrice.TabIndex = 28;
+            this.lbPrice.Text = "买入价格";
             // 
             // label4
             // 
@@ -87,25 +87,25 @@
             this.label4.TabIndex = 29;
             this.label4.Text = "可用资金";
             // 
-            // label5
+            // lbMaxSize
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(3, 109);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "最大可买";
+            this.lbMaxSize.AutoSize = true;
+            this.lbMaxSize.BackColor = System.Drawing.Color.Transparent;
+            this.lbMaxSize.Location = new System.Drawing.Point(3, 109);
+            this.lbMaxSize.Name = "lbMaxSize";
+            this.lbMaxSize.Size = new System.Drawing.Size(53, 12);
+            this.lbMaxSize.TabIndex = 30;
+            this.lbMaxSize.Text = "最大可买";
             // 
-            // label6
+            // lbSize
             // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(3, 134);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
-            this.label6.TabIndex = 31;
-            this.label6.Text = "买入数量";
+            this.lbSize.AutoSize = true;
+            this.lbSize.BackColor = System.Drawing.Color.Transparent;
+            this.lbSize.Location = new System.Drawing.Point(3, 134);
+            this.lbSize.Name = "lbSize";
+            this.lbSize.Size = new System.Drawing.Size(53, 12);
+            this.lbSize.TabIndex = 31;
+            this.lbSize.Text = "买入数量";
             // 
             // symbol
             // 
@@ -114,13 +114,13 @@
             this.symbol.Size = new System.Drawing.Size(107, 21);
             this.symbol.TabIndex = 32;
             // 
-            // comboBox1
+            // cbStockAccount
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(63, 5);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(106, 20);
-            this.comboBox1.TabIndex = 33;
+            this.cbStockAccount.FormattingEnabled = true;
+            this.cbStockAccount.Location = new System.Drawing.Point(63, 5);
+            this.cbStockAccount.Name = "cbStockAccount";
+            this.cbStockAccount.Size = new System.Drawing.Size(106, 20);
+            this.cbStockAccount.TabIndex = 33;
             // 
             // price
             // 
@@ -131,7 +131,7 @@
             // 
             // lbMoneyAvabile
             // 
-            this.lbMoneyAvabile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbMoneyAvabile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbMoneyAvabile.Location = new System.Drawing.Point(63, 79);
             this.lbMoneyAvabile.Name = "lbMoneyAvabile";
             this.lbMoneyAvabile.Size = new System.Drawing.Size(106, 20);
@@ -140,7 +140,7 @@
             // 
             // lbMaxOrderVol
             // 
-            this.lbMaxOrderVol.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbMaxOrderVol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbMaxOrderVol.Location = new System.Drawing.Point(63, 101);
             this.lbMaxOrderVol.Name = "lbMaxOrderVol";
             this.lbMaxOrderVol.Size = new System.Drawing.Size(106, 20);
@@ -194,12 +194,12 @@
             this.Controls.Add(this.lbMaxOrderVol);
             this.Controls.Add(this.lbMoneyAvabile);
             this.Controls.Add(this.price);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbStockAccount);
             this.Controls.Add(this.symbol);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lbSize);
+            this.Controls.Add(this.lbMaxSize);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lbPrice);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ctOrderSenderSTK";
@@ -215,12 +215,12 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbMaxSize;
+        private System.Windows.Forms.Label lbSize;
         private System.Windows.Forms.TextBox symbol;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbStockAccount;
         private System.Windows.Forms.NumericUpDown price;
         private System.Windows.Forms.Label lbMoneyAvabile;
         private System.Windows.Forms.Label lbMaxOrderVol;

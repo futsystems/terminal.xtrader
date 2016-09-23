@@ -25,6 +25,7 @@ namespace TradingLib.MarketData
         bool Connected { get; }
 
 
+
         /// <summary>
         /// 登入服务端
         /// </summary>

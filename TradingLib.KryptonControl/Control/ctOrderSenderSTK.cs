@@ -27,6 +27,10 @@ namespace TradingLib.KryptonControl
             this.Side = true;
 
 
+            cbStockAccount.Items.Add("沪A-00001");
+            cbStockAccount.Items.Add("深A-00001");
+            cbStockAccount.SelectedIndex = 0;
+
             WireEvent();
             //设置空间为背景透明
             //this.SetStyle(ControlStyles.SupportsTransparentBackColor|ControlStyles.Opaque,true);
@@ -199,11 +203,11 @@ namespace TradingLib.KryptonControl
             if (_symbol == null) return;
             if (_inputControlAdjuestd) return;
             lbSymbolName.Text = _symbol.GetName();
+            price.Value = 0;
             Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Symbol];
             if (k != null)
             {
-                price.Maximum = k.UpperLimit;
-                price.Minimum = k.LowerLimit;
+
                 price.DecimalPlaces = _symbol.SecurityFamily.GetDecimalPlaces();
                 price.Increment = _symbol.SecurityFamily.PriceTick;
                 price.Value = _side ? k.AskPrice : k.BidPrice;
@@ -214,6 +218,9 @@ namespace TradingLib.KryptonControl
                 _inputControlAdjuestd = true;
                 btnSubmit.Enabled = true;
             }
+
+            price.Maximum = k != null ? k.UpperLimit : 10000;
+            price.Minimum = k != null ? k.LowerLimit : 0;
             
         }
 
@@ -298,21 +305,16 @@ namespace TradingLib.KryptonControl
             set
             {
                 _side = value;
-                //kryptonLabel1.Text = _side ? "买入股票" : "卖出股票";
-                //kryptonLabel6.Text = _side ? "可买(股):" : "可卖(股):";
-                //kryptonLabel8.Text = _side ? "买入数量:" : "买出数量:";
-                //btnSubmit.Text = _side ? "买 入" : "卖 出";
+                lbPrice.Text = _side ? "买入价格" : "卖出价格";
+                lbSize.Text = _side ? "买入数量" : "买出数量";
+                lbMaxSize.Text = _side ? "最大可买" : "最大可卖";
+                btnSubmit.Text = _side ? "买入下单" : "卖出下单";
 
-                //kryptonLabel1.StateCommon.ShortText.Color1 = LabelColor;
-                //kryptonLabel2.StateCommon.ShortText.Color1 = LabelColor;
-                //kryptonLabel3.StateCommon.ShortText.Color1 = LabelColor;
-                ////label4.ForeColor = LabelColor;
-                //kryptonLabel5.StateCommon.ShortText.Color1 = LabelColor;
-                //kryptonLabel6.StateCommon.ShortText.Color1 = LabelColor;
-                ////label7.ForeColor = LabelColor;
-                //kryptonLabel8.StateCommon.ShortText.Color1 = LabelColor;
+                lbPrice.ForeColor = LabelColor;
+                lbSize.ForeColor = LabelColor;
+                lbMaxSize.ForeColor = LabelColor;
+                btnSubmit.ForeColor = LabelColor;
 
-                
                 _inputControlAdjuestd = false;
                 AdjustInputControl();
                 Invalidate();

@@ -899,13 +899,13 @@ namespace CStock
 
         #endregion
 
-        public override bool Focused
-        {
-            get
-            {
-                return true;
-            }
-        }
+        //public override bool Focused
+        //{
+        //    get
+        //    {
+        //        return true;
+        //    }
+        //}
 
 
 
