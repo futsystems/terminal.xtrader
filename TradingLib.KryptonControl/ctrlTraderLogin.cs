@@ -110,22 +110,19 @@ namespace TradingLib.KryptonControl
             this.btnLogin.Enabled = false;
         }
 
-
-        ctrlStockTrader _traderCtrl = null;
-        void InitTraderControl()
+        ctrlStockTrader CreateTraderControl()
         {
             if (InvokeRequired)
             {
                 logger.Info("trader control created invokerequired");
-                Invoke(new Action(InitTraderControl), new object[] { });
+                return Invoke(new Func<ctrlStockTrader>(CreateTraderControl), new object[] { }) as ctrlStockTrader;
+;
             }
             else
             {
-                _traderCtrl = new ctrlStockTrader();
-                //_traderCtrl.Visible = false;
-                //_traderCtrl.Dock = DockStyle.Fill;
-                //this.Controls.Add(_traderCtrl);
+                ctrlStockTrader tmp = new ctrlStockTrader();
                 ShowStatus("交易插件初始化完毕");
+                return tmp;
             }
         }
 
@@ -300,8 +297,7 @@ namespace TradingLib.KryptonControl
                     if (EntryTrader != null)
                     {
                         ShowStatus("初始化交易界面");
-                        InitTraderControl();
-                        EntryTrader(_traderCtrl);
+                        EntryTrader(CreateTraderControl());
                         _bkgo = false;
                     }
                 }
