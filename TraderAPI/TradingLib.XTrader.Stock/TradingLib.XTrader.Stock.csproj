@@ -71,7 +71,7 @@
     <Compile Include="ctrlStockTrader.Designer.cs">
       <DependentUpon>ctrlStockTrader.cs</DependentUpon>
     </Compile>
-    <Compile Include="FPanel.cs">
+    <Compile Include="Control\FPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MainContainer.cs">
