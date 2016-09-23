@@ -41,7 +41,6 @@
             this.kryptonLabel11 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lbBuyAmount = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.btnQry = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lbStkCommission = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lbTotalEquity = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -55,8 +54,11 @@
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.ctPositionViewSTK1 = new TradingLib.KryptonControl.ctPositionViewSTK();
+            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.btnQry = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
+            this.fPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonPanel1
@@ -73,7 +75,6 @@
             this.kryptonPanel1.Controls.Add(this.kryptonLabel11);
             this.kryptonPanel1.Controls.Add(this.lbBuyAmount);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel9);
-            this.kryptonPanel1.Controls.Add(this.btnQry);
             this.kryptonPanel1.Controls.Add(this.lbStkCommission);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel8);
             this.kryptonPanel1.Controls.Add(this.lbTotalEquity);
@@ -86,11 +87,9 @@
             this.kryptonPanel1.Controls.Add(this.kryptonLabel3);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel2);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
-            this.kryptonPanel1.Controls.Add(this.ctPositionViewSTK1);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(1142, 413);
+            this.kryptonPanel1.Size = new System.Drawing.Size(1015, 309);
             this.kryptonPanel1.TabIndex = 0;
             // 
             // lbStkRealizedPL
@@ -188,15 +187,6 @@
             this.kryptonLabel9.Size = new System.Drawing.Size(60, 20);
             this.kryptonLabel9.TabIndex = 16;
             this.kryptonLabel9.Values.Text = "当日买入";
-            // 
-            // btnQry
-            // 
-            this.btnQry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQry.Location = new System.Drawing.Point(1072, 8);
-            this.btnQry.Name = "btnQry";
-            this.btnQry.Size = new System.Drawing.Size(58, 25);
-            this.btnQry.TabIndex = 15;
-            this.btnQry.Values.Text = "查询";
             // 
             // lbStkCommission
             // 
@@ -299,22 +289,44 @@
             this.ctPositionViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctPositionViewSTK1.Location = new System.Drawing.Point(0, 117);
+            this.ctPositionViewSTK1.Location = new System.Drawing.Point(36, 49);
             this.ctPositionViewSTK1.Name = "ctPositionViewSTK1";
             this.ctPositionViewSTK1.RealView = true;
-            this.ctPositionViewSTK1.Size = new System.Drawing.Size(1142, 296);
+            this.ctPositionViewSTK1.Size = new System.Drawing.Size(992, 257);
             this.ctPositionViewSTK1.TabIndex = 0;
+            // 
+            // fPanel1
+            // 
+            this.fPanel1.Controls.Add(this.btnQry);
+            this.fPanel1.Controls.Add(this.ctPositionViewSTK1);
+            this.fPanel1.Location = new System.Drawing.Point(92, 360);
+            this.fPanel1.Name = "fPanel1";
+            this.fPanel1.Size = new System.Drawing.Size(1099, 325);
+            this.fPanel1.TabIndex = 1;
+            // 
+            // btnQry
+            // 
+            this.btnQry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQry.Location = new System.Drawing.Point(1021, 3);
+            this.btnQry.Name = "btnQry";
+            this.btnQry.Size = new System.Drawing.Size(75, 23);
+            this.btnQry.TabIndex = 32;
+            this.btnQry.Text = "查 询";
+            this.btnQry.UseVisualStyleBackColor = true;
             // 
             // PageSTKAccountPosition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.fPanel1);
             this.Controls.Add(this.kryptonPanel1);
             this.Name = "PageSTKAccountPosition";
-            this.Size = new System.Drawing.Size(1142, 413);
+            this.Size = new System.Drawing.Size(1336, 710);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
+            this.fPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -335,7 +347,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lbMoneyFrozen;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lbStkCommission;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnQry;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lbBuyAmount;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lbSellAmount;
@@ -348,5 +359,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel16;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lbStkRealizedPL;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel17;
+        private FPanel fPanel1;
+        private System.Windows.Forms.Button btnQry;
     }
 }

@@ -35,7 +35,7 @@ namespace TradingLib.KryptonControl
             //btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
             //btnCancelBuy.Click += new EventHandler(btnCancelBuy_Click);
             //btnCancelSell.Click += new EventHandler(btnCancelSell_Click);
-            btnRefresh.Click += new EventHandler(btnRefresh_Click);
+            //btnRefresh.Click += new EventHandler(btnRefresh_Click);
 
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
@@ -52,7 +52,7 @@ namespace TradingLib.KryptonControl
             //btnCancelBuy.Enabled = true;
             //btnCancelSell.Enabled = true;
 
-            btnRefresh.Enabled = true;
+            //btnRefresh.Enabled = true;
         }
 
         void EventOther_OnResumeDataStart()
@@ -61,7 +61,7 @@ namespace TradingLib.KryptonControl
             //btnCancelBuy.Enabled = false;
             //btnCancelSell.Enabled = false;
 
-            btnRefresh.Enabled = false;
+            //btnRefresh.Enabled = false;
         }
 
         #region 撤单按钮事件操作

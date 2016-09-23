@@ -28,112 +28,117 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.newpass2 = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
-            this.newpass1 = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
-            this.pass = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
-            this.kryptonPanel1.SuspendLayout();
+            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.newpass1 = new System.Windows.Forms.MaskedTextBox();
+            this.pass = new System.Windows.Forms.MaskedTextBox();
+            this.newpass2 = new System.Windows.Forms.MaskedTextBox();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.fPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // kryptonPanel1
+            // fPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.btnSubmit);
-            this.kryptonPanel1.Controls.Add(this.newpass2);
-            this.kryptonPanel1.Controls.Add(this.newpass1);
-            this.kryptonPanel1.Controls.Add(this.pass);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel3);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel2);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(800, 379);
-            this.kryptonPanel1.TabIndex = 0;
+            this.fPanel1.Controls.Add(this.btnSubmit);
+            this.fPanel1.Controls.Add(this.newpass2);
+            this.fPanel1.Controls.Add(this.pass);
+            this.fPanel1.Controls.Add(this.newpass1);
+            this.fPanel1.Controls.Add(this.label3);
+            this.fPanel1.Controls.Add(this.label2);
+            this.fPanel1.Controls.Add(this.label1);
+            this.fPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fPanel1.Location = new System.Drawing.Point(0, 0);
+            this.fPanel1.Name = "fPanel1";
+            this.fPanel1.Size = new System.Drawing.Size(813, 295);
+            this.fPanel1.TabIndex = 1;
             // 
-            // btnSubmit
+            // label1
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(225, 99);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(90, 25);
-            this.btnSubmit.TabIndex = 9;
-            this.btnSubmit.Values.Text = "修改密码";
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(171, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "当前交易密码:";
             // 
-            // newpass2
+            // label2
             // 
-            this.newpass2.Location = new System.Drawing.Point(215, 64);
-            this.newpass2.Name = "newpass2";
-            this.newpass2.PasswordChar = '*';
-            this.newpass2.Size = new System.Drawing.Size(100, 20);
-            this.newpass2.TabIndex = 8;
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(183, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "新交易密码:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(171, 111);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 12);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "确认交易密码:";
             // 
             // newpass1
             // 
-            this.newpass1.Location = new System.Drawing.Point(215, 38);
+            this.newpass1.Location = new System.Drawing.Point(260, 81);
             this.newpass1.Name = "newpass1";
             this.newpass1.PasswordChar = '*';
-            this.newpass1.Size = new System.Drawing.Size(100, 20);
-            this.newpass1.TabIndex = 7;
+            this.newpass1.Size = new System.Drawing.Size(152, 21);
+            this.newpass1.TabIndex = 3;
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(215, 12);
+            this.pass.Location = new System.Drawing.Point(260, 54);
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
-            this.pass.Size = new System.Drawing.Size(100, 20);
-            this.pass.TabIndex = 6;
+            this.pass.Size = new System.Drawing.Size(152, 21);
+            this.pass.TabIndex = 4;
             // 
-            // kryptonLabel3
+            // newpass2
             // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(146, 64);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(63, 20);
-            this.kryptonLabel3.TabIndex = 2;
-            this.kryptonLabel3.Values.Text = "重复密码:";
+            this.newpass2.Location = new System.Drawing.Point(260, 108);
+            this.newpass2.Name = "newpass2";
+            this.newpass2.PasswordChar = '*';
+            this.newpass2.Size = new System.Drawing.Size(152, 21);
+            this.newpass2.TabIndex = 5;
             // 
-            // kryptonLabel2
+            // btnSubmit
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(158, 38);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(51, 20);
-            this.kryptonLabel2.TabIndex = 1;
-            this.kryptonLabel2.Values.Text = "新密码:";
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(168, 12);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(41, 20);
-            this.kryptonLabel1.TabIndex = 0;
-            this.kryptonLabel1.Values.Text = "密 码:";
+            this.btnSubmit.Location = new System.Drawing.Point(260, 135);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(94, 23);
+            this.btnSubmit.TabIndex = 6;
+            this.btnSubmit.Text = "确定更改";
+            this.btnSubmit.UseVisualStyleBackColor = true;
             // 
             // PageSTKChangePass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.kryptonPanel1);
+            this.Controls.Add(this.fPanel1);
             this.Name = "PageSTKChangePass";
-            this.Size = new System.Drawing.Size(800, 379);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
-            this.kryptonPanel1.ResumeLayout(false);
-            this.kryptonPanel1.PerformLayout();
+            this.Size = new System.Drawing.Size(813, 295);
+            this.fPanel1.ResumeLayout(false);
+            this.fPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox newpass2;
-        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox newpass1;
-        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox pass;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubmit;
+        private FPanel fPanel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MaskedTextBox newpass1;
+        private System.Windows.Forms.MaskedTextBox newpass2;
+        private System.Windows.Forms.MaskedTextBox pass;
+        private System.Windows.Forms.Button btnSubmit;
     }
 }

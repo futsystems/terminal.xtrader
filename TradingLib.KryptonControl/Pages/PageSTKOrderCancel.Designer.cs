@@ -28,81 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.ctOrderViewSTK1 = new TradingLib.KryptonControl.ctOrderViewSTK();
-            this.btnCancelSell = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnCancelBuy = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnCancelAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
-            this.kryptonPanel1.SuspendLayout();
+            this.btnCancelAll = new System.Windows.Forms.Button();
+            this.btnCancelSell = new System.Windows.Forms.Button();
+            this.btnCancelBuy = new System.Windows.Forms.Button();
+            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.fPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // kryptonPanel1
-            // 
-            this.kryptonPanel1.Controls.Add(this.ctOrderViewSTK1);
-            this.kryptonPanel1.Controls.Add(this.btnCancelSell);
-            this.kryptonPanel1.Controls.Add(this.btnCancelBuy);
-            this.kryptonPanel1.Controls.Add(this.btnCancelAll);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(709, 341);
-            this.kryptonPanel1.TabIndex = 0;
             // 
             // ctOrderViewSTK1
             // 
-            this.ctOrderViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctOrderViewSTK1.Location = new System.Drawing.Point(0, 34);
+            this.ctOrderViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ctOrderViewSTK1.Location = new System.Drawing.Point(0, 30);
             this.ctOrderViewSTK1.Name = "ctOrderViewSTK1";
             this.ctOrderViewSTK1.RealView = true;
-            this.ctOrderViewSTK1.Size = new System.Drawing.Size(709, 307);
+            this.ctOrderViewSTK1.Size = new System.Drawing.Size(855, 234);
             this.ctOrderViewSTK1.TabIndex = 10;
-            // 
-            // btnCancelSell
-            // 
-            this.btnCancelSell.Location = new System.Drawing.Point(155, 3);
-            this.btnCancelSell.Name = "btnCancelSell";
-            this.btnCancelSell.Size = new System.Drawing.Size(70, 25);
-            this.btnCancelSell.TabIndex = 9;
-            this.btnCancelSell.Values.Text = "撤 卖";
-            // 
-            // btnCancelBuy
-            // 
-            this.btnCancelBuy.Location = new System.Drawing.Point(79, 3);
-            this.btnCancelBuy.Name = "btnCancelBuy";
-            this.btnCancelBuy.Size = new System.Drawing.Size(70, 25);
-            this.btnCancelBuy.TabIndex = 8;
-            this.btnCancelBuy.Values.Text = "撤 买";
             // 
             // btnCancelAll
             // 
-            this.btnCancelAll.Location = new System.Drawing.Point(3, 3);
+            this.btnCancelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelAll.Location = new System.Drawing.Point(615, 3);
             this.btnCancelAll.Name = "btnCancelAll";
-            this.btnCancelAll.Size = new System.Drawing.Size(70, 25);
-            this.btnCancelAll.TabIndex = 7;
-            this.btnCancelAll.Values.Text = "全 撤";
+            this.btnCancelAll.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelAll.TabIndex = 11;
+            this.btnCancelAll.Text = "全 撤";
+            this.btnCancelAll.UseVisualStyleBackColor = true;
+            // 
+            // btnCancelSell
+            // 
+            this.btnCancelSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelSell.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelSell.Location = new System.Drawing.Point(777, 3);
+            this.btnCancelSell.Name = "btnCancelSell";
+            this.btnCancelSell.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelSell.TabIndex = 12;
+            this.btnCancelSell.Text = "全撤";
+            this.btnCancelSell.UseVisualStyleBackColor = true;
+            // 
+            // btnCancelBuy
+            // 
+            this.btnCancelBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelBuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelBuy.Location = new System.Drawing.Point(696, 3);
+            this.btnCancelBuy.Name = "btnCancelBuy";
+            this.btnCancelBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelBuy.TabIndex = 13;
+            this.btnCancelBuy.Text = "撤 买";
+            this.btnCancelBuy.UseVisualStyleBackColor = true;
+            // 
+            // fPanel1
+            // 
+            this.fPanel1.Controls.Add(this.ctOrderViewSTK1);
+            this.fPanel1.Controls.Add(this.btnCancelSell);
+            this.fPanel1.Controls.Add(this.btnCancelBuy);
+            this.fPanel1.Controls.Add(this.btnCancelAll);
+            this.fPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fPanel1.Location = new System.Drawing.Point(0, 0);
+            this.fPanel1.Name = "fPanel1";
+            this.fPanel1.Size = new System.Drawing.Size(855, 264);
+            this.fPanel1.TabIndex = 1;
             // 
             // PageSTKOrderCancel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.kryptonPanel1);
+            this.Controls.Add(this.fPanel1);
             this.Name = "PageSTKOrderCancel";
-            this.Size = new System.Drawing.Size(709, 341);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
-            this.kryptonPanel1.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(855, 264);
+            this.fPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelSell;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelBuy;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancelAll;
         private TradingLib.KryptonControl.ctOrderViewSTK ctOrderViewSTK1;
+        private System.Windows.Forms.Button btnCancelAll;
+        private System.Windows.Forms.Button btnCancelBuy;
+        private System.Windows.Forms.Button btnCancelSell;
+        private FPanel fPanel1;
     }
 }

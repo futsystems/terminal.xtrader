@@ -27,7 +27,7 @@ namespace TradingLib.KryptonControl
 
         void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(pass.Text))
+            if (string.IsNullOrEmpty(newpass1.Text))
             {
                 fmMessage.Show("修改密码","请输入旧密码");
                 return;
@@ -45,7 +45,7 @@ namespace TradingLib.KryptonControl
                 return;
             }
 
-            CoreService.TLClient.ReqChangePassowrd(pass.Text, newpass1.Text);
+            CoreService.TLClient.ReqChangePassowrd(newpass1.Text, newpass1.Text);
 
         }
     }

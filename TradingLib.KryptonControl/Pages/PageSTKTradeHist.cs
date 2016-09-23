@@ -65,7 +65,7 @@ namespace TradingLib.KryptonControl
             ctTradeViewSTK1.Clear();
             _lastqrytime = DateTime.Now;
             btnQry.Enabled = false;
-            _qryid = CoreService.TLClient.ReqXQryTrade(Util.ToTLDate(start.Value), Util.ToTLDate(end.Value));
+            _qryid = CoreService.TLClient.ReqXQryTrade(Util.ToTLDate(start.Value), Util.ToTLDate(start.Value));
         }
     }
 }

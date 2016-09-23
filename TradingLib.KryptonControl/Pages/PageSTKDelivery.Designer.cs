@@ -28,101 +28,106 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.btnQry = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.end = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
-            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.start = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.ctDeliveryViewSTK1 = new TradingLib.KryptonControl.ctDeliveryViewSTK();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
-            this.kryptonPanel1.SuspendLayout();
+            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.end = new System.Windows.Forms.DateTimePicker();
+            this.btnQry = new System.Windows.Forms.Button();
+            this.start = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.fPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // kryptonPanel1
-            // 
-            this.kryptonPanel1.Controls.Add(this.btnQry);
-            this.kryptonPanel1.Controls.Add(this.end);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel2);
-            this.kryptonPanel1.Controls.Add(this.start);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
-            this.kryptonPanel1.Controls.Add(this.ctDeliveryViewSTK1);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(761, 336);
-            this.kryptonPanel1.TabIndex = 0;
-            // 
-            // btnQry
-            // 
-            this.btnQry.Location = new System.Drawing.Point(343, 3);
-            this.btnQry.Name = "btnQry";
-            this.btnQry.Size = new System.Drawing.Size(70, 25);
-            this.btnQry.TabIndex = 15;
-            this.btnQry.Values.Text = "查 询";
-            // 
-            // end
-            // 
-            this.end.Location = new System.Drawing.Point(221, 4);
-            this.end.Name = "end";
-            this.end.Size = new System.Drawing.Size(116, 21);
-            this.end.TabIndex = 14;
-            // 
-            // kryptonLabel2
-            // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(192, 5);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(23, 20);
-            this.kryptonLabel2.TabIndex = 13;
-            this.kryptonLabel2.Values.Text = "至";
-            // 
-            // start
-            // 
-            this.start.Location = new System.Drawing.Point(70, 4);
-            this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(116, 21);
-            this.start.TabIndex = 12;
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(4, 4);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(60, 20);
-            this.kryptonLabel1.TabIndex = 11;
-            this.kryptonLabel1.Values.Text = "查询日期";
             // 
             // ctDeliveryViewSTK1
             // 
-            this.ctDeliveryViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ctDeliveryViewSTK1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ctDeliveryViewSTK1.Location = new System.Drawing.Point(0, 30);
             this.ctDeliveryViewSTK1.Name = "ctDeliveryViewSTK1";
-            this.ctDeliveryViewSTK1.Size = new System.Drawing.Size(761, 306);
+            this.ctDeliveryViewSTK1.Size = new System.Drawing.Size(958, 217);
             this.ctDeliveryViewSTK1.TabIndex = 0;
+            // 
+            // fPanel1
+            // 
+            this.fPanel1.Controls.Add(this.ctDeliveryViewSTK1);
+            this.fPanel1.Controls.Add(this.end);
+            this.fPanel1.Controls.Add(this.btnQry);
+            this.fPanel1.Controls.Add(this.start);
+            this.fPanel1.Controls.Add(this.label2);
+            this.fPanel1.Controls.Add(this.label1);
+            this.fPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fPanel1.Location = new System.Drawing.Point(0, 0);
+            this.fPanel1.Name = "fPanel1";
+            this.fPanel1.Size = new System.Drawing.Size(958, 247);
+            this.fPanel1.TabIndex = 1;
+            // 
+            // end
+            // 
+            this.end.Location = new System.Drawing.Point(254, 5);
+            this.end.Name = "end";
+            this.end.Size = new System.Drawing.Size(127, 21);
+            this.end.TabIndex = 23;
+            // 
+            // btnQry
+            // 
+            this.btnQry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQry.Location = new System.Drawing.Point(880, 3);
+            this.btnQry.Name = "btnQry";
+            this.btnQry.Size = new System.Drawing.Size(75, 23);
+            this.btnQry.TabIndex = 22;
+            this.btnQry.Text = "全 撤";
+            this.btnQry.UseVisualStyleBackColor = true;
+            // 
+            // start
+            // 
+            this.start.Location = new System.Drawing.Point(62, 5);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(127, 21);
+            this.start.TabIndex = 21;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(195, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "终止日期";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "起始日期";
             // 
             // PageSTKDelivery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.kryptonPanel1);
+            this.Controls.Add(this.fPanel1);
             this.Name = "PageSTKDelivery";
-            this.Size = new System.Drawing.Size(761, 336);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
-            this.kryptonPanel1.ResumeLayout(false);
-            this.kryptonPanel1.PerformLayout();
+            this.Size = new System.Drawing.Size(958, 247);
+            this.fPanel1.ResumeLayout(false);
+            this.fPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private TradingLib.KryptonControl.ctDeliveryViewSTK ctDeliveryViewSTK1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnQry;
-        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker end;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker start;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private FPanel fPanel1;
+        private System.Windows.Forms.DateTimePicker end;
+        private System.Windows.Forms.Button btnQry;
+        private System.Windows.Forms.DateTimePicker start;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

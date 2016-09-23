@@ -83,7 +83,7 @@ namespace TradingLib.KryptonControl
                 Control c = page as Control;
                 if (c == null) continue;
                 mainPanel.Controls.Add(c);
-                //c.Dock = DockStyle.Fill;
+                c.Dock = DockStyle.Fill;
             }
 
         }
