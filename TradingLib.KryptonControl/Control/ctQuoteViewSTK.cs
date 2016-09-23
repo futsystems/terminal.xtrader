@@ -25,20 +25,20 @@ namespace TradingLib.KryptonControl
             InitializeComponent();
             //label1.TextAlign = ContentAlignment.
 
-            lbAsk1.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
-            lbAsk2.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
-            lbAsk3.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
-            lbAsk4.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
-            lbAsk5.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
+            lbAsk1.ForeColor = UIConstant.LongLabelColor;
+            lbAsk2.ForeColor = UIConstant.LongLabelColor;
+            lbAsk3.ForeColor = UIConstant.LongLabelColor;
+            lbAsk4.ForeColor = UIConstant.LongLabelColor;
+            lbAsk5.ForeColor = UIConstant.LongLabelColor;
 
-            lbBid1.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
-            lbBid2.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
-            lbBid3.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
-            lbBid4.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
-            lbBid5.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+            lbBid1.ForeColor = UIConstant.ShortLabelColor;
+            lbBid2.ForeColor = UIConstant.ShortLabelColor;
+            lbBid3.ForeColor = UIConstant.ShortLabelColor;
+            lbBid4.ForeColor = UIConstant.ShortLabelColor;
+            lbBid5.ForeColor = UIConstant.ShortLabelColor;
 
-            lbUpper.StateCommon.ShortText.Color1 = UIConstant.LongLabelColor;
-            lbLower.StateCommon.ShortText.Color1 = UIConstant.ShortLabelColor;
+            lbUpper.ForeColor = UIConstant.LongLabelColor;
+            lbLower.ForeColor = UIConstant.ShortLabelColor;
 
             this.Load += new EventHandler(ctQuoteViewSTK_Load);
             
