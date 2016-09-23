@@ -18,5 +18,8 @@ namespace CStock
 
         public static Color ColorLabel = Color.White;
         //public static Profiler Profiler = new Profiler();
+
+
+        
     }
 }

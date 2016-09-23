@@ -41,5 +41,9 @@ namespace TradingLib.XTrader.Control
         /// 查询间隔
         /// </summary>
         public static int QRYINTERVAL = 3;
+
+
+        //K线图默认
+        public static Font AxisFont = new Font("Arial", 9f);
     }
 }

@@ -76,6 +76,8 @@ namespace XTraderLite
         void LoginForm_Activated(object sender, EventArgs e)
         {
             username.Focus();
+            username.SelectionLength = 0;
+            username.SelectionStart = username.Text.Length;
         }
 
         void LoginForm_Load(object sender, EventArgs e)

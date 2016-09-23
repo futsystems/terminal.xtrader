@@ -20,40 +20,48 @@ namespace CStock
         /// <param name="len">最大字符宽度</param>
         /// <param name="sc">格式化输出单位1,10,100</param>
         /// <param name="fmt">格式化输出字符串 用于格式化输出数值</param>
-        static void GetFormat(double v, int len, ref int sc, ref string fmt)
+        void GetFormat(double max, int spaceLen, ref int sc, ref string fmt)
         {
             string s1;
-            int ll, vi, vf;
+            int integralLength, vi, vf;
 
             vf = 0;
-            vi = len;
+            vi = spaceLen;
             sc = 1;
-            s1 = String.Format("{0:d}", Convert.ToInt64(v));//  format('%.0f', [v]);
+            //整数部分长度
+            s1 = String.Format("{0:d}", Convert.ToInt64(max));//  format('%.0f', [v]);
 
-            ll = s1.Length;// length(s1);
-            if ((ll > 12))
+            integralLength = s1.Length;// length(s1);
+            //整数部分大于12位
+            if ((integralLength > 12))
             {
                 fmt = "{0:f}";
                 return;
             }
-            if ((ll > len))
+
+            //整数部分大于 可显示长度 根据可显示长度 计算显示单位  X1 X10 X万等
+            if ((integralLength > spaceLen))
             {
-                sc = Convert.ToInt32(Math.Pow(10, ll - len));// trunc(intpower(10, ll - len));
+                sc = Convert.ToInt32(Math.Pow(10, integralLength - spaceLen));// trunc(intpower(10, ll - len));
                 vf = 0;
-                vi = len;
+                vi = spaceLen;
             }
-            if ((ll == len) || (ll == len - 1))
+
+            if ((integralLength == spaceLen) || (integralLength == spaceLen - 1))
             {
                 vf = 0;
-                vi = len;
+                vi = spaceLen;
             }
-            if ((ll < len - 1))
+
+            if ((integralLength < spaceLen - 1))
             {
-                vi = ll;
-                vf = len - ll;
+                vi = integralLength;
+                vf = spaceLen - integralLength;
             }
             if ((vf > 3))
                 vf = 3;
+//TODO  根据主图绘制内容 进行调整小数点 默认取合约对应的小数位数 这里逻辑部分需要完善
+            vf = vf >= pCtrl.Symbol.Precision ? pCtrl.Symbol.Precision : vf;
             fmt = "{0:f" + vf.ToString() + "}";
             return;
         }

@@ -11,6 +11,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common.Logging;
 using TradingLib.MarketData;
+using TradingLib.XTrader.Control;
 
 namespace CStock
 {
@@ -91,7 +92,7 @@ namespace CStock
         /// <summary>
         /// 默认字体
         /// </summary>
-        Font font = new Font("宋体", 9);
+        Font font = UIConstant.AxisFont;
         /// <summary>
         /// 默认Brush
         /// </summary>
