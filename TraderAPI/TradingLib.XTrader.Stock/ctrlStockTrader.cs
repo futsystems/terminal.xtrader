@@ -20,14 +20,12 @@ namespace TradingLib.XTrader.Stock
         public ctrlStockTrader()
         {
             InitializeComponent();
-            //typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, mainPanel, new object[] { true });
-
             this.DoubleBuffered = true;
+            //typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, mainPanel, new object[] { true });
 
             InitPage();
 
             InitMenuTree();
-
 
             WireEvent();
         }
@@ -37,9 +35,11 @@ namespace TradingLib.XTrader.Stock
         {
             menuTree.NodeMouseClick += new TreeNodeMouseClickEventHandler(menuTree_NodeMouseClick);
 
-
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
+            btnTodayTrade.Click += new EventHandler(btnTodayTrade_Click);
+            btnPosition.Click += new EventHandler(btnPosition_Click);
 
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
 
@@ -48,21 +48,14 @@ namespace TradingLib.XTrader.Stock
             btnClose.Click += new EventHandler(btnClose_Click);
 
 
-
-
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
-
-
 
             CoreService.EventCore.RegIEventHandler(this);
             
             }
 
-        void btnRefresh_Click(object sender, EventArgs e)
-        {
-            CoreService.TradingInfoTracker.ResumeData();
-        }
+        
 
         void EventOther_OnResumeDataEnd()
         {
@@ -101,11 +94,6 @@ namespace TradingLib.XTrader.Stock
         }
 
 
-        
-
-
-
-
         void InitPage()
         {
             pagemap.Add(PageTypes.PAGE_ORDER_ENTRY, new PageSTKOrderEntry());
@@ -142,6 +130,18 @@ namespace TradingLib.XTrader.Stock
         }
 
         /// <summary>
+        /// 取消所有按钮选中状态
+        /// </summary>
+        void UnCheckAllButton()
+        {
+            btnBuy.Checked = false;
+            btnSell.Checked = false;
+            btnCancel.Checked = false;
+            btnTodayTrade.Checked = false;
+            btnPosition.Checked = false;
+        }
+
+        /// <summary>
         /// 显示某个类别的页面
         /// </summary>
         /// <param name="type"></param>
@@ -151,6 +151,7 @@ namespace TradingLib.XTrader.Stock
             if (pagemap.TryGetValue(type, out page))
             {
                 HideAllPage();
+                UnCheckAllButton();
                 page.Show();
             }
         }
@@ -172,6 +173,7 @@ namespace TradingLib.XTrader.Stock
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
             p.Mode = 0;
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
+            btnBuy.Checked = true;
         }
 
         void OpenPageSell(TreeNode node)
@@ -179,6 +181,7 @@ namespace TradingLib.XTrader.Stock
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
             p.Mode = 1;
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
+            btnSell.Checked = true;
         }
         void OpenPageBuySell(TreeNode node)
         {
@@ -191,18 +194,21 @@ namespace TradingLib.XTrader.Stock
         {
             PageSTKOrderCancel p = node.Tag as PageSTKOrderCancel;
             ShowPage(PageTypes.PAGE_ORDER_CANCEL);
+            btnCancel.Checked = true;
         }
 
         void OpenPageOrderToday(TreeNode node)
         {
             PageSTKOrderToday p = node.Tag as PageSTKOrderToday;
             ShowPage(PageTypes.PAGE_ORDER_TODAY);
+            
         }
 
         void OpenPageTradeToday(TreeNode node)
         {
             PageSTKTradeToday p = node.Tag as PageSTKTradeToday;
             ShowPage(PageTypes.PAGE_TRADE_TODAY);
+            btnTodayTrade.Checked = true;
         }
 
         void OpenPageOrderHist(TreeNode node)
@@ -222,6 +228,7 @@ namespace TradingLib.XTrader.Stock
             PageSTKAccountPosition p = node.Tag as PageSTKAccountPosition;
             ShowPage(PageTypes.PAGE_ACCOUNT_POSITION);
             p.QryAccountInfo();
+            btnPosition.Checked = true;
         }
         void OpenPageDelivery(TreeNode node)
         {
@@ -385,13 +392,64 @@ namespace TradingLib.XTrader.Stock
 
         void btnBuy_Click(object sender, EventArgs e)
         {
-            btnBuy.CheckState = CheckState.Checked;
+            
+            IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
+            if (page != null)
+            {
+                (page as PageSTKOrderEntry).Mode = 0;
+                ShowPage(PageTypes.PAGE_ORDER_ENTRY);
+                btnBuy.Checked = true;
+            }
         }
 
         void btnSell_Click(object sender, EventArgs e)
         {
-            btnSell.CheckState = CheckState.Checked;
+            IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
+            if (page != null)
+            {
+                (page as PageSTKOrderEntry).Mode = 1;
+                ShowPage(PageTypes.PAGE_ORDER_ENTRY);
+                btnSell.Checked = true;
+            }
+            
         }
+
+        void btnPosition_Click(object sender, EventArgs e)
+        {
+            IPage page = pagemap[PageTypes.PAGE_ACCOUNT_POSITION];
+            if (page != null)
+            {
+                ShowPage(PageTypes.PAGE_ACCOUNT_POSITION);
+                btnPosition.Checked = true;
+            }
+        }
+
+        void btnTodayTrade_Click(object sender, EventArgs e)
+        {
+            IPage page = pagemap[PageTypes.PAGE_TRADE_TODAY];
+            if (page != null)
+            {
+                ShowPage(PageTypes.PAGE_TRADE_TODAY);
+                btnTodayTrade.Checked = true;
+            }
+        }
+
+        void btnCancel_Click(object sender, EventArgs e)
+        {
+            IPage page = pagemap[PageTypes.PAGE_ORDER_CANCEL];
+            if (page != null)
+            {
+                ShowPage(PageTypes.PAGE_ORDER_CANCEL);
+                btnCancel.Checked = true;
+            }
+        }
+
+
+        void btnRefresh_Click(object sender, EventArgs e)
+        {
+            CoreService.TradingInfoTracker.ResumeData();
+        }
+
 
 
         void btnClose_Click(object sender, EventArgs e)

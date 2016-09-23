@@ -40,8 +40,9 @@
             this.cbServer = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
-            this.password = new System.Windows.Forms.MaskedTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.password = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
             this.holder.SuspendLayout();
             this.SuspendLayout();
@@ -144,6 +145,8 @@
             // 
             // holder
             // 
+            this.holder.BackColor = System.Drawing.Color.Transparent;
+            this.holder.Controls.Add(this.label5);
             this.holder.Controls.Add(this.label4);
             this.holder.Controls.Add(this.password);
             this.holder.Controls.Add(this._msg);
@@ -161,14 +164,15 @@
             this.holder.Size = new System.Drawing.Size(560, 370);
             this.holder.TabIndex = 2;
             // 
-            // password
+            // label5
             // 
-            this.password.Location = new System.Drawing.Point(302, 290);
-            this.password.Name = "password";
-            this.password.PasswordChar = '*';
-            this.password.Size = new System.Drawing.Size(74, 21);
-            this.password.TabIndex = 3;
-            this.password.Text = "888888";
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(23, 325);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(143, 21);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "交易大师 荣誉出品";
             // 
             // label4
             // 
@@ -177,6 +181,15 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(2, 110);
             this.label4.TabIndex = 22;
+            // 
+            // password
+            // 
+            this.password.Location = new System.Drawing.Point(302, 290);
+            this.password.Name = "password";
+            this.password.PasswordChar = '*';
+            this.password.Size = new System.Drawing.Size(74, 21);
+            this.password.TabIndex = 3;
+            this.password.Text = "888888";
             // 
             // LoginForm
             // 
@@ -211,5 +224,6 @@
         private System.Windows.Forms.Panel holder;
         private System.Windows.Forms.MaskedTextBox password;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctDeliveryViewSTK1 = new ctDeliveryViewSTK();
-            this.fPanel1 = new FPanel();
+            this.ctDeliveryViewSTK1 = new TradingLib.XTrader.Stock.ctDeliveryViewSTK();
+            this.fPanel1 = new TradingLib.XTrader.Stock.FPanel();
             this.end = new System.Windows.Forms.DateTimePicker();
             this.btnQry = new System.Windows.Forms.Button();
             this.start = new System.Windows.Forms.DateTimePicker();
@@ -77,7 +77,7 @@
             this.btnQry.Name = "btnQry";
             this.btnQry.Size = new System.Drawing.Size(75, 23);
             this.btnQry.TabIndex = 22;
-            this.btnQry.Text = "全 撤";
+            this.btnQry.Text = "查 询";
             this.btnQry.UseVisualStyleBackColor = true;
             // 
             // start

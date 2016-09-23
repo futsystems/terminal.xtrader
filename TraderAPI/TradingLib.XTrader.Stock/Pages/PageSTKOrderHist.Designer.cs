@@ -78,7 +78,7 @@
             this.btnQry.Name = "btnQry";
             this.btnQry.Size = new System.Drawing.Size(75, 23);
             this.btnQry.TabIndex = 17;
-            this.btnQry.Text = "全 撤";
+            this.btnQry.Text = "查 询";
             this.btnQry.UseVisualStyleBackColor = true;
             // 
             // start

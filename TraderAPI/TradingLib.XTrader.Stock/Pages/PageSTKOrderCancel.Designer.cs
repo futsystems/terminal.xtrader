@@ -66,7 +66,7 @@
             this.btnCancelSell.Name = "btnCancelSell";
             this.btnCancelSell.Size = new System.Drawing.Size(75, 23);
             this.btnCancelSell.TabIndex = 12;
-            this.btnCancelSell.Text = "全撤";
+            this.btnCancelSell.Text = "撤卖";
             this.btnCancelSell.UseVisualStyleBackColor = true;
             // 
             // btnCancelBuy

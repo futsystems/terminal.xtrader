@@ -30,11 +30,11 @@
         {
             this.ctTradeViewSTK1 = new TradingLib.XTrader.Stock.ctTradeViewSTK();
             this.fPanel1 = new TradingLib.XTrader.Stock.FPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.start = new System.Windows.Forms.DateTimePicker();
-            this.btnQry = new System.Windows.Forms.Button();
             this.end = new System.Windows.Forms.DateTimePicker();
+            this.btnQry = new System.Windows.Forms.Button();
+            this.start = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.fPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,15 +63,30 @@
             this.fPanel1.Size = new System.Drawing.Size(911, 493);
             this.fPanel1.TabIndex = 1;
             // 
-            // label1
+            // end
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(3, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "起始日期";
+            this.end.Location = new System.Drawing.Point(254, 5);
+            this.end.Name = "end";
+            this.end.Size = new System.Drawing.Size(127, 21);
+            this.end.TabIndex = 13;
+            // 
+            // btnQry
+            // 
+            this.btnQry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQry.Location = new System.Drawing.Point(833, 3);
+            this.btnQry.Name = "btnQry";
+            this.btnQry.Size = new System.Drawing.Size(75, 23);
+            this.btnQry.TabIndex = 12;
+            this.btnQry.Text = "查 询";
+            this.btnQry.UseVisualStyleBackColor = true;
+            // 
+            // start
+            // 
+            this.start.Location = new System.Drawing.Point(62, 5);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(127, 21);
+            this.start.TabIndex = 2;
             // 
             // label2
             // 
@@ -83,30 +98,15 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "终止日期";
             // 
-            // start
+            // label1
             // 
-            this.start.Location = new System.Drawing.Point(62, 5);
-            this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(127, 21);
-            this.start.TabIndex = 2;
-            // 
-            // btnQry
-            // 
-            this.btnQry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQry.Location = new System.Drawing.Point(833, 3);
-            this.btnQry.Name = "btnQry";
-            this.btnQry.Size = new System.Drawing.Size(75, 23);
-            this.btnQry.TabIndex = 12;
-            this.btnQry.Text = "全 撤";
-            this.btnQry.UseVisualStyleBackColor = true;
-            // 
-            // end
-            // 
-            this.end.Location = new System.Drawing.Point(254, 5);
-            this.end.Name = "end";
-            this.end.Size = new System.Drawing.Size(127, 21);
-            this.end.TabIndex = 13;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "起始日期";
             // 
             // PageSTKTradeHist
             // 
