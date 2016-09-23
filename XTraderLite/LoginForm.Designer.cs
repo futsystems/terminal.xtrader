@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
             this.password = new System.Windows.Forms.MaskedTextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
             this.holder.SuspendLayout();
             this.SuspendLayout();
@@ -143,6 +144,7 @@
             // 
             // holder
             // 
+            this.holder.Controls.Add(this.label4);
             this.holder.Controls.Add(this.password);
             this.holder.Controls.Add(this._msg);
             this.holder.Controls.Add(this.topImage);
@@ -167,6 +169,14 @@
             this.password.Size = new System.Drawing.Size(74, 21);
             this.password.TabIndex = 3;
             this.password.Text = "888888";
+            // 
+            // label4
+            // 
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(223, 236);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(2, 110);
+            this.label4.TabIndex = 22;
             // 
             // LoginForm
             // 
@@ -200,5 +210,6 @@
         private System.Windows.Forms.Label _msg;
         private System.Windows.Forms.Panel holder;
         private System.Windows.Forms.MaskedTextBox password;
+        private System.Windows.Forms.Label label4;
     }
 }
