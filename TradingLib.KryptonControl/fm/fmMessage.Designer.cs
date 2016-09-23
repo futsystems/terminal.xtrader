@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this._label = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
+            this.kryptonPanel1 = new System.Windows.Forms.Panel();
+            this.kryptonPanel2 = new  System.Windows.Forms.Panel();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this._label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
@@ -66,7 +66,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(62, 25);
             this.btnSubmit.TabIndex = 1;
-            this.btnSubmit.Values.Text = "确 定";
+            this.btnSubmit.Text = "确 定";
             // 
             // _label
             // 
@@ -99,9 +99,9 @@
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubmit;
-        private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel _label;
+        private System.Windows.Forms.Panel kryptonPanel1;
+        private System.Windows.Forms.Panel kryptonPanel2;
+        private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.Label _label;
     }
 }

@@ -7,7 +7,6 @@ using Microsoft.Win32;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
-using ComponentFactory.Krypton.Toolkit;
 using System.Windows.Forms;
 
 
@@ -17,12 +16,12 @@ namespace TradingLib.KryptonControl
     {
         public static System.Windows.Forms.DialogResult WindowMessage(string message, string title = "提示")
         {
-            return ComponentFactory.Krypton.Toolkit.KryptonMessageBox.Show(message, title);
+            return MessageBox.Show(message, title);
         }
 
         public static System.Windows.Forms.DialogResult ConfirmWindow(string message, string title = "提示")
         {
-            return ComponentFactory.Krypton.Toolkit.KryptonMessageBox.Show(message, title, MessageBoxButtons.YesNo);
+            return MessageBox.Show(message, title, MessageBoxButtons.YesNo);
         }
 
         /// <summary>
@@ -32,11 +31,7 @@ namespace TradingLib.KryptonControl
         /// <returns></returns>
         public static IDataSource AdapterToIDataSource(object obj)
         {
-            if (obj is KryptonComboBox)
-                return new KryptonComboBox2IDataSource(obj as KryptonComboBox);
-            else if (obj is KryptonListBox)
-                return new KryptonListBox2IDataSource(obj as KryptonListBox);
-            else if (obj is ListBox)
+            if (obj is ListBox)
                 return new ListBox2IDataSource(obj as ListBox);
             else if (obj is ComboBox)
                 return new ComboBox2IDataSource(obj as ComboBox);

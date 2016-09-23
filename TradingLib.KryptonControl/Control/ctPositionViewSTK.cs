@@ -9,9 +9,6 @@ using System.Text;
 using System.Windows.Forms;
 
 using Common.Logging;
-
-using ComponentFactory.Krypton.Toolkit;
-
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;

@@ -10,7 +10,7 @@ using TradingLib.TraderCore;
 
 namespace TradingLib.KryptonControl
 {
-    public partial class fmMessage : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class fmMessage : System.Windows.Forms.Form
     {
         public fmMessage(string title,string message)
         {
