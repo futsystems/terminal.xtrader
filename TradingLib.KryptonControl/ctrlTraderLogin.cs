@@ -20,7 +20,7 @@ namespace TradingLib.KryptonControl
 
         public event Action ExitTrader;
 
-        public event Action<ctrlStockTrader> EntryTrader;
+        public event Action EntryTrader;
 
         ILog logger = LogManager.GetLogger("ctrlTraderLogin");
 
@@ -297,7 +297,7 @@ namespace TradingLib.KryptonControl
                     if (EntryTrader != null)
                     {
                         ShowStatus("初始化交易界面");
-                        EntryTrader(CreateTraderControl());
+                        EntryTrader();
                         _bkgo = false;
                     }
                 }

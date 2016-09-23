@@ -20,8 +20,10 @@ namespace TradingLib.KryptonControl
     /// 以上操作需要设计一个双向联动接口 双方都通过该接口进行必要的数据访问。尽量减少操作暴露。实现低耦合，高内聚
     /// 
     /// 1.默认只创建登入控件，该控件简单轻便，在主程序调用时可以快速的加载并显示。
-    /// 2.当客户执行登入时，当登入成功并执行初始化操作完毕后 在后台线程创建 交易控件，并对外暴露事件
-    /// 3.在主控件中 获得该时间后 将登入控件隐藏同时将交易控件加入到当前主控件并显示
+    /// 2.当客户执行登入时，当登入成功并执行初始化操作完毕后 在后台线程创建 交易控件，并对外暴露事件 如果在登入控件内的后台线程创建 则需要使用invoke 否则创建的控件无法在前段显示
+    /// 3.在主控件中 获得该时间后 将登入控件隐藏同时将交易控件加入到当前主控件并显示 在接受控件注册，需要再次使用invoke才可以显示传递过来的控件
+    /// 
+    /// 后来通过实验 在登入后台线程直接触发事件，主控件监听后在函数内通过invoke 生成并显示控件，简化了代码逻辑
     /// 
     /// 
     /// </summary>
@@ -30,21 +32,22 @@ namespace TradingLib.KryptonControl
         public MainContainer()
         {
             InitializeComponent();
-            ctrlTraderLogin.EntryTrader += new Action<ctrlStockTrader>(ctrlTraderLogin_EntryTrader);
+            ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
         }
 
-        void ctrlTraderLogin_EntryTrader(ctrlStockTrader obj)
+        void ctrlTraderLogin_EntryTrader()
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<ctrlStockTrader>(ctrlTraderLogin_EntryTrader), new object[] { obj});
+                Invoke(new Action(ctrlTraderLogin_EntryTrader), new object[] { });
             }
             else
             {
+                ctrlStockTrader tmp = new ctrlStockTrader();
+                tmp.Dock = DockStyle.Fill;
                 ctrlTraderLogin.Visible = false;
-                this.Controls.Add(obj);
-                obj.Dock = DockStyle.Fill;
-                obj.Show();
+                this.Controls.Add(tmp);
+                tmp.Show();
             }
         }
 
