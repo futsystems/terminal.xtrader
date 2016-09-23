@@ -74,7 +74,51 @@ namespace XTraderLite
                         _traderCtrl.Dock = DockStyle.Fill;
                         _traderApi.Show();
                     }
+
+                    _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
                 }
+            }
+        }
+
+        int _oldPanelBrokerHeight = 0;
+        bool _panelBrokerMax = false;
+        void _traderApi_TraderWindowOpeartion(EnumTraderWindowOperation obj)
+        {
+            switch (obj)
+            { 
+                case EnumTraderWindowOperation.Min:
+                    _panelBrokerMax = false;
+                    panelBroker.Hide();
+                    break;
+                case EnumTraderWindowOperation.Max:
+                    {
+                        if (!_panelBrokerMax)
+                        {
+                            _panelBrokerMax = true;
+                            _oldPanelBrokerHeight = panelBroker.Height;
+                            //splitter.SplitPosition = 0;
+                            panelBroker.Height = panelBroker.Height + panelMarket.Height;
+                            //splitter.Enabled = false;
+                            //panelMarket.Visible = false;
+                            //panelBroker.Dock = DockStyle.Fill;
+                        }
+                        else
+                        {
+                            //panelMarket.Visible = true;
+                            //panelBroker.Dock = DockStyle.Bottom;
+                            _panelBrokerMax = false;
+                            panelBroker.Height = _oldPanelBrokerHeight;
+                            //splitter.Enabled = true;
+                            
+                            
+                        }
+                    }
+                    break;
+                case EnumTraderWindowOperation.Close:
+                    _panelBrokerMax = false;
+                    break;
+                default:
+                    break;
             }
         }
     }

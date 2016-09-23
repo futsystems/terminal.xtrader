@@ -5,6 +5,15 @@ using System.Text;
 
 namespace TradingLib.MarketData
 {
+
+    public enum EnumTraderWindowOperation
+    { 
+        Min,
+        Max,
+        Close,
+    }
+
+
     /// <summary>
     /// 交易控件接口
     /// </summary>
@@ -31,5 +40,14 @@ namespace TradingLib.MarketData
         /// 显示
         /// </summary>
         void Show();
+
+
+        #region 控件最小化 最大化 关闭等操作
+
+
+        event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+
+        #endregion
+
     }
 }

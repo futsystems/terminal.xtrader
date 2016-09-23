@@ -15,6 +15,7 @@ namespace TradingLib.KryptonControl
 {
     public partial class ctrlStockTrader : UserControl
     {
+        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
         public ctrlStockTrader()
         {
             InitializeComponent();
@@ -355,19 +356,28 @@ namespace TradingLib.KryptonControl
         {
             DialogResult dr = MessageBox.Show("确认退出交易系统?", "关闭", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
-            { 
-                
+            {
+                if (TraderWindowOpeartion != null)
+                {
+                    TraderWindowOpeartion(EnumTraderWindowOperation.Close);
+                }
             }
         }
 
         void btnMax_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (TraderWindowOpeartion != null)
+            {
+                TraderWindowOpeartion(EnumTraderWindowOperation.Max);
+            }
         }
 
         void btnMin_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (TraderWindowOpeartion != null)
+            {
+                TraderWindowOpeartion(EnumTraderWindowOperation.Min);
+            }
         }
 
 

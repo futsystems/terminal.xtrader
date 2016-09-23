@@ -29,6 +29,9 @@ namespace TradingLib.KryptonControl
     /// </summary>
     public partial class MainContainer : UserControl,ITraderAPI
     {
+
+        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+
         public MainContainer()
         {
             InitializeComponent();
@@ -45,9 +48,18 @@ namespace TradingLib.KryptonControl
             {
                 ctrlStockTrader tmp = new ctrlStockTrader();
                 tmp.Dock = DockStyle.Fill;
+                tmp.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(tmp_TraderWindowOpeartion);
                 ctrlTraderLogin.Visible = false;
                 this.Controls.Add(tmp);
                 tmp.Show();
+            }
+        }
+
+        void tmp_TraderWindowOpeartion(EnumTraderWindowOperation obj)
+        {
+            if (TraderWindowOpeartion != null)
+            {
+                TraderWindowOpeartion(obj);
             }
         }
 

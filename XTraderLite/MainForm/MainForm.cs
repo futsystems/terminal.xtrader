@@ -138,6 +138,8 @@ namespace XTraderLite
             MDService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
             MDService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
 
+
+            splitter.SplitterMoved += new SplitterEventHandler(splitter_SplitterMoved);
             WireFormOperation();
 
             WireToolBar();
@@ -146,6 +148,11 @@ namespace XTraderLite
 
             WireUI();
             
+        }
+
+        void splitter_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            logger.Info(string.Format("splitter move X:{0} Y:{1}", e.SplitX, e.SplitY));
         }
 
         void EventHub_OnDisconnectedEvent()
@@ -213,7 +220,6 @@ namespace XTraderLite
         void MainForm_SizeChanged(object sender, EventArgs e)
         {
             //调节标题logo位置
-            
             if (this.Width < 250 + 150 + topHeader.Width + 260)
             {
                 topHeader.Visible = false;
@@ -224,6 +230,19 @@ namespace XTraderLite
                 //250 菜单宽度 75 ControlBox宽度
                 topHeader.Location = new Point(250 + (this.Width - 250 - 260 - topHeader.Width) / 2, topHeader.Location.Y);
             }
+
+            //调整panelBroker高度
+            //if (panelHolder.Height < panelBroker.Height)
+            //{
+            //    panelBroker.Height = panelHolder.Height;
+            //}
+            //else
+            //{
+            //    if (_panelBrokerMax)
+            //    {
+            //        panelBroker.Height = panelHolder.Height;
+            //    }
+            //}
             //调节交易面板为最小值 如果移动的splitter则设置为当前值
             //if (!_splitterMoved)
             //{
