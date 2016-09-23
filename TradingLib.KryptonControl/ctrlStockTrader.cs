@@ -262,11 +262,11 @@ namespace TradingLib.KryptonControl
             node_cancel.Tag = GetPage(PageTypes.PAGE_ORDER_CANCEL);
             menuTree.Nodes.Add(node_cancel);
 
-            TreeNode node_buysell = new TreeNode("双向委托");
-            node_buysell.ImageIndex = 4;
-            node_buysell.SelectedImageIndex = 4;
-            node_buysell.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
-            menuTree.Nodes.Add(node_buysell);
+            //TreeNode node_buysell = new TreeNode("双向委托");
+            //node_buysell.ImageIndex = 4;
+            //node_buysell.SelectedImageIndex = 4;
+            //node_buysell.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
+            //menuTree.Nodes.Add(node_buysell);
 
 
             TreeNode node_search = new TreeNode("查询[F4]");
@@ -320,6 +320,7 @@ namespace TradingLib.KryptonControl
             node_search_delivery.SelectedImageIndex = 6;
             node_search_delivery.Tag = GetPage(PageTypes.PAGE_DELIVERY);
             node_search.Nodes.Add(node_search_delivery);
+            node_search.Expand();
         }
         void menuTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -337,17 +338,17 @@ namespace TradingLib.KryptonControl
                     case 2:
                         OpenPageCancel(e.Node);
                         return;
-                    case 3:
-                        OpenPageBuySell(e.Node);
-                        return;
-                    case 5:
+                    //case 3:
+                    //    OpenPageBuySell(e.Node);
+                        //return;
+                    case 4:
                         OpenChangePass(e.Node);
                         return;
                     default:
                         return;
                 }
             }
-            else if (e.Node.Parent.Index == 4)
+            else if (e.Node.Parent.Index == 3)
             {
                 switch (e.Node.Index)
                 {
