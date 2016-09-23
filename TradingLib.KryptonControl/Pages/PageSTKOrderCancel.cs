@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Common.Logging;
-using TradingLib.KryptonControl;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public partial class PageSTKOrderCancel : UserControl,IPage
     {

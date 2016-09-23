@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class PageSTKOrderToday
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctOrderViewSTK1 = new TradingLib.KryptonControl.ctOrderViewSTK();
+            this.ctOrderViewSTK1 = new TradingLib.XTrader.Stock.ctOrderViewSTK();
             this.SuspendLayout();
             // 
             // ctOrderViewSTK1
@@ -52,6 +52,6 @@
 
         #endregion
 
-        private TradingLib.KryptonControl.ctOrderViewSTK ctOrderViewSTK1;
+        private TradingLib.XTrader.Stock.ctOrderViewSTK ctOrderViewSTK1;
     }
 }

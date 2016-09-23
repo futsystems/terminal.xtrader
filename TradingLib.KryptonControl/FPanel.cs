@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public class FPanel:System.Windows.Forms.Panel
     {

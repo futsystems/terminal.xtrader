@@ -12,7 +12,7 @@ using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public partial class ctTradeViewSTK : UserControl, IEventBinder
     {

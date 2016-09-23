@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class ctrlStockTrader
     {
@@ -45,7 +45,7 @@
             this.btnCancel = new System.Windows.Forms.CheckBox();
             this.btnSell = new System.Windows.Forms.CheckBox();
             this.btnBuy = new System.Windows.Forms.CheckBox();
-            this.mainPanel = new TradingLib.KryptonControl.FPanel();
+            this.mainPanel = new TradingLib.XTrader.Stock.FPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -95,7 +95,7 @@
             // 
             // topPanel
             // 
-            this.topPanel.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.topbarbg;
+            this.topPanel.BackgroundImage = global::TradingLib.XTrader.Stock.Properties.Resources.topbarbg;
             this.topPanel.Controls.Add(this.btnRefresh);
             this.topPanel.Controls.Add(this.cbAccount);
             this.topPanel.Controls.Add(this.panelControlBox);
@@ -133,7 +133,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.close;
+            this.btnClose.BackgroundImage = global::TradingLib.XTrader.Stock.Properties.Resources.close;
             this.btnClose.Location = new System.Drawing.Point(36, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(18, 18);
@@ -142,7 +142,7 @@
             // 
             // btnMax
             // 
-            this.btnMax.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.max;
+            this.btnMax.BackgroundImage = global::TradingLib.XTrader.Stock.Properties.Resources.max;
             this.btnMax.Location = new System.Drawing.Point(18, 0);
             this.btnMax.Name = "btnMax";
             this.btnMax.Size = new System.Drawing.Size(18, 18);
@@ -151,7 +151,7 @@
             // 
             // btnMin
             // 
-            this.btnMin.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.min;
+            this.btnMin.BackgroundImage = global::TradingLib.XTrader.Stock.Properties.Resources.min;
             this.btnMin.Location = new System.Drawing.Point(0, 0);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(18, 18);
@@ -262,7 +262,7 @@
         private System.Windows.Forms.PictureBox btnMax;
         private System.Windows.Forms.PictureBox btnMin;
         private System.Windows.Forms.ComboBox cbAccount;
-        private FPanel mainPanel;
+        private TradingLib.XTrader.Stock.FPanel mainPanel;
         private System.Windows.Forms.Button btnRefresh;
     }
 }

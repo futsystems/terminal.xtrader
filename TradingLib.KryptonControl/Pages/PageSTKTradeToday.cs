@@ -6,9 +6,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using TradingLib.KryptonControl;
 
-namespace TradingLib.KryptonControl
+
+namespace TradingLib.XTrader.Stock
 {
     public partial class PageSTKTradeToday : UserControl,IPage
     {

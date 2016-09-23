@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("TradingLib.NevronControl")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("XTrader.Stock")]
+[assembly: AssemblyDescription("股票交易插件")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TradingLib.NevronControl")]
+[assembly: AssemblyProduct("XTrader.Stock")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

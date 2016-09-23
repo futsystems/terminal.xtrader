@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class PageSTKOrderCancel
     {
@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctOrderViewSTK1 = new TradingLib.KryptonControl.ctOrderViewSTK();
+            this.ctOrderViewSTK1 = new TradingLib.XTrader.Stock.ctOrderViewSTK();
             this.btnCancelAll = new System.Windows.Forms.Button();
             this.btnCancelSell = new System.Windows.Forms.Button();
             this.btnCancelBuy = new System.Windows.Forms.Button();
-            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.fPanel1 = new TradingLib.XTrader.Stock.FPanel();
             this.fPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,7 +106,7 @@
 
         #endregion
 
-        private TradingLib.KryptonControl.ctOrderViewSTK ctOrderViewSTK1;
+        private TradingLib.XTrader.Stock.ctOrderViewSTK ctOrderViewSTK1;
         private System.Windows.Forms.Button btnCancelAll;
         private System.Windows.Forms.Button btnCancelBuy;
         private System.Windows.Forms.Button btnCancelSell;

@@ -11,10 +11,8 @@ using Common.Logging;
 using TradingLib.API;
 using TradingLib.Common;
 using TradingLib.TraderCore;
-using TradingLib.KryptonControl;
 
-
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public partial class PageSTKTradeHist : UserControl,IPage
     {

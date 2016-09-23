@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class ctTradeViewSTK
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.tradeGrid = new TradingLib.KryptonControl.FGrid();
+            this.tradeGrid = new TradingLib.XTrader.Stock.FGrid();
             ((System.ComponentModel.ISupportInitialize)(this.tradeGrid)).BeginInit();
             this.SuspendLayout();
             // 

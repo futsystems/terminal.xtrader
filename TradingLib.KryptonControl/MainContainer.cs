@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using TradingLib.MarketData;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     /// <summary>
     /// 交易插件设计

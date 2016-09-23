@@ -10,7 +10,7 @@ using TradingLib.TraderCore;
 using System.Windows.Forms;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public class TraderHelper
     {

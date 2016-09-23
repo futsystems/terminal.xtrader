@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.TraderCore;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public partial class fmConfirm : System.Windows.Forms.Form
     {

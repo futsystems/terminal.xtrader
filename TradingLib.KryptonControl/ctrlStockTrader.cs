@@ -12,7 +12,7 @@ using System.Reflection;
 using TradingLib.TraderCore;
 
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public partial class ctrlStockTrader : UserControl,TradingLib.API.IEventBinder
     {

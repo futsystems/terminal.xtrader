@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class PageSTKOrderHist
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctOrderViewSTK1 = new TradingLib.KryptonControl.ctOrderViewSTK();
-            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.ctOrderViewSTK1 = new TradingLib.XTrader.Stock.ctOrderViewSTK();
+            this.fPanel1 = new TradingLib.XTrader.Stock.FPanel();
             this.end = new System.Windows.Forms.DateTimePicker();
             this.btnQry = new System.Windows.Forms.Button();
             this.start = new System.Windows.Forms.DateTimePicker();
@@ -123,7 +123,7 @@
 
         #endregion
 
-        private TradingLib.KryptonControl.ctOrderViewSTK ctOrderViewSTK1;
+        private TradingLib.XTrader.Stock.ctOrderViewSTK ctOrderViewSTK1;
         private FPanel fPanel1;
         private System.Windows.Forms.DateTimePicker end;
         private System.Windows.Forms.Button btnQry;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     /// <summary>
     /// IPage接口 用于在某个Panel的Controls中显示多种类别的控件

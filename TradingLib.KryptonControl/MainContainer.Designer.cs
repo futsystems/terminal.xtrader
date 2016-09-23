@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class MainContainer
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlTraderLogin = new TradingLib.KryptonControl.ctrlTraderLogin();
+            this.ctrlTraderLogin = new TradingLib.XTrader.Stock.ctrlTraderLogin();
             this.SuspendLayout();
             // 
             // ctrlTraderLogin

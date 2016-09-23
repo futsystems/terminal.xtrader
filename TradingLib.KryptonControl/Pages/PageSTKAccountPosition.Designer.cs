@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class PageSTKAccountPosition
     {
@@ -52,8 +52,8 @@
             this.kryptonLabel3 = new System.Windows.Forms.Label();
             this.kryptonLabel2 = new System.Windows.Forms.Label();
             this.kryptonLabel1 = new System.Windows.Forms.Label();
-            this.ctPositionViewSTK1 = new TradingLib.KryptonControl.ctPositionViewSTK();
-            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.ctPositionViewSTK1 = new TradingLib.XTrader.Stock.ctPositionViewSTK();
+            this.fPanel1 = new TradingLib.XTrader.Stock.FPanel();
             this.btnQry = new System.Windows.Forms.Button();
             this.fPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -344,7 +344,7 @@
 
         #endregion
 
-        private TradingLib.KryptonControl.ctPositionViewSTK ctPositionViewSTK1;
+        private TradingLib.XTrader.Stock.ctPositionViewSTK ctPositionViewSTK1;
         private System.Windows.Forms.Label kryptonLabel1;
         private System.Windows.Forms.Label kryptonLabel3;
         private System.Windows.Forms.Label kryptonLabel2;

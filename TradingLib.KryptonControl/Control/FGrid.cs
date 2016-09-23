@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public class  FGrid:System.Windows.Forms.DataGridView
     {

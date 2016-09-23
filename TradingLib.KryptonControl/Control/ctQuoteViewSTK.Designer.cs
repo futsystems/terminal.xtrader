@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class ctQuoteViewSTK
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.fPanel1 = new TradingLib.XTrader.Stock.FPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.labelline3 = new System.Windows.Forms.Label();
             this.labelline2 = new System.Windows.Forms.Label();

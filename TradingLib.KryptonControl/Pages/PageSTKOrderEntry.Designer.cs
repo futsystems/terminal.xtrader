@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class PageSTKOrderEntry
     {
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctQuoteViewSTK1 = new TradingLib.KryptonControl.ctQuoteViewSTK();
-            this.ctOrderSenderSTK1 = new TradingLib.KryptonControl.ctOrderSenderSTK();
-            this.ctPositionViewSTK1 = new TradingLib.KryptonControl.ctPositionViewSTK();
+            this.ctQuoteViewSTK1 = new TradingLib.XTrader.Stock.ctQuoteViewSTK();
+            this.ctOrderSenderSTK1 = new TradingLib.XTrader.Stock.ctOrderSenderSTK();
+            this.ctPositionViewSTK1 = new TradingLib.XTrader.Stock.ctPositionViewSTK();
             this.SuspendLayout();
             // 
             // ctQuoteViewSTK1
@@ -78,8 +78,8 @@
 
         #endregion
 
-        private TradingLib.KryptonControl.ctQuoteViewSTK ctQuoteViewSTK1;
-        private TradingLib.KryptonControl.ctOrderSenderSTK ctOrderSenderSTK1;
+        private TradingLib.XTrader.Stock.ctQuoteViewSTK ctQuoteViewSTK1;
+        private TradingLib.XTrader.Stock.ctOrderSenderSTK ctOrderSenderSTK1;
         private ctPositionViewSTK ctPositionViewSTK1;
 
     }

@@ -6,7 +6,7 @@ using TradingLib.API;
 using System.Windows.Forms;
 using System.Collections;
 
-namespace TradingLib.KryptonControl
+namespace TradingLib.XTrader.Stock
 {
     public interface IDataSource
     {

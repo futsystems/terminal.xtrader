@@ -1,4 +1,4 @@
-﻿namespace TradingLib.KryptonControl
+﻿namespace TradingLib.XTrader.Stock
 {
     partial class PageSTKDelivery
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctDeliveryViewSTK1 = new TradingLib.KryptonControl.ctDeliveryViewSTK();
-            this.fPanel1 = new TradingLib.KryptonControl.FPanel();
+            this.ctDeliveryViewSTK1 = new ctDeliveryViewSTK();
+            this.fPanel1 = new FPanel();
             this.end = new System.Windows.Forms.DateTimePicker();
             this.btnQry = new System.Windows.Forms.Button();
             this.start = new System.Windows.Forms.DateTimePicker();
@@ -122,7 +122,7 @@
 
         #endregion
 
-        private TradingLib.KryptonControl.ctDeliveryViewSTK ctDeliveryViewSTK1;
+        private TradingLib.XTrader.Stock.ctDeliveryViewSTK ctDeliveryViewSTK1;
         private FPanel fPanel1;
         private System.Windows.Forms.DateTimePicker end;
         private System.Windows.Forms.Button btnQry;
