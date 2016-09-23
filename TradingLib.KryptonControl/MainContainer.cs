@@ -40,6 +40,7 @@ namespace TradingLib.KryptonControl
 
         }
 
+        ctrlStockTrader _trader = null;
         void ctrlTraderLogin_EntryTrader()
         {
             if (InvokeRequired)
@@ -48,12 +49,12 @@ namespace TradingLib.KryptonControl
             }
             else
             {
-                ctrlStockTrader tmp = new ctrlStockTrader();
-                tmp.Dock = DockStyle.Fill;
-                tmp.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(tmp_TraderWindowOpeartion);
+                _trader = new ctrlStockTrader();
+                _trader.Dock = DockStyle.Fill;
+                _trader.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(tmp_TraderWindowOpeartion);
                 ctrlTraderLogin.Visible = false;
-                this.Controls.Add(tmp);
-                tmp.Show();
+                this.Controls.Add(_trader);
+                _trader.Show();
             }
         }
 
@@ -61,7 +62,21 @@ namespace TradingLib.KryptonControl
         {
             if (TraderWindowOpeartion != null)
             {
-                TraderWindowOpeartion(obj);
+                new System.Threading.Thread(delegate()
+                {
+                    TraderWindowOpeartion(obj);
+
+                    if (obj == EnumTraderWindowOperation.Close)
+                    {
+                        //关闭交易系统
+                        ctrlTraderLogin.Visible = true;
+                        ctrlTraderLogin.StopTrader();
+                        _trader.Visible = false;
+
+                    }
+                    
+                }).Start();
+            
             }
         }
 

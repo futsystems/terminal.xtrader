@@ -92,6 +92,24 @@ namespace TradingLib.KryptonControl
 
         void btnExit_Click(object sender, EventArgs e)
         {
+            new Thread(delegate()
+            {
+                StopTrader();
+            }).Start();
+        }
+
+
+        /// <summary>
+        /// 停止交易系统
+        /// </summary>
+        public void StopTrader()
+        {
+            _bkgo = false;
+
+            Reset();
+
+            CoreService.Reset();
+
             if (ExitTrader != null)
             {
                 ExitTrader();
@@ -140,6 +158,10 @@ namespace TradingLib.KryptonControl
         /// </summary>
         void Connect()
         {
+            if (_bkgo == false)
+            {
+                InitBW();
+            }
             ServerNode node = serverList.SelectedItem as ServerNode;
             if (node == null)
             {
@@ -199,15 +221,7 @@ namespace TradingLib.KryptonControl
         /// </summary>
         void EventCore_OnInitializedEvent()
         {
-            //if (CoreService.SiteInfo.Manager == null)
-            //{
-            //    ShowLoginStatus("柜员数据获取异常,请重新登入!");
-            //}
-            //else
-            //执行初始化完毕后的操作 然后标注initsuccess为成功
-            {
-                initsuccess = true;
-            }
+            initsuccess = true;
         }
 
         void EventCore_OnInitializeStatusEvent(string obj)
@@ -245,22 +259,39 @@ namespace TradingLib.KryptonControl
         /// </summary>
         void Reset()
         {
-            new Thread(delegate()
+            ShowStatus("停止交易系统...");
+            _connectstart = false;
+            _connected = false;
+
+            _loginstart = false;
+            _gotloginrep = false;
+            _loggedin = false;
+
+            _qrybasicinfo = false;
+            initsuccess = false;
+            if (CoreService.TLClient != null)
             {
-                _connectstart = false;
-                _connected = false;
-
-                _loginstart = false;
-                _gotloginrep = false;
-                _loggedin = false;
-
-                _qrybasicinfo = false;
-                initsuccess = false;
-
                 CoreService.TLClient.Stop();
-                this.btnLogin.Enabled = true;
-                //lbLoginStatus.Text = "请登入";
-            }).Start();
+            }
+            this.btnLogin.Enabled = true;
+
+            _msg.Text = "电信、联通用户请分别登入电信、联通站点";
+            //new Thread(delegate()
+            //{
+            //    _connectstart = false;
+            //    _connected = false;
+
+            //    _loginstart = false;
+            //    _gotloginrep = false;
+            //    _loggedin = false;
+
+            //    _qrybasicinfo = false;
+            //    initsuccess = false;
+
+            //    CoreService.TLClient.Stop();
+            //    this.btnLogin.Enabled = true;
+            //    //lbLoginStatus.Text = "请登入";
+            //}).Start();
         }
 
         public void EnableLogin()
@@ -288,6 +319,7 @@ namespace TradingLib.KryptonControl
         //private PopMessage pmsg = new PopMessage();
         private void bgDoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            logger.Info("TraderLogin BW Started");
             while (_bkgo)
             {
                 //数据初始化完毕
@@ -327,6 +359,7 @@ namespace TradingLib.KryptonControl
                 }
                 Thread.Sleep(100);
             }
+            logger.Info("TraderLogin BW Stopped");
         }
 
         //启动后台工作进程 用于检查信息并调用弹出窗口

@@ -396,7 +396,7 @@ namespace TradingLib.KryptonControl
         void btnClose_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("确认退出交易系统?", "关闭", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (dr == DialogResult.Yes)
+            if (dr == DialogResult.OK)
             {
                 if (TraderWindowOpeartion != null)
                 {

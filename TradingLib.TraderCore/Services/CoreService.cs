@@ -184,5 +184,16 @@ namespace TradingLib.TraderCore
             }
         }
 
+        /// <summary>
+        /// 重置
+        /// </summary>
+        public static void Reset()
+        {
+            TLClient.Reset();
+            BasicInfoTracker.Reset();
+            TradingInfoTracker.Reset();
+            defaultinstance._isinited = false;
+        }
+
     }
 }

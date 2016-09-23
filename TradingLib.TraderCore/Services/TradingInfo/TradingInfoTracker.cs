@@ -123,6 +123,19 @@ namespace TradingLib.TraderCore
             _qrypositionid = CoreService.TLClient.ReqXQryYDPositon();
         }
 
+
+        public void Reset()
+        {
+            //清空当前交易记录维护器
+            OrderTracker.Clear();
+            PositionTracker.Clear();
+            HoldPositionTracker.Clear();
+            TradeTracker.Clear();
+            HotSymbols.Clear();
+            Account = null;
+        }
+
+
         void KeepSymbol(Symbol symbol)
         {
             if (symbol == null) return;

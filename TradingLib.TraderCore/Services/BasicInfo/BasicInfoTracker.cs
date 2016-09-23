@@ -22,6 +22,16 @@ namespace TradingLib.TraderCore
         }
 
 
+        public void Reset()
+        {
+            _inited = false;
+
+            markettimemap.Clear();
+            exchangemap.Clear();
+            securitymap.Clear();
+            symbolmap.Clear();
+            symbolnamemap.Clear();
+        }
         /// <summary>
         /// 市场时间段map
         /// </summary>

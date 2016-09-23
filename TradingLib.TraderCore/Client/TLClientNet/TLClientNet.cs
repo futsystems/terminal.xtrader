@@ -115,6 +115,14 @@ namespace TradingLib.TraderCore
 
         }
 
+
+        public void Reset()
+        {
+            _firstlogin = true;
+            _account = string.Empty;
+            _tradingday = 0;
+        }
+
         int requestid = 0;
 
 

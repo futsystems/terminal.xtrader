@@ -115,7 +115,10 @@ namespace XTraderLite
                     }
                     break;
                 case EnumTraderWindowOperation.Close:
-                    _panelBrokerMax = false;
+                    {
+                        _panelBrokerMax = false;
+                        SwitchTradingBox();
+                    }
                     break;
                 default:
                     break;
