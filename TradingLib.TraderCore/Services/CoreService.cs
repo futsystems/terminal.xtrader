@@ -189,7 +189,10 @@ namespace TradingLib.TraderCore
         /// </summary>
         public static void Reset()
         {
-            TLClient.Reset();
+            if (TLClient != null)
+            {
+                TLClient.Reset();
+            }
             BasicInfoTracker.Reset();
             TradingInfoTracker.Reset();
             defaultinstance._isinited = false;
