@@ -35,7 +35,9 @@ namespace TradingLib.KryptonControl
         public MainContainer()
         {
             InitializeComponent();
+            ctrlTraderLogin.BackColor = Color.White;
             ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
+
         }
 
         void ctrlTraderLogin_EntryTrader()

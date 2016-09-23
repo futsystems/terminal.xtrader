@@ -43,10 +43,17 @@ namespace TradingLib.KryptonControl
 
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
 
-
             btnMin.Click += new EventHandler(btnMin_Click);
             btnMax.Click += new EventHandler(btnMax_Click);
             btnClose.Click += new EventHandler(btnClose_Click);
+
+
+
+
+            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+
+
 
             CoreService.EventCore.RegIEventHandler(this);
             
@@ -54,7 +61,23 @@ namespace TradingLib.KryptonControl
 
         void btnRefresh_Click(object sender, EventArgs e)
         {
-            
+            CoreService.TradingInfoTracker.ResumeData();
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            btnRefresh.Enabled = true;
+
+            //数据恢复完毕后 订阅常驻合约
+            foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(sym.Symbol);
+            }
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            btnRefresh.Enabled = false;
         }
 
 

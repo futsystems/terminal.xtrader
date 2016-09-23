@@ -32,21 +32,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlStockTrader));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.menuTree = new System.Windows.Forms.TreeView();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.topPanel = new System.Windows.Forms.Panel();
             this.cbAccount = new System.Windows.Forms.ComboBox();
             this.panelControlBox = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.btnMax = new System.Windows.Forms.PictureBox();
             this.btnMin = new System.Windows.Forms.PictureBox();
-            this.btnRefresh = new System.Windows.Forms.CheckBox();
             this.btnPosition = new System.Windows.Forms.CheckBox();
             this.btnTodayTrade = new System.Windows.Forms.CheckBox();
             this.btnCancel = new System.Windows.Forms.CheckBox();
             this.btnSell = new System.Windows.Forms.CheckBox();
             this.btnBuy = new System.Windows.Forms.CheckBox();
             this.mainPanel = new TradingLib.KryptonControl.FPanel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.panelControlBox.SuspendLayout();
@@ -77,14 +77,6 @@
             this.panel1.Size = new System.Drawing.Size(200, 307);
             this.panel1.TabIndex = 0;
             // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(200, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 307);
-            this.splitter1.TabIndex = 1;
-            this.splitter1.TabStop = false;
-            // 
             // menuTree
             // 
             this.menuTree.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -93,12 +85,20 @@
             this.menuTree.Size = new System.Drawing.Size(200, 307);
             this.menuTree.TabIndex = 0;
             // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(200, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 307);
+            this.splitter1.TabIndex = 1;
+            this.splitter1.TabStop = false;
+            // 
             // topPanel
             // 
             this.topPanel.BackgroundImage = global::TradingLib.KryptonControl.Properties.Resources.topbarbg;
+            this.topPanel.Controls.Add(this.btnRefresh);
             this.topPanel.Controls.Add(this.cbAccount);
             this.topPanel.Controls.Add(this.panelControlBox);
-            this.topPanel.Controls.Add(this.btnRefresh);
             this.topPanel.Controls.Add(this.btnPosition);
             this.topPanel.Controls.Add(this.btnTodayTrade);
             this.topPanel.Controls.Add(this.btnCancel);
@@ -158,16 +158,6 @@
             this.btnMin.TabIndex = 0;
             this.btnMin.TabStop = false;
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnRefresh.Location = new System.Drawing.Point(231, 3);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(39, 24);
-            this.btnRefresh.TabIndex = 6;
-            this.btnRefresh.Text = "刷新";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            // 
             // btnPosition
             // 
             this.btnPosition.Appearance = System.Windows.Forms.Appearance.Button;
@@ -226,6 +216,15 @@
             this.mainPanel.Size = new System.Drawing.Size(803, 277);
             this.mainPanel.TabIndex = 3;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(231, 3);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(39, 24);
+            this.btnRefresh.TabIndex = 8;
+            this.btnRefresh.Text = "刷新";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            // 
             // ctrlStockTrader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -258,12 +257,12 @@
         private System.Windows.Forms.CheckBox btnCancel;
         private System.Windows.Forms.CheckBox btnTodayTrade;
         private System.Windows.Forms.CheckBox btnPosition;
-        private System.Windows.Forms.CheckBox btnRefresh;
         private System.Windows.Forms.Panel panelControlBox;
         private System.Windows.Forms.PictureBox btnClose;
         private System.Windows.Forms.PictureBox btnMax;
         private System.Windows.Forms.PictureBox btnMin;
         private System.Windows.Forms.ComboBox cbAccount;
         private FPanel mainPanel;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
