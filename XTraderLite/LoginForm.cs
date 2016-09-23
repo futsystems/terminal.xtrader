@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using Common.Logging;
 using TradingLib.MarketData;
+using TradingLib.XTrader.Control;
 
 namespace XTraderLite
 {
@@ -38,7 +39,7 @@ namespace XTraderLite
             
             
 
-            foreach (var v in (new ServerConfig()).GetServerNodes())
+            foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
             {
                 cbServer.Items.Add(v);
             }

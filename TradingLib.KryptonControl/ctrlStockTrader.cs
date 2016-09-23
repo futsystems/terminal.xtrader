@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace TradingLib.KryptonControl
 {
-    public partial class ctrlStockTrader : UserControl,ITraderAPI
+    public partial class ctrlStockTrader : UserControl
     {
         public ctrlStockTrader()
         {

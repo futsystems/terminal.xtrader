@@ -63,8 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Config.cs" />
-    <Compile Include="Common\ServerNode.cs" />
     <Compile Include="DataAPIUtils.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>

@@ -25,7 +25,17 @@ namespace XTraderLite
     /// </summary>
     public partial class MainForm
     {
-        
+
+
+        void InitTrader()
+        {
+            
+        }
+
+        void ctrlTraderLogin1_ExitTrader()
+        {
+            panelBroker.Visible = false;
+        }
         void SwitchTradingBox()
         {
             panelBroker.Visible ^= true;

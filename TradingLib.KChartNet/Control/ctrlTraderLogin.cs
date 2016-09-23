@@ -6,11 +6,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TradingLib.MarketData;
 
 namespace TradingLib.XTrader.Control
 {
     public partial class ctrlTraderLogin : UserControl
     {
+
+        public event Action ExitTrader;
+
+
         public ctrlTraderLogin()
         {
             InitializeComponent();
@@ -20,7 +25,72 @@ namespace TradingLib.XTrader.Control
             //this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             //this.Update();
             //this.Resize += new EventHandler(ctrlTraderLogin_Resize);
+
+            //InitControl();
+
+            //WireEvent();
         }
+
+        void WireEvent()
+        {
+            this.Load +=new EventHandler(ctrlTraderLogin_Load);
+
+            btnLogin.Click += new EventHandler(btnLogin_Click);
+            btnExit.Click += new EventHandler(btnExit_Click);
+
+
+            
+            //this.AcceptButton = this.btnLogin;
+        }
+
+
+        void ctrlTraderLogin_Load(object sender, EventArgs e)
+        {
+            //加载交易服务器地址
+            foreach (var v in (new ServerConfig("broker.cfg")).GetServerNodes())
+            {
+                serverList.Items.Add(v);
+            }
+            if (serverList.Items.Count > 0)
+            {
+                serverList.SelectedIndex = 0;
+            }
+
+            //加载席位
+            foreach (var v in (new ServerConfig("seat.cfg")).GetServerNodes())
+            {
+                seat.Items.Add(v);
+            }
+            if (seat.Items.Count > 0)
+            {
+                seat.SelectedIndex = 0;
+            }
+        }
+
+
+        void InitControl()
+        {
+
+            encrypt.SelectedIndex = 0;
+        }
+
+
+
+        void btnExit_Click(object sender, EventArgs e)
+        {
+            if (ExitTrader != null)
+            {
+                ExitTrader();
+            }
+        }
+
+        //加载交易插件并执行初始化过程
+        void btnLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         //Bitmap bm = null;
         //void ctrlTraderLogin_Resize(object sender, EventArgs e)
         //{

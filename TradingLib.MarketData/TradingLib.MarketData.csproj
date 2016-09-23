@@ -44,11 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Config.cs" />
     <Compile Include="Common\DataStruct.cs" />
     <Compile Include="Common\Finance.cs" />
     <Compile Include="Common\MinuteData.cs" />
     <Compile Include="Common\PowerData.cs" />
     <Compile Include="Common\RingBuffer.cs" />
+    <Compile Include="Common\ServerNode.cs" />
     <Compile Include="Common\SymbolInfoType.cs" />
     <Compile Include="ITraderAPI.cs" />
     <Compile Include="Profiler\Profiler.cs" />

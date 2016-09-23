@@ -49,6 +49,8 @@ namespace XTraderLite
             InitOtherView();
             //初始化键盘精灵
             InitSearchBox();
+
+            InitTrader();
         }
 
 

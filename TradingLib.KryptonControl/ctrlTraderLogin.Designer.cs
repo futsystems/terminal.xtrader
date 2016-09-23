@@ -1,4 +1,4 @@
-﻿namespace TradingLib.XTrader.Control
+﻿namespace TradingLib.KryptonControl
 {
     partial class ctrlTraderLogin
     {
@@ -41,7 +41,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.seat = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this._msg = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
             this.holder.SuspendLayout();
             this.SuspendLayout();
@@ -97,6 +97,7 @@
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(160, 21);
             this.password.TabIndex = 5;
+            this.password.Text = "123456";
             // 
             // account
             // 
@@ -104,6 +105,7 @@
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(160, 21);
             this.account.TabIndex = 6;
+            this.account.Text = "8500010";
             // 
             // encrypt
             // 
@@ -157,21 +159,21 @@
             this.seat.Size = new System.Drawing.Size(161, 20);
             this.seat.TabIndex = 12;
             // 
-            // label6
+            // _msg
             // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Blue;
-            this.label6.Location = new System.Drawing.Point(3, 167);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(233, 12);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "电信、联通用户请分别登入电信、联通站点";
+            this._msg.AutoSize = true;
+            this._msg.ForeColor = System.Drawing.Color.Blue;
+            this._msg.Location = new System.Drawing.Point(3, 167);
+            this._msg.Name = "_msg";
+            this._msg.Size = new System.Drawing.Size(233, 12);
+            this._msg.TabIndex = 13;
+            this._msg.Text = "电信、联通用户请分别登入电信、联通站点";
             // 
             // holder
             // 
             this.holder.BackColor = System.Drawing.Color.Transparent;
             this.holder.Controls.Add(this.label1);
-            this.holder.Controls.Add(this.label6);
+            this.holder.Controls.Add(this._msg);
             this.holder.Controls.Add(this.serverList);
             this.holder.Controls.Add(this.seat);
             this.holder.Controls.Add(this.label2);
@@ -218,7 +220,7 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox seat;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label _msg;
         private System.Windows.Forms.Panel holder;
     }
 }

@@ -33,11 +33,11 @@
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Design" />
@@ -55,8 +55,17 @@
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
     <Reference Include="TradingLib.Trader.STock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="TradingLib.XTrader.Control">
+      <HintPath>..\TradingLib.KChartNet\obj\Debug\TradingLib.XTrader.Control.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ctrlTraderLogin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlTraderLogin.Designer.cs">
+      <DependentUpon>ctrlTraderLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -68,6 +77,12 @@
     </Compile>
     <Compile Include="FPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MainContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainContainer.Designer.cs">
+      <DependentUpon>MainContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageSTKAccountPosition.cs">
       <SubType>UserControl</SubType>
@@ -192,8 +207,14 @@
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ctrlTraderLogin.resx">
+      <DependentUpon>ctrlTraderLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ctrlStockTrader.resx">
       <DependentUpon>ctrlStockTrader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainContainer.resx">
+      <DependentUpon>MainContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageSTKAccountPosition.resx">
       <DependentUpon>PageSTKAccountPosition.cs</DependentUpon>

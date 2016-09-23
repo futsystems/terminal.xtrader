@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace XTraderLite
+namespace TradingLib.MarketData
 {
     public class ConfigFileBase
     {
@@ -37,8 +37,8 @@ namespace XTraderLite
 
     public class ServerConfig:ConfigFileBase
     {
-        public ServerConfig()
-            : base("server.cfg")
+        public ServerConfig(string filename)
+            : base(filename)
         { 
         
         }
@@ -72,4 +72,6 @@ namespace XTraderLite
             return nodelist;
         }
     }
+
+
 }
