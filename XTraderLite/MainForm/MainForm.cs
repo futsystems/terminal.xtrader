@@ -27,6 +27,33 @@ namespace XTraderLite
         public static extern int GetClassLong(IntPtr hwnd, int nIndex);
 
 
+        //API声明：获取当前焦点控件句柄      
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Winapi)]
+
+        internal static extern IntPtr GetFocus();
+
+        ///获取 当前拥有焦点的控件
+        private Control GetFocusedControl()
+        {
+
+            Control focusedControl = null;
+
+            // To get hold of the focused control:
+
+            IntPtr focusedHandle = GetFocus();
+
+            if (focusedHandle != IntPtr.Zero)
+
+                //focusedControl = Control.FromHandle(focusedHandle);
+
+                focusedControl = Control.FromChildHandle(focusedHandle);
+
+            return focusedControl;
+
+        }
+
+
         frmDebug _debugForm = null;
 
         public MainForm()

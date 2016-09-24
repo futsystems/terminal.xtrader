@@ -87,6 +87,10 @@ namespace XTraderLite
                 case Keys.F10:
                     ViewSymbolInfo();
                     break;
+                case Keys.F11:
+                    Control c = GetFocusedControl();
+                    MessageBox.Show(c.ToString());
+                    break;
                 default:
                     break;
 

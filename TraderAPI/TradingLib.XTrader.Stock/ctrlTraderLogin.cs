@@ -89,6 +89,7 @@ namespace TradingLib.XTrader.Stock
         {
 
             encrypt.SelectedIndex = 0;
+            account.Focus();
         }
 
 

@@ -23,6 +23,19 @@ namespace TradingLib.XTrader.Control
         IEnumerable<MDSymbol> symbolMap = new List<MDSymbol>();
         ILog logger = LogManager.GetLogger("Quote");
 
+        public override bool Focused
+        {
+            get
+            {
+                return quotelist.Focused;
+            }
+        }
+
+        protected override void OnGotFocus(EventArgs e)
+        {
+            quotelist.Focus();
+        }
+
         /// <summary>
         /// 聚合鼠标事件
         /// </summary>
@@ -42,10 +55,8 @@ namespace TradingLib.XTrader.Control
             blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);
             scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
             scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
-
-           
-
         }
+
 
         void quotelist_SymbolVisibleChanged(object sender, SymbolVisibleChangeEventArgs e)
         {

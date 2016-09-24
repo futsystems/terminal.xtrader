@@ -99,6 +99,7 @@ namespace XTraderLite
             {
                 this.KeyPreview = true;
                 SearchBox.Visible = false;
+                viewLink.Last.Value.Focus();//退出键盘精灵后 让最后一个视图获得焦点 否则焦点任然在键盘精灵上 调出键盘精灵时需判断焦点是否在行情类视图上，如在交易视图上则不调键盘精灵
             }
             if (kv == Keys.Enter)
             {

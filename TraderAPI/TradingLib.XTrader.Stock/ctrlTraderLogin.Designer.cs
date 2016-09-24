@@ -63,7 +63,7 @@
             this.serverList.Location = new System.Drawing.Point(3, 31);
             this.serverList.Name = "serverList";
             this.serverList.Size = new System.Drawing.Size(160, 124);
-            this.serverList.TabIndex = 1;
+            this.serverList.TabIndex = 0;
             // 
             // label2
             // 
@@ -97,7 +97,7 @@
             this.password.Location = new System.Drawing.Point(238, 58);
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(160, 21);
-            this.password.TabIndex = 5;
+            this.password.TabIndex = 3;
             this.password.Text = "123456";
             // 
             // account
@@ -105,7 +105,7 @@
             this.account.Location = new System.Drawing.Point(238, 31);
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(160, 21);
-            this.account.TabIndex = 6;
+            this.account.TabIndex = 2;
             this.account.Text = "8500010";
             // 
             // encrypt
@@ -116,21 +116,21 @@
             this.encrypt.Location = new System.Drawing.Point(238, 90);
             this.encrypt.Name = "encrypt";
             this.encrypt.Size = new System.Drawing.Size(70, 20);
-            this.encrypt.TabIndex = 7;
+            this.encrypt.TabIndex = 4;
             // 
             // verify
             // 
             this.verify.Location = new System.Drawing.Point(320, 90);
             this.verify.Name = "verify";
             this.verify.Size = new System.Drawing.Size(78, 21);
-            this.verify.TabIndex = 8;
+            this.verify.TabIndex = 5;
             // 
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(238, 126);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 9;
+            this.btnLogin.TabIndex = 6;
             this.btnLogin.Text = "登 录";
             this.btnLogin.UseVisualStyleBackColor = true;
             // 
@@ -139,7 +139,7 @@
             this.btnExit.Location = new System.Drawing.Point(323, 126);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
-            this.btnExit.TabIndex = 10;
+            this.btnExit.TabIndex = 7;
             this.btnExit.Text = "退 出";
             this.btnExit.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +158,7 @@
             this.seat.Location = new System.Drawing.Point(237, 6);
             this.seat.Name = "seat";
             this.seat.Size = new System.Drawing.Size(161, 20);
-            this.seat.TabIndex = 12;
+            this.seat.TabIndex = 1;
             // 
             // _msg
             // 
@@ -199,6 +199,7 @@
             this.ctVerify1.Name = "ctVerify1";
             this.ctVerify1.Size = new System.Drawing.Size(63, 21);
             this.ctVerify1.TabIndex = 14;
+            this.ctVerify1.TabStop = false;
             // 
             // ctrlTraderLogin
             // 
