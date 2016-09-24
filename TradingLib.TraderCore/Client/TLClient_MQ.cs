@@ -784,7 +784,7 @@ namespace TradingLib.TraderCore
                 {
                     _mqcli.Send(packet.Data);
 
-                    logger.Info(">>Send Packet type:" + packet.Type.ToString() + " content:" + packet.ToString());
+                    //logger.Info(">>Send Packet type:" + packet.Type.ToString() + " content:" + packet.ToString());
         
                     return 0;
                 }
@@ -1100,7 +1100,7 @@ namespace TradingLib.TraderCore
                 if (packet.Type != MessageTypes.TICKHEARTBEAT && type != MessageTypes.HEARTBEATRESPONSE && type != MessageTypes.TICKNOTIFY)
                 {
 
-                    logger.Debug(">>Recv Packet type:" + type.ToString() + " message:" + msg);
+                    //logger.Debug(">>Recv Packet type:" + type.ToString() + " message:" + msg);
                 }
                 switch (packet.Type)
                 {

@@ -39,7 +39,7 @@ namespace TradingLib.XTrader.Stock
 
         public void QryAccountInfo()
         {
-            _qryid = CoreService.TLClient.ReqQryAccountInfo();
+            _qryid = CoreService.TLClient.ReqXQryAccount();
         }
 
         int _qryid = 0;

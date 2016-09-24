@@ -14,6 +14,7 @@ namespace TradingLib.TraderCore
 
         void CliOnMaxOrderVol(RspQryMaxOrderVolResponse response)
         {
+            logger.Debug("Got XQry MaxOrderVol Response:" + response.ToString());
             CoreService.EventOther.FireRspQryMaxOrderVolResponse(response);
         }
 
@@ -24,6 +25,7 @@ namespace TradingLib.TraderCore
         /// <param name="response"></param>
         void CliOnChangePass(RspReqChangePasswordResponse response)
         {
+            logger.Debug("Got ChangePass Response:" + response.ToString());
             CoreService.EventOther.FireRspReqChangePasswordResponse(response);
             if (IsRspInfoError(response.RspInfo))
             {

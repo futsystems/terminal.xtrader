@@ -18,14 +18,11 @@ namespace TradingLib.TraderCore
                 case MessageTypes.TICKNOTIFY:
                     CliOnTickNotify(packet as TickNotify);
                     break;
-                //昨日持仓数据
-                //case MessageTypes.OLDPOSITIONNOTIFY:
-                //    CliOnOldPositionNotify(packet as HoldPositionNotify);
-                //    break;
                 //委托回报
                 case MessageTypes.ORDERNOTIFY:
                     CliOnOrderNotify(packet as OrderNotify);
                     break;
+                //委托异常回报
                 case MessageTypes.ERRORORDERNOTIFY:
                     CliOnErrorOrderNotify(packet as ErrorOrderNotify);
                     break;
@@ -41,7 +38,7 @@ namespace TradingLib.TraderCore
                 case MessageTypes.ORDERACTIONNOTIFY:
                     CliOnOrderAction(packet as OrderActionNotify);
                     break;
-
+                //委托操作异常回报
                 case MessageTypes.ERRORORDERACTIONNOTIFY:
                     CliOnErrorOrderActionNotify(packet as ErrorOrderActionNotify);
                     break;
@@ -50,38 +47,6 @@ namespace TradingLib.TraderCore
 
 
                 #region 查询
-                //case MessageTypes.ORDERRESPONSE://查询委托回报
-                //    CliOnRspQryOrderResponse(packet as RspQryOrderResponse);
-                //    break;
-                //case MessageTypes.TRADERESPONSE://查询成交回报
-                //    CliOnRspQryTradeResponse(packet as RspQryTradeResponse);
-                //    break;
-                //case MessageTypes.POSITIONRESPONSE://查询持仓回报
-                //    CliOnRspQryPositionResponse(packet as RspQryPositionResponse);
-                //    break;
-
-                case MessageTypes.ACCOUNTINFORESPONSE://帐户信息回报
-                    CliOnQryAccountInfo(packet as RspQryAccountInfoResponse);
-                    break;
-                case MessageTypes.INVESTORRESPONSE:
-                    CliOnRspQryInvestorResponse(packet as RspQryInvestorResponse);
-                    break;
-
-                case MessageTypes.MAXORDERVOLRESPONSE: //最大可开数量回报
-                    CliOnMaxOrderVol(packet as RspQryMaxOrderVolResponse);
-                    break;
-                case MessageTypes.CHANGEPASSRESPONSE://修改密码回报
-                    CliOnChangePass(packet as RspReqChangePasswordResponse);
-                    break;
-                //case MessageTypes.SETTLEINFOCONFIRMRESPONSE://结算确认回报
-                //    CliOnSettleInfoConfirm(packet as RspQrySettleInfoConfirmResponse);
-                //    break;
-
-                //case MessageTypes.SETTLEINFORESPONSE://结算信息会回报
-                //    CliOnSettleInfo(packet as RspQrySettleInfoResponse);
-                //    break;
-
-
                 case MessageTypes.XMARKETTIMERESPONSE://交易时间段回报
                     CliOnXMarketTime(packet as RspXQryMarketTimeResponse);
                     break;
@@ -97,6 +62,7 @@ namespace TradingLib.TraderCore
                 case MessageTypes.XSYMBOLRESPONSE://合约回报
                     CliOnXSymbol(packet as RspXQrySymbolResponse);
                     break;
+
 
                 case MessageTypes.XYDPOSITIONRESPONSE://隔夜持仓回报
                     CliOnXQryYDPosition(packet as RspXQryYDPositionResponse);
@@ -114,6 +80,14 @@ namespace TradingLib.TraderCore
                 
                 case MessageTypes.XACCOUNTRESPONSE://交易账户回报
                     CliOnXQryAccount(packet as RspXQryAccountResponse);
+                    break;
+
+                case MessageTypes.MAXORDERVOLRESPONSE: //最大可开数量回报
+                    CliOnMaxOrderVol(packet as RspQryMaxOrderVolResponse);
+                    break;
+
+                case MessageTypes.CHANGEPASSRESPONSE://修改密码回报
+                    CliOnChangePass(packet as RspReqChangePasswordResponse);
                     break;
 
                 #endregion

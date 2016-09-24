@@ -10,27 +10,31 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
+        
+
+
+
         void CliOnXMarketTime(RspXQryMarketTimeResponse response)
         {
-            logger.Debug("got markettime response:" + response.ToString());
+            logger.Debug("Got Markettime Response:" + response.ToString());
             CoreService.BasicInfoTracker.GotMarketTime(response.MarketTime, response.IsLast);
         }
 
         void CliOnXExchange(RspXQryExchangeResponse response)
         {
-            logger.Debug("got exchange response:" + response.ToString());
+            logger.Debug("Got Exchange Response:" + response.ToString());
             CoreService.BasicInfoTracker.GotExchange(response.Exchange, response.IsLast);
         }
 
         void CliOnXSecurity(RspXQrySecurityResponse response)
         {
-            logger.Debug("got security response:" + response.ToString());
+            logger.Debug("Got Security Response:" + response.ToString());
             CoreService.BasicInfoTracker.GotSecurity(response.SecurityFaimly, response.IsLast);
         }
 
         void CliOnXSymbol(RspXQrySymbolResponse response)
         {
-            logger.Debug("got symbol response:" + response.ToString());
+            logger.Debug("Got Symbol Response:" + response.ToString());
             CoreService.BasicInfoTracker.GotSymbol(response.Symbol, response.IsLast);
 
             //触发查询回调

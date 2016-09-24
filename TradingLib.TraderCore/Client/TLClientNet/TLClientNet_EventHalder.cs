@@ -28,25 +28,23 @@ namespace TradingLib.TraderCore
 
         void connecton_OnDisconnectEvent()
         {
-            logger.Info("Server disconnected");
+            logger.Info("Server Disconnected");
             CoreService.EventCore.FireDisconnectedEvent();
         }
 
         void connecton_OnConnectEvent()
         {
-            logger.Info("Server connected");
+            logger.Info("Server Connected");
             CoreService.EventCore.FireConnectedEvent();
         }
 
-
-        bool _firstlogin = true;
         /// <summary>
         /// 响应底层暴露上来的登入回报事件
         /// </summary>
         /// <param name="response"></param>
         void connecton_OnLoginResponse(LoginResponse response)
         {
-            logger.Info(" got loginresponse:" + response.ToString());
+            logger.Info("Got Login Response:" + response.ToString());
             if (response.Authorized)
             {
                 _account = response.Account;
@@ -62,6 +60,7 @@ namespace TradingLib.TraderCore
                 CoreService.BasicInfoTracker.ResumeData();
             }
         }
+        
 
     }
 }
