@@ -50,6 +50,7 @@ namespace XTraderLite
             //初始化键盘精灵
             InitSearchBox();
 
+            //初始化交易插件
             InitTrader();
         }
 
@@ -187,7 +188,7 @@ namespace XTraderLite
             ViewQuoteList();
 
             //new System.Threading.Thread(LoadTrader).Start(); 
-          
+            //LoadTrader();
         }
 
         /// <summary>

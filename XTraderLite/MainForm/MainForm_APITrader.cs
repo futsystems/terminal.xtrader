@@ -26,10 +26,27 @@ namespace XTraderLite
     public partial class MainForm
     {
 
+        ITraderAPI _traderApi = null;
+        Control _traderCtrl = null;
 
         void InitTrader()
         {
-            
+            //
+            _traderApi = Utils.LoadTraderAPI("TradingLib.MarketData.ITraderAPI");//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
+
+            if (_traderApi != null)
+            {
+                _traderCtrl = _traderApi as Control;
+                if (_traderCtrl != null)
+                {
+                    panelBroker.Controls.Add(_traderCtrl);
+                    _traderCtrl.Dock = DockStyle.Fill;
+                    _traderApi.Show();
+                }
+
+                _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
+                _traderApi.ViewKChart += new Action<string, string, int>(_traderApi_ViewKChart);
+            }
         }
 
         void ctrlTraderLogin1_ExitTrader()
@@ -45,12 +62,12 @@ namespace XTraderLite
                 if (viewLink.Last != null) viewLink.Last.Value.Focus();
             }
 
-            //加载交易控件
-            if (panelBroker.Visible && _traderApi == null)
-            {
-                new System.Threading.Thread(LoadTrader).Start(); 
+            ////加载交易控件
+            //if (panelBroker.Visible && _traderApi == null)
+            //{
+            //    //new System.Threading.Thread(LoadTrader).Start(); 
 
-            }
+            //}
         }
 
 
@@ -79,33 +96,7 @@ namespace XTraderLite
             
         }
 
-        ITraderAPI _traderApi = null;
-        Control _traderCtrl = null;
-        void LoadTrader()
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new Action(LoadTrader), new object[] { });
-            }
-            else
-            {
-                _traderApi = Utils.LoadTraderAPI("TradingLib.MarketData.ITraderAPI");
-
-                if (_traderApi != null)
-                {
-                    _traderCtrl = _traderApi as Control;
-                    if (_traderCtrl != null)
-                    {
-                        panelBroker.Controls.Add(_traderCtrl);
-                        _traderCtrl.Dock = DockStyle.Fill;
-                        _traderApi.Show();
-                    }
-
-                    _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
-                    _traderApi.ViewKChart += new Action<string, string,int>(_traderApi_ViewKChart);
-                }
-            }
-        }
+        
 
         void _traderApi_ViewKChart(string arg1, string arg2,int arg3)
         {

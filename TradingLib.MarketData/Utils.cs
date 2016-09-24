@@ -360,7 +360,7 @@ namespace TradingLib.MarketData
         /// <returns></returns>
         public static ITraderAPI LoadTraderAPI(string name)
         {
-            return LoadAPI<ITraderAPI>("TraderAPI",name);
+            return LoadAPI<ITraderAPI>("TraderAPI");
         }
 
         /// <summary>
@@ -368,91 +368,71 @@ namespace TradingLib.MarketData
         /// </summary>
         public static IMarketDataAPI LoadDataAPI(string name)
         {
-            return LoadAPI<IMarketDataAPI>("DataAPI", name);
-            //string[] aDLLs = null;
-
-            //try
-            //{
-            //    aDLLs = Directory.GetFiles("DataAPI", "*.dll");
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogService.Error("Load ServiceHost Error:" + ex.ToString());
-            //}
-            //if (aDLLs.Length == 0)
-            //    return null;
-
-            //foreach (string item in aDLLs)
-            //{
-            //    Assembly aDLL = Assembly.UnsafeLoadFrom(item);
-            //    Type[] types = aDLL.GetTypes();
-
-            //    foreach (Type type in types)
-            //    {
-            //        try
-            //        {
-
-            //            //connection service must support IDataServerServiceHost interface
-            //            if (type.GetInterface(name) != null)
-            //            {
-            //                object o = Activator.CreateInstance(type);
-
-            //                if (o is IMarketDataAPI)
-            //                {
-            //                    return o as IMarketDataAPI; ;
-            //                }
-            //            }
-            //        }
-            //        catch
-            //        {
-            //        }
-            //    }
-            //}
-            //return null;
+            return LoadAPI<IMarketDataAPI>("DataAPI");
         }
 
-        static T LoadAPI<T>(string dir, string name)
+        static List<Type> GetImplementors(string path, Type needtype)
         {
-            string[] aDLLs = null;
+            //遍历搜索路径 获得所有dll文件
+            List<string> dllfilelist = new List<string>();
+            dllfilelist.AddRange(Directory.GetFiles(path, "*.dll"));
 
-            try
+            List<Type> types = new List<Type>();
+            foreach (string dllfile in dllfilelist)
             {
-                aDLLs = Directory.GetFiles(dir, "*.dll");
-            }
-            catch (Exception ex)
-            {
-                LogService.Error("Load ServiceHost Error:" + ex.ToString());
-            }
-            if (aDLLs.Length == 0)
-                return default(T);
-
-            foreach (string item in aDLLs)
-            {
-                Assembly aDLL = Assembly.UnsafeLoadFrom(item);
-                Type[] types = aDLL.GetTypes();
-
-                foreach (Type type in types)
+                try
                 {
-                    try
+                    var assembly = Assembly.ReflectionOnlyLoadFrom(dllfile);
+                    AssemblyName assemblyName = AssemblyName.GetAssemblyName(dllfile);
+                    AssemblyName[] referenced = assembly.GetReferencedAssemblies();
+                    foreach (var an in referenced)
                     {
-
-                        //connection service must support IDataServerServiceHost interface
-                        if (type.GetInterface(name) != null)
+                        try
                         {
-                            object o = Activator.CreateInstance(type);
-
-                            if (o is T)
-                            {
-                                return (T)o;
-                            }
+                            Assembly.ReflectionOnlyLoad(an.FullName);
+                        }
+                        catch
+                        {
+                            Assembly.ReflectionOnlyLoadFrom(Path.Combine(Path.GetDirectoryName(dllfile), an.Name + ".dll"));
                         }
                     }
-                    catch
+                    Type[] exportedTypes = assembly.GetExportedTypes();
+                    foreach (Type type in exportedTypes)
                     {
+                        //程序集中的type不是抽象函数并且其实现了needType接口,则标记为有效
+                        if (!type.IsAbstract && type.GetInterface(needtype.FullName) != null)
+                        {
+                            //Assembly a = Assembly.Load(assemblyName);
+                            Assembly a = Assembly.LoadFrom(dllfile);
+                            Type[] ts = a.GetTypes();
+                            types.Add(a.GetType(type.FullName));
+                        }
+
                     }
                 }
+                catch (Exception ex)
+                {
+                   
+                }
             }
-            return default(T);
+            return types;
+        }
+
+
+        static T LoadAPI<T>(string dir)
+        {
+            Type t = typeof(T);
+            List<Type> typelist = GetImplementors(dir, t);
+            if (typelist.Count > 0)
+            {
+                //
+                T obj = (T)Activator.CreateInstance(typelist[0], new object[] { });
+                return obj;
+            }
+            else
+            {
+                return default(T);
+            }
         }
     }
 }
