@@ -34,7 +34,7 @@ namespace XTraderLite
             InitializeComponent();
             _debugForm = new frmDebug();
             //将控件日志输出时间绑定到debug函数 用于输出到控件
-            ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(_debugForm.Debug);
+            ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(Debug);
             this.DoubleBuffered = true;
 
             //绑定界面事件
@@ -53,6 +53,17 @@ namespace XTraderLite
             InitTrader();
         }
 
+        void Debug(string msg)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string>(Debug), new object[] { msg });
+            }
+            else
+            {
+                _debugForm.Debug(msg);
+            }
+        }
 
         LinkedList<string> freqLink = new LinkedList<string>();//频率双向链表 用于F8循环切换
 
@@ -207,14 +218,6 @@ namespace XTraderLite
         public void OnDisposed()
         { 
             
-        }
-        
-
-        
-
-        void debug(string msg)
-        {
-            _debugForm.Debug(msg);
         }
 
         void MainForm_SizeChanged(object sender, EventArgs e)
