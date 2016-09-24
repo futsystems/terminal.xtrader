@@ -42,6 +42,9 @@
     <Reference Include="NetMQ">
       <HintPath>..\..\Futs.base\lib\NetMQ.dll</HintPath>
     </Reference>
+    <Reference Include="NodaTime">
+      <HintPath>..\..\Futs.base\lib\NodaTime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
