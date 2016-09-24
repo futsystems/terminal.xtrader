@@ -180,15 +180,11 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="fm\fmConfrim.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="fm\fmConfrim.cs" />
     <Compile Include="fm\fmConfrim.Designer.cs">
       <DependentUpon>fmConfrim.cs</DependentUpon>
     </Compile>
-    <Compile Include="fm\fmMessage.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="fm\fmMessage.cs" />
     <Compile Include="fm\fmMessage.Designer.cs">
       <DependentUpon>fmMessage.cs</DependentUpon>
     </Compile>

@@ -101,12 +101,12 @@ namespace TradingLib.XTrader.Stock
         {
             if (_symbol == null)
             {
-                fmMessage.Show("委托参数错误", "请输入交易股票代码");
+                MessageBox.Show("请输入交易股票代码","委托参数错误",MessageBoxButtons.OK,MessageBoxIcon.Warning );
                 return;
             }
             if (size.Value == 0)
             {
-                fmMessage.Show("委托参数错误", "请输入交易股票数量");
+                MessageBox.Show("请输入交易股票数量", "委托参数错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -117,12 +117,11 @@ namespace TradingLib.XTrader.Stock
             order.LimitPrice = price.Value;
 
             string msg = "以价格:{0} {1}{2}股票:{3}".Put(order.LimitPrice.ToFormatStr(), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName());
-            if (fmConfirm.Show("确认提交委托?", msg) == DialogResult.Yes)
+            if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
                 btnSubmit.Enabled = false;
             }
-            
         }
 
 

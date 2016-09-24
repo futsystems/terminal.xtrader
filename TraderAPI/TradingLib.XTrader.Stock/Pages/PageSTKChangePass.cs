@@ -28,19 +28,19 @@ namespace TradingLib.XTrader.Stock
         {
             if (string.IsNullOrEmpty(newpass1.Text))
             {
-                fmMessage.Show("修改密码","请输入旧密码");
+                MessageBox.Show("请输入旧密码","修改密码",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrEmpty(newpass1.Text) || string.IsNullOrEmpty(newpass2.Text))
             {
-                fmMessage.Show("修改密码", "请输入新密码");
+                MessageBox.Show("请输入新密码", "修改密码", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (newpass1.Text != newpass2.Text)
             {
-                fmMessage.Show("修改密码", "输入的新密码不一致，请确认新密码");
+                MessageBox.Show("输入的新密码不一致，请确认新密码", "修改密码", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
