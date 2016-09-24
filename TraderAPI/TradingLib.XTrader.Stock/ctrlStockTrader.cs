@@ -10,6 +10,7 @@ using TradingLib.MarketData;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using TradingLib.TraderCore;
+using Common.Logging;
 
 
 namespace TradingLib.XTrader.Stock
@@ -17,6 +18,8 @@ namespace TradingLib.XTrader.Stock
     public partial class ctrlStockTrader : UserControl,TradingLib.API.IEventBinder
     {
         public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+
+        ILog logger = LogManager.GetLogger("ctlStockTrader");
         public ctrlStockTrader()
         {
             InitializeComponent();
@@ -28,6 +31,8 @@ namespace TradingLib.XTrader.Stock
             InitMenuTree();
 
             WireEvent();
+
+            InitMessageBW();
         }
 
 
@@ -510,5 +515,69 @@ namespace TradingLib.XTrader.Stock
 
 
         #endregion
+
+
+        #region 弹窗提醒
+
+
+
+        System.ComponentModel.BackgroundWorker bg;
+
+        RingBuffer<PromptMessage> infobuffer = new RingBuffer<PromptMessage>(1000);
+
+
+
+
+        void InitMessageBW()
+        {
+            bg = new BackgroundWorker();
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.RunWorkerAsync();
+            CoreService.EventCore.OnPromptMessageEvent += new Action<PromptMessage>(EventCore_OnPromptMessageEvent);
+        }
+
+        void EventCore_OnPromptMessageEvent(PromptMessage obj)
+        {
+            infobuffer.Write(obj);
+        }
+
+        /// <summary>
+        /// 后台工作流程 当缓存中有数据是通过ReportProgress进行触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void bg_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                try
+                {
+                    //如果消息缓存中有内容则弹窗提醒
+                    while (infobuffer.hasItems)
+                    {
+                        PromptMessage info = infobuffer.Read();
+                        if (info != null)
+                        {
+                            MethodInvoker mi = new MethodInvoker(() => 
+                            { 
+                                MessageBox.Show(info.Message,"信息:"+info.Title,MessageBoxButtons.OK,MessageBoxIcon.Information); }
+                            );
+                            IAsyncResult result = this.BeginInvoke(mi);
+                            this.EndInvoke(result);
+                        }
+                        System.Threading.Thread.Sleep(100);
+                    }
+                    System.Threading.Thread.Sleep(100);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("bg worker error:" + ex.ToString());
+                }
+            }
+        }
+
+
+        #endregion
+
     }
 }

@@ -180,14 +180,6 @@
     <Compile Include="Control\ctQuoteViewSTK.Designer.cs">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
     </Compile>
-    <Compile Include="fm\fmConfrim.cs" />
-    <Compile Include="fm\fmConfrim.Designer.cs">
-      <DependentUpon>fmConfrim.cs</DependentUpon>
-    </Compile>
-    <Compile Include="fm\fmMessage.cs" />
-    <Compile Include="fm\fmMessage.Designer.cs">
-      <DependentUpon>fmMessage.cs</DependentUpon>
-    </Compile>
     <Compile Include="IDataSource.cs" />
     <Compile Include="IPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -254,12 +246,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctQuoteViewSTK.resx">
       <DependentUpon>ctQuoteViewSTK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fm\fmConfrim.resx">
-      <DependentUpon>fmConfrim.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fm\fmMessage.resx">
-      <DependentUpon>fmMessage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
