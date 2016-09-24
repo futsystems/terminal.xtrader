@@ -76,7 +76,7 @@ namespace XTraderLite
             InitSearchBox();
 
             //初始化交易插件
-            InitTrader();
+            //InitTrader();
         }
 
         void Debug(string msg)
@@ -213,7 +213,7 @@ namespace XTraderLite
             ViewQuoteList();
 
             //new System.Threading.Thread(LoadTrader).Start(); 
-            //LoadTrader();
+            InitTrader();
         }
 
         /// <summary>

@@ -363,7 +363,7 @@ namespace TradingLib.MarketData
         /// <returns></returns>
         public static ITraderAPI LoadTraderAPI(string dllname)
         {
-            return LoadAPI<ITraderAPI>("TraderAPI", dllname);
+            return LoadAPI2<ITraderAPI>("TraderAPI", dllname);
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace TradingLib.MarketData
         /// </summary>
         public static IMarketDataAPI LoadDataAPI(string dllname)
         {
-            return LoadAPI<IMarketDataAPI>("DataAPI", dllname);
+            return LoadAPI2<IMarketDataAPI>("DataAPI", dllname);
         }
 
         static List<Type> GetImplementors(string path, string dllname, Type needtype)
@@ -401,7 +401,9 @@ namespace TradingLib.MarketData
                         }
                         catch
                         {
-                            Assembly.ReflectionOnlyLoadFrom(Path.Combine(Path.GetDirectoryName(dllfile), an.Name + ".dll"));
+                            string df1 = Path.Combine(Path.GetDirectoryName(dllfile), an.Name + ".dll");
+                            string df2 = Path.Combine(Path.GetDirectoryName(dllfile), dllfile);
+                            Assembly.ReflectionOnlyLoadFrom(df1);
                         }
                     }
                     Type[] exportedTypes = assembly.GetExportedTypes();
@@ -442,6 +444,51 @@ namespace TradingLib.MarketData
             {
                 return default(T);
             }
+        }
+        static T LoadAPI2<T>(string dir, string dllname)
+        {
+            string[] aDLLs = null;
+
+            try
+            {
+                aDLLs = Directory.GetFiles(dir, "*.dll");
+            }
+            catch (Exception ex)
+            {
+                LogService.Error("Load ServiceHost Error:" + ex.ToString());
+            }
+            if (aDLLs.Length == 0)
+                return default(T);
+            Type t = typeof(T);
+            
+            foreach (string item in aDLLs)
+            {
+                if (Path.GetFileName(item) != dllname) continue;
+                Assembly aDLL = Assembly.UnsafeLoadFrom(item);
+                Type[] types = aDLL.GetTypes();
+
+                foreach (Type type in types)
+                {
+                    try
+                    {
+
+                        //connection service must support IDataServerServiceHost interface
+                        if (type.GetInterface(t.FullName) != null)
+                        {
+                            object o = Activator.CreateInstance(type);
+
+                            if (o is T)
+                            {
+                                return (T)o;
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return default(T);
         }
     }
 }
