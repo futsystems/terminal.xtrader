@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using Common.Logging;
 
 namespace TradingLib.MarketData
 {
@@ -17,6 +18,8 @@ namespace TradingLib.MarketData
 
     public class Utils
     {
+
+        static ILog logger = LogManager.GetLogger("TradingLib.MarketData.Utils");
         #region TLDate and TLTime
         /// <summary>
         /// Converts date to DateTime (eg 20070926 to "DateTime.Mon = 9, DateTime.Day = 26, DateTime.ShortDate = Sept 29, 2007"
@@ -261,7 +264,7 @@ namespace TradingLib.MarketData
 
         #endregion
 
-
+        
 
         /// <summary>
         /// 估算某个时间点到目前有多少个Bar数据 用于请求实时数据
@@ -356,23 +359,24 @@ namespace TradingLib.MarketData
         /// <summary>
         /// 加载交易API
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">dll name</param>
         /// <returns></returns>
-        public static ITraderAPI LoadTraderAPI(string name)
+        public static ITraderAPI LoadTraderAPI(string dllname)
         {
-            return LoadAPI<ITraderAPI>("TraderAPI");
+            return LoadAPI<ITraderAPI>("TraderAPI", dllname);
         }
 
         /// <summary>
         /// 加载行情API
         /// </summary>
-        public static IMarketDataAPI LoadDataAPI(string name)
+        public static IMarketDataAPI LoadDataAPI(string dllname)
         {
-            return LoadAPI<IMarketDataAPI>("DataAPI");
+            return LoadAPI<IMarketDataAPI>("DataAPI", dllname);
         }
 
-        static List<Type> GetImplementors(string path, Type needtype)
+        static List<Type> GetImplementors(string path, string dllname, Type needtype)
         {
+            
             //遍历搜索路径 获得所有dll文件
             List<string> dllfilelist = new List<string>();
             dllfilelist.AddRange(Directory.GetFiles(path, "*.dll"));
@@ -382,6 +386,10 @@ namespace TradingLib.MarketData
             {
                 try
                 {
+                   
+                    string name = Path.GetFileName(dllfile);
+                    if (name != dllname) continue;
+                    logger.Info("Check File:" + dllfile);
                     var assembly = Assembly.ReflectionOnlyLoadFrom(dllfile);
                     AssemblyName assemblyName = AssemblyName.GetAssemblyName(dllfile);
                     AssemblyName[] referenced = assembly.GetReferencedAssemblies();
@@ -412,20 +420,21 @@ namespace TradingLib.MarketData
                 }
                 catch (Exception ex)
                 {
-                   
+                    logger.Error(ex.ToString());
                 }
             }
             return types;
         }
 
 
-        static T LoadAPI<T>(string dir)
+        static T LoadAPI<T>(string dir,string dllname)
         {
+            
             Type t = typeof(T);
-            List<Type> typelist = GetImplementors(dir, t);
+            logger.Info(string.Format("Try to log plugin dir:{0} dll:{1} type:{2}", dir, dllname, t.FullName));
+            List<Type> typelist = GetImplementors(dir,dllname,t);
             if (typelist.Count > 0)
             {
-                //
                 T obj = (T)Activator.CreateInstance(typelist[0], new object[] { });
                 return obj;
             }

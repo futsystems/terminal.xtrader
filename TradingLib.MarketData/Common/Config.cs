@@ -33,6 +33,14 @@ namespace TradingLib.MarketData
         }
 
 
+        public string GetFirstLine()
+        {
+            using (StreamReader reader = new StreamReader(fullName, Encoding.Default))
+            {
+                return reader.ReadLine();
+            }
+        }
+
     }
 
     public class ServerConfig:ConfigFileBase

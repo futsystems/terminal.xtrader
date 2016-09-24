@@ -114,15 +114,19 @@ namespace XTraderLite
         /// </summary>
         void Connect()
         {
-            //string address = serverlist.SelectedValue.ToString();
-
             //登入过程开始
             _connectstart = true;
             _connecttime = DateTime.Now;
-            //
-            //logger.Info("client try to connec to:" + address + " port:" + port.ToString());
-            MDService.InitDataAPI("TradingLib.MarketData.IMarketDataAPI");
-            //MDService.DataAPI.Connect(new string[] { "210.21.198.182" }, 7709);
+            //从配置文件设定的dll初始化行情插件
+            string dllname = new ConfigFileBase("apimarket.cfg").GetFirstLine();
+            MDService.InitDataAPI(dllname);
+
+            if (MDService.DataAPI == null)
+            {
+                MessageBox.Show("行情插件加载异常");
+                Reset();
+                return;
+            }
             ServerNode node = cbServer.SelectedItem as ServerNode;
             if (node != null)
             {

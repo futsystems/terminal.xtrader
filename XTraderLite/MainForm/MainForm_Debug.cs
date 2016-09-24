@@ -25,7 +25,7 @@ namespace XTraderLite
 
         void btnDemo2_Click(object sender, EventArgs e)
         {
-            _debugForm.Show();
+            _debugform.Show();
         }
 
 

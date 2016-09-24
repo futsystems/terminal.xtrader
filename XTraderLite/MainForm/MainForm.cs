@@ -53,13 +53,11 @@ namespace XTraderLite
 
         }
 
-
-        frmDebug _debugForm = null;
-
+        frmDebug _debugform = null;
         public MainForm()
         {
             InitializeComponent();
-            _debugForm = new frmDebug();
+            _debugform = new frmDebug();
             //将控件日志输出时间绑定到debug函数 用于输出到控件
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(Debug);
             this.DoubleBuffered = true;
@@ -89,7 +87,7 @@ namespace XTraderLite
             }
             else
             {
-                _debugForm.Debug(msg);
+                _debugform.Debug(msg);
             }
         }
 

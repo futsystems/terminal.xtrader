@@ -47,7 +47,7 @@ namespace XTraderLite
 
         void btnDebugForm_Click(object sender, EventArgs e)
         {
-            _debugForm.Show();
+            _debugform.Show();
         }
         List<ToolStripButton> checkedButtons = new List<ToolStripButton>();
         List<ToolStripButton> hiddenButtons = new List<ToolStripButton>();

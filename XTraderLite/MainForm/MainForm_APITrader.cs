@@ -29,10 +29,15 @@ namespace XTraderLite
         ITraderAPI _traderApi = null;
         Control _traderCtrl = null;
 
+        /// <summary>
+        /// 初始化交易插件
+        /// </summary>
         void InitTrader()
         {
             //
-            _traderApi = Utils.LoadTraderAPI("TradingLib.MarketData.ITraderAPI");//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
+            //从配置文件设定的dll初始化交易插件
+            string dllname = new ConfigFileBase("apitrader.cfg").GetFirstLine();
+            _traderApi = Utils.LoadTraderAPI(dllname);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
 
             if (_traderApi != null)
             {
@@ -55,19 +60,18 @@ namespace XTraderLite
         }
         void SwitchTradingBox()
         {
+            if (_traderApi == null)
+            {
+                MessageBox.Show("交易插件未加载");
+                return;
+            }
+
             panelBroker.Visible ^= true;
             //隐藏交易面板时 将当前行情视图获取焦点
             if (!panelBroker.Visible)
             {
                 if (viewLink.Last != null) viewLink.Last.Value.Focus();
             }
-
-            ////加载交易控件
-            //if (panelBroker.Visible && _traderApi == null)
-            //{
-            //    //new System.Threading.Thread(LoadTrader).Start(); 
-
-            //}
         }
 
 
