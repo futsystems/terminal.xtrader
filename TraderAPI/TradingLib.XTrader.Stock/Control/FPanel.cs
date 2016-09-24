@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace TradingLib.XTrader.Stock
 {
@@ -13,6 +14,7 @@ namespace TradingLib.XTrader.Stock
         public FPanel()
         {
             this.DoubleBuffered = true;
+            base.SetStyle(ControlStyles.DoubleBuffer, true);
         }
 
         //protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)

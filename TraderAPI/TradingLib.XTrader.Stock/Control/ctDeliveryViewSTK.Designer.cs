@@ -41,7 +41,7 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.deliveryGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.deliveryGrid.BackgroundColor = System.Drawing.Color.White;
-            this.deliveryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.deliveryGrid.ColumnHeadersHeight = 25;
             this.deliveryGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.deliveryGrid.Location = new System.Drawing.Point(0, 0);
             this.deliveryGrid.Margin = new System.Windows.Forms.Padding(0);

@@ -20,10 +20,16 @@ namespace TradingLib.XTrader.Stock
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
             //this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;//如果禁止Resize则表头高度会无法修改
             this.ColumnHeadersHeight = 25;
             //this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReadOnly = true;
             this.RowHeadersVisible = false;
+            //this.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+           
+
+            this.EnableHeadersVisualStyles = false;//表头部适用系统样式
+
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
             this.BackgroundColor = Color.White;
@@ -33,6 +39,8 @@ namespace TradingLib.XTrader.Stock
             this.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(FPosition_CellPainting);
             this.Paint += new System.Windows.Forms.PaintEventHandler(FPosition_Paint);
         }
+
+
 
         
 

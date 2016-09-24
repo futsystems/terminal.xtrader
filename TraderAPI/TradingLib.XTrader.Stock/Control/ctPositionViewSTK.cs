@@ -19,9 +19,16 @@ namespace TradingLib.XTrader.Stock
     public partial class ctPositionViewSTK : UserControl,IEventBinder
     {
         ILog logger = LogManager.GetLogger("ctPositionViewSTK");
+        FGrid positionGrid = null;
         public ctPositionViewSTK()
         {
             InitializeComponent();
+
+            this.positionGrid = new FGrid();
+            this.positionGrid.Dock = DockStyle.Fill;
+
+            this.Controls.Add(this.positionGrid);
+
             InitTable();
             BindToTable();
 

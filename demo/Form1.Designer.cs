@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.fGrid1 = new TradingLib.XTrader.Stock.FGrid();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,8 +44,14 @@
             // 
             // fGrid1
             // 
+            this.fGrid1.AllowUserToAddRows = false;
+            this.fGrid1.AllowUserToDeleteRows = false;
+            this.fGrid1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.fGrid1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.fGrid1.BackgroundColor = System.Drawing.Color.White;
-            this.fGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.fGrid1.ColumnHeadersHeight = 25;
+            this.fGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.fGrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -55,14 +62,15 @@
             this.Column7,
             this.Column8,
             this.Column9});
-            this.fGrid1.Location = new System.Drawing.Point(198, 182);
+            this.fGrid1.EnableHeadersVisualStyles = false;
+            this.fGrid1.Location = new System.Drawing.Point(341, 127);
             this.fGrid1.Margin = new System.Windows.Forms.Padding(0);
             this.fGrid1.Name = "fGrid1";
             this.fGrid1.ReadOnly = true;
             this.fGrid1.RowHeadersVisible = false;
             this.fGrid1.RowTemplate.Height = 23;
             this.fGrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.fGrid1.Size = new System.Drawing.Size(588, 150);
+            this.fGrid1.Size = new System.Drawing.Size(240, 150);
             this.fGrid1.TabIndex = 0;
             // 
             // Column1
@@ -144,6 +152,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+
 
 
 
