@@ -15,22 +15,26 @@ namespace TradingLib.XTrader.Stock
         public FGrid()
         {
 
+
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
-            this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.ColumnHeadersHeight = 25;
-            this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            //this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReadOnly = true;
             this.RowHeadersVisible = false;
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
             this.BackgroundColor = Color.White;
             this.Margin = new Padding(0);
+            //this.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
 
             this.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(FPosition_CellPainting);
             this.Paint += new System.Windows.Forms.PaintEventHandler(FPosition_Paint);
         }
+
+        
 
         void FPosition_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {

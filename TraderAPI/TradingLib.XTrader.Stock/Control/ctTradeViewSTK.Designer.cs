@@ -40,7 +40,6 @@
             this.tradeGrid.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tradeGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.tradeGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tradeGrid.BackgroundColor = System.Drawing.Color.White;
             this.tradeGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tradeGrid.Dock = System.Windows.Forms.DockStyle.Fill;

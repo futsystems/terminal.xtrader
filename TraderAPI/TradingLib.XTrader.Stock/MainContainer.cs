@@ -50,9 +50,12 @@ namespace TradingLib.XTrader.Stock
         void WireEvent()
         {
             ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
+            //ctrlTraderLogin.ExitTrader += new Action(ctrlTraderLogin_ExitTrader);
 
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
         }
+
+
 
         void EventUI_OnSymbolSelectedEvent(object arg1, API.Symbol arg2)
         {
@@ -67,6 +70,16 @@ namespace TradingLib.XTrader.Stock
         }
 
         ctrlStockTrader _trader = null;
+
+        //void ctrlTraderLogin_ExitTrader()
+        //{
+        //    if (TraderWindowOpeartion != null)
+        //    {
+        //        TraderWindowOpeartion(EnumTraderWindowOperation.Close);
+        //    }
+        //}
+
+
         void ctrlTraderLogin_EntryTrader()
         {
             if (InvokeRequired)

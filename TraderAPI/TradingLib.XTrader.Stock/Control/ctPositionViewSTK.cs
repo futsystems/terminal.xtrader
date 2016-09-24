@@ -390,7 +390,7 @@ namespace TradingLib.XTrader.Stock
         void ResetColumeSize()
         {
             DataGridView grid = positionGrid;
-           
+
             grid.Columns[SYMBOL].Width = 100;
             grid.Columns[SYMBOLNAME].Width = 100;
             grid.Columns[TOTALSIZE].Width = 60;

@@ -40,7 +40,6 @@
             this.orderGrid.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.orderGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.orderGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.orderGrid.BackgroundColor = System.Drawing.Color.White;
             this.orderGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.orderGrid.Dock = System.Windows.Forms.DockStyle.Fill;

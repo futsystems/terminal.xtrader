@@ -22,6 +22,9 @@ namespace TradingLib.XTrader.Stock
 
         public event Action EntryTrader;
 
+        //public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+
+
         ILog logger = LogManager.GetLogger("ctrlTraderLogin");
 
         public ctrlTraderLogin()
@@ -94,6 +97,7 @@ namespace TradingLib.XTrader.Stock
         {
             new Thread(delegate()
             {
+                //停止
                 StopTrader();
             }).Start();
         }

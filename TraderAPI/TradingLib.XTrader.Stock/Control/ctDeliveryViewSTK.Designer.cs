@@ -40,7 +40,6 @@
             this.deliveryGrid.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.deliveryGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.deliveryGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.deliveryGrid.BackgroundColor = System.Drawing.Color.White;
             this.deliveryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.deliveryGrid.Dock = System.Windows.Forms.DockStyle.Fill;

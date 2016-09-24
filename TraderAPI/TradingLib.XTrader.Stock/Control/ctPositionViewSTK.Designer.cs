@@ -35,12 +35,8 @@
             // 
             // positionGrid
             // 
-            this.positionGrid.AllowUserToAddRows = false;
-            this.positionGrid.AllowUserToDeleteRows = false;
-            this.positionGrid.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.positionGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.positionGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.positionGrid.BackgroundColor = System.Drawing.Color.White;
             this.positionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.positionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -69,6 +65,8 @@
         #endregion
 
         private FGrid positionGrid;
+
+
 
 
     }
