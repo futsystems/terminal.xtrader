@@ -390,9 +390,8 @@ namespace TradingLib.XTrader.Stock
         #region 按钮事件
 
 
-        void btnBuy_Click(object sender, EventArgs e)
+        public void EntryBuyPage()
         {
-            
             IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
             if (page != null)
             {
@@ -402,7 +401,7 @@ namespace TradingLib.XTrader.Stock
             }
         }
 
-        void btnSell_Click(object sender, EventArgs e)
+        public void EntrySellPage()
         {
             IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
             if (page != null)
@@ -411,7 +410,16 @@ namespace TradingLib.XTrader.Stock
                 ShowPage(PageTypes.PAGE_ORDER_ENTRY);
                 btnSell.Checked = true;
             }
-            
+        }
+        void btnBuy_Click(object sender, EventArgs e)
+        {
+            EntryBuyPage();
+        }
+
+        void btnSell_Click(object sender, EventArgs e)
+        {
+
+            EntrySellPage();
         }
 
         void btnPosition_Click(object sender, EventArgs e)
@@ -484,5 +492,23 @@ namespace TradingLib.XTrader.Stock
 
         #endregion
 
+
+        #region 内部控件暴露到MainContainer的操作
+
+        public void PageSTKOrderEntry_SetSymbol(string exchange, string symbol)
+        {
+            IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
+            if (page != null)
+            {
+                PageSTKOrderEntry p = (page as PageSTKOrderEntry);
+                if (p != null)
+                {
+                    p.SetSymbol(exchange, symbol);
+                }
+            }
+        }
+
+
+        #endregion
     }
 }

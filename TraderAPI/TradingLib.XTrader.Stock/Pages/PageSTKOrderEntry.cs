@@ -23,81 +23,18 @@ namespace TradingLib.XTrader.Stock
         {
             InitializeComponent();
             this.Mode = 0;
-
-            //绑定按钮事件
-            WireEvent();
         }
 
-        void WireEvent()
+        /// <summary>
+        /// 设置某个合约
+        /// 下单面板会根据交易所及合约 进行内部处理
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        public void SetSymbol(string exchange, string symbol)
         {
-            //btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
-            //btnCancelBuy.Click += new EventHandler(btnCancelBuy_Click);
-            //btnCancelSell.Click += new EventHandler(btnCancelSell_Click);
-            //btnRefresh.Click += new EventHandler(btnRefresh_Click);
-
-            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
-            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+            ctOrderSenderSTK1.SetSymbol(exchange, symbol);
         }
-
-        void btnRefresh_Click(object sender, EventArgs e)
-        {
-            CoreService.TradingInfoTracker.ResumeData();
-        }
-
-        void EventOther_OnResumeDataEnd()
-        {
-            //btnCancelAll.Enabled = true;
-            //btnCancelBuy.Enabled = true;
-            //btnCancelSell.Enabled = true;
-
-            //btnRefresh.Enabled = true;
-        }
-
-        void EventOther_OnResumeDataStart()
-        {
-            //btnCancelAll.Enabled = false;
-            //btnCancelBuy.Enabled = false;
-            //btnCancelSell.Enabled = false;
-
-            //btnRefresh.Enabled = false;
-        }
-
-        #region 撤单按钮事件操作
-
-        void btnCancelSell_Click(object sender, EventArgs e)
-        {
-            if (TraderHelper.ConfirmWindow("确认撤掉所有未成交卖出委托?") == DialogResult.Yes)
-            {
-                foreach (var order in CoreService.TradingInfoTracker.OrderTracker.Where(o => o.IsPending() && (!o.Side)))
-                {
-                    CoreService.TLClient.ReqCancelOrder(order.id);
-                }
-            }
-        }
-
-        void btnCancelBuy_Click(object sender, EventArgs e)
-        {
-            if (TraderHelper.ConfirmWindow("确认撤掉所有未成交买入委托?") == DialogResult.Yes)
-            {
-                foreach (var order in CoreService.TradingInfoTracker.OrderTracker.Where(o => o.IsPending() && (o.Side)))
-                {
-                    CoreService.TLClient.ReqCancelOrder(order.id);
-                }
-            }
-        }
-
-        void btnCancelAll_Click(object sender, EventArgs e)
-        {
-            if (TraderHelper.ConfirmWindow("确认撤掉所有未成交委托?") == DialogResult.Yes)
-            {
-                foreach (var order in CoreService.TradingInfoTracker.OrderTracker.Where(o => o.IsPending()))
-                {
-                    CoreService.TLClient.ReqCancelOrder(order.id);
-                }
-            }
-        }
-
-        #endregion
 
         [DefaultValue(0)]
         int _mode = 0;

@@ -23,7 +23,6 @@ namespace TradingLib.XTrader.Stock
         public ctOrderSenderSTK()
         {
             InitializeComponent();
-            //kryptonLabel1.Font = TITLEFONT;
             this.Side = true;
 
 
@@ -32,17 +31,15 @@ namespace TradingLib.XTrader.Stock
             cbStockAccount.SelectedIndex = 0;
 
             WireEvent();
-            //设置空间为背景透明
-            //this.SetStyle(ControlStyles.SupportsTransparentBackColor|ControlStyles.Opaque,true);
-            //this.BackColor = Color.Transparent;  
+
         }
 
         void WireEvent()
         {
-            CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);
-            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
-            CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);
-            CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);
+            CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);//响应合约选择
+            CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);//响应合约查询回报
+            CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);//响应最大下单量回报
 
             //用于检查委托提交返回 并设置界面提交委托按钮有效 提交委托后 需要等对应委托回报到达后才可以再次提交委托 避免多次提交产生错误
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
@@ -50,6 +47,7 @@ namespace TradingLib.XTrader.Stock
 
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+
             btnSubmit.Click += new EventHandler(btnSubmit_Click);
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
@@ -66,6 +64,7 @@ namespace TradingLib.XTrader.Stock
             btnSubmit.Enabled = false;
             btnReset.Enabled = false;
         }
+
 
         void EventIndicator_GotErrorOrderEvent(Order arg1, RspInfo arg2)
         {
@@ -126,9 +125,6 @@ namespace TradingLib.XTrader.Stock
             
         }
 
-       
-
-        
 
         /// <summary>
         /// 响应实时行情
@@ -139,31 +135,9 @@ namespace TradingLib.XTrader.Stock
             if (obj == null) return;
             if (_symbol == null || _symbol.Symbol != obj.Symbol) return;
             AdjustInputControl();
-            
         }
 
-        /// <summary>
-        /// 响应输入合约事件
-        /// 1.如果合约在缓存中可以查找到 则触发合约选中事件
-        /// 2.如果合约无法在缓存中找到 则提交服务器查询 如果回报获得合约则触发合约选择事件
-        /// </summary>
-        /// <param name="arg1"></param>
-        /// <param name="arg2"></param>
-        /// <param name="arg3"></param>
-        /// <param name="arg4"></param>
-        void EventQry_OnRspXQrySymbolResponse(Symbol arg1, RspInfo arg2, int arg3, bool arg4)
-        {
-            if (arg3 != _qryid) return;
-            logger.Info("got response of symbol from server");
-            if (arg1 != null)
-            {
-                CoreService.EventUI.FireSymbolSelectedEvent(this, arg1);      
-            }
-            if (arg4)
-            {
-                _qryid = 0;
-            }
-        }
+        
 
 
         Symbol _symbol = null;
@@ -176,28 +150,44 @@ namespace TradingLib.XTrader.Stock
         /// <param name="arg2"></param>
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-            if (arg2 == null)
-            {
-                _symbol = null;
-                lbSymbolName.Text = "--";
-                lbMoneyAvabile.Text = "0";
-                price.Maximum = 0;
-                price.Minimum = 0;
-                price.DecimalPlaces = 0;
-                price.Increment = 0;
-                price.Value = 0;
-                btnSubmit.Enabled = false;
-                return;
-            }
-            if (_symbol == null || _symbol.Symbol != arg2.Symbol)
+            //if (arg2 == null)
+            //{
+            //    //_symbol = null;
+            //    //lbSymbolName.Text = "--";
+            //    //lbMoneyAvabile.Text = "0";
+            //    //price.Maximum = 0;
+            //    //price.Minimum = 0;
+            //    //price.DecimalPlaces = 0;
+            //    //price.Increment = 0;
+            //    //price.Value = 0;
+            //    //btnSubmit.Enabled = false;
+            //    //return;
+            //}
+            if (arg2!=null && (_symbol == null || _symbol.Symbol != arg2.Symbol))
             {
                 _symbol = arg2;
                 _inputControlAdjuestd = false;
-
                 AdjustInputControl();
             }
         }
 
+        //重置
+        void Reset()
+        {
+            _symbol = null;
+            lbSymbolName.Text = "--";
+            lbMoneyAvabile.Text = "0";
+            price.Maximum = 10000;
+            price.Minimum = 0;
+            price.DecimalPlaces = 2;
+            price.Increment = 0.1M;
+            price.Value = 0;
+            btnSubmit.Enabled = false;
+        }
+
+        /// <summary>
+        /// 根据当前合约调整输入控件相关属性
+        /// </summary>
         void AdjustInputControl()
         {
             if (_symbol == null) return;
@@ -251,47 +241,77 @@ namespace TradingLib.XTrader.Stock
         }
 
         int _qryid = 0;
+
         void symbol_TextChanged(object sender, EventArgs e)
         {
-            logger.Info(string.Format("Symbol changed:{0}", symbol.Text));
-
+            //logger.Info(string.Format("Symbol changed:{0}", symbol.Text));
             bool needsearch = NeedSearchSymbol(symbol.Text);
             if (needsearch)
             {
-                Symbol sym = CoreService.BasicInfoTracker.GetSymbol(symbol.Text);
-                if (sym == null)
+                TrySelectSymbol(string.Empty, symbol.Text);
+            }
+            else
+            {
+                //if (_symbol != null)//如果当前选择的合约不为空 则出发选空 进行重置，边界出发
+                //{
+                //    CoreService.EventUI.FireSymbolSelectedEvent(this, null);
+                //}
+                //重置
+                Reset();
+            }
+        }
+
+        public void SetSymbol(string exchange, string sym)
+        {
+            symbol.Text = sym;
+        }
+
+        /// <summary>
+        /// 查询选择某个合约
+        /// 1.缓存存在的合约 直接出发合约选择事件
+        /// 2.缓存当前不存在的合约 向服务端请求查询合约
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        void TrySelectSymbol(string exchange, string symbol)
+        {
+            Symbol sym = CoreService.BasicInfoTracker.GetSymbol(symbol);
+            if (sym == null)
+            {
+                if (_qryid == 0)
                 {
-                    if (_qryid == 0)
-                    {
-                        logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol.Text));
-                        //logger.Info(string.Format("qry symbol:{0} from server", sym.Symbol));
-                        _qryid = CoreService.TLClient.ReqXQrySymbol(symbol.Text);
-                    }
-                }
-                else
-                {
-                    //触发合约选择事件
-                    CoreService.EventUI.FireSymbolSelectedEvent(this, sym);
+                    logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol));
+                    //logger.Info(string.Format("qry symbol:{0} from server", sym.Symbol));
+                    _qryid = CoreService.TLClient.ReqXQrySymbol(symbol);
                 }
             }
             else
             {
-                if (_symbol != null)//如果当前选择的合约不为空 则出发选空 进行重置，边界出发
-                {
-                    CoreService.EventUI.FireSymbolSelectedEvent(this, null);
-                }
+                //触发合约选择事件
+                CoreService.EventUI.FireSymbolSelectedEvent(this, sym);
+            }
+        }
+        /// <summary>
+        /// 响应输入合约事件
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        /// <param name="arg4"></param>
+        void EventQry_OnRspXQrySymbolResponse(Symbol arg1, RspInfo arg2, int arg3, bool arg4)
+        {
+            if (arg3 != _qryid) return;
+            logger.Info("got response of symbol from server");
+            if (arg1 != null)
+            {
+                CoreService.EventUI.FireSymbolSelectedEvent(this, arg1);
+            }
+            if (arg4)
+            {
+                _qryid = 0;
             }
         }
 
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        CreateParams cp = base.CreateParams;
-        //        cp.ExStyle = 0x20;
-        //        return cp;
-        //    }
-        //}  
 
 
         [DefaultValue(true)]

@@ -6,8 +6,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TradingLib.API;
+using TradingLib.Common;
 using TradingLib.MarketData;
-
+using TradingLib.TraderCore;
 
 namespace TradingLib.XTrader.Stock
 {
@@ -32,12 +34,36 @@ namespace TradingLib.XTrader.Stock
 
         public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
 
+        /// <summary>
+        /// 查看KChart事件
+        /// </summary>
+        public event Action<string, string, int> ViewKChart;
+
         public MainContainer()
         {
             InitializeComponent();
             ctrlTraderLogin.BackColor = Color.White;
+
+            WireEvent();
+        }
+
+        void WireEvent()
+        {
             ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
 
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
+        }
+
+        void EventUI_OnSymbolSelectedEvent(object arg1, API.Symbol arg2)
+        {
+            if (ViewKChart != null)
+            {
+                //持仓双击 产生的合约选择事件
+                if(arg1 is ctPositionViewSTK)
+                {
+                    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                }
+            }
         }
 
         ctrlStockTrader _trader = null;
@@ -79,6 +105,51 @@ namespace TradingLib.XTrader.Stock
             
             }
         }
+
+
+        #region 操作
+        /// <summary>
+        /// 进入委托提交状态
+        /// </summary>
+        /// <param name="side"></param>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        public void EntryOrder(bool side, string exchange, string symbol)
+        {
+            if (_trader != null)
+            {
+                //根据买卖方向进入对应的页面
+                if (side)
+                {
+                    _trader.EntryBuyPage();
+                }
+                else
+                {
+                    _trader.EntrySellPage();
+                }
+
+                //下单面板尝试选择合约
+                _trader.PageSTKOrderEntry_SetSymbol(exchange, symbol);
+            }
+        }
+
+        /// <summary>
+        /// 提交委托
+        /// </summary>
+        /// <param name="side"></param>
+        /// <param name="exchagne"></param>
+        /// <param name="symbol"></param>
+        /// <param name="size"></param>
+        /// <param name="price"></param>
+        public void PlaceOrder(bool side, string exchagne, string symbol, int size, double price)
+        {
+            if (_trader != null)
+            {
+                
+            }
+        }
+
+        #endregion
 
 
     }

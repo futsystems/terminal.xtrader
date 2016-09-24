@@ -118,6 +118,9 @@
     <Compile Include="Control\ctrlPriceVolList.Designer.cs">
       <DependentUpon>ctrlPriceVolList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Event.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Control\ctrlSymbolInfo.cs">
       <SubType>Component</SubType>
     </Compile>

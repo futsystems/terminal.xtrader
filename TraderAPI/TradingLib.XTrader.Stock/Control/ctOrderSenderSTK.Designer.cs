@@ -51,7 +51,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(3, 5);
+            this.label1.Location = new System.Drawing.Point(3, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 26;
@@ -61,7 +61,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(3, 31);
+            this.label2.Location = new System.Drawing.Point(4, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 27;
@@ -71,7 +71,7 @@
             // 
             this.lbPrice.AutoSize = true;
             this.lbPrice.BackColor = System.Drawing.Color.Transparent;
-            this.lbPrice.Location = new System.Drawing.Point(3, 57);
+            this.lbPrice.Location = new System.Drawing.Point(4, 82);
             this.lbPrice.Name = "lbPrice";
             this.lbPrice.Size = new System.Drawing.Size(53, 12);
             this.lbPrice.TabIndex = 28;
@@ -81,7 +81,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(3, 83);
+            this.label4.Location = new System.Drawing.Point(4, 106);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 29;
@@ -91,7 +91,7 @@
             // 
             this.lbMaxSize.AutoSize = true;
             this.lbMaxSize.BackColor = System.Drawing.Color.Transparent;
-            this.lbMaxSize.Location = new System.Drawing.Point(3, 109);
+            this.lbMaxSize.Location = new System.Drawing.Point(4, 131);
             this.lbMaxSize.Name = "lbMaxSize";
             this.lbMaxSize.Size = new System.Drawing.Size(53, 12);
             this.lbMaxSize.TabIndex = 30;
@@ -101,7 +101,7 @@
             // 
             this.lbSize.AutoSize = true;
             this.lbSize.BackColor = System.Drawing.Color.Transparent;
-            this.lbSize.Location = new System.Drawing.Point(3, 134);
+            this.lbSize.Location = new System.Drawing.Point(3, 157);
             this.lbSize.Name = "lbSize";
             this.lbSize.Size = new System.Drawing.Size(53, 12);
             this.lbSize.TabIndex = 31;
@@ -109,7 +109,7 @@
             // 
             // symbol
             // 
-            this.symbol.Location = new System.Drawing.Point(63, 28);
+            this.symbol.Location = new System.Drawing.Point(63, 30);
             this.symbol.Name = "symbol";
             this.symbol.Size = new System.Drawing.Size(107, 21);
             this.symbol.TabIndex = 32;
@@ -124,7 +124,7 @@
             // 
             // price
             // 
-            this.price.Location = new System.Drawing.Point(62, 55);
+            this.price.Location = new System.Drawing.Point(63, 80);
             this.price.Name = "price";
             this.price.Size = new System.Drawing.Size(107, 21);
             this.price.TabIndex = 34;
@@ -132,7 +132,7 @@
             // lbMoneyAvabile
             // 
             this.lbMoneyAvabile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbMoneyAvabile.Location = new System.Drawing.Point(63, 79);
+            this.lbMoneyAvabile.Location = new System.Drawing.Point(63, 105);
             this.lbMoneyAvabile.Name = "lbMoneyAvabile";
             this.lbMoneyAvabile.Size = new System.Drawing.Size(106, 20);
             this.lbMoneyAvabile.TabIndex = 35;
@@ -141,7 +141,7 @@
             // lbMaxOrderVol
             // 
             this.lbMaxOrderVol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbMaxOrderVol.Location = new System.Drawing.Point(63, 101);
+            this.lbMaxOrderVol.Location = new System.Drawing.Point(63, 130);
             this.lbMaxOrderVol.Name = "lbMaxOrderVol";
             this.lbMaxOrderVol.Size = new System.Drawing.Size(106, 20);
             this.lbMaxOrderVol.TabIndex = 36;
@@ -149,14 +149,14 @@
             // 
             // size
             // 
-            this.size.Location = new System.Drawing.Point(63, 132);
+            this.size.Location = new System.Drawing.Point(63, 155);
             this.size.Name = "size";
             this.size.Size = new System.Drawing.Size(107, 21);
             this.size.TabIndex = 37;
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(95, 157);
+            this.btnSubmit.Location = new System.Drawing.Point(95, 181);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 38;
@@ -165,7 +165,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(5, 157);
+            this.btnReset.Location = new System.Drawing.Point(5, 181);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 39;
@@ -176,7 +176,7 @@
             // 
             this.lbSymbolName.AutoSize = true;
             this.lbSymbolName.BackColor = System.Drawing.Color.Transparent;
-            this.lbSymbolName.Location = new System.Drawing.Point(175, 13);
+            this.lbSymbolName.Location = new System.Drawing.Point(63, 55);
             this.lbSymbolName.Name = "lbSymbolName";
             this.lbSymbolName.Size = new System.Drawing.Size(17, 12);
             this.lbSymbolName.TabIndex = 40;
@@ -203,7 +203,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ctOrderSenderSTK";
-            this.Size = new System.Drawing.Size(211, 187);
+            this.Size = new System.Drawing.Size(211, 219);
             ((System.ComponentModel.ISupportInitialize)(this.price)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.size)).EndInit();
             this.ResumeLayout(false);

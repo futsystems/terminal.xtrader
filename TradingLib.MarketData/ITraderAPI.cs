@@ -41,13 +41,33 @@ namespace TradingLib.MarketData
         /// </summary>
         void Show();
 
+        /// <summary>
+        /// 进入委托提交状态
+        /// </summary>
+        /// <param name="side"></param>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        void EntryOrder(bool side, string exchange, string symbol);
 
-        #region 控件最小化 最大化 关闭等操作
+        /// <summary>
+        /// 提交委托
+        /// </summary>
+        /// <param name="side"></param>
+        /// <param name="exchagne"></param>
+        /// <param name="symbol"></param>
+        /// <param name="size"></param>
+        /// <param name="price"></param>
+        void PlaceOrder(bool side, string exchagne, string symbol, int size, double price);
 
+        /// <summary>
+        /// 查看某合约的分时/K线
+        /// </summary>
+        event Action<string, string,int> ViewKChart;
 
+        /// <summary>
+        /// 窗口最小化 最大化 关闭操作
+        /// </summary>
         event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
-
-        #endregion
 
     }
 }

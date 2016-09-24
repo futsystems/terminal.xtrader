@@ -53,6 +53,32 @@ namespace XTraderLite
             }
         }
 
+
+        /// <summary>
+        /// 交易插件接口
+        /// </summary>
+        ITraderAPI TraderAPI
+        {
+            get { return _traderApi; }
+        }
+
+        /// <summary>
+        /// 进入委托面板
+        /// 用于调用交易插件接口 用于切换到买入或卖出状态 并设定对应合约
+        /// </summary>
+        /// <param name="side"></param>
+        /// <param name="symbol"></param>
+        void EntryOrderPanel(bool side, MDSymbol symbol)
+        {
+            
+            if (_traderApi != null)
+            {
+                logger.Info(string.Format("Entry Order Panel, Size:{0} Symbol:{1}", side, symbol.UniqueKey));
+                _traderApi.EntryOrder(side, symbol.Exchange, symbol.Symbol);
+            }
+            
+        }
+
         ITraderAPI _traderApi = null;
         Control _traderCtrl = null;
         void LoadTrader()
@@ -76,6 +102,27 @@ namespace XTraderLite
                     }
 
                     _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
+                    _traderApi.ViewKChart += new Action<string, string,int>(_traderApi_ViewKChart);
+                }
+            }
+        }
+
+        void _traderApi_ViewKChart(string arg1, string arg2,int arg3)
+        {
+            if (InvokeRequired)
+            {
+                //logger.Info("_traderApi_SymbolSelected invoked");
+                //交易插件出发合约选择事件 由于交易插件与当前行情控件在不同线程创建 因此进行界面操作时需要统一进行InvokeRequired判断
+                Invoke(new Action<string, string,int>(_traderApi_ViewKChart), new object[] { arg1, arg2,arg3 });
+            }
+            else
+            {
+                logger.Info(string.Format("Symbol {0}-{1} Selected", arg1, arg2));
+                MDSymbol symbol = MDService.DataAPI.GetSymbol(arg1, arg2);
+                if (symbol != null)
+                {
+                    ctrlKChart.KChartViewType = (arg3 == 0 ? CStock.KChartViewType.TimeView : CStock.KChartViewType.KView);
+                    ViewKChart(symbol);
                 }
             }
         }
@@ -84,45 +131,53 @@ namespace XTraderLite
         bool _panelBrokerMax = false;
         void _traderApi_TraderWindowOpeartion(EnumTraderWindowOperation obj)
         {
-            switch (obj)
-            { 
-                case EnumTraderWindowOperation.Min:
-                    _panelBrokerMax = false;
-                    panelBroker.Hide();
-                    break;
-                case EnumTraderWindowOperation.Max:
-                    {
-                        if (!_panelBrokerMax)
-                        {
-                            _panelBrokerMax = true;
-                            _oldPanelBrokerHeight = panelBroker.Height;
-                            //splitter.SplitPosition = 0;
-                            panelBroker.Height = panelBroker.Height + panelMarket.Height;
-                            //splitter.Enabled = false;
-                            //panelMarket.Visible = false;
-                            //panelBroker.Dock = DockStyle.Fill;
-                        }
-                        else
-                        {
-                            //panelMarket.Visible = true;
-                            //panelBroker.Dock = DockStyle.Bottom;
-                            _panelBrokerMax = false;
-                            panelBroker.Height = _oldPanelBrokerHeight;
-                            //splitter.Enabled = true;
-                            
-                            
-                        }
-                    }
-                    break;
-                case EnumTraderWindowOperation.Close:
-                    {
-                        _panelBrokerMax = false;
-                        SwitchTradingBox();
-                    }
-                    break;
-                default:
-                    break;
+            if (InvokeRequired)
+            {
+                Invoke(new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion), new object[] { obj });
             }
+            else
+            {
+                switch (obj)
+                {
+                    case EnumTraderWindowOperation.Min:
+                        _panelBrokerMax = false;
+                        panelBroker.Hide();
+                        break;
+                    case EnumTraderWindowOperation.Max:
+                        {
+                            if (!_panelBrokerMax)
+                            {
+                                _panelBrokerMax = true;
+                                _oldPanelBrokerHeight = panelBroker.Height;
+                                //splitter.SplitPosition = 0;
+                                panelBroker.Height = panelBroker.Height + panelMarket.Height;
+                                //splitter.Enabled = false;
+                                //panelMarket.Visible = false;
+                                //panelBroker.Dock = DockStyle.Fill;
+                            }
+                            else
+                            {
+                                //panelMarket.Visible = true;
+                                //panelBroker.Dock = DockStyle.Bottom;
+                                _panelBrokerMax = false;
+                                panelBroker.Height = _oldPanelBrokerHeight;
+                                //splitter.Enabled = true;
+
+
+                            }
+                        }
+                        break;
+                    case EnumTraderWindowOperation.Close:
+                        {
+                            _panelBrokerMax = false;
+                            SwitchTradingBox();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
     }
 }

@@ -49,7 +49,7 @@ namespace TradingLib.XTrader.Stock
                     CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
                 }
 
-                positionGrid.Click += new EventHandler(positionGrid_Click);
+                positionGrid.DoubleClick += new EventHandler(positionGrid_DoubleClick);
             }
             catch (Exception ex)
             { 
@@ -98,7 +98,7 @@ namespace TradingLib.XTrader.Stock
         }
 
 
-        void positionGrid_Click(object sender, EventArgs e)
+        void positionGrid_DoubleClick(object sender, EventArgs e)
         {
             Position pos = CurrentPositoin;
             if (pos == null) return;

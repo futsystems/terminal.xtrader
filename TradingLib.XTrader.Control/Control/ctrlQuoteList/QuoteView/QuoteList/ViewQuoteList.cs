@@ -32,14 +32,7 @@ namespace TradingLib.XTrader.Control
         public int MaxShowCount{get;set;}
     }
 
-    public enum QuoteMouseEventType
-    { 
-        /// <summary>
-        /// 合约双击 用于进入KChart图标
-        /// </summary>
-        SymbolDoubleClick,
-    }
-
+    
     
 
     public delegate int IntRetIntDel(int idx);
@@ -48,29 +41,12 @@ namespace TradingLib.XTrader.Control
     public partial class ViewQuoteList :System.Windows.Forms.Control
     {
         ILog logger = LogManager.GetLogger("ViewQuoteList");
-        //控件事件
-        //public event SecurityDelegate EOpenChart;
-
-        //public event DebugDelegate SendDebugEvent;
-        //public event SymDelegate SendRegisterSymbols;
-        /// <summary>
-        /// 双击合约时触发选择了某个合约
-        /// </summary>
-        public event Action<MDSymbol> SymbolSelectedEvent;
-
-        /// <summary>
-        /// 捕捉到控件上左右移动事件
-        /// </summary>
-        public event Action<PreviewKeyDownEventArgs> RightLeftMoveEvent;
 
         public event EventHandler<QuoteViewChangedArgs> QuoteViewChanged;
 
         public event EventHandler<SymbolVisibleChangeEventArgs> SymbolVisibleChanged;
 
-        /// <summary>
-        /// 聚合鼠标事件
-        /// </summary>
-        public event Action<MDSymbol, QuoteMouseEventType> MouseEvent;
+        
 
         /// <summary>
         /// 报价单 小下单面板行情事件
@@ -139,8 +115,7 @@ namespace TradingLib.XTrader.Control
             this.MouseUp += new MouseEventHandler(ViewQuoteList_MouseUp);
             this.MouseWheel += new MouseEventHandler(ViewQuoteList_MouseWheel);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
-            this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
-
+            
             this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
 
             //this.SizeChanged +=new EventHandler(ViewQuoteList_SizeChanged);

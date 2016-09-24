@@ -126,14 +126,24 @@ namespace XTraderLite
             }
         }
 
-        void quoteView_MouseEvent(TradingLib.MarketData.MDSymbol arg1, TradingLib.XTrader.Control.QuoteMouseEventType arg2)
+        void quoteView_MouseEvent(MDSymbol arg1,QuoteMouseEventType arg2)
         {
             switch (arg2)
             {
-                case TradingLib.XTrader.Control.QuoteMouseEventType.SymbolDoubleClick:
+                case QuoteMouseEventType.SymbolDoubleClick:
                     {
                         logger.Info("QuoteView Select Symbol:" + arg1.Symbol);
                         ViewKChart();
+                        break;
+                    }
+                case QuoteMouseEventType.SymbolBuyClick:
+                    {
+                        EntryOrderPanel(true, arg1);
+                        break;
+                    }
+                case QuoteMouseEventType.SymbolSellClick:
+                    {
+                        EntryOrderPanel(false, arg1);
                         break;
                     }
             }

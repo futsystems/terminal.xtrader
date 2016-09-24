@@ -140,6 +140,23 @@ namespace TradingLib.XTrader.Control
         }
 
         /// <summary>
+        /// 根据X位置获得当前列
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        QuoteColumn GetColumn(int x)
+        {
+            for (int i = 0; i < visibleColumns.Count; i++)
+            {
+                QuoteColumn column = visibleColumns[i];
+                if (x > column.StartX - 3 && x < (column.StartX+column.Width -3))
+                {
+                    return column;
+                }
+            }
+            return null;
+        }
+        /// <summary>
         /// 通过拖动改变列宽时显示的虚线
         /// </summary>
         /// <param name="e"></param>
@@ -152,31 +169,47 @@ namespace TradingLib.XTrader.Control
             Refresh();
         }
 
-        void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
-        {
-            MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
-            if (SymbolSelectedEvent != null)
-            {
-                SymbolSelectedEvent(symbol);
-            }
-            //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
-            debug("Symbol:" + symbol.ToString() + " Selected");
-        }
+        //void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
+        //{
+        //    MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
+        //    if (SymbolSelectedEvent != null)
+        //    {
+        //        SymbolSelectedEvent(symbol);
+        //    }
+        //    //CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+        //    debug("Symbol:" + symbol.ToString() + " Selected");
+        //}
 
-        //触发选择某个symbol的事件
+        /// <summary>
+        /// 双击某行报价 根据单击单元格出发对应鼠标事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ViewQuoteList_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             MDSymbol symbol = GetVisibleSecurity(SelectedQuoteRow);
             if (MouseEvent != null && symbol!=null)
             {
+                //判定当前所在列
+                QuoteColumn column = GetColumn(e.X);
+                if (column != null)
+                {
+                    logger.Info(string.Format("Column:{0} Double Click", column.FieldType));
+                    switch (column.FieldType)
+                    { 
+                        case EnumFileldType.ASK:
+                            MouseEvent(symbol, QuoteMouseEventType.SymbolBuyClick);
+                            return;
+                        case EnumFileldType.BID:
+                            MouseEvent(symbol, QuoteMouseEventType.SymbolSellClick);
+                            return;
+                        default:
+                            break;
+                    }
+                }
                 MouseEvent(symbol, QuoteMouseEventType.SymbolDoubleClick);
             }
-            //if (SymbolSelectedEvent != null)
-            //{
-            //    SymbolSelectedEvent(symbol);
-            //}
-            ////CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
-            //debug("Symbol:" + symbol.ToString() + " Selected");
+           
         }
 
         /// <summary>

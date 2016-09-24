@@ -254,6 +254,7 @@ namespace CStock
         }
 
        
+
         public bool ShowCurWindow
         {
             get { return GS[0].ShowCurWindow; }
@@ -267,9 +268,6 @@ namespace CStock
                 Invalidate();
             }
         }
-
-
-        
 
 
         private void Debug()
@@ -793,15 +791,6 @@ namespace CStock
 
        
         #endregion
-
-
-
-
-
-
-
-
-
 
 
         #region TSotck控件相关事件与函数覆写

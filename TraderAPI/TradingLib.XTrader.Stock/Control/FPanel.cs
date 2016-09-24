@@ -33,9 +33,11 @@ namespace TradingLib.XTrader.Stock
 
         protected override void OnPaintBackground(System.Windows.Forms.PaintEventArgs e)
         {
-            base.OnPaintBackground(e);
+            
+            //base.OnPaintBackground(e);
             //Rectangle rect1 = this.ClientRectangle;
             Rectangle rect2 = this.ClientRectangle;
+            if (rect2.Height == 0 || rect2.Width == 0) return;
             //rect1.Height = 20;
             //rect2.Y = 18;
 
@@ -43,7 +45,7 @@ namespace TradingLib.XTrader.Stock
             LinearGradientBrush brush2 = new LinearGradientBrush(rect2, Color.LightGray, Color.WhiteSmoke, LinearGradientMode.Vertical);
             //e.Graphics.FillRectangle(brush1, rect1);
             e.Graphics.FillRectangle(brush2, rect2);
-            base.OnPaint(e);
+            //base.OnPaint(e);
         }
 
         //protected override void OnPaintBackground(System.Windows.Forms.PaintEventArgs e)
