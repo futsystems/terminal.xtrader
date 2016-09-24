@@ -6,11 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Common.Logging;
 
 namespace XTraderLite
 {
     public partial class frmDebug : Form
     {
+        
         public frmDebug()
         {
             InitializeComponent();
@@ -24,9 +26,22 @@ namespace XTraderLite
             this.Hide();
         }
 
+        /// <summary>
+        /// DebugControl做了Invoke判断，但是在DebugForm被调用 仍然需要做调用判断
+        /// 因为他们是2个对象
+        /// </summary>
+        /// <param name="msg"></param>
         public void Debug(string msg)
         {
-            debugControl1.GotDebug(msg);
+            if (InvokeRequired)
+            {
+
+                Invoke(new Action<string>(Debug), new object[] { msg });
+            }
+            else
+            {
+                debugControl1.GotDebug(msg);
+            }
         }
     }
 }
