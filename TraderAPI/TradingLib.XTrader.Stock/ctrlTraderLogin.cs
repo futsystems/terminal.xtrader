@@ -124,12 +124,28 @@ namespace TradingLib.XTrader.Stock
         void btnLogin_Click(object sender, EventArgs e)
         {
             logger.Info("登入-------------------");
-            //SaveLoginConfig();
-            new Thread(delegate()
+            if (this.account.Text == "")
+                this.account.Focus();
+            else if (this.password.Text == "")
             {
-                Connect();
-            }).Start();
-            this.btnLogin.Enabled = false;
+                ShowStatus("请输入密码信息！");
+                this.password.Focus();
+            }
+            else if (this.verify.Text == "" || this.verify.Text.Trim() != this.ctVerify1.VerifyCode)
+            {
+                ShowStatus("请输入右边灰色图片中的四个数字！");
+                this.verify.Focus();
+            }
+            else
+            {
+                //SaveLoginConfig();
+                new Thread(delegate()
+                {
+                    Connect();
+                }).Start();
+                this.btnLogin.Enabled = false;
+                
+            }
         }
 
         ctrlStockTrader CreateTraderControl()
@@ -264,6 +280,7 @@ namespace TradingLib.XTrader.Stock
         void Reset()
         {
             ShowStatus("停止交易系统...");
+            this.ctVerify1.ResetVerify();
             _connectstart = false;
             _connected = false;
 

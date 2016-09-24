@@ -57,6 +57,9 @@
     <Reference Include="XTrader.Stock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\ctVerify.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ctrlTraderLogin.cs">
       <SubType>UserControl</SubType>
     </Compile>
