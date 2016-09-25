@@ -59,13 +59,13 @@ namespace XTraderLite
                     break;
                 case Keys.F3:
                     {
-                        MDSymbol sym = MDService.DataAPI.GetSymbol(Exchange.EXCH_SSE, "999999");
+                        MDSymbol sym = MDService.DataAPI.GetSymbol(ConstsExchange.EXCH_SSE, "999999");
                         ViewKChart(sym);
                         break;
                     }
                 case Keys.F4:
                     {
-                        MDSymbol sym = MDService.DataAPI.GetSymbol(Exchange.EXCH_SZE, "399001");
+                        MDSymbol sym = MDService.DataAPI.GetSymbol(ConstsExchange.EXCH_SZE, "399001");
                         ViewKChart(sym);
                         break;
                     }

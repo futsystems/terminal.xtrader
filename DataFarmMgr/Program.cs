@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DataFarmMgr
+namespace TradingLib.DataFarmManager
 {
     static class Program
     {
@@ -25,7 +25,7 @@ namespace DataFarmMgr
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
-                Application.Run(new fmDataMgr());
+                Application.Run(new MainForm());
             }
             catch (Exception ex)
             {

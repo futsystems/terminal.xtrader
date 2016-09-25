@@ -78,8 +78,8 @@ namespace XTraderLite
 
         void InitHightLight()
         {
-            MDSymbol sh = MDService.DataAPI.GetSymbol(Exchange.EXCH_SSE, "999999");
-            MDSymbol sz = MDService.DataAPI.GetSymbol(Exchange.EXCH_SZE, "399001");
+            MDSymbol sh = MDService.DataAPI.GetSymbol(ConstsExchange.EXCH_SSE, "999999");
+            MDSymbol sz = MDService.DataAPI.GetSymbol(ConstsExchange.EXCH_SZE, "399001");
 
             if (sh != null) ctrlSymbolHighLight.AddSymbol(new SymbolHighLight("沪", sh));
             if (sz != null) ctrlSymbolHighLight.AddSymbol(new SymbolHighLight("深", sz));

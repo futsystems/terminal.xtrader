@@ -74,6 +74,8 @@ namespace TradingLib.MarketData
             base.Close();
         }
 
+        
+
         /// <summary>
         /// gets symbol safe to use as filename
         /// </summary>
@@ -185,7 +187,14 @@ namespace TradingLib.MarketData
             return true;
         }
 
-        
+        /// <summary>
+        /// 写入结束标识
+        /// </summary>
+        public void End()
+        {
+            Write(Encoding.UTF8.GetBytes("END"));
+            Flush();
+        }
         /// <summary>
         /// write a tick to file
         /// </summary>

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</ProjectGuid>
+    <ProjectGuid>{F480745A-4808-4282-8339-AF2AA06FBEC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TradingLib.MarketData</RootNamespace>
-    <AssemblyName>TradingLib.MarketData</AssemblyName>
+    <RootNamespace>TradingLib.DataCore</RootNamespace>
+    <AssemblyName>TradingLib.MDClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,50 +32,53 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+      <HintPath>..\..\lib\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+      <HintPath>..\..\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime">
+      <HintPath>..\..\lib\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.MarketData">
+      <HintPath>..\..\..\Futs.Trader\TradingLib.MarketData\bin\Debug\TradingLib.MarketData.dll</HintPath>
+    </Reference>
+    <Reference Include="ZeroMQ">
+      <HintPath>..\..\lib\ZeroMQ.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Config.cs" />
-    <Compile Include="Common\DataStruct.cs" />
-    <Compile Include="Common\MDTradeTickWriter.cs" />
-    <Compile Include="Common\Finance.cs" />
-    <Compile Include="Common\MDBar.cs" />
-    <Compile Include="Common\MinuteData.cs" />
-    <Compile Include="Common\PowerData.cs" />
-    <Compile Include="Common\RingBuffer.cs" />
-    <Compile Include="Common\ServerNode.cs" />
-    <Compile Include="Common\SymbolInfoType.cs" />
-    <Compile Include="ITraderAPI.cs" />
-    <Compile Include="Common\MDTradeTick.cs" />
-    <Compile Include="Profiler\Profiler.cs" />
-    <Compile Include="Profiler\SectionStackEntry.cs" />
-    <Compile Include="Profiler\SectionStats.cs" />
-    <Compile Include="Common\Tick.cs" />
-    <Compile Include="Constant\ConstFreq.cs" />
-    <Compile Include="Constant\ConstsExchange.cs" />
-    <Compile Include="IEventBinder.cs" />
-    <Compile Include="LogService.cs" />
-    <Compile Include="MarketDataService\Event.cs" />
-    <Compile Include="IMarketDataAPI.cs" />
-    <Compile Include="MDCurrency.cs" />
-    <Compile Include="MDLoginResponse.cs" />
-    <Compile Include="MDSecurityType.cs" />
-    <Compile Include="MarketDataService\MDService.cs" />
-    <Compile Include="MDSymbol.cs" />
+    <Compile Include="EventContrib.cs" />
+    <Compile Include="IBasicInfo.cs" />
+    <Compile Include="MDClientHelper.cs" />
+    <Compile Include="MDHandlerBase.cs" />
+    <Compile Include="MDClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\CommonUtils.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Service\Event\EventData.cs" />
+    <Compile Include="Service\MDService.cs" />
+    <Compile Include="TLSocket_TCP.cs" />
+    <Compile Include="MDClient__.cs" />
+    <Compile Include="MDClient__Request.cs" />
+    <Compile Include="MDClient__BasicInfo.cs" />
+    <Compile Include="TLSocket_ZMQ.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\lib\TradingLib\" SkipUnchangedFiles="true" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

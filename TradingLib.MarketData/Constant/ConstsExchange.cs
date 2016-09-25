@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TradingLib.MarketData
 {
-    public class Exchange
+    public class ConstsExchange
     {
         public const string EXCH_SSE = "SSE";
         public const string EXCH_SZE = "SZE";

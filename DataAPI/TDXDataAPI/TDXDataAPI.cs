@@ -315,7 +315,7 @@ namespace DataAPI.TDX
                             symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
                             symbol.Key = htp.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
-                            symbol.Exchange = Exchange.EXCH_SZE;
+                            symbol.Exchange = ConstsExchange.EXCH_SZE;
                             symbol.BlockType = TDXDecoder.GetStockType(0, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
 
@@ -371,7 +371,7 @@ namespace DataAPI.TDX
                             symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
                             symbol.Key = htp.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
-                            symbol.Exchange = Exchange.EXCH_SSE;
+                            symbol.Exchange = ConstsExchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
                             symbolMap[symbol.UniqueKey] = symbol;
@@ -579,10 +579,10 @@ namespace DataAPI.TDX
         int GetMarketCode(string exchange)
         {
             switch (exchange)
-            { 
-                case Exchange.EXCH_SSE:
+            {
+                case ConstsExchange.EXCH_SSE:
                     return 1;
-                case Exchange.EXCH_SZE:
+                case ConstsExchange.EXCH_SZE:
                     return 0;
                 default:
                     return -1;
@@ -593,11 +593,11 @@ namespace DataAPI.TDX
         {
             if (market == 0)
             {
-                return Exchange.EXCH_SZE;
+                return ConstsExchange.EXCH_SZE;
             }
             if (market == 1)
             {
-                return Exchange.EXCH_SSE;
+                return ConstsExchange.EXCH_SSE;
             }
             return string.Empty;
         }

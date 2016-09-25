@@ -8,7 +8,7 @@
     <ProjectGuid>{BFB2D32C-5618-4889-B681-12D713B82E20}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataFarmMgr</RootNamespace>
+    <RootNamespace>TradingLib.DataFarmManager</RootNamespace>
     <AssemblyName>DataFarmMgr</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -43,16 +43,6 @@
       <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=dc91bbef911870e2, processorArchitecture=MSIL" />
-    <Reference Include="Easychart.Finance">
-      <HintPath>..\..\Futs.base\lib\Easychart.Finance.dll</HintPath>
-    </Reference>
-    <Reference Include="Easychart.Finance.Objects">
-      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Objects.dll</HintPath>
-    </Reference>
-    <Reference Include="Easychart.Finance.Win">
-      <HintPath>..\..\Futs.base\lib\Easychart.Finance.Win.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
@@ -66,23 +56,43 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
-    <Reference Include="TradingLib.MDClient">
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.MDClient.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="fmDataMgr.cs">
+    <Compile Include="Common\ControlLogFactoryAdapter.cs" />
+    <Compile Include="DebugControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DebugControl.Designer.cs">
+      <DependentUpon>DebugControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DebugForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fmDataMgr.Designer.cs">
-      <DependentUpon>fmDataMgr.cs</DependentUpon>
+    <Compile Include="DebugForm.Designer.cs">
+      <DependentUpon>DebugForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PageConstant.cs" />
-    <Compile Include="PageHolder.cs" />
+    <Compile Include="MainForm\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\MainForm_.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\MainForm_View.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="fmDataMgr.resx">
-      <DependentUpon>fmDataMgr.cs</DependentUpon>
+    <EmbeddedResource Include="DebugControl.resx">
+      <DependentUpon>DebugControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugForm.resx">
+      <DependentUpon>DebugForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -104,12 +114,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TradingLib.DataProvider\TradingLib.DataProvider.csproj">
-      <Project>{4EFE4D39-1036-473D-B228-18FEAA882F41}</Project>
-      <Name>TradingLib.DataProvider</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -137,6 +141,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\img_5M_S.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TradingLib.MarketData\TradingLib.MarketData.csproj">
+      <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
+      <Name>TradingLib.MarketData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradingLib.MDClient\TradingLib.MDClient.csproj">
+      <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
+      <Name>TradingLib.MDClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradingLib.XTrader.Control\TradingLib.XTrader.Control.csproj">
+      <Project>{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}</Project>
+      <Name>TradingLib.XTrader.Control</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

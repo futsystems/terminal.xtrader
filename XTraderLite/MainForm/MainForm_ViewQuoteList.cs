@@ -49,7 +49,7 @@ namespace XTraderLite
             ctrlQuoteList.AddBlock("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
-                    if (symbol.BlockType == "1" && symbol.Exchange==Exchange.EXCH_SSE)
+                    if (symbol.BlockType == "1" && symbol.Exchange == ConstsExchange.EXCH_SSE)
                     {
                         return true;
                     }
@@ -58,7 +58,7 @@ namespace XTraderLite
             ctrlQuoteList.AddBlock("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
-                    if (symbol.BlockType == "1" && symbol.Exchange == Exchange.EXCH_SZE)
+                    if (symbol.BlockType == "1" && symbol.Exchange == ConstsExchange.EXCH_SZE)
                     {
                         return true;
                     }
