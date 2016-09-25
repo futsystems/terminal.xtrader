@@ -34,13 +34,13 @@ namespace TradingLib.DataFarmManager
 
             InitQuoteLists();
 
+            InitToolBar();
         }
 
         void WireEvent()
         {
-            btnConnect.Click += new EventHandler(btnConnect_Click);
-
-            btnDebugForm.Click += new EventHandler(btnDebugForm_Click);
+           
+            
         }
 
 
@@ -49,19 +49,7 @@ namespace TradingLib.DataFarmManager
             ctrlQuoteList.Dock = DockStyle.Fill;
 
         }
-        void btnDebugForm_Click(object sender, EventArgs e)
-        {
-            debugForm.Show();
-        }
-
-        void btnConnect_Click(object sender, EventArgs e)
-        {
-            mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
-            mdClient.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
-            
-
-            mdClient.Start();
-        }
+       
 
 
         

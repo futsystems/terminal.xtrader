@@ -36,6 +36,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDebug1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +56,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnConnect,
             this.toolStripSeparator1,
+            this.btnDebug1,
+            this.toolStripSeparator2,
             this.btnDebugForm});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -100,6 +104,20 @@
             this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
             this.ctrlQuoteList.TabIndex = 0;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnDebug1
+            // 
+            this.btnDebug1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDebug1.Image = ((System.Drawing.Image)(resources.GetObject("btnDebug1.Image")));
+            this.btnDebug1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDebug1.Name = "btnDebug1";
+            this.btnDebug1.Size = new System.Drawing.Size(28, 22);
+            this.btnDebug1.Text = "D1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -128,5 +146,7 @@
         private System.Windows.Forms.ToolStripButton btnDebugForm;
         private System.Windows.Forms.Panel mainPanel;
         private XTrader.Control.ctrlQuoteList ctrlQuoteList;
+        private System.Windows.Forms.ToolStripButton btnDebug1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

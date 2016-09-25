@@ -83,6 +83,10 @@
     <Compile Include="MainForm\MainForm_View.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm\MainForm_ToolBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerAPI\MDManagerAPI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DebugControl.resx">
