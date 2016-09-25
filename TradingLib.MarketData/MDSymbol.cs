@@ -97,6 +97,7 @@ namespace TradingLib.MarketData
             }
         }
 
+        public string SecCode {get;set;}
 
         /// <summary>
         /// 板块类别

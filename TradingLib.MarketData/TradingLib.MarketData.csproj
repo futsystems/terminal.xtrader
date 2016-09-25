@@ -46,13 +46,16 @@
   <ItemGroup>
     <Compile Include="Common\Config.cs" />
     <Compile Include="Common\DataStruct.cs" />
+    <Compile Include="Common\MDTradeTickWriter.cs" />
     <Compile Include="Common\Finance.cs" />
+    <Compile Include="Common\MDBar.cs" />
     <Compile Include="Common\MinuteData.cs" />
     <Compile Include="Common\PowerData.cs" />
     <Compile Include="Common\RingBuffer.cs" />
     <Compile Include="Common\ServerNode.cs" />
     <Compile Include="Common\SymbolInfoType.cs" />
     <Compile Include="ITraderAPI.cs" />
+    <Compile Include="Common\MDTradeTick.cs" />
     <Compile Include="Profiler\Profiler.cs" />
     <Compile Include="Profiler\SectionStackEntry.cs" />
     <Compile Include="Profiler\SectionStats.cs" />
