@@ -41,7 +41,8 @@ namespace TradingLib.TraderCore
             Symbol target = null;
             if (response.Symbol != null)
             {
-                target = CoreService.BasicInfoTracker.GetSymbol(response.Symbol.Symbol);
+                //不能使用Exchange + Symbol来查找 初始化查询过程中 合约可能没有被正常初始化
+                target = CoreService.BasicInfoTracker.GetSymbol(response.Symbol.ID);
             }
             CoreService.EventQry.FireRspXQrySymbolResponse(target, response.RspInfo, response.RequestID, response.IsLast);
 

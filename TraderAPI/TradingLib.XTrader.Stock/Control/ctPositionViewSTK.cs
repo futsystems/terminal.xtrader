@@ -73,7 +73,7 @@ namespace TradingLib.XTrader.Stock
             foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 this.GotPosition(pos);
-                CoreService.TLClient.ReqXQryTickSnapShot(pos.Symbol);
+                CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange,pos.oSymbol.Symbol);
             }
         }
 
@@ -119,7 +119,7 @@ namespace TradingLib.XTrader.Stock
             foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 this.GotPosition(pos);
-                CoreService.TLClient.ReqXQryTickSnapShot(pos.Symbol);
+                CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange,pos.oSymbol.Symbol);
             }
 
         }
@@ -195,6 +195,7 @@ namespace TradingLib.XTrader.Stock
 
             int i = tb.Rows.Count - 1;
             tb.Rows[i][POSKEY] = key;
+            tb.Rows[i][SYMBOLKEY] = pos.oSymbol.GetUniqueKey();
             tb.Rows[i][ACCOUNT] = pos.Account;
             tb.Rows[i][SIDE] = pos.DirectionType == QSEnumPositionDirectionType.Long;//??
             tb.Rows[i][SYMBOL] = pos.Symbol;
@@ -261,7 +262,7 @@ namespace TradingLib.XTrader.Stock
                 {
                     for (int i = 0; i < tb.Rows.Count; i++)
                     {
-                        if (tb.Rows[i][SYMBOL].ToString() == k.Symbol)
+                        if (tb.Rows[i][SYMBOLKEY].ToString() == k.GetSymbolUniqueKey())
                         {
                             //记录该仓位所属账户 持仓方向 
                             string account = tb.Rows[i][ACCOUNT].ToString();
@@ -348,6 +349,7 @@ namespace TradingLib.XTrader.Stock
 
 
         const string POSKEY = "持仓键";
+        const string SYMBOLKEY = "合约键";
         const string ACCOUNT = "交易帐户";
         const string SIDE = "持仓方向";
 
@@ -376,6 +378,7 @@ namespace TradingLib.XTrader.Stock
         private void InitTable()
         {
             tb.Columns.Add(POSKEY);
+            tb.Columns.Add(SYMBOLKEY);
             tb.Columns.Add(ACCOUNT);
             tb.Columns.Add(SIDE);
 
@@ -428,6 +431,7 @@ namespace TradingLib.XTrader.Stock
             grid.DataSource = datasource;
 
             grid.Columns[POSKEY].Visible = false;
+            grid.Columns[SYMBOLKEY].Visible = false;
             grid.Columns[ACCOUNT].Visible = false;
             grid.Columns[SIDE].Visible = false;
 

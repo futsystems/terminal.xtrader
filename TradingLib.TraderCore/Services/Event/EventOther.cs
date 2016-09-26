@@ -36,23 +36,7 @@ namespace TradingLib.TraderCore
         }
 
 
-        public event Action<AccountInfo> OnAccountInfoEvent;
-
-        internal void FireAccountInfoEvent(AccountInfo info)
-        {
-            if (OnAccountInfoEvent != null)
-                OnAccountInfoEvent(info);
-        }
-
-        public event Action<RspQryMaxOrderVolResponse> OnRspQryMaxOrderVolResponse;
-
-        internal void FireRspQryMaxOrderVolResponse(RspQryMaxOrderVolResponse response)
-        {
-            if (OnRspQryMaxOrderVolResponse != null)
-                OnRspQryMaxOrderVolResponse(response);
-            
-        }
-
+       
         public event Action<RspReqChangePasswordResponse> OnRspReqChangePasswordResponse;
 
         internal void FireRspReqChangePasswordResponse(RspReqChangePasswordResponse response)

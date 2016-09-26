@@ -141,11 +141,12 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 查询合约
         /// </summary>
-        public int  ReqXQrySymbol(string symbol="")
+        public int  ReqXQrySymbol(string exchange,string symbol)
         {
             logger.Info("Qry Symbol");
 
             XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(++requestid);
+            request.Exchange = exchange;
             request.Symbol = symbol;
             SendPacket(request);
             return requestid;
@@ -239,11 +240,12 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 请求查询可开手数
         /// </summary>
-        public int ReqQryMaxOrderVol(string symbol, bool side = true, QSEnumOffsetFlag offset = QSEnumOffsetFlag.UNKNOWN)
+        public int ReqXQryMaxOrderVol(string exchange,string symbol, bool side = true, QSEnumOffsetFlag offset = QSEnumOffsetFlag.UNKNOWN)
         {
             logger.Info("Qry Max Order Vol,Symbol:" + symbol);
 
-            QryMaxOrderVolRequest request = RequestTemplate<QryMaxOrderVolRequest>.CliSendRequest(++requestid);
+            XQryMaxOrderVolRequest request = RequestTemplate<XQryMaxOrderVolRequest>.CliSendRequest(++requestid);
+            request.Exchange = exchange;
             request.Symbol = symbol;
             request.Side = side;
             request.OffsetFlag = offset;
@@ -257,11 +259,12 @@ namespace TradingLib.TraderCore
         /// 查询行情快照
         /// </summary>
         /// <param name="symbol"></param>
-        public void ReqXQryTickSnapShot(string symbol = "")
+        public void ReqXQryTickSnapShot(string exchange,string symbol)
         {
             logger.Info("Qry TickSnapshot:" + symbol);
             XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
+            request.Exchange = exchange;
 
             SendPacket(request);
         }
@@ -273,6 +276,18 @@ namespace TradingLib.TraderCore
         {
             logger.Info("Qry AccountInfo");
             XQryAccountRequest request = RequestTemplate<XQryAccountRequest>.CliSendRequest(++requestid);
+            SendPacket(request);
+            return requestid;
+        }
+
+
+        /// <summary>
+        /// 请求帐户财务信息
+        /// </summary>
+        public int ReqXQryAccountFinance()
+        {
+            logger.Info("Qry Account Finance");
+            XQryAccountFinanceRequest request = RequestTemplate<XQryAccountFinanceRequest>.CliSendRequest(++requestid);
             SendPacket(request);
             return requestid;
         }

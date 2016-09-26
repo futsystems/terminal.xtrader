@@ -51,14 +51,14 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 查询帐户信息
         /// </summary>
-        public event Action<AccountInfo, RspInfo, int, bool> OnRspQryAccountInfoResponse;
-        internal void FireRspQryAccountInfoResponse(AccountInfo info, RspInfo rsp, int requestId, bool isLast)
-        {
-            if (OnRspQryAccountInfoResponse != null)
-            {
-                OnRspQryAccountInfoResponse(info, rsp, requestId, isLast);
-            }
-        }
+        //public event Action<AccountInfo, RspInfo, int, bool> OnRspQryAccountInfoResponse;
+        //internal void FireRspQryAccountInfoResponse(AccountInfo info, RspInfo rsp, int requestId, bool isLast)
+        //{
+        //    if (OnRspQryAccountInfoResponse != null)
+        //    {
+        //        OnRspQryAccountInfoResponse(info, rsp, requestId, isLast);
+        //    }
+        //}
 
 
         public event Action<AccountLite, RspInfo, int, bool> OnRspXQryAccountResponse;
@@ -82,5 +82,33 @@ namespace TradingLib.TraderCore
                 OnRspXQrySymbolResponse(symbol, rsp, requestId, isLast);
             }
         }
+
+
+
+
+
+        /// <summary>
+        /// 查询账户财务信息
+        /// </summary>
+        public event Action<AccountInfo,RspInfo,int,bool> OnRspXQryAccountFinanceEvent;
+        internal void FireRspXQryAccountFinanceEvent(AccountInfo finance,RspInfo rsp,int requestId,bool islast)
+        {
+            if (OnRspXQryAccountFinanceEvent != null)
+                OnRspXQryAccountFinanceEvent(finance, rsp, requestId, islast);
+        }
+
+        /// <summary>
+        /// 查询最大可开手数
+        /// </summary>
+        public event Action<RspXQryMaxOrderVolResponse> OnRspXQryMaxOrderVolResponse;
+        internal void FireRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse response)
+        {
+            if (OnRspXQryMaxOrderVolResponse != null)
+                OnRspXQryMaxOrderVolResponse(response);
+
+        }
+
+
+
     }
 }

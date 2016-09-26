@@ -10,6 +10,8 @@ using TradingLib.MarketData;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using TradingLib.TraderCore;
+using TradingLib.API;
+using TradingLib.Common;
 using Common.Logging;
 
 
@@ -36,7 +38,7 @@ namespace TradingLib.XTrader.Stock
         }
 
 
-        void WireEvent() 
+        void WireEvent()
         {
             menuTree.NodeMouseClick += new TreeNodeMouseClickEventHandler(menuTree_NodeMouseClick);
 
@@ -56,9 +58,33 @@ namespace TradingLib.XTrader.Stock
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
 
+            CoreService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
+
             CoreService.EventCore.RegIEventHandler(this);
-            
+
+        }
+
+        void EventUI_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                //非常驻合约 则需要取消 避免不必要的订阅
+                if (!CoreService.TradingInfoTracker.HotSymbols.Contains(arg2))
+                {
+                    CoreService.TLClient.ReqUnRegisterSymbol(arg2.Symbol);
+                }
             }
+        }
+
+        void EventUI_OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(arg2.Symbol);
+            }
+        }
+
 
         
 
@@ -232,7 +258,7 @@ namespace TradingLib.XTrader.Stock
         {
             PageSTKAccountPosition p = node.Tag as PageSTKAccountPosition;
             ShowPage(PageTypes.PAGE_ACCOUNT_POSITION);
-            p.QryAccountInfo();
+            p.QryAccountFinance();
             btnPosition.Checked = true;
         }
         void OpenPageDelivery(TreeNode node)
@@ -433,6 +459,8 @@ namespace TradingLib.XTrader.Stock
             if (page != null)
             {
                 ShowPage(PageTypes.PAGE_ACCOUNT_POSITION);
+                PageSTKAccountPosition p = page as PageSTKAccountPosition;
+                p.QryAccountFinance();
                 btnPosition.Checked = true;
             }
         }
@@ -523,7 +551,7 @@ namespace TradingLib.XTrader.Stock
 
         System.ComponentModel.BackgroundWorker bg;
 
-        RingBuffer<PromptMessage> infobuffer = new RingBuffer<PromptMessage>(1000);
+        TradingLib.MarketData.RingBuffer<PromptMessage> infobuffer = new TradingLib.MarketData.RingBuffer<PromptMessage>(1000);
 
 
 

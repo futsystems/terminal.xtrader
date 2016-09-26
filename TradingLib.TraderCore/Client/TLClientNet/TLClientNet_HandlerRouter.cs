@@ -82,8 +82,12 @@ namespace TradingLib.TraderCore
                     CliOnXQryAccount(packet as RspXQryAccountResponse);
                     break;
 
-                case MessageTypes.MAXORDERVOLRESPONSE: //最大可开数量回报
-                    CliOnMaxOrderVol(packet as RspQryMaxOrderVolResponse);
+                case MessageTypes.XQRYMAXORDERVOLRESPONSE: //最大可开数量回报
+                    CliOnMaxOrderVol(packet as RspXQryMaxOrderVolResponse);
+                    break;
+
+                case MessageTypes.XQRYACCOUNTFINANCERESPONSE://账户财务数据回报
+                    CliOnAccountFinance(packet as RspXQryAccountFinanceResponse);
                     break;
 
                 case MessageTypes.CHANGEPASSRESPONSE://修改密码回报

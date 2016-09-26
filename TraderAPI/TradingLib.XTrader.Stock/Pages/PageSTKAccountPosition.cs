@@ -26,24 +26,24 @@ namespace TradingLib.XTrader.Stock
         public PageSTKAccountPosition()
         {
             InitializeComponent();
-            
-            CoreService.EventQry.OnRspQryAccountInfoResponse += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspQryAccountInfoResponse);
+
+            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspXQryAccountFinanceEvent);
 
             btnQry.Click += new EventHandler(btnQry_Click);
         }
 
         void btnQry_Click(object sender, EventArgs e)
         {
-            QryAccountInfo();
+            QryAccountFinance();
         }
 
-        public void QryAccountInfo()
+        public void QryAccountFinance()
         {
-            _qryid = CoreService.TLClient.ReqXQryAccount();
+            _qryid = CoreService.TLClient.ReqXQryAccountFinance();
         }
 
         int _qryid = 0;
-        void EventQry_OnRspQryAccountInfoResponse(AccountInfo arg1, RspInfo arg2, int arg3, bool arg4)
+        void EventQry_OnRspXQryAccountFinanceEvent(AccountInfo arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qryid) return;//查询RequestID不一致表面非当前控件查询 直接返回
             //返回委托对象不为空则调用OrderView进行输出显示
@@ -51,7 +51,7 @@ namespace TradingLib.XTrader.Stock
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspQryAccountInfoResponse), new object[] { arg1, arg2, arg3, arg4 });
+                    Invoke(new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspXQryAccountFinanceEvent), new object[] { arg1, arg2, arg3, arg4 });
                 }
                 else
                 {

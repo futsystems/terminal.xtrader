@@ -110,10 +110,11 @@ namespace TradingLib.TraderCore
             return null;
         }
 
-        public SymbolImpl GetSymbol(string symbol)
+        public SymbolImpl GetSymbol(string exchange,string symbol)
         {
+            string key = string.Format("{0}-{1}", exchange, symbol);
             SymbolImpl sym = null;
-            if (symbolnamemap.TryGetValue(symbol, out sym))
+            if (symbolkeyemap.TryGetValue(key, out sym))
             {
                 return sym;
             }

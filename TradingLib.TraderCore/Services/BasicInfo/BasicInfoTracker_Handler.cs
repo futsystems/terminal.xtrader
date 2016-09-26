@@ -121,7 +121,7 @@ namespace TradingLib.TraderCore
             if (islast && (!_inited))
             {
                 Status("品种查询完毕,查询合约信息");
-                CoreService.TLClient.ReqXQrySymbol();
+                CoreService.TLClient.ReqXQrySymbol("","");
             }
         }
 
@@ -163,7 +163,7 @@ namespace TradingLib.TraderCore
                     symbol.SecurityFamily = this.GetSecurity(symbol.security_fk);
                     symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
                     symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
-                    symbolnamemap[symbol.Symbol] = symbol;
+                    
                 }
             }
             if (islast&& (!_inited))
@@ -193,6 +193,9 @@ namespace TradingLib.TraderCore
                 target.SecurityFamily = this.GetSecurity(target.security_fk);
                 target.ULSymbol = this.GetSymbol(target.underlaying_fk);
                 target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
+
+                symbolkeyemap[target.UniqueKey] = target;
+                //symbolnamemap[symbol.Symbol] = symbol;
             }
         }
 

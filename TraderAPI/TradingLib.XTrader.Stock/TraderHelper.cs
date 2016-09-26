@@ -39,15 +39,15 @@ namespace TradingLib.XTrader.Stock
         }
 
 
-        /// <summary>
-        /// 获得某个合约
-        /// </summary>
-        /// <param name="symbol"></param>
-        /// <returns></returns>
-        public static Symbol GetSymbol(string symbol)
-        {
-            return CoreService.BasicInfoTracker.GetSymbol(symbol);
-        }
+        ///// <summary>
+        ///// 获得某个合约
+        ///// </summary>
+        ///// <param name="symbol"></param>
+        ///// <returns></returns>
+        //public static Symbol GetSymbol(string symbol)
+        //{
+        //    return CoreService.BasicInfoTracker.GetSymbol(symbol);
+        //}
 
 
 

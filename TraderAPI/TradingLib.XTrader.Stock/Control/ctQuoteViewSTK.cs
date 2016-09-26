@@ -22,7 +22,6 @@ namespace TradingLib.XTrader.Stock
         {
             InitializeComponent();
             //label1.TextAlign = ContentAlignment.
-
             lbAsk1.ForeColor = UIConstant.LongLabelColor;
             lbAsk2.ForeColor = UIConstant.LongLabelColor;
             lbAsk3.ForeColor = UIConstant.LongLabelColor;
@@ -120,7 +119,7 @@ namespace TradingLib.XTrader.Stock
             }
             logger.Info(string.Format("Will show quote for symbol:{0}", arg2.Symbol));
             _symbol = arg2;
-            Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Symbol];
+            Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
             if (k != null)
             {
                 GotTick(k);
@@ -128,7 +127,7 @@ namespace TradingLib.XTrader.Stock
             else
             { 
                 //如果本地行情快照没有对应合约行情 则查询行情快照
-                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Symbol);
+                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Symbol,arg2.Exchange);
             }
         }
 
@@ -147,7 +146,7 @@ namespace TradingLib.XTrader.Stock
             {
                 //合约过滤
                 if (_symbol == null) return;
-                if (_symbol.Symbol != k.Symbol) return;
+                if (_symbol.Exchange!=k.Exchange ||  _symbol.Symbol != k.Symbol) return;
 
                 string _format = "{0:F2}";
                 if (k.IsTrade())

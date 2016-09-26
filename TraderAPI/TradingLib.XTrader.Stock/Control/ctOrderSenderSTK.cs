@@ -39,7 +39,7 @@ namespace TradingLib.XTrader.Stock
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);//响应合约选择
             CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);//响应合约查询回报
-            CoreService.EventOther.OnRspQryMaxOrderVolResponse += new Action<RspQryMaxOrderVolResponse>(EventOther_OnRspQryMaxOrderVolResponse);//响应最大下单量回报
+            CoreService.EventQry.OnRspXQryMaxOrderVolResponse += new Action<RspXQryMaxOrderVolResponse>(EventOther_OnRspXQryMaxOrderVolResponse);//响应最大下单量回报
 
             //用于检查委托提交返回 并设置界面提交委托按钮有效 提交委托后 需要等对应委托回报到达后才可以再次提交委托 避免多次提交产生错误
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
@@ -52,6 +52,14 @@ namespace TradingLib.XTrader.Stock
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
         }
+
+        string  GetExchangeSelected()
+        {
+            if (cbStockAccount.SelectedIndex == 0) return "SSE";
+            if (cbStockAccount.SelectedIndex == 1) return "SZE";
+            return "";
+        }
+
 
         void EventOther_OnResumeDataEnd()
         {
@@ -132,7 +140,7 @@ namespace TradingLib.XTrader.Stock
         void EventIndicator_GotTickEvent(Tick obj)
         {
             if (obj == null) return;
-            if (_symbol == null || _symbol.Symbol != obj.Symbol) return;
+            if (_symbol == null || _symbol.Symbol != obj.Symbol || _symbol.Exchange != obj.Exchange) return;
             AdjustInputControl();
         }
 
@@ -149,6 +157,7 @@ namespace TradingLib.XTrader.Stock
         /// <param name="arg2"></param>
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
+
             //if (arg2 == null)
             //{
             //    //_symbol = null;
@@ -167,6 +176,8 @@ namespace TradingLib.XTrader.Stock
                 _symbol = arg2;
                 _inputControlAdjuestd = false;
                 AdjustInputControl();
+                //查询最大可开委托数量
+                QryMaxOrderVol();
             }
         }
 
@@ -193,23 +204,31 @@ namespace TradingLib.XTrader.Stock
             if (_inputControlAdjuestd) return;
             lbSymbolName.Text = _symbol.GetName();
             price.Value = 0;
-            Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Symbol];
+
+            Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
             if (k != null)
             {
-
-                price.DecimalPlaces = _symbol.SecurityFamily.GetDecimalPlaces();
-                price.Increment = _symbol.SecurityFamily.PriceTick;
                 price.Value = _side ? k.AskPrice : k.BidPrice;
-
-                //查询最大可开委托数量
-                QryMaxOrderVol();
-
                 _inputControlAdjuestd = true;
                 btnSubmit.Enabled = true;
-            }
 
-            price.Maximum = k != null ? k.UpperLimit : 10000;
-            price.Minimum = k != null ? k.LowerLimit : 0;
+            }
+            //if (k != null)
+            //{
+
+            //    price.DecimalPlaces = _symbol.SecurityFamily.GetDecimalPlaces();
+            //    price.Increment = _symbol.SecurityFamily.PriceTick;
+            //    price.Value = _side ? k.AskPrice : k.BidPrice;
+
+            //    //查询最大可开委托数量
+            //    QryMaxOrderVol();
+
+            //    _inputControlAdjuestd = true;
+            //    btnSubmit.Enabled = true;
+            //}
+
+            //price.Maximum = k != null ? k.UpperLimit : 10000;
+            //price.Minimum = k != null ? k.LowerLimit : 0;
             
         }
 
@@ -217,10 +236,10 @@ namespace TradingLib.XTrader.Stock
         void QryMaxOrderVol()
         {
             if (_symbol == null) return;
-            qryMaxOrderId = CoreService.TLClient.ReqQryMaxOrderVol(_symbol.Symbol);
+            qryMaxOrderId = CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange,_symbol.Symbol);
         }
 
-        void EventOther_OnRspQryMaxOrderVolResponse(RspQryMaxOrderVolResponse obj)
+        void EventOther_OnRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse obj)
         {
             if (obj.RequestID != qryMaxOrderId) return;
             lbMoneyAvabile.Text = obj.MaxVol.ToString();
@@ -243,11 +262,12 @@ namespace TradingLib.XTrader.Stock
 
         void symbol_TextChanged(object sender, EventArgs e)
         {
+            string exchange = GetExchangeSelected();
             //logger.Info(string.Format("Symbol changed:{0}", symbol.Text));
             bool needsearch = NeedSearchSymbol(symbol.Text);
             if (needsearch)
             {
-                TrySelectSymbol(string.Empty, symbol.Text);
+                TrySelectSymbol(exchange, symbol.Text);
             }
             else
             {
@@ -255,6 +275,7 @@ namespace TradingLib.XTrader.Stock
                 //{
                 //    CoreService.EventUI.FireSymbolSelectedEvent(this, null);
                 //}
+                CoreService.EventUI.FireSymbolSelectedEvent(this, null);
                 //重置
                 Reset();
             }
@@ -274,14 +295,14 @@ namespace TradingLib.XTrader.Stock
         /// <param name="symbol"></param>
         void TrySelectSymbol(string exchange, string symbol)
         {
-            Symbol sym = CoreService.BasicInfoTracker.GetSymbol(symbol);
+            Symbol sym = CoreService.BasicInfoTracker.GetSymbol(exchange,symbol);
             if (sym == null)
             {
                 if (_qryid == 0)
                 {
                     logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol));
                     //logger.Info(string.Format("qry symbol:{0} from server", sym.Symbol));
-                    _qryid = CoreService.TLClient.ReqXQrySymbol(symbol);
+                    _qryid = CoreService.TLClient.ReqXQrySymbol(exchange,symbol);
                 }
             }
             else

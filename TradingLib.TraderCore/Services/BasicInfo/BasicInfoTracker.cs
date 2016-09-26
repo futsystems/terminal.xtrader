@@ -30,7 +30,7 @@ namespace TradingLib.TraderCore
             exchangemap.Clear();
             securitymap.Clear();
             symbolmap.Clear();
-            symbolnamemap.Clear();
+            symbolkeyemap.Clear();
         }
         /// <summary>
         /// 市场时间段map
@@ -55,7 +55,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 合约名称map
         /// </summary>
-        Dictionary<string, SymbolImpl> symbolnamemap = new Dictionary<string, SymbolImpl>();
+        Dictionary<string, SymbolImpl> symbolkeyemap = new Dictionary<string, SymbolImpl>();
 
     }
 }

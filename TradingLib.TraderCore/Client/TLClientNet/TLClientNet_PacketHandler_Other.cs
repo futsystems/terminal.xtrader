@@ -12,11 +12,6 @@ namespace TradingLib.TraderCore
     public partial class TLClientNet
     {
 
-        void CliOnMaxOrderVol(RspQryMaxOrderVolResponse response)
-        {
-            logger.Debug("Got XQry MaxOrderVol Response:" + response.ToString());
-            CoreService.EventOther.FireRspQryMaxOrderVolResponse(response);
-        }
 
 
         /// <summary>

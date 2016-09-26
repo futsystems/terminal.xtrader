@@ -59,6 +59,7 @@ namespace TradingLib.XTrader.Stock
 
         void EventUI_OnSymbolSelectedEvent(object arg1, API.Symbol arg2)
         {
+            if(arg2 == null) return;
             if (ViewKChart != null)
             {
                 //持仓双击 产生的合约选择事件

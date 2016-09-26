@@ -25,7 +25,7 @@ namespace TradingLib.TraderCore
             Order o = response.Order;
             if (o != null)
             {
-                o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
+                o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Exchange,o.Symbol);
             }
             CoreService.EventIndicator.FireOrder(o);
         }
@@ -40,7 +40,7 @@ namespace TradingLib.TraderCore
             Trade f = response.Trade;
             if (f != null)
             {
-                f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
+                f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Exchange,f.Symbol);
             }
             CoreService.EventIndicator.FireFill(f);
         }
@@ -106,7 +106,7 @@ namespace TradingLib.TraderCore
             PositionDetail pd = response.YDPosition;
             if (pd != null)
             {
-                pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Symbol);
+                pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Exchange,pd.Symbol);
             }
             
             CoreService.EventQry.FireRspXQryYDPositionResponse(pd, response.RspInfo, response.RequestID, response.IsLast);
@@ -122,7 +122,7 @@ namespace TradingLib.TraderCore
             Order o = response.Order;
             if (o != null)
             {
-                o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Symbol);
+                o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Exchange,o.Symbol);
             }
             
             CoreService.EventQry.FireRspXQryOrderResponse(o, response.RspInfo, response.RequestID, response.IsLast);
@@ -138,7 +138,7 @@ namespace TradingLib.TraderCore
             Trade f = response.Trade;
             if (f != null)
             {
-                f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Symbol);
+                f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Exchange,f.Symbol);
             }
             
             CoreService.EventQry.FireRspXQryFillResponese(f, response.RspInfo, response.RequestID, response.IsLast);
@@ -161,10 +161,35 @@ namespace TradingLib.TraderCore
 
         void CliOnXQryAccount(RspXQryAccountResponse response)
         {
-            logger.Debug("XQry XQry AccountInfo Response:" + response.ToString());
+            logger.Debug("Got XQry AccountInfo Response:" + response.ToString());
             CoreService.EventQry.FireRspXQryAccountResponse(response.Account, response.RspInfo, response.RequestID, response.IsLast);
         }
 
+        ///// <summary>
+        ///// 响应帐户查询
+        ///// </summary>
+        ///// <param name="response"></param>
+        //void CliOnQryAccountFinance( response)
+        //{
+        //    logger.Debug("got qry account info response:" + response.ToString());
+        //    CoreService.EventQry.FireRspXQryAccountFinanceEvent(response.Report, response.RspInfo, response.RequestID, response.IsLast);
+        //}
+
+        /// <summary>
+        /// 查询最大可开手数量
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnMaxOrderVol(RspXQryMaxOrderVolResponse response)
+        {
+            logger.Debug("Got XQry MaxOrderVol Response:" + response.ToString());
+            CoreService.EventQry.FireRspXQryMaxOrderVolResponse(response);
+        }
+
+        void CliOnAccountFinance(RspXQryAccountFinanceResponse response)
+        {
+            logger.Debug("Got XQry Account Finance Response:" + response.ToString());
+            CoreService.EventQry.FireRspXQryAccountFinanceEvent(response.Report, response.RspInfo, response.RequestID, response.IsLast);
+        }
        
     }
 }
