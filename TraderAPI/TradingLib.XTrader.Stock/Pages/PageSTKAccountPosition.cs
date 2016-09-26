@@ -27,7 +27,7 @@ namespace TradingLib.XTrader.Stock
         {
             InitializeComponent();
 
-            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspXQryAccountFinanceEvent);
+            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
 
             btnQry.Click += new EventHandler(btnQry_Click);
         }
@@ -43,35 +43,35 @@ namespace TradingLib.XTrader.Stock
         }
 
         int _qryid = 0;
-        void EventQry_OnRspXQryAccountFinanceEvent(AccountInfo arg1, RspInfo arg2, int arg3, bool arg4)
+        void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse response)
         {
-            if (arg3 != _qryid) return;//查询RequestID不一致表面非当前控件查询 直接返回
+            if (response.RequestID != _qryid) return;//查询RequestID不一致表面非当前控件查询 直接返回
             //返回委托对象不为空则调用OrderView进行输出显示
-            if (arg1 != null)
+            if (response.Report != null)
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspXQryAccountFinanceEvent), new object[] { arg1, arg2, arg3, arg4 });
+                    Invoke(new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent), new object[] {response});
                 }
                 else
                 {
-                    lbCash.Text = arg1.NowEquity.ToFormatStr();//当前资金余额
-                    lbMoneyFrozen.Text = arg1.StkMoneyFronzen.ToFormatStr();//股票资金冻结
-                    lbSTKMarketValue.Text = arg1.StkPositionValue.ToFormatStr();//股票市值
-                    lbAvabileFund.Text = arg1.StkAvabileFunds.ToFormatStr();//可用资金
+                    lbCash.Text = response.Report.NowEquity.ToFormatStr();//当前资金余额
+                    lbMoneyFrozen.Text = response.Report.StkMoneyFronzen.ToFormatStr();//股票资金冻结
+                    lbSTKMarketValue.Text = response.Report.StkPositionValue.ToFormatStr();//股票市值
+                    lbAvabileFund.Text = response.Report.StkAvabileFunds.ToFormatStr();//可用资金
 
-                    lbTotalEquity.Text = (arg1.NowEquity + arg1.StkPositionValue).ToFormatStr();//总资产
+                    lbTotalEquity.Text = (response.Report.NowEquity + response.Report.StkPositionValue).ToFormatStr();//总资产
 
-                    lbStkPositionCost.Text = arg1.StkPositionCost.ToFormatStr();//股票成本
-                    lbStkRealizedPL.Text = arg1.StkRealizedPL.ToFormatStr();//股票平仓盈亏
+                    lbStkPositionCost.Text = response.Report.StkPositionCost.ToFormatStr();//股票成本
+                    lbStkRealizedPL.Text = response.Report.StkRealizedPL.ToFormatStr();//股票平仓盈亏
 
-                    lbStkCommission.Text = arg1.StkCommission.ToFormatStr();//股票手续费
+                    lbStkCommission.Text = response.Report.StkCommission.ToFormatStr();//股票手续费
 
-                    lbBuyAmount.Text = arg1.StkBuyAmount.ToFormatStr();//股票买入金额
-                    lbSellAmount.Text = arg1.StkSellAmount.ToFormatStr();//股票卖出金额
+                    lbBuyAmount.Text = response.Report.StkBuyAmount.ToFormatStr();//股票买入金额
+                    lbSellAmount.Text = response.Report.StkSellAmount.ToFormatStr();//股票卖出金额
 
-                    lbLastEquity.Text = arg1.LastEquity.ToFormatStr();//账户昨日权益
-                    lbCredit.Text = arg1.Credit.ToFormatStr();//账户昨日信用
+                    lbLastEquity.Text = response.Report.LastEquity.ToFormatStr();//账户昨日权益
+                    lbCredit.Text = response.Report.Credit.ToFormatStr();//账户昨日信用
 
                     //当前资金 = 昨日资金 - 今日买入金额 + 今日卖出金额 - 手续费
                     //lbNowEquityC.Text = (arg1.LastEquity - arg1.StkBuyAmount + arg1.StkSellAmount - arg1.Commission).ToFormatStr();
@@ -79,7 +79,7 @@ namespace TradingLib.XTrader.Stock
                 }
             }
             //如果是最后一条查询则重置查询ID和按钮可用
-            if (arg4)
+            if (response.IsLast)
             {
                 _qryid = 0;
             }

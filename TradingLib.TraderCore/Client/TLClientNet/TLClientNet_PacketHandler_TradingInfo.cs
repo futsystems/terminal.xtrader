@@ -188,7 +188,7 @@ namespace TradingLib.TraderCore
         void CliOnAccountFinance(RspXQryAccountFinanceResponse response)
         {
             logger.Debug("Got XQry Account Finance Response:" + response.ToString());
-            CoreService.EventQry.FireRspXQryAccountFinanceEvent(response.Report, response.RspInfo, response.RequestID, response.IsLast);
+            CoreService.EventQry.FireRspXQryAccountFinanceEvent(response);
         }
        
     }

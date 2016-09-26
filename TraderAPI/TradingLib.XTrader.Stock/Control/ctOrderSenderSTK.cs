@@ -40,7 +40,7 @@ namespace TradingLib.XTrader.Stock
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);//响应合约选择
             CoreService.EventQry.OnRspXQrySymbolResponse += new Action<Symbol, RspInfo, int, bool>(EventQry_OnRspXQrySymbolResponse);//响应合约查询回报
             CoreService.EventQry.OnRspXQryMaxOrderVolResponse += new Action<RspXQryMaxOrderVolResponse>(EventOther_OnRspXQryMaxOrderVolResponse);//响应最大下单量回报
-
+            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
             //用于检查委托提交返回 并设置界面提交委托按钮有效 提交委托后 需要等对应委托回报到达后才可以再次提交委托 避免多次提交产生错误
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
@@ -52,6 +52,8 @@ namespace TradingLib.XTrader.Stock
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
         }
+
+       
 
         string  GetExchangeSelected()
         {
@@ -178,6 +180,8 @@ namespace TradingLib.XTrader.Stock
                 AdjustInputControl();
                 //查询最大可开委托数量
                 QryMaxOrderVol();
+                //查询可用资金
+                QryAccountFinance();
             }
         }
 
@@ -239,10 +243,35 @@ namespace TradingLib.XTrader.Stock
             qryMaxOrderId = CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange,_symbol.Symbol);
         }
 
+        int qryAccountFinanceId = 0;
+        void QryAccountFinance()
+        {
+            qryAccountFinanceId = CoreService.TLClient.ReqXQryAccountFinance();
+        }
         void EventOther_OnRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse obj)
         {
-            if (obj.RequestID != qryMaxOrderId) return;
-            lbMoneyAvabile.Text = obj.MaxVol.ToString();
+            if (InvokeRequired)
+            {
+                Invoke(new Action<RspXQryMaxOrderVolResponse>(EventOther_OnRspXQryMaxOrderVolResponse), new object[] { obj });
+            }
+            else
+            {
+                if (obj.RequestID != qryMaxOrderId) return;
+                lbMaxOrderVol.Text = obj.MaxVol.ToString();
+            }
+        }
+
+        void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse response)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent), new object[] { response });
+            }
+            else
+            {
+                if (response.RequestID != qryAccountFinanceId) return;
+                lbMoneyAvabile.Text = response.Report.StkAvabileFunds.ToFormatStr();
+            }
         }
 
 

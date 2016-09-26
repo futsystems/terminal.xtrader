@@ -141,7 +141,6 @@
             this.lbMoneyAvabile.Name = "lbMoneyAvabile";
             this.lbMoneyAvabile.Size = new System.Drawing.Size(106, 20);
             this.lbMoneyAvabile.TabIndex = 35;
-            this.lbMoneyAvabile.Text = "label7";
             // 
             // lbMaxOrderVol
             // 
@@ -150,7 +149,6 @@
             this.lbMaxOrderVol.Name = "lbMaxOrderVol";
             this.lbMaxOrderVol.Size = new System.Drawing.Size(106, 20);
             this.lbMaxOrderVol.TabIndex = 36;
-            this.lbMaxOrderVol.Text = "label8";
             // 
             // size
             // 
