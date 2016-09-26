@@ -682,6 +682,7 @@ namespace TradingLib.TraderCore
             logger.Info(PROGRAME + ":InitConnection......");
             // register ourselves with provider 注册
             Register();
+            Util.sleep(500);
             // request list of features from provider 请求功能支持列表
             RequestFeatures();
             //request server version;查询服务器版本
