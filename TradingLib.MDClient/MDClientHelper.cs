@@ -8,16 +8,6 @@ namespace TradingLib.MDClient
     public static class MDClientHelper
     {
 
-        /// <summary>
-        /// 注册单个合约
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="symbol"></param>
-        public static void RegisterSymbol(this MDClient client,string symbol)
-        {
-            client.RegisterSymbol(new string[] { symbol });
-            
-        }
 
 
         /// <summary>

@@ -163,8 +163,14 @@ namespace TradingLib.TraderCore
                     symbol.SecurityFamily = this.GetSecurity(symbol.security_fk);
                     symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
                     symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
-                    
                 }
+
+                //如果已经初始化完毕了 则直接在这里放入uniqueKey Map
+                if (_inited)
+                {
+                    symbolkeyemap[symbol.UniqueKey] = symbol;
+                }
+
             }
             if (islast&& (!_inited))
             {
@@ -173,6 +179,7 @@ namespace TradingLib.TraderCore
                 _inited = true;
                 CoreService.TradingInfoTracker.ResumeData();
             }
+            
 
         }
 
@@ -190,9 +197,9 @@ namespace TradingLib.TraderCore
 
             foreach (SymbolImpl target in symbolmap.Values)
             {
-                target.SecurityFamily = this.GetSecurity(target.security_fk);
-                target.ULSymbol = this.GetSymbol(target.underlaying_fk);
-                target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
+                //target.SecurityFamily = this.GetSecurity(target.security_fk);
+                //target.ULSymbol = this.GetSymbol(target.underlaying_fk);
+                //target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
 
                 symbolkeyemap[target.UniqueKey] = target;
                 //symbolnamemap[symbol.Symbol] = symbol;

@@ -153,6 +153,11 @@
             // size
             // 
             this.size.Location = new System.Drawing.Point(63, 155);
+            this.size.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.size.Name = "size";
             this.size.Size = new System.Drawing.Size(107, 21);
             this.size.TabIndex = 37;

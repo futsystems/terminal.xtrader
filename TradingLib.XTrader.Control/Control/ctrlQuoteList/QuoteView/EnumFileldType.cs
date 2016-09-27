@@ -69,21 +69,6 @@ namespace TradingLib.XTrader.Control
         [Description("涨幅")]
         CHANGEPECT,
         /// <summary>
-        /// 持仓
-        /// </summary>
-        [Description("持仓")]
-        OI,
-        /// <summary>
-        /// 仓差
-        /// </summary>
-        [Description("仓差")]
-        OICHANGE,
-        /// <summary>
-        /// 结算价
-        /// </summary>
-        [Description("结算价")]
-        SETTLEMENT,
-        /// <summary>
         /// 开盘价
         /// </summary>
         [Description("开盘")]
@@ -99,20 +84,35 @@ namespace TradingLib.XTrader.Control
         [Description("最低")]
         LOW,
         /// <summary>
-        /// 昨结算
-        /// </summary>
-        [Description("昨结算")]
-        PRESETTLEMENT,
-        /// <summary>
         /// 昨收
         /// </summary>
         [Description("昨收")]
         PRECLOSE,
         /// <summary>
+        /// 昨结算
+        /// </summary>
+        [Description("昨结算")]
+        PRESETTLEMENT,
+        /// <summary>
+        /// 昨结算
+        /// </summary>
+        [Description("结算")]
+        SETTLEMENT,
+        /// <summary>
         /// 昨持仓
         /// </summary>
         [Description("昨持仓")]
         PREOI,
+        /// <summary>
+        /// 持仓
+        /// </summary>
+        [Description("持仓")]
+        OI,
+        /// <summary>
+        /// 仓差
+        /// </summary>
+        [Description("仓差")]
+        OICHANGE,
         /// <summary>
         /// 交易所
         /// </summary>
@@ -133,5 +133,11 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         [Description("外盘")]
         SSIDE,
+        /// <summary>
+        /// 行情更新时间
+        /// </summary>
+        [Description("时间")]
+        TIME,
+
     }
 }

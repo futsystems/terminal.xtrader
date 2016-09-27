@@ -78,7 +78,7 @@ namespace TradingLib.DataFarmManager
                             return true;
                         }
                         return false;
-                    }), EnumQuoteListType.STOCK_CN);
+                    }), EnumQuoteListType.FUTURE_OVERSEA);
                 }
             }
         }

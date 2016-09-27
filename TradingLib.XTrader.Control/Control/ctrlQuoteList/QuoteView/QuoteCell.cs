@@ -31,6 +31,9 @@ namespace TradingLib.XTrader.Control
         string _symbol;
         public string Symbol { get { return _symbol; } set { _symbol = value; } }
 
+        string _time="00:00:00";
+        public string Time { get { return _time; } set { _time = value; } }
+
         double _value;
         public double Value { get { return _value; } set { _value = value; } }
 
@@ -60,6 +63,9 @@ namespace TradingLib.XTrader.Control
                     _cellStyle.FontColor = Color.Silver;
                     break;
                 case EnumFileldType.SYMBOL:
+                    _cellStyle.FontColor = Color.Yellow;
+                    break;
+                case EnumFileldType.TIME:
                     _cellStyle.FontColor = Color.Yellow;
                     break;
                 case EnumFileldType.SYMBOLNAME:
@@ -177,6 +183,10 @@ namespace TradingLib.XTrader.Control
             else if (_column.FieldType == EnumFileldType.INDEX)
             {
                 g.DrawString((_row.RowID + 1).ToString(), CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2, _cellStyle.DrawFormat);
+            }
+            else if (_column.FieldType == EnumFileldType.TIME)
+            {
+                g.DrawString(this.Time, CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2, _cellStyle.DrawFormat);
             }
             else
             {

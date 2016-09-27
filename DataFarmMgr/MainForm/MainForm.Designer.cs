@@ -32,12 +32,14 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
-            this.btnDebugForm = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDebug1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDebugForm = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnDebug1 = new System.Windows.Forms.ToolStripButton();
+            this.btnRegister = new System.Windows.Forms.ToolStripButton();
+            this.btnUnregister = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +60,8 @@
             this.toolStripSeparator1,
             this.btnDebug1,
             this.toolStripSeparator2,
+            this.btnRegister,
+            this.btnUnregister,
             this.btnDebugForm});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -74,6 +78,25 @@
             this.btnConnect.Size = new System.Drawing.Size(36, 22);
             this.btnConnect.Text = "连接";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnDebug1
+            // 
+            this.btnDebug1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDebug1.Image = ((System.Drawing.Image)(resources.GetObject("btnDebug1.Image")));
+            this.btnDebug1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDebug1.Name = "btnDebug1";
+            this.btnDebug1.Size = new System.Drawing.Size(28, 22);
+            this.btnDebug1.Text = "D1";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // btnDebugForm
             // 
             this.btnDebugForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -82,11 +105,6 @@
             this.btnDebugForm.Name = "btnDebugForm";
             this.btnDebugForm.Size = new System.Drawing.Size(60, 22);
             this.btnDebugForm.Text = "日志窗口";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // mainPanel
             // 
@@ -104,19 +122,23 @@
             this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
             this.ctrlQuoteList.TabIndex = 0;
             // 
-            // toolStripSeparator2
+            // btnRegister
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.btnRegister.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnRegister.Image")));
+            this.btnRegister.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(60, 22);
+            this.btnRegister.Text = "订阅行情";
             // 
-            // btnDebug1
+            // btnUnregister
             // 
-            this.btnDebug1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDebug1.Image = ((System.Drawing.Image)(resources.GetObject("btnDebug1.Image")));
-            this.btnDebug1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDebug1.Name = "btnDebug1";
-            this.btnDebug1.Size = new System.Drawing.Size(28, 22);
-            this.btnDebug1.Text = "D1";
+            this.btnUnregister.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnUnregister.Image = ((System.Drawing.Image)(resources.GetObject("btnUnregister.Image")));
+            this.btnUnregister.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUnregister.Name = "btnUnregister";
+            this.btnUnregister.Size = new System.Drawing.Size(84, 22);
+            this.btnUnregister.Text = "取消所有订阅";
             // 
             // MainForm
             // 
@@ -148,5 +170,7 @@
         private XTrader.Control.ctrlQuoteList ctrlQuoteList;
         private System.Windows.Forms.ToolStripButton btnDebug1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton btnRegister;
+        private System.Windows.Forms.ToolStripButton btnUnregister;
     }
 }

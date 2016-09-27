@@ -122,6 +122,8 @@ namespace TradingLib.XTrader.Stock
 
             Order order = new OrderImpl();
             order.Symbol = _symbol.Symbol;
+            order.Exchange = _symbol.Exchange;
+
             order.Size = Math.Abs((int)size.Value);
             order.Side = _side;
             order.LimitPrice = price.Value;

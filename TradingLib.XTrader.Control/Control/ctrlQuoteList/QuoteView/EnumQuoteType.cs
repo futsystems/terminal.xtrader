@@ -16,6 +16,10 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         ALL,
         /// <summary>
+        /// 国外期货
+        /// </summary>
+        FUTURE_OVERSEA,
+        /// <summary>
         /// 国内期货
         /// </summary>
         FUTURE_CN,

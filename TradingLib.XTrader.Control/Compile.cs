@@ -601,7 +601,7 @@ namespace CStock
             stockinfo.TickSnapshot.BuyQTY3 = 2714;
             stockinfo.TickSnapshot.BuyQTY4 = 1598;
             stockinfo.TickSnapshot.BuyQTY5 = 1363;
-            stockinfo.TickSnapshot.last = 11.5;
+            stockinfo.TickSnapshot.PreClose = 11.5;
             stockinfo.TickSnapshot.Open = 11.49;
             stockinfo.TickSnapshot.High = 11.62;
             stockinfo.TickSnapshot.Low = 11.46;

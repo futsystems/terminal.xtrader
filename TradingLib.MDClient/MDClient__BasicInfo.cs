@@ -297,6 +297,17 @@ namespace TradingLib.MDClient
         }
 
 
+        public MDSymbol GetMDSymbol(string key)
+        {
+            MDSymbol target = null;
+            if (mdSymbolMap.TryGetValue(key, out target))
+            {
+                return target;
+            }
+            return null;
+        }
+
+
         private MarketTime GetMarketTime(int id)
         {
             MarketTime mt = null;

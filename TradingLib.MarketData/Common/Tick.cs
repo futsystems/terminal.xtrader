@@ -17,8 +17,10 @@ namespace TradingLib.MarketData
         /// </summary>
         public double High;
 
-
-        public double last;
+        /// <summary>
+        /// 昨日收盘
+        /// </summary>
+        public double PreClose;
         /// <summary>
         /// 最低价
         /// </summary>
@@ -103,5 +105,25 @@ namespace TradingLib.MarketData
 
         public double buyall, sellall, buyQTYall, sellQTYall;
         //d1, d2, d3, d4, d5: single;
+
+        /// <summary>
+        /// 持仓
+        /// </summary>
+        public int OI;
+
+        /// <summary>
+        /// 昨日持仓
+        /// </summary>
+        public int PreOI;
+
+        /// <summary>
+        /// 结算价
+        /// </summary>
+        public double Settlement;
+
+        /// <summary>
+        /// 昨日结算价
+        /// </summary>
+        public double PreSettlement;
     };
 }

@@ -44,11 +44,13 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TradingLib.API">
-      <HintPath>..\..\lib\TradingLib\TradingLib.API.dll</HintPath>
+    <Reference Include="TradingLib.API, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
     </Reference>
-    <Reference Include="TradingLib.Common">
-      <HintPath>..\..\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    <Reference Include="TradingLib.Common, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
     <Reference Include="TradingLib.MarketData">
       <HintPath>..\..\..\Futs.Trader\TradingLib.MarketData\bin\Debug\TradingLib.MarketData.dll</HintPath>

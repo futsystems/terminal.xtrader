@@ -302,34 +302,34 @@ namespace CStock
             {
                 BuyValue[0].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy1);
                 BuyVol[0].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY1);
-                BuyValue[0].ForeColor = symbol.TickSnapshot.Buy1 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                BuyValue[0].ForeColor = symbol.TickSnapshot.Buy1 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.BuyQTY2 > 0)
             {
                 BuyValue[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy2);
                 BuyVol[1].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY2);
-                BuyValue[1].ForeColor = symbol.TickSnapshot.Buy2 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                BuyValue[1].ForeColor = symbol.TickSnapshot.Buy2 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.BuyQTY3 > 0)
             {
                 BuyValue[2].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy3);
                 BuyVol[2].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY3);
-                BuyValue[2].ForeColor = symbol.TickSnapshot.Buy3 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                BuyValue[2].ForeColor = symbol.TickSnapshot.Buy3 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.BuyQTY4 > 0)
             {
                 BuyValue[3].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy4);
                 BuyVol[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY4);
-                BuyValue[3].ForeColor = symbol.TickSnapshot.Buy4 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                BuyValue[3].ForeColor = symbol.TickSnapshot.Buy4 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
             if (symbol.TickSnapshot.BuyQTY5 > 0)
             {
                 BuyValue[4].Text = String.Format("{0:F3}", symbol.TickSnapshot.Buy5);
                 BuyVol[4].Text = String.Format("{0:F0}", symbol.TickSnapshot.BuyQTY5);
-                BuyValue[4].ForeColor = symbol.TickSnapshot.Buy5 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                BuyValue[4].ForeColor = symbol.TickSnapshot.Buy5 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
 
@@ -337,56 +337,56 @@ namespace CStock
             {
                 SellValue[0].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell1);
                 SellVol[0].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY1);
-                SellValue[0].ForeColor = symbol.TickSnapshot.Sell1 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                SellValue[0].ForeColor = symbol.TickSnapshot.Sell1 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.SellQTY2 > 0)
             {
                 SellValue[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell2);
                 SellVol[1].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY2);
-                SellValue[1].ForeColor = symbol.TickSnapshot.Sell2 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                SellValue[1].ForeColor = symbol.TickSnapshot.Sell2 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.SellQTY3 > 0)
             {
                 SellValue[2].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell3);
                 SellVol[2].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY3);
-                SellValue[2].ForeColor = symbol.TickSnapshot.Sell3 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                SellValue[2].ForeColor = symbol.TickSnapshot.Sell3 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
             if (symbol.TickSnapshot.SellQTY4 > 0)
             {
                 SellValue[3].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell4);
                 SellVol[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY4);
-                SellValue[3].ForeColor = symbol.TickSnapshot.Sell4 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                SellValue[3].ForeColor = symbol.TickSnapshot.Sell4 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
             if (symbol.TickSnapshot.SellQTY5 > 0)
             {
                 SellValue[4].Text = String.Format("{0:F3}", symbol.TickSnapshot.Sell5);
                 SellVol[4].Text = String.Format("{0:F0}", symbol.TickSnapshot.SellQTY5);
-                SellValue[4].ForeColor = symbol.TickSnapshot.Sell5 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                SellValue[4].ForeColor = symbol.TickSnapshot.Sell5 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
 
 
             Cell[0].Text = String.Format("{0:F3}", symbol.TickSnapshot.Price);
-            Cell[0].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[0].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[7].Text = String.Format("{0:F3}", symbol.TickSnapshot.Open);
-            Cell[7].ForeColor = symbol.TickSnapshot.Open > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[7].ForeColor = symbol.TickSnapshot.Open > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
 
-            Cell[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Price - symbol.TickSnapshot.last);
-            Cell[1].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[1].Text = String.Format("{0:F3}", symbol.TickSnapshot.Price - symbol.TickSnapshot.PreClose);
+            Cell[1].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[8].Text = String.Format("{0:F3}", symbol.TickSnapshot.High);
-            Cell[8].ForeColor = symbol.TickSnapshot.High > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[8].ForeColor = symbol.TickSnapshot.High > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
 
-            if (symbol.TickSnapshot.last != 0)
+            if (symbol.TickSnapshot.PreClose != 0)
             {
-                Cell[2].Text = String.Format("{0:F2}%", (symbol.TickSnapshot.Price - symbol.TickSnapshot.last) * 100 / symbol.TickSnapshot.last);
-                Cell[2].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                Cell[2].Text = String.Format("{0:F2}%", (symbol.TickSnapshot.Price - symbol.TickSnapshot.PreClose) * 100 / symbol.TickSnapshot.PreClose);
+                Cell[2].ForeColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
             Cell[9].Text = String.Format("{0:F3}", symbol.TickSnapshot.Low);
-            Cell[9].ForeColor = symbol.TickSnapshot.Low > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[9].ForeColor = symbol.TickSnapshot.Low > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.Size);
             double d1 = symbol.TickSnapshot.Volume;
@@ -394,7 +394,7 @@ namespace CStock
             {
                 double d2 = (symbol.TickSnapshot.Amount / symbol.TickSnapshot.Volume) / 100.0;
                 Cell[10].Text = String.Format("{0:F3}", d2);
-                Cell[10].ForeColor = d2 > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+                Cell[10].ForeColor = d2 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
             double d3 = symbol.TickSnapshot.Amount;
             if (d3 > 100000000)
@@ -414,9 +414,9 @@ namespace CStock
             f2 = 0.1;
             if (symbol.Symbol.IndexOf("ST") > -1)
                 f2 = 0.05;
-            Cell[5].Text = String.Format("{0:F3}", symbol.TickSnapshot.last * (1 + f2));
+            Cell[5].Text = String.Format("{0:F3}", symbol.TickSnapshot.PreClose * (1 + f2));
             Cell[5].ForeColor = Constants.ColorUp;
-            Cell[12].Text = String.Format("{0:F3}", symbol.TickSnapshot.last * (1 - f2));
+            Cell[12].Text = String.Format("{0:F3}", symbol.TickSnapshot.PreClose * (1 - f2));
             Cell[12].ForeColor = Constants.ColorDown;
             Cell[6].Text = String.Format("{0:F0}", symbol.TickSnapshot.S);
             Cell[6].ForeColor = Color.Red;
@@ -458,13 +458,13 @@ namespace CStock
 
 
             Cell[20].Text = String.Format("{0:F3}", symbol.TickSnapshot.sellall);
-            Cell[20].ForeColor = symbol.TickSnapshot.sellall > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[20].ForeColor = symbol.TickSnapshot.sellall > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             Cell[21].Text = String.Format("{0:F0}", symbol.TickSnapshot.sellQTYall);
 
             Cell[22].Text = String.Format("{0:F3}", symbol.TickSnapshot.buyall);
-            Cell[22].ForeColor = symbol.TickSnapshot.buyall > symbol.TickSnapshot.last ? Constants.ColorUp : Constants.ColorDown;
+            Cell[22].ForeColor = symbol.TickSnapshot.buyall > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             Cell[23].Text = String.Format("{0:F0}", symbol.TickSnapshot.buyQTYall);
-            //FSGS[0].PreClose = symbol.TickSnapshot.last;
+            //FSGS[0].PreClose = symbol.TickSnapshot.PreClose;
             this.Invalidate();
         }
 

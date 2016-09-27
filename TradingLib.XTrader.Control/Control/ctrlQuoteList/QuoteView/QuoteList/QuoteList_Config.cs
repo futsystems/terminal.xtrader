@@ -64,6 +64,30 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 3));
             configMap.Add(EnumQuoteListType.FUTURE_CN, tmp);
 
+            tmp = new QuoteColumnConfigs(EnumQuoteListType.FUTURE_OVERSEA);
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 7));
+
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BID, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.ASK, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.BIDSIZE, 7));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.ASKSIZE, 7));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.VOL, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.PREOI, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGE, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.PRECLOSE, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.OPEN, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.HIGH, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LOW, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGEPECT, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.PRESETTLEMENT, 4));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.TIME, 6));
+
+            configMap.Add(EnumQuoteListType.FUTURE_OVERSEA, tmp);
+
+
         }
 
         public void ApplyConfig(EnumQuoteListType type)

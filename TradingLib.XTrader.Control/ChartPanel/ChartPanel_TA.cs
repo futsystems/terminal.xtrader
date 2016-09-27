@@ -1394,20 +1394,20 @@ namespace CStock
             double[] dynainfo = new double[24];
 
 
-            dynainfo[3] = Value.last;
+            dynainfo[3] = Value.PreClose;
             dynainfo[4] = Value.Open;
             dynainfo[5] = Value.High;
             dynainfo[6] = Value.Low;
             dynainfo[7] = Value.Price;
             dynainfo[8] = Value.Volume;
             dynainfo[9] = Value.Size;
-            dynainfo[12] = Value.Price - Value.last;
+            dynainfo[12] = Value.Price - Value.PreClose;
             dynainfo[13] = 0;
             dynainfo[14] = 0;
             if (Value.Low != 0)
                 dynainfo[13] = (Value.High - Value.Low) / Value.Low;
-            if (Value.last != 0)
-                dynainfo[14] = (Value.Price - Value.last) * 100 / Value.last;
+            if (Value.PreClose != 0)
+                dynainfo[14] = (Value.Price - Value.PreClose) * 100 / Value.PreClose;
             dynainfo[20] = Value.Buy1;
             dynainfo[21] = Value.Sell1;
             dynainfo[22] = Value.B;

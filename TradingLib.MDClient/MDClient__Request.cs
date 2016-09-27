@@ -63,10 +63,11 @@ namespace TradingLib.MDClient
         /// <summary>
         /// 订阅合约实时行情
         /// </summary>
-        public void RegisterSymbol(string[] symbols)
+        public void RegisterSymbol(string exchange,string[] symbols)
         {
             logger.Info(string.Format("Subscribe market data for symbol:{0}", string.Join(",", symbols)));
             RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(NextRequestID);
+            request.Exchange = exchange;
             foreach (var symbol in symbols)
             {
                 Symbol sym = this.GetSymbol(symbol);
