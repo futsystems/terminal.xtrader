@@ -22,9 +22,17 @@ namespace TradingLib.XTrader.Stock
         ILog logger = LogManager.GetLogger("ctOrderViewSTK");
         ConcurrentDictionary<long, int> orderRowIdxMap = new ConcurrentDictionary<long, int>();
 
+        FGrid orderGrid = null;
         public ctOrderViewSTK()
         {
             InitializeComponent();
+
+            this.orderGrid = new FGrid();
+            this.orderGrid.Dock = DockStyle.Fill;
+
+            this.Controls.Add(this.orderGrid);
+
+
             InitTable();
             BindToTable();
             //控件创建时_realview为默认True 这里还没有设置成自定义参数

@@ -17,10 +17,17 @@ namespace TradingLib.XTrader.Stock
     public partial class ctTradeViewSTK : UserControl, IEventBinder
     {
         ILog logger = LogManager.GetLogger("ctOrderViewSTK");
-
+        FGrid tradeGrid = null;
         public ctTradeViewSTK()
         {
             InitializeComponent();
+
+            this.tradeGrid = new FGrid();
+            this.tradeGrid.Dock = DockStyle.Fill;
+
+            this.Controls.Add(this.tradeGrid);
+
+
             InitTable();
             BindToTable();
 

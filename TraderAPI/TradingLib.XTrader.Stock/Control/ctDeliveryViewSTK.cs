@@ -18,9 +18,18 @@ namespace TradingLib.XTrader.Stock
     public partial class ctDeliveryViewSTK : UserControl
     {
         ILog logger = LogManager.GetLogger("ctDeliveryViewSTK");
+
+        FGrid deliveryGrid = null;
         public ctDeliveryViewSTK()
         {
             InitializeComponent();
+
+            this.deliveryGrid = new FGrid();
+            this.deliveryGrid.Dock = DockStyle.Fill;
+
+            this.Controls.Add(this.deliveryGrid);
+
+
             InitTable();
             BindToTable();
 
