@@ -31,7 +31,7 @@ namespace TradingLib.XTrader.Control
         /// <summary>
         /// 现量
         /// </summary>
-        [Description("现量")]
+        [Description("现手")]
         LASTSIZE,
         /// <summary>
         /// 买量
@@ -61,7 +61,7 @@ namespace TradingLib.XTrader.Control
         /// <summary>
         /// 涨跌
         /// </summary>
-        [Description("涨跌")]
+        [Description("涨跌%")]
         CHANGE,
         /// <summary>
         /// 涨幅
@@ -138,6 +138,18 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         [Description("时间")]
         TIME,
+
+        /// <summary>
+        /// 行情更新时间
+        /// </summary>
+        [Description("市盈率")]
+        PE,
+
+        /// <summary>
+        /// 行情更新时间
+        /// </summary>
+        [Description("总金额")]
+        AMOUNT,
 
     }
 }

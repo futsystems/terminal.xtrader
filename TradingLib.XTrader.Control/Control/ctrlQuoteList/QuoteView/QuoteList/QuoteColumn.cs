@@ -15,7 +15,7 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        static string GetEnumDescription(object e)
+        public static string GetEnumDescription(object e)
         {
             //获取字段信息 
             System.Reflection.FieldInfo[] ms = e.GetType().GetFields();
@@ -79,7 +79,7 @@ namespace TradingLib.XTrader.Control
         /// <summary>
         /// 标体头
         /// </summary>
-        public string Title { get; private set;}
+        public string Title { get; set;}
 
         /// <summary>
         /// 字段类别

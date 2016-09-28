@@ -166,10 +166,15 @@ namespace TradingLib.XTrader.Stock
         void UnCheckAllButton()
         {
             btnBuy.Checked = false;
+            btnBuy.ForeColor = Color.Black;
             btnSell.Checked = false;
+            btnSell.ForeColor = Color.Black;
             btnCancel.Checked = false;
+            btnCancel.ForeColor = Color.Black;
             btnTodayTrade.Checked = false;
+            btnTodayTrade.ForeColor = Color.Black;
             btnPosition.Checked = false;
+            btnPosition.ForeColor = Color.Black;
         }
 
         /// <summary>
@@ -205,6 +210,7 @@ namespace TradingLib.XTrader.Stock
             p.Mode = 0;
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
             btnBuy.Checked = true;
+            btnBuy.ForeColor = Color.Red;
         }
 
         void OpenPageSell(TreeNode node)
@@ -213,6 +219,7 @@ namespace TradingLib.XTrader.Stock
             p.Mode = 1;
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
             btnSell.Checked = true;
+            btnSell.ForeColor = Color.Red;
         }
         void OpenPageBuySell(TreeNode node)
         {
@@ -226,6 +233,7 @@ namespace TradingLib.XTrader.Stock
             PageSTKOrderCancel p = node.Tag as PageSTKOrderCancel;
             ShowPage(PageTypes.PAGE_ORDER_CANCEL);
             btnCancel.Checked = true;
+            btnCancel.ForeColor = Color.Red;
         }
 
         void OpenPageOrderToday(TreeNode node)
@@ -240,6 +248,7 @@ namespace TradingLib.XTrader.Stock
             PageSTKTradeToday p = node.Tag as PageSTKTradeToday;
             ShowPage(PageTypes.PAGE_TRADE_TODAY);
             btnTodayTrade.Checked = true;
+            btnTodayTrade.ForeColor = Color.Red;
         }
 
         void OpenPageOrderHist(TreeNode node)
@@ -260,6 +269,7 @@ namespace TradingLib.XTrader.Stock
             ShowPage(PageTypes.PAGE_ACCOUNT_POSITION);
             p.QryAccountFinance();
             btnPosition.Checked = true;
+            btnPosition.ForeColor = Color.Red;
         }
         void OpenPageDelivery(TreeNode node)
         {
@@ -320,6 +330,11 @@ namespace TradingLib.XTrader.Stock
             menuTree.Nodes.Add(node_pass);
 
 
+            TreeNode node_search_account = new TreeNode("资金股票");
+            node_search_account.ImageIndex = 6;
+            node_search_account.SelectedImageIndex = 6;
+            node_search_account.Tag = GetPage(PageTypes.PAGE_ACCOUNT_POSITION);
+            node_search.Nodes.Add(node_search_account);
 
             TreeNode node_search_todayorder = new TreeNode("当日委托");
             node_search_todayorder.ImageIndex = 6;
@@ -346,11 +361,7 @@ namespace TradingLib.XTrader.Stock
             node_search_histtrade.Tag = GetPage(PageTypes.PAGE_TRADE_HIST);
             node_search.Nodes.Add(node_search_histtrade);
 
-            TreeNode node_search_account = new TreeNode("资金股票");
-            node_search_account.ImageIndex = 6;
-            node_search_account.SelectedImageIndex = 6;
-            node_search_account.Tag = GetPage(PageTypes.PAGE_ACCOUNT_POSITION);
-            node_search.Nodes.Add(node_search_account);
+            
 
 
             TreeNode node_search_delivery = new TreeNode("交割单");
@@ -391,19 +402,19 @@ namespace TradingLib.XTrader.Stock
                 switch (e.Node.Index)
                 {
                     case 0:
-                        OpenPageOrderToday(e.Node);
+                        OpenPageAccount(e.Node);
                         return;
                     case 1:
-                        OpenPageTradeToday(e.Node);
+                        OpenPageOrderToday(e.Node);
                         return;
                     case 2:
-                        OpenPageOrderHist(e.Node);
+                        OpenPageTradeToday(e.Node);
                         return;
                     case 3:
-                        OpenPageTradeHist(e.Node);
+                        OpenPageOrderHist(e.Node);
                         return;
                     case 4:
-                        OpenPageAccount(e.Node);
+                        OpenPageTradeHist(e.Node);
                         return;
                     case 5:
                         OpenPageDelivery(e.Node);
@@ -429,6 +440,7 @@ namespace TradingLib.XTrader.Stock
                 (page as PageSTKOrderEntry).Mode = 0;
                 ShowPage(PageTypes.PAGE_ORDER_ENTRY);
                 btnBuy.Checked = true;
+                btnBuy.ForeColor = Color.Red;
             }
         }
 
@@ -440,6 +452,7 @@ namespace TradingLib.XTrader.Stock
                 (page as PageSTKOrderEntry).Mode = 1;
                 ShowPage(PageTypes.PAGE_ORDER_ENTRY);
                 btnSell.Checked = true;
+                btnSell.ForeColor = Color.Red;
             }
         }
         void btnBuy_Click(object sender, EventArgs e)
@@ -462,6 +475,7 @@ namespace TradingLib.XTrader.Stock
                 PageSTKAccountPosition p = page as PageSTKAccountPosition;
                 p.QryAccountFinance();
                 btnPosition.Checked = true;
+                btnPosition.ForeColor = Color.Red;
             }
         }
 
@@ -472,6 +486,7 @@ namespace TradingLib.XTrader.Stock
             {
                 ShowPage(PageTypes.PAGE_TRADE_TODAY);
                 btnTodayTrade.Checked = true;
+                btnTodayTrade.ForeColor = Color.Red;
             }
         }
 
@@ -482,13 +497,23 @@ namespace TradingLib.XTrader.Stock
             {
                 ShowPage(PageTypes.PAGE_ORDER_CANCEL);
                 btnCancel.Checked = true;
+                btnCancel.ForeColor = Color.Red;
             }
         }
 
 
+        DateTime lastRefresh = DateTime.Now;
+        bool refreshed = false;
         void btnRefresh_Click(object sender, EventArgs e)
         {
+            if (refreshed &&DateTime.Now.Subtract(lastRefresh).TotalSeconds < 10)
+            {
+                MessageBox.Show("请勿频繁刷新数据");
+                return;
+            }
             CoreService.TradingInfoTracker.ResumeData();
+            lastRefresh = DateTime.Now;
+            refreshed = true;
         }
 
 

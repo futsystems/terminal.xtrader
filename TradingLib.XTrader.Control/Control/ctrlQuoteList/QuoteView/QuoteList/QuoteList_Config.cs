@@ -49,6 +49,8 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.HIGH, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LOW, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.PRECLOSE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.PE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.AMOUNT, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.AVGPRICE, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.BSIDE,7));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SSIDE, 7));
@@ -107,18 +109,50 @@ namespace TradingLib.XTrader.Control
                         column.Visible = true;
                         column.Index = cfg.Index;
                         column.Width = (int)Math.Ceiling(cfg.Width * this.DefaultQuoteStyle.FontWidth);
+                        column.Title = GetColumnTitle(type,column);
+                        
                     }
+
                 }
 
                 //重新获得可视列 集合
                 visibleColumns = totalColumns.Where(c => c.Visible).OrderBy(c => c.Index).ToList();
-
             }
+
 
             //计算列起点 总宽等参数
             CalcColunmStartX();
             //重置所有绘图区域
             this.ResetRect();
         }
+
+
+        /// <summary>
+        /// 根据不同类型的面板显示类型 调整列头数据
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="column"></param>
+        /// <returns></returns>
+        string GetColumnTitle(EnumQuoteListType type,QuoteColumn column)
+        {
+            switch (type)
+            {
+                case EnumQuoteListType.STOCK_CN:
+                    {
+                        if (column.FieldType == EnumFileldType.LAST) return "现价";
+                        if (column.FieldType == EnumFileldType.LASTSIZE) return "现量";
+                        if (column.FieldType == EnumFileldType.VOL) return "总量";
+                        if (column.FieldType == EnumFileldType.OPEN) return "今开";
+
+                        break;
+                    }
+                default:
+                    break;
+            }
+            //使用默认Title
+            return QuoteColumn.GetEnumDescription(column.FieldType);
+        }
+
+
     }
 }

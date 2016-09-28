@@ -145,14 +145,19 @@ namespace TradingLib.XTrader.Stock
         {
             if (obj == null) return;
             if (_symbol == null || _symbol.Symbol != obj.Symbol || _symbol.Exchange != obj.Exchange) return;
-            AdjustInputControl();
+
+            //如果价格为0 则根据方向自动填写当前最优盘口价格
+            if (price.Value == 0)
+            {
+                price.Value = _side ? obj.AskPrice : obj.BidPrice;
+            }
+            
         }
 
         
 
 
         Symbol _symbol = null;
-        bool _inputControlAdjuestd = false;
         /// <summary>
         /// 响应合约选择事件
         /// 设置合约名称 并设置当前价格
@@ -161,25 +166,20 @@ namespace TradingLib.XTrader.Stock
         /// <param name="arg2"></param>
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-
-            //if (arg2 == null)
-            //{
-            //    //_symbol = null;
-            //    //lbSymbolName.Text = "--";
-            //    //lbMoneyAvabile.Text = "0";
-            //    //price.Maximum = 0;
-            //    //price.Minimum = 0;
-            //    //price.DecimalPlaces = 0;
-            //    //price.Increment = 0;
-            //    //price.Value = 0;
-            //    //btnSubmit.Enabled = false;
-            //    //return;
-            //}
             if (arg2!=null && (_symbol == null || _symbol.Symbol != arg2.Symbol))
             {
                 _symbol = arg2;
-                _inputControlAdjuestd = false;
-                AdjustInputControl();
+
+                lbSymbolName.Text = _symbol.GetName();
+                price.Value = 0;
+
+                Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
+                if (k != null)
+                {
+                    price.Value = _side ? k.AskPrice : k.BidPrice;
+                }
+
+                btnSubmit.Enabled = true;
                 //查询最大可开委托数量
                 QryMaxOrderVol();
                 //查询可用资金
@@ -193,56 +193,35 @@ namespace TradingLib.XTrader.Stock
             _symbol = null;
             lbSymbolName.Text = "--";
             lbMoneyAvabile.Text = "0";
-            price.Maximum = 10000;
-            price.Minimum = 0;
-            price.DecimalPlaces = 2;
-            price.Increment = 0.1M;
             price.Value = 0;
             btnSubmit.Enabled = false;
         }
 
-        /// <summary>
-        /// 根据当前合约调整输入控件相关属性
-        /// </summary>
-        void AdjustInputControl()
-        {
-            if (_symbol == null) return;
-            if (_inputControlAdjuestd) return;
-            lbSymbolName.Text = _symbol.GetName();
-            price.Value = 0;
+        ///// <summary>
+        ///// 根据当前合约调整输入控件相关属性
+        ///// </summary>
+        //void AdjustInputControl()
+        //{
+        //    if (_symbol == null) return;
+        //    if (_inputControlAdjuestd) return;
+        //    lbSymbolName.Text = _symbol.GetName();
+        //    price.Value = 0;
 
-            Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
-            if (k != null)
-            {
-                price.Value = _side ? k.AskPrice : k.BidPrice;
-                _inputControlAdjuestd = true;
-                btnSubmit.Enabled = true;
+        //    Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
+        //    if (k != null)
+        //    {
+        //        price.Value = _side ? k.AskPrice : k.BidPrice;
+        //        _inputControlAdjuestd = true;
+        //        btnSubmit.Enabled = true;
 
-            }
-            //if (k != null)
-            //{
-
-            //    price.DecimalPlaces = _symbol.SecurityFamily.GetDecimalPlaces();
-            //    price.Increment = _symbol.SecurityFamily.PriceTick;
-            //    price.Value = _side ? k.AskPrice : k.BidPrice;
-
-            //    //查询最大可开委托数量
-            //    QryMaxOrderVol();
-
-            //    _inputControlAdjuestd = true;
-            //    btnSubmit.Enabled = true;
-            //}
-
-            //price.Maximum = k != null ? k.UpperLimit : 10000;
-            //price.Minimum = k != null ? k.LowerLimit : 0;
-            
-        }
+        //    }
+        //}
 
         int qryMaxOrderId = 0;
         void QryMaxOrderVol()
         {
             if (_symbol == null) return;
-            qryMaxOrderId = CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange,_symbol.Symbol);
+            qryMaxOrderId = CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange,_symbol.Symbol,_side);
         }
 
         int qryAccountFinanceId = 0;
@@ -314,6 +293,8 @@ namespace TradingLib.XTrader.Stock
 
         public void SetSymbol(string exchange, string sym)
         {
+            if (exchange == "SSE") cbStockAccount.SelectedIndex = 0;
+            if (exchange == "SZE") cbStockAccount.SelectedIndex = 1;
             symbol.Text = sym;
         }
 
@@ -386,8 +367,11 @@ namespace TradingLib.XTrader.Stock
                 lbMaxSize.ForeColor = LabelColor;
                 btnSubmit.ForeColor = LabelColor;
 
-                _inputControlAdjuestd = false;
-                AdjustInputControl();
+                //查询最大可开委托数量
+                QryMaxOrderVol();
+                //查询可用资金
+                QryAccountFinance();
+
                 Invalidate();
             }
         }
