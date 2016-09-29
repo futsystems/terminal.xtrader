@@ -164,14 +164,14 @@ namespace TradingLib.XTrader.Control
             foreach (var cell in _columeCellMap.Values)
             {
                 //行情没有最新价 则该合约处于停盘或其他情况
-                //if(!_symbol.TickSnapshot.IsValid())
-                //{
-                //    if (cell.Column.FieldType != EnumFileldType.PRECLOSE)//
-                //    {
-                //        continue;
-                //    }
+                if (!_symbol.TickSnapshot.IsValid())
+                {
+                    if (cell.Column.FieldType != EnumFileldType.PRECLOSE)//
+                    {
+                        continue;
+                    }
 
-                //}
+                }
                 switch (cell.Column.FieldType)
                 {
                     case EnumFileldType.PRECLOSE:

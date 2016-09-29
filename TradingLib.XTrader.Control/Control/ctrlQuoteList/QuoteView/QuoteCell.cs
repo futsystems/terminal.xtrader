@@ -103,8 +103,12 @@ namespace TradingLib.XTrader.Control
                     break;
                 case EnumFileldType.PRESETTLEMENT:
                 case EnumFileldType.PRECLOSE:
+                    _cellStyle.FontColor = Color.Silver;
+                    _dispformat = "{0:F2}";
+                    break;
                 case EnumFileldType.PREOI:
                     _cellStyle.FontColor = Color.Silver;
+                    _dispformat = "{0:F0}";
                     break;
                 case EnumFileldType.SSIDE:
                     _cellStyle.FontColor = row._quotelist.DefaultQuoteStyle.UPColor;

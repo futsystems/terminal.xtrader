@@ -14,6 +14,13 @@ using TradingLib.MarketData;
 
 namespace DataAPI.TDX
 {
+    class RawData
+    {
+        public TGPNAME TGPNAME;
+        public PowerData PowerData;
+        public FinanceData FinanceData;
+    }
+
     public partial class TDXDataAPI : IMarketDataAPI
     {
         ILog logger = LogManager.GetLogger("TDXDataAPI");
@@ -228,9 +235,7 @@ namespace DataAPI.TDX
                 if (!MDService.Initialized && respone.LoginSuccess)
                 {
                     //初始化数据查询
-                    this.InitSymbol();
-                    //this.InitFinance();
-                    //this.InitPower();
+                    InitBasicData();
                     //调用初始化完毕 该操作修改相关状态并对外出发初始化完毕事件
                     MDService.Initialize();
                 }
@@ -261,6 +266,20 @@ namespace DataAPI.TDX
         public IEnumerable<MDSymbol> Symbols { get { return symbolMap.Values; } }
 
         #region 初始化操作
+
+        Dictionary<string,RawData> rawDataMap = new Dictionary<string,RawData>();
+
+        RawData GetRawData(string exchange, string symbol)
+        {
+            RawData target = null;
+            string key = string.Format("{0}-{1}", exchange, symbol);
+            if (!rawDataMap.TryGetValue(key, out target))
+            {
+                rawDataMap.Add(key, new RawData());
+            }
+            return rawDataMap[key];
+
+        }
         /// <summary>
         /// 初始化合约信息
         /// </summary>
@@ -269,7 +288,7 @@ namespace DataAPI.TDX
 
             int i,count,n,j;
             MDService.EventHub.FireInitializeStatusEvent("深圳代码初始化");
-            ConvertHzToPz_Gb2312 htp = new ConvertHzToPz_Gb2312();
+            //ConvertHzToPz_Gb2312 htp = new ConvertHzToPz_Gb2312();
             byte[] a1 = { 0xC, 0xC, 0x18, 0x6C, 0x0, 0x1, 0x8, 0x0, 0x8, 0x0, 0x4E, 0x4, 0x0, 0x0, 0x1, 0x2, 0x3, 0x4 };
             byte[] b1;
             b1 = BitConverter.GetBytes(stkDate);
@@ -280,12 +299,9 @@ namespace DataAPI.TDX
             byte[] RecvBuffer = null;
             if (Command(a1, a1.Length, ref RecvBuffer))
             {
-                //count = RecvBr.ReadUInt16();
                 i = 0;
                 count = TDX.TDXDecoder.TDXGetInt16(RecvBuffer, i, ref i);// RecvBr.ReadUInt16();
                 i = 0;
-                //FlashWindow.JinDu.Minimum = 0;
-                //FlashWindow.JinDu.Maximum = count;
                 logger.Info(string.Format("ShengZheng Market have {0} stocks", count));
                 while (i < count)
                 {
@@ -313,7 +329,7 @@ namespace DataAPI.TDX
 
                             symbol.Name = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.name);
                             symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
-                            symbol.Key = htp.Convert(symbol.Name);
+                            symbol.Key = ConvertHzToPz_Gb2312.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
                             symbol.Exchange = ConstsExchange.EXCH_SZE;
                             symbol.BlockType = TDXDecoder.GetStockType(0, symbol.Symbol).ToString();
@@ -322,6 +338,9 @@ namespace DataAPI.TDX
                             symbolMap[symbol.UniqueKey] = symbol;
                             symbolList.Add(symbol);
 
+                            RawData rd = GetRawData(symbol.Exchange, symbol.Symbol);
+                            rd.TGPNAME = gname;
+                            rd.TGPNAME.w3 = (ushort)0;
                             pp = pp + Marshal.SizeOf(type);
                             //logger.Info(string.Format("ID:{0} Symbol:{1} Name:{2}", ncode, codes, names));
                         }
@@ -369,13 +388,18 @@ namespace DataAPI.TDX
 
                             symbol.Name = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.name);
                             symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
-                            symbol.Key = htp.Convert(symbol.Name);
+                            symbol.Key = ConvertHzToPz_Gb2312.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
                             symbol.Exchange = ConstsExchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
                             symbolMap[symbol.UniqueKey] = symbol;
                             symbolList.Add(symbol);
+
+
+                            RawData rd = GetRawData(symbol.Exchange, symbol.Symbol);
+                            rd.TGPNAME = gname;
+                            rd.TGPNAME.w3 = (ushort)1;
                             pp = pp + Marshal.SizeOf(type);
                             //logger.Info(string.Format("ID:{0} Symbol:{1} Name:{2} PriceMag:{3} Rate:{4} YClose:{5}", ncode, codes, names, gname.PriceMag, gname.rate, gname.YClose));
                         }
@@ -452,6 +476,8 @@ namespace DataAPI.TDX
                                     target.FinanceData.zl[k] = RecvBr.ReadSingle();
                                 }
                             }
+                            RawData rd = GetRawData(target.Exchange, target.Symbol);
+                            rd.FinanceData = target.FinanceData;
                         }
                     }
                     RecvBr.Close();
@@ -558,6 +584,8 @@ namespace DataAPI.TDX
                                     ii = ii + 29;
                                 }
                             }
+                            RawData rd = GetRawData(target.Exchange, target.Symbol);
+                            rd.PowerData = target.PowerData;
 
                         }
                     }
@@ -569,6 +597,96 @@ namespace DataAPI.TDX
                 i = i + Len;
             }
             MDService.EventHub.FireInitializeStatusEvent("权息初始化完成");
+            SaveRawData();
+        }
+
+
+        string GetBaseFileName()
+        {
+            return Path.Combine(new string[] { AppDomain.CurrentDomain.BaseDirectory, "base.dat" });
+        }
+        void InitBasicData()
+        {
+            string fn = GetBaseFileName();
+            if (File.Exists(fn))
+            {
+                using (Stream fs2 = File.Open(fn, FileMode.Open))
+                {
+                    BinaryReader br1 = new BinaryReader(fs2);
+                    int datetime1 = br1.ReadInt32();
+                    if (datetime1 == stkDate)
+                    {
+                        MDService.EventHub.FireInitializeStatusEvent("初始化数据");
+                        int cnt = br1.ReadInt32();
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            MDSymbol symbol = new MDSymbol();
+
+                            byte[] bb1 = br1.ReadBytes(Marshal.SizeOf(typeof(TGPNAME)));
+                            TGPNAME gname = (TGPNAME)TDX.TDXDecoder.BytesToStuct(bb1, 0, typeof(TGPNAME));
+
+                            symbol.Name = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.name);
+                            symbol.Symbol = System.Text.Encoding.GetEncoding("GB2312").GetString(gname.code);
+                            symbol.Key = ConvertHzToPz_Gb2312.Convert(symbol.Name);
+                            symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, gname.w3);
+                            symbol.Exchange = gname.w3 == 0 ? ConstsExchange.EXCH_SZE : ConstsExchange.EXCH_SSE;
+                            symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
+                            symbol.PreClose = gname.YClose;
+
+
+
+                            byte[] bb2 = br1.ReadBytes(Marshal.SizeOf(typeof(FinanceData)));
+                            symbol.FinanceData = (FinanceData)TDX.TDXDecoder.BytesToStuct(bb2, 0, typeof(FinanceData));
+
+                            byte[] bb3 = br1.ReadBytes(Marshal.SizeOf(typeof(PowerData)));
+                            symbol.PowerData = (PowerData)TDX.TDXDecoder.BytesToStuct(bb3, 0, typeof(PowerData));
+
+                            symbolMap[symbol.UniqueKey] = symbol;
+                            symbolList.Add(symbol);
+                            MDService.EventHub.FireInitializeStatusEvent("初始化数据:" + ((double)i / (double)cnt).ToString("0%"));
+                        }
+                        //初始化完毕后返回
+                        return;
+                    }
+                }
+            }
+            //没有文件或者日期不相等 则从接口初始化数据 并保存最新数据
+            this.InitSymbol();
+            this.InitFinance();
+            this.InitPower();
+            this.SaveRawData();
+        
+        }
+
+
+        void SaveRawData()
+        {
+            string fn = GetBaseFileName();
+            using (Stream fs1 = File.Create(fn))
+            {
+                byte[] dbyte = BitConverter.GetBytes(stkDate);
+                fs1.Write(dbyte, 0, dbyte.Length);
+                byte[] lenbyte = BitConverter.GetBytes(rawDataMap.Count);
+                fs1.Write(lenbyte, 0, lenbyte.Length);
+
+                int pp = 0;
+                MDService.EventHub.FireInitializeStatusEvent("保存基础数据");
+                for (int k = 0; k < rawDataMap.Count; k++)
+                {
+
+                    byte[] b1 = TDX.TDXDecoder.StructToBytes(rawDataMap.ElementAt(k).Value.TGPNAME);
+                    fs1.Write(b1, 0, b1.Length);
+                    byte[] b2 = TDX.TDXDecoder.StructToBytes(rawDataMap.ElementAt(k).Value.FinanceData);
+                    fs1.Write(b2, 0, b2.Length);
+                    byte[] b3 = TDX.TDXDecoder.StructToBytes(rawDataMap.ElementAt(k).Value.PowerData);
+                    fs1.Write(b3, 0, b3.Length);
+                    pp++;
+                    MDService.EventHub.FireInitializeStatusEvent("保存基础数据:" + ((double)k / (double)rawDataMap.Count).ToString("0%"));
+                }
+                fs1.Close();
+            }
+
+            
         }
         #endregion
 

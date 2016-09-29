@@ -500,7 +500,7 @@ public class ConvertHzToPz_Gb2312
     new string[]{"Zuo","做作坐左座昨凿琢撮佐笮酢唑祚胙怍阼柞乍侳咗岝岞挫捽柮椊砟秨稓筰糳繓苲莋葃葄蓙袏諎醋鈼鑿飵嘬阝"}
    };
     #endregion
-    public string Convert(string str)
+    public static string Convert(string str)
     {
         if (str == null)
             return null;
