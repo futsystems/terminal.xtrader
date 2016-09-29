@@ -358,6 +358,7 @@
     </Compile>
     <Compile Include="TStringList.cs" />
     <Compile Include="UIConstant.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="xline.cs" />
   </ItemGroup>
   <ItemGroup>

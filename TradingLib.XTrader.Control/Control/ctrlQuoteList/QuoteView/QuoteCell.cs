@@ -34,6 +34,8 @@ namespace TradingLib.XTrader.Control
         string _time="00:00:00";
         public string Time { get { return _time; } set { _time = value; } }
 
+        string _str = "—";
+        public string String { get { return _str; } set { _str = value; } }
         double _value;
         public double Value { get { return _value; } set { _value = value; } }
 
@@ -101,6 +103,9 @@ namespace TradingLib.XTrader.Control
                 case EnumFileldType.CHANGEPECT:
                     _dispformat = "{0:F2}";
                     break;
+                case EnumFileldType.AMOUNT:
+                    _cellStyle.FontColor = Color.FromArgb(0, 255, 255);
+                    break;
                 case EnumFileldType.PRESETTLEMENT:
                 case EnumFileldType.PRECLOSE:
                     _cellStyle.FontColor = Color.Silver;
@@ -117,6 +122,10 @@ namespace TradingLib.XTrader.Control
                 case EnumFileldType.BSIDE:
                     _cellStyle.FontColor = row._quotelist.DefaultQuoteStyle.DNColor;
                     _dispformat = "{0:F0}";
+                    break;
+                case EnumFileldType.PE:
+                    _cellStyle.FontColor = Color.Silver;
+                    _dispformat = "{0:F2}";
                     break;
                 default:
                     break;
@@ -191,6 +200,10 @@ namespace TradingLib.XTrader.Control
             else if (_column.FieldType == EnumFileldType.TIME)
             {
                 g.DrawString(this.Time, CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2, _cellStyle.DrawFormat);
+            }
+            else if (_column.FieldType == EnumFileldType.AMOUNT)
+            {
+                g.DrawString(this.String, CellStyle.QuoteFont, CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.SymbolFont.Height) / 2, _cellStyle.DrawFormat);
             }
             else
             {

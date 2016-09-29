@@ -390,21 +390,21 @@ namespace CStock
             Cell[9].ForeColor = symbol.TickSnapshot.Low > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
 
             Cell[3].Text = String.Format("{0:F0}", symbol.TickSnapshot.Size);
-            double d1 = symbol.TickSnapshot.Volume;
+            double d1 = symbol.TickSnapshot.Volume;//均价
             if (d1 > 0)
             {
                 double d2 = (symbol.TickSnapshot.Amount / symbol.TickSnapshot.Volume) / 100.0;
                 Cell[10].Text = String.Format(_format, d2);
                 Cell[10].ForeColor = d2 > symbol.TickSnapshot.PreClose ? Constants.ColorUp : Constants.ColorDown;
             }
-            double d3 = symbol.TickSnapshot.Amount;
+            double d3 = symbol.TickSnapshot.Amount; //总额
             if (d3 > 100000000)
             {
                 Cell[4].Text = String.Format("{0:F2}亿", symbol.TickSnapshot.Amount / 100000000);
             }
             else
                 Cell[4].Text = String.Format("{0:F0}万", symbol.TickSnapshot.Amount / 10000);
-            if (d1 > 1000000)
+            if (d1 > 1000000)//总量
             {
                 d1 = d1 / 10000;
                 Cell[11].Text = String.Format("{0:F1}万", d1);
@@ -415,9 +415,9 @@ namespace CStock
             f2 = 0.1;
             if (symbol.Symbol.IndexOf("ST") > -1)
                 f2 = 0.05;
-            Cell[5].Text = String.Format(_format, symbol.TickSnapshot.PreClose * (1 + f2));
+            Cell[5].Text = String.Format(_format, symbol.TickSnapshot.PreClose * (1 + f2));//涨停
             Cell[5].ForeColor = Constants.ColorUp;
-            Cell[12].Text = String.Format(_format, symbol.TickSnapshot.PreClose * (1 - f2));
+            Cell[12].Text = String.Format(_format, symbol.TickSnapshot.PreClose * (1 - f2));//跌停
             Cell[12].ForeColor = Constants.ColorDown;
             Cell[6].Text = String.Format("{0:F0}", symbol.TickSnapshot.S);
             Cell[6].ForeColor = Color.Red;

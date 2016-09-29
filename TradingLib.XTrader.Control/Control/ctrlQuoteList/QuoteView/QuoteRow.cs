@@ -243,6 +243,18 @@ namespace TradingLib.XTrader.Control
                     case EnumFileldType.EXCHANGE:
                         break;
                     case EnumFileldType.AVGPRICE:
+                        if (_symbol.TickSnapshot.Volume > 0)
+                        {
+                            double avgprice = (_symbol.TickSnapshot.Amount / _symbol.TickSnapshot.Volume) / 100.0; //股票1手=100股
+                            cell.Value = avgprice;
+                            cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, _symbol.TickSnapshot.PreClose);
+                        }
+                        break;
+                    case EnumFileldType.AMOUNT:
+                        if(_symbol.TickSnapshot.Amount > 0)
+                        {
+                            cell.String = Util.GetAmountFormated(_symbol.TickSnapshot.Amount);
+                        }
                         break;
                     case EnumFileldType.BSIDE:
                         cell.Value = _symbol.TickSnapshot.B;
@@ -252,6 +264,18 @@ namespace TradingLib.XTrader.Control
                         break;
                     case EnumFileldType.TIME:
                         cell.Time = Utils.ToDateTime(0, _symbol.TickSnapshot.Time).ToString("HH:MM:ss");
+                        break;
+                    case EnumFileldType.PE:
+                        {
+                            double f2 = 0;
+                            if (_symbol.FinanceData.zl[26] > 0)
+                                f2 = _symbol.FinanceData.zl[26] / _symbol.FinanceData.zl[0] / 10;
+                            if ((f2 > 0) && (_symbol.FinanceData.zl[29] > 0))
+                            {
+                                f2 = _symbol.TickSnapshot.Price / (f2 / _symbol.FinanceData.zl[29] * 12);
+                                cell.Value = f2;
+                            }
+                        }
                         break;
                     default:
                         break;

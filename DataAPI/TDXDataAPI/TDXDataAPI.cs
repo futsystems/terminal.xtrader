@@ -630,7 +630,7 @@ namespace DataAPI.TDX
                             symbol.Key = ConvertHzToPz_Gb2312.Convert(symbol.Name);
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, gname.w3);
                             symbol.Exchange = gname.w3 == 0 ? ConstsExchange.EXCH_SZE : ConstsExchange.EXCH_SSE;
-                            symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
+                            symbol.BlockType = TDXDecoder.GetStockType(gname.w3, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
 
 
