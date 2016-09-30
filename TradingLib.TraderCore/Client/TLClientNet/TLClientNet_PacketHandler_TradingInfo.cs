@@ -1,10 +1,12 @@
-﻿using TradingLib.API;
+﻿using System.Collections.Generic;
+using TradingLib.API;
 using TradingLib.Common;
 
 namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
+        List<Tick> klist = new List<Tick>();
         #region 实时交易数据回报处理
         /// <summary>
         /// 响应行情
@@ -12,6 +14,11 @@ namespace TradingLib.TraderCore
         /// <param name="response"></param>
         void CliOnTickNotify(TickNotify response)
         {
+            if (response.Tick.Symbol == "000002")
+            {
+                int i = 0;
+                klist.Add(response.Tick);
+            }
             CoreService.EventIndicator.FireTick(response.Tick);
         }
 

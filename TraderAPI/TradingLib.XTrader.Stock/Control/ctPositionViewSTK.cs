@@ -33,13 +33,11 @@ namespace TradingLib.XTrader.Stock
             BindToTable();
 
             this.positionGrid.SizeChanged += new EventHandler(positionGrid_SizeChanged);
+            this.positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
             this.Load += new EventHandler(ctPositionViewSTK_Load);
         }
 
-        void positionGrid_SizeChanged(object sender, EventArgs e)
-        {
-            ResetColumeSize();
-        }
+       
 
         void ctPositionViewSTK_Load(object sender, EventArgs e)
         {
@@ -208,7 +206,13 @@ namespace TradingLib.XTrader.Stock
             return i;
         }
 
-
+        string GetExchangeTitle(Symbol symbol)
+        {
+            if (symbol == null) return "";
+            if (symbol.Exchange == "SSE") return "上证";
+            if (symbol.Exchange == "SZE") return "深证";
+            return "";
+        }
         public void GotPosition(Position pos)
         {
             if (InvokeRequired)
@@ -229,7 +233,7 @@ namespace TradingLib.XTrader.Stock
 
                     tb.Rows[i][LASTPRICE] = pos.FormatPrice(pos.LastPrice);
                     tb.Rows[i][MARKETVALUE] = pos.CalcPositionMarketValue().ToFormatStr();
-                    
+                    tb.Rows[i][EXCHANGE] = GetExchangeTitle(pos.oSymbol);
 
                 }
                 else
@@ -346,7 +350,35 @@ namespace TradingLib.XTrader.Stock
             }
         }
 
+        Color GetProfitColor(decimal profit)
+        {
+            if (profit > 0) return UIConstant.LongSideColor;
+            if(profit<0) return UIConstant.ShortSideColor;
+            return Color.Black;
+        }
+        void positionGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 9 || e.ColumnIndex ==11)
+                {
+                    decimal profit = 0;
+                    decimal.TryParse(positionGrid[9, e.RowIndex].Value.ToString(), out profit);
+                    e.CellStyle.ForeColor = GetProfitColor(profit);//> 0 ? UIConstant.LongSideColor : UIConstant.ShortSideColor;
+                }
 
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error("cell format error:" + ex.ToString());
+            }
+        }
+
+        void positionGrid_SizeChanged(object sender, EventArgs e)
+        {
+            ResetColumeSize();
+        }
 
         const string POSKEY = "持仓键";
         const string SYMBOLKEY = "合约键";
@@ -360,9 +392,9 @@ namespace TradingLib.XTrader.Stock
         const string AVABILESIZE = "可用余额";
         const string FRONZENSIZE = "冻结数量";
 
-        const string POSITIONPROFIT = "盈亏";
+        const string POSITIONPROFIT = "盈亏";//9
         const string AVGPRICE = "成本价";
-        const string POSITIONPROFITPECT = "盈亏比例(%)";
+        const string POSITIONPROFITPECT = "盈亏比例(%)";//11
         const string LASTPRICE="市价";
         const string MARKETVALUE = "市值";
         const string EXCHANGE = "交易市场";

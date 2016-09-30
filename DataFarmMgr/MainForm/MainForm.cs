@@ -18,7 +18,7 @@ namespace TradingLib.DataFarmManager
     {
         ILog logger = LogManager.GetLogger("MainForm");
 
-        TradingLib.MDClient.MDClient mdClient = null;
+       
 
         DebugForm debugForm = null;
         public MainForm()
@@ -29,6 +29,8 @@ namespace TradingLib.DataFarmManager
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(Debug);
 
             WireEvent();
+
+            InitMenu();
 
             InitControl();
 
@@ -63,10 +65,10 @@ namespace TradingLib.DataFarmManager
             {
                 logger.Info("MDClient Inited");
 
-                ctrlQuoteList.SetSymbols(mdClient.MDSymbols);
+                ctrlQuoteList.SetSymbols(CoreService.MDClient.MDSymbols);
                 ctrlQuoteList.SelectTab(0);
 
-                foreach (var exchange in mdClient.Exchanges)
+                foreach (var exchange in CoreService.MDClient.Exchanges)
                 {
                     string k = exchange.EXCode;
 

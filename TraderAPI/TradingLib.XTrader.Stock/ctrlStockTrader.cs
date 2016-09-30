@@ -207,6 +207,7 @@ namespace TradingLib.XTrader.Stock
         void OpenPageBuy(TreeNode node)
         {
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
+            //if(p.Mode !=0) //模式切换中有查询账户余查询下单数量操作 避免多次无用查询 由Page自己负责
             p.Mode = 0;
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
             btnBuy.Checked = true;
@@ -216,6 +217,7 @@ namespace TradingLib.XTrader.Stock
         void OpenPageSell(TreeNode node)
         {
             PageSTKOrderEntry p = node.Tag as PageSTKOrderEntry;
+            //if(p.Mode !=1)
             p.Mode = 1;
             ShowPage(PageTypes.PAGE_ORDER_ENTRY);
             btnSell.Checked = true;
@@ -291,20 +293,20 @@ namespace TradingLib.XTrader.Stock
         void InitMenuTree()
         {
             menuTree.ImageList = imageList1;
-            TreeNode node_buy = new TreeNode("买入[F1]");
+            TreeNode node_buy = new TreeNode("买 入");
             node_buy.ImageIndex = 1;
             node_buy.SelectedImageIndex = 1;
             node_buy.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
 
             menuTree.Nodes.Add(node_buy);
 
-            TreeNode node_sell = new TreeNode("卖出[F2]");
+            TreeNode node_sell = new TreeNode("卖 出");
             node_sell.ImageIndex = 2;
             node_sell.SelectedImageIndex = 2;
             node_sell.Tag = GetPage(PageTypes.PAGE_ORDER_ENTRY);
             menuTree.Nodes.Add(node_sell);
 
-            TreeNode node_cancel = new TreeNode("撤单[F3]");
+            TreeNode node_cancel = new TreeNode("撤 单");
             node_cancel.ImageIndex = 3;
             node_cancel.SelectedImageIndex = 3;
             node_cancel.Tag = GetPage(PageTypes.PAGE_ORDER_CANCEL);
@@ -317,7 +319,7 @@ namespace TradingLib.XTrader.Stock
             //menuTree.Nodes.Add(node_buysell);
 
 
-            TreeNode node_search = new TreeNode("查询[F4]");
+            TreeNode node_search = new TreeNode("查 询");
             node_search.ImageIndex = 5;
             node_search.SelectedImageIndex = 5;
             menuTree.Nodes.Add(node_search);
@@ -506,7 +508,7 @@ namespace TradingLib.XTrader.Stock
         bool refreshed = false;
         void btnRefresh_Click(object sender, EventArgs e)
         {
-            if (refreshed &&DateTime.Now.Subtract(lastRefresh).TotalSeconds < 10)
+            if (refreshed &&DateTime.Now.Subtract(lastRefresh).TotalSeconds < 3)
             {
                 MessageBox.Show("请勿频繁刷新数据");
                 return;

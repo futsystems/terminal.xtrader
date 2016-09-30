@@ -28,12 +28,14 @@ namespace TradingLib.XTrader.Stock
             this.deliveryGrid.Dock = DockStyle.Fill;
 
             this.Controls.Add(this.deliveryGrid);
-
+            this.deliveryGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(deliveryGrid_CellFormatting);
 
             InitTable();
             BindToTable();
 
         }
+
+ 
 
         /// <summary>
         /// 获得合约名称
@@ -75,12 +77,13 @@ namespace TradingLib.XTrader.Stock
                 int i = tb.Rows.Count - 1;//得到新建的Row号
                 tb.Rows[i][FILLDATE] = fill.xDate;
                 tb.Rows[i][SYMBOL] = fill.Symbol;
+                tb.Rows[i][SIDE] = fill.Side.ToString();
                 tb.Rows[i][SYMBOLNAME] = GetSymbolName(fill);
-                tb.Rows[i][REMARK] = "";
+                tb.Rows[i][REMARK] = fill.Side?"证券买入":"证券卖出";
                 tb.Rows[i][SIZE] = Math.Abs(fill.xSize);
                 tb.Rows[i][PRICE] = FormatPrice(fill, fill.xPrice);
                 tb.Rows[i][AMOUNT] = GetAmount(fill).ToFormatStr();
-                tb.Rows[i][AMOUNTEX] = 0;
+                tb.Rows[i][AMOUNTEX] = (GetAmount(fill) + fill.GetCommission()).ToFormatStr();
                 tb.Rows[i][COMMISSION] = fill.Commission.ToFormatStr();
                 tb.Rows[i][STAMPTAX] = fill.StampTax.ToFormatStr();
                 tb.Rows[i][TRANSFERFEE] = fill.TransferFee.ToFormatStr();
@@ -91,6 +94,7 @@ namespace TradingLib.XTrader.Stock
 
         const string FILLDATE = "成交日期";
         const string SYMBOL = "证券代码";
+        const string SIDE = "买/卖";
         const string SYMBOLNAME = "证券名称";
         const string REMARK = "摘要";
         const string SIZE = "成交数量";
@@ -114,6 +118,7 @@ namespace TradingLib.XTrader.Stock
         {
             tb.Columns.Add(FILLDATE);
             tb.Columns.Add(SYMBOL);
+            tb.Columns.Add(SIDE);
             tb.Columns.Add(SYMBOLNAME);
             tb.Columns.Add(REMARK);
             tb.Columns.Add(SIZE);
@@ -140,7 +145,7 @@ namespace TradingLib.XTrader.Stock
             //datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
 
-            //grid.Columns[ORDERID].Visible = false;
+            grid.Columns[SIDE].Visible = false;
             //grid.Columns[TRADEID].Visible = false;
             //grid.Columns[DATETIME].Visible = false;
 
@@ -162,6 +167,23 @@ namespace TradingLib.XTrader.Stock
             tb.Rows.Clear();
             BindToTable();
         }
+
+        void deliveryGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 4)
+                {
+                    bool side = bool.Parse(deliveryGrid[2, e.RowIndex].Value.ToString());
+                    e.CellStyle.ForeColor = side ? UIConstant.LongSideColor : UIConstant.ShortSideColor;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Info("Cell Format error:" + ex.ToString());
+            }
+        }
+
 
     }
 }

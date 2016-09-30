@@ -44,6 +44,7 @@ namespace TradingLib.XTrader.Stock
             //用于检查委托提交返回 并设置界面提交委托按钮有效 提交委托后 需要等对应委托回报到达后才可以再次提交委托 避免多次提交产生错误
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
+            CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
 
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
@@ -52,6 +53,8 @@ namespace TradingLib.XTrader.Stock
             symbol.TextChanged += new EventHandler(symbol_TextChanged);
             
         }
+
+       
 
        
 
@@ -66,13 +69,11 @@ namespace TradingLib.XTrader.Stock
         void EventOther_OnResumeDataEnd()
         {
             btnSubmit.Enabled = true;
-            btnReset.Enabled = true;
         }
 
         void EventOther_OnResumeDataStart()
         {
             btnSubmit.Enabled = false;
-            btnReset.Enabled = false;
         }
 
 
@@ -103,8 +104,26 @@ namespace TradingLib.XTrader.Stock
                 {
                     btnSubmit.Enabled = true;
                 }
+
+                if (obj.Status == QSEnumOrderStatus.Opened)
+                {
+                    QryMaxOrderVol();
+                    QryAccountFinance();
+                }
             }
         }
+
+        /// <summary>
+        /// 委托成交 发生资金变化重新查询最大可下单数量和账户财务信息
+        /// </summary>
+        /// <param name="obj"></param>
+        void EventIndicator_GotFillEvent(Trade obj)
+        {
+            QryMaxOrderVol();
+            QryAccountFinance();
+        }
+
+
 
         int _orderInesertId = 0;
         void btnSubmit_Click(object sender, EventArgs e)
@@ -168,10 +187,10 @@ namespace TradingLib.XTrader.Stock
         {
             if (arg2!=null && (_symbol == null || _symbol.Symbol != arg2.Symbol))
             {
-                _symbol = arg2;
 
+                _symbol = arg2;
                 lbSymbolName.Text = _symbol.GetName();
-                price.Value = 0;
+                SetSymbol(arg2.Exchange, arg2.Symbol,false);//1.合约输入框输入代码 触发自动查询并返回合约 2.行情联动直接设定下单面板合约(需要执行查询) 3.持仓面板双击持仓 设定下单面板合约
 
                 Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
                 if (k != null)
@@ -187,47 +206,18 @@ namespace TradingLib.XTrader.Stock
             }
         }
 
-        //重置
-        void Reset()
-        {
-            _symbol = null;
-            lbSymbolName.Text = "--";
-            lbMoneyAvabile.Text = "0";
-            price.Value = 0;
-            btnSubmit.Enabled = false;
-        }
+       
+        
 
-        ///// <summary>
-        ///// 根据当前合约调整输入控件相关属性
-        ///// </summary>
-        //void AdjustInputControl()
-        //{
-        //    if (_symbol == null) return;
-        //    if (_inputControlAdjuestd) return;
-        //    lbSymbolName.Text = _symbol.GetName();
-        //    price.Value = 0;
-
-        //    Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
-        //    if (k != null)
-        //    {
-        //        price.Value = _side ? k.AskPrice : k.BidPrice;
-        //        _inputControlAdjuestd = true;
-        //        btnSubmit.Enabled = true;
-
-        //    }
-        //}
 
         int qryMaxOrderId = 0;
+        /// <summary>
+        /// 查询最大交易数量
+        /// </summary>
         void QryMaxOrderVol()
         {
             if (_symbol == null) return;
             qryMaxOrderId = CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange,_symbol.Symbol,_side);
-        }
-
-        int qryAccountFinanceId = 0;
-        void QryAccountFinance()
-        {
-            qryAccountFinanceId = CoreService.TLClient.ReqXQryAccountFinance();
         }
         void EventOther_OnRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse obj)
         {
@@ -242,6 +232,15 @@ namespace TradingLib.XTrader.Stock
             }
         }
 
+
+        int qryAccountFinanceId = 0;
+        /// <summary>
+        /// 查询交易账户
+        /// </summary>
+        void QryAccountFinance()
+        {
+            qryAccountFinanceId = CoreService.TLClient.ReqXQryAccountFinance();
+        }
         void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse response)
         {
             if (InvokeRequired)
@@ -256,6 +255,51 @@ namespace TradingLib.XTrader.Stock
         }
 
 
+
+
+        
+
+        bool _symChangedFired = true;
+        /// <summary>
+        /// 设定合约
+        /// 行情买卖列双击 联动时需要设定当前下单面板的合约
+        /// 双击持仓 响应合约选中时 设定当前下单面板的合约
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="sym"></param>
+        public void SetSymbol(string exchange, string sym,bool symChangeFired = true)
+        {
+            _symChangedFired = symChangeFired;
+            if (exchange == "SSE") cbStockAccount.SelectedIndex = 0;
+            if (exchange == "SZE") cbStockAccount.SelectedIndex = 1;
+            symbol.Text = sym;
+            _symChangedFired = true;
+        }
+
+        
+        /// <summary>
+        /// 代码输入框文字变动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void symbol_TextChanged(object sender, EventArgs e)
+        {
+            if (_symChangedFired)
+            {
+                bool needsearch = NeedSearchSymbol(symbol.Text);
+                if (needsearch)
+                {
+                    string exchange = GetExchangeSelected();
+                    TrySelectSymbol(exchange, symbol.Text);
+                }
+                else //置空合约
+                {
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, null);
+                    Reset();
+                }
+            }
+        }
+
         /// <summary>
         /// 判定是否需要查找合约
         /// </summary>
@@ -268,36 +312,8 @@ namespace TradingLib.XTrader.Stock
 
         }
 
-        int _qryid = 0;
 
-        void symbol_TextChanged(object sender, EventArgs e)
-        {
-            string exchange = GetExchangeSelected();
-            //logger.Info(string.Format("Symbol changed:{0}", symbol.Text));
-            bool needsearch = NeedSearchSymbol(symbol.Text);
-            if (needsearch)
-            {
-                TrySelectSymbol(exchange, symbol.Text);
-            }
-            else
-            {
-                //if (_symbol != null)//如果当前选择的合约不为空 则出发选空 进行重置，边界出发
-                //{
-                //    CoreService.EventUI.FireSymbolSelectedEvent(this, null);
-                //}
-                CoreService.EventUI.FireSymbolSelectedEvent(this, null);
-                //重置
-                Reset();
-            }
-        }
-
-        public void SetSymbol(string exchange, string sym)
-        {
-            if (exchange == "SSE") cbStockAccount.SelectedIndex = 0;
-            if (exchange == "SZE") cbStockAccount.SelectedIndex = 1;
-            symbol.Text = sym;
-        }
-
+        int _qrySymId = 0;
         /// <summary>
         /// 查询选择某个合约
         /// 1.缓存存在的合约 直接出发合约选择事件
@@ -310,11 +326,10 @@ namespace TradingLib.XTrader.Stock
             Symbol sym = CoreService.BasicInfoTracker.GetSymbol(exchange,symbol);
             if (sym == null)
             {
-                if (_qryid == 0)
+                if (_qrySymId == 0)
                 {
                     logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol));
-                    //logger.Info(string.Format("qry symbol:{0} from server", sym.Symbol));
-                    _qryid = CoreService.TLClient.ReqXQrySymbol(exchange,symbol);
+                    _qrySymId = CoreService.TLClient.ReqXQrySymbol(exchange, symbol);
                 }
             }
             else
@@ -332,16 +347,27 @@ namespace TradingLib.XTrader.Stock
         /// <param name="arg4"></param>
         void EventQry_OnRspXQrySymbolResponse(Symbol arg1, RspInfo arg2, int arg3, bool arg4)
         {
-            if (arg3 != _qryid) return;
-            logger.Info("got response of symbol from server");
+            if (arg3 != _qrySymId) return;
             if (arg1 != null)
             {
                 CoreService.EventUI.FireSymbolSelectedEvent(this, arg1);
             }
             if (arg4)
             {
-                _qryid = 0;
+                _qrySymId = 0;
             }
+        }
+
+
+
+        void Reset()
+        {
+            _symbol = null;
+            lbSymbolName.Text = "--";
+            lbMoneyAvabile.Text = "0";
+            lbMaxOrderVol.Text = "0";
+            price.Value = 0;
+            btnSubmit.Enabled = false;
         }
 
 

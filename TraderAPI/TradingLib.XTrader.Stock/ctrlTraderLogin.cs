@@ -298,22 +298,6 @@ namespace TradingLib.XTrader.Stock
             this.btnLogin.Enabled = true;
 
             _msg.Text = "电信、联通用户请分别登入电信、联通站点";
-            //new Thread(delegate()
-            //{
-            //    _connectstart = false;
-            //    _connected = false;
-
-            //    _loginstart = false;
-            //    _gotloginrep = false;
-            //    _loggedin = false;
-
-            //    _qrybasicinfo = false;
-            //    initsuccess = false;
-
-            //    CoreService.TLClient.Stop();
-            //    this.btnLogin.Enabled = true;
-            //    //lbLoginStatus.Text = "请登入";
-            //}).Start();
         }
 
         public void EnableLogin()

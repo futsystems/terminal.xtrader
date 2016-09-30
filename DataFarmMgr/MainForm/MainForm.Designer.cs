@@ -35,13 +35,21 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDebug1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnDebugForm = new System.Windows.Forms.ToolStripButton();
-            this.mainPanel = new System.Windows.Forms.Panel();
-            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.btnRegister = new System.Windows.Forms.ToolStripButton();
             this.btnUnregister = new System.Windows.Forms.ToolStripButton();
+            this.btnDebugForm = new System.Windows.Forms.ToolStripButton();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.品种管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSymbol = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.交易时间段管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.交易所ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -63,7 +71,7 @@
             this.btnRegister,
             this.btnUnregister,
             this.btnDebugForm});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1274, 25);
             this.toolStrip1.TabIndex = 1;
@@ -97,31 +105,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // btnDebugForm
-            // 
-            this.btnDebugForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnDebugForm.Image = ((System.Drawing.Image)(resources.GetObject("btnDebugForm.Image")));
-            this.btnDebugForm.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDebugForm.Name = "btnDebugForm";
-            this.btnDebugForm.Size = new System.Drawing.Size(60, 22);
-            this.btnDebugForm.Text = "日志窗口";
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.Controls.Add(this.ctrlQuoteList);
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 25);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1274, 642);
-            this.mainPanel.TabIndex = 2;
-            // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
-            this.ctrlQuoteList.TabIndex = 0;
-            // 
             // btnRegister
             // 
             this.btnRegister.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -140,6 +123,82 @@
             this.btnUnregister.Size = new System.Drawing.Size(84, 22);
             this.btnUnregister.Text = "取消所有订阅";
             // 
+            // btnDebugForm
+            // 
+            this.btnDebugForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDebugForm.Image = ((System.Drawing.Image)(resources.GetObject("btnDebugForm.Image")));
+            this.btnDebugForm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDebugForm.Name = "btnDebugForm";
+            this.btnDebugForm.Size = new System.Drawing.Size(60, 22);
+            this.btnDebugForm.Text = "日志窗口";
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Controls.Add(this.ctrlQuoteList);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(0, 50);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(1274, 617);
+            this.mainPanel.TabIndex = 2;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1274, 25);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.品种管理ToolStripMenuItem,
+            this.menuSymbol,
+            this.toolStripSeparator3,
+            this.交易时间段管理ToolStripMenuItem,
+            this.交易所ToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 21);
+            this.toolStripMenuItem1.Text = "基础数据管理";
+            // 
+            // 品种管理ToolStripMenuItem
+            // 
+            this.品种管理ToolStripMenuItem.Name = "品种管理ToolStripMenuItem";
+            this.品种管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.品种管理ToolStripMenuItem.Text = "品种数据";
+            // 
+            // menuSymbol
+            // 
+            this.menuSymbol.Name = "menuSymbol";
+            this.menuSymbol.Size = new System.Drawing.Size(152, 22);
+            this.menuSymbol.Text = "合约数据";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            // 
+            // 交易时间段管理ToolStripMenuItem
+            // 
+            this.交易时间段管理ToolStripMenuItem.Name = "交易时间段管理ToolStripMenuItem";
+            this.交易时间段管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.交易时间段管理ToolStripMenuItem.Text = "交易时间段";
+            // 
+            // 交易所ToolStripMenuItem
+            // 
+            this.交易所ToolStripMenuItem.Name = "交易所ToolStripMenuItem";
+            this.交易所ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.交易所ToolStripMenuItem.Text = "交易所";
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
+            this.ctrlQuoteList.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -148,12 +207,16 @@
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "行情服务器管理端";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.mainPanel.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +235,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnRegister;
         private System.Windows.Forms.ToolStripButton btnUnregister;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 品种管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuSymbol;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem 交易时间段管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 交易所ToolStripMenuItem;
     }
 }

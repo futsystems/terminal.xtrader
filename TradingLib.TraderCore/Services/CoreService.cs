@@ -171,10 +171,14 @@ namespace TradingLib.TraderCore
             }
         }
 
+        static string _address = string.Empty;
+        static int _port = 0;
         public static void InitClient(string address, int port)
         {
-            if (defaultinstance._tlclient == null)
+            if (defaultinstance._tlclient == null ||( _address != address || _port != port))
             {
+                _address = address;
+                _port = port;
                 TLClientNet tlclient = new TLClientNet(new string[] { address }, port);
 
                 defaultinstance._tlclient = tlclient;

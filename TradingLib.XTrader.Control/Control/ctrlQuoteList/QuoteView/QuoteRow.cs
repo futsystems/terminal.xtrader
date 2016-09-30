@@ -267,14 +267,18 @@ namespace TradingLib.XTrader.Control
                         break;
                     case EnumFileldType.PE:
                         {
-                            double f2 = 0;
-                            if (_symbol.FinanceData.zl[26] > 0)
-                                f2 = _symbol.FinanceData.zl[26] / _symbol.FinanceData.zl[0] / 10;
-                            if ((f2 > 0) && (_symbol.FinanceData.zl[29] > 0))
+                            if (_symbol.FinanceData.zl != null)
                             {
-                                f2 = _symbol.TickSnapshot.Price / (f2 / _symbol.FinanceData.zl[29] * 12);
-                                cell.Value = f2;
+                                double f2 = 0;
+                                if (_symbol.FinanceData.zl[26] > 0)
+                                    f2 = _symbol.FinanceData.zl[26] / _symbol.FinanceData.zl[0] / 10;
+                                if ((f2 > 0) && (_symbol.FinanceData.zl[29] > 0))
+                                {
+                                    f2 = _symbol.TickSnapshot.Price / (f2 / _symbol.FinanceData.zl[29] * 12);
+                                    cell.Value = f2;
+                                }
                             }
+                            
                         }
                         break;
                     default:

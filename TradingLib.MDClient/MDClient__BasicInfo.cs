@@ -256,7 +256,7 @@ namespace TradingLib.MDClient
         /// <summary>
         /// 交易所
         /// </summary>
-        public IEnumerable<IExchange> Exchanges
+        public IEnumerable<Exchange> Exchanges
         {
             get
             {
@@ -267,7 +267,7 @@ namespace TradingLib.MDClient
         /// <summary>
         /// 品种
         /// </summary>
-        public IEnumerable<SecurityFamily> Securities
+        public IEnumerable<SecurityFamilyImpl> Securities
         {
             get
             {
@@ -279,7 +279,7 @@ namespace TradingLib.MDClient
         /// <summary>
         /// 合约
         /// </summary>
-        public IEnumerable<Symbol> Symbols
+        public IEnumerable<SymbolImpl> Symbols
         {
             get
             {
@@ -327,7 +327,7 @@ namespace TradingLib.MDClient
             }
             return null;
         }
-        private SecurityFamilyImpl GetSecurity(int id)
+        public SecurityFamilyImpl GetSecurity(int id)
         {
             SecurityFamilyImpl sec = null;
             if (securitymap.TryGetValue(id, out sec))

@@ -960,18 +960,23 @@ namespace CStock
 
                                     //比较收盘价与开盘价 获得颜色
                                     bool up_bar = f14[i] > f13[i];//收盘价是否大于开盘价
+                                    bool dn_bar = f14[i] < f13[i];
+                                    bool eq_bar = f14[i] == f13[i];
                                     if (up_bar)
                                     {
                                         pen.Color = Color.Red;
                                         FBrush.Color = Color.Red;
                                     }
-                                    else
+                                    if(dn_bar)
                                     {
                                         pen.Color = Color.Aqua;
                                         FBrush.Color = Color.Aqua;
                                     }
-
-
+                                    if (eq_bar)
+                                    {
+                                        pen.Color = Color.Silver;
+                                        FBrush.Color = Color.Silver;
+                                    }
                                     //绘制空心K线
                                     float half_tick = (float)(fbsc1 / 2);
                                     float open_y, close_y, high_y, low_y;
@@ -982,7 +987,7 @@ namespace CStock
                                     close_y = (rectHeight - both) - (float)((f14[i] - min1) * scale);
 
 
-                                    if (f14[i] > f13[i])//上升
+                                    if (up_bar)//上升
                                     {
                                         //绘制上下Tick
                                         canvas.DrawLine(pen, fcx + half_tick, high_y, fcx + half_tick, close_y);
@@ -991,7 +996,7 @@ namespace CStock
                                         canvas.DrawRectangle(pen, fcx, close_y, (float)fbsc1, open_y - close_y);
                                         //canvas.FillRectangle(FBrush, fcx, close_y, (float)fbsc1, open_y - close_y);
                                     }
-                                    else if (f14[i] < f13[i])//下降
+                                    else if (dn_bar)//下降
                                     {
                                         //绘制上下Tick
                                         canvas.DrawLine(pen, fcx + half_tick, high_y, fcx + half_tick, open_y);

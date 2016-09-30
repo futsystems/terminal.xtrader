@@ -143,7 +143,7 @@ namespace TradingLib.TraderCore
         /// </summary>
         public int  ReqXQrySymbol(string exchange,string symbol)
         {
-            logger.Info("Qry Symbol");
+            logger.Info("Qry Symbol Exchange:" + exchange + " Code:" + symbol);
 
             XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(++requestid);
             request.Exchange = exchange;

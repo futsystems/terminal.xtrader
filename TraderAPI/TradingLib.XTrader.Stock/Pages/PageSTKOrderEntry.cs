@@ -47,6 +47,10 @@ namespace TradingLib.XTrader.Stock
             set
             {
                 if (_mode < 0 || _mode > 2) return;
+
+                //设置相同 避免重复查询
+                if (_mode == value) return;
+
                 _mode = value;
                 //买入
                 if (_mode == 0)

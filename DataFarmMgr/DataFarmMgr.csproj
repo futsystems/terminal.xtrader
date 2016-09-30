@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ControlLogFactoryAdapter.cs" />
+    <Compile Include="Common\DataSourceAdapter.cs" />
     <Compile Include="DebugControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -70,6 +71,21 @@
     </Compile>
     <Compile Include="DebugForm.Designer.cs">
       <DependentUpon>DebugForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\fmSymbolEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmSymbolEdit.Designer.cs">
+      <DependentUpon>fmSymbolEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fmSymbolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmSymbolList.Designer.cs">
+      <DependentUpon>fmSymbolList.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
@@ -86,14 +102,25 @@
     <Compile Include="MainForm\MainForm_ToolBar.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm\MainForm_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ManagerAPI\MDManagerAPI.cs" />
+    <Compile Include="ManagerHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CoreService.cs" />
     <EmbeddedResource Include="DebugControl.resx">
       <DependentUpon>DebugControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DebugForm.resx">
       <DependentUpon>DebugForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmSymbolEdit.resx">
+      <DependentUpon>fmSymbolEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmSymbolList.resx">
+      <DependentUpon>fmSymbolList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

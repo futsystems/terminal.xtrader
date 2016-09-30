@@ -117,7 +117,7 @@ namespace TradingLib.XTrader.Stock
                 return;
 
             }
-            logger.Info(string.Format("Will show quote for symbol:{0}", arg2.Symbol));
+            logger.Info(string.Format("Set QuoteView symbol:{0}", arg2.Symbol));
             _symbol = arg2;
             Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange,_symbol.Symbol];
             if (k != null)
@@ -127,7 +127,7 @@ namespace TradingLib.XTrader.Stock
             else
             { 
                 //如果本地行情快照没有对应合约行情 则查询行情快照
-                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Symbol,arg2.Exchange);
+                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Exchange,arg2.Symbol);
             }
         }
 

@@ -41,7 +41,6 @@
             this.lbMaxOrderVol = new System.Windows.Forms.Label();
             this.size = new System.Windows.Forms.NumericUpDown();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.lbSymbolName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.price)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.size)).BeginInit();
@@ -177,15 +176,6 @@
             this.btnSubmit.Text = "买入下单";
             this.btnSubmit.UseVisualStyleBackColor = true;
             // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(5, 181);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 39;
-            this.btnReset.Text = "重置";
-            this.btnReset.UseVisualStyleBackColor = true;
-            // 
             // lbSymbolName
             // 
             this.lbSymbolName.AutoSize = true;
@@ -202,7 +192,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.lbSymbolName);
-            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.size);
             this.Controls.Add(this.lbMaxOrderVol);
@@ -240,7 +229,6 @@
         private System.Windows.Forms.Label lbMaxOrderVol;
         private System.Windows.Forms.NumericUpDown size;
         private System.Windows.Forms.Button btnSubmit;
-        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Label lbSymbolName;
     }
 }

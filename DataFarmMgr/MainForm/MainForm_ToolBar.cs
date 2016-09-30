@@ -44,13 +44,13 @@ namespace TradingLib.DataFarmManager
                 {
                     symlist.Add(val.Symbol);
                 }
-                mdClient.RegisterSymbol(exchange, symlist.ToArray());
+                CoreService.MDClient.RegisterSymbol(exchange, symlist.ToArray());
             }
         }
 
         void btnDebug1_Click(object sender, EventArgs e)
         {
-            mdClient.UnRegisterSymbol(new string[] { "*" });
+            CoreService.MDClient.UnRegisterSymbol(new string[] { "*" });
         }
 
         void btnDebugForm_Click(object sender, EventArgs e)
@@ -60,18 +60,19 @@ namespace TradingLib.DataFarmManager
 
         void btnConnect_Click(object sender, EventArgs e)
         {
-            mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
-            mdClient.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
-            mdClient.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
+            CoreService.InitClient("127.0.0.1", 5060);
+            //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
+            CoreService.MDClient.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
+            CoreService.MDClient.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
 
 
-            mdClient.Start();
+            CoreService.MDClient.Start();
         }
 
         void mdClient_OnRtnTickEvent(Tick tick)
         {
             string key = tick.GetSymbolUniqueKey();
-            MDSymbol symbol = mdClient.GetMDSymbol(key);
+            MDSymbol symbol = CoreService.MDClient.GetMDSymbol(key);
             if (symbol == null) return;
 
             symbol.TickSnapshot.Price = (double)tick.Trade;
