@@ -289,8 +289,8 @@ namespace TradingLib.XTrader.Stock
                 bool needsearch = NeedSearchSymbol(symbol.Text);
                 if (needsearch)
                 {
-                    string exchange = GetExchangeSelected();
-                    TrySelectSymbol(exchange, symbol.Text);
+                    //string exchange = GetExchangeSelected();
+                    TrySelectSymbol(symbol.Text);
                 }
                 else //置空合约
                 {
@@ -313,7 +313,7 @@ namespace TradingLib.XTrader.Stock
         }
 
 
-        int _qrySymId = 0;
+        List<int> qrySymList = new List<int>();
         /// <summary>
         /// 查询选择某个合约
         /// 1.缓存存在的合约 直接出发合约选择事件
@@ -321,21 +321,32 @@ namespace TradingLib.XTrader.Stock
         /// </summary>
         /// <param name="exchange"></param>
         /// <param name="symbol"></param>
-        void TrySelectSymbol(string exchange, string symbol)
+        void TrySelectSymbol(string symbol)
         {
-            Symbol sym = CoreService.BasicInfoTracker.GetSymbol(exchange,symbol);
-            if (sym == null)
+            Symbol sym1 = CoreService.BasicInfoTracker.GetSymbol("SSE",symbol);
+            Symbol sym2 = CoreService.BasicInfoTracker.GetSymbol("SZE", symbol);
+            if (sym1 == null && sym2==null)
             {
-                if (_qrySymId == 0)
+                //if (_qrySymId == 0)
                 {
                     logger.Info(string.Format("Symbol:{0} do not exist in cache, will qry from server", symbol));
-                    _qrySymId = CoreService.TLClient.ReqXQrySymbol(exchange, symbol);
+                    int id = CoreService.TLClient.ReqXQrySymbol("SSE", symbol);
+                    qrySymList.Add(id);
+                    id = CoreService.TLClient.ReqXQrySymbol("SZE", symbol);
+                    qrySymList.Add(id);
                 }
             }
             else
             {
                 //触发合约选择事件
-                CoreService.EventUI.FireSymbolSelectedEvent(this, sym);
+                if (sym1 != null)
+                {
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, sym1);
+                }
+                else
+                {
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, sym2);
+                }
             }
         }
         /// <summary>
@@ -347,15 +358,15 @@ namespace TradingLib.XTrader.Stock
         /// <param name="arg4"></param>
         void EventQry_OnRspXQrySymbolResponse(Symbol arg1, RspInfo arg2, int arg3, bool arg4)
         {
-            if (arg3 != _qrySymId) return;
+            if (!qrySymList.Contains(arg3)) return;
             if (arg1 != null)
             {
                 CoreService.EventUI.FireSymbolSelectedEvent(this, arg1);
             }
-            if (arg4)
-            {
-                _qrySymId = 0;
-            }
+            //if (arg4)
+            //{
+            //    _qrySymId = 0;
+            //}
         }
 
 

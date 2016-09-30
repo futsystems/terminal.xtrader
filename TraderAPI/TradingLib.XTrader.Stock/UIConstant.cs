@@ -40,6 +40,6 @@ namespace TradingLib.XTrader.Stock
         /// <summary>
         /// 查询间隔
         /// </summary>
-        public static int QRYINTERVAL = 3;
+        public static int QRYINTERVAL = 1;
     }
 }

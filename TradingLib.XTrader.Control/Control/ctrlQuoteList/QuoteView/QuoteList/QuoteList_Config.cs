@@ -143,6 +143,13 @@ namespace TradingLib.XTrader.Control
                         if (column.FieldType == EnumFileldType.LASTSIZE) return "现量";
                         if (column.FieldType == EnumFileldType.VOL) return "总量";
                         if (column.FieldType == EnumFileldType.OPEN) return "今开";
+                        if (column.FieldType == EnumFileldType.SYMBOL) return "代码";
+
+                        break;
+                    }
+                case EnumQuoteListType.ALL:
+                    {
+                        if (column.FieldType == EnumFileldType.SYMBOL) return "代码";
 
                         break;
                     }

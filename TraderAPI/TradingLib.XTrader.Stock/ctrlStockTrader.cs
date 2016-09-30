@@ -508,7 +508,7 @@ namespace TradingLib.XTrader.Stock
         bool refreshed = false;
         void btnRefresh_Click(object sender, EventArgs e)
         {
-            if (refreshed &&DateTime.Now.Subtract(lastRefresh).TotalSeconds < 3)
+            if (refreshed && DateTime.Now.Subtract(lastRefresh).TotalSeconds < UIConstant.QRYINTERVAL)
             {
                 MessageBox.Show("请勿频繁刷新数据");
                 return;
