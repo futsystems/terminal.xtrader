@@ -13,6 +13,11 @@ namespace TradingLib.MDClient
     public partial class MDClient
     {
 
+
+        void SendPacket(IPacket packet)
+        {
+            histClient.TLSend(packet);
+        }
         /// <summary>
         /// 查询交易时间段
         /// </summary>
@@ -70,7 +75,7 @@ namespace TradingLib.MDClient
             request.Exchange = exchange;
             foreach (var symbol in symbols)
             {
-                Symbol sym = this.GetSymbol(symbol);
+                Symbol sym = this.GetSymbol(exchange,symbol);
                 if (sym == null)
                 {
                     logger.Warn(string.Format("Symbol:{0} do not exist", symbol));
@@ -87,23 +92,23 @@ namespace TradingLib.MDClient
         /// <param name="symbol"></param>
         public void UnRegisterSymbol(string[] symbols)
         {
-            logger.Info(string.Format("Unsubscribe market data for symbol:{0}", string.Join(",",symbols)));
-            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(NextRequestID);
+            //logger.Info(string.Format("Unsubscribe market data for symbol:{0}", string.Join(",",symbols)));
+            //UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(NextRequestID);
                 
-            foreach (var symbol in symbols)
-            {
-                if (symbol != "*")//过滤统配符
-                {
-                    Symbol sym = this.GetSymbol(symbol);
-                    if (sym == null)
-                    {
-                        logger.Warn(string.Format("Symbol:{0} do not exist", symbol));
-                        continue;
-                    }
-                }
-                request.SymbolList.Add(symbol);
-            }
-            histClient.TLSend(request);
+            //foreach (var symbol in symbols)
+            //{
+            //    if (symbol != "*")//过滤统配符
+            //    {
+            //        Symbol sym = this.GetSymbol(symbol);
+            //        if (sym == null)
+            //        {
+            //            logger.Warn(string.Format("Symbol:{0} do not exist", symbol));
+            //            continue;
+            //        }
+            //    }
+            //    request.SymbolList.Add(symbol);
+            //}
+            //histClient.TLSend(request);
         }
 
 

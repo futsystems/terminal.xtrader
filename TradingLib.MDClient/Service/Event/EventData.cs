@@ -22,7 +22,7 @@ namespace TradingLib.DataCore
         /// </summary>
         public event Action<RspQryBarResponseBin> OnRspBarEvent;
 
-
+        
         internal void FireRtnTickEvent(Tick k)
         {
             if (OnRtnTickEvent != null)

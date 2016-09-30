@@ -99,6 +99,12 @@ namespace TradingLib.XTrader.Control
             logger.Info("scroll:" + e.ScrollOrientation + " v:" + e.NewValue.ToString());
         }
 
+        /// <summary>
+        /// 点击Tab后清空报价列表合约 并设定新的合约列表
+        /// 合约列表要排序后放入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void blockTab_BlockTabClick(object sender, BlockTabClickEvent e)
         {
             if (e.TargtButton != null)
@@ -107,7 +113,13 @@ namespace TradingLib.XTrader.Control
                 {
                     quotelist.Clear();
                     quotelist.BeginUpdate();
-                    quotelist.AddSymbols(symbolMap.Where(sym=>e.TargtButton.SymbolFilter(sym)));
+                    IEnumerable<MDSymbol> list = symbolMap.Where(sym => e.TargtButton.SymbolFilter(sym));
+
+                    foreach (var g in list.GroupBy(sym => sym.SecCode))
+                    {
+                        quotelist.AddSymbols(g.OrderBy(sym => sym.SortKey));
+                    }
+
                     quotelist.ApplyConfig(e.TargtButton.QuoteType);
                     quotelist.EndUpdate();
                 }

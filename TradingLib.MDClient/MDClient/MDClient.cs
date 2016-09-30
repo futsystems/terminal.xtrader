@@ -214,6 +214,19 @@ namespace TradingLib.MDClient
                         return;
                     }
 
+
+                    //合约更新回报
+                case MessageTypes.MGRUPDATESYMBOLRESPONSE:
+                    {
+                        RspMGRUpdateSymbolResponse response = obj as RspMGRUpdateSymbolResponse;
+                        this.OnMGRUpdateSymbol(response);
+                        MDService.EventManager.FireOnMGRUpdateSymbolResponse(response);
+
+                        break;
+                    }
+
+
+
                 default:
                     logger.Warn(string.Format("Message Type:{0} not supported", obj.Type));
                     return;

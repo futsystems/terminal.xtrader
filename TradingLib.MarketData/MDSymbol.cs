@@ -25,6 +25,7 @@ namespace TradingLib.MarketData
             this.FinanceData = new FinanceData();
             this.TickSnapshot = new TDX();
             this.LastTickSnapshot = new TDX();
+            this.SortKey = string.Empty;
         }
 
         string _symbol = string.Empty;
@@ -98,6 +99,11 @@ namespace TradingLib.MarketData
         }
 
         public string SecCode {get;set;}
+
+        /// <summary>
+        /// 排序键
+        /// </summary>
+        public string SortKey { get; set; }
 
         /// <summary>
         /// 板块类别

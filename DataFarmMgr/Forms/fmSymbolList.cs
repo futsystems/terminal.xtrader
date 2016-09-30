@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
@@ -28,7 +29,17 @@ namespace TradingLib.DataFarmManager
             ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList());
             ManagerHelper.AdapterToIDataSource(cbSecurity).BindDataSource(ManagerHelper.GetSecurityCombListViaExchange(0));
 
+            MDService.EventManager.OnMGRUpdateSymbolResponse += new Action<RspMGRUpdateSymbolResponse>(EventManager_OnMGRUpdateSymbolResponse);
+            
+
             this.Load += new EventHandler(fmSymbolList_Load);
+        }
+
+        void EventManager_OnMGRUpdateSymbolResponse(RspMGRUpdateSymbolResponse obj)
+        {
+            SecurityFamilyImpl sec = CoreService.MDClient.GetSecurity(obj.Symbol.security_fk);
+            SymbolImpl symbol = CoreService.MDClient.GetSymbol(sec.Exchange.EXCode,obj.Symbol.Symbol);
+            InvokeGotSymbol(symbol);
         }
 
         void fmSymbolList_Load(object sender, EventArgs e)

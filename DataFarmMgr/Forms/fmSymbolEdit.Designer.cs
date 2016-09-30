@@ -40,12 +40,13 @@
             this.cbMonth = new System.Windows.Forms.ComboBox();
             this.expiredate = new System.Windows.Forms.DateTimePicker();
             this.cbSymbolType = new System.Windows.Forms.ComboBox();
+            this.btnSubmit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 29);
+            this.label1.Location = new System.Drawing.Point(40, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 12);
             this.label1.TabIndex = 0;
@@ -54,7 +55,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 52);
+            this.label2.Location = new System.Drawing.Point(28, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 12);
             this.label2.TabIndex = 1;
@@ -63,7 +64,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(55, 76);
+            this.label3.Location = new System.Drawing.Point(40, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 2;
@@ -72,7 +73,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 97);
+            this.label4.Location = new System.Drawing.Point(40, 77);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 12);
             this.label4.TabIndex = 3;
@@ -81,7 +82,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(43, 118);
+            this.label5.Location = new System.Drawing.Point(28, 98);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 12);
             this.label5.TabIndex = 4;
@@ -90,7 +91,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(55, 141);
+            this.label6.Location = new System.Drawing.Point(40, 121);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 12);
             this.label6.TabIndex = 5;
@@ -99,7 +100,7 @@
             // lbSymbol
             // 
             this.lbSymbol.AutoSize = true;
-            this.lbSymbol.Location = new System.Drawing.Point(109, 29);
+            this.lbSymbol.Location = new System.Drawing.Point(94, 9);
             this.lbSymbol.Name = "lbSymbol";
             this.lbSymbol.Size = new System.Drawing.Size(17, 12);
             this.lbSymbol.TabIndex = 6;
@@ -108,7 +109,7 @@
             // cbExchange
             // 
             this.cbExchange.FormattingEnabled = true;
-            this.cbExchange.Location = new System.Drawing.Point(111, 52);
+            this.cbExchange.Location = new System.Drawing.Point(96, 32);
             this.cbExchange.Name = "cbExchange";
             this.cbExchange.Size = new System.Drawing.Size(121, 20);
             this.cbExchange.TabIndex = 7;
@@ -116,7 +117,7 @@
             // cbSecurity
             // 
             this.cbSecurity.FormattingEnabled = true;
-            this.cbSecurity.Location = new System.Drawing.Point(111, 78);
+            this.cbSecurity.Location = new System.Drawing.Point(96, 58);
             this.cbSecurity.Name = "cbSecurity";
             this.cbSecurity.Size = new System.Drawing.Size(121, 20);
             this.cbSecurity.TabIndex = 8;
@@ -124,14 +125,14 @@
             // cbMonth
             // 
             this.cbMonth.FormattingEnabled = true;
-            this.cbMonth.Location = new System.Drawing.Point(111, 104);
+            this.cbMonth.Location = new System.Drawing.Point(96, 84);
             this.cbMonth.Name = "cbMonth";
             this.cbMonth.Size = new System.Drawing.Size(121, 20);
             this.cbMonth.TabIndex = 9;
             // 
             // expiredate
             // 
-            this.expiredate.Location = new System.Drawing.Point(111, 131);
+            this.expiredate.Location = new System.Drawing.Point(96, 111);
             this.expiredate.Name = "expiredate";
             this.expiredate.Size = new System.Drawing.Size(121, 21);
             this.expiredate.TabIndex = 10;
@@ -139,16 +140,26 @@
             // cbSymbolType
             // 
             this.cbSymbolType.FormattingEnabled = true;
-            this.cbSymbolType.Location = new System.Drawing.Point(111, 158);
+            this.cbSymbolType.Location = new System.Drawing.Point(96, 138);
             this.cbSymbolType.Name = "cbSymbolType";
             this.cbSymbolType.Size = new System.Drawing.Size(121, 20);
             this.cbSymbolType.TabIndex = 11;
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(176, 202);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmit.TabIndex = 12;
+            this.btnSubmit.Text = "提 交";
+            this.btnSubmit.UseVisualStyleBackColor = true;
             // 
             // fmSymbolEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 291);
+            this.ClientSize = new System.Drawing.Size(263, 237);
+            this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.cbSymbolType);
             this.Controls.Add(this.expiredate);
             this.Controls.Add(this.cbMonth);
@@ -184,5 +195,6 @@
         private System.Windows.Forms.ComboBox cbMonth;
         private System.Windows.Forms.DateTimePicker expiredate;
         private System.Windows.Forms.ComboBox cbSymbolType;
+        private System.Windows.Forms.Button btnSubmit;
     }
 }

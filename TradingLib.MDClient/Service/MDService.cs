@@ -34,5 +34,21 @@ namespace TradingLib.DataCore
                 return defaultinstance._eventdata;
             }
         }
+
+
+        EventManager _eventManager;
+
+        /// <summary>
+        /// 管理事件集合
+        /// </summary>
+        public static EventManager EventManager
+        {
+            get
+            {
+                if (defaultinstance._eventManager == null)
+                    defaultinstance._eventManager = new EventManager();
+                return defaultinstance._eventManager;
+            }
+        }
     }
 }

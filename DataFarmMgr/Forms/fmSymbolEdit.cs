@@ -35,7 +35,96 @@ namespace TradingLib.DataFarmManager
             cbSecurity.SelectedIndexChanged += new EventHandler(cbSecurity_SelectedIndexChanged);
             cbMonth.SelectedIndexChanged += new EventHandler(cbMonth_SelectedIndexChanged);
             cbSymbolType.SelectedIndexChanged += new EventHandler(cbSymbolType_SelectedIndexChanged);
+
+            btnSubmit.Click += new EventHandler(btnSubmit_Click);
             this.Load += new EventHandler(fmSymbolEdit_Load);
+        }
+
+        void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (_symbol != null)
+            {
+                switch (_symbol.SecurityFamily.Type)
+                {
+                        //设置到期日期,合约类别
+                    case SecurityType.FUT:
+                        _symbol.ExpireDate = Util.ToTLDate(this.expiredate.Value);
+                        _symbol.SymbolType = (QSEnumSymbolType)cbSymbolType.SelectedValue;
+                        break;
+                    //case SecurityType.STK:
+                    //    _symbol.Name = symName.Text;
+                    //    break;
+                    default:
+                        break;
+                }
+
+                CoreService.MDClient.ReqUpdateSymbol(_symbol);
+            }
+            else
+            {
+                SecurityFamilyImpl sec = CurrentSecurity;
+                if (sec == null)
+                {
+                    MessageBox.Show("请选择品种");
+                    return;
+                }
+
+
+                SymbolImpl target = new SymbolImpl();
+
+                target.Symbol = lbSymbol.Text;
+                target.SymbolType = (QSEnumSymbolType)cbSymbolType.SelectedValue;
+
+                target.security_fk = sec.ID;
+
+                //按照品种设定对应的信息
+                switch (sec.Type)
+                {
+                    case SecurityType.STK:
+                        target.Strike = 0;
+                        target.OptionSide = QSEnumOptionSide.NULL;
+
+                        target.ExpireDate = 0;
+                        target.Month = "";
+
+                        //target.Symbol = symbol_input.Text;//股票不自动生成合约编码 通过手工输入
+                        //target.Name = symName.Text;
+                        break;
+                    case SecurityType.FUT:
+                        target.Strike = 0;
+                        target.OptionSide = QSEnumOptionSide.NULL;
+
+                        //标准合约设定到期日
+                        if (target.SymbolType == QSEnumSymbolType.Standard)
+                        {
+                            int fullmonth = (int)cbMonth.SelectedValue;
+                            DateTime dt = GetExpireDateTime(fullmonth);
+
+                            target.Month = ManagerHelper.GetMonth(fullmonth);
+                            if (this.expiredate.Value < dt.FirstDayOfMonth() || this.expiredate.Value > dt.LastDayOfMonth())
+                            {
+                                MessageBox.Show("到期日选择不正确");
+                                return;
+                            }
+                            target.ExpireDate = Util.ToTLDate(this.expiredate.Value);
+                        }
+                        else
+                        {
+                            target.Month = (string)cbMonth.SelectedValue;
+                            target.ExpireDate = 0;
+                        }
+
+                        break;
+                   
+                    default:
+                        target.Strike = 0;
+                        target.OptionSide = QSEnumOptionSide.NULL;
+                        //target.ExpireMonth = 0;
+                        target.ExpireDate = 0;
+                        break;
+                }
+                CoreService.MDClient.ReqUpdateSymbol(target);
+            }
         }
 
         void fmSymbolEdit_Load(object sender, EventArgs e)

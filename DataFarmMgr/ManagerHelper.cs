@@ -218,5 +218,15 @@ namespace TradingLib.DataFarmManager
             }
         }
 
+        /// <summary>
+        /// 201501 获得01作为Month
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public static string GetMonth(int month)
+        {
+            return month.ToString().Substring(4);
+        }
+
     }
 }

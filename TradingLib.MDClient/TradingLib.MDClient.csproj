@@ -52,9 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
-    <Reference Include="TradingLib.MarketData">
-      <HintPath>..\..\..\Futs.Trader\TradingLib.MarketData\bin\Debug\TradingLib.MarketData.dll</HintPath>
-    </Reference>
     <Reference Include="ZeroMQ">
       <HintPath>..\..\lib\ZeroMQ.dll</HintPath>
     </Reference>
@@ -63,16 +60,24 @@
     <Compile Include="EventContrib.cs" />
     <Compile Include="IBasicInfo.cs" />
     <Compile Include="MDClientHelper.cs" />
+    <Compile Include="MDClient\MDClient__EditBasicInfo.cs" />
     <Compile Include="MDHandlerBase.cs" />
-    <Compile Include="MDClient.cs" />
+    <Compile Include="MDClient\MDClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Event\EventData.cs" />
+    <Compile Include="Service\Event\EventManager.cs" />
     <Compile Include="Service\MDService.cs" />
     <Compile Include="TLSocket_TCP.cs" />
-    <Compile Include="MDClient__.cs" />
-    <Compile Include="MDClient__Request.cs" />
-    <Compile Include="MDClient__BasicInfo.cs" />
+    <Compile Include="MDClient\MDClient__.cs" />
+    <Compile Include="MDClient\MDClient__Request.cs" />
+    <Compile Include="MDClient\MDClient__BasicInfo.cs" />
     <Compile Include="TLSocket_ZMQ.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TradingLib.MarketData\TradingLib.MarketData.csproj">
+      <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
+      <Name>TradingLib.MarketData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

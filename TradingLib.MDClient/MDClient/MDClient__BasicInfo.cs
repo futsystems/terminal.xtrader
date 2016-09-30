@@ -143,52 +143,21 @@ namespace TradingLib.MDClient
             }
         }
 
+
+
         void OnXQrySymbolResponse(RspXQrySymbolResponse response)
         {
             if (response.Symbol != null)
             {
-                SymbolImpl target = null;
-                if (symbolmap.TryGetValue(response.Symbol.ID, out target))
-                {
-                    //更新
-                    target.Symbol = response.Symbol.Symbol;
-                    target.EntryCommission = response.Symbol._entrycommission;
-                    target.ExitCommission = response.Symbol._exitcommission;
-                    target.Margin = response.Symbol._margin;
-                    target.ExtraMargin = response.Symbol._extramargin;
-                    target.MaintanceMargin = response.Symbol._maintancemargin;
-                    target.Strike = response.Symbol.Strike;
-                    target.OptionSide = response.Symbol.OptionSide;
-                    target.ExpireDate = response.Symbol.ExpireDate;
-
-                    target.security_fk = response.Symbol.security_fk;
-                    target.SecurityFamily = this.GetSecurity(target.security_fk);
-
-                    target.underlaying_fk = response.Symbol.underlaying_fk;
-                    target.ULSymbol = this.GetSymbol(target.underlaying_fk);
-
-                    target.underlayingsymbol_fk = response.Symbol.underlayingsymbol_fk;
-                    target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
-                    target.Tradeable = response.Symbol.Tradeable;
-                }
-                else //添加
-                {
-                    symbolmap.Add(response.Symbol.ID, response.Symbol);
-                    response.Symbol.SecurityFamily = this.GetSecurity(response.Symbol.security_fk);
-                    response.Symbol.ULSymbol = this.GetSymbol(response.Symbol.underlaying_fk);
-                    response.Symbol.UnderlayingSymbol = this.GetSymbol(response.Symbol.underlayingsymbol_fk);
-                    symbolnamemap[response.Symbol.Symbol] = response.Symbol;
-
-                }
+                GotSymbol(response.Symbol);
             }
             if (response.IsLast)
             {
-                logger.Info("合约查询完毕,查询隔夜持仓");
-                BindData();
-                
-                //CoreService.TLClient.ReqXQryYDPositon();
                 if (!_inited)
                 {
+                    logger.Info("合约查询完毕,查询隔夜持仓");
+                    BindData();
+
                     _inited = true;
                     if (OnInitializedEvent != null)
                     {
@@ -198,6 +167,58 @@ namespace TradingLib.MDClient
             }
 
         }
+
+        void OnMGRUpdateSymbol(RspMGRUpdateSymbolResponse response)
+        {
+            GotSymbol(response.Symbol);
+
+        }
+
+        void GotSymbol(SymbolImpl symbol)
+        {
+            if (symbol != null)
+            {
+                SymbolImpl target = null;
+                if (symbolmap.TryGetValue(symbol.ID, out target))
+                {
+                    //更新
+                    target.Symbol = symbol.Symbol;
+                    target.EntryCommission = symbol._entrycommission;
+                    target.ExitCommission = symbol._exitcommission;
+                    target.Margin = symbol._margin;
+                    target.ExtraMargin = symbol._extramargin;
+                    target.MaintanceMargin = symbol._maintancemargin;
+                    target.Strike = symbol.Strike;
+                    target.OptionSide = symbol.OptionSide;
+                    target.ExpireDate = symbol.ExpireDate;
+
+                    target.security_fk = symbol.security_fk;
+                    target.SecurityFamily = this.GetSecurity(target.security_fk);
+
+                    target.underlaying_fk = symbol.underlaying_fk;
+                    target.ULSymbol = this.GetSymbol(target.underlaying_fk);
+
+                    target.underlayingsymbol_fk = symbol.underlayingsymbol_fk;
+                    target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
+                    target.Tradeable = symbol.Tradeable;
+                }
+                else //添加
+                {
+                    symbolmap.Add(symbol.ID, symbol);
+                    symbol.SecurityFamily = this.GetSecurity(symbol.security_fk);
+                    symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
+                    symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
+
+                    if (_inited)
+                    {
+                        symbolnamemap[symbol.UniqueKey] = symbol;
+                    }
+
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// 绑定对象数据
@@ -216,6 +237,8 @@ namespace TradingLib.MDClient
                 target.SecurityFamily = this.GetSecurity(target.security_fk);
                 target.ULSymbol = this.GetSymbol(target.underlaying_fk);
                 target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
+
+                symbolnamemap[target.UniqueKey] = target;
             }
 
             foreach (var target in symbolmap.Values)
@@ -230,6 +253,7 @@ namespace TradingLib.MDClient
                 symbol.SecurityType = MDSecurityType.FUT;
                 symbol.SizeRate = 1;
                 symbol.NCode = 0;
+                symbol.SortKey = target.Month;
                 mdSymbolMap.Add(symbol.UniqueKey, symbol);
                 
             }
@@ -359,10 +383,11 @@ namespace TradingLib.MDClient
 
 
 
-        public Symbol GetSymbol(string symbol)
+        public SymbolImpl GetSymbol(string exchange,string symbol)
         {
+            string key = string.Format("{0}-{1}", exchange, symbol);
             SymbolImpl sym = null;
-            if (symbolnamemap.TryGetValue(symbol, out sym))
+            if (symbolnamemap.TryGetValue(key, out sym))
             {
                 return sym;
             }
