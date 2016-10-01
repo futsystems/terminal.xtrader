@@ -39,14 +39,14 @@
             this.btnUnregister = new System.Windows.Forms.ToolStripButton();
             this.btnDebugForm = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.品种管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSecurity = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSymbol = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.交易时间段管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.交易所ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -141,6 +141,13 @@
             this.mainPanel.Size = new System.Drawing.Size(1274, 617);
             this.mainPanel.TabIndex = 2;
             // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
+            this.ctrlQuoteList.TabIndex = 0;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -154,7 +161,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.品种管理ToolStripMenuItem,
+            this.menuSecurity,
             this.menuSymbol,
             this.toolStripSeparator3,
             this.交易时间段管理ToolStripMenuItem,
@@ -163,11 +170,11 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 21);
             this.toolStripMenuItem1.Text = "基础数据管理";
             // 
-            // 品种管理ToolStripMenuItem
+            // menuSecurity
             // 
-            this.品种管理ToolStripMenuItem.Name = "品种管理ToolStripMenuItem";
-            this.品种管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.品种管理ToolStripMenuItem.Text = "品种数据";
+            this.menuSecurity.Name = "menuSecurity";
+            this.menuSecurity.Size = new System.Drawing.Size(152, 22);
+            this.menuSecurity.Text = "品种数据";
             // 
             // menuSymbol
             // 
@@ -191,13 +198,6 @@
             this.交易所ToolStripMenuItem.Name = "交易所ToolStripMenuItem";
             this.交易所ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.交易所ToolStripMenuItem.Text = "交易所";
-            // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
-            this.ctrlQuoteList.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -237,7 +237,7 @@
         private System.Windows.Forms.ToolStripButton btnUnregister;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 品种管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuSecurity;
         private System.Windows.Forms.ToolStripMenuItem menuSymbol;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem 交易时间段管理ToolStripMenuItem;

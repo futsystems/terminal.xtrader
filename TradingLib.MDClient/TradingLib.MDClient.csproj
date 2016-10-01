@@ -32,13 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\lib\Common.Logging.dll</HintPath>
+      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\lib\Common.Logging.Core.dll</HintPath>
+      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="NodaTime">
-      <HintPath>..\..\lib\NodaTime.dll</HintPath>
+      <HintPath>..\..\Futs.base\lib\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
@@ -53,7 +53,7 @@
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
     <Reference Include="ZeroMQ">
-      <HintPath>..\..\lib\ZeroMQ.dll</HintPath>
+      <HintPath>..\..\Futs.base\lib\ZeroMQ.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
