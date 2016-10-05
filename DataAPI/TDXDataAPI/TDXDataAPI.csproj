@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertHzToPz_Gb2312.cs" />
-    <Compile Include="MDSymbolUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TDXDataAPI.cs" />
     <Compile Include="TDXDataAPI_ProcessData.cs" />
@@ -55,6 +54,10 @@
     <Compile Include="TDXStruct.cs" />
     <Compile Include="TDXDataAPI_.cs" />
     <Compile Include="TDXDataAPI_Request.cs" />
+    <Compile Include="TDXDataAPI_BasicInfo.cs" />
+    <Compile Include="TDXDataAPI_Utils.cs" />
+    <Compile Include="TDXDataAPI_SendRecv.cs" />
+    <Compile Include="TDXDataAPI_Reconnect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">

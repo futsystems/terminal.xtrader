@@ -313,6 +313,12 @@ namespace DataAPI.TDX
         //}
 
 
+
+        public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count)
+        {
+            return QrySeurityBars(exchange, symbol, freqStr, start, count, 0);
+        }
+
         /// <summary>
         /// 查询Bar数据
         /// </summary>
@@ -321,10 +327,17 @@ namespace DataAPI.TDX
         /// <param name="freq">K线种类, 0->5分钟K线    1->15分钟K线    2->30分钟K线  3->1小时K线    4->日K线  5->周K线  6->月K线  7->1分钟    10->季K线  11->年K线</param>
         /// <param name="start">K线开始位置,最后一条K线位置是0, 前一条是1, 依此类推</param>
         /// <param name="count">API执行前,表示用户要请求的K线数目, API执行后,保存了实际返回的K线数目, 最大值800</param>
-        public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count)
+        public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count,int type)
         {
-            logger.Info(string.Format("QrySecurityBars exchange:{0} symbol:{1} start:{2} count:{3}", exchange, symbol, start, count));
-            int market = GetMarketCode(exchange);
+            if (type != 1000)
+            {
+                logger.Info(string.Format("QrySecurityBars exchange:{0} symbol:{1} start:{2} count:{3}", exchange, symbol, start, count));
+            }
+            //else
+            //{
+            //    logger.Info("HeartBeat Request");
+            //}
+                int market = GetMarketCode(exchange);
             int freq = GetFreqCode(freqStr);
 
             //{ 0xC, 0x1, 0x8, 0x64, 0x1, 0x1, 0x12, 0x0, 0x12, 0x0, 0x29, 0x5, 0xFF, 0x0, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0xFE, 0x0, 0x1, 0x0, 0x00, 0x00, 0x0a, 0x0 };
@@ -348,6 +361,7 @@ namespace DataAPI.TDX
             sb11.Code = symbol;
             sb11.Market = (byte)(ushort)market;
             sb11.RequestId = this.NextRequestId;
+            sb11.type = type;
             NewRequest(sb11);
             return sb11.RequestId;
         }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TDXDataAPI
+namespace DataAPI.TDX
 {
-    class TDXDataAPI_ProcessData
+    public partial class TDXDataAPI
     {
+
     }
 }

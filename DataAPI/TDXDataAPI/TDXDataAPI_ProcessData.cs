@@ -21,8 +21,6 @@ namespace DataAPI.TDX
 
         Thread mainthread = null;
         bool _recvgo = false;
-        bool busying = false;
-
 
         void StartRecv()
         {
@@ -161,6 +159,7 @@ namespace DataAPI.TDX
                     //{
                     //    logger.Info(msg);
                     //}
+                    //HeartBeatRequest();
 
                 }
                 catch (Exception ex)
@@ -198,6 +197,7 @@ namespace DataAPI.TDX
                 //}
                 int time1;
                 //CStock.Stock sk = null;
+                
                 switch (sb.hd.msgid)
                 {
 
@@ -700,6 +700,11 @@ namespace DataAPI.TDX
                     case 0x529://日线
                         _profiler.EnterSection("K线处理");
                         #region K线数据处理
+                        if (sb.type == 1000)
+                        {
+                            OnHeartBeatResponse();
+                            return;
+                        }
                         n = RecvBuffer[1] * 256 + RecvBuffer[0];
                         logger.Info(string.Format("QrySecurityBars Response Count:{0}", n));
                         if (n == 0)
