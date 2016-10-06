@@ -42,7 +42,7 @@ namespace TradingLib.DataFarmManager
 
         void fmMarketTimeList_Load(object sender, EventArgs e)
         {
-            foreach (MarketTime mt in DataCoreService.MDClient.MarketTimes)
+            foreach (MarketTime mt in DataCoreService.DataClient.MarketTimes)
             {
                 InvokeGotMarketTime(mt);
             }

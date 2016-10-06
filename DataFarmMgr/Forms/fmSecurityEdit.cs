@@ -47,7 +47,7 @@ namespace TradingLib.DataFarmManager
                
                 _sec.mkttime_fk = (int)cbMarketTime.SelectedValue;
 
-                DataCoreService.MDClient.ReqUpdateSecurity(_sec);
+                DataCoreService.DataClient.ReqUpdateSecurity(_sec);
             }
             else
             {
@@ -67,7 +67,7 @@ namespace TradingLib.DataFarmManager
 
                 target.mkttime_fk = (int)cbMarketTime.SelectedValue;
 
-                DataCoreService.MDClient.ReqUpdateSecurity(target);
+                DataCoreService.DataClient.ReqUpdateSecurity(target);
             }
             this.Close();
         

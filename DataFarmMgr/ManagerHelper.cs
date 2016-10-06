@@ -71,7 +71,7 @@ namespace TradingLib.DataFarmManager
                 vo1.Value = 0;
                 list.Add(vo1);
             }
-            foreach (var ex in DataCoreService.MDClient.Exchanges)
+            foreach (var ex in DataCoreService.DataClient.Exchanges)
             {
                 ValueObject<int> vo = new ValueObject<int>();
                 vo.Name = ex.Name;
@@ -95,7 +95,7 @@ namespace TradingLib.DataFarmManager
 
             if (id == 0)
             {
-                foreach (SecurityFamilyImpl sec in DataCoreService.MDClient.Securities)
+                foreach (SecurityFamilyImpl sec in DataCoreService.DataClient.Securities)
                 {
                     ValueObject<int> vo = new ValueObject<int>();
                     vo.Name = sec.Code + "-" + sec.Name;
@@ -106,7 +106,7 @@ namespace TradingLib.DataFarmManager
             }
             else
             {
-                foreach (SecurityFamilyImpl sec in DataCoreService.MDClient.Securities.Where(ex => (ex != null && ((ex.Exchange as Exchange).ID == id))).ToArray())
+                foreach (SecurityFamilyImpl sec in DataCoreService.DataClient.Securities.Where(ex => (ex != null && ((ex.Exchange as Exchange).ID == id))).ToArray())
                 {
                     ValueObject<int> vo = new ValueObject<int>();
                     vo.Name = sec.Code + "-" + sec.Name;
@@ -192,7 +192,7 @@ namespace TradingLib.DataFarmManager
                 vo1.Value = 0;
                 list.Add(vo1);
             }
-            foreach (MarketTime mt in DataCoreService.MDClient.MarketTimes)
+            foreach (MarketTime mt in DataCoreService.DataClient.MarketTimes)
             {
                 ValueObject<int> vo = new ValueObject<int>();
                 vo.Name = mt.Name;

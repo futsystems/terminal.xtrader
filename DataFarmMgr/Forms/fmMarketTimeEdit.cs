@@ -67,7 +67,7 @@ namespace TradingLib.DataFarmManager
                 _mt.CloseTime = Util.ToTLTime(closetime.Value);
                 _mt.DeserializeTradingRange(rangestr);
 
-                DataCoreService.MDClient.ReqUpdateMarketTime(_mt);
+                DataCoreService.DataClient.ReqUpdateMarketTime(_mt);
             }
         }
 

@@ -40,7 +40,7 @@ namespace TradingLib.DataFarmManager
             btnSubmit.Click += new EventHandler(btnSubmit_Click);
             DataCoreService.EventContrib.RegisterCallback("DataFarm", "QryCalendarList", OnQryCalendarItems);
 
-            DataCoreService.MDClient.ReqContribRequest("DataFarm", "QryCalendarList", "");
+            DataCoreService.DataClient.ReqContribRequest("DataFarm", "QryCalendarList", "");
         }
 
         void btnSubmit_Click(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace TradingLib.DataFarmManager
                     _exchange.Calendar = this.calendar.SelectedValue.ToString();
                     _exchange.TimeZoneID = this.cbTimeZone.SelectedValue.ToString();
                     _exchange.CloseTime = Util.ToTLTime(this.closeTime.Value);
-                    DataCoreService.MDClient.ReqUpdateExchange(_exchange);
+                    DataCoreService.DataClient.ReqUpdateExchange(_exchange);
                     this.Close();
                 }
             }
@@ -72,7 +72,7 @@ namespace TradingLib.DataFarmManager
                     ex.TimeZoneID = this.cbTimeZone.SelectedValue.ToString();
                     ex.CloseTime = Util.ToTLTime(this.closeTime.Value);
 
-                    DataCoreService.MDClient.ReqUpdateExchange(ex);
+                    DataCoreService.DataClient.ReqUpdateExchange(ex);
                     this.Close();
                 }
             }

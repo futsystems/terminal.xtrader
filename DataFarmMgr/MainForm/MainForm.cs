@@ -65,10 +65,10 @@ namespace TradingLib.DataFarmManager
             {
                 logger.Info("MDClient Inited");
 
-                ctrlQuoteList.SetSymbols(DataCoreService.MDClient.MDSymbols);
+                ctrlQuoteList.SetSymbols(DataCoreService.DataClient.MDSymbols);
                 ctrlQuoteList.SelectTab(0);
 
-                foreach (var exchange in DataCoreService.MDClient.Exchanges)
+                foreach (var exchange in DataCoreService.DataClient.Exchanges)
                 {
                     string k = exchange.EXCode;
 

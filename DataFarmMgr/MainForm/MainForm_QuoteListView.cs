@@ -34,7 +34,7 @@ namespace TradingLib.DataFarmManager
                 {
                     symlist.Add(val.Symbol);
                 }
-                DataCoreService.MDClient.RegisterSymbol(exchange, symlist.ToArray());
+                DataCoreService.DataClient.RegisterSymbol(exchange, symlist.ToArray());
             }
 
             

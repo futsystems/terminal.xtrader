@@ -76,10 +76,23 @@ namespace TradingLib.DataCore
             }
         }
 
+        public static event Action OnInitializedEvent;
 
-        MDClient _client = null;
+        /// <summary>
+        /// 初始化完毕
+        /// </summary>
+        internal static void Initialize()
+        {
+            defaultinstance._isinited = true;
+            if (OnInitializedEvent != null)
+            {
+                OnInitializedEvent();
+            }
+        }
 
-        public static MDClient MDClient
+        DataClient _client = null;
+
+        public static DataClient DataClient
         {
             get
             {
@@ -91,7 +104,7 @@ namespace TradingLib.DataCore
         {
             if (defaultinstance._client == null)
             {
-                MDClient tlclient = new MDClient(address, port, port);
+                DataClient tlclient = new DataClient(address, port);
 
                 defaultinstance._client = tlclient;
             }

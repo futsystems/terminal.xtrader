@@ -10,13 +10,13 @@ using Common.Logging;
 namespace TradingLib.DataCore
 {
 
-    public partial class MDClient
+    public partial class DataClient
     {
 
 
         void SendPacket(IPacket packet)
         {
-            histClient.TLSend(packet);
+            mktClient.TLSend(packet);
         }
         /// <summary>
         /// 查询交易时间段
@@ -24,7 +24,7 @@ namespace TradingLib.DataCore
         private void QryMarketTime()
         {
             XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(0);
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace TradingLib.DataCore
         private void QryExchange()
         { 
             XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(0);
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace TradingLib.DataCore
         private void QrySecurity()
         {
             XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(0);
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace TradingLib.DataCore
         private void QrySymbol()
         {
             XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(0);
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace TradingLib.DataCore
                 }
                 request.SymbolList.Add(symbol);
             }
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace TradingLib.DataCore
             request.End = end;
             request.BarResponseType = EnumBarResponseType.BINARY;
 
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
             return reqid;
         }
 
@@ -149,7 +149,7 @@ namespace TradingLib.DataCore
             request.Time = time;
             request.Trade = price;
 
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
             return reqid;
         }
 
@@ -168,7 +168,7 @@ namespace TradingLib.DataCore
             request.CMDStr = cmdStr;
             request.Parameters = args;
 
-            histClient.TLSend(request);
+            mktClient.TLSend(request);
             return reqid;
         }
     }

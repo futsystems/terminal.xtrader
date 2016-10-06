@@ -13,7 +13,7 @@ namespace TradingLib.DataCore
     /// <summary>
     /// 维护基础数据
     /// </summary>
-    public partial class MDClient
+    public partial class DataClient
     {
         Dictionary<string, MDSymbol> mdSymbolMap = new Dictionary<string, MDSymbol>();
         /// <summary>
@@ -188,7 +188,7 @@ namespace TradingLib.DataCore
                 securitynamemap.Add(target.Code, target);
             }
             //如果已经初始化 则执行对象关系绑定
-            if (_inited)
+            if (DataCoreService.Initialized)
             {
                 target.Exchange = this.GetExchange(target.exchange_fk);
                 target.MarketTime = this.GetMarketTime(target.mkttime_fk);
@@ -207,16 +207,17 @@ namespace TradingLib.DataCore
             }
             if (response.IsLast)
             {
-                if (!_inited)
+                if (!DataCoreService.Initialized)
                 {
                     logger.Info("合约查询完毕,查询隔夜持仓");
                     BindData();
 
-                    _inited = true;
-                    if (OnInitializedEvent != null)
-                    {
-                        OnInitializedEvent();
-                    }
+                    //_inited = true;
+                    DataCoreService.Initialize();
+                    //if (DataCoreService != null)
+                    //{
+                    //    OnInitializedEvent();
+                    //}
                 }
             }
 
@@ -263,7 +264,7 @@ namespace TradingLib.DataCore
                     symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
                     symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
 
-                    if (_inited)
+                    if (DataCoreService.Initialized)
                     {
                         symbolnamemap[symbol.UniqueKey] = symbol;
                     }
@@ -361,7 +362,7 @@ namespace TradingLib.DataCore
         {
             get
             {
-                return symbolmap.Values.ToArray();
+                return symbolmap.Values;
             }
         }
 

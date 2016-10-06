@@ -59,7 +59,7 @@ namespace TradingLib.DataFarmManager
                         break;
                 }
 
-                DataCoreService.MDClient.ReqUpdateSymbol(_symbol);
+                DataCoreService.DataClient.ReqUpdateSymbol(_symbol);
             }
             else
             {
@@ -124,7 +124,7 @@ namespace TradingLib.DataFarmManager
                         target.ExpireDate = 0;
                         break;
                 }
-                DataCoreService.MDClient.ReqUpdateSymbol(target);
+                DataCoreService.DataClient.ReqUpdateSymbol(target);
             }
         }
 
@@ -268,7 +268,7 @@ namespace TradingLib.DataFarmManager
             get
             {
                 int id = (int)cbSecurity.SelectedValue;
-                return DataCoreService.MDClient.GetSecurity(id);//获得当前选中的security
+                return DataCoreService.DataClient.GetSecurity(id);//获得当前选中的security
             }
         }
 

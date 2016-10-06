@@ -37,8 +37,8 @@ namespace TradingLib.DataFarmManager
 
         void EventManager_OnMGRUpdateSymbolResponse(RspMGRUpdateSymbolResponse obj)
         {
-            SecurityFamilyImpl sec = DataCoreService.MDClient.GetSecurity(obj.Symbol.security_fk);
-            SymbolImpl symbol = DataCoreService.MDClient.GetSymbol(sec.Exchange.EXCode, obj.Symbol.Symbol);
+            SecurityFamilyImpl sec = DataCoreService.DataClient.GetSecurity(obj.Symbol.security_fk);
+            SymbolImpl symbol = DataCoreService.DataClient.GetSymbol(sec.Exchange.EXCode, obj.Symbol.Symbol);
             InvokeGotSymbol(symbol);
         }
 
@@ -47,7 +47,7 @@ namespace TradingLib.DataFarmManager
 
             WireEvent();
 
-            foreach (var symbol in DataCoreService.MDClient.Symbols)
+            foreach (var symbol in DataCoreService.DataClient.Symbols)
             {
                 InvokeGotSymbol(symbol);
             }

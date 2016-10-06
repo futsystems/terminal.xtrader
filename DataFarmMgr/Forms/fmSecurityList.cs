@@ -36,7 +36,7 @@ namespace TradingLib.DataFarmManager
 
         void fmSecurityList_Load(object sender, EventArgs e)
         {
-            foreach (SecurityFamilyImpl sec in DataCoreService.MDClient.Securities)
+            foreach (SecurityFamilyImpl sec in DataCoreService.DataClient.Securities)
             {
                 InvokGotSecurity(sec);
             }
@@ -50,7 +50,7 @@ namespace TradingLib.DataFarmManager
 
         void EventManager_OnMGRUpdateSecurityResponse(RspMGRUpdateSecurityResponse obj)
         {
-            SecurityFamilyImpl sec = DataCoreService.MDClient.GetSecurity(obj.SecurityFaimly.Code);
+            SecurityFamilyImpl sec = DataCoreService.DataClient.GetSecurity(obj.SecurityFaimly.Code);
             InvokGotSecurity(sec);
         }
 
@@ -183,7 +183,7 @@ namespace TradingLib.DataFarmManager
                     int i = r;
                     //获得当前实例
 
-                    SecurityFamilyImpl target = DataCoreService.MDClient.GetSecurity(sec.ID);
+                    SecurityFamilyImpl target = DataCoreService.DataClient.GetSecurity(sec.ID);
                     //MessageBox.Show("got security target code:" + target.Code + " seccode:" + sec.Code);
                     if (target != null)
                     {

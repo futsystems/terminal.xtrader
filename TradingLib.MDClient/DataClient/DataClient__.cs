@@ -10,7 +10,7 @@ using Common.Logging;
 namespace TradingLib.DataCore
 {
 
-    public partial class MDClient
+    public partial class DataClient
     {
 
     }

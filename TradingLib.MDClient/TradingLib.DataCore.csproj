@@ -52,25 +52,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroMQ">
-      <HintPath>..\..\Futs.base\lib\ZeroMQ.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\Event\EventContrib.cs" />
-    <Compile Include="IBasicInfo.cs" />
-    <Compile Include="MDClientHelper.cs" />
-    <Compile Include="MDClient\MDClient__Manager.cs" />
-    <Compile Include="MDHandlerBase.cs" />
-    <Compile Include="MDClient\MDClient.cs" />
+    <Compile Include="DataClient\DataClient__ManagerRequest.cs" />
+    <Compile Include="DataClient\DataClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Event\EventData.cs" />
     <Compile Include="Service\Event\EventManager.cs" />
-    <Compile Include="Service\MDService.cs" />
+    <Compile Include="Service\DataCoreService.cs" />
     <Compile Include="TLSocket_TCP.cs" />
-    <Compile Include="MDClient\MDClient__.cs" />
-    <Compile Include="MDClient\MDClient__Request.cs" />
-    <Compile Include="MDClient\MDClient__BasicInfo.cs" />
+    <Compile Include="DataClient\DataClient__.cs" />
+    <Compile Include="DataClient\DataClient__CommonRequest.cs" />
+    <Compile Include="DataClient\DataClient__BasicInfo.cs" />
     <Compile Include="TLSocket_ZMQ.cs" />
   </ItemGroup>
   <ItemGroup>
