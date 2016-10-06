@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TradingLib.API;
+using TradingLib.Common;
+
 
 namespace TradingLib.DataFarmManager
 {
@@ -23,7 +26,161 @@ namespace TradingLib.DataFarmManager
 
             InitTable();
             BindToTable();
+
+            ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList(true));
+
+            this.Load += new EventHandler(fmSecurityList_Load);
+  
         }
+
+        void fmSecurityList_Load(object sender, EventArgs e)
+        {
+            foreach (SecurityFamilyImpl sec in CoreService.MDClient.Securities)
+            {
+                InvokGotSecurity(sec);
+            }
+
+            cbExchange.SelectedIndexChanged += new EventHandler(cbExchange_SelectedIndexChanged);
+        }
+
+        void cbExchange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshSecurityQuery();
+        }
+
+        void RefreshSecurityQuery()
+        {
+            string sectype = string.Empty;
+            sectype = "*";
+            string strFilter = string.Empty;
+
+            strFilter = string.Format(TYPE + " > '{0}'", sectype);
+
+            if (cbExchange.SelectedIndex != 0)
+            {
+                strFilter = string.Format(strFilter + " and " + EXCHANGEID + " = '{0}'", cbExchange.SelectedValue);
+            }
+            datasource.Filter = strFilter;
+        }
+
+        //得到当前选择的行号
+        private int CurrentSecurityID
+        {
+            get
+            {
+                int row = secGrid.SelectedRows.Count > 0 ? secGrid.SelectedRows[0].Index : -1;
+                if (row >= 0)
+                {
+                    return int.Parse(secGrid[0, row].Value.ToString());
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+
+
+        //通过行号得该行的Security
+        SecurityFamilyImpl GetVisibleSecurity(int id)
+        {
+            SecurityFamilyImpl sec = null;
+            if (securitymap.TryGetValue(id, out sec))
+            {
+                return sec;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
+
+
+        Dictionary<int, SecurityFamilyImpl> securitymap = new Dictionary<int, SecurityFamilyImpl>();
+        Dictionary<int, int> securityidxmap = new Dictionary<int, int>();
+        int SecurityFamilyIdx(int id)
+        {
+
+            int rowid = -1;
+            if (securityidxmap.TryGetValue(id, out rowid))
+            {
+                return rowid;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+
+        void InvokGotSecurity(SecurityFamilyImpl sec)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<SecurityFamilyImpl>(InvokGotSecurity), new object[] { sec });
+            }
+            else
+            {
+                int r = SecurityFamilyIdx(sec.ID);
+                if (r == -1)
+                {
+                    gt.Rows.Add(sec.ID);
+                    int i = gt.Rows.Count - 1;
+
+                    securitymap.Add(sec.ID, sec);
+                    securityidxmap.Add(sec.ID, i);
+
+                    gt.Rows[i][CODE] = sec.Code;
+                    gt.Rows[i][NAME] = sec.Name;
+                    gt.Rows[i][CURRENCY] = Util.GetEnumDescription(sec.Currency);
+                    gt.Rows[i][TYPE] = sec.Type;
+                    gt.Rows[i][MULTIPLE] = sec.Multiple;
+                    gt.Rows[i][PRICETICK] = sec.PriceTick;
+                   
+                    gt.Rows[i][EXCHANGEID] = sec.exchange_fk;
+                    gt.Rows[i][EXCHANGE] = sec.Exchange != null ? sec.Exchange.Title : "未设置";
+                    
+                    gt.Rows[i][MARKETTIMEID] = sec.mkttime_fk;
+                    gt.Rows[i][MARKETTIME] = sec.MarketTime != null ? sec.MarketTime.Name : "未设置";
+
+                    gt.Rows[i][DATAFEED] = sec.DataFeed;
+                }
+                else
+                {
+                    int i = r;
+                    //获得当前实例
+
+                    SecurityFamilyImpl target = CoreService.MDClient.GetSecurity(sec.ID);
+                    //MessageBox.Show("got security target code:" + target.Code + " seccode:" + sec.Code);
+                    if (target != null)
+                    {
+                        
+                        gt.Rows[i][CODE] = target.Code;
+                        gt.Rows[i][NAME] = target.Name;
+                        gt.Rows[i][CURRENCY] = Util.GetEnumDescription(sec.Currency);
+                        gt.Rows[i][TYPE] = target.Type;
+                        gt.Rows[i][MULTIPLE] = target.Multiple;
+                        gt.Rows[i][PRICETICK] = target.PriceTick;
+                      
+                        gt.Rows[i][EXCHANGEID] = target.exchange_fk;
+                        gt.Rows[i][EXCHANGE] = target.Exchange != null ? target.Exchange.Title : "未设置";
+                       
+                        gt.Rows[i][MARKETTIMEID] = target.mkttime_fk;
+                        gt.Rows[i][MARKETTIME] = target.MarketTime != null ? target.MarketTime.Name : "未设置";
+
+                        gt.Rows[i][DATAFEED] = sec.DataFeed;
+                    }
+
+
+                }
+            }
+        }
+
+
 
         #region 表格
         #region 显示字段
