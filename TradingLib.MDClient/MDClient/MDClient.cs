@@ -199,6 +199,7 @@ namespace TradingLib.DataCore
                         return;
                     }
 
+                #region 管理操作
                 case MessageTypes.MGRCONTRIBRESPONSE:
                     { 
                         RspMGRContribResponse response = obj as RspMGRContribResponse;
@@ -238,6 +239,14 @@ namespace TradingLib.DataCore
                         DataCoreService.EventManager.FireOnMGRUpdateExchangeResponse(response);
                         break;
                     }
+                case MessageTypes.MGRUPDATEMARKETTIMERESPONSE:
+                    {
+                        RspMGRUpdateMarketTimeResponse response = obj as RspMGRUpdateMarketTimeResponse;
+                        this.OnMGRUpdateMarketTime(response);
+                        DataCoreService.EventManager.FireOnMGRUpdateMarketTimeResponse(response);
+                        break;
+                    }
+                #endregion
 
 
                 default:

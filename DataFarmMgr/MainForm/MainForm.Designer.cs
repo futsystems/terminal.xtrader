@@ -45,7 +45,7 @@
             this.menuSecurity = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSymbol = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.交易时间段管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuMarketTime = new System.Windows.Forms.ToolStripMenuItem();
             this.menuExchange = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -164,7 +164,7 @@
             this.menuSecurity,
             this.menuSymbol,
             this.toolStripSeparator3,
-            this.交易时间段管理ToolStripMenuItem,
+            this.menuMarketTime,
             this.menuExchange});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 21);
@@ -187,11 +187,11 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
-            // 交易时间段管理ToolStripMenuItem
+            // menuMarketTime
             // 
-            this.交易时间段管理ToolStripMenuItem.Name = "交易时间段管理ToolStripMenuItem";
-            this.交易时间段管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.交易时间段管理ToolStripMenuItem.Text = "交易时间段";
+            this.menuMarketTime.Name = "menuMarketTime";
+            this.menuMarketTime.Size = new System.Drawing.Size(152, 22);
+            this.menuMarketTime.Text = "交易时间段";
             // 
             // menuExchange
             // 
@@ -240,7 +240,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuSecurity;
         private System.Windows.Forms.ToolStripMenuItem menuSymbol;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem 交易时间段管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuMarketTime;
         private System.Windows.Forms.ToolStripMenuItem menuExchange;
     }
 }

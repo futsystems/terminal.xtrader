@@ -20,8 +20,15 @@ namespace TradingLib.DataFarmManager
 
             menuSecurity.Click += new EventHandler(menuSecurity_Click);
             menuSymbol.Click += new EventHandler(menuSymbol_Click);
-
+            menuMarketTime.Click += new EventHandler(menuMarketTime_Click);
             menuExchange.Click += new EventHandler(menuExchange_Click);
+        }
+
+        void menuMarketTime_Click(object sender, EventArgs e)
+        {
+            fmMarketTimeList fm = new fmMarketTimeList();
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void menuExchange_Click(object sender, EventArgs e)

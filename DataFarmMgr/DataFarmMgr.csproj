@@ -85,6 +85,18 @@
     <Compile Include="Forms\fmExchangeList.Designer.cs">
       <DependentUpon>fmExchangeList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\fmMarketTimeEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmMarketTimeEdit.designer.cs">
+      <DependentUpon>fmMarketTimeEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fmMarketTimeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmMarketTimeList.Designer.cs">
+      <DependentUpon>fmMarketTimeList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\fmSecurityEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +120,12 @@
     </Compile>
     <Compile Include="Forms\fmSymbolList.Designer.cs">
       <DependentUpon>fmSymbolList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fmTradingRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmTradingRange.Designer.cs">
+      <DependentUpon>fmTradingRange.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
@@ -144,6 +162,12 @@
     <EmbeddedResource Include="Forms\fmExchangeList.resx">
       <DependentUpon>fmExchangeList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmMarketTimeEdit.resx">
+      <DependentUpon>fmMarketTimeEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmMarketTimeList.resx">
+      <DependentUpon>fmMarketTimeList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\fmSecurityEdit.resx">
       <DependentUpon>fmSecurityEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\fmSymbolList.resx">
       <DependentUpon>fmSymbolList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmTradingRange.resx">
+      <DependentUpon>fmTradingRange.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

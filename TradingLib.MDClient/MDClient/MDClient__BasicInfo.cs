@@ -47,23 +47,12 @@ namespace TradingLib.DataCore
         Dictionary<string, SymbolImpl> symbolnamemap = new Dictionary<string, SymbolImpl>();
 
 
+        #region 交易小节数据处理
         void OnXQryMarketTimeResponse(RspXQryMarketTimeResponse response)
         {
             if (response.MarketTime!= null)
             {
-                MarketTime target = null;
-                if (markettimemap.TryGetValue(response.MarketTime.ID, out target))
-                {
-                    //更新
-                    target.Name = response.MarketTime.Name;
-                    target.Description = response.MarketTime.Description;
-                    target.CloseTime = response.MarketTime.CloseTime;
-                    target.DeserializeTradingRange(response.MarketTime.SerializeTradingRange());//将时间小节解析到对象中
-                }
-                else
-                {
-                    markettimemap.Add(response.MarketTime.ID, response.MarketTime);
-                }
+                GotMarketTime(response.MarketTime);
             }
             if (response.IsLast)
             {
@@ -71,6 +60,34 @@ namespace TradingLib.DataCore
                 QryExchange();
             }
         }
+
+        void OnMGRUpdateMarketTime(RspMGRUpdateMarketTimeResponse response)
+        {
+            if (response.MarketTime != null)
+            {
+                GotMarketTime(response.MarketTime);
+            }
+        }
+
+
+        void GotMarketTime(MarketTime mt)
+        {
+            MarketTime target = null;
+            if (markettimemap.TryGetValue(mt.ID, out target))
+            {
+                //更新
+                target.Name = mt.Name;
+                target.Description = mt.Description;
+                target.CloseTime = mt.CloseTime;
+                target.DeserializeTradingRange(mt.SerializeTradingRange());//将时间小节解析到对象中
+            }
+            else
+            {
+                markettimemap.Add(mt.ID, mt);
+            }
+        }
+        #endregion
+
 
         #region 交易数数据处理
         void OnXQryExchangeResponse(RspXQryExchangeResponse response)

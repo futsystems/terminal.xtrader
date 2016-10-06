@@ -40,6 +40,11 @@ namespace TradingLib.DataCore
             return requestid;
         }
 
+        /// <summary>
+        /// 更新交易所
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public int ReqUpdateExchange(Exchange ex)
         {
             logger.Info("请求更新交易所");
@@ -48,8 +53,21 @@ namespace TradingLib.DataCore
 
             SendPacket(request);
             return requestid;
-
-
         }
+
+        /// <summary>
+        /// 更新交易小节
+        /// </summary>
+        /// <param name="mt"></param>
+        public int ReqUpdateMarketTime(MarketTime mt)
+        {
+            logger.Info("请求更新交易时间段");
+            MGRUpdateMarketTimeRequest request = RequestTemplate<MGRUpdateMarketTimeRequest>.CliSendRequest(++requestid);
+            request.MarketTime = mt;
+
+            SendPacket(request);
+            return requestid;
+        }
+
     }
 }
