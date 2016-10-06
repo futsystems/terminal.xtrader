@@ -103,37 +103,7 @@ namespace TradingLib.MDClient
         {
             if (response.SecurityFaimly != null)
             {
-                SecurityFamilyImpl target = null;
-                if (securitymap.TryGetValue(response.SecurityFaimly.ID, out target))
-                {
-                    //更新
-                    target.Code = response.SecurityFaimly.Code;
-                    target.Name = response.SecurityFaimly.Name;
-                    target.Currency = response.SecurityFaimly.Currency;
-                    target.Type = response.SecurityFaimly.Type;
-
-                    target.exchange_fk = response.SecurityFaimly.exchange_fk;
-                    //target.Exchange = this.GetExchange(target.exchange_fk);
-
-                    target.mkttime_fk = response.SecurityFaimly.mkttime_fk;
-                    //target.MarketTime = this.GetMarketTime(target.mkttime_fk);
-
-                    target.underlaying_fk = response.SecurityFaimly.underlaying_fk;
-                    //target.UnderLaying = this.GetSecurity(target.underlaying_fk);
-
-                    target.Multiple = response.SecurityFaimly.Multiple;
-                    target.PriceTick = response.SecurityFaimly.PriceTick;
-                    target.EntryCommission = response.SecurityFaimly.EntryCommission;
-                    target.ExitCommission = response.SecurityFaimly.ExitCommission;
-                    target.Margin = response.SecurityFaimly.Margin;
-                    target.ExtraMargin = response.SecurityFaimly.ExtraMargin;
-                    target.MaintanceMargin = response.SecurityFaimly.MaintanceMargin;
-                    target.Tradeable = response.SecurityFaimly.Tradeable;
-                }
-                else
-                {
-                    securitymap.Add(response.SecurityFaimly.ID, response.SecurityFaimly);
-                }
+                GotSecurity(response.SecurityFaimly);
             }
 
             if (response.IsLast)
@@ -143,6 +113,53 @@ namespace TradingLib.MDClient
             }
         }
 
+        void OnMGRUpdateSecurity(RspMGRUpdateSecurityResponse response)
+        {
+            GotSecurity(response.SecurityFaimly);
+        }
+        void GotSecurity(SecurityFamilyImpl sec)
+        {
+            SecurityFamilyImpl target = null;
+            if (securitymap.TryGetValue(sec.ID, out target))
+            {
+                //更新
+                target.Code = sec.Code;
+                target.Name = sec.Name;
+                target.Currency = sec.Currency;
+                target.Type = sec.Type;
+
+                target.exchange_fk = sec.exchange_fk;
+                //target.Exchange = this.GetExchange(target.exchange_fk);
+
+                target.mkttime_fk = sec.mkttime_fk;
+                //target.MarketTime = this.GetMarketTime(target.mkttime_fk);
+
+                target.underlaying_fk = sec.underlaying_fk;
+                //target.UnderLaying = this.GetSecurity(target.underlaying_fk);
+
+                target.Multiple = sec.Multiple;
+                target.PriceTick = sec.PriceTick;
+                target.EntryCommission = sec.EntryCommission;
+                target.ExitCommission = sec.ExitCommission;
+                target.Margin = sec.Margin;
+                target.ExtraMargin = sec.ExtraMargin;
+                target.MaintanceMargin = sec.MaintanceMargin;
+                target.Tradeable = sec.Tradeable;
+            }
+            else
+            {
+                target = sec;
+                securitymap.Add(target.ID, target);
+                securitynamemap.Add(target.Code, target);
+            }
+            //如果已经初始化 则执行对象关系绑定
+            if (_inited)
+            {
+                target.Exchange = this.GetExchange(target.exchange_fk);
+                target.MarketTime = this.GetMarketTime(target.mkttime_fk);
+                target.UnderLaying = this.GetSecurity(target.underlaying_fk);
+            }
+        }
 
 
         void OnXQrySymbolResponse(RspXQrySymbolResponse response)
@@ -361,7 +378,7 @@ namespace TradingLib.MDClient
             return null;
         }
 
-        public SecurityFamily GetSecurity(string code)
+        public SecurityFamilyImpl GetSecurity(string code)
         {
             SecurityFamilyImpl sec = null;
             if (securitynamemap.TryGetValue(code, out sec))

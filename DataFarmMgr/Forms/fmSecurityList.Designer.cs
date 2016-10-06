@@ -61,13 +61,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(757, 35);
+            this.panel1.Size = new System.Drawing.Size(864, 35);
             this.panel1.TabIndex = 5;
             // 
             // btnAddSecurity
             // 
             this.btnAddSecurity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddSecurity.Location = new System.Drawing.Point(674, 6);
+            this.btnAddSecurity.Location = new System.Drawing.Point(781, 6);
             this.btnAddSecurity.Name = "btnAddSecurity";
             this.btnAddSecurity.Size = new System.Drawing.Size(75, 23);
             this.btnAddSecurity.TabIndex = 4;
@@ -79,18 +79,23 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 35);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(757, 374);
+            this.panel2.Size = new System.Drawing.Size(864, 417);
             this.panel2.TabIndex = 6;
             // 
             // fmSecurityList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 409);
+            this.ClientSize = new System.Drawing.Size(864, 452);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fmSecurityList";
-            this.Text = "fmSecurityList";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "合约列表";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

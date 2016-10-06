@@ -60,7 +60,7 @@
     <Compile Include="EventContrib.cs" />
     <Compile Include="IBasicInfo.cs" />
     <Compile Include="MDClientHelper.cs" />
-    <Compile Include="MDClient\MDClient__EditBasicInfo.cs" />
+    <Compile Include="MDClient\MDClient__Manager.cs" />
     <Compile Include="MDHandlerBase.cs" />
     <Compile Include="MDClient\MDClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

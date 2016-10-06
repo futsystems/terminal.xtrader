@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.DataCore;
 
 
 namespace TradingLib.DataFarmManager
@@ -41,6 +42,34 @@ namespace TradingLib.DataFarmManager
             }
 
             cbExchange.SelectedIndexChanged += new EventHandler(cbExchange_SelectedIndexChanged);
+            secGrid.DoubleClick += new EventHandler(secGrid_DoubleClick);
+            btnAddSecurity.Click += new EventHandler(btnAddSecurity_Click);
+
+            MDService.EventManager.OnMGRUpdateSecurityResponse += new Action<RspMGRUpdateSecurityResponse>(EventManager_OnMGRUpdateSecurityResponse);
+        }
+
+        void EventManager_OnMGRUpdateSecurityResponse(RspMGRUpdateSecurityResponse obj)
+        {
+            SecurityFamilyImpl sec = CoreService.MDClient.GetSecurity(obj.SecurityFaimly.Code);
+            InvokGotSecurity(sec);
+        }
+
+        void btnAddSecurity_Click(object sender, EventArgs e)
+        {
+            fmSecurityEdit fm = new fmSecurityEdit();
+            fm.ShowDialog();
+
+        }
+
+        void secGrid_DoubleClick(object sender, EventArgs e)
+        {
+            SecurityFamilyImpl sec = GetVisibleSecurity(CurrentSecurityID);
+            if (sec != null)
+            {
+                fmSecurityEdit fm = new fmSecurityEdit();
+                fm.Security = sec;
+                fm.ShowDialog();
+            }
         }
 
         void cbExchange_SelectedIndexChanged(object sender, EventArgs e)

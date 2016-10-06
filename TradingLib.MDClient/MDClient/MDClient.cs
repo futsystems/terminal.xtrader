@@ -224,6 +224,13 @@ namespace TradingLib.MDClient
 
                         break;
                     }
+                case MessageTypes.MGRUPDATESECURITYRESPONSE:
+                    {
+                        RspMGRUpdateSecurityResponse response = obj as RspMGRUpdateSecurityResponse;
+                        this.OnMGRUpdateSecurity(response);
+                        MDService.EventManager.FireOnMGRUpdateSecurityResponse(response);
+                        break;
+                    }
 
 
 

@@ -107,6 +107,27 @@ namespace TradingLib.DataFarmManager
             return list;
         }
 
+        public static ArrayList GetMarketTimeCombList(bool isany = false)
+        {
+            ArrayList list = new ArrayList();
+            if (isany)
+            {
+                ValueObject<int> vo1 = new ValueObject<int>();
+                vo1.Name = ANYSTRING;
+                vo1.Value = 0;
+                list.Add(vo1);
+            }
+            foreach (MarketTime mt in CoreService.MDClient.MarketTimes)
+            {
+                ValueObject<int> vo = new ValueObject<int>();
+                vo.Name = mt.Name;
+                vo.Value = mt.ID;
+                list.Add(vo);
+            }
+            return list;
+        }
+
+
         public static ArrayList GetExpireMonth()
         {
             ArrayList list = new ArrayList();

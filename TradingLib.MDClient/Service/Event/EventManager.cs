@@ -21,5 +21,15 @@ namespace TradingLib.DataCore
                 OnMGRUpdateSymbolResponse(response);
             }
         }
+
+        public event Action<RspMGRUpdateSecurityResponse> OnMGRUpdateSecurityResponse;
+
+        internal void FireOnMGRUpdateSecurityResponse(RspMGRUpdateSecurityResponse response)
+        {
+            if (OnMGRUpdateSecurityResponse != null)
+            {
+                OnMGRUpdateSecurityResponse(response);
+            }
+        }
     }
 }
