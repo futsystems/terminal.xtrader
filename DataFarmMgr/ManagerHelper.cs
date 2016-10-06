@@ -6,11 +6,43 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.Mixins.Json;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
     public class ManagerHelper
     {
+        /// <summary>
+        /// 解析返回的Json数据到对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static T ParseJsonResponse<T>(string json)
+        {
+            JsonReply<T> reply = JsonReply.ParseReply<T>(json);
+            if (reply.Code == 0)
+            {
+                return reply.Payload;
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static TradingLib.Mixins.Json.JsonData ToJsonObject(string json)
+        {
+            return TradingLib.Mixins.Json.JsonMapper.ToObject(json);
+        }
+
+
         /// <summary>
         /// 将控件适配到IDataSource用于数据的统一绑定
         /// </summary>
@@ -39,7 +71,7 @@ namespace TradingLib.DataFarmManager
                 vo1.Value = 0;
                 list.Add(vo1);
             }
-            foreach (var ex in CoreService.MDClient.Exchanges)
+            foreach (var ex in DataCoreService.MDClient.Exchanges)
             {
                 ValueObject<int> vo = new ValueObject<int>();
                 vo.Name = ex.Name;
@@ -63,7 +95,7 @@ namespace TradingLib.DataFarmManager
 
             if (id == 0)
             {
-                foreach (SecurityFamilyImpl sec in CoreService.MDClient.Securities)
+                foreach (SecurityFamilyImpl sec in DataCoreService.MDClient.Securities)
                 {
                     ValueObject<int> vo = new ValueObject<int>();
                     vo.Name = sec.Code + "-" + sec.Name;
@@ -74,7 +106,7 @@ namespace TradingLib.DataFarmManager
             }
             else
             {
-                foreach (SecurityFamilyImpl sec in CoreService.MDClient.Securities.Where(ex => (ex != null && ((ex.Exchange as Exchange).ID == id))).ToArray())
+                foreach (SecurityFamilyImpl sec in DataCoreService.MDClient.Securities.Where(ex => (ex != null && ((ex.Exchange as Exchange).ID == id))).ToArray())
                 {
                     ValueObject<int> vo = new ValueObject<int>();
                     vo.Name = sec.Code + "-" + sec.Name;
@@ -83,6 +115,49 @@ namespace TradingLib.DataFarmManager
                 }
             }
             
+            return list;
+        }
+
+        /// <summary>
+        /// 获得时区列表
+        /// </summary>
+        /// <returns></returns>
+        public static ArrayList GetTimeZoneList()
+        {
+
+            ArrayList list = new ArrayList();
+            ValueObject<string> vo0 = new ValueObject<string>();
+            vo0.Name = "系统默认时区";
+            vo0.Value = "";
+            list.Add(vo0);
+
+            ValueObject<string> vo1 = new ValueObject<string>();
+            vo1.Name = "中国标准时间";
+            vo1.Value = "Asia/Shanghai";
+            list.Add(vo1);
+
+
+            ValueObject<string> vo10 = new ValueObject<string>();
+            vo10.Name = "香港标准时间";
+            vo10.Value = "Asia/Hong_Kong";
+            list.Add(vo10);
+
+
+            ValueObject<string> vo2 = new ValueObject<string>();
+            vo2.Name = "新加坡标准时间";
+            vo2.Value = "Asia/Singapore";
+            list.Add(vo2);
+
+            ValueObject<string> vo3 = new ValueObject<string>();
+            vo3.Name = "美国中部时间(CT)";
+            vo3.Value = "US/Central";
+            list.Add(vo3);
+
+            ValueObject<string> vo4 = new ValueObject<string>();
+            vo4.Name = "美国东部时间(ET)";
+            vo4.Value = "US/Eastern";
+            list.Add(vo4);
+
             return list;
         }
 
@@ -117,7 +192,7 @@ namespace TradingLib.DataFarmManager
                 vo1.Value = 0;
                 list.Add(vo1);
             }
-            foreach (MarketTime mt in CoreService.MDClient.MarketTimes)
+            foreach (MarketTime mt in DataCoreService.MDClient.MarketTimes)
             {
                 ValueObject<int> vo = new ValueObject<int>();
                 vo.Name = mt.Name;

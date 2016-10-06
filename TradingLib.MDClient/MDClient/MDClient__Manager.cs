@@ -7,7 +7,7 @@ using TradingLib.Common;
 using Common.Logging;
 
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
 
     public partial class MDClient

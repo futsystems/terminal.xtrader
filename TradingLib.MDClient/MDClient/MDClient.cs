@@ -6,9 +6,8 @@ using TradingLib.API;
 using TradingLib.Common;
 using Common.Logging;
 
-using TradingLib.DataCore;
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
     /// <summary>
     /// 行情客户端接口
@@ -43,8 +42,7 @@ namespace TradingLib.MDClient
         TLClient<TLSocket_TCP> histClient = null;
         
 
-        EventContrib _eventContrib = null;
-        public EventContrib EventContrib { get { return _eventContrib; } }
+        
 
 
         bool _inited = false;
@@ -73,7 +71,7 @@ namespace TradingLib.MDClient
         public MDClient(string address, int realport, int histport)
             :this(new string[]{address},realport,new string[]{address},histport)
         {
-            _eventContrib = new EventContrib();
+           
             
         }
 
@@ -151,7 +149,7 @@ namespace TradingLib.MDClient
                         {
                             OnRtnTickEvent(response.Tick);
                         }
-                        MDService.EventData.FireRtnTickEvent(response.Tick);
+                        DataCoreService.EventData.FireRtnTickEvent(response.Tick);
                         return;
                     }
                 case MessageTypes.XMARKETTIMERESPONSE:
@@ -196,7 +194,7 @@ namespace TradingLib.MDClient
                         {
                             OnRspBarEvent(response);
                         }
-                        MDService.EventData.FireOnRspBarEvent(response);
+                        DataCoreService.EventData.FireOnRspBarEvent(response);
 
                         return;
                     }
@@ -204,13 +202,13 @@ namespace TradingLib.MDClient
                 case MessageTypes.MGRCONTRIBRESPONSE:
                     { 
                         RspMGRContribResponse response = obj as RspMGRContribResponse;
-                        this._eventContrib.OnMGRContribResponse(response);
+                        DataCoreService.EventContrib.OnMGRContribResponse(response);
                         return;
                     }
                 case MessageTypes.MGRCONTRIBRNOTIFY:
                     {
                         NotifyMGRContribNotify notify = obj as NotifyMGRContribNotify;
-                        this._eventContrib.OnMGRContribNotifyResponse(notify);
+                        DataCoreService.EventContrib.OnMGRContribNotifyResponse(notify);
                         return;
                     }
 
@@ -220,7 +218,7 @@ namespace TradingLib.MDClient
                     {
                         RspMGRUpdateSymbolResponse response = obj as RspMGRUpdateSymbolResponse;
                         this.OnMGRUpdateSymbol(response);
-                        MDService.EventManager.FireOnMGRUpdateSymbolResponse(response);
+                        DataCoreService.EventManager.FireOnMGRUpdateSymbolResponse(response);
 
                         break;
                     }
@@ -228,7 +226,7 @@ namespace TradingLib.MDClient
                     {
                         RspMGRUpdateSecurityResponse response = obj as RspMGRUpdateSecurityResponse;
                         this.OnMGRUpdateSecurity(response);
-                        MDService.EventManager.FireOnMGRUpdateSecurityResponse(response);
+                        DataCoreService.EventManager.FireOnMGRUpdateSecurityResponse(response);
                         break;
                     }
 

@@ -87,7 +87,8 @@
             // 
             // btnAddSymbol
             // 
-            this.btnAddSymbol.Location = new System.Drawing.Point(842, 6);
+            this.btnAddSymbol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddSymbol.Location = new System.Drawing.Point(777, 7);
             this.btnAddSymbol.Name = "btnAddSymbol";
             this.btnAddSymbol.Size = new System.Drawing.Size(75, 23);
             this.btnAddSymbol.TabIndex = 4;

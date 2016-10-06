@@ -6,16 +6,16 @@ using System.Text;
 
 namespace TradingLib.DataCore
 {
-    public class MDService
+    public class DataCoreService
     {
-        static MDService defaultinstance = null;
+        static DataCoreService defaultinstance = null;
 
-        static MDService()
+        static DataCoreService()
         {
-            defaultinstance = new MDService();
+            defaultinstance = new DataCoreService();
         }
 
-        private MDService()
+        private DataCoreService()
         { 
         
         }
@@ -50,5 +50,52 @@ namespace TradingLib.DataCore
                 return defaultinstance._eventManager;
             }
         }
+
+
+        EventContrib _eventContrib;
+        /// <summary>
+        /// 扩展事件
+        /// </summary>
+        public static EventContrib EventContrib
+        {
+            get
+            {
+                if (defaultinstance._eventContrib == null)
+                    defaultinstance._eventContrib = new EventContrib();
+                return defaultinstance._eventContrib;
+            }
+        }
+
+
+        bool _isinited = false;
+        public static bool Initialized
+        {
+            get
+            {
+                return defaultinstance._isinited;
+            }
+        }
+
+
+        MDClient _client = null;
+
+        public static MDClient MDClient
+        {
+            get
+            {
+                return defaultinstance._client;
+            }
+        }
+
+        public static void InitClient(string address, int port)
+        {
+            if (defaultinstance._client == null)
+            {
+                MDClient tlclient = new MDClient(address, port, port);
+
+                defaultinstance._client = tlclient;
+            }
+        }
+
     }
 }

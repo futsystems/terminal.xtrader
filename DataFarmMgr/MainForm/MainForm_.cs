@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Common.Logging;
 
-using TradingLib.MDClient;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {

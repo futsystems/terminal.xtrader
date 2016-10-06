@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
@@ -58,7 +59,7 @@ namespace TradingLib.DataFarmManager
                         break;
                 }
 
-                CoreService.MDClient.ReqUpdateSymbol(_symbol);
+                DataCoreService.MDClient.ReqUpdateSymbol(_symbol);
             }
             else
             {
@@ -123,7 +124,7 @@ namespace TradingLib.DataFarmManager
                         target.ExpireDate = 0;
                         break;
                 }
-                CoreService.MDClient.ReqUpdateSymbol(target);
+                DataCoreService.MDClient.ReqUpdateSymbol(target);
             }
         }
 
@@ -267,7 +268,7 @@ namespace TradingLib.DataFarmManager
             get
             {
                 int id = (int)cbSecurity.SelectedValue;
-                return CoreService.MDClient.GetSecurity(id);//获得当前选中的security
+                return DataCoreService.MDClient.GetSecurity(id);//获得当前选中的security
             }
         }
 

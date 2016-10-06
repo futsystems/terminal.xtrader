@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.DataCore;
 
 
 namespace TradingLib.DataFarmManager
@@ -45,8 +46,8 @@ namespace TradingLib.DataFarmManager
                 _sec.exchange_fk = (int)cbExchange.SelectedValue;
                
                 _sec.mkttime_fk = (int)cbMarketTime.SelectedValue;
-               
-                CoreService.MDClient.ReqUpdateSecurity(_sec);
+
+                DataCoreService.MDClient.ReqUpdateSecurity(_sec);
             }
             else
             {
@@ -66,7 +67,7 @@ namespace TradingLib.DataFarmManager
 
                 target.mkttime_fk = (int)cbMarketTime.SelectedValue;
 
-                CoreService.MDClient.ReqUpdateSecurity(target);
+                DataCoreService.MDClient.ReqUpdateSecurity(target);
             }
             this.Close();
         

@@ -7,7 +7,7 @@ using TradingLib.Common;
 using Common.Logging;
 
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
 
     public partial class MDClient
@@ -160,7 +160,7 @@ namespace TradingLib.MDClient
         /// <param name="cmdStr">命令编号</param>
         /// <param name="args">命令参数</param>
         /// <returns></returns>
-        public int ReqMGRContribRequest(string moduleId, string cmdStr, string args)
+        public int ReqContribRequest(string moduleId, string cmdStr, string args)
         {
             int reqid = NextRequestID;
             MGRContribRequest request = RequestTemplate<MGRContribRequest>.CliSendRequest(reqid);

@@ -19,8 +19,8 @@ namespace TradingLib.DataFarmManager
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
-            //this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;//如果禁止Resize则表头高度会无法修改
+            this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;//如果禁止Resize则表头高度会无法修改
             this.ColumnHeadersHeight = 25;
             //this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReadOnly = true;

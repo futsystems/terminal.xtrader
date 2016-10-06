@@ -29,7 +29,7 @@ namespace TradingLib.DataFarmManager
             ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList());
             ManagerHelper.AdapterToIDataSource(cbSecurity).BindDataSource(ManagerHelper.GetSecurityCombListViaExchange(0));
 
-            MDService.EventManager.OnMGRUpdateSymbolResponse += new Action<RspMGRUpdateSymbolResponse>(EventManager_OnMGRUpdateSymbolResponse);
+            DataCoreService.EventManager.OnMGRUpdateSymbolResponse += new Action<RspMGRUpdateSymbolResponse>(EventManager_OnMGRUpdateSymbolResponse);
             
 
             this.Load += new EventHandler(fmSymbolList_Load);
@@ -37,8 +37,8 @@ namespace TradingLib.DataFarmManager
 
         void EventManager_OnMGRUpdateSymbolResponse(RspMGRUpdateSymbolResponse obj)
         {
-            SecurityFamilyImpl sec = CoreService.MDClient.GetSecurity(obj.Symbol.security_fk);
-            SymbolImpl symbol = CoreService.MDClient.GetSymbol(sec.Exchange.EXCode,obj.Symbol.Symbol);
+            SecurityFamilyImpl sec = DataCoreService.MDClient.GetSecurity(obj.Symbol.security_fk);
+            SymbolImpl symbol = DataCoreService.MDClient.GetSymbol(sec.Exchange.EXCode, obj.Symbol.Symbol);
             InvokeGotSymbol(symbol);
         }
 
@@ -47,7 +47,7 @@ namespace TradingLib.DataFarmManager
 
             WireEvent();
 
-            foreach (var symbol in CoreService.MDClient.Symbols)
+            foreach (var symbol in DataCoreService.MDClient.Symbols)
             {
                 InvokeGotSymbol(symbol);
             }

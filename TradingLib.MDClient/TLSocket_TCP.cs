@@ -12,7 +12,7 @@ using TradingLib.Common;
 using Common.Logging;
 
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
     /// <summary>
     /// 原生CTP的TLSocketBase实现

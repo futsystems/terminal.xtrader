@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TradingLib.DataCore</RootNamespace>
-    <AssemblyName>TradingLib.MDClient</AssemblyName>
+    <AssemblyName>TradingLib.DataCore</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,7 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventContrib.cs" />
+    <Compile Include="Service\Event\EventContrib.cs" />
     <Compile Include="IBasicInfo.cs" />
     <Compile Include="MDClientHelper.cs" />
     <Compile Include="MDClient\MDClient__Manager.cs" />

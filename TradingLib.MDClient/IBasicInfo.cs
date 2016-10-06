@@ -5,7 +5,7 @@ using System.Text;
 using TradingLib.API;
 using TradingLib.Common;
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
     public interface IBasicInfo
     {

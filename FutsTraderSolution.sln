@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.XTrader.Stock", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.XTrader.Control", "TradingLib.XTrader.Control\TradingLib.XTrader.Control.csproj", "{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.MDClient", "TradingLib.MDClient\TradingLib.MDClient.csproj", "{F480745A-4808-4282-8339-AF2AA06FBEC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.DataCore", "TradingLib.MDClient\TradingLib.DataCore.csproj", "{F480745A-4808-4282-8339-AF2AA06FBEC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

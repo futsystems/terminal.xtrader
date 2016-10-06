@@ -8,7 +8,7 @@ using Common.Logging;
 using TradingLib.MarketData;
 
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
     /// <summary>
     /// 维护基础数据

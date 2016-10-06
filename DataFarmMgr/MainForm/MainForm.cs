@@ -10,7 +10,7 @@ using Common.Logging;
 
 using TradingLib.MarketData;
 using TradingLib.XTrader.Control;
-using TradingLib.MDClient;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
@@ -65,10 +65,10 @@ namespace TradingLib.DataFarmManager
             {
                 logger.Info("MDClient Inited");
 
-                ctrlQuoteList.SetSymbols(CoreService.MDClient.MDSymbols);
+                ctrlQuoteList.SetSymbols(DataCoreService.MDClient.MDSymbols);
                 ctrlQuoteList.SelectTab(0);
 
-                foreach (var exchange in CoreService.MDClient.Exchanges)
+                foreach (var exchange in DataCoreService.MDClient.Exchanges)
                 {
                     string k = exchange.EXCode;
 

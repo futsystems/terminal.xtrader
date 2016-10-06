@@ -10,7 +10,7 @@ using TradingLib.Common;
 using Common.Logging;
 
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
     /// <summary>
     /// 扩展类命令事件

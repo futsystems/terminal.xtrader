@@ -7,7 +7,7 @@ using TradingLib.Common;
 using Common.Logging;
 
 
-namespace TradingLib.MDClient
+namespace TradingLib.DataCore
 {
     /// <summary>
     /// 行情回调对象

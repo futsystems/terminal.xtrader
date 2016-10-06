@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Common.Logging;
 
-using TradingLib.MDClient;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
@@ -21,6 +21,14 @@ namespace TradingLib.DataFarmManager
             menuSecurity.Click += new EventHandler(menuSecurity_Click);
             menuSymbol.Click += new EventHandler(menuSymbol_Click);
 
+            menuExchange.Click += new EventHandler(menuExchange_Click);
+        }
+
+        void menuExchange_Click(object sender, EventArgs e)
+        {
+            fmExchangeList fm = new fmExchangeList();
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void menuSecurity_Click(object sender, EventArgs e)

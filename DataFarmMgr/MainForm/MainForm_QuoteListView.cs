@@ -10,7 +10,7 @@ using Common.Logging;
 
 using TradingLib.MarketData;
 using TradingLib.XTrader.Control;
-using TradingLib.MDClient;
+using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
@@ -34,7 +34,7 @@ namespace TradingLib.DataFarmManager
                 {
                     symlist.Add(val.Symbol);
                 }
-                CoreService.MDClient.RegisterSymbol(exchange, symlist.ToArray());
+                DataCoreService.MDClient.RegisterSymbol(exchange, symlist.ToArray());
             }
 
             

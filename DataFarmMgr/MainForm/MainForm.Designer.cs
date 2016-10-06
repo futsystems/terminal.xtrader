@@ -46,7 +46,7 @@
             this.menuSymbol = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.交易时间段管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.交易所ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuExchange = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -165,7 +165,7 @@
             this.menuSymbol,
             this.toolStripSeparator3,
             this.交易时间段管理ToolStripMenuItem,
-            this.交易所ToolStripMenuItem});
+            this.menuExchange});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 21);
             this.toolStripMenuItem1.Text = "基础数据管理";
@@ -193,11 +193,11 @@
             this.交易时间段管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.交易时间段管理ToolStripMenuItem.Text = "交易时间段";
             // 
-            // 交易所ToolStripMenuItem
+            // menuExchange
             // 
-            this.交易所ToolStripMenuItem.Name = "交易所ToolStripMenuItem";
-            this.交易所ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.交易所ToolStripMenuItem.Text = "交易所";
+            this.menuExchange.Name = "menuExchange";
+            this.menuExchange.Size = new System.Drawing.Size(152, 22);
+            this.menuExchange.Text = "交易所";
             // 
             // MainForm
             // 
@@ -241,6 +241,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuSymbol;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem 交易时间段管理ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 交易所ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuExchange;
     }
 }

@@ -73,6 +73,18 @@
     <Compile Include="FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\fmExchangeEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmExchangeEdit.Designer.cs">
+      <DependentUpon>fmExchangeEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fmExchangeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmExchangeList.Designer.cs">
+      <DependentUpon>fmExchangeList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\fmSecurityEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +137,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DebugForm.resx">
       <DependentUpon>DebugForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmExchangeEdit.resx">
+      <DependentUpon>fmExchangeEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmExchangeList.resx">
+      <DependentUpon>fmExchangeList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\fmSecurityEdit.resx">
       <DependentUpon>fmSecurityEdit.cs</DependentUpon>
@@ -194,9 +212,9 @@
       <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
       <Name>TradingLib.MarketData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TradingLib.MDClient\TradingLib.MDClient.csproj">
+    <ProjectReference Include="..\TradingLib.MDClient\TradingLib.DataCore.csproj">
       <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
-      <Name>TradingLib.MDClient</Name>
+      <Name>TradingLib.DataCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\TradingLib.XTrader.Control\TradingLib.XTrader.Control.csproj">
       <Project>{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}</Project>
