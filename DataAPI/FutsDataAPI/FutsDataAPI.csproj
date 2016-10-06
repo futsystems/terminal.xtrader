@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F480745A-4808-4282-8339-AF2AA06FBEC9}</ProjectGuid>
+    <ProjectGuid>{9B9FCB99-7304-4495-A18E-5D24764A8456}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TradingLib.DataCore</RootNamespace>
-    <AssemblyName>TradingLib.DataCore</AssemblyName>
+    <RootNamespace>FutsDataAPI</RootNamespace>
+    <AssemblyName>FutsDataAPI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\XTraderLite\bin\Debug\DataAPI\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,49 +31,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Futs.base\lib\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NodaTime">
-      <HintPath>..\..\Futs.base\lib\NodaTime.dll</HintPath>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TradingLib.API, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
     </Reference>
-    <Reference Include="TradingLib.Common, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service\Event\EventContrib.cs" />
-    <Compile Include="DataClient\DataClient__ManagerRequest.cs" />
-    <Compile Include="DataClient\DataClient.cs" />
+    <Compile Include="FutsDataAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Event\EventData.cs" />
-    <Compile Include="Service\Event\EventManager.cs" />
-    <Compile Include="Service\DataCoreService.cs" />
-    <Compile Include="TLSocket_TCP.cs" />
-    <Compile Include="DataClient\DataClient__.cs" />
-    <Compile Include="DataClient\DataClient__CommonRequest.cs" />
-    <Compile Include="DataClient\DataClient__BasicInfo.cs" />
-    <Compile Include="TLSocket_ZMQ.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TradingLib.MDClient\TradingLib.DataCore.csproj">
+      <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
+      <Name>TradingLib.DataCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\lib\TradingLib\" SkipUnchangedFiles="true" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Common.Logging;
 
+using TradingLib.API;
+using TradingLib.Common;
 using TradingLib.MarketData;
 using TradingLib.XTrader.Control;
 using TradingLib.DataCore;
@@ -51,10 +53,19 @@ namespace TradingLib.DataFarmManager
             ctrlQuoteList.Dock = DockStyle.Fill;
 
         }
-       
 
 
-        
+        Dictionary<string, MDSymbol> mdsymbolmap = new Dictionary<string, MDSymbol>();
+
+        MDSymbol GetMDSymbol(string key)
+        {
+            MDSymbol target = null;
+            if (mdsymbolmap.TryGetValue(key, out target))
+                return target;
+            return null;
+        }
+
+
         void mdClient_OnInitializedEvent()
         {
             if (this.InvokeRequired)
@@ -65,7 +76,24 @@ namespace TradingLib.DataFarmManager
             {
                 logger.Info("MDClient Inited");
 
-                ctrlQuoteList.SetSymbols(DataCoreService.DataClient.MDSymbols);
+                foreach (var target in DataCoreService.DataClient.Symbols)
+                {
+                    MDSymbol symbol = new MDSymbol();
+                    symbol.Symbol = target.Symbol;
+                    symbol.SecCode = target.SecurityFamily.Code;
+                    symbol.Name = target.GetName();
+                    symbol.Currency = MDCurrency.RMB;
+                    symbol.Exchange = target.Exchange;
+                    symbol.Multiple = target.Multiple;
+                    symbol.SecurityType = MDSecurityType.FUT;
+                    symbol.SizeRate = 1;
+                    symbol.NCode = 0;
+                    symbol.SortKey = target.Month;
+                    mdsymbolmap.Add(symbol.UniqueKey, symbol);
+
+                }
+
+                ctrlQuoteList.SetSymbols(mdsymbolmap.Values);
                 ctrlQuoteList.SelectTab(0);
 
                 foreach (var exchange in DataCoreService.DataClient.Exchanges)

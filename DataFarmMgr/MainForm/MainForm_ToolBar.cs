@@ -72,7 +72,7 @@ namespace TradingLib.DataFarmManager
         void mdClient_OnRtnTickEvent(Tick tick)
         {
             string key = tick.GetSymbolUniqueKey();
-            MDSymbol symbol = DataCoreService.DataClient.GetMDSymbol(key);
+            MDSymbol symbol = GetMDSymbol(key);
             if (symbol == null) return;
 
             symbol.TickSnapshot.Price = (double)tick.Trade;

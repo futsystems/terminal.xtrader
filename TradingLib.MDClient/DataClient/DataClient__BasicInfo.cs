@@ -5,8 +5,6 @@ using System.Text;
 using TradingLib.API;
 using TradingLib.Common;
 using Common.Logging;
-using TradingLib.MarketData;
-
 
 namespace TradingLib.DataCore
 {
@@ -15,7 +13,6 @@ namespace TradingLib.DataCore
     /// </summary>
     public partial class DataClient
     {
-        Dictionary<string, MDSymbol> mdSymbolMap = new Dictionary<string, MDSymbol>();
         /// <summary>
         /// 市场时间段map
         /// </summary>
@@ -75,7 +72,6 @@ namespace TradingLib.DataCore
             MarketTime target = null;
             if (markettimemap.TryGetValue(mt.ID, out target))
             {
-                //更新
                 target.Name = mt.Name;
                 target.Description = mt.Description;
                 target.CloseTime = mt.CloseTime;
@@ -89,7 +85,7 @@ namespace TradingLib.DataCore
         #endregion
 
 
-        #region 交易数数据处理
+        #region 交易所数据处理
         void OnXQryExchangeResponse(RspXQryExchangeResponse response)
         {
             if (response.Exchange != null)
@@ -116,7 +112,6 @@ namespace TradingLib.DataCore
             Exchange target = null;
             if (exchangemap.TryGetValue(exchange.ID, out target))
             {
-                //更新
                 target.Name = exchange.Name;
                 target.EXCode = exchange.EXCode;
                 target.Country = exchange.Country;
@@ -126,7 +121,6 @@ namespace TradingLib.DataCore
             }
             else
             {
-
                 exchangemap.Add(exchange.ID, exchange);
             }
         }
@@ -150,27 +144,25 @@ namespace TradingLib.DataCore
 
         void OnMGRUpdateSecurity(RspMGRUpdateSecurityResponse response)
         {
-            GotSecurity(response.SecurityFaimly);
+            if (response.SecurityFaimly != null)
+            {
+                GotSecurity(response.SecurityFaimly);
+            }
         }
+
         void GotSecurity(SecurityFamilyImpl sec)
         {
             SecurityFamilyImpl target = null;
             if (securitymap.TryGetValue(sec.ID, out target))
             {
-                //更新
                 target.Code = sec.Code;
                 target.Name = sec.Name;
                 target.Currency = sec.Currency;
                 target.Type = sec.Type;
 
                 target.exchange_fk = sec.exchange_fk;
-                //target.Exchange = this.GetExchange(target.exchange_fk);
-
                 target.mkttime_fk = sec.mkttime_fk;
-                //target.MarketTime = this.GetMarketTime(target.mkttime_fk);
-
                 target.underlaying_fk = sec.underlaying_fk;
-                //target.UnderLaying = this.GetSecurity(target.underlaying_fk);
 
                 target.Multiple = sec.Multiple;
                 target.PriceTick = sec.PriceTick;
@@ -211,13 +203,7 @@ namespace TradingLib.DataCore
                 {
                     logger.Info("合约查询完毕,查询隔夜持仓");
                     BindData();
-
-                    //_inited = true;
                     DataCoreService.Initialize();
-                    //if (DataCoreService != null)
-                    //{
-                    //    OnInitializedEvent();
-                    //}
                 }
             }
 
@@ -225,52 +211,51 @@ namespace TradingLib.DataCore
 
         void OnMGRUpdateSymbol(RspMGRUpdateSymbolResponse response)
         {
-            GotSymbol(response.Symbol);
-
+            if (response.Symbol != null)
+            {
+                GotSymbol(response.Symbol);
+            }
         }
 
         void GotSymbol(SymbolImpl symbol)
         {
-            if (symbol != null)
+            SymbolImpl target = null;
+            if (symbolmap.TryGetValue(symbol.ID, out target))
             {
-                SymbolImpl target = null;
-                if (symbolmap.TryGetValue(symbol.ID, out target))
-                {
-                    //更新
-                    target.Symbol = symbol.Symbol;
-                    target.EntryCommission = symbol._entrycommission;
-                    target.ExitCommission = symbol._exitcommission;
-                    target.Margin = symbol._margin;
-                    target.ExtraMargin = symbol._extramargin;
-                    target.MaintanceMargin = symbol._maintancemargin;
-                    target.Strike = symbol.Strike;
-                    target.OptionSide = symbol.OptionSide;
-                    target.ExpireDate = symbol.ExpireDate;
 
-                    target.security_fk = symbol.security_fk;
-                    target.SecurityFamily = this.GetSecurity(target.security_fk);
+                target.Symbol = symbol.Symbol;
+                target.EntryCommission = symbol._entrycommission;
+                target.ExitCommission = symbol._exitcommission;
+                target.Margin = symbol._margin;
+                target.ExtraMargin = symbol._extramargin;
+                target.MaintanceMargin = symbol._maintancemargin;
+                target.Strike = symbol.Strike;
+                target.OptionSide = symbol.OptionSide;
+                target.ExpireDate = symbol.ExpireDate;
 
-                    target.underlaying_fk = symbol.underlaying_fk;
-                    target.ULSymbol = this.GetSymbol(target.underlaying_fk);
+                target.security_fk = symbol.security_fk;
+                //target.SecurityFamily = this.GetSecurity(target.security_fk);
+                target.underlaying_fk = symbol.underlaying_fk;
+                //target.ULSymbol = this.GetSymbol(target.underlaying_fk);
+                target.underlayingsymbol_fk = symbol.underlayingsymbol_fk;
+                //target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
 
-                    target.underlayingsymbol_fk = symbol.underlayingsymbol_fk;
-                    target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
-                    target.Tradeable = symbol.Tradeable;
-                }
-                else //添加
-                {
-                    symbolmap.Add(symbol.ID, symbol);
-                    symbol.SecurityFamily = this.GetSecurity(symbol.security_fk);
-                    symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
-                    symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
-
-                    if (DataCoreService.Initialized)
-                    {
-                        symbolnamemap[symbol.UniqueKey] = symbol;
-                    }
-
-                }
+                target.Tradeable = symbol.Tradeable;
             }
+            else //添加
+            {
+                symbolmap.Add(symbol.ID, symbol);
+            }
+
+            if (DataCoreService.Initialized)
+            {
+                symbol.SecurityFamily = this.GetSecurity(symbol.security_fk);
+                symbol.ULSymbol = this.GetSymbol(symbol.underlaying_fk);
+                symbol.UnderlayingSymbol = this.GetSymbol(symbol.underlayingsymbol_fk);
+
+                symbolnamemap[symbol.UniqueKey] = symbol;
+            }
+            
         }
 
         #endregion 
@@ -296,22 +281,6 @@ namespace TradingLib.DataCore
                 symbolnamemap[target.UniqueKey] = target;
             }
 
-            foreach (var target in symbolmap.Values)
-            {
-                MDSymbol symbol = new MDSymbol();
-                symbol.Symbol = target.Symbol;
-                symbol.SecCode = target.SecurityFamily.Code;
-                symbol.Name = target.GetName();
-                symbol.Currency = MDCurrency.RMB;
-                symbol.Exchange = target.Exchange;
-                symbol.Multiple = target.Multiple;
-                symbol.SecurityType = MDSecurityType.FUT;
-                symbol.SizeRate = 1;
-                symbol.NCode = 0;
-                symbol.SortKey = target.Month;
-                mdSymbolMap.Add(symbol.UniqueKey, symbol);
-                
-            }
             logger.Info("MarketTime     Num:" + markettimemap.Count.ToString());
             logger.Info("Exchange       Num:" + exchangemap.Count.ToString());
             logger.Info("Security       Num:" + securitymap.Count.ToString());
@@ -365,27 +334,6 @@ namespace TradingLib.DataCore
                 return symbolmap.Values;
             }
         }
-
-
-        public IEnumerable<MDSymbol> MDSymbols
-        {
-            get
-            {
-                return mdSymbolMap.Values;
-            }
-        }
-
-
-        public MDSymbol GetMDSymbol(string key)
-        {
-            MDSymbol target = null;
-            if (mdSymbolMap.TryGetValue(key, out target))
-            {
-                return target;
-            }
-            return null;
-        }
-
 
         private MarketTime GetMarketTime(int id)
         {
@@ -448,9 +396,6 @@ namespace TradingLib.DataCore
             }
             return null;
         }
-
-
-
 
         #endregion
 

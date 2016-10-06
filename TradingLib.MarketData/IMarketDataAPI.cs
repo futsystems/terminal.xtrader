@@ -13,7 +13,6 @@ namespace TradingLib.MarketData
         /// </summary>
         void Connect(string[] hosts, int port);
 
-
         /// <summary>
         /// 断开链接
         /// </summary>
@@ -23,7 +22,6 @@ namespace TradingLib.MarketData
         /// 是否处于链接状态
         /// </summary>
         bool Connected { get; }
-
 
 
         /// <summary>
@@ -39,16 +37,10 @@ namespace TradingLib.MarketData
         /// </summary>
         IEnumerable<MDSymbol> Symbols { get; }
 
-        /// <summary>
-        /// 启动后台数据处理线程
-        /// </summary>
-        //void Start();
 
         #region 查询操作
 
-        /// <summary>
-        /// 行情快照查询回报
-        /// </summary>
+
         event Action<List<MDSymbol>, RspInfo, int, int> OnRspQryTickSnapshot;
         /// <summary>
         /// 查询行情快照
@@ -57,9 +49,7 @@ namespace TradingLib.MarketData
         /// <returns></returns>
         int QryTickSnapshot(MDSymbol[] symbols);
 
-        /// <summary>
-        /// 返回历史分时数据
-        /// </summary>
+
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryHistMinuteData;
         /// <summary>
         /// 查询分时数据
@@ -68,6 +58,7 @@ namespace TradingLib.MarketData
         /// <param name="symbol"></param>
         /// <returns></returns>
         int QryMinuteDate(string exchange, string symbol,int date);
+
 
         /// <summary>
         /// 返回当日分时数据
@@ -79,7 +70,6 @@ namespace TradingLib.MarketData
         /// Bar数据回报
         /// </summary>
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQrySecurityBar;
-        
         /// <summary>
         /// 查询Bar数据
         /// </summary>
@@ -93,9 +83,7 @@ namespace TradingLib.MarketData
 
 
 
-        /// <summary>
-        /// 量价信息回报
-        /// </summary>
+
         event Action<List<PriceVolPair>, RspInfo, int, int> OnRspQryPriceVolPair;
         /// <summary>
         /// 查询价量信息
@@ -120,6 +108,7 @@ namespace TradingLib.MarketData
         /// <param name="Count"></param>
         /// <returns></returns>
         int QryTradeSplitData(string exchange, string symbol, int start, int Count);
+
 
 
         /// <summary>
