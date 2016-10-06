@@ -14,18 +14,18 @@ namespace TradingLib.XTrader.Control
         /// <summary>
         /// 显示所有合约
         /// </summary>
-        ALL,
+        ALL=1,
         /// <summary>
         /// 国外期货
         /// </summary>
-        FUTURE_OVERSEA,
+        FUTURE_OVERSEA=2,
         /// <summary>
         /// 国内期货
         /// </summary>
-        FUTURE_CN,
+        FUTURE_CN=3,
         /// <summary>
         /// 国内股票
         /// </summary>
-        STOCK_CN,
+        STOCK_CN=4,
     }
 }

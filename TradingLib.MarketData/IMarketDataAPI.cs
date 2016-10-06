@@ -5,6 +5,36 @@ using System.Text;
 
 namespace TradingLib.MarketData
 {
+    /// <summary>
+    /// 报价面板信息
+    /// 用于初始化报价列表
+    /// 形成不同Tab显示不同的合约组合
+    /// </summary>
+    public class BlockInfo
+    {
+        public BlockInfo(string name, Predicate<MDSymbol> filter, int viewType)
+        {
+            this.Title = name;
+            this.Filter = filter;
+            this.QuoteViewType = viewType;
+        }
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 合约过滤器
+        /// </summary>
+        public Predicate<MDSymbol> Filter { get; set; }
+
+        /// <summary>
+        /// 报价显示类别
+        /// </summary>
+        public int QuoteViewType { get; set; }
+    }
+
+
     public interface IMarketDataAPI
     {
 
@@ -37,6 +67,7 @@ namespace TradingLib.MarketData
         /// </summary>
         IEnumerable<MDSymbol> Symbols { get; }
 
+        IEnumerable<BlockInfo> BlockInfos { get; }
 
         #region 查询操作
 

@@ -96,7 +96,7 @@ namespace TradingLib.DataCore
                 case MessageTypes.TICKNOTIFY:
                     {
                         TickNotify response = obj as TickNotify;
-                        DataCoreService.EventData.FireRtnTickEvent(response.Tick);
+                        DataCoreService.EventHub.FireRtnTickEvent(response.Tick);
                         return;
                     }
                 case MessageTypes.XMARKETTIMERESPONSE:
@@ -133,10 +133,15 @@ namespace TradingLib.DataCore
                 case MessageTypes.BIN_BARRESPONSE:
                     {
                         RspQryBarResponseBin response = obj as RspQryBarResponseBin;
-                        DataCoreService.EventData.FireOnRspBarEvent(response);
+                        DataCoreService.EventHub.FireOnRspBarEvent(response);
                         return;
                     }
-
+                case MessageTypes.LOGINRESPONSE:
+                    {
+                        LoginResponse response = obj as LoginResponse;
+                        DataCoreService.EventHub.FireLoginEvent(response);
+                        return;
+                    }
                 #region 管理操作
                 case MessageTypes.MGRCONTRIBRESPONSE:
                     { 
@@ -196,15 +201,17 @@ namespace TradingLib.DataCore
         void OnDisconnectEvent()
         {
             logger.Info(string.Format("Hist Socket Disconnected"));
+            DataCoreService.EventHub.FireDisconnectedEvent();
         }
 
         void OnConnectEvent()
         {
             logger.Info(string.Format("Hist Socket Connected Server:{0} Port:{1}", mktClient.CurrentServer.Address, mktClient.CurrentServer.Port));
+            DataCoreService.EventHub.FireConnectedEvent();
             //执行登入
 
             //执行查询
-            QryMarketTime();
+            //QryMarketTime();
         }
 
     }

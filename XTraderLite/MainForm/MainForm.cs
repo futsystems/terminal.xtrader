@@ -223,6 +223,11 @@ namespace XTraderLite
         {
             BindDataAPICallBack();
 
+            foreach (var b in MDService.DataAPI.BlockInfos)
+            {
+                ctrlQuoteList.AddBlock(b.Title, b.Filter, (TradingLib.XTrader.Control.EnumQuoteListType)b.QuoteViewType);
+
+            }
             //数据完毕后 初始化报价面板并以第一个tab为默认视图
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
             ctrlQuoteList.SelectTab(0);

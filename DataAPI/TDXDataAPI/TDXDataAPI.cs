@@ -130,7 +130,88 @@ namespace DataAPI.TDX
 
         public TDXDataAPI()
         {
+            blockInfoList.Add(new BlockInfo("所有A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "1" || symbol.BlockType == "5" || symbol.BlockType == "6")
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 1));
+            blockInfoList.Add(new BlockInfo("中小版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+               =>
+               {
+                   if (symbol.BlockType == "5")
+                   {
+                       return true;
+                   }
+                   return false;
+               }), 4));
 
+            blockInfoList.Add(new BlockInfo("创业版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "6")
+                    {
+                        return true;
+                    }
+                    return false;
+                }),4));
+            blockInfoList.Add(new BlockInfo("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "1" && symbol.Exchange == ConstsExchange.EXCH_SSE)
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 4));
+            blockInfoList.Add(new BlockInfo("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "1" && symbol.Exchange == ConstsExchange.EXCH_SZE)
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 4));
+            blockInfoList.Add(new BlockInfo("基金", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "4")
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 4));
+            blockInfoList.Add(new BlockInfo("指数", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "7")
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 4));
+            blockInfoList.Add(new BlockInfo("债券", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "3")
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 4));
+            blockInfoList.Add(new BlockInfo("三板", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    if (symbol.BlockType == "8")
+                    {
+                        return true;
+                    }
+                    return false;
+                }), 4));
         }
 
 

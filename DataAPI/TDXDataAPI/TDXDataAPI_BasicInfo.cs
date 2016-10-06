@@ -22,11 +22,15 @@ namespace DataAPI.TDX
         List<MDSymbol> symbolList = new List<MDSymbol>();
         Dictionary<string, MDSymbol> symbolMap = new Dictionary<string, MDSymbol>();
 
+        List<BlockInfo> blockInfoList = new List<BlockInfo>();
+
+
         /// <summary>
         /// 所有合约
         /// </summary>
         public IEnumerable<MDSymbol> Symbols { get { return symbolMap.Values; } }
 
+        public IEnumerable<BlockInfo> BlockInfos { get { return blockInfoList; } }
         RawData GetRawData(string exchange, string symbol)
         {
             RawData target = null;

@@ -21,7 +21,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 查询交易时间段
         /// </summary>
-        private void QryMarketTime()
+        public void QryMarketTime()
         {
             XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(0);
             mktClient.TLSend(request);
@@ -30,7 +30,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 查询交易所
         /// </summary>
-        private void QryExchange()
+        public void QryExchange()
         { 
             XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(0);
             mktClient.TLSend(request);
@@ -39,7 +39,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 查询品种数据
         /// </summary>
-        private void QrySecurity()
+        public void QrySecurity()
         {
             XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(0);
             mktClient.TLSend(request);
@@ -48,7 +48,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 查询合约数据
         /// </summary>
-        private void QrySymbol()
+        public void QrySymbol()
         {
             XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(0);
             mktClient.TLSend(request);
@@ -60,9 +60,14 @@ namespace TradingLib.DataCore
         /// <param name="username"></param>
         /// <param name="pass"></param>
         public void Login(string username, string pass)
-        { 
-            
+        {
+            logger.Info(string.Format("Request Login Account:{0} Pass:{1}", username, pass));
+            LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(++requestid);
+            request.LoginID = username;
+            request.Passwd = pass;
+            mktClient.TLSend(request);
         }
+
 
 
         /// <summary>

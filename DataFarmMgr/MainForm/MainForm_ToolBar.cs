@@ -62,8 +62,8 @@ namespace TradingLib.DataFarmManager
         {
             DataCoreService.InitClient("127.0.0.1", 5060);
             //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
-            DataCoreService.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
-            DataCoreService.EventData.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
+            DataCoreService.EventHub.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
+            DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
 
 
             DataCoreService.DataClient.Start();

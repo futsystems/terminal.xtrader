@@ -20,18 +20,18 @@ namespace TradingLib.DataCore
         
         }
 
-        EventData _eventdata;
+        EventHub _eventHub;
 
         /// <summary>
         /// 数据事件集合
         /// </summary>
-        public static EventData EventData
+        public static EventHub EventHub
         {
             get
             {
-                if (defaultinstance._eventdata == null)
-                    defaultinstance._eventdata = new EventData();
-                return defaultinstance._eventdata;
+                if (defaultinstance._eventHub == null)
+                    defaultinstance._eventHub = new EventHub();
+                return defaultinstance._eventHub;
             }
         }
 
@@ -76,7 +76,7 @@ namespace TradingLib.DataCore
             }
         }
 
-        public static event Action OnInitializedEvent;
+        //public static event Action OnInitializedEvent;
 
         /// <summary>
         /// 初始化完毕
@@ -84,10 +84,11 @@ namespace TradingLib.DataCore
         internal static void Initialize()
         {
             defaultinstance._isinited = true;
-            if (OnInitializedEvent != null)
-            {
-                OnInitializedEvent();
-            }
+            //if (OnInitializedEvent != null)
+            //{
+            //    OnInitializedEvent();
+            //}
+            EventHub.FireOnInitializedEvent();
         }
 
         DataClient _client = null;

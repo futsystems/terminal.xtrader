@@ -23,6 +23,7 @@ using System.Runtime.InteropServices;
 [assembly: Guid("e427d67b-4489-436d-87fb-da91a19adfab")]
 
 [assembly: InternalsVisibleToAttribute("TDXDataAPI")]
+[assembly: InternalsVisibleToAttribute("FutsDataAPI")]
 // 程序集的版本信息由下面四个值组成:
 //
 //      主版本
