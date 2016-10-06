@@ -155,8 +155,10 @@
             // 
             // closeTime
             // 
+            this.closeTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.closeTime.Location = new System.Drawing.Point(130, 170);
             this.closeTime.Name = "closeTime";
+            this.closeTime.ShowUpDown = true;
             this.closeTime.Size = new System.Drawing.Size(131, 21);
             this.closeTime.TabIndex = 13;
             // 

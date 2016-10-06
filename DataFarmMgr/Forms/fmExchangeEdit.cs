@@ -37,9 +37,45 @@ namespace TradingLib.DataFarmManager
 
         void fmExchangeEdit_Load(object sender, EventArgs e)
         {
+            btnSubmit.Click += new EventHandler(btnSubmit_Click);
             DataCoreService.EventContrib.RegisterCallback("DataFarm", "QryCalendarList", OnQryCalendarItems);
 
             DataCoreService.MDClient.ReqContribRequest("DataFarm", "QryCalendarList", "");
+        }
+
+        void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (_exchange != null)
+            {
+                if (MessageBox.Show("确认更新交易所?","更新",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    _exchange.Name = this.name.Text;
+                    _exchange.Title = this.title.Text;
+                    _exchange.Country = (Country)this.cbCountry.SelectedValue;
+                    _exchange.Calendar = this.calendar.SelectedValue.ToString();
+                    _exchange.TimeZoneID = this.cbTimeZone.SelectedValue.ToString();
+                    _exchange.CloseTime = Util.ToTLTime(this.closeTime.Value);
+                    DataCoreService.MDClient.ReqUpdateExchange(_exchange);
+                    this.Close();
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("确认添加交易所?", "添加", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Exchange ex = new Exchange();
+                    ex.Name = this.name.Text;
+                    ex.Title = this.title.Text;
+                    ex.Country = (Country)this.cbCountry.SelectedValue;
+                    ex.EXCode = this.code.Text;
+                    ex.Calendar = this.calendar.SelectedValue.ToString();
+                    ex.TimeZoneID = this.cbTimeZone.SelectedValue.ToString();
+                    ex.CloseTime = Util.ToTLTime(this.closeTime.Value);
+
+                    DataCoreService.MDClient.ReqUpdateExchange(ex);
+                    this.Close();
+                }
+            }
         }
 
         List<CalendarItem> calenarlist = new List<CalendarItem>();

@@ -50,6 +50,7 @@
             this.MinimizeBox = false;
             this.Name = "fmExchangeList";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "交易所列表";
             this.ResumeLayout(false);
 

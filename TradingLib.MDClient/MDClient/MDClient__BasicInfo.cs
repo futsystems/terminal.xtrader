@@ -72,25 +72,12 @@ namespace TradingLib.DataCore
             }
         }
 
+        #region 交易数数据处理
         void OnXQryExchangeResponse(RspXQryExchangeResponse response)
         {
             if (response.Exchange != null)
             {
-                Exchange target = null;
-                if (exchangemap.TryGetValue(response.Exchange.ID, out target))
-                {
-                    //更新
-                    target.Name = response.Exchange.Name;
-                    target.EXCode = response.Exchange.EXCode;
-                    target.Country = response.Exchange.Country;
-                    target.Title = response.Exchange.Title;
-                    target.Calendar = response.Exchange.Calendar;
-                    target.CloseTime = response.Exchange.CloseTime;
-                }
-                else
-                {
-                    exchangemap.Add(response.Exchange.ID, response.Exchange);
-                }
+                GotExchange(response.Exchange);
             }
             if (response.IsLast)
             {
@@ -99,6 +86,37 @@ namespace TradingLib.DataCore
             }
         }
 
+        void OnMGRUpdateExchange(RspMGRUpdateExchangeResponse response)
+        {
+            if (response.Exchange != null)
+            {
+                GotExchange(response.Exchange);
+            }
+        }
+
+        void GotExchange(Exchange exchange)
+        {
+            Exchange target = null;
+            if (exchangemap.TryGetValue(exchange.ID, out target))
+            {
+                //更新
+                target.Name = exchange.Name;
+                target.EXCode = exchange.EXCode;
+                target.Country = exchange.Country;
+                target.Title = exchange.Title;
+                target.Calendar = exchange.Calendar;
+                target.CloseTime = exchange.CloseTime;
+            }
+            else
+            {
+
+                exchangemap.Add(exchange.ID, exchange);
+            }
+        }
+        #endregion
+
+
+        #region 品种数据处理
         void OnXQrySecurityResponse(RspXQrySecurityResponse response)
         {
             if (response.SecurityFaimly != null)
@@ -160,8 +178,10 @@ namespace TradingLib.DataCore
                 target.UnderLaying = this.GetSecurity(target.underlaying_fk);
             }
         }
+        #endregion
 
 
+        #region 合约数据处理
         void OnXQrySymbolResponse(RspXQrySymbolResponse response)
         {
             if (response.Symbol != null)
@@ -235,7 +255,7 @@ namespace TradingLib.DataCore
             }
         }
 
-
+        #endregion 
 
         /// <summary>
         /// 绑定对象数据

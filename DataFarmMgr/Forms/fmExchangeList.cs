@@ -35,10 +35,16 @@ namespace TradingLib.DataFarmManager
             //exchangeGrid.DoubleClick += new EventHandler(exchangegrid_DoubleClick);
             exchangeGrid.DoubleClick += new EventHandler(exchangeGrid_DoubleClick);
             //btnAddExchange.Click += new EventHandler(btnAddExchange_Click);
+            DataCoreService.EventManager.OnMGRUpdateExchangeResponse += new Action<RspMGRUpdateExchangeResponse>(EventManager_OnMGRUpdateExchangeResponse);
             foreach (Exchange ex in DataCoreService.MDClient.Exchanges)
             {
                 this.InvokeGotExchange(ex);
             }
+        }
+
+        void EventManager_OnMGRUpdateExchangeResponse(RspMGRUpdateExchangeResponse obj)
+        {
+            InvokeGotExchange(obj.Exchange);
         }
 
         void exchangeGrid_DoubleClick(object sender, EventArgs e)

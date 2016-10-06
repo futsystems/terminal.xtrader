@@ -213,7 +213,7 @@ namespace TradingLib.DataCore
                     }
 
 
-                    //合约更新回报
+                //合约更新回报
                 case MessageTypes.MGRUPDATESYMBOLRESPONSE:
                     {
                         RspMGRUpdateSymbolResponse response = obj as RspMGRUpdateSymbolResponse;
@@ -222,6 +222,7 @@ namespace TradingLib.DataCore
 
                         break;
                     }
+                //品种更新回报
                 case MessageTypes.MGRUPDATESECURITYRESPONSE:
                     {
                         RspMGRUpdateSecurityResponse response = obj as RspMGRUpdateSecurityResponse;
@@ -229,7 +230,14 @@ namespace TradingLib.DataCore
                         DataCoreService.EventManager.FireOnMGRUpdateSecurityResponse(response);
                         break;
                     }
-
+                //更新交易所回报
+                case MessageTypes.MGRUPDATEEXCHANGERESPONSE:
+                    {
+                        RspMGRUpdateExchangeResponse response = obj as RspMGRUpdateExchangeResponse;
+                        this.OnMGRUpdateExchange(response);
+                        DataCoreService.EventManager.FireOnMGRUpdateExchangeResponse(response);
+                        break;
+                    }
 
 
                 default:
