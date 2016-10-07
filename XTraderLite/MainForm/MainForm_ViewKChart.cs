@@ -79,7 +79,7 @@ namespace XTraderLite
                 //for (int i = 0; i < 10; i++)
                 //    dateList[i] = -1;
                 //多日分时 由于不知道交易日信息 因此先查询日线 获得有效日期，然后再按此日期进行历史分时查询
-                int reqid = MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange,CurrentKChartSymbol.Symbol,ConstFreq.Freq_Day,1,10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
+                int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ConstFreq.Freq_Day, 1, 10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
                 kChartIntraViewDayBarRequest.TryAdd(reqid, this);
 
             }
@@ -94,7 +94,7 @@ namespace XTraderLite
         {
             logger.Info(string.Format("load more data from server current data count:{0}", arg2.Count));
 
-            int reqid = MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange,CurrentKChartSymbol.Symbol, CurrentKChartFreq, arg2.Count, 800);
+            int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, arg2.Count, 800);
             kChartLoadMoreDataRequest.TryAdd(reqid, this);
         }
 

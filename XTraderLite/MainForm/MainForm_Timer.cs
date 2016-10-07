@@ -44,15 +44,25 @@ namespace XTraderLite
                 //处于K线图模式 实时更新最新的Bar数据
                 if (ctrlKChart.IsBarView)
                 {
-                    //K线数据已经加载了Bar数据 获得最近一个Bar的日期与时间
-                    if (ctrlKChart.LastDate > 0 && ctrlKChart.LastTime > 0)
+                    if (MDService.DataAPI.APISetting.QryBarTimeSupport)//通过最近的Bar时间来恢复该事件以来的所有Bar数据
                     {
-                        DateTime lastTime = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime * 100);
-                        int reqCount = Utils.RequestCount(lastTime, CurrentKChartFreq);
-                        logger.Info(string.Format("last date:{0} time:{1} now:{2} reqCount:{3}", ctrlKChart.LastDate, ctrlKChart.LastTime, DateTime.Now.ToShortTimeString(), reqCount));
-
-                        int reqid =MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange,CurrentKChartSymbol.Symbol,CurrentKChartFreq, 0, reqCount);
+                        DateTime start = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
+                        int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, start, DateTime.MaxValue);
                         kChartRealTimeBarRequest.TryAdd(reqid, this);
+                    }
+                    else //不支持按时间查询
+                    {
+                        //K线数据已经加载了Bar数据 获得最近一个Bar的日期与时间
+                        if (ctrlKChart.LastDate > 0 && ctrlKChart.LastTime > 0)
+                        {
+                            DateTime lastTime = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
+                            int reqCount = Utils.RequestCount(lastTime, CurrentKChartFreq);
+                            logger.Info(string.Format("last date:{0} time:{1} now:{2} reqCount:{3}", ctrlKChart.LastDate, ctrlKChart.LastTime, DateTime.Now.ToShortTimeString(), reqCount));
+
+                            int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, 0, reqCount);
+                            kChartRealTimeBarRequest.TryAdd(reqid, this);
+                        }
+                        //获得当前Bar时间 然后通过时间进行查询
                     }
                 }
 

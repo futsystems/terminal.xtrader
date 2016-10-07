@@ -138,6 +138,33 @@ namespace TradingLib.DataCore
         //    return QryBar(symbol, interval, start, end, maxcount, true);
         //}
 
+        /// <summary>
+        /// 以开始位置和最大返回数量为条件查询Bar数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="interval"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="maxCount"></param>
+        /// <returns></returns>
+        public int QryBar(string exchange, string symbol, int interval, int startIndex, int maxCount)
+        {
+            return QryBar(exchange, symbol,interval, DateTime.MinValue, DateTime.MaxValue, startIndex, maxCount);
+        }
+
+        /// <summary>
+        /// 查询某个时间以来的所有Bar数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="interval"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public int QryBar(string exchange, string symbol, int interval, DateTime start,DateTime end)
+        {
+            return QryBar(exchange, symbol, interval, start,end , 0, 0);
+        }
+
 
         /// <summary>
         /// 底层查询Bar数据接口
@@ -148,17 +175,18 @@ namespace TradingLib.DataCore
         /// <param name="end"></param>
         /// <param name="maxcount"></param>
         /// <param name="fromend"></param>
-        public int QryBar(string exchange,string symbol,int interval,DateTime start,DateTime end,int maxcount=1000,bool fromend = true)
+        public int QryBar(string exchange,string symbol,int interval,DateTime start,DateTime end,int startIndex,int maxCount,bool fromend = false)
         {
             int reqid = NextRequestID;
             QryBarRequest request = RequestTemplate<QryBarRequest>.CliSendRequest(reqid);
             request.Exchange = exchange;
             request.FromEnd = fromend;
             request.Symbol = symbol;
-            request.MaxCount = maxcount;
+            request.MaxCount = maxCount;
+            request.StartIndex = startIndex;
             request.Interval = interval;
-            request.Start = start;
-            request.End = end;
+            request.StartTime = start;
+            request.EndTime = end;
             request.BarResponseType = EnumBarResponseType.BINARY;
 
             mktClient.TLSend(request);

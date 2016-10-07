@@ -20,6 +20,7 @@ namespace DataAPI.Futs
         public FutsDataAPI()
         {
             APISetting.TickMode = EnumMDTickMode.Register;
+            APISetting.QryBarTimeSupport = true;
 
             DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
             DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
@@ -28,8 +29,12 @@ namespace DataAPI.Futs
 
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
 
+            DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
+
 
         }
+
+        
 
         void EventHub_OnRtnTickEvent(Tick tick)
         {

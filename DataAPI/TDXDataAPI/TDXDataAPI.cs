@@ -139,6 +139,7 @@ namespace DataAPI.TDX
         public TDXDataAPI()
         {
             APISetting.TickMode = EnumMDTickMode.FreqQry;
+            APISetting.QryBarTimeSupport = false;
 
 
 

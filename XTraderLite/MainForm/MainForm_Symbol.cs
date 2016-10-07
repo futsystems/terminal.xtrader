@@ -78,7 +78,7 @@ namespace XTraderLite
                 if (ctrlKChart.DaysForIntradayView > 1)
                 {
                     minuteData.Clear();
-                    int reqid = MDService.DataAPI.QrySeurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ConstFreq.Freq_Day, 1, 10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
+                    int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ConstFreq.Freq_Day, 1, 10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
                     kChartIntraViewDayBarRequest.TryAdd(reqid, this);
                 }
                 else
@@ -87,7 +87,7 @@ namespace XTraderLite
                 }
 
                 //Bar数据查询
-                MDService.DataAPI.QrySeurityBars(symbol.Exchange, symbol.Symbol, _currentFreq, 0, 800);
+                MDService.DataAPI.QrySecurityBars(symbol.Exchange, symbol.Symbol, _currentFreq, 0, 800);
             }
         }
 

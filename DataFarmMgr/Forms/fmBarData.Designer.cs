@@ -40,11 +40,23 @@
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.maxCount = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.startIndex = new System.Windows.Forms.NumericUpDown();
+            this.fromEnd = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.fromEnd);
+            this.panel1.Controls.Add(this.startIndex);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.maxCount);
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.comboBox4);
@@ -122,7 +134,7 @@
             // 
             // btnQry
             // 
-            this.btnQry.Location = new System.Drawing.Point(217, 127);
+            this.btnQry.Location = new System.Drawing.Point(217, 172);
             this.btnQry.Name = "btnQry";
             this.btnQry.Size = new System.Drawing.Size(75, 23);
             this.btnQry.TabIndex = 6;
@@ -156,6 +168,63 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(189, 21);
             this.dateTimePicker1.TabIndex = 9;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 110);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "返回最大数量";
+            // 
+            // maxCount
+            // 
+            this.maxCount.Location = new System.Drawing.Point(14, 125);
+            this.maxCount.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.maxCount.Name = "maxCount";
+            this.maxCount.Size = new System.Drawing.Size(81, 21);
+            this.maxCount.TabIndex = 11;
+            this.maxCount.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(112, 110);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "起始位置";
+            // 
+            // startIndex
+            // 
+            this.startIndex.Location = new System.Drawing.Point(114, 125);
+            this.startIndex.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.startIndex.Name = "startIndex";
+            this.startIndex.Size = new System.Drawing.Size(70, 21);
+            this.startIndex.TabIndex = 13;
+            // 
+            // fromEnd
+            // 
+            this.fromEnd.AutoSize = true;
+            this.fromEnd.Location = new System.Drawing.Point(214, 125);
+            this.fromEnd.Name = "fromEnd";
+            this.fromEnd.Size = new System.Drawing.Size(66, 16);
+            this.fromEnd.TabIndex = 14;
+            this.fromEnd.Text = "FromEnd";
+            this.fromEnd.UseVisualStyleBackColor = true;
+            // 
             // fmBarData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -167,6 +236,8 @@
             this.Text = "fmBarData";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startIndex)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -185,5 +256,10 @@
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Button btnQry;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.NumericUpDown maxCount;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown startIndex;
+        private System.Windows.Forms.CheckBox fromEnd;
     }
 }

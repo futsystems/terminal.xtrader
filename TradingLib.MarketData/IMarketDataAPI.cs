@@ -53,7 +53,15 @@ namespace TradingLib.MarketData
     /// </summary>
     public class MarketDataAPISetting
     {
+        /// <summary>
+        /// 实时行情类别
+        /// </summary>
         public EnumMDTickMode TickMode { get; set; }
+
+        /// <summary>
+        /// 是否支持通过时间来请求Bar数据
+        /// </summary>
+        public bool QryBarTimeSupport { get; set; }
     }
 
 
@@ -160,7 +168,17 @@ namespace TradingLib.MarketData
         /// <param name="start"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count);
+        int QrySecurityBars(string exchange, string symbol, string freqStr, int start, int count);
+
+        /// <summary>
+        /// 查询某个时间之后的Bar数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="freqStr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        int QrySecurityBars(string exchange, string symbol, string freqStr, DateTime start, DateTime end);
 
 
 

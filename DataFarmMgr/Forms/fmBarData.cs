@@ -86,8 +86,9 @@ namespace TradingLib.DataFarmManager
                 MessageBox.Show("请选择需要查询的合约");
                 return;
             }
-
-            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, 60, DateTime.MinValue, DateTime.MaxValue, 1000, true);
+            int sIdx = (int)startIndex.Value;
+            int max = (int)maxCount.Value;
+            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, 60, DateTime.MinValue, DateTime.MaxValue, sIdx,max, fromEnd.Checked);
         }
 
         void InvokeGotBar(Bar bar)

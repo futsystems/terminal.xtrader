@@ -335,9 +335,21 @@ namespace DataAPI.TDX
 
         //}
 
+        /// <summary>
+        /// 查询某个时间之后的Bar数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="freqStr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public int QrySecurityBars(string exchange, string symbol, string freqStr, DateTime start, DateTime end)
+        {
+            logger.Info("not support qry bar via time");
+            return 0;
+        }
 
-
-        public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count)
+        public int QrySecurityBars(string exchange, string symbol, string freqStr, int start, int count)
         {
             return QrySeurityBars(exchange, symbol, freqStr, start, count, 0);
         }

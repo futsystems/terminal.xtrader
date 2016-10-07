@@ -78,7 +78,6 @@ namespace DataAPI.Futs
         /// Bar数据回报
         /// </summary>
         public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQrySecurityBar;
-
         /// <summary>
         /// 查询Bar数据
         /// </summary>
@@ -88,9 +87,98 @@ namespace DataAPI.Futs
         /// <param name="start"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public int QrySeurityBars(string exchange, string symbol, string freqStr, int start, int count)
+        public int QrySecurityBars(string exchange, string symbol, string freqStr, int start, int count)
         {
-            return 0;
+            return DataCoreService.DataClient.QryBar(exchange,symbol,GetInterval(freqStr),start,count);
+        }
+
+        /// <summary>
+        /// 查询某个时间之后的Bar数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="freqStr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public int QrySecurityBars(string exchange, string symbol, string freqStr, DateTime start, DateTime end)
+        {
+            return DataCoreService.DataClient.QryBar(exchange, symbol, GetInterval(freqStr), start,end);
+        }
+
+
+
+        Dictionary<int, Dictionary<string, List<double>>> barResponseMap = new Dictionary<int, Dictionary<string, List<double>>>();
+        void EventHub_OnRspBarEvent(RspQryBarResponseBin obj)
+        {
+            Dictionary<string, List<double>> target = null;
+            if (!barResponseMap.TryGetValue(obj.RequestID, out target))
+            {
+                target = new Dictionary<string, List<double>>();
+                barResponseMap.Add(obj.RequestID,target);
+                target.Add("date", new List<double>());
+                target.Add("time", new List<double>());
+                target.Add("open", new List<double>());
+                target.Add("high", new List<double>());
+                target.Add("low", new List<double>());
+                target.Add("close", new List<double>());
+                target.Add("vol", new List<double>());
+                target.Add("amount", new List<double>());
+            }
+            List<double> date = target["date"];
+            List<double> time = target["time"];
+            List<double> open = target["open"];
+            List<double> high = target["high"];
+            List<double> low = target["low"];
+            List<double> close = target["close"];
+            List<double> vol = target["vol"];
+            List<double> amount = target["amount"];
+
+            foreach (var b in obj.Bars)
+            {
+                date.Add(b.StartTime.ToTLDate());
+                time.Add(b.StartTime.ToTLTime());
+                open.Add(b.Open);
+                high.Add(b.High);
+                low.Add(b.Low);
+                close.Add(b.Close);
+                vol.Add(b.Volume);
+                amount.Add(0);
+            }
+
+            if (obj.IsLast)
+            {
+                if (OnRspQrySecurityBar != null)
+                { 
+                    Dictionary<string,double[]> data = new Dictionary<string,double[]>();
+                    data["date"] = date.ToArray();
+                    data["time"] = time.ToArray();
+                    data["open"] = open.ToArray();
+                    data["high"] = high.ToArray();
+                    data["low"] = low.ToArray();
+                    data["close"] = close.ToArray();
+                    data["vol"] = vol.ToArray();
+                    data["amount"] = amount.ToArray();
+                    barResponseMap.Remove(obj.RequestID);
+                    OnRspQrySecurityBar(data, null, date.Count, obj.RequestID);
+
+                }
+            }
+        }
+
+
+        int GetInterval(string freqStr)
+        {
+            switch (freqStr)
+            {
+                case ConstFreq.Freq_M1: return 60;
+                case ConstFreq.Freq_M5: return 5 * 60;
+                case ConstFreq.Freq_M15: return 15 * 60;
+                case ConstFreq.Freq_M30: return 30 * 60;
+                case ConstFreq.Freq_M60: return 60 * 60;
+                case ConstFreq.Freq_Day: return 24 * 60 * 60;
+                default:
+                    return 60;
+            }
         }
 
 
