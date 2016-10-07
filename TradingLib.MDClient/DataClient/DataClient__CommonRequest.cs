@@ -75,7 +75,7 @@ namespace TradingLib.DataCore
         /// </summary>
         public void RegisterSymbol(string exchange,string[] symbols)
         {
-            logger.Info(string.Format("Subscribe market data for symbol:{0}", string.Join(",", symbols)));
+            logger.Info(string.Format("Subscribe market data for exchange:{0} symbol:{1}",exchange, string.Join(",", symbols)));
             RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(NextRequestID);
             request.Exchange = exchange;
             foreach (var symbol in symbols)
@@ -95,8 +95,23 @@ namespace TradingLib.DataCore
         /// 注销合约实时行情
         /// </summary>
         /// <param name="symbol"></param>
-        public void UnRegisterSymbol(string[] symbols)
+        public void UnRegisterSymbol(string exchange,string[] symbols)
         {
+            logger.Info(string.Format("Unsubscribe market data for exchange:{0} symbols:{1}", exchange, string.Join(",", symbols)));
+            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(NextRequestID);
+            request.Exchange = exchange;
+            foreach (var symbol in symbols)
+            {
+                Symbol sym = this.GetSymbol(exchange, symbol);
+                if (sym == null)
+                {
+                    logger.Warn(string.Format("Symbol:{0} do not exist", symbol));
+                    continue;
+                }
+                request.SymbolList.Add(symbol);
+            }
+            mktClient.TLSend(request);
+
             //logger.Info(string.Format("Unsubscribe market data for symbol:{0}", string.Join(",",symbols)));
             //UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(NextRequestID);
                 
@@ -118,23 +133,26 @@ namespace TradingLib.DataCore
 
 
 
-        public int QryBar(string symbol, int interval, DateTime start, DateTime end, int maxcount)
-        {
-            return QryBar(symbol, interval, start, end, maxcount, true);
-        }
+        //public int QryBar(string symbol, int interval, DateTime start, DateTime end, int maxcount)
+        //{
+        //    return QryBar(symbol, interval, start, end, maxcount, true);
+        //}
+
+
         /// <summary>
         /// 底层查询Bar数据接口
         /// </summary>
         /// <param name="symbol"></param>
-        /// <param name="interval"></param>
+        /// <param name="interval">默认为时间周期的Bar数据</param>
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="maxcount"></param>
         /// <param name="fromend"></param>
-        public int QryBar(string symbol,int interval,DateTime start,DateTime end,int maxcount=1000,bool fromend = true)
+        public int QryBar(string exchange,string symbol,int interval,DateTime start,DateTime end,int maxcount=1000,bool fromend = true)
         {
             int reqid = NextRequestID;
             QryBarRequest request = RequestTemplate<QryBarRequest>.CliSendRequest(reqid);
+            request.Exchange = exchange;
             request.FromEnd = fromend;
             request.Symbol = symbol;
             request.MaxCount = maxcount;

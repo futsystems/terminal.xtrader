@@ -40,7 +40,10 @@ namespace XTraderLite
             MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
             MDService.DataAPI.OnRspQryHistMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryHistMinuteData);
             MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
+
+            //实时行情数据返回
             MDService.DataAPI.OnRspQryTickSnapshot += new Action<List<MDSymbol>, RspInfo, int, int>(DataAPI_OnRspQryTickSnapshot);
+            MDService.DataAPI.OnRtnTick += new Action<MDSymbol>(DataAPI_OnRtnTick);
 
             //量价信息
             MDService.DataAPI.OnRspQryPriceVolPair += new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair);
@@ -52,6 +55,8 @@ namespace XTraderLite
             //合约信息回报
             MDService.DataAPI.OnRspQrySymbolInfo += new Action<string, RspInfo, int, int>(DataAPI_OnRspQrySymbolInfo);
         }
+
+        
 
 
 
@@ -407,40 +412,56 @@ namespace XTraderLite
         }
 
 
-        void DataAPI_OnRspQryTickSnapshot(List<MDSymbol> arg1, RspInfo arg2, int arg3, int arg4)
+        void GotTick(MDSymbol symbol)
         {
             if (this.InvokeRequired)
             {
-                Invoke(new Action<List<MDSymbol>, RspInfo, int, int>(DataAPI_OnRspQryTickSnapshot), new object[] { arg1, arg2, arg3, arg4 });
+                Invoke(new Action<MDSymbol>(GotTick), new object[] { symbol });
             }
             else
             {
-                foreach (var symbol in arg1)
+                if (ctrlQuoteList.Visible)
                 {
-
-                    if (ctrlQuoteList.Visible)
-                    {
-                        ctrlQuoteList.Update(symbol);
-                    }
-
-                    if (ctrlKChart.Visible)
-                    {
-                        ctrlKChart.Update(symbol);
-                    }
-                    ctrlSymbolHighLight.Update(symbol);
-
-                    //保存LastTick
-                    if (symbol.TickSnapshot.Time != symbol.LastTickSnapshot.Time)
-                    {
-                        symbol.LastTickSnapshot = symbol.TickSnapshot;
-                    }
+                    ctrlQuoteList.Update(symbol);
                 }
 
-                //驱动完毕所有行情快照监听者之后 更新last
-                
+                if (ctrlKChart.Visible)
+                {
+                    ctrlKChart.Update(symbol);
+                }
+                ctrlSymbolHighLight.Update(symbol);
+
+                //保存LastTick
+                if (symbol.TickSnapshot.Time != symbol.LastTickSnapshot.Time)
+                {
+                    symbol.LastTickSnapshot = symbol.TickSnapshot;
+                }
             }
+        }
+        void DataAPI_OnRtnTick(MDSymbol obj)
+        {
+            GotTick(obj);
+        }
 
 
+        void DataAPI_OnRspQryTickSnapshot(List<MDSymbol> arg1, RspInfo arg2, int arg3, int arg4)
+        {
+            foreach (var symbol in arg1)
+            {
+                GotTick(symbol);
+            }
+            //if (this.InvokeRequired)
+            //{
+            //    Invoke(new Action<List<MDSymbol>, RspInfo, int, int>(DataAPI_OnRspQryTickSnapshot), new object[] { arg1, arg2, arg3, arg4 });
+            //}
+            //else
+            //{
+            //    foreach (var symbol in arg1)
+            //    {
+
+                    
+            //    }
+            //}
         }
 
 

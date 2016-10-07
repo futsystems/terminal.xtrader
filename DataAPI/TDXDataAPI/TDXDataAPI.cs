@@ -25,6 +25,14 @@ namespace DataAPI.TDX
     {
         ILog logger = LogManager.GetLogger("TDXDataAPI");
 
+        MarketDataAPISetting setting = new MarketDataAPISetting();
+
+        /// <summary>
+        /// API工作模式参数
+        /// </summary>
+        public MarketDataAPISetting APISetting { get { return setting; } }
+
+
         Profiler _profiler = new Profiler();
         /// <summary>
         /// 连接建立事件
@@ -130,6 +138,10 @@ namespace DataAPI.TDX
 
         public TDXDataAPI()
         {
+            APISetting.TickMode = EnumMDTickMode.FreqQry;
+
+
+
             blockInfoList.Add(new BlockInfo("所有A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {

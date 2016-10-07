@@ -35,8 +35,47 @@ namespace TradingLib.MarketData
     }
 
 
+    public enum EnumMDTickMode
+    {
+        /// <summary>
+        /// 定时查询
+        /// </summary>
+        FreqQry,
+        /// <summary>
+        /// 注册
+        /// </summary>
+        Register,
+    
+    }
+
+    /// <summary>
+    /// 行情接口工作参数
+    /// </summary>
+    public class MarketDataAPISetting
+    {
+        public EnumMDTickMode TickMode { get; set; }
+    }
+
+
+
     public interface IMarketDataAPI
     {
+        /// <summary>
+        /// 合约列表
+        /// 用于报价列表显示的报价合约
+        /// </summary>
+        IEnumerable<MDSymbol> Symbols { get; }
+
+        /// <summary>
+        /// 板块列表
+        /// 用于报价列表显示的Tab页
+        /// </summary>
+        IEnumerable<BlockInfo> BlockInfos { get; }
+
+        /// <summary>
+        /// 工作参数
+        /// </summary>
+        MarketDataAPISetting APISetting { get; }
 
         /// <summary>
         /// 连接服务端
@@ -53,7 +92,6 @@ namespace TradingLib.MarketData
         /// </summary>
         bool Connected { get; }
 
-
         /// <summary>
         /// 登入服务端
         /// </summary>
@@ -62,16 +100,11 @@ namespace TradingLib.MarketData
         void Login(string username, string pass);
 
 
-        /// <summary>
-        /// 获得所有合约
-        /// </summary>
-        IEnumerable<MDSymbol> Symbols { get; }
-
-        IEnumerable<BlockInfo> BlockInfos { get; }
-
+        
+        
         #region 查询操作
 
-
+        //行情获取方式1 查询
         event Action<List<MDSymbol>, RspInfo, int, int> OnRspQryTickSnapshot;
         /// <summary>
         /// 查询行情快照
@@ -79,6 +112,23 @@ namespace TradingLib.MarketData
         /// <param name="symbols"></param>
         /// <returns></returns>
         int QryTickSnapshot(MDSymbol[] symbols);
+
+
+
+        event Action<MDSymbol> OnRtnTick;
+        //行情获取方式2 订阅/注销
+        /// <summary>
+        /// 注册合约行情
+        /// </summary>
+        /// <param name="symbols"></param>
+        void RegisterSymbol(MDSymbol[] symbols);
+
+        /// <summary>
+        /// 注销合约行情
+        /// </summary>
+        /// <param name="symbols"></param>
+        void UnregisterSymbol(MDSymbol[] symbols);
+
 
 
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryHistMinuteData;

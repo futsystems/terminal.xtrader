@@ -44,18 +44,19 @@ namespace TradingLib.XTrader.Control
                     _quoteList[i].Update();
                 }
                 _symbolIdxMap.Add(symbol.UniqueKey, i);
-                //更新当前的序号
-                _endIdx = _count - 1;
 
-                //如果当前没有默认选中某行 则选中第一行
-                if (_selectedRow == -1)
-                {
-                    SelectRow(0);
-                }
-
-                //重新绘制窗口的某个特定部分
+                //处于update期间 不执行选行或者显示序号更改 否则在tab切换过程中 由于_endIdx变化导致最后进行endIdx比对时无法正常触发SymbolVisibleChange事件
                 if (_needInvalidate)
                 {
+                    //更新当前的序号
+                    _endIdx = _count - 1;
+
+                    //如果当前没有默认选中某行 则选中第一行
+                    if (_selectedRow == -1)
+                    {
+                        SelectRow(0);
+                    }
+
                     Invalidate(_quoteList[i].Rect);
                     FireQuoteViewChange();
                 }
@@ -119,6 +120,7 @@ namespace TradingLib.XTrader.Control
             {
                 row.Selected = false;
             }
+
             _count = 0;
             _symbolIdxMap.Clear();
             _beginIdx = 0;

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using TradingLib.API;
 using TradingLib.Common;
+using TradingLib.DataCore;
 using TradingLib.MarketData;
 
 namespace DataAPI.Futs
 {
     public partial class FutsDataAPI : IMarketDataAPI
     {
-        #region 查询操作
-
 
         public event Action<List<MDSymbol>, TradingLib.MarketData.RspInfo, int, int> OnRspQryTickSnapshot;
         /// <summary>
@@ -21,8 +20,39 @@ namespace DataAPI.Futs
         /// <returns></returns>
         public int QryTickSnapshot(MDSymbol[] symbols)
         {
+            logger.Info("QryTickSnapshot not supported");   
             return 0;
         }
+
+
+
+        public event Action<MDSymbol> OnRtnTick;
+        /// <summary>
+        /// 注册合约行情
+        /// </summary>
+        /// <param name="symbols"></param>
+        public void RegisterSymbol(MDSymbol[] symbols)
+        {
+            if (symbols == null || symbols.Length == 0) return;
+            foreach (var g in symbols.GroupBy(sym => sym.Exchange))
+            {
+                DataCoreService.DataClient.RegisterSymbol(g.Key, g.Select(sym => sym.Symbol).ToArray());
+            }
+        }
+
+        /// <summary>
+        /// 注销合约行情
+        /// </summary>
+        /// <param name="symbols"></param>
+        public void UnregisterSymbol(MDSymbol[] symbols)
+        {
+            if (symbols == null || symbols.Length == 0) return;
+            foreach (var g in symbols.GroupBy(sym => sym.Exchange))
+            {
+                DataCoreService.DataClient.UnRegisterSymbol(g.Key, g.Select(sym => sym.Symbol).ToArray());
+            }
+        }
+
 
 
         public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryHistMinuteData;
@@ -130,6 +160,6 @@ namespace DataAPI.Futs
         {
             return 0;
         }
-        #endregion
+
     }
 }

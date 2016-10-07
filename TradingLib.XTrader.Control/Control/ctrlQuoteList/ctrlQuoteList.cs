@@ -49,10 +49,10 @@ namespace TradingLib.XTrader.Control
         public ctrlQuoteList()
         {
             InitializeComponent();
-            quotelist.QuoteViewChanged += new EventHandler<QuoteViewChangedArgs>(quotelist_QuoteViewChanged);
-            quotelist.MouseEvent += new Action<MDSymbol, QuoteMouseEventType>(quotelist_MouseEvent);
-            quotelist.SymbolVisibleChanged += new EventHandler<SymbolVisibleChangeEventArgs>(quotelist_SymbolVisibleChanged);
-            blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);
+            quotelist.QuoteViewChanged += new EventHandler<QuoteViewChangedArgs>(quotelist_QuoteViewChanged);//
+            quotelist.MouseEvent += new Action<MDSymbol, QuoteMouseEventType>(quotelist_MouseEvent);//鼠标事件
+            quotelist.SymbolVisibleChanged += new EventHandler<SymbolVisibleChangeEventArgs>(quotelist_SymbolVisibleChanged);//可见合约发生变化
+            blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);//底部Tab切换
             scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
             scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
         }

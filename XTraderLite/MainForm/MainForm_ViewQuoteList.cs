@@ -15,104 +15,10 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
-       
 
+        List<MDSymbol> quoteListRegister = new List<MDSymbol>();
         void InitQuoteList()
         {
-            //ctrlQuoteList.AddBlock("所有A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "1" || symbol.BlockType == "5" || symbol.BlockType == "6")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("中小版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "5")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }),EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("创业版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "6")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("沪市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "1" && symbol.Exchange == ConstsExchange.EXCH_SSE)
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("深市A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "1" && symbol.Exchange == ConstsExchange.EXCH_SZE)
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("基金", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "4")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("指数", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "7")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-
-            //ctrlQuoteList.AddBlock("债券", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "3")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("三板", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "8")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-            //ctrlQuoteList.AddBlock("自选", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-            //    =>
-            //    {
-            //        if (symbol.BlockType == "8")
-            //        {
-            //            return true;
-            //        }
-            //        return false;
-            //    }), EnumQuoteListType.STOCK_CN);
-
-
-            
             //绑定对外事件
             ctrlQuoteList.MouseEvent += new Action<TradingLib.MarketData.MDSymbol, TradingLib.XTrader.Control.QuoteMouseEventType>(quoteView_MouseEvent);
             ctrlQuoteList.SymbolVisibleChanged += new EventHandler<TradingLib.XTrader.Control.SymbolVisibleChangeEventArgs>(ctrlQuoteList_SymbolVisibleChanged);
@@ -120,9 +26,23 @@ namespace XTraderLite
 
         void ctrlQuoteList_SymbolVisibleChanged(object sender, TradingLib.XTrader.Control.SymbolVisibleChangeEventArgs e)
         {
+            logger.Info("QuoteList Symbol visible Changed");
             if (e.Symbols != null && e.Symbols.Length > 0)
             {
-                MDService.DataAPI.QryTickSnapshot(e.Symbols);
+                if (MDService.DataAPI.APISetting.TickMode == EnumMDTickMode.FreqQry)
+                {
+                    MDService.DataAPI.QryTickSnapshot(e.Symbols);
+                }
+                else
+                {
+                    if (quoteListRegister.Count > 0)
+                    {
+                        MDService.DataAPI.UnregisterSymbol(quoteListRegister.ToArray());
+                        quoteListRegister.Clear();
+                    }
+                    MDService.DataAPI.RegisterSymbol(e.Symbols);
+                    quoteListRegister.AddRange(e.Symbols);//记录当前QuoteList所注册合约 用于视图变化时注销合约行情
+                }
             }
         }
 

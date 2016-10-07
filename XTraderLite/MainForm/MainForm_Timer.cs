@@ -86,23 +86,28 @@ namespace XTraderLite
                 priceVolListRequest.TryAdd(reqId, this);
             }
 
-
-            IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
-            //底部高亮合约
-            symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
-
-            //当前K线图合约
-            symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
-
-            //如果合约报价列表可见 合并对应可见合约
-            if(ctrlQuoteList.Visible)
+            #region 根据当前控件所显示合约执行合约查询
+            if (MDService.DataAPI.APISetting.TickMode == EnumMDTickMode.FreqQry)
             {
-                symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
+                IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
+                //底部高亮合约
+                symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
+
+                //当前K线图合约
+                symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
+
+                //如果合约报价列表可见 合并对应可见合约
+                if (ctrlQuoteList.Visible)
+                {
+                    symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
+                }
+                if (symlist.Count() > 0)
+                {
+                    MDService.DataAPI.QryTickSnapshot(symlist.ToArray());
+                }
             }
-            if (symlist.Count() > 0)
-            {
-                MDService.DataAPI.QryTickSnapshot(symlist.ToArray());
-            }
+            #endregion
+
 
 
             UpdateTime();

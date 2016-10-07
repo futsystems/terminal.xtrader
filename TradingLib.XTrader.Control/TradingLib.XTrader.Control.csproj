@@ -163,7 +163,7 @@
     <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_.StartEndIndex.cs">
+    <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_StartEndIndex.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Control\ctrlQuoteList\QuoteView\QuoteList\QuoteList_Config.cs">

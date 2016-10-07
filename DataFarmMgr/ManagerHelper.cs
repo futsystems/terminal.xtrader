@@ -118,6 +118,43 @@ namespace TradingLib.DataFarmManager
             return list;
         }
 
+        public static ArrayList GetSymbolCombListViaSecurity(int id, bool any = false)
+        {
+            ArrayList list = new ArrayList();
+            if (any)
+            {
+                ValueObject<int> vo = new ValueObject<int>();
+                vo.Name = ANYSTRING;
+                vo.Value = 0;
+                list.Add(vo);
+            }
+            //未指定品种类型 则返回所有品种
+
+            if (id == 0)
+            {
+                foreach (var symbol in DataCoreService.DataClient.Symbols)
+                {
+                    ValueObject<int> vo = new ValueObject<int>();
+                    vo.Name = symbol.Symbol;
+                    vo.Value =symbol.ID;
+                    list.Add(vo);
+                }
+
+            }
+            else
+            {
+                foreach (var  symbol in DataCoreService.DataClient.Symbols.Where(sym=>sym.security_fk == id))
+                {
+                    ValueObject<Symbol> vo = new ValueObject<Symbol>();
+                    vo.Name = symbol.Symbol;
+                    vo.Value = symbol;
+                    list.Add(vo);
+                }
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// 获得时区列表
         /// </summary>

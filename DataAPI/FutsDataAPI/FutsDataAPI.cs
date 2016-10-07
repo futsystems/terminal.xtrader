@@ -14,18 +14,47 @@ namespace DataAPI.Futs
     {
         ILog logger = LogManager.GetLogger("FutsDataAPI");
 
-
+        MarketDataAPISetting setting = new MarketDataAPISetting();
         Dictionary<string, MDSymbol> symbolMap = new Dictionary<string, MDSymbol>();
         List<BlockInfo> blockInfoList = new List<BlockInfo>();
         public FutsDataAPI()
         {
-            
+            APISetting.TickMode = EnumMDTickMode.Register;
+
             DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
             DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
             DataCoreService.EventHub.OnLoginEvent += new Action<LoginResponse>(EventHub_OnLoginEvent);
             DataCoreService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
 
+            DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
 
+
+        }
+
+        void EventHub_OnRtnTickEvent(Tick tick)
+        {
+            string key = tick.GetSymbolUniqueKey();
+            MDSymbol symbol = null;
+            if (symbolMap.TryGetValue(key, out symbol))
+            {
+                symbol.TickSnapshot.Price = (double)tick.Trade;
+                symbol.TickSnapshot.Size = tick.Size;
+                symbol.TickSnapshot.Buy1 = (double)tick.BidPrice;
+                symbol.TickSnapshot.BuyQTY1 = tick.BidSize;
+                symbol.TickSnapshot.Sell1 = (double)tick.AskPrice;
+                symbol.TickSnapshot.SellQTY1 = tick.AskSize;
+                symbol.TickSnapshot.Time = tick.Time;
+                symbol.TickSnapshot.Volume = tick.Vol;
+                symbol.TickSnapshot.Open = (double)tick.Open;
+                symbol.TickSnapshot.High = (double)tick.High;
+                symbol.TickSnapshot.Low = (double)tick.Low;
+                symbol.TickSnapshot.PreClose = (double)tick.PreClose;
+                symbol.TickSnapshot.PreOI = tick.PreOpenInterest;
+                symbol.TickSnapshot.PreSettlement = (double)tick.PreSettlement;
+
+                if (OnRtnTick != null)
+                    OnRtnTick(symbol);
+            }
         }
 
         void EventHub_OnLoginEvent(LoginResponse obj)
@@ -75,7 +104,7 @@ namespace DataAPI.Futs
             foreach (var exchange in DataCoreService.DataClient.Exchanges)
             {
                 string k = exchange.EXCode;
-                blockInfoList.Add(new BlockInfo(exchange.EXCode, new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                blockInfoList.Add(new BlockInfo(exchange.Title, new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                     =>
                 {
                     if (symbol.Exchange == k)
@@ -92,6 +121,10 @@ namespace DataAPI.Futs
             MDService.Initialize();//执行初始化完毕操作
         }
 
+        /// <summary>
+        /// API工作模式参数
+        /// </summary>
+        public MarketDataAPISetting APISetting { get { return setting; } }
 
         /// <summary>
         /// 获得所有合约
@@ -104,6 +137,9 @@ namespace DataAPI.Futs
             }
         }
 
+        /// <summary>
+        /// 所有板块列表
+        /// </summary>
         public IEnumerable<BlockInfo> BlockInfos
         {
             get { return blockInfoList; }

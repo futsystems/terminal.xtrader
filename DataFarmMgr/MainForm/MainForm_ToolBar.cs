@@ -50,7 +50,7 @@ namespace TradingLib.DataFarmManager
 
         void btnDebug1_Click(object sender, EventArgs e)
         {
-            DataCoreService.DataClient.UnRegisterSymbol(new string[] { "*" });
+            //DataCoreService.DataClient.UnRegisterSymbol(new string[] { "*" });
         }
 
         void btnDebugForm_Click(object sender, EventArgs e)
@@ -64,9 +64,76 @@ namespace TradingLib.DataFarmManager
             //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
             DataCoreService.EventHub.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
-
-
+            DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
+            DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
+            DataCoreService.EventHub.OnLoginEvent += new Action<LoginResponse>(EventHub_OnLoginEvent);
             DataCoreService.DataClient.Start();
+        }
+
+        void mdClient_OnInitializedEvent()
+        {
+            if (this.InvokeRequired)
+            {
+                Invoke(new Action(mdClient_OnInitializedEvent), new object[] { });
+            }
+            else
+            {
+                logger.Info("MDClient Inited");
+
+                foreach (var target in DataCoreService.DataClient.Symbols)
+                {
+                    MDSymbol symbol = new MDSymbol();
+                    symbol.Symbol = target.Symbol;
+                    symbol.SecCode = target.SecurityFamily.Code;
+                    symbol.Name = target.GetName();
+                    symbol.Currency = MDCurrency.RMB;
+                    symbol.Exchange = target.Exchange;
+                    symbol.Multiple = target.Multiple;
+                    symbol.SecurityType = MDSecurityType.FUT;
+                    symbol.SizeRate = 1;
+                    symbol.NCode = 0;
+                    symbol.SortKey = target.Month;
+                    mdsymbolmap.Add(symbol.UniqueKey, symbol);
+                }
+
+                ctrlQuoteList.SetSymbols(mdsymbolmap.Values);
+                ctrlQuoteList.SelectTab(0);
+
+                foreach (var exchange in DataCoreService.DataClient.Exchanges)
+                {
+                    string k = exchange.EXCode;
+
+                    ctrlQuoteList.AddBlock(k, new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                        =>
+                    {
+                        if (symbol.Exchange == k)
+                        {
+                            return true;
+                        }
+                        return false;
+                    }), TradingLib.XTrader.Control.EnumQuoteListType.FUTURE_OVERSEA);
+                }
+            }
+        }
+
+        void EventHub_OnLoginEvent(LoginResponse obj)
+        {
+            if (obj.Authorized)
+            {
+                logger.Info("login success ~~~~~~~~~~ qry basic data");
+                DataCoreService.DataClient.QryMarketTime();
+            }
+        }
+
+        void EventHub_OnDisconnectedEvent()
+        {
+            
+        }
+
+        void EventHub_OnConnectedEvent()
+        {
+            logger.Info("Connected and login");
+            DataCoreService.DataClient.Login("", "");
         }
 
         void mdClient_OnRtnTickEvent(Tick tick)

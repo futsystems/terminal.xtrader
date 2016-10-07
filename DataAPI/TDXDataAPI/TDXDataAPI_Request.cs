@@ -15,7 +15,30 @@ using TradingLib.MarketData;
 namespace DataAPI.TDX
 {
     public partial class TDXDataAPI
-    {        /// <summary>
+    {
+
+        public event Action<MDSymbol> OnRtnTick;
+        /// <summary>
+        /// 注册合约行情
+        /// </summary>
+        /// <param name="symbols"></param>
+        public void RegisterSymbol(MDSymbol[] symbols)
+        {
+            logger.Info("RegisterSymbol not supported");    
+        }
+
+        /// <summary>
+        /// 注销合约行情
+        /// </summary>
+        /// <param name="symbols"></param>
+        public void UnregisterSymbol(MDSymbol[] symbols)
+        {
+            logger.Info("UnregisterSymbol not supported"); 
+        }
+
+
+        
+        /// <summary>
         /// 查询一组合约的行情快照数据
         /// </summary>
         /// <param name="symbols"></param>

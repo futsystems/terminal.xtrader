@@ -66,52 +66,7 @@ namespace TradingLib.DataFarmManager
         }
 
 
-        void mdClient_OnInitializedEvent()
-        {
-            if (this.InvokeRequired)
-            {
-                Invoke(new Action(mdClient_OnInitializedEvent), new object[] { });
-            }
-            else
-            {
-                logger.Info("MDClient Inited");
-
-                foreach (var target in DataCoreService.DataClient.Symbols)
-                {
-                    MDSymbol symbol = new MDSymbol();
-                    symbol.Symbol = target.Symbol;
-                    symbol.SecCode = target.SecurityFamily.Code;
-                    symbol.Name = target.GetName();
-                    symbol.Currency = MDCurrency.RMB;
-                    symbol.Exchange = target.Exchange;
-                    symbol.Multiple = target.Multiple;
-                    symbol.SecurityType = MDSecurityType.FUT;
-                    symbol.SizeRate = 1;
-                    symbol.NCode = 0;
-                    symbol.SortKey = target.Month;
-                    mdsymbolmap.Add(symbol.UniqueKey, symbol);
-
-                }
-
-                ctrlQuoteList.SetSymbols(mdsymbolmap.Values);
-                ctrlQuoteList.SelectTab(0);
-
-                foreach (var exchange in DataCoreService.DataClient.Exchanges)
-                {
-                    string k = exchange.EXCode;
-
-                    ctrlQuoteList.AddBlock(k, new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
-                        =>
-                    {
-                        if (symbol.Exchange == k)
-                        {
-                            return true;
-                        }
-                        return false;
-                    }), EnumQuoteListType.FUTURE_OVERSEA);
-                }
-            }
-        }
+        
 
 
         void Debug(string msg)

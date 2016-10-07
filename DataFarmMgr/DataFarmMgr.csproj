@@ -73,59 +73,65 @@
     <Compile Include="FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\fmExchangeEdit.cs">
+    <Compile Include="Forms\BasicInfo\fmExchangeEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmExchangeEdit.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmExchangeEdit.Designer.cs">
       <DependentUpon>fmExchangeEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmExchangeList.cs">
+    <Compile Include="Forms\BasicInfo\fmExchangeList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmExchangeList.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmExchangeList.Designer.cs">
       <DependentUpon>fmExchangeList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmMarketTimeEdit.cs">
+    <Compile Include="Forms\BasicInfo\fmMarketTimeEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmMarketTimeEdit.designer.cs">
+    <Compile Include="Forms\BasicInfo\fmMarketTimeEdit.designer.cs">
       <DependentUpon>fmMarketTimeEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmMarketTimeList.cs">
+    <Compile Include="Forms\BasicInfo\fmMarketTimeList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmMarketTimeList.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmMarketTimeList.Designer.cs">
       <DependentUpon>fmMarketTimeList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmSecurityEdit.cs">
+    <Compile Include="Forms\BasicInfo\fmSecurityEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmSecurityEdit.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmSecurityEdit.Designer.cs">
       <DependentUpon>fmSecurityEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmSecurityList.cs">
+    <Compile Include="Forms\BasicInfo\fmSecurityList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmSecurityList.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmSecurityList.Designer.cs">
       <DependentUpon>fmSecurityList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmSymbolEdit.cs">
+    <Compile Include="Forms\BasicInfo\fmSymbolEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmSymbolEdit.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmSymbolEdit.Designer.cs">
       <DependentUpon>fmSymbolEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmSymbolList.cs">
+    <Compile Include="Forms\BasicInfo\fmSymbolList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmSymbolList.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmSymbolList.Designer.cs">
       <DependentUpon>fmSymbolList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmTradingRange.cs">
+    <Compile Include="Forms\BasicInfo\fmTradingRange.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmTradingRange.Designer.cs">
+    <Compile Include="Forms\BasicInfo\fmTradingRange.Designer.cs">
       <DependentUpon>fmTradingRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fmBarData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmBarData.Designer.cs">
+      <DependentUpon>fmBarData.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
@@ -154,32 +160,35 @@
     <EmbeddedResource Include="DebugForm.resx">
       <DependentUpon>DebugForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmExchangeEdit.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmExchangeEdit.resx">
       <DependentUpon>fmExchangeEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmExchangeList.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmExchangeList.resx">
       <DependentUpon>fmExchangeList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmMarketTimeEdit.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmMarketTimeEdit.resx">
       <DependentUpon>fmMarketTimeEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmMarketTimeList.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmMarketTimeList.resx">
       <DependentUpon>fmMarketTimeList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmSecurityEdit.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmSecurityEdit.resx">
       <DependentUpon>fmSecurityEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmSecurityList.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmSecurityList.resx">
       <DependentUpon>fmSecurityList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmSymbolEdit.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmSymbolEdit.resx">
       <DependentUpon>fmSymbolEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmSymbolList.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmSymbolList.resx">
       <DependentUpon>fmSymbolList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmTradingRange.resx">
+    <EmbeddedResource Include="Forms\BasicInfo\fmTradingRange.resx">
       <DependentUpon>fmTradingRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmBarData.resx">
+      <DependentUpon>fmBarData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
