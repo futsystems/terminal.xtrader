@@ -417,7 +417,6 @@ namespace TradingLib.MarketData
                             Type[] ts = a.GetTypes();
                             types.Add(a.GetType(type.FullName));
                         }
-
                     }
                 }
                 catch (Exception ex)

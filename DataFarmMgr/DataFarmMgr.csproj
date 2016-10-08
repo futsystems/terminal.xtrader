@@ -73,6 +73,14 @@
     <Compile Include="FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\BarData\BarReader.cs" />
+    <Compile Include="Forms\BarData\BarUploader.cs" />
+    <Compile Include="Forms\BarData\fmBarDataEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BarData\fmBarDataEdit.Designer.cs">
+      <DependentUpon>fmBarDataEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BasicInfo\fmExchangeEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,10 +135,10 @@
     <Compile Include="Forms\BasicInfo\fmTradingRange.Designer.cs">
       <DependentUpon>fmTradingRange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\fmBarData.cs">
+    <Compile Include="Forms\BarData\fmBarData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\fmBarData.Designer.cs">
+    <Compile Include="Forms\BarData\fmBarData.Designer.cs">
       <DependentUpon>fmBarData.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm\MainForm.cs">
@@ -160,6 +168,9 @@
     <EmbeddedResource Include="DebugForm.resx">
       <DependentUpon>DebugForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BarData\fmBarDataEdit.resx">
+      <DependentUpon>fmBarDataEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BasicInfo\fmExchangeEdit.resx">
       <DependentUpon>fmExchangeEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,7 +198,7 @@
     <EmbeddedResource Include="Forms\BasicInfo\fmTradingRange.resx">
       <DependentUpon>fmTradingRange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\fmBarData.resx">
+    <EmbeddedResource Include="Forms\BarData\fmBarData.resx">
       <DependentUpon>fmBarData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\MainForm.resx">

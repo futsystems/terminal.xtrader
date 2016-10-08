@@ -14,7 +14,7 @@ namespace TradingLib.DataCore
     {
 
 
-        void SendPacket(IPacket packet)
+        public void SendPacket(IPacket packet)
         {
             mktClient.TLSend(packet);
         }
@@ -175,7 +175,7 @@ namespace TradingLib.DataCore
         /// <param name="end"></param>
         /// <param name="maxcount"></param>
         /// <param name="fromend"></param>
-        public int QryBar(string exchange,string symbol,int interval,DateTime start,DateTime end,int startIndex,int maxCount,bool fromend = false)
+        public int QryBar(string exchange,string symbol,int interval,DateTime start,DateTime end,int startIndex,int maxCount,bool fromend = false,bool havepartial = true)
         {
             int reqid = NextRequestID;
             QryBarRequest request = RequestTemplate<QryBarRequest>.CliSendRequest(reqid);
@@ -188,7 +188,7 @@ namespace TradingLib.DataCore
             request.StartTime = start;
             request.EndTime = end;
             request.BarResponseType = EnumBarResponseType.BINARY;
-
+            request.HavePartial = havepartial;
             mktClient.TLSend(request);
             return reqid;
         }

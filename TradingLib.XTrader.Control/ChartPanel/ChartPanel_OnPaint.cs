@@ -2050,7 +2050,8 @@ namespace CStock
                                 b12 = check("time");
                                 if ((b12 != null))
                                 {
-                                    h = Convert.ToInt16(b12.value[h]);
+                                    h = (int)b12.value[h];
+                                    h = h / 100;
                                     m = h % 100;
                                     h = h / 100;
                                     s2 = string.Format("{0:d2}:{1:d}", h, m);

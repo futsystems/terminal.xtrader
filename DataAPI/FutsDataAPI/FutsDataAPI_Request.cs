@@ -135,8 +135,8 @@ namespace DataAPI.Futs
 
             foreach (var b in obj.Bars)
             {
-                date.Add(b.StartTime.ToTLDate());
-                time.Add(b.StartTime.ToTLTime());
+                date.Add(b.EndTime.ToTLDate());
+                time.Add(b.EndTime.ToTLTime());
                 open.Add(b.Open);
                 high.Add(b.High);
                 low.Add(b.Low);

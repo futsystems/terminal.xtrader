@@ -15,6 +15,8 @@ namespace TradingLib.DataFarmManager
     public partial class fmBarData : Form
     {
         FGrid barGrid = null;
+
+        Symbol _symbol = null;
         public fmBarData()
         {
             InitializeComponent();
@@ -43,9 +45,122 @@ namespace TradingLib.DataFarmManager
             cbExchange.SelectedIndexChanged += new EventHandler(cbExchange_SelectedIndexChanged);
             cbSecurity.SelectedIndexChanged += new EventHandler(cbSecurity_SelectedIndexChanged);
 
+            barGrid.DoubleClick += new EventHandler(barGrid_DoubleClick);
+
+            btnUpload.Click += new EventHandler(btnUpload_Click);
             DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
 
             cbExchange_SelectedIndexChanged(null, null);
+        }
+
+        BarUploader upload = new BarUploader();
+        void btnUpload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //MessageBox.Show(fd.FileName);
+                upload.SetBarFile(fd.FileName);
+                upload.Exchange = "NYMEX";
+                upload.Symbol = "CL11";
+                upload.IntervalType = BarInterval.CustomTime;
+                upload.Interval = 60;
+
+                upload.Start();
+
+                //BarReader br = new BarReader(fd.FileName);
+                //br.GotBar += new Action<BarImpl>(br_GotBar);
+                //while (br.NextTick())
+                //{
+
+                //    Util.sleep(1000);
+                    
+                //}
+            }
+
+            //UploadBarDataRequest request = new UploadBarDataRequest();
+            //request.Header.BarCount = 1;
+            //request.Header.Exchange = "NYMEX";
+            //request.Header.Symbol = "CL11";
+            //request.Header.IntervalType = BarInterval.CustomTime;
+            //request.Header.Interval = 60;
+
+            //BarImpl b = new BarImpl();
+            //request.Add(b);
+
+            //DataCoreService.DataClient.SendPacket(request);
+        }
+
+        void br_GotBar(BarImpl obj)
+        {
+            UploadBarDataRequest request = new UploadBarDataRequest();
+            request.Header.BarCount = 1;
+            request.Header.Exchange = "NYMEX";
+            request.Header.Symbol = "CL11";
+            request.Header.IntervalType = BarInterval.CustomTime;
+            request.Header.Interval = 60;
+
+
+            request.Add(obj);
+            DataCoreService.DataClient.SendPacket(request);
+
+        }
+
+
+        //得到当前选择的行号
+        private int CurrentBarID
+        {
+            get
+            {
+                int row = barGrid.SelectedRows.Count > 0 ? barGrid.SelectedRows[0].Index : -1;
+                if (row >= 0)
+                {
+                    return int.Parse(barGrid[0, row].Value.ToString());
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+
+
+        //通过行号得该行的Security
+        BarImpl GetVisibleBar(int id)
+        {
+            BarImpl bar = null;
+            if (bardatamap.TryGetValue(id, out bar))
+            {
+                return bar;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        void barGrid_DoubleClick(object sender, EventArgs e)
+        {
+            BarImpl bar = GetVisibleBar(CurrentBarID);
+            if (bar == null)
+            {
+                MessageBox.Show("请选择需要编辑的Bar");
+                return;
+            }
+            Exchange exch = DataCoreService.DataClient.Exchanges.Where(ex => ex.ID == (int)cbExchange.SelectedValue).FirstOrDefault();
+            if (exch == null)
+            {
+                MessageBox.Show("请选择交易所");
+                return;
+            }
+
+            fmBarDataEdit fm = new fmBarDataEdit();
+            fm.SetBar(bar);
+            fm.SetSymbol(_symbol);
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void EventHub_OnRspBarEvent(RspQryBarResponseBin obj)
@@ -86,27 +201,30 @@ namespace TradingLib.DataFarmManager
                 MessageBox.Show("请选择需要查询的合约");
                 return;
             }
+            _symbol = symbol;
             int sIdx = (int)startIndex.Value;
             int max = (int)maxCount.Value;
-            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, 60, DateTime.MinValue, DateTime.MaxValue, sIdx,max, fromEnd.Checked);
+            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, 60, DateTime.MinValue, DateTime.MaxValue, sIdx,max, fromEnd.Checked,havePartial.Checked);
         }
 
-        void InvokeGotBar(Bar bar)
+        Dictionary<int, BarImpl> bardatamap = new Dictionary<int, BarImpl>();
+        void InvokeGotBar(BarImpl bar)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<Bar>(InvokeGotBar), new object[] { bar });
+                Invoke(new Action<BarImpl>(InvokeGotBar), new object[] { bar });
             }
             else
             {
-                gt.Rows.Add(0);
+                gt.Rows.Add(bar.ID);
                 int i = gt.Rows.Count - 1;
 
+                bardatamap.Add(bar.ID, bar);
                 //securitymap.Add(sec.ID, sec);
                 //securityidxmap.Add(sec.ID, i);
 
                 gt.Rows[i][TRADINGDAY] = bar.TradingDay;
-                gt.Rows[i][STARTTIME] = bar.StartTime;
+                gt.Rows[i][STARTTIME] = bar.EndTime;
                 gt.Rows[i][SYMBOL] = bar.Symbol;
                 gt.Rows[i][OPEN] = bar.Open;
                 gt.Rows[i][HIGH] = bar.High;
@@ -125,7 +243,7 @@ namespace TradingLib.DataFarmManager
 
         const string ID = "数据库ID";
         const string TRADINGDAY = "交易日";
-        const string STARTTIME = "开始时间";
+        const string STARTTIME = "Bar时间";
         const string SYMBOL = "合约";
         const string OPEN = "Open";
         const string HIGH = "High";
@@ -195,6 +313,8 @@ namespace TradingLib.DataFarmManager
             }
             else
             {
+                _symbol = null;
+                bardatamap.Clear();
                 barGrid.DataSource = null;
                 gt.Rows.Clear();
                 //BindToTable();
