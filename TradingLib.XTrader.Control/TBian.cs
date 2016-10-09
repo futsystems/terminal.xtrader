@@ -5,6 +5,7 @@ namespace CStock
 {
 public class TBian
 {
+    const int DATALEN = 20000;
     public double[] value;
     public string name;
     public int len;
@@ -21,7 +22,7 @@ public class TBian
     public TBian(string Name, int Len)
     {
         name = Name;
-        value = new double[10000];
+        value = new double[DATALEN];
         len = Len;
         Array.Clear(value, 0, value.Length);
     }

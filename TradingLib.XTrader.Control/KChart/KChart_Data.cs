@@ -275,7 +275,7 @@ namespace CStock
         /// </summary>
         public void ReCalculate(object obj,bool calcInd = true)
         {
-            logger.Info("ReCalculate:"+obj.ToString());
+            //logger.Info("ReCalculate:"+obj.ToString());
             int dataLength, detailBoardWidth, leftW, rightW, showCount;
             dataLength = GS[0].RecordCount;
             if(!this.StartFix)

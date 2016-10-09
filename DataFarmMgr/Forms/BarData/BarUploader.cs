@@ -63,46 +63,55 @@ namespace TradingLib.DataFarmManager
 
         void UploadProcess()
         {
-            BarReader br = new BarReader(this._filename);
-            
-            List<BarImpl> barlist = new List<BarImpl>();
-            br.GotBar += new Action<BarImpl>(new Action<BarImpl>((bar) => { barlist.Add(bar); }));
-            while (br.NextTick())
+            using (BarReader br = new BarReader(this._filename))
             {
 
-            }
-            logger.Info(string.Format("Load {0} Bars into memory", br.Count));
+                List<BarImpl> barlist = new List<BarImpl>();
+                br.GotBar += new Action<BarImpl>(new Action<BarImpl>((bar) => { barlist.Add(bar); }));
+                while (br.NextTick())
+                {
 
-            UploadBarDataRequest response = new UploadBarDataRequest();
-            response.Header.Exchange = this.Exchange;
-            response.Header.Symbol = this.Symbol;
-            response.Header.IntervalType = this.IntervalType;
-            response.Header.Interval = this.Interval;
+                }
+                logger.Info(string.Format("Load {0} Bars into memory", br.Count));
 
-            int j = 0;
-            for (int i = 0; i < barlist.Count; i++)
-            {
-                response.Add(barlist[i]);
-                j++;
-                if (j == BATCHSIZE)
+                UploadBarDataRequest response = new UploadBarDataRequest();
+                response.Header.Exchange = this.Exchange;
+                response.Header.Symbol = this.Symbol;
+                response.Header.IntervalType = this.IntervalType;
+                response.Header.Interval = this.Interval;
+
+                int j = 0;
+                for (int i = 0; i < barlist.Count; i++)
+                {
+                    response.Add(barlist[i]);
+                    j++;
+                    if (j == BATCHSIZE)
+                    {
+                        response.Header.BarCount = response.Bars.Count;
+                        //一定数目的Bar之后 发送数据 同时判断是否是最后一条
+                        DataCoreService.DataClient.SendPacket(response);
+                        //Util.sleep();
+                        //不是最后一条数据则生成新的Response
+                        if (!(i == barlist.Count - 1))
+                        {
+                            response = new UploadBarDataRequest();
+                            response.Header.Exchange = this.Exchange;
+                            response.Header.Symbol = this.Symbol;
+                            response.Header.IntervalType = this.IntervalType;
+                            response.Header.Interval = this.Interval;
+                        }
+                        j = 0;
+                    }
+                }
+                //最后一部分数据如果留尾 则发送
+                if (response.Bars.Count > 0)
                 {
                     response.Header.BarCount = response.Bars.Count;
-                    //一定数目的Bar之后 发送数据 同时判断是否是最后一条
                     DataCoreService.DataClient.SendPacket(response);
-                    //Util.sleep();
-                    //不是最后一条数据则生成新的Response
-                    if (!(i == barlist.Count - 1))
-                    {
-                        response = new UploadBarDataRequest();
-                        response.Header.Exchange = this.Exchange;
-                        response.Header.Symbol = this.Symbol;
-                        response.Header.IntervalType = this.IntervalType;
-                        response.Header.Interval = this.Interval;
-                    }
-                    j = 0;
                 }
+
+                logger.Info("Bar upload success");
             }
-            logger.Info("Bar upload success");
         }
 
         const int BATCHSIZE = 1000;
