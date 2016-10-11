@@ -204,7 +204,8 @@ namespace TradingLib.DataFarmManager
             _symbol = symbol;
             int sIdx = (int)startIndex.Value;
             int max = (int)maxCount.Value;
-            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, 60, DateTime.MinValue, DateTime.MaxValue, sIdx,max, fromEnd.Checked,havePartial.Checked);
+            BarFrequency freq = new BarFrequency(BarInterval.Day, 1);
+            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, freq.Type,freq.Interval, DateTime.MinValue, DateTime.MaxValue, sIdx, max, fromEnd.Checked, havePartial.Checked);
         }
 
         Dictionary<int, BarImpl> bardatamap = new Dictionary<int, BarImpl>();
@@ -219,7 +220,7 @@ namespace TradingLib.DataFarmManager
                 gt.Rows.Add(bar.ID);
                 int i = gt.Rows.Count - 1;
 
-                bardatamap.Add(bar.ID, bar);
+                //bardatamap.Add(bar.ID, bar);
                 //securitymap.Add(sec.ID, sec);
                 //securityidxmap.Add(sec.ID, i);
 

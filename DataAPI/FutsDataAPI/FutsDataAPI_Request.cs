@@ -166,18 +166,18 @@ namespace DataAPI.Futs
         }
 
 
-        int GetInterval(string freqStr)
+        BarFrequency GetInterval(string freqStr)
         {
             switch (freqStr)
             {
-                case ConstFreq.Freq_M1: return 60;
-                case ConstFreq.Freq_M5: return 5 * 60;
-                case ConstFreq.Freq_M15: return 15 * 60;
-                case ConstFreq.Freq_M30: return 30 * 60;
-                case ConstFreq.Freq_M60: return 60 * 60;
-                case ConstFreq.Freq_Day: return 24 * 60 * 60;
+                case ConstFreq.Freq_M1: return new BarFrequency(BarInterval.Minute,1);
+                case ConstFreq.Freq_M5: return new BarFrequency(BarInterval.FiveMin,1);
+                case ConstFreq.Freq_M15: return new BarFrequency(BarInterval.FifteenMin, 1);
+                case ConstFreq.Freq_M30: return new BarFrequency(BarInterval.ThirtyMin, 1);
+                case ConstFreq.Freq_M60: return new BarFrequency(BarInterval.Hour, 1);
+                case ConstFreq.Freq_Day: return new BarFrequency(BarInterval.Day, 1);
                 default:
-                    return 60;
+                    return new BarFrequency(BarInterval.Minute,1);
             }
         }
 

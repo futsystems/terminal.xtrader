@@ -147,9 +147,9 @@ namespace TradingLib.DataCore
         /// <param name="startIndex"></param>
         /// <param name="maxCount"></param>
         /// <returns></returns>
-        public int QryBar(string exchange, string symbol, int interval, int startIndex, int maxCount)
+        public int QryBar(string exchange, string symbol, BarFrequency freq, int startIndex, int maxCount)
         {
-            return QryBar(exchange, symbol,interval, DateTime.MinValue, DateTime.MaxValue, startIndex, maxCount);
+            return QryBar(exchange, symbol,freq.Type,freq.Interval, DateTime.MinValue, DateTime.MaxValue, startIndex, maxCount);
         }
 
         /// <summary>
@@ -160,9 +160,9 @@ namespace TradingLib.DataCore
         /// <param name="interval"></param>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        public int QryBar(string exchange, string symbol, int interval, DateTime start,DateTime end)
+        public int QryBar(string exchange, string symbol, BarFrequency freq, DateTime start,DateTime end)
         {
-            return QryBar(exchange, symbol, interval, start,end , 0, 0);
+            return QryBar(exchange, symbol, freq.Type, freq.Interval, start, end, 0, 0);
         }
 
 
@@ -175,7 +175,7 @@ namespace TradingLib.DataCore
         /// <param name="end"></param>
         /// <param name="maxcount"></param>
         /// <param name="fromend"></param>
-        public int QryBar(string exchange,string symbol,int interval,DateTime start,DateTime end,int startIndex,int maxCount,bool fromend = false,bool havepartial = true)
+        public int QryBar(string exchange,string symbol,BarInterval type, int interval,DateTime start,DateTime end,int startIndex,int maxCount,bool fromend = false,bool havepartial = true)
         {
             int reqid = NextRequestID;
             QryBarRequest request = RequestTemplate<QryBarRequest>.CliSendRequest(reqid);
@@ -185,6 +185,7 @@ namespace TradingLib.DataCore
             request.MaxCount = maxCount;
             request.StartIndex = startIndex;
             request.Interval = interval;
+            request.IntervalType = type;
             request.StartTime = start;
             request.EndTime = end;
             request.BarResponseType = EnumBarResponseType.BINARY;

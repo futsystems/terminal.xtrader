@@ -56,11 +56,11 @@ namespace CStock
             {
                 //计算窗口高度,主窗口高度为指标窗口高度2倍
                 int h1 = Height;
-                int hh0 = (h1 / (fswindows + 1));
-                FSGSH[0] = hh0 * 2;
+                int hh0 = (h1 / (fswindows + 2));
+                FSGSH[0] = hh0 * 3;
                 for (int i = 1; i < fswindows; i++)
                     FSGSH[i] = hh0;
-                FSGSH[fswindows - 1] = h1 - hh0 * fswindows;
+                FSGSH[fswindows - 1] = h1 - (hh0 * fswindows+1);
 
                 if (Ftab)
                     h1 -= Tab.Height;

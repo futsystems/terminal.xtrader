@@ -419,8 +419,8 @@ namespace CStock
                     int h1 = Height;
                     if (Tab.Visible)
                         h1 -= Tab.Height;
-                    int hh = (h1 / (value + 1));
-                    FSGSH[0] = hh * 2;
+                    int hh = (h1 / (value + 2));
+                    FSGSH[0] = hh * 3;
                     for (int i = 1; i < value; i++)
                         FSGSH[i] = hh;
                     for (int i = 0; i < value; i++)

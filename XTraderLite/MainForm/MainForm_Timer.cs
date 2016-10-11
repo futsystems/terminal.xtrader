@@ -46,9 +46,12 @@ namespace XTraderLite
                 {
                     if (MDService.DataAPI.APISetting.QryBarTimeSupport)//通过最近的Bar时间来恢复该事件以来的所有Bar数据
                     {
-                        DateTime start = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
-                        int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, start, DateTime.MaxValue);
-                        kChartRealTimeBarRequest.TryAdd(reqid, this);
+                        if (ctrlKChart.LastDate > 0 && ctrlKChart.LastTime > 0)
+                        {
+                            DateTime start = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
+                            int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, start, DateTime.MaxValue);
+                            kChartRealTimeBarRequest.TryAdd(reqid, this);
+                        }
                     }
                     else //不支持按时间查询
                     {

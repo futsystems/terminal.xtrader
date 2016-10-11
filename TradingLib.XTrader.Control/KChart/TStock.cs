@@ -748,6 +748,7 @@ namespace CStock
                 TBian data = GS[0].check("date");
                 if (data != null)
                 {
+                    if (dataLength < 1) return -1;
                     return (int)data.value[dataLength - 1];
                 }
                 return -1;
@@ -765,6 +766,7 @@ namespace CStock
                 TBian data = GS[0].check("time");
                 if (data != null)
                 {
+                    if (dataLength < 1) return -1;
                     return (int)data.value[dataLength - 1];
                 }
                 return -1;
@@ -817,12 +819,12 @@ namespace CStock
         private void TStock_Resize(object sender, EventArgs e)
         {
             int h1 = Height;
-            int hh0 = (h1 / (fswindows + 1));
-            FSGSH[0] = hh0 * 2;
+            int hh0 = (h1 / (fswindows + 2));
+            FSGSH[0] = hh0 * 3;
             for (int i = 1; i < fswindows; i++)
                 FSGSH[i] = hh0;
             if (fswindows > 1)
-                FSGSH[fswindows - 1] = h1 - hh0 * fswindows;
+                FSGSH[fswindows - 1] = h1 - hh0 *( fswindows+1);
             ReSizeBarChart(false);
         }
 
