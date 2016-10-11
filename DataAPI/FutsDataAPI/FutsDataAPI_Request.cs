@@ -73,7 +73,7 @@ namespace DataAPI.Futs
         /// <returns></returns>
         public int QryMinuteDate(string exchange, string symbol, int date)
         {
-            return DataCoreService.DataClient.QryMinuteData(exchange, symbol, 20161013);
+            return DataCoreService.DataClient.QryMinuteData(exchange, symbol, date);
         }
 
         Dictionary<int, Dictionary<string, List<double>>> minuteDataResponseMap = new Dictionary<int, Dictionary<string, List<double>>>();
