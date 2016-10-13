@@ -75,8 +75,15 @@ namespace TradingLib.KryptonControl
         }
 
 
+        Color GetPriceColor(double preClose, double last)
+        {
+            if (last < preClose) return Constants.ColorDown;
+            if (last > preClose) return Constants.ColorUp;
+            return Color.Silver;
+        }
         int lineHeight = 18;
         List<TradeSplit> tradeList = new List<TradeSplit>();
+        SolidBrush priceBrush = new SolidBrush(Color.Silver);
         void ctrlTradeListTab_Paint(object sender, PaintEventArgs e)
         {
             logger.Info("paint .....");
@@ -105,8 +112,8 @@ namespace TradingLib.KryptonControl
             int se = 0;
             int hh = 0;
             int mm = 0;
-            Color priceColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : (symbol.TickSnapshot.Price == symbol.TickSnapshot.PreClose?Constants.ColorEq:Constants.ColorDown);
-            Brush priceBrush = new SolidBrush(priceColor);
+            //Color priceColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : (symbol.TickSnapshot.Price == symbol.TickSnapshot.PreClose?Constants.ColorEq:Constants.ColorDown);
+            
 
             if (symbol.BlockType == "7")// tk.value > 300) //为指数
             {
@@ -198,6 +205,7 @@ namespace TradingLib.KryptonControl
 
                     ss = string.Format("{0:F2}", tk.Price);
                     si = cv.MeasureString(ss, font);
+                    priceBrush.Color = GetPriceColor(symbol.TickSnapshot.PreClose, tk.Price);
                     cv.DrawString(ss, font, priceBrush, (int)(50 + lw - si.Width), r1.Top);
 
                     ss = string.Format("{0:D}", tk.Vol);

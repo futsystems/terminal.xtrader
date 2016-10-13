@@ -398,6 +398,14 @@ namespace TradingLib.XTrader.Control
         int colCnt = 0;
         public int ColumnCount { get { return colCnt; } }
 
+        Color GetPriceColor(double preClose, double last)
+        {
+            if (last < preClose) return UIConstant.ColorDown;
+            if (last > preClose) return UIConstant.ColorUp;
+            return Color.Silver;
+        }
+
+
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
             lock (_object)

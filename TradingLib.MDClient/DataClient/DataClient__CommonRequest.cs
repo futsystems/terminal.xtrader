@@ -217,6 +217,25 @@ namespace TradingLib.DataCore
             return reqid;
         }
 
+        /// <summary>
+        /// 查询价格成交量分布
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public int QryPriceVol(string exchange, string symbol, int date)
+        {
+            int reqid = NextRequestID;
+            XQryPriceVolRequest request = RequestTemplate<XQryPriceVolRequest>.CliSendRequest(reqid);
+            request.Exchange = exchange;
+            request.Symbol = symbol;
+            request.Tradingday = date;
+            mktClient.TLSend(request);
+            return reqid;
+        }
+
+
         public int DemoTick(int time, decimal price)
         { 
             int reqid = NextRequestID;

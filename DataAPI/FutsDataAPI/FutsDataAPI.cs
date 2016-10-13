@@ -29,12 +29,15 @@ namespace DataAPI.Futs
 
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
 
+            //Bar数据查询
             DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
-
+            //分笔成交数据查询
             DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
-
-
+            //价格成交量查询
+            DataCoreService.EventHub.OnRspPriceVolEvent += new Action<RspXQryPriceVolResponse>(EventHub_OnRspPriceVolEvent);
         }
+
+        
 
         
 
@@ -60,7 +63,7 @@ namespace DataAPI.Futs
                 symbol.TickSnapshot.PreClose = (double)tick.PreClose;
                 symbol.TickSnapshot.PreOI = tick.PreOpenInterest;
                 symbol.TickSnapshot.PreSettlement = (double)tick.PreSettlement;
-
+                symbol.PreClose = (double)tick.PreClose;
                 if (OnRtnTick != null)
                     OnRtnTick(symbol);
             }

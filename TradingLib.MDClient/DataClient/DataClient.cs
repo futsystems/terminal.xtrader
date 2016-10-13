@@ -130,6 +130,12 @@ namespace TradingLib.DataCore
                         
                 //        return;
                 //    }
+                case MessageTypes.LOGINRESPONSE:
+                    {
+                        LoginResponse response = obj as LoginResponse;
+                        DataCoreService.EventHub.FireLoginEvent(response);
+                        return;
+                    }
                 //查询Bar数据回报
                 case MessageTypes.BIN_BARRESPONSE:
                     {
@@ -137,18 +143,21 @@ namespace TradingLib.DataCore
                         DataCoreService.EventHub.FireOnRspBarEvent(response);
                         return;
                     }
+                //查询分笔成交数据
                 case MessageTypes.XQRYTRADSPLITRESPONSE:
                     {
                         RspXQryTradeSplitResponse response = obj as RspXQryTradeSplitResponse;
                         DataCoreService.EventHub.FireOnRspTradeSplitEvent(response);
                         return;
                     }
-                case MessageTypes.LOGINRESPONSE:
+                //查询价格成交量分布
+                case MessageTypes.XQRYPRICEVOLRESPONSE:
                     {
-                        LoginResponse response = obj as LoginResponse;
-                        DataCoreService.EventHub.FireLoginEvent(response);
+                        RspXQryPriceVolResponse response = obj as RspXQryPriceVolResponse;
+                        DataCoreService.EventHub.FireOnRspPriceVolEvent(response);
                         return;
                     }
+                
                 #region 管理操作
                 case MessageTypes.MGRCONTRIBRESPONSE:
                     { 

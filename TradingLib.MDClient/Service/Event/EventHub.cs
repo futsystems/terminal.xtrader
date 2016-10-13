@@ -80,6 +80,18 @@ namespace TradingLib.DataCore
             if (OnRspTradeSplitEvent != null)
                 OnRspTradeSplitEvent(tradeResponse);
         }
-        
+
+
+        /// <summary>
+        /// 响应价格成交量查询
+        /// </summary>
+        public event Action<RspXQryPriceVolResponse> OnRspPriceVolEvent;
+        internal void FireOnRspPriceVolEvent(RspXQryPriceVolResponse pvResponse)
+        {
+            if (OnRspPriceVolEvent != null)
+            {
+                OnRspPriceVolEvent(pvResponse);
+            }
+        }
     }
 }

@@ -194,7 +194,30 @@ namespace DataAPI.Futs
         /// <returns></returns>
         public int QryPriceVol(string exchange, string symbol)
         {
-            return 0;
+            return DataCoreService.DataClient.QryPriceVol(exchange, symbol, 0);
+        }
+
+        Dictionary<int, List<PriceVolPair>> priceVolResponseMap = new Dictionary<int, List<PriceVolPair>>();
+        void EventHub_OnRspPriceVolEvent(RspXQryPriceVolResponse obj)
+        {
+            List<PriceVolPair> target = null;
+            if (!priceVolResponseMap.TryGetValue(obj.RequestID, out target))
+            {
+                target = new List<PriceVolPair>();
+                priceVolResponseMap.Add(obj.RequestID, target);
+            }
+            foreach (var pv in obj.PriceVols)
+            {
+                target.Add(new PriceVolPair((double)pv.Price, pv.Vol));
+            }
+            if (obj.IsLast)
+            {
+
+                if (OnRspQryPriceVolPair != null)
+                {
+                    OnRspQryPriceVolPair(target, null, target.Count, obj.RequestID);
+                }
+            }
         }
 
 
