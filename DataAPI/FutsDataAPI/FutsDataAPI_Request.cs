@@ -212,9 +212,31 @@ namespace DataAPI.Futs
         /// <returns></returns>
         public int QryTradeSplitData(string exchange, string symbol, int start, int Count)
         {
-            return 0;
+            return DataCoreService.DataClient.QryTrade(exchange, symbol, start, Count, 0);
         }
 
+        Dictionary<int, List<TradeSplit>> tradeSplitResponseMap = new Dictionary<int, List<TradeSplit>>();
+        void EventHub_OnRspTradeSplitEvent(RspXQryTradeSplitResponse obj)
+        {
+            List<TradeSplit> target = null;
+            if(!tradeSplitResponseMap.TryGetValue(obj.RequestID,out target))
+            {
+                target = new List<TradeSplit>();
+                tradeSplitResponseMap.Add(obj.RequestID,target);
+            }
+            foreach(var trade in obj.Trades)
+            {
+                target.Add(new TradeSplit(trade.Time, (double)trade.Trade, trade.Size, 0, 1));
+            }
+            if (obj.IsLast)
+            {
+
+                if (OnRspQryTradeSplit != null)
+                { 
+                    OnRspQryTradeSplit(target,null,target.Count,obj.RequestID);
+                }
+            }
+        }
 
 
         /// <summary>

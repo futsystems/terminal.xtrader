@@ -194,6 +194,29 @@ namespace TradingLib.DataCore
             return reqid;
         }
 
+        /// <summary>
+        /// 查询成交明细
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="startIdx"></param>
+        /// <param name="macount"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public int QryTrade(string exchange, string symbol, int startIdx, int macount, int date)
+        {
+            int reqid = NextRequestID;
+            XQryTradeSplitRequest request = RequestTemplate<XQryTradeSplitRequest>.CliSendRequest(reqid);
+            request.Exchange = exchange;
+            request.Symbol = symbol;
+            request.StartIndex = startIdx;
+            request.MaxCount = macount;
+            request.Tradingday = date;
+
+            mktClient.TLSend(request);
+            return reqid;
+        }
+
         public int DemoTick(int time, decimal price)
         { 
             int reqid = NextRequestID;

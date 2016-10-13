@@ -51,10 +51,7 @@ namespace TradingLib.DataCore
         public event Action<Tick> OnRtnTickEvent;
 
 
-        /// <summary>
-        /// 响应Bar数据查询
-        /// </summary>
-        public event Action<RspQryBarResponseBin> OnRspBarEvent;
+        
 
         
         internal void FireRtnTickEvent(Tick k)
@@ -63,10 +60,26 @@ namespace TradingLib.DataCore
                 OnRtnTickEvent(k);
         }
 
+
+        /// <summary>
+        /// 响应Bar数据查询
+        /// </summary>
+        public event Action<RspQryBarResponseBin> OnRspBarEvent;
         internal void FireOnRspBarEvent(RspQryBarResponseBin barResponse)
         {
             if (OnRspBarEvent != null)
                 OnRspBarEvent(barResponse);
         }
+
+        /// <summary>
+        /// 响应成交数据查询
+        /// </summary>
+        public event Action<RspXQryTradeSplitResponse> OnRspTradeSplitEvent;
+        internal void FireOnRspTradeSplitEvent(RspXQryTradeSplitResponse tradeResponse)
+        {
+            if (OnRspTradeSplitEvent != null)
+                OnRspTradeSplitEvent(tradeResponse);
+        }
+        
     }
 }

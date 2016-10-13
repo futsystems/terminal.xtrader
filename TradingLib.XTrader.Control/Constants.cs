@@ -12,9 +12,11 @@ namespace CStock
 
         public static Color ColorUp = Color.FromArgb(255, 60, 57);
         public static Color ColorDown = Color.FromArgb(0, 231, 0);
+        public static Color ColorEq = Color.Silver;
 
         public static Color ColorSize = Color.FromArgb(255, 255, 0);
         public static Font QuoteFont = new Font("Arial", 10f, FontStyle.Bold);
+        public static Font Font_TradeListSecendLabel = new Font("Arial", 10f);
 
         public static Color ColorLabel = Color.White;
         //public static Profiler Profiler = new Profiler();

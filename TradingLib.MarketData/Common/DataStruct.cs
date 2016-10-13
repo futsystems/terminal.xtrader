@@ -43,6 +43,7 @@ namespace TradingLib.MarketData
     /// </summary>
     public class TradeSplit
     {
+        public int Date { get; set; }
         /// <summary>
         /// 成交时间
         /// </summary>
@@ -70,6 +71,7 @@ namespace TradingLib.MarketData
 
         public TradeSplit(int time, double price, int vol, int flag, int count)
         {
+            this.Date = 0;
             this.Time = time;
             this.Price = price;
             this.Vol = vol;

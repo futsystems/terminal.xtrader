@@ -31,8 +31,12 @@ namespace DataAPI.Futs
 
             DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
 
+            DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
+
 
         }
+
+        
 
         
 

@@ -101,11 +101,22 @@ namespace TradingLib.KryptonControl
             SizeF si;
             TradeSplit tk = tradeList[0];
             System.Drawing.Font font = Constants.QuoteFont;
+            System.Drawing.Font secendFont = Constants.Font_TradeListSecendLabel;
+            int se = 0;
+            int hh = 0;
+            int mm = 0;
+            Color priceColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : (symbol.TickSnapshot.Price == symbol.TickSnapshot.PreClose?Constants.ColorEq:Constants.ColorDown);
+            Brush priceBrush = new SolidBrush(priceColor);
+
             if (symbol.BlockType == "7")// tk.value > 300) //为指数
             {
                 lw = (this.Width - 52) / 2;
                 for (int j = i; j < tradeList.Count; j++)
                 {
+                    se = tk.Time % 100;
+                    hh = tk.Time / 10000;
+                    mm = (tk.Time - se) / 100 % 100;
+
                     tk = tradeList[j];
                     ss = "";
                     if (time == -1)
@@ -150,39 +161,44 @@ namespace TradingLib.KryptonControl
                 lw = (this.Width - 92) / 2;
                 for (int j = i; j < tradeList.Count; j++)
                 {
+                    se = tk.Time % 100;
+                    hh = tk.Time / 10000;
+                    mm = (tk.Time - se) / 100 % 100;
+
+
                     tk = tradeList[j];
                     ss = "";
                     if (time == -1)
                     {
                         jj = 1;
-                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.Time / 100, tk.Time % 100, jj);
-                        time = tk.Time;
+                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", hh,mm, se==0?jj:se);
+                        time = tk.Time/100; //保留分钟
                     }
                     else
                     {
-                        if (tk.Time == time)
+                        if (tk.Time/100 == time)
                         {
                             jj += 1;
-                            ss = string.Format(":{0:D2}", jj);
+                            ss = string.Format(":{0:D2}", se == 0 ? jj : se);
                         }
 
-                        if (tk.Time > time)// (tk.time - time) > 100)
+                        if (tk.Time/100 > time)// (tk.time - time) > 100)
                         {
                             jj = 1;
-                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", tk.Time / 100, tk.Time % 100, jj);
-                            time = tk.Time;
+                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", hh, mm, se == 0 ? jj : se);
+                            time = tk.Time/100;
                         }
                     }
                     r1.Y = (j - i) * lineHeight + 2;
                     si = cv.MeasureString(ss, font);
                     if (jj == 1)
-                        cv.DrawString(ss, font, Brushes.White, (int)(60 - si.Width), r1.Top);
+                        cv.DrawString(ss, font, Brushes.WhiteSmoke, (int)(60 - si.Width), r1.Top);
                     else
-                        cv.DrawString(ss, font, Brushes.White, (int)(60 - si.Width - 1), r1.Top);
+                        cv.DrawString(ss, secendFont, Brushes.WhiteSmoke, (int)(60 - si.Width-3), r1.Top);
 
                     ss = string.Format("{0:F2}", tk.Price);
                     si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
+                    cv.DrawString(ss, font, priceBrush, (int)(50 + lw - si.Width), r1.Top);
 
                     ss = string.Format("{0:D}", tk.Vol);
                     si = cv.MeasureString(ss, font);

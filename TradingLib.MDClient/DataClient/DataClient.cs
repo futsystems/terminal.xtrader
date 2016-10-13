@@ -130,10 +130,17 @@ namespace TradingLib.DataCore
                         
                 //        return;
                 //    }
+                //查询Bar数据回报
                 case MessageTypes.BIN_BARRESPONSE:
                     {
                         RspQryBarResponseBin response = obj as RspQryBarResponseBin;
                         DataCoreService.EventHub.FireOnRspBarEvent(response);
+                        return;
+                    }
+                case MessageTypes.XQRYTRADSPLITRESPONSE:
+                    {
+                        RspXQryTradeSplitResponse response = obj as RspXQryTradeSplitResponse;
+                        DataCoreService.EventHub.FireOnRspTradeSplitEvent(response);
                         return;
                     }
                 case MessageTypes.LOGINRESPONSE:

@@ -238,18 +238,22 @@ namespace TradingLib.XTrader.Control
         public int Count { get { return tradeSplitList.Count; } }
         LinkedList<TradeSplit> tradeSplitList = new LinkedList<TradeSplit>();
 
+        object _object = new object();
         /// <summary>
         /// 添加到数据头部
         /// </summary>
         /// <param name="list"></param>
         public void AddFirst(List<TradeSplit> list)
         {
-            for(int i=list.Count-1;i>=0;i--)
+            lock (_object)
             {
-                tradeSplitList.AddFirst(list[i]);
-            }
+                for (int i = list.Count - 1; i >= 0; i--)
+                {
+                    tradeSplitList.AddFirst(list[i]);
+                }
 
-            logger.Info("minutes finished:" + GetMinFinished(list).ToString());
+                logger.Info("minutes finished:" + GetMinFinished(list).ToString());
+            }
         }
 
         /// <summary>
@@ -260,49 +264,52 @@ namespace TradingLib.XTrader.Control
         /// <param name="list"></param>
         public void Update(List<TradeSplit> list)
         {
-            //this.Clear();
-            //for (int i = list.Count - 1; i >= 0; i--)
-            //{
-            //    tradeSplitList.AddFirst(list[i]);
-            //}
+            lock (_object)
+            {
+                //this.Clear();
+                //for (int i = list.Count - 1; i >= 0; i--)
+                //{
+                //    tradeSplitList.AddFirst(list[i]);
+                //}
 
-            int time = GetMinFinished(list);
-            if (time <= 0) //没有获得完成的分钟数，无法准确更新
-            {
-                logger.Error("can not find minute finished,do not update");
-                return;
-            }
-
-            LinkedListNode<TradeSplit> node = tradeSplitList.Last;
-            LinkedListNode<TradeSplit> remove = null;
-            if (node == null)
-            {
-                logger.Error("there is no data resumed,can not update");
-            }
-            else
-            {
-                //当前节点事件大于该时间 则往前移位
-                while (node != null && node.Value.Time > time)
+                int time = GetMinFinished(list);
+                if (time <= 0) //没有获得完成的分钟数，无法准确更新
                 {
-                    remove = node;
-                    node = node.Previous;
-                    tradeSplitList.Remove(remove);
+                    logger.Error("can not find minute finished,do not update");
+                    return;
                 }
 
-                if (node != null)
+                LinkedListNode<TradeSplit> node = tradeSplitList.Last;
+                LinkedListNode<TradeSplit> remove = null;
+                if (node == null)
                 {
-                    LinkedListNode<TradeSplit> current = node;
-
-                    for (int i = 0; i < list.Count; i++)
+                    logger.Error("there is no data resumed,can not update");
+                }
+                else
+                {
+                    //当前节点事件大于该时间 则往前移位
+                    while (node != null && node.Value.Time > time)
                     {
-                        if (list[i].Time > time)//如果
+                        remove = node;
+                        node = node.Previous;
+                        tradeSplitList.Remove(remove);
+                    }
+
+                    if (node != null)
+                    {
+                        LinkedListNode<TradeSplit> current = node;
+
+                        for (int i = 0; i < list.Count; i++)
                         {
-                            tradeSplitList.AddAfter(current, new LinkedListNode<TradeSplit>(list[i]));//添加到该节点之后
-                            current = current.Next;
+                            if (list[i].Time > time)//如果
+                            {
+                                tradeSplitList.AddAfter(current, new LinkedListNode<TradeSplit>(list[i]));//添加到该节点之后
+                                current = current.Next;
+                            }
                         }
                     }
-                }
 
+                }
             }
             
         }
@@ -346,7 +353,10 @@ namespace TradingLib.XTrader.Control
 
         public void Clear()
         {
-            tradeSplitList.Clear();
+            lock (_object)
+            {
+                tradeSplitList.Clear();
+            }
             if (!update)
             {
                 this.Invalidate();
@@ -390,128 +400,136 @@ namespace TradingLib.XTrader.Control
 
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            g.FillRectangle(Brushes.Black, this.ClientRectangle);
-
-            colCnt = this.Width / _defaultColumnWidth;
-            if (colCnt == 0)
+            lock (_object)
             {
-                g.DrawString("TickList", UIConstant.LableFont, Brushes.Yellow, 10, 10);
-                return;
-            }
-            int columnWidth = this.Width / colCnt;
+                Graphics g = e.Graphics;
+                g.FillRectangle(Brushes.Black, this.ClientRectangle);
 
-            //string t = string.Format("{0} {1}",columnCnt,columnWidth);
-            //g.DrawString(t, UIConstant.QuoteFont, Brushes.Red, 10, 10);
-
-            Rectangle rect = new Rectangle();
-            float tWidth = 0;
-            System.Drawing.Font font = UIConstant.QuoteFont;
-
-            //string d = string.Format("{0}-{1}", columnCnt, columnWidth);
-            //g.DrawString(d, UIConstant.QuoteFont, Brushes.Red, 10, 10);
-            g.DrawString(string.IsNullOrEmpty(_symbol.Symbol) ? "000000" : _symbol.Symbol, UIConstant.QuoteFont, Brushes.Yellow, 20, (topHeight - fontHeight) / 2);
-            g.DrawString(string.IsNullOrEmpty(_symbol.Name) ? "中国平安" : _symbol.Name, UIConstant.LableFont, Brushes.Yellow, 70, (topHeight - fontHeight) / 2);
-            int lastcnt =  GetLastMinueTradeCount();
-            g.DrawString("鼠标滚轮/上下键 翻页 "+lastcnt.ToString() +" "+RowCount.ToString(), UIConstant.HelpFont, Brushes.Gray, 140, (topHeight - fontHeight) / 2 + 2);
-
-            g.DrawString("按Esc键返回", UIConstant.HelpFont, Brushes.Red, this.Width - 110, (topHeight - fontHeight) / 2 + 3);
-
-            //绘制关闭按钮
-            int btnSize = 14;
-            Point p = new Point(this.Width - (btnSize + (topHeight - btnSize) / 2), (topHeight - btnSize) / 2);
-            DrawCloseBotton(g,_mouseInClose?Color.Orange: Color.Red, p, btnSize);
-
-            rowCnt = (this.Height - topHeight - columHeight) / lineHeight;
-
-            if (viewlast)
-            {
-                int dataColCnt = tradeSplitList.Count / rowCnt;
-                dataColCnt += tradeSplitList.Count % rowCnt > 0 ? 1 : 0;//计算所有数据的列数量
-                startDataColumn = dataColCnt - colCnt;
-            }
-            string text = string.Empty;
-            int lw = (columnWidth - 90) / 2;
-            int cnt = rowCnt*startDataColumn;//从0列开始则cnt起始为0，如果从第一列开始显示则对应的位为rowCnt则图形第一列显示的是数据第二列
-            TradeSplit split = null;
-            for (int i = 0; i < colCnt; i++)
-            {
-                rect.X = i * columnWidth;
-
-                if (i == colCnt - 1)
-                    columnWidth = this.Width - (colCnt - 1) * columnWidth;
-
-                
-
-                //绘制顶部列标题
-                g.DrawLine(_pen, rect.X, topHeight, rect.X + columnWidth, topHeight);
-                g.DrawLine(_pen, rect.X, topHeight + columHeight, rect.X + columnWidth, topHeight + columHeight);
-                g.DrawString("时间", UIConstant.LableFont, Brushes.White, rect.X + 60 - 40, topHeight + (lineHeight - fontHeight) / 2);
-                g.DrawString("价格", UIConstant.LableFont, Brushes.White, rect.X + 60 + lw - 40, topHeight + (lineHeight - fontHeight) / 2);
-                g.DrawString("数量", UIConstant.LableFont, Brushes.White, rect.X + columnWidth - 50, topHeight + (lineHeight - fontHeight) / 2);
-
-                //绘制竖线
-                if (i > 0)
-                    g.DrawLine(_pen, rect.X, topHeight, rect.X, this.Height);
-                
-                for (int j = 0; j < rowCnt; j++)
+                colCnt = this.Width / _defaultColumnWidth;
+                if (colCnt == 0)
                 {
-                    cnt++;
-                    if (cnt >tradeSplitList.Count)
-                        continue;
-                    split = tradeSplitList.ElementAt(cnt-1);
-                    
+                    g.DrawString("TickList", UIConstant.LableFont, Brushes.Yellow, 10, 10);
+                    return;
+                }
+                int columnWidth = this.Width / colCnt;
 
-                    rect.Y = (j) * lineHeight + topHeight + columHeight;
+                //string t = string.Format("{0} {1}",columnCnt,columnWidth);
+                //g.DrawString(t, UIConstant.QuoteFont, Brushes.Red, 10, 10);
+
+                Rectangle rect = new Rectangle();
+                float tWidth = 0;
+                System.Drawing.Font font = UIConstant.QuoteFont;
+
+                //string d = string.Format("{0}-{1}", columnCnt, columnWidth);
+                //g.DrawString(d, UIConstant.QuoteFont, Brushes.Red, 10, 10);
+                g.DrawString(string.IsNullOrEmpty(_symbol.Symbol) ? "000000" : _symbol.Symbol, UIConstant.QuoteFont, Brushes.Yellow, 20, (topHeight - fontHeight) / 2);
+                g.DrawString(string.IsNullOrEmpty(_symbol.Name) ? "中国平安" : _symbol.Name, UIConstant.LableFont, Brushes.Yellow, 70, (topHeight - fontHeight) / 2);
+                int lastcnt = GetLastMinueTradeCount();
+                g.DrawString("鼠标滚轮/上下键 翻页 " + lastcnt.ToString() + " " + RowCount.ToString(), UIConstant.HelpFont, Brushes.Gray, 140, (topHeight - fontHeight) / 2 + 2);
+
+                g.DrawString("按Esc键返回", UIConstant.HelpFont, Brushes.Red, this.Width - 110, (topHeight - fontHeight) / 2 + 3);
+
+                //绘制关闭按钮
+                int btnSize = 14;
+                Point p = new Point(this.Width - (btnSize + (topHeight - btnSize) / 2), (topHeight - btnSize) / 2);
+                DrawCloseBotton(g, _mouseInClose ? Color.Orange : Color.Red, p, btnSize);
+
+                rowCnt = (this.Height - topHeight - columHeight) / lineHeight;
+
+                if (viewlast)
+                {
+                    int dataColCnt = tradeSplitList.Count / rowCnt;
+                    dataColCnt += tradeSplitList.Count % rowCnt > 0 ? 1 : 0;//计算所有数据的列数量
+                    startDataColumn = dataColCnt - colCnt;
+                }
+                string text = string.Empty;
+                int lw = (columnWidth - 90) / 2;
+                int cnt = rowCnt * startDataColumn;//从0列开始则cnt起始为0，如果从第一列开始显示则对应的位为rowCnt则图形第一列显示的是数据第二列
+                TradeSplit split = null;
+                for (int i = 0; i < colCnt; i++)
+                {
+                    rect.X = i * columnWidth;
+
+                    if (i == colCnt - 1)
+                        columnWidth = this.Width - (colCnt - 1) * columnWidth;
 
 
 
-                    text = string.Format("{0:D2}:{1:D2}:{2:D2}", split.Time / 100, split.Time % 100, 1);
-                    tWidth = g.MeasureString(text, font).Width;
-                    if (!viewlast && i == colCnt-1 && j==rowCnt-1)
+                    //绘制顶部列标题
+                    g.DrawLine(_pen, rect.X, topHeight, rect.X + columnWidth, topHeight);
+                    g.DrawLine(_pen, rect.X, topHeight + columHeight, rect.X + columnWidth, topHeight + columHeight);
+                    g.DrawString("时间", UIConstant.LableFont, Brushes.White, rect.X + 60 - 40, topHeight + (lineHeight - fontHeight) / 2);
+                    g.DrawString("价格", UIConstant.LableFont, Brushes.White, rect.X + 60 + lw - 40, topHeight + (lineHeight - fontHeight) / 2);
+                    g.DrawString("数量", UIConstant.LableFont, Brushes.White, rect.X + columnWidth - 50, topHeight + (lineHeight - fontHeight) / 2);
+
+                    //绘制竖线
+                    if (i > 0)
+                        g.DrawLine(_pen, rect.X, topHeight, rect.X, this.Height);
+                    int ss = 0;
+                    int hh = 0;
+                    int mm = 0;
+
+                    for (int j = 0; j < rowCnt; j++)
                     {
-                        g.DrawString(text + " ▽", UIConstant.QuoteFont, _brushTime, rect.X + 60 - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
-                    }
-                    else
-                    {
-                        g.DrawString(text, UIConstant.QuoteFont, _brushTime, rect.X + 60 - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
-                    }
+                        cnt++;
+                        if (cnt > tradeSplitList.Count)
+                            continue;
+                        split = tradeSplitList.ElementAt(cnt - 1);
 
 
-                    text = string.Format("{0:F2}", split.Price);
-                    tWidth = g.MeasureString(text, font).Width;
-                    if (split.Price == _symbol.PreClose)
-                    {
-                        _brushPrice.Color = Color.White;
-                    }
-                    else if (split.Price > _symbol.PreClose)
-                    {
-                        _brushPrice.Color = UIConstant.ColorUp;
-                    }
-                    else
-                    {
-                        _brushPrice.Color = UIConstant.ColorDown;
-                    }
-                    g.DrawString(text, font, _brushPrice, rect.X + 60 + lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+                        rect.Y = (j) * lineHeight + topHeight + columHeight;
 
 
-                    text = string.Format("{0:D}", split.Vol);
-                    tWidth = g.MeasureString(text, font).Width;
-                    g.DrawString(text, font, Brushes.Yellow, rect.X + 60 + 2 * lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+                        ss = split.Time % 100;
+                        hh = split.Time / 10000;
+                        mm = (split.Time - ss) / 100 % 100;
+                        text = string.Format("{0:D2}:{1:D2}:{2:D2}", hh, mm, ss);
+                        tWidth = g.MeasureString(text, font).Width;
+                        if (!viewlast && i == colCnt - 1 && j == rowCnt - 1)
+                        {
+                            g.DrawString(text + " ▽", UIConstant.QuoteFont, _brushTime, rect.X + 60 - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+                        }
+                        else
+                        {
+                            g.DrawString(text, UIConstant.QuoteFont, _brushTime, rect.X + 60 - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+                        }
 
-                    if (split.Flag == 1)
-                        text = "S";
-                    else
-                        text = "B";
-                    tWidth = g.MeasureString(text, font).Width;
-                    if (split.Flag == 1)
-                        g.DrawString(text, font, Brushes.Lime, rect.X + columnWidth - 25, rect.Y + (lineHeight - fontHeight) / 2);
-                    else
-                        g.DrawString(text, font, Brushes.Red, rect.X + columnWidth - 25, rect.Y + (lineHeight - fontHeight) / 2);
+
+                        text = string.Format("{0:F2}", split.Price);
+                        tWidth = g.MeasureString(text, font).Width;
+                        if (split.Price == _symbol.PreClose)
+                        {
+                            _brushPrice.Color = Color.White;
+                        }
+                        else if (split.Price > _symbol.PreClose)
+                        {
+                            _brushPrice.Color = UIConstant.ColorUp;
+                        }
+                        else
+                        {
+                            _brushPrice.Color = UIConstant.ColorDown;
+                        }
+                        g.DrawString(text, font, _brushPrice, rect.X + 60 + lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+
+
+                        text = string.Format("{0:D}", split.Vol);
+                        tWidth = g.MeasureString(text, font).Width;
+                        g.DrawString(text, font, Brushes.Yellow, rect.X + 60 + 2 * lw - tWidth, rect.Y + (lineHeight - fontHeight) / 2);
+
+                        if (split.Flag == 1)
+                            text = "S";
+                        else
+                            text = "B";
+                        tWidth = g.MeasureString(text, font).Width;
+                        if (split.Flag == 1)
+                            g.DrawString(text, font, Brushes.Lime, rect.X + columnWidth - 25, rect.Y + (lineHeight - fontHeight) / 2);
+                        else
+                            g.DrawString(text, font, Brushes.Red, rect.X + columnWidth - 25, rect.Y + (lineHeight - fontHeight) / 2);
+
+                    }
+
 
                 }
-
-
             }
         }
     }
