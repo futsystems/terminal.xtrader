@@ -72,6 +72,7 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 7));
 
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 3));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.BID, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.ASK, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.BIDSIZE, 7));

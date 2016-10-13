@@ -20,8 +20,8 @@ namespace TradingLib.XTrader.Control
 
 
 
-        string _dispformat;
-        private string DisplayFormat { get { return _dispformat; } set { _dispformat = value; } }
+        //string _dispformat;
+        //private string DisplayFormat { get { return _dispformat; } set { _dispformat = value; } }
 
         QuoteColumn _column;
         internal QuoteColumn Column { get { return _column; } }
@@ -42,13 +42,24 @@ namespace TradingLib.XTrader.Control
         CellStyle _cellStyle;
         public CellStyle CellStyle { get { return _cellStyle; } set { _cellStyle = value; } }
 
+
+        string _formatStr = string.Empty;
+        string FormatStr
+        {
+            get
+            {
+                //如果没有设置特定的样式字符串则使用Row对象的整体价格显示样式
+                if (string.IsNullOrEmpty(_formatStr)) return _row.PriceFormat;
+                return _formatStr;
+            }
+        }
         #region 构造函数
-        public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle, string disfromat)
+        public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle)
         {
             _row = row;
             _column = column;
             _cellStyle = new CellStyle(cellstyle);
-            _dispformat = disfromat;
+            //_dispformat = disfromat;
 
             if (_column.FieldType == EnumFileldType.SYMBOL || _column.FieldType == EnumFileldType.SYMBOLNAME)
             {
@@ -75,33 +86,33 @@ namespace TradingLib.XTrader.Control
                     break;
                 case EnumFileldType.LASTSIZE:
                     _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.ASKSIZE:
                     _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.BIDSIZE:
                     _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.VOL:
                     _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.OI:
                     _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.OICHANGE:
                     _cellStyle.FontColor = Color.Yellow;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.CHANGE:
-                    _dispformat = "{0:F2}";
+                    _formatStr = "{0:F2}";
                     break;
                 case EnumFileldType.CHANGEPECT:
-                    _dispformat = "{0:F2}";
+                    _formatStr = "{0:F2}";
                     break;
                 case EnumFileldType.AMOUNT:
                     _cellStyle.FontColor = Color.FromArgb(0, 255, 255);
@@ -109,23 +120,22 @@ namespace TradingLib.XTrader.Control
                 case EnumFileldType.PRESETTLEMENT:
                 case EnumFileldType.PRECLOSE:
                     _cellStyle.FontColor = Color.Silver;
-                    _dispformat = "{0:F2}";
                     break;
                 case EnumFileldType.PREOI:
                     _cellStyle.FontColor = Color.Silver;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.SSIDE:
                     _cellStyle.FontColor = row._quotelist.DefaultQuoteStyle.UPColor;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.BSIDE:
                     _cellStyle.FontColor = row._quotelist.DefaultQuoteStyle.DNColor;
-                    _dispformat = "{0:F0}";
+                    _formatStr = "{0:F0}";
                     break;
                 case EnumFileldType.PE:
                     _cellStyle.FontColor = Color.Silver;
-                    _dispformat = "{0:F2}";
+                    _formatStr = "{0:F2}";
                     break;
                 default:
                     break;
@@ -134,8 +144,8 @@ namespace TradingLib.XTrader.Control
         }
 
 
-        public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle, double value, string disformat)
-            : this(row,column, cellstyle, disformat)
+        public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle, double value)
+            : this(row,column, cellstyle)
         {
             _value = value;
         }
@@ -207,7 +217,7 @@ namespace TradingLib.XTrader.Control
             }
             else
             {
-                string val = double.IsNaN(_value) ? "—" : string.Format(DisplayFormat, _value);
+                string val = double.IsNaN(_value) ? "—" : string.Format(this.FormatStr, _value);
                 g.DrawString(val, CellStyle.QuoteFont, double.IsNaN(_value) ? _row._quotelist.DefaultQuoteStyle.NaNBrush : CellStyle.FontBrush, (_cellRect.X + (_cellStyle.DrawFormat.Alignment == StringAlignment.Far ? Column.Width - 5 : 0)), _cellRect.Y + (quoteStyle.RowHeight - CellStyle.QuoteFont.Height) / 2, _cellStyle.DrawFormat);
             }
         }

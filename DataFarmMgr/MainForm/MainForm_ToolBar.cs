@@ -26,6 +26,19 @@ namespace TradingLib.DataFarmManager
             btnRegister.Click += new EventHandler(btnRegister_Click);
             btnUnregister.Click += new EventHandler(btnUnregister_Click);
             btnDebugForm.Click += new EventHandler(btnDebugForm_Click);
+
+            btnStopFeedTick.Click += new EventHandler(btnStopFeedTick_Click);
+            btnStartFeedTick.Click += new EventHandler(btnStartFeedTick_Click);
+        }
+
+        void btnStartFeedTick_Click(object sender, EventArgs e)
+        {
+            DataCoreService.DataClient.ReqContribRequest("DataFarm", "StartFeedTick", "");
+        }
+
+        void btnStopFeedTick_Click(object sender, EventArgs e)
+        {
+            DataCoreService.DataClient.ReqContribRequest("DataFarm", "StopFeedTick", "");
         }
 
         void btnUnregister_Click(object sender, EventArgs e)
@@ -60,7 +73,8 @@ namespace TradingLib.DataFarmManager
 
         void btnConnect_Click(object sender, EventArgs e)
         {
-            DataCoreService.InitClient("127.0.0.1", 5060);
+            //DataCoreService.InitClient("127.0.0.1", 5060);
+            DataCoreService.InitClient("121.41.76.214", 5060);
             //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
             DataCoreService.EventHub.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
@@ -93,6 +107,7 @@ namespace TradingLib.DataFarmManager
                     symbol.SizeRate = 1;
                     symbol.NCode = 0;
                     symbol.SortKey = target.Month;
+                    symbol.Precision = Util.GetDecimalPlace(target.SecurityFamily.PriceTick);
                     mdsymbolmap.Add(symbol.UniqueKey, symbol);
                 }
 

@@ -28,6 +28,14 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         string _pricedispformat = "{0:F1}";
 
+        /// <summary>
+        /// 价格显示样式 显示小数点几位
+        /// </summary>
+        public string PriceFormat
+        {
+            get { return _pricedispformat; }
+        }
+
         private int _rowid;
         /// <summary>
         /// 行号
@@ -112,7 +120,7 @@ namespace TradingLib.XTrader.Control
             //for (int i = 0; i < _quotelist.Columns.Length; i++)
             foreach(var column in _quotelist.Columns)
             {
-                QuoteCell cell = new QuoteCell(this,column, cellstyle,double.NaN, _pricedispformat);
+                QuoteCell cell = new QuoteCell(this,column, cellstyle,double.NaN);
                 //cell.SendDebutEvent += new DebugDelegate(debug);
                 //添加Cell到数据结构
                 _columeCellMap.Add(column.FieldType, cell);
@@ -263,7 +271,7 @@ namespace TradingLib.XTrader.Control
                         cell.Value = _symbol.TickSnapshot.S;
                         break;
                     case EnumFileldType.TIME:
-                        cell.Time = Utils.ToDateTime(0, _symbol.TickSnapshot.Time).ToString("HH:MM:ss");
+                        cell.Time = Utils.ToDateTime(0, _symbol.TickSnapshot.Time).ToString("HH:mm:ss");
                         break;
                     case EnumFileldType.PE:
                         {

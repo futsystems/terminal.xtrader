@@ -50,6 +50,9 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnStartFeedTick = new System.Windows.Forms.ToolStripButton();
+            this.btnStopFeedTick = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -73,7 +76,10 @@
             this.toolStripSeparator2,
             this.btnRegister,
             this.btnUnregister,
-            this.btnDebugForm});
+            this.btnDebugForm,
+            this.toolStripSeparator4,
+            this.btnStartFeedTick,
+            this.btnStopFeedTick});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1274, 25);
@@ -177,30 +183,30 @@
             // menuSecurity
             // 
             this.menuSecurity.Name = "menuSecurity";
-            this.menuSecurity.Size = new System.Drawing.Size(152, 22);
+            this.menuSecurity.Size = new System.Drawing.Size(136, 22);
             this.menuSecurity.Text = "品种数据";
             // 
             // menuSymbol
             // 
             this.menuSymbol.Name = "menuSymbol";
-            this.menuSymbol.Size = new System.Drawing.Size(152, 22);
+            this.menuSymbol.Size = new System.Drawing.Size(136, 22);
             this.menuSymbol.Text = "合约数据";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(133, 6);
             // 
             // menuMarketTime
             // 
             this.menuMarketTime.Name = "menuMarketTime";
-            this.menuMarketTime.Size = new System.Drawing.Size(152, 22);
+            this.menuMarketTime.Size = new System.Drawing.Size(136, 22);
             this.menuMarketTime.Text = "交易时间段";
             // 
             // menuExchange
             // 
             this.menuExchange.Name = "menuExchange";
-            this.menuExchange.Size = new System.Drawing.Size(152, 22);
+            this.menuExchange.Size = new System.Drawing.Size(136, 22);
             this.menuExchange.Text = "交易所";
             // 
             // toolStripMenuItem2
@@ -223,6 +229,29 @@
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(192, 22);
             this.toolStripMenuItem4.Text = "toolStripMenuItem4";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnStartFeedTick
+            // 
+            this.btnStartFeedTick.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnStartFeedTick.Image = ((System.Drawing.Image)(resources.GetObject("btnStartFeedTick.Image")));
+            this.btnStartFeedTick.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStartFeedTick.Name = "btnStartFeedTick";
+            this.btnStartFeedTick.Size = new System.Drawing.Size(74, 22);
+            this.btnStartFeedTick.Text = "AcceptTick";
+            // 
+            // btnStopFeedTick
+            // 
+            this.btnStopFeedTick.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnStopFeedTick.Image = ((System.Drawing.Image)(resources.GetObject("btnStopFeedTick.Image")));
+            this.btnStopFeedTick.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStopFeedTick.Name = "btnStopFeedTick";
+            this.btnStopFeedTick.Size = new System.Drawing.Size(70, 22);
+            this.btnStopFeedTick.Text = "RejectTick";
             // 
             // MainForm
             // 
@@ -270,5 +299,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem menuBarData;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton btnStartFeedTick;
+        private System.Windows.Forms.ToolStripButton btnStopFeedTick;
     }
 }

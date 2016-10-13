@@ -39,7 +39,7 @@ namespace TradingLib.XTrader.Control
                 }
                 else//设定QuoteRow现实的合约对象
                 {
-                    _quoteList[i].Symbol = symbol;
+                    _quoteList[i].Symbol = symbol; //设定合约的过程需要调整数字显示样式
                     _quoteList[i].ResetCellValue();
                     _quoteList[i].Update();
                 }

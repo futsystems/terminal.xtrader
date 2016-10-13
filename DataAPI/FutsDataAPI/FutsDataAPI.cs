@@ -103,6 +103,7 @@ namespace DataAPI.Futs
                 symbol.SizeRate = 1;
                 symbol.NCode = 0;
                 symbol.SortKey = target.Month;
+                symbol.Precision = target.SecurityFamily.GetDecimalPlaces();
                 symbolMap.Add(symbol.UniqueKey, symbol);
             }
 
