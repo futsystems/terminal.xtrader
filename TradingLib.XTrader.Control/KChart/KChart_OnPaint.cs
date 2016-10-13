@@ -188,8 +188,8 @@ namespace CStock
                         if (b1 != null)
                         {
                             HL[k++].Text = "时间";
-                            int day = (int)(b1.value[curbar]);
-                            HL[k++].Text = String.Format("{0:D}:{1:D}", (day % 10000) / 100, (day % 10000) % 100);
+                            int time = (int)(b1.value[curbar]);
+                            HL[k++].Text = String.Format("{0:D}:{1:D}", (time / 100) / 100, (time / 100) % 100);
                         }
                         b1 = g1.check("close");
                         if (b1 != null)

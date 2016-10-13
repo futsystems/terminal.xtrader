@@ -63,7 +63,7 @@
     <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">
       <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
       <Name>TradingLib.MarketData</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -74,4 +74,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\Build\XTraderLite\DataAPI\" SkipUnchangedFiles="false" />
+  </Target>
 </Project>

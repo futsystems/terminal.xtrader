@@ -395,7 +395,7 @@ namespace TradingLib.XTrader.Stock
             {
                 _side = value;
                 lbPrice.Text = _side ? "买入价格" : "卖出价格";
-                lbSize.Text = _side ? "买入数量" : "买出数量";
+                lbSize.Text = _side ? "买入数量" : "卖出数量";
                 lbMaxSize.Text = _side ? "最大可买" : "最大可卖";
                 btnSubmit.Text = _side ? "买入下单" : "卖出下单";
 

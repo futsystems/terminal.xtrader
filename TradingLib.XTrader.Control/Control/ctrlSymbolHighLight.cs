@@ -19,16 +19,30 @@ namespace TradingLib.XTrader.Control
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.Transparent;
-
-            //SymbolHighLight h = new SymbolHighLight("沪", new MDSymbol());
-            //h.Symbol.PreClose = 2354.44;
-            //h.Symbol.TickSnapshot.Price = 2454.28;
-            //h.Symbol.TickSnapshot.Amount = 23432378402.33;
-
-            //symbolList.Add(h);
-            //symbolList.Add(h);
-            //symbolList.Add(h);
+            this.MouseDoubleClick += new MouseEventHandler(ctrlSymbolHighLight_MouseDoubleClick);
         }
+
+
+        public event Action<MDSymbol> SymbolDoubleClick;
+        void ctrlSymbolHighLight_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //MessageBox.Show(string.Format("mouse x:{0} Symbol width:{1}", e.X, string.Join(",", symbolWidth.Select(s => s.ToString()).ToArray())));
+            int location = -1;
+            for (int i = 0; i < symbolWidth.Count; i++)
+            {
+                if (e.X < symbolWidth[i])
+                {
+                    location = i;
+                    break;
+                }
+            }
+            if (location >= 0 && SymbolDoubleClick!= null)
+            {
+                SymbolDoubleClick(symbolList[location].Symbol);
+                //MessageBox.Show(symbolList[location].Symbol.Symbol);
+            }
+        }
+
 
 
         bool update = false;
@@ -43,10 +57,12 @@ namespace TradingLib.XTrader.Control
         public void Clear()
         {
             symbolList.Clear();
+            symbolWidth.Clear();
             Invalidate();
         }
 
         List<SymbolHighLight> symbolList = new List<SymbolHighLight>();
+        List<int> symbolWidth = new List<int>();
 
         Font titleFont = new Font("宋体", 10, FontStyle.Bold);
         Font priceFont = new Font("Arial", 9, FontStyle.Bold);
@@ -69,6 +85,7 @@ namespace TradingLib.XTrader.Control
                 Invalidate();
             }
         }
+
         void GDI_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
 
@@ -77,6 +94,7 @@ namespace TradingLib.XTrader.Control
             
             string t = string.Empty;
             int space =0;
+            symbolWidth.Clear();
 
             if (symbolList.Count == 0)
             {
@@ -113,7 +131,7 @@ namespace TradingLib.XTrader.Control
 
                 space += (int)g.MeasureString(t, titleFont).Width;
                 g.DrawLine(sPen, space += 2, 0 + 4, space, this.Height - 4);
-
+                symbolWidth.Add(space);
             }
         }
     }

@@ -173,8 +173,11 @@ namespace DataAPI.TDX
             logger.Info(" main loop stopped");
         }
 
-        
 
+        int Rectify(int tdxTime)
+        {
+            return tdxTime * 100;
+        }
 
         public void ProcessData(DataAPI.TDX.SendBuf sb)
         {
@@ -272,7 +275,7 @@ namespace DataAPI.TDX
                                 num4 = num5 + num4;
                                 i = i + 1;
 
-                                TradeSplit split = new TradeSplit(time1, close, vol, 0, dealcount);
+                                TradeSplit split = new TradeSplit(Rectify(time1), close, vol, 0, dealcount);
                                 //logger.Info(split.ToString());
                             }
                             //HisTicks.InsertRange(0, lt1);
@@ -337,7 +340,8 @@ namespace DataAPI.TDX
                                 sellorbuy = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 num4 = num5 + num4;
                                 i = i + 1;
-                                tslist.Add(new TradeSplit(time1, close, vol, sellorbuy, dealcount));
+                                //TDX返回的时间是
+                                tslist.Add(new TradeSplit(Rectify(time1), close, vol, sellorbuy, dealcount));
                             }
                             if (OnRspQryTradeSplit != null)
                             {
@@ -380,7 +384,7 @@ namespace DataAPI.TDX
                                 target.TickSnapshot.Open = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
                                 target.TickSnapshot.High = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
                                 target.TickSnapshot.Low = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
-                                target.TickSnapshot.Time = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);
+                                target.TickSnapshot.Time = TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i);//行情快照时间 带秒
                                 TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 target.TickSnapshot.Volume = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 target.TickSnapshot.Size = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);// '现量;
@@ -630,8 +634,8 @@ namespace DataAPI.TDX
                             double[] vol = new double[n + 1];
                             for (int j = 0; j < n; j++)
                             {
-                                //date[j] = StkDate;
-                                time[j] = gptime(sb.Market, j);
+                                date[j] = stkDate;
+                                time[j] = Rectify(gptime(sb.Market, j));
                                 num4 = num4 + TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 close[j] = (float)(num4 / 100.0);
                                 res = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
@@ -673,8 +677,8 @@ namespace DataAPI.TDX
                             for (int j = 0; j < n; j++)
                             {
                                 //Application.DoEvents();
-                                //date[j] = sb.type;
-                                time[j] = gptime(sb.Market, j);
+                                date[j] = sb.type;
+                                time[j] = Rectify(gptime(sb.Market, j));
                                 num4 = num4 + TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 close[j] = (double)(num4 / 100.0);
                                 res = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
@@ -748,7 +752,7 @@ namespace DataAPI.TDX
                                 //Application.DoEvents();
                                 TDX.TDXDecoder.TDXGetDate(TDX.TDXDecoder.TDXGetInt32(RecvBuffer, i, ref i), ref yy1, ref mm1, ref dd1, ref hhh, ref mmm);
                                 date[j] = yy1 * 10000 + mm1 * 100 + dd1;
-                                time[j] = hhh * 100 + mmm;
+                                time[j] = Rectify(hhh * 100 + mmm);
                                 num10 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);
                                 open[j] = (float)((num9 + num10) / 1000.0);
                                 num6 = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i);

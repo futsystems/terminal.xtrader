@@ -67,6 +67,10 @@ namespace TradingLib.XTrader.Stock
                 {
                     ViewKChart(arg2.Exchange, arg2.Symbol, 0);
                 }
+                if (arg1 is ctOrderSenderSTK)
+                {
+                    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                }
             }
         }
 

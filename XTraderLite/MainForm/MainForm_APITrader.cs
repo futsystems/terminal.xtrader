@@ -34,23 +34,30 @@ namespace XTraderLite
         /// </summary>
         void InitTrader()
         {
-            //
-            //从配置文件设定的dll初始化交易插件
-            string dllname = new ConfigFileBase("apitrader.cfg").GetFirstLine();
-            _traderApi = Utils.LoadTraderAPI(dllname);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
-
-            if (_traderApi != null)
+            try
             {
-                _traderCtrl = _traderApi as Control;
-                if (_traderCtrl != null)
-                {
-                    panelBroker.Controls.Add(_traderCtrl);
-                    _traderCtrl.Dock = DockStyle.Fill;
-                    _traderApi.Show();
-                }
+                //
+                //从配置文件设定的dll初始化交易插件
+                string dllname = new ConfigFileBase("apitrader.cfg").GetFirstLine();
+                _traderApi = Utils.LoadTraderAPI(dllname);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
 
-                _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
-                _traderApi.ViewKChart += new Action<string, string, int>(_traderApi_ViewKChart);
+                if (_traderApi != null)
+                {
+                    _traderCtrl = _traderApi as Control;
+                    if (_traderCtrl != null)
+                    {
+                        panelBroker.Controls.Add(_traderCtrl);
+                        _traderCtrl.Dock = DockStyle.Fill;
+                        _traderApi.Show();
+                    }
+
+                    _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
+                    _traderApi.ViewKChart += new Action<string, string, int>(_traderApi_ViewKChart);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("交易插件加载异常,请检查配置文件");
             }
         }
 

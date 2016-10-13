@@ -16,7 +16,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,7 +27,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -302,4 +302,18 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <CommonDLL Include="..\..\Futs.base\lib\update\Ant.Component.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\update\Beetle.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\update\Smark.Core.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\Common.Logging.Core.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\Common.Logging.dll" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <OutFiles Include="$(OutputPath)\$(AssemblyName).exe" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\Build\XTraderLite\" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(CommonDLL)" DestinationFolder="..\Build\XTraderLite\" ContinueOnError="false" />
+  </Target>
 </Project>

@@ -222,7 +222,7 @@ namespace DataAPI.TDX
                 sb11.Send = request;
                 sb11.Code = symbol;
                 sb11.Market = (byte)(ushort)market;
-                //sb11.type = Convert.ToInt32(e.Date);
+                sb11.type = date;//将日期放入type TDX服务端返回历史分时 没有日期数据
                 sb11.RequestId = this.NextRequestId;
                 NewRequest(sb11);
                 return sb11.RequestId;

@@ -43,6 +43,17 @@ namespace XTraderLite
 
 
             btnDebugForm.Click += new EventHandler(btnDebugForm_Click);
+
+#if  DEBUG
+            
+#else
+            btnDemo1.Visible = false;
+            btnDemo2.Visible = false;
+            btnDemo3.Visible = false;
+            btnDebugForm.Visible = false;
+            toolStripSeparator10.Visible = false;
+#endif
+
         }
 
         void btnDebugForm_Click(object sender, EventArgs e)

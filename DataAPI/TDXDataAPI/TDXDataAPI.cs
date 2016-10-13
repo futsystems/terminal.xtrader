@@ -151,7 +151,7 @@ namespace DataAPI.TDX
                         return true;
                     }
                     return false;
-                }), 1));
+                }), 4));
             blockInfoList.Add(new BlockInfo("中小版", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                =>
                {

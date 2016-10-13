@@ -22,6 +22,17 @@ namespace XTraderLite
             imgConn.DoubleClick += new EventHandler(imgConn_DoubleClick);
             btnTrade.Click += new EventHandler(btnTrade_Click);
             btnBBS.Click += new EventHandler(btnBBS_Click);
+            ctrlSymbolHighLight.SymbolDoubleClick += new Action<MDSymbol>(ctrlSymbolHighLight_SymbolDoubleClick);
+        }
+
+        //底部跑马灯双击 显示合约分时
+        void ctrlSymbolHighLight_SymbolDoubleClick(MDSymbol symbol)
+        {
+            if (symbol != null)
+            {
+                ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
+                ViewKChart(symbol);
+            }
         }
 
         void btnBBS_Click(object sender, EventArgs e)

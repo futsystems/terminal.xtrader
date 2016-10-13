@@ -74,4 +74,12 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.DataCore.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\Build\XTraderLite\DataAPI\" SkipUnchangedFiles="false" />
+  </Target>
 </Project>

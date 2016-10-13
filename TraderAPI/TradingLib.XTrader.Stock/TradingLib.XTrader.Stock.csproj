@@ -280,4 +280,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+		<OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
+		<OutFiles Include="$(OutputPath)\TradingLib.API.dll" />
+		<OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
+		<OutFiles Include="$(OutputPath)\TradingLib.TraderCore.dll" />
+		<OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\Build\XTraderLite\TraderAPI\" SkipUnchangedFiles="false" />
+  </Target>
 </Project>
