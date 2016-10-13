@@ -35,7 +35,11 @@ namespace DataAPI.Futs
             DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
             //价格成交量查询
             DataCoreService.EventHub.OnRspPriceVolEvent += new Action<RspXQryPriceVolResponse>(EventHub_OnRspPriceVolEvent);
+            //分时数据查询
+            DataCoreService.EventHub.OnRspMinuteDataEvent += new Action<RspXQryMinuteDataResponse>(EventHub_OnRspMinuteDataEvent);
         }
+
+
 
         
 

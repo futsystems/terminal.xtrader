@@ -157,6 +157,14 @@ namespace TradingLib.DataCore
                         DataCoreService.EventHub.FireOnRspPriceVolEvent(response);
                         return;
                     }
+                //查询分时数据
+                case MessageTypes.XQRYMINUTEDATARESPONSE:
+                    {
+                        RspXQryMinuteDataResponse response = obj as RspXQryMinuteDataResponse;
+                        DataCoreService.EventHub.FireOnRspMinuteDataEvent(response);
+                        return;
+                    }
+
                 
                 #region 管理操作
                 case MessageTypes.MGRCONTRIBRESPONSE:

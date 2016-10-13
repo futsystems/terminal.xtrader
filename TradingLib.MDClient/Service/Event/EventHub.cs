@@ -93,5 +93,17 @@ namespace TradingLib.DataCore
                 OnRspPriceVolEvent(pvResponse);
             }
         }
+
+        /// <summary>
+        /// 分时数据响应
+        /// </summary>
+        public event Action<RspXQryMinuteDataResponse> OnRspMinuteDataEvent;
+        internal void FireOnRspMinuteDataEvent(RspXQryMinuteDataResponse mdResponse)
+        {
+            if (OnRspMinuteDataEvent != null)
+            {
+                OnRspMinuteDataEvent(mdResponse);
+            }
+        }
     }
 }

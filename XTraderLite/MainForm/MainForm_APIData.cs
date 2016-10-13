@@ -167,7 +167,7 @@ namespace XTraderLite
             double[] d4 = arg1["vol"];//vol
             for (int j = 0; j < arg3; j++)
             {
-                MinuteData dt = new MinuteData();
+                MDMinuteData dt = new MDMinuteData();
                 dt.Date = (int)d1[j];
                 dt.Time = (int)d2[j];
                 dt.Close = d3[j];
@@ -201,7 +201,7 @@ namespace XTraderLite
                     double[] vol1 = new double[minuteData.Count + arg3 + 1];
                     for (int j = 0; j < minuteData.Count; j++)
                     {
-                        MinuteData dt = minuteData[j];
+                        MDMinuteData dt = minuteData[j];
                         date1[j] = dt.Date;
                         time11[j] = dt.Time;
                         close1[j] = dt.Close;

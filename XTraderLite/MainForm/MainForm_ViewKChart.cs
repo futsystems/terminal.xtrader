@@ -15,8 +15,8 @@ namespace XTraderLite
 {
     public partial class MainForm
     {
-        
-        List<MinuteData> minuteData = new List<MinuteData>();
+
+        List<MDMinuteData> minuteData = new List<MDMinuteData>();
 
         
 

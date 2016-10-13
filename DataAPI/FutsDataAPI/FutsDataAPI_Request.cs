@@ -12,6 +12,7 @@ namespace DataAPI.Futs
     public partial class FutsDataAPI : IMarketDataAPI
     {
 
+        #region 实时行情数据
         public event Action<List<MDSymbol>, TradingLib.MarketData.RspInfo, int, int> OnRspQryTickSnapshot;
         /// <summary>
         /// 查询行情快照
@@ -53,7 +54,15 @@ namespace DataAPI.Futs
             }
         }
 
+        #endregion
 
+
+
+        #region 增加分时数据查询接口
+        /// <summary>
+        /// 返回当日分时数据
+        /// </summary>
+        public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryMinuteData;
 
         public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryHistMinuteData;
         /// <summary>
@@ -64,16 +73,61 @@ namespace DataAPI.Futs
         /// <returns></returns>
         public int QryMinuteDate(string exchange, string symbol, int date)
         {
-            return 0;
+            return DataCoreService.DataClient.QryMinuteData(exchange, symbol, 20161013);
         }
 
+        Dictionary<int, Dictionary<string, List<double>>> minuteDataResponseMap = new Dictionary<int, Dictionary<string, List<double>>>();
+        void EventHub_OnRspMinuteDataEvent(RspXQryMinuteDataResponse obj)
+        {
+            Dictionary<string, List<double>> target = null;
+            if (!minuteDataResponseMap.TryGetValue(obj.RequestID, out target))
+            {
+                target = new Dictionary<string, List<double>>();
+                minuteDataResponseMap.Add(obj.RequestID, target);
+                target.Add("date", new List<double>());
+                target.Add("time", new List<double>());
+                target.Add("close", new List<double>());
+                target.Add("vol", new List<double>());
+                target.Add("avg", new List<double>());
+            }
+            List<double> date = target["date"];
+            List<double> time = target["time"];
+            List<double> close = target["close"];
+            List<double> vol = target["vol"];
+            List<double> avg = target["avg"];
 
-        /// <summary>
-        /// 返回当日分时数据
-        /// </summary>
-        public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryMinuteData;
+            foreach (var md in obj.MinuteDataList)
+            {
+                date.Add(md.Date);
+                time.Add(md.Time);
+                close.Add(md.Close);
+                vol.Add(md.Vol);
+                avg.Add(md.AvgPrice);
+            }
+            if (obj.IsLast)
+            {
+
+                if (OnRspQryMinuteData != null)
+                {
+                    Dictionary<string, double[]> data = new Dictionary<string, double[]>();
+                    data["date"] = date.ToArray();
+                    data["time"] = time.ToArray();
+                    data["close"] = close.ToArray();
+                    data["vol"] = vol.ToArray();
+                    data["avg"] = avg.ToArray();
+
+                    minuteDataResponseMap.Remove(obj.RequestID);
+
+                    OnRspQryMinuteData(data, null, date.Count, obj.RequestID);
+                }
+            }
+        }
+        #endregion
 
 
+
+
+        #region Bar数据查询
         /// <summary>
         /// Bar数据回报
         /// </summary>
@@ -180,10 +234,10 @@ namespace DataAPI.Futs
                     return new BarFrequency(BarInterval.Minute,1);
             }
         }
+        #endregion
 
 
-
-
+        #region 价格成交量
         public event Action<List<PriceVolPair>, TradingLib.MarketData.RspInfo, int, int> OnRspQryPriceVolPair;
         /// <summary>
         /// 查询价量信息
@@ -219,8 +273,10 @@ namespace DataAPI.Futs
                 }
             }
         }
+        #endregion
 
 
+        #region 分笔成交数据
         /// <summary>
         /// 分笔数据回报
         /// </summary>
@@ -260,6 +316,7 @@ namespace DataAPI.Futs
                 }
             }
         }
+        #endregion
 
 
         /// <summary>

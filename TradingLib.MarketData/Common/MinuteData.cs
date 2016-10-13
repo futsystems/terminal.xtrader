@@ -8,7 +8,7 @@ namespace TradingLib.MarketData
     /// <summary>
     /// 分时数据
     /// </summary>
-    public class MinuteData
+    public class MDMinuteData
     {
         public int Date;
         public int Time;

@@ -235,6 +235,23 @@ namespace TradingLib.DataCore
             return reqid;
         }
 
+        /// <summary>
+        /// 查询某个交易日的分时数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public int QryMinuteData(string exchange, string symbol, int date)
+        {
+            int reqid = NextRequestID;
+            XQryMinuteDataRequest request = RequestTemplate<XQryMinuteDataRequest>.CliSendRequest(reqid);
+            request.Exchange = exchange;
+            request.Symbol = symbol;
+            request.Tradingday = date;
+            mktClient.TLSend(request);
+            return reqid;
+        }
 
         public int DemoTick(int time, decimal price)
         { 
