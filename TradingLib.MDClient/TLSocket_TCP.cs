@@ -86,6 +86,8 @@ namespace TradingLib.DataCore
             try
             {
                 _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.SendBufferSize = 65535;
+                _socket.ReceiveBufferSize = 65535; //注默认接受数据BufferSize 8192 如果服务端发送一个大的Bar数据包 会导致数据接受异常
                 _socket.Connect(this.Server);
 
                 if (_socket.Connected)
