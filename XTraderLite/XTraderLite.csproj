@@ -312,6 +312,8 @@
   <Target Name="AfterBuild">
     <ItemGroup>
       <OutFiles Include="$(OutputPath)\$(AssemblyName).exe" />
+	  <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
+	  <OutFiles Include="$(OutputPath)\TradingLib.XTrader.Control.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\Build\XTraderLite\" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(CommonDLL)" DestinationFolder="..\Build\XTraderLite\" ContinueOnError="false" />
