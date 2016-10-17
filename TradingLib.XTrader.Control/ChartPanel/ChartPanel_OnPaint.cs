@@ -25,6 +25,7 @@ namespace CStock
         List<Session> _sessionList = new List<Session>();
         //string _sessionStr = "210000-N23000,90000-101500,103000-113000,133000-150000";
         string _sessionStr = "180000-N170000";
+        //string _sessionStr = "180000-230000";
         int _totalMinutes = 0;
         /// <summary>
         /// 绘制K线
@@ -1467,21 +1468,26 @@ namespace CStock
                             if (min1 < 0)
                                 cy1 = rectHeight - (both + (int)((0 - min1) * scale));
                             else
-                                cy1 = rectHeight - both - 2;
+                                cy1 = rectHeight - (both + 2);// -2;
                             //从左侧Bar绘制当前右侧Bar
                             for (i = StartIndex; i < EndIndex; i++)
                             {
                                 if (f11[i] == NA)
                                     continue;
+                                if (f11[i] == 0)
+                                {
+                                    int xyz = 0;
+                                }
+                                    
                                 cx = leftYAxisWidth + (int)(FScale * (i - StartIndex));
                                 fcx = leftYAxisWidth + (float)(FScale * (i - StartIndex));//获得当前Bar的X坐标
 
-                                cy = rectHeight - (both + (int)((f11[i] - min1) * scale));
+                                cy = rectHeight - (both + 2  + (int)((f11[i] - min1) * scale));//cy值位于起始点 值不能大于cy1否则绘制图形异常
                                 fcy = (rectHeight - both) - (float)((f11[i] - min1) * scale);
 
 
-                                if (cy == cy1)
-                                    cy -= 1;
+                                //if (cy == cy1)
+                                //    cy -= 1;
 
                                 //根据收盘价与开盘价设定颜色
                                 bool upbar = f13[i] > f12[i];
@@ -1504,7 +1510,8 @@ namespace CStock
                                     FBrush.Color = pen.Color;
                                     if (showfs && !main)//分时副图
                                     {
-                                        canvas.DrawLine(pen, cx, cy, cx, cy1);
+                                        if (f11[i]!=0) //成交量为0 绘制后会导致图像底部不整齐
+                                            canvas.DrawLine(pen, cx, cy, cx, cy1);
                                     }
                                     else
                                     {
@@ -1522,7 +1529,8 @@ namespace CStock
                                 else
                                 {
                                     //pen.Color = (f13[i] > f12[i]) ? Color.Red : Color.Aqua;
-                                    canvas.DrawLine(pen, cx, cy, cx, cy1);
+                                    if (f11[i] != 0)
+                                        canvas.DrawLine(pen, cx, cy, cx, cy1);
                                 }
                             }
                         }
