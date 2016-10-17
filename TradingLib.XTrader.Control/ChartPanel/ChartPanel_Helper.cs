@@ -187,5 +187,139 @@ namespace CStock
             return 0;
         }
 
+
+        /*
+         *  分时绘制 原先按照交易所 来定linecount 
+         *  在多品种交易后,需要按照实际的交易小节来动态计算
+         * 
+         * */
+
+        /// <summary>
+        /// 从交易小节设置信息 解析出Session对象
+        /// 93000-113000,130000-150000
+        /// </summary>
+        /// <param name="sessionStr"></param>
+        /// <returns></returns>
+        List<Session> ParseSession(string sessionStr)
+        {
+            List<Session> list = new List<Session>();
+            string[] rec = sessionStr.Split(',');
+            foreach (var str in rec)
+            {
+                list.Add(Session.Deserialize(str));
+            }
+            return list;
+        }
+
+
+    }
+
+    internal class Session
+    {
+        public Session()
+        {
+            this.Start = 0;
+            this.End = 0;
+            this.EndInNextDay = false;
+        }
+        /// <summary>
+        /// 开始
+        /// </summary>
+        public int Start { get; set; }
+
+        /// <summary>
+        /// 结束
+        /// </summary>
+        public int End { get; set; }
+
+        /// <summary>
+        /// 结束时间在第二天
+        /// </summary>
+        public bool EndInNextDay { get; set; } 
+
+        /// <summary>
+        /// 返回区间分钟数
+        /// </summary>
+        public int TotalMinutes
+        {
+            get
+            {
+                if (!this.EndInNextDay)
+                {
+                    return (FT2FTS(this.End) - FT2FTS(this.Start)) / 60;
+                }
+                else //结束时间在第二天
+                {
+                    return 24*60 - (FT2FTS(this.Start) - FT2FTS(this.End)) / 60;
+                }
+            }
+        }
+
+
+        public static void ParseHMS(int time,out int h, out int m, out int s)
+        {
+            s = time % 100;
+            int m1 = (time - s) / 100;
+            m = m1 % 100;
+            h = m1 / 100;
+        }
+        static int FT2FTS(int fasttime)
+        {
+            int s1 = fasttime % 100;
+            int m1 = ((fasttime - s1) / 100) % 100;
+            int h1 = (int)((fasttime - (m1 * 100) - s1) / 10000);
+            return h1 * 3600 + m1 * 60 + s1;
+        }
+
+        /// <summary>
+        /// 在某个时刻加上多少秒
+        /// </summary>
+        /// <param name="firsttime"></param>
+        /// <param name="fasttimespaninseconds"></param>
+        /// <returns></returns>
+        public static int FTADD(int firsttime, int fasttimespaninseconds)
+        {
+            int s1 = firsttime % 100;
+            int m1 = ((firsttime - s1) / 100) % 100;
+            int h1 = (int)((firsttime - m1 * 100 - s1) / 10000);
+            s1 += fasttimespaninseconds;
+            if (s1 >= 60)
+            {
+                m1 += (int)(s1 / 60);
+                s1 = s1 % 60;
+            }
+            if (m1 >= 60)
+            {
+                h1 += (int)(m1 / 60);
+                m1 = m1 % 60;
+            }
+            if (h1 >= 24)
+            {
+                h1 = h1 % 24;
+            }
+            int sum = h1 * 10000 + m1 * 100 + s1;
+            return sum;
+
+
+        }
+
+
+        public static Session Deserialize(string str)
+        {
+            Session s = new Session();
+            string[] rec = str.Split('-');
+            s.Start = int.Parse(rec[0]);
+            if (rec[1].StartsWith("N"))
+            {
+                s.EndInNextDay = true;
+                string nstr = rec[1].Substring(1);
+                s.End = int.Parse(nstr);
+            }
+            else
+            {
+                s.End = int.Parse(rec[1]);
+            }
+            return s;
+        }
     }
 }

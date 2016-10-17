@@ -90,6 +90,7 @@
     <Compile Include="ChartPanel\ChartPanel_TA.cs" />
     <Compile Include="ChartPanel\ChartPanel_Data.cs" />
     <Compile Include="ChartPanel\ChartPanel_Helper.cs" />
+    <Compile Include="ChartPanel\副本 ChartPanel_.cs" />
     <Compile Include="CheckPass.cs">
       <SubType>Form</SubType>
     </Compile>

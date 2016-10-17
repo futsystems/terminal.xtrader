@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
@@ -20,6 +21,11 @@ namespace CStock
         [DllImport("user32.dll")]
         private static extern int SetCursorPos(int x, int y);
 
+
+        List<Session> _sessionList = new List<Session>();
+        string _sessionStr = "210000-N23000,90000-101500,103000-113000,133000-150000";
+        //string _sessionStr = "180000-N170000";
+        int _totalMinutes = 0;
         /// <summary>
         /// 绘制K线
         /// </summary>
@@ -27,6 +33,7 @@ namespace CStock
         /// <returns></returns>
         public bool OnPaint(Bitmap map)// Graphics canvas)
         {
+            
             if (pCtrl == null)
                 return false;
             //this.showright = !pCtrl.StartFix;
@@ -121,14 +128,24 @@ namespace CStock
             if (Symbol != null)
                 weilen = Symbol.Precision;
 
+            if (_sessionList.Count == 0)
+            {
+                foreach (var session in ParseSession(_sessionStr))
+                {
+                    _sessionList.Add(session);
+                }
+
+                _totalMinutes = _sessionList.Sum(s => s.TotalMinutes);
+            }
+            
             //根据不同的类型 设定分时固定宽度 显示固定个数的分时数据
-            int linecount = 240;
-            if (marktype == MarkType.MarkGuZhi)
-                linecount = 270;
-            if (marktype == MarkType.MarkZhengZhoung)
-                linecount = 225;
-            if (marktype == MarkType.MarkShangHai)
-                linecount = 556;
+            int linecount = _totalMinutes;
+            //if (marktype == MarkType.MarkGuZhi)
+            //    linecount = 270;
+            //if (marktype == MarkType.MarkZhengZhoung)
+            //    linecount = 225;
+            //if (marktype == MarkType.MarkShangHai)
+            //    linecount = 556;
 
 
             //EndIndex = 0;
@@ -225,128 +242,89 @@ namespace CStock
                     canvas.DrawLine(pen, 0, rectHeight - both, rectWidth + leftYAxisWidth, rectHeight - both);//IntraViewCalendarTopLine
                 }
 
-                
+                int hh, mm, ss;
                 if (days == 1) //只有一天
                 {
-
                     sch = Convert.ToDouble(rectWidth - leftYAxisWidth) / linecount;
-                    if (marktype == MarkType.MarkA)
+                    
+                    int spaceMinute = 0;
+                    //自适应间距计算
+                    while (spaceMinute * sch < 50)
                     {
-                        i = 0;
-                        while (i < (linecount + 1))
+                        if (spaceMinute < 60)
                         {
-                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(i * sch), toph, leftYAxisWidth + Convert.ToInt32(i * sch), rectHeight - both);//IntraviewXAsixGridLine
-                            //绘制底部时间坐标轴 文字刻度
-                            if ((both > fh1))//如果底部高度可以绘制文字坐标
-                            {
-                                if (i % 60 == 0)
-                                {
-                                    h = 9 * 60 + 30 + i;
-                                    if (i > 120)
-                                        h = h + 90;
-                                    m = h % 60;
-                                    h = h / 60;
-                                    s1 = String.Format("{0:d2}", h) + ":" + String.Format("{0:d2}", m);
-                                    canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(i * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
-                                }
-                            }
-                            i = i + 30;
+                            spaceMinute += 30;
+                        }
+                        else
+                        {
+                            spaceMinute += 60;
                         }
                     }
-
-                    if (marktype == MarkType.MarkZhengZhoung)
+                    
+                    int cursorMin = 0;//当前累计分钟数
+                    int finishMin = 0;//绘制完毕的Session分钟数累加
+                    int sessionMin = 0;//在某个Session内移动的分钟数
+                    for (int j = 0; j < _sessionList.Count;j++ )
                     {
-                        i = 0;
-                        while (i < (linecount + 1))
+                        Session session = _sessionList[j];
+                        //开盘
+                        if (j == 0)
                         {
-                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(i * sch), toph, leftYAxisWidth + Convert.ToInt32(i * sch), rectHeight - both);
-                            if ((both > fh1))
-                            {
-                                h = 9 * 60 + i;
-                                if (i > 74)
-                                    h = h + 15;
-                                if (i > 135)
-                                    h = h + 120;
-                                m = h % 60;
-                                h = h / 60;
-                                s1 = String.Format("{0:d2}", h) + ":" + String.Format("{0:d2}", m);
-                                canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(i * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);
-
-                            }
-                            if (i == 60)
-                            {
-                                i += 15;
-                                continue;
-                            }
-                            i = i + 30;
-                        }
-                    }
-
-                    if (marktype == MarkType.MarkGuZhi)
-                    {
-                        dx = (linecount - 30) / 8;
-                        i = 0;
-                        while (i < (linecount + 1))
-                        {
-                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(i * sch), toph, leftYAxisWidth + Convert.ToInt32(i * sch), rectHeight - both);
-                            if ((both > fh1))
-                            {
-
-                                h = 9 * 60 + 15 + i;
-                                if (i > 135)
-                                    h = h + 90;
-                                m = h % 60;
-                                h = h / 60;
-                                s1 = String.Format("{0:d2}", h) + ":" + String.Format("{0:d2}", m);
-                                canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(i * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);
-                            }
-                            i = i + dx;
-                        }
-                    }
-                    if (marktype == MarkType.MarkShangHai)
-                    {
-                        dx = 60;// (linecount - 30) / 8;
-                        i = 0;
-                        int rx = 0;
-                        while (i < (linecount + 1))
-                        {
-                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(i * sch), toph, leftYAxisWidth + Convert.ToInt32(i * sch), rectHeight - both);
-                            if ((both > fh1))
-                            {
-
-                                h = 21 * 60 + i;
-                                if (i > 329)
-                                    h = h + 6 * 60 + 30;
-                                if (i > 330 + 74)
-                                    h += 15;
-                                if (i > 330 + 134)
-                                    h += 120;
-                                m = h % 60;
-                                h = h / 60;
-                                if (h >= 24)
-                                    h -= 24;
-                                s1 = String.Format("{0:d2}", h) + ":" + String.Format("{0:d2}", m);
-                                int sw = (int)canvas.MeasureString(s1, font).Width;
-                                int lx = leftYAxisWidth + Convert.ToInt32(i * sch - sw / 2);
-                                if (lx < rx)
-                                    lx += sw / 2;
-                                canvas.DrawString(s1, font, FBrush, lx, rectHeight - both + 1);
-                                rx = leftYAxisWidth + Convert.ToInt32(i * sch + sw / 2);
-
-                            }
-                            if ((i == 300) || (i == 525))
-                            {
-                                i += 30;
-                                continue;
-                            }
-                            if (i == 390)
-                            {
-                                i += 15;
-                                continue;
-                            }
-                            i = i + dx;
+                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(cursorMin * sch), toph, leftYAxisWidth + Convert.ToInt32(cursorMin * sch), rectHeight - both);//IntraviewXAsixGridLine
+                            Session.ParseHMS(session.Start, out hh, out mm, out ss);
+                            s1 = String.Format("{0:d2}", hh) + ":" + String.Format("{0:d2}", mm);
+                            canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(cursorMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
                         }
 
+                        //获得Session开始时间 判定分钟数是否处于整数 否则执行偏移
+                        Session.ParseHMS(session.Start, out hh, out mm, out ss);
+                        if (mm != 0 && mm != 30)
+                        {
+                            sessionMin += 15;//15分/45分开盘 偏移15
+                            pen.DashStyle = DashStyle.Dash;
+                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32((finishMin + sessionMin) * sch), toph, leftYAxisWidth + Convert.ToInt32((finishMin + sessionMin) * sch), rectHeight - both);//IntraviewXAsixGridLine
+                            pen.DashStyle = DashStyle.Solid;
+                        }
+
+                        while (sessionMin < session.TotalMinutes)
+                        {
+                            //进入session后 直接进行偏移绘制区间中的竖线 区间第一条线由上个区间的最后一条来替代 区间首位相连
+                            sessionMin += spaceMinute;
+                            cursorMin = finishMin + sessionMin;//完成Session的分钟数累加 + 当前Session的分钟数
+                            //比如11：45收盘 30分区间 则最后一条线会直接绘制成12点,这个不是我们希望的 因此跳过
+                            if (sessionMin > session.TotalMinutes)
+                                continue;
+
+                            Session.ParseHMS(Session.FTADD(session.Start, sessionMin * 60), out hh, out mm, out ss);
+                            if (mm == 30)
+                            {
+                                pen.DashStyle = DashStyle.Dash;
+                            }
+                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(cursorMin * sch), toph, leftYAxisWidth + Convert.ToInt32(cursorMin * sch), rectHeight - both);//IntraviewXAsixGridLine
+                            pen.DashStyle = DashStyle.Solid;
+                            
+                            s1 = String.Format("{0:d2}", hh) + ":" + String.Format("{0:d2}", mm);
+                            
+                            canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(cursorMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
+                            
+                        }
+
+                        finishMin += session.TotalMinutes;
+                        //区间末尾直接越过 没有绘制 比如23:45分收盘 但是spaceMinute为30分钟 因此区间结束线 被越过
+                        if (sessionMin > session.TotalMinutes)
+                        {
+                            canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(finishMin * sch), toph, leftYAxisWidth + Convert.ToInt32(finishMin * sch), rectHeight - both);//IntraviewXAsixGridLine
+                            Session.ParseHMS(Session.FTADD(session.Start, session.TotalMinutes * 60), out hh, out mm, out ss);
+                            s1 = String.Format("{0:d2}", hh) + ":" + String.Format("{0:d2}", mm);
+                            canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(finishMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
+
+                        }
+                        //if (j == _sessionList.Count - 1)
+                        //{ 
+                        //    //绘制Session结束
+                        //}
+
+                        sessionMin = 0;
                     }
                 }
                 else
@@ -1158,7 +1136,7 @@ namespace CStock
 
                 }
                 #endregion
-
+                return true;
                 //显示多日分时 当前日期显示宽度小于1日 如果查询多日分时单只返回1日数据 将图绘制到右侧左侧无数据空开
                 //if (showfs && (days > 1))
                 //{
