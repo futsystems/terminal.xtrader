@@ -157,7 +157,8 @@ namespace XTraderLite
             ctrlTickList.SetSymbol(tmp);
             int reqId = MDService.DataAPI.QryTradeSplitData(tmp.Exchange, tmp.Symbol, 0, 2000);
             tickListLoadRequest.TryAdd(reqId, ctrlTickList);
-
+            //记录数据加载请求ID
+            ctrlTickList.LastLoadRequestID = reqId;
         }
 
         /// <summary>

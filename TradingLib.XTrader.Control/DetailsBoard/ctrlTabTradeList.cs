@@ -86,7 +86,7 @@ namespace TradingLib.KryptonControl
         SolidBrush priceBrush = new SolidBrush(Color.Silver);
         void ctrlTradeListTab_Paint(object sender, PaintEventArgs e)
         {
-            logger.Info("paint .....");
+            //logger.Info("paint .....");
             Graphics cv = e.Graphics;
             Rectangle r1 = this.ClientRectangle;
             Brush br = new SolidBrush(Color.Black);

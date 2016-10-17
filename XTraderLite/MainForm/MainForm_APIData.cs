@@ -104,7 +104,6 @@ namespace XTraderLite
         {
             if (this.InvokeRequired)
             {
-                //logger.Info("invoked required");
                 this.Invoke(new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit), new object[] { arg1, arg2, arg3, arg4 });
             }
             else
@@ -124,19 +123,24 @@ namespace XTraderLite
                     ctrlKChart.AddTrade(arg1, true);
                 }
 
-                //分笔明细视图 查询
+                //分笔明细视图 查询 反复关闭/开启 后会形成大量的数据查询
                 if (tickListLoadRequest.TryRemove(arg4, out target))
                 {
-                    logger.Info("Got TradeSplit for TickList");
-                    ctrlTickList.BeginUpdate();
-                    ctrlTickList.AddFirst(arg1);
-                    ctrlTickList.EndUpdate();
-                    //如果返回的数量与我们请求数量一致 表面可能还有更多数据需要加载 因此再次请求 起始位置为我们当前已经获得数据量
-                    if (arg3 == 2000)
+                    if (ctrlTickList.Visible && ctrlTickList.LastLoadRequestID == arg4)//避免反复切换产生的大量数据链式查询 若分笔列表已经切换 则原先的查询不会再执行后续查询
                     {
-                        logger.Info("there are more data");
-                        int reqId = MDService.DataAPI.QryTradeSplitData(ctrlTickList.Symbol.Exchange, ctrlTickList.Symbol.Symbol, ctrlTickList.Count, 2000);
-                        tickListLoadRequest.TryAdd(reqId, ctrlTickList);
+                        logger.Info("Got TradeSplit for TickList");
+                        ctrlTickList.BeginUpdate();
+                        ctrlTickList.AddFirst(arg1);
+                        ctrlTickList.EndUpdate();
+                        //如果返回的数量与我们请求数量一致 表面可能还有更多数据需要加载 因此再次请求 起始位置为我们当前已经获得数据量
+                        if (arg3 == 2000)
+                        {
+                            logger.Info("there are more data");
+                            int reqId = MDService.DataAPI.QryTradeSplitData(ctrlTickList.Symbol.Exchange, ctrlTickList.Symbol.Symbol, ctrlTickList.Count, 2000);
+                            tickListLoadRequest.TryAdd(reqId, ctrlTickList);
+                            ctrlTickList.LastLoadRequestID = reqId;
+
+                        }
                     }
                     return;
                 }
@@ -144,10 +148,13 @@ namespace XTraderLite
                 //分笔明细视图 实时更新
                 if (tickListUpdateRequest.TryRemove(arg4, out target))
                 {
-                    logger.Info("Got TradeSplit update for ticklist");
-                    ctrlTickList.BeginUpdate();
-                    ctrlTickList.Update(arg1);
-                    ctrlTickList.EndUpdate();
+                    if (ctrlTickList.Visible)
+                    {
+                        logger.Info("Got TradeSplit update for ticklist");
+                        ctrlTickList.BeginUpdate();
+                        ctrlTickList.Update(arg1);
+                        ctrlTickList.EndUpdate();
+                    }
                 }
 
 
