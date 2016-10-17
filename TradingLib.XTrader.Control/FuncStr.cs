@@ -536,13 +536,14 @@ namespace CStock
             s1 = s1 + "*1.股价高于平均线，视为强势；股价低于平均线，视为弱势\r\n";
             s1 = s1 + "*2.平均线向上涨升，具有助涨力道；平均线向下跌降，具有助跌\r\n";
             Add("MA", s1, 3);
+
             s1 = "TECHNAME:=VOL;\r\n";
             s1 = s1 + "DRAWK:=FALSE;\r\n";
-            s1 = s1 + "C1:=REF(CLOSE,1);\r\n";
-            s1 = s1 + "MA5:MA(VOL,5);\r\n";
-            s1 = s1 + "MA10:MA(VOL,10);\r\n";
-            s1 = s1 + "MA20:MA(VOL,20);\r\n";
-            s1 = s1 + "MA40:MA(VOL,40);\r\n";
+            //s1 = s1 + "C1:=REF(CLOSE,1);\r\n";
+            //s1 = s1 + "MA5:MA(VOL,5);\r\n";
+            //s1 = s1 + "MA10:MA(VOL,10);\r\n";
+            //s1 = s1 + "MA20:MA(VOL,20);\r\n";
+            //s1 = s1 + "MA40:MA(VOL,40);\r\n";
             s1 = s1 + "VOLUME:VOL,VOLSTICK;\r\n";
             Add("VOL", s1, 3);
 

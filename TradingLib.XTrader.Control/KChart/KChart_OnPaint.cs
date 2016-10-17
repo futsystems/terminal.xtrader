@@ -249,7 +249,12 @@ namespace CStock
                         {
                             HL[k++].Text = "手数";
                             HL[k].ForeColor = Color.Yellow;
-                            HL[k++].Text = String.Format("{0:D}", (int)(b1.value[curbar] / 100));
+                            int size = (int)b1.value[curbar];
+                            if (_symbol.SecurityType == TradingLib.MarketData.MDSecurityType.STK)
+                            {
+                                size = size / 100;
+                            }
+                            HL[k++].Text = String.Format("{0:D}",size);
                         }
 
                     }

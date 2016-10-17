@@ -23,8 +23,8 @@ namespace CStock
 
 
         List<Session> _sessionList = new List<Session>();
-        string _sessionStr = "210000-N23000,90000-101500,103000-113000,133000-150000";
-        //string _sessionStr = "180000-N170000";
+        //string _sessionStr = "210000-N23000,90000-101500,103000-113000,133000-150000";
+        string _sessionStr = "180000-N170000";
         int _totalMinutes = 0;
         /// <summary>
         /// 绘制K线
@@ -1136,7 +1136,7 @@ namespace CStock
 
                 }
                 #endregion
-                return true;
+
                 //显示多日分时 当前日期显示宽度小于1日 如果查询多日分时单只返回1日数据 将图绘制到右侧左侧无数据空开
                 //if (showfs && (days > 1))
                 //{

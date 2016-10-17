@@ -356,7 +356,8 @@ namespace CStock
             b1 = check(name);
             if (b1 != null)
             {
-                result = b1.value[b1.len - 1];
+                if(b1.len>=1)
+                    result = b1.value[b1.len - 1];
             }
             return result;
         }
