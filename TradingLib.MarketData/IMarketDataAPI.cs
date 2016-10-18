@@ -143,8 +143,16 @@ namespace TradingLib.MarketData
         void UnregisterSymbol(MDSymbol[] symbols);
 
 
+        /// <summary>
+        /// 返回当日分时数据
+        /// </summary>
+        event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
 
+        /// <summary>
+        /// 返回历史分时
+        /// </summary>
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryHistMinuteData;
+
         /// <summary>
         /// 查询分时数据
         /// </summary>
@@ -154,16 +162,14 @@ namespace TradingLib.MarketData
         int QryMinuteDate(string exchange, string symbol,int date);
 
 
-        /// <summary>
-        /// 返回当日分时数据
-        /// </summary>
-        event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
+        
 
 
         /// <summary>
         /// Bar数据回报
         /// </summary>
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQrySecurityBar;
+
         /// <summary>
         /// 查询Bar数据
         /// </summary>

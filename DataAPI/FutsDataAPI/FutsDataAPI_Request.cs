@@ -106,19 +106,28 @@ namespace DataAPI.Futs
             }
             if (obj.IsLast)
             {
+                Dictionary<string, double[]> data = new Dictionary<string, double[]>();
+                data["date"] = date.ToArray();
+                data["time"] = time.ToArray();
+                data["close"] = close.ToArray();
+                data["vol"] = vol.ToArray();
+                data["avg"] = avg.ToArray();
 
-                if (OnRspQryMinuteData != null)
+                if (obj.IsHist)
                 {
-                    Dictionary<string, double[]> data = new Dictionary<string, double[]>();
-                    data["date"] = date.ToArray();
-                    data["time"] = time.ToArray();
-                    data["close"] = close.ToArray();
-                    data["vol"] = vol.ToArray();
-                    data["avg"] = avg.ToArray();
-
-                    minuteDataResponseMap.Remove(obj.RequestID);
-
-                    OnRspQryMinuteData(data, null, date.Count, obj.RequestID);
+                    if (OnRspQryHistMinuteData!= null)
+                    {
+                        minuteDataResponseMap.Remove(obj.RequestID);
+                        OnRspQryHistMinuteData(data, null, date.Count, obj.RequestID);
+                    }
+                }
+                else
+                {
+                    if (OnRspQryMinuteData != null)
+                    {
+                        minuteDataResponseMap.Remove(obj.RequestID);
+                        OnRspQryMinuteData(data, null, date.Count, obj.RequestID);
+                    }
                 }
             }
         }
