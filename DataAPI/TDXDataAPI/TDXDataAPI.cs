@@ -289,9 +289,9 @@ namespace DataAPI.TDX
             {
                 m_hSocket.Shutdown(SocketShutdown.Both);
                 m_hSocket.Disconnect(true);
-                _connected = false;
                 m_hSocket = null;
             }
+            _connected = false;
             //停止接收线程
             StopRecv();
             OnDisconnectd();

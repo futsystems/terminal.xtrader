@@ -88,7 +88,7 @@ namespace DataAPI.TDX
 
         void RequestHeartBeatRequest()
         {
-            logger.Info("HeartBeat Request");
+            //logger.Info("HeartBeat Request");
 
             //设置请求状态与接收状态相反 当收到心跳回报后将请求状态设置成接收状态
             _requestheartbeat = !_recvheartbeat;
@@ -99,7 +99,7 @@ namespace DataAPI.TDX
         void OnHeartBeatResponse()
         {
             _lastheartbeat = DateTime.Now;
-            logger.Info("HeartBeat Response");
+            //logger.Info("HeartBeat Response");
             _recvheartbeat = !_recvheartbeat;  
         }
 

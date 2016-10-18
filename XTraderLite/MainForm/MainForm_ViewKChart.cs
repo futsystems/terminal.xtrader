@@ -32,8 +32,10 @@ namespace XTraderLite
 
             //加载更多K线
             ctrlKChart.KViewLoadMoreData += new Action<object, CStock.KViewLoadMoreDataEventArgs>(ctrlKChart_KViewLoadMoreData);
+
             //查看分时天数发生变化 需要加载更多分时数据
             ctrlKChart.TimeViewDaysChanged += new Action<object, int>(ctrlKChart_TimeViewDaysChanged);
+
             //菜单点击频率切换
             ctrlKChart.KFrequencyMenuClick += new Action<object, CStock.KFrequencyMenuClickEventAargs>(ctrlKChart_KFrequencyMenuClick);
         }
@@ -92,10 +94,15 @@ namespace XTraderLite
 
         void ctrlKChart_KViewLoadMoreData(object arg1, CStock.KViewLoadMoreDataEventArgs arg2)
         {
-            logger.Info(string.Format("load more data from server current data count:{0}", arg2.Count));
-
-            int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, arg2.Count, 800);
-            kChartLoadMoreDataRequest.TryAdd(reqid, this);
+            string key = string.Format("{0}-{1}-{2}-{3}", CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, arg2.Count);
+            if (!kChartLoadMoreDataRequest.Values.Select(o=>o as string).Contains(key))
+            {
+                logger.Info(string.Format("load more data from server current data count:{0}", arg2.Count));
+                //一致按住下箭头不放 K线控件会一直请求数据,造成同样的数据多次请求 多次返回 使得K线数据回补出现重复波段 在请求数据前 检查是否有相同的请求在队列 进行过滤
+                int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, arg2.Count, 800);
+                kChartLoadMoreDataRequest.TryAdd(reqid, key);
+            }
+           
         }
 
 
