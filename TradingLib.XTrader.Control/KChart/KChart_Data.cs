@@ -12,38 +12,71 @@ namespace CStock
     /// </summary>
     public partial class TStock
     {
-        //K线  加载数据--会清除已有数据
-        //public void AddAll(string name, double[] f1, int len, Boolean repaint, bool front = false)
-        //{
-        //    int ww2, leftw, rightw, i, cc, widths;
-        //    if (!front)
-        //    {
-        //        GS[0].BInsert(name, f1, len);
-        //    }
-        //    else
-        //    {
-        //        GS[0].FInsert(name, f1, len);
-        //    }
-        //    if (repaint)
-        //    {
-        //        leftw = 0;
-        //        if (GS[0].ShowLeft)
-        //            leftw = 40;
-        //        rightw = 0;
-        //        if (GS[0].ShowRight)
-        //            rightw = 40;
-        //        cc = GS[0].RecordCount;
-        //        ww2 = 0;
-        //        if (this.ShowDetailPanel)
-        //            ww2 = Board.Width + SP1.Width;
-        //        widths = (int)(Math.Floor((Width - ww2 - leftw - rightw) / GS[0].FScale));
-        //        this.StartIndex = cc - widths + 1;
-        //        for (i = 0; i < techwindows; i++)
-        //            GS[i].run();
-        //        if (ShowFs == false)
-        //            this.Invalidate();
-        //    }
-        //}
+        public void FS_AddAll(string name, float[] f1, int len, Boolean repaint)
+        {
+            double[] td = new double[f1.Length];
+            for (int i = 0; i < f1.Length; i++)
+                td[i] = (double)f1[i];
+            FS_AddAll(name, td, len, repaint);
+        }
+        //分时图  加载数据--会清除已有数据 
+        public void FS_AddAll(string name, double[] f1, int len, Boolean repaint)
+        {
+            FSGS[0].Add(name, f1, len);
+            if (repaint)
+            {
+                for (int i = 0; i < fswindows; i++)
+                    FSGS[i].run();
+                if (this.IsIntraView)
+                    Invalidate();
+            }
+
+        }
+
+
+        /// <summary>
+        /// 添加分时数据
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="f1"></param>
+        /// <param name="len"></param>
+        /// <param name="fInsert"></param>
+        public void AddMinuteData(string name, double[] f1, int len, bool fInsert = false)
+        {
+            if (fInsert)
+            {
+                FSGS[0].FInsert(name, f1, len);
+            }
+            else
+            {
+                FSGS[0].BInsert(name, f1, len);
+            }
+        }
+
+        /// <summary>
+        /// 获得某个时间对应的分时序号
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public int GetMinuteDataIndex(long dt)
+        {
+            return FSGS[0].GetIndex(dt);
+        }
+
+        /// <summary>
+        /// 重置分时数据集到某个序号
+        /// </summary>
+        /// <param name="index"></param>
+        public void ResetMinuteDataIndex(int index)
+        {
+            foreach (var gs in FSGS)
+            {
+                gs.ResetIndex(index);
+            }
+        }
+
+
+
 
         public void AddKViewData(string name, double[] f1, int len,bool fInsert=false)
         {
@@ -64,6 +97,9 @@ namespace CStock
                 gs.ResetIndex(index);
             }
         }
+
+        
+
 
         /// <summary>
         /// 设置某个数据集的值
@@ -126,26 +162,7 @@ namespace CStock
 
 
 
-        public void FS_AddAll(string name, float[] f1, int len, Boolean repaint)
-        {
-            double[] td = new double[f1.Length];
-            for (int i = 0; i < f1.Length; i++)
-                td[i] = (double)f1[i];
-            FS_AddAll(name, td, len, repaint);
-        }
-        //分时图  加载数据--会清除已有数据 
-        public void FS_AddAll(string name, double[] f1, int len, Boolean repaint)
-        {
-            FSGS[0].Add(name, f1, len);
-            if (repaint)
-            {
-                for (int i = 0; i < fswindows; i++)
-                    FSGS[i].run();
-                if (this.IsIntraView)
-                    Invalidate();
-            }
-
-        }
+        
 
         //分时图  追加数据--append:true 追加  false修改最后一个数据
         //public void FS_AddOne(string name, double f1, Boolean append, Boolean repaint)
@@ -268,6 +285,15 @@ namespace CStock
             this.Invalidate();
         }
 
+        /// <summary>
+        /// 重新计算分时数据
+        /// </summary>
+        /// <param name="obj"></param>
+        public void ReCalculateMinuteData(object obj)
+        {
+            for (int i = 0; i < fswindows; i++)
+                FSGS[i].run();
+        }
 
         /// <summary>
         /// 重新计算数据

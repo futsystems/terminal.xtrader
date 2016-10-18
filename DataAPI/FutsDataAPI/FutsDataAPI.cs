@@ -21,6 +21,7 @@ namespace DataAPI.Futs
         {
             APISetting.TickMode = EnumMDTickMode.Register;
             APISetting.QryBarTimeSupport = true;
+            APISetting.QryMinuteDataTimeSupport = true;
 
             DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
             DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);

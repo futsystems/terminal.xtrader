@@ -38,7 +38,20 @@ namespace XTraderLite
             {
                 if (ctrlKChart.IsIntraView)
                 {
-                    MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0);
+                    if (MDService.DataAPI.APISetting.QryMinuteDataTimeSupport)
+                    {
+                        if (ctrlKChart.LastMinuteDataDay > 0 && ctrlKChart.LastMinuteDataTime > 0)
+                        {
+                            DateTime start = Utils.ToDateTime(ctrlKChart.LastMinuteDataDay, ctrlKChart.LastMinuteDataTime);
+                            int reqid = MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, start);
+                            kChartMinuteDataUpdateRequest.TryAdd(reqid, this);
+                        }
+                    }
+                    else
+                    {
+                        //查询当天所有分时 进行数据更新
+                        MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0);
+                    }
                 }
 
                 //处于K线图模式 实时更新最新的Bar数据

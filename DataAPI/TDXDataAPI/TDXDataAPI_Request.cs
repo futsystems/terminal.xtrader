@@ -24,7 +24,7 @@ namespace DataAPI.TDX
         /// <param name="symbols"></param>
         public void RegisterSymbol(MDSymbol[] symbols)
         {
-            logger.Info("RegisterSymbol not supported");    
+            throw new NotImplementedException(); 
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace DataAPI.TDX
         /// <param name="symbols"></param>
         public void UnregisterSymbol(MDSymbol[] symbols)
         {
-            logger.Info("UnregisterSymbol not supported"); 
+            throw new NotImplementedException();
         }
 
 
@@ -228,7 +228,10 @@ namespace DataAPI.TDX
                 return sb11.RequestId;
             }
         }
-
+        public int QryMinuteDate(string exchange, string symbol, DateTime start)
+        {
+            throw new NotImplementedException();
+        }
         /// <summary>
         /// 查询合约信息类别
         /// </summary>

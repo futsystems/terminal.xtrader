@@ -175,7 +175,7 @@ namespace CStock
                 int index = datalength - i - 1;//从数据集后面往前面遍历
                 int idate = (int)d.value[index];
                 int itime = (int)t.value[index];
-                long datetime = (long)idate * 1000000 + itime * 100;//130101
+                long datetime = (long)idate * 1000000 + itime;//130101
                 //如果该时间大于数据集最后
                 if (dt > datetime)
                     return index + 1;

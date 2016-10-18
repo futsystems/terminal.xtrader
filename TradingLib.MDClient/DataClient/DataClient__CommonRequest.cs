@@ -132,12 +132,6 @@ namespace TradingLib.DataCore
         }
 
 
-
-        //public int QryBar(string symbol, int interval, DateTime start, DateTime end, int maxcount)
-        //{
-        //    return QryBar(symbol, interval, start, end, maxcount, true);
-        //}
-
         /// <summary>
         /// 以开始位置和最大返回数量为条件查询Bar数据
         /// </summary>
@@ -236,7 +230,7 @@ namespace TradingLib.DataCore
         }
 
         /// <summary>
-        /// 查询某个交易日的分时数据
+        /// 查询某个交易日的所有分时数据
         /// </summary>
         /// <param name="exchange"></param>
         /// <param name="symbol"></param>
@@ -249,6 +243,25 @@ namespace TradingLib.DataCore
             request.Exchange = exchange;
             request.Symbol = symbol;
             request.Tradingday = date;
+            mktClient.TLSend(request);
+            return reqid;
+        }
+
+        /// <summary>
+        /// 查询当前交易日某个时间之后的所有分时数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
+        public int QryMinuteData(string exchange, string symbol, DateTime start)
+        {
+            int reqid = NextRequestID;
+            XQryMinuteDataRequest request = RequestTemplate<XQryMinuteDataRequest>.CliSendRequest(reqid);
+            request.Exchange = exchange;
+            request.Symbol = symbol;
+            request.Start = start;
+            request.Tradingday = 0;
             mktClient.TLSend(request);
             return reqid;
         }

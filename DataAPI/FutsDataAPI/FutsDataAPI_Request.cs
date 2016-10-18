@@ -63,8 +63,6 @@ namespace DataAPI.Futs
         /// 返回当日分时数据
         /// </summary>
         public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryMinuteData;
-
-        //public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryHistMinuteData;
         /// <summary>
         /// 查询分时数据
         /// </summary>
@@ -74,6 +72,19 @@ namespace DataAPI.Futs
         public int QryMinuteDate(string exchange, string symbol, int date)
         {
             return DataCoreService.DataClient.QryMinuteData(exchange, symbol, date);
+        }
+
+        /// <summary>
+        /// 查询当天某个时间之后的所有分时
+        /// 用于进行实时更新 避免查询当天所有分时数据 造成带宽浪费
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
+        public int QryMinuteDate(string exchange, string symbol, DateTime start)
+        {
+            return DataCoreService.DataClient.QryMinuteData(exchange, symbol, start);
         }
 
         Dictionary<int, Dictionary<string, List<double>>> minuteDataResponseMap = new Dictionary<int, Dictionary<string, List<double>>>();

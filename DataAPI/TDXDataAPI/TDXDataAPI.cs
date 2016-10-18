@@ -140,7 +140,7 @@ namespace DataAPI.TDX
         {
             APISetting.TickMode = EnumMDTickMode.FreqQry;
             APISetting.QryBarTimeSupport = false;
-
+            APISetting.QryMinuteDataTimeSupport = false;
 
 
             blockInfoList.Add(new BlockInfo("所有A股", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)

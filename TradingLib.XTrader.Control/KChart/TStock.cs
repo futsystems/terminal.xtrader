@@ -773,6 +773,41 @@ namespace CStock
             }
         }
 
+        /// <summary>
+        /// 分时最近日期
+        /// </summary>
+        public int LastMinuteDataDay
+        {
+            get
+            {
+                int dataLength = FSGS[0].RecordCount;
+                TBian data = FSGS[0].check("date");
+                if (data != null)
+                {
+                    if (dataLength < 1) return -1;
+                    return (int)data.value[dataLength - 1];
+                }
+                return -1;
+            }
+
+        }
+        /// <summary>
+        /// 分时最近时间
+        /// </summary>
+        public int LastMinuteDataTime
+        {
+            get
+            {
+                int dataLength = FSGS[0].RecordCount;
+                TBian data = FSGS[0].check("time");
+                if (data != null)
+                {
+                    if (dataLength < 1) return -1;
+                    return (int)data.value[dataLength - 1];
+                }
+                return -1;
+            }
+        }
         
         
 

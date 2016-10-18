@@ -30,7 +30,8 @@ namespace XTraderLite
         ConcurrentDictionary<int, object> kChartIntraViewDayBarRequest = new ConcurrentDictionary<int, object>();
         //多日分时中的历史分时请求
         ConcurrentDictionary<int, object> kChartHistMinuteBarRequest = new ConcurrentDictionary<int, object>();
-
+        //按当前最新时间请求分时更新数据请求
+        ConcurrentDictionary<int, object> kChartMinuteDataUpdateRequest = new ConcurrentDictionary<int, object>();
         /// <summary>
         /// 绑定行情接口回调
         /// </summary>
@@ -196,6 +197,28 @@ namespace XTraderLite
             else
             {
                 object sender = null;
+                if (kChartMinuteDataUpdateRequest.TryRemove(arg4, out sender))
+                {
+                    double[] date = arg1["date"];//date
+                    double[] time = arg1["time"];//time
+                    double[] close = arg1["close"];//close
+                    double[] vol = arg1["vol"];//vol
+
+                    //string first = string.Format("{0}-{1}", (int)date1[0], (int)time1[0] * 100);
+                    //string last = string.Format("{0}-{1}", (int)date1[arg3 - 1], (int)time1[arg3 - 1] * 100);
+                    //logger.Info("Got RelaTime Bar, Count:{0} FirstTime:{1} LastTime:{2}".Put(arg3, first, last));
+                    //获得返回数据的第一个时间 并查找该时间index然后SetValue
+                    long dt = Utils.ToTLDateTime((int)date[0], (int)time[0]);
+                    int index = ctrlKChart.GetMinuteDataIndex(dt);
+                    ctrlKChart.ResetMinuteDataIndex(index);
+                    ctrlKChart.AddMinuteData("date", date, arg3);
+                    ctrlKChart.AddMinuteData("time", time, arg3);
+                    ctrlKChart.AddMinuteData("vol", vol, arg3);
+                    ctrlKChart.AddMinuteData("close", close, arg3);
+                    ctrlKChart.ReCalculateMinuteData("");
+                    ctrlKChart.ReDraw();
+                    return;
+                }
                 if (kChartHistMinuteBarRequest.TryRemove(arg4, out sender))
                 {
                     double[] d1 = arg1["date"];//date
@@ -211,6 +234,7 @@ namespace XTraderLite
                         dt.Vol = d4[j];
                         minuteData.Add(dt);
                     }
+                    return;
                 }
 
                 //实时更新数据
@@ -245,17 +269,31 @@ namespace XTraderLite
                             vol1[minuteData.Count + j] = d4[j];
                         }
                         int total = minuteData.Count + arg3;
-                        ctrlKChart.FS_AddAll("date", date1, total, false);
-                        ctrlKChart.FS_AddAll("time", time11, total, false);
-                        ctrlKChart.FS_AddAll("vol", vol1, total, false);
-                        ctrlKChart.FS_AddAll("close", close1, total, true);
+                        //ctrlKChart.FS_AddAll("date", date1, total, false);
+                        //ctrlKChart.FS_AddAll("time", time11, total, false);
+                        //ctrlKChart.FS_AddAll("vol", vol1, total, false);
+                        //ctrlKChart.FS_AddAll("close", close1, total, true);
+
+                        ctrlKChart.AddMinuteData("date", date1, total);
+                        ctrlKChart.AddMinuteData("time", time11, total);
+                        ctrlKChart.AddMinuteData("vol", vol1, total);
+                        ctrlKChart.AddMinuteData("close", close1, total);
+                        ctrlKChart.ReCalculateMinuteData("");
+                        ctrlKChart.ReDraw();
+
                     }
                     else//当日历史分时数据直接传递给绘图控件
                     {
-                        ctrlKChart.FS_AddAll("date", d1, arg3, false);
-                        ctrlKChart.FS_AddAll("time", d2, arg3, false);
-                        ctrlKChart.FS_AddAll("close", d3, arg3, false);
-                        ctrlKChart.FS_AddAll("vol", d4, arg3, true);
+                        //ctrlKChart.FS_AddAll("date", d1, arg3, false);
+                        //ctrlKChart.FS_AddAll("time", d2, arg3, false);
+                        //ctrlKChart.FS_AddAll("close", d3, arg3, false);
+                        //ctrlKChart.FS_AddAll("vol", d4, arg3, true);
+                        ctrlKChart.AddMinuteData("date", d1, arg3);
+                        ctrlKChart.AddMinuteData("time", d2, arg3);
+                        ctrlKChart.AddMinuteData("close", d3, arg3);
+                        ctrlKChart.AddMinuteData("vol", d4, arg3);
+                        ctrlKChart.ReCalculateMinuteData("");
+                        ctrlKChart.ReDraw();
                     }
                 }
             }
@@ -301,11 +339,11 @@ namespace XTraderLite
                         arg1.TryGetValue("downcount", out downcount);
 
 
-                        string first = string.Format("{0}-{1}", (int)date1[0], (int)time1[0] * 100);
-                        string last = string.Format("{0}-{1}", (int)date1[arg3 - 1], (int)time1[arg3 - 1] * 100);
+                        string first = string.Format("{0}-{1}", (int)date1[0], (int)time1[0]);
+                        string last = string.Format("{0}-{1}", (int)date1[arg3 - 1], (int)time1[arg3 - 1]);
                         //logger.Info("Got RelaTime Bar, Count:{0} FirstTime:{1} LastTime:{2}".Put(arg3, first, last));
                         //获得返回数据的第一个时间 并查找该时间index然后SetValue
-                        long dt = Utils.ToTLDateTime((int)date1[0], (int)time1[0] * 100);
+                        long dt = Utils.ToTLDateTime((int)date1[0], (int)time1[0]);
                         int index = ctrlKChart.GetIndex(dt);
 
                         //将数据集重置到该index

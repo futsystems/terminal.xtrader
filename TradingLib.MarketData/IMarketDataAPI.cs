@@ -62,6 +62,11 @@ namespace TradingLib.MarketData
         /// 是否支持通过时间来请求Bar数据
         /// </summary>
         public bool QryBarTimeSupport { get; set; }
+
+        /// <summary>
+        /// 是否支持通过时间请求当天分时数据
+        /// </summary>
+        public bool QryMinuteDataTimeSupport { get; set; }
     }
 
 
@@ -149,13 +154,21 @@ namespace TradingLib.MarketData
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
 
         /// <summary>
-        /// 查询分时数据
+        /// 查询某个交易日所有分时数据
         /// </summary>
         /// <param name="exchange"></param>
         /// <param name="symbol"></param>
         /// <returns></returns>
         int QryMinuteDate(string exchange, string symbol,int date);
 
+        /// <summary>
+        /// 查询当前交易某个时间之后的所有分时数据
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
+        int QryMinuteDate(string exchange, string symbol, DateTime start);
 
         
 
