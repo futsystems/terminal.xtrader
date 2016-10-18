@@ -235,6 +235,8 @@ namespace XTraderLite
             //设置底部跑马灯
             InitHightLight();
 
+            InitUserSetting();
+
             //启动定时任务
             InitTimer();
         }

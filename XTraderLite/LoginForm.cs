@@ -26,7 +26,7 @@ namespace XTraderLite
             InitContrl();
             mStarter = start;
             btnLogin.Enabled = false;
-
+            _msg.Visible = false;
             WireEvent();
 
             InitBW();
@@ -333,6 +333,7 @@ namespace XTraderLite
         void btnLogin_Click(object sender, EventArgs e)
         {
             logger.Info("登入-------------------");
+            _msg.Visible = true;
             //SaveLoginConfig();
             new Thread(delegate()
             {

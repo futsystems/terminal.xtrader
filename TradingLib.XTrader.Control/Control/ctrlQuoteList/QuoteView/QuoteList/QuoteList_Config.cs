@@ -45,6 +45,7 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.ASK, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.VOL, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 5));
+            tmp.AddColumn(new ColumnConfig(EnumFileldType.TURNOVERRATE, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.OPEN, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.HIGH, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LOW, 5));

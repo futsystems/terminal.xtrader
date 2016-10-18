@@ -286,7 +286,14 @@ namespace TradingLib.XTrader.Control
                                     cell.Value = f2;
                                 }
                             }
-                            
+                        }
+                        break;
+                    case EnumFileldType.TURNOVERRATE:
+                        {
+                            if (_symbol.FinanceData.LTG > 0)
+                            {
+                                cell.Value = _symbol.TickSnapshot.Volume / _symbol.FinanceData.LTG;//成交量/总流通股数 = 换手率
+                            }
                         }
                         break;
                     default:

@@ -137,6 +137,10 @@ namespace TradingLib.XTrader.Control
                     _cellStyle.FontColor = Color.Silver;
                     _formatStr = "{0:F2}";
                     break;
+                case EnumFileldType.TURNOVERRATE:
+                    _cellStyle.FontColor = Color.Silver;
+                    _formatStr = "{0:F2}";
+                    break;
                 default:
                     break;
 

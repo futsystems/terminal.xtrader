@@ -115,6 +115,7 @@ namespace DataAPI.Futs
                 symbol.NCode = 0;
                 symbol.SortKey = target.Month;
                 symbol.Precision = target.SecurityFamily.GetDecimalPlaces();
+                symbol.Session = TradingSessionToMDSession(target.TradingSession);
                 symbolMap.Add(symbol.UniqueKey, symbol);
             }
 

@@ -89,17 +89,15 @@ namespace XTraderLite
 
         void InitHightLight()
         {
-            //MDSymbol sh = MDService.DataAPI.GetSymbol(ConstsExchange.EXCH_SSE, "999999");
-            //MDSymbol sz = MDService.DataAPI.GetSymbol(ConstsExchange.EXCH_SZE, "399001");
-
-            //if (sh != null) ctrlSymbolHighLight.AddSymbol(new SymbolHighLight("沪", sh));
-            //if (sz != null) ctrlSymbolHighLight.AddSymbol(new SymbolHighLight("深", sz));
             foreach (var hightlight in MDService.DataAPI.HightLightSymbols)
             {
                 ctrlSymbolHighLight.AddSymbol(hightlight);
             }
+        }
 
-
+        void InitUserSetting()
+        {
+            topHeader.Text = "交易大师-机构版";
         }
     }
 }

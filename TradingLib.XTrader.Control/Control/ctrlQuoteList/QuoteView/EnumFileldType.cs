@@ -140,16 +140,22 @@ namespace TradingLib.XTrader.Control
         TIME,
 
         /// <summary>
-        /// 行情更新时间
+        /// 市盈率
         /// </summary>
         [Description("市盈率")]
         PE,
 
         /// <summary>
-        /// 行情更新时间
+        /// 总金额
         /// </summary>
         [Description("总金额")]
         AMOUNT,
+
+        /// <summary>
+        /// 换手率
+        /// </summary>
+        [Description("换手%")]
+        TURNOVERRATE,
 
     }
 }

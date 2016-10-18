@@ -64,9 +64,9 @@
             this._msg.BackColor = System.Drawing.Color.Transparent;
             this._msg.Location = new System.Drawing.Point(235, 332);
             this._msg.Name = "_msg";
-            this._msg.Size = new System.Drawing.Size(161, 12);
+            this._msg.Size = new System.Drawing.Size(17, 12);
             this._msg.TabIndex = 21;
-            this._msg.Text = "请联系业务人员购买正版软件";
+            this._msg.Text = "--";
             // 
             // btnCancel
             // 
