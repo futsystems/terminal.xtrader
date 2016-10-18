@@ -149,11 +149,6 @@ namespace TradingLib.MarketData
         event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryMinuteData;
 
         /// <summary>
-        /// 返回历史分时
-        /// </summary>
-        event Action<Dictionary<string, double[]>, RspInfo, int, int> OnRspQryHistMinuteData;
-
-        /// <summary>
         /// 查询分时数据
         /// </summary>
         /// <param name="exchange"></param>

@@ -694,7 +694,7 @@ namespace DataAPI.TDX
                                 tmp["time"] = time;
                                 tmp["close"] = close;
                                 tmp["vol"] = vol;
-                                OnRspQryHistMinuteData(tmp, null, n, sb.RequestId);
+                                OnRspQryMinuteData(tmp, null, n, sb.RequestId);
                             }
 
                         }

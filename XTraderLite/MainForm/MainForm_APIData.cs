@@ -28,17 +28,18 @@ namespace XTraderLite
         ConcurrentDictionary<int, object> kChartRealTimeBarRequest = new ConcurrentDictionary<int, object>();
         //显示多日分时 需要对应交易日期,通过查询最近10日日线数据来获得
         ConcurrentDictionary<int, object> kChartIntraViewDayBarRequest = new ConcurrentDictionary<int, object>();
-
-        //}
+        //多日分时中的历史分时请求
+        ConcurrentDictionary<int, object> kChartHistMinuteBarRequest = new ConcurrentDictionary<int, object>();
 
         /// <summary>
         /// 绑定行情接口回调
         /// </summary>
         void BindDataAPICallBack()
         {
-            //当日分时数据返回
+            //分时数据返回
             MDService.DataAPI.OnRspQryMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryMinuteData);
-            MDService.DataAPI.OnRspQryHistMinuteData += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQryHistMinuteData);
+           
+            //Bar数据返回
             MDService.DataAPI.OnRspQrySecurityBar += new Action<Dictionary<string, double[]>, RspInfo, int, int>(DataAPI_OnRspQrySecurityBar);
 
             //实时行情数据返回
@@ -47,11 +48,13 @@ namespace XTraderLite
 
             //量价信息
             MDService.DataAPI.OnRspQryPriceVolPair += new Action<List<PriceVolPair>, RspInfo, int, int>(DataAPI_OnRspQryPriceVolPair);
+
             //分笔数据
             MDService.DataAPI.OnRspQryTradeSplit += new Action<List<TradeSplit>, RspInfo, int, int>(DataAPI_OnRspQryTradeSplit);
 
             //合约信息类别
             MDService.DataAPI.OnRspQrySymbolInfoType += new Action<List<SymbolInfoType>, RspInfo, int, int>(DataAPI_OnRspQrySymbolInfoType);
+
             //合约信息回报
             MDService.DataAPI.OnRspQrySymbolInfo += new Action<string, RspInfo, int, int>(DataAPI_OnRspQrySymbolInfo);
         }
@@ -166,22 +169,22 @@ namespace XTraderLite
 
 
 
-        void DataAPI_OnRspQryHistMinuteData(Dictionary<string, double[]> arg1, RspInfo arg2, int arg3, int arg4)
-        {
-            double[] d1 = arg1["date"];//date
-            double[] d2 = arg1["time"];//time
-            double[] d3 = arg1["close"];//close
-            double[] d4 = arg1["vol"];//vol
-            for (int j = 0; j < arg3; j++)
-            {
-                MDMinuteData dt = new MDMinuteData();
-                dt.Date = (int)d1[j];
-                dt.Time = (int)d2[j];
-                dt.Close = d3[j];
-                dt.Vol = d4[j];
-                minuteData.Add(dt);
-            }
-        }
+        //void DataAPI_OnRspQryHistMinuteData(Dictionary<string, double[]> arg1, RspInfo arg2, int arg3, int arg4)
+        //{
+        //    double[] d1 = arg1["date"];//date
+        //    double[] d2 = arg1["time"];//time
+        //    double[] d3 = arg1["close"];//close
+        //    double[] d4 = arg1["vol"];//vol
+        //    for (int j = 0; j < arg3; j++)
+        //    {
+        //        MDMinuteData dt = new MDMinuteData();
+        //        dt.Date = (int)d1[j];
+        //        dt.Time = (int)d2[j];
+        //        dt.Close = d3[j];
+        //        dt.Vol = d4[j];
+        //        minuteData.Add(dt);
+        //    }
+        //}
 
         void DataAPI_OnRspQryMinuteData(Dictionary<string, double[]> arg1, RspInfo arg2, int arg3, int arg4)
         {
@@ -192,47 +195,68 @@ namespace XTraderLite
             }
             else
             {
-                //清空当前分时数据
-                ctrlKChart.ClearIntraViewData();
-
-                double[] d1 = arg1["date"];//date
-                double[] d2 = arg1["time"];//time
-                double[] d3 = arg1["close"];//close
-                double[] d4 = arg1["vol"];//vol
-                //多日分时查询将历史分时数据与今日数据拼接后传递给绘图控件
-                if ((ctrlKChart.DaysForIntradayView > 1) && (minuteData.Count > 0))
+                object sender = null;
+                if (kChartHistMinuteBarRequest.TryRemove(arg4, out sender))
                 {
-                    double[] date1 = new double[minuteData.Count + arg3 + 1];
-                    double[] time11 = new double[minuteData.Count + arg3 + 1];
-                    double[] close1 = new double[minuteData.Count + arg3 + 1];
-                    double[] vol1 = new double[minuteData.Count + arg3 + 1];
-                    for (int j = 0; j < minuteData.Count; j++)
-                    {
-                        MDMinuteData dt = minuteData[j];
-                        date1[j] = dt.Date;
-                        time11[j] = dt.Time;
-                        close1[j] = dt.Close;
-                        vol1[j] = dt.Vol;
-                    }
+                    double[] d1 = arg1["date"];//date
+                    double[] d2 = arg1["time"];//time
+                    double[] d3 = arg1["close"];//close
+                    double[] d4 = arg1["vol"];//vol
                     for (int j = 0; j < arg3; j++)
                     {
-                        date1[minuteData.Count + j] = d1[j];
-                        time11[minuteData.Count + j] = d2[j];
-                        close1[minuteData.Count + j] = d3[j];
-                        vol1[minuteData.Count + j] = d4[j];
+                        MDMinuteData dt = new MDMinuteData();
+                        dt.Date = (int)d1[j];
+                        dt.Time = (int)d2[j];
+                        dt.Close = d3[j];
+                        dt.Vol = d4[j];
+                        minuteData.Add(dt);
                     }
-                    int total = minuteData.Count + arg3;
-                    ctrlKChart.FS_AddAll("date", date1, total, false);
-                    ctrlKChart.FS_AddAll("time", time11, total, false);
-                    ctrlKChart.FS_AddAll("vol", vol1, total, false);
-                    ctrlKChart.FS_AddAll("close", close1, total, true);
                 }
-                else//当日历史分时数据直接传递给绘图控件
+
+                //实时更新数据
                 {
-                    ctrlKChart.FS_AddAll("date", d1, arg3, false);
-                    ctrlKChart.FS_AddAll("time", d2, arg3, false);
-                    ctrlKChart.FS_AddAll("close", d3, arg3, false);
-                    ctrlKChart.FS_AddAll("vol", d4, arg3, true);
+                    //清空当前分时数据
+                    ctrlKChart.ClearIntraViewData();
+
+                    double[] d1 = arg1["date"];//date
+                    double[] d2 = arg1["time"];//time
+                    double[] d3 = arg1["close"];//close
+                    double[] d4 = arg1["vol"];//vol
+                    //多日分时查询将历史分时数据与今日数据拼接后传递给绘图控件
+                    if ((ctrlKChart.DaysForIntradayView > 1) && (minuteData.Count > 0))
+                    {
+                        double[] date1 = new double[minuteData.Count + arg3 + 1];
+                        double[] time11 = new double[minuteData.Count + arg3 + 1];
+                        double[] close1 = new double[minuteData.Count + arg3 + 1];
+                        double[] vol1 = new double[minuteData.Count + arg3 + 1];
+                        for (int j = 0; j < minuteData.Count; j++)
+                        {
+                            MDMinuteData dt = minuteData[j];
+                            date1[j] = dt.Date;
+                            time11[j] = dt.Time;
+                            close1[j] = dt.Close;
+                            vol1[j] = dt.Vol;
+                        }
+                        for (int j = 0; j < arg3; j++)
+                        {
+                            date1[minuteData.Count + j] = d1[j];
+                            time11[minuteData.Count + j] = d2[j];
+                            close1[minuteData.Count + j] = d3[j];
+                            vol1[minuteData.Count + j] = d4[j];
+                        }
+                        int total = minuteData.Count + arg3;
+                        ctrlKChart.FS_AddAll("date", date1, total, false);
+                        ctrlKChart.FS_AddAll("time", time11, total, false);
+                        ctrlKChart.FS_AddAll("vol", vol1, total, false);
+                        ctrlKChart.FS_AddAll("close", close1, total, true);
+                    }
+                    else//当日历史分时数据直接传递给绘图控件
+                    {
+                        ctrlKChart.FS_AddAll("date", d1, arg3, false);
+                        ctrlKChart.FS_AddAll("time", d2, arg3, false);
+                        ctrlKChart.FS_AddAll("close", d3, arg3, false);
+                        ctrlKChart.FS_AddAll("vol", d4, arg3, true);
+                    }
                 }
             }
         }
@@ -318,7 +342,9 @@ namespace XTraderLite
                                 int t1 = Math.Max(0, arg3 - ctrlKChart.DaysForIntradayView + 1);
                                 for (int j = t1; j < arg3; j++)
                                 {
-                                    MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, (int)date[j]);//查询历史分时
+
+                                    int reqid = MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, (int)date[j]);//查询历史分时
+                                    kChartHistMinuteBarRequest.TryAdd(reqid, "");
                                 }
                                 MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0);//查询今日分时
                             }

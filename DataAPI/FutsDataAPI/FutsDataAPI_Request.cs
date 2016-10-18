@@ -64,7 +64,7 @@ namespace DataAPI.Futs
         /// </summary>
         public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryMinuteData;
 
-        public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryHistMinuteData;
+        //public event Action<Dictionary<string, double[]>, TradingLib.MarketData.RspInfo, int, int> OnRspQryHistMinuteData;
         /// <summary>
         /// 查询分时数据
         /// </summary>
@@ -113,22 +113,13 @@ namespace DataAPI.Futs
                 data["vol"] = vol.ToArray();
                 data["avg"] = avg.ToArray();
 
-                if (obj.IsHist)
+
+                if (OnRspQryMinuteData != null)
                 {
-                    if (OnRspQryHistMinuteData!= null)
-                    {
-                        minuteDataResponseMap.Remove(obj.RequestID);
-                        OnRspQryHistMinuteData(data, null, date.Count, obj.RequestID);
-                    }
+                    minuteDataResponseMap.Remove(obj.RequestID);
+                    OnRspQryMinuteData(data, null, date.Count, obj.RequestID);
                 }
-                else
-                {
-                    if (OnRspQryMinuteData != null)
-                    {
-                        minuteDataResponseMap.Remove(obj.RequestID);
-                        OnRspQryMinuteData(data, null, date.Count, obj.RequestID);
-                    }
-                }
+                
             }
         }
         #endregion
