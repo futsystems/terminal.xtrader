@@ -75,6 +75,11 @@ namespace TradingLib.MarketData
         IEnumerable<MDSymbol> Symbols { get; }
 
         /// <summary>
+        /// 底部亮显合约
+        /// </summary>
+        IEnumerable<SymbolHighLight> HightLightSymbols { get; }
+
+        /// <summary>
         /// 板块列表
         /// 用于报价列表显示的Tab页
         /// </summary>

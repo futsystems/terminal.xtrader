@@ -131,7 +131,7 @@ namespace CStock
 
             if (_sessionList.Count == 0)
             {
-                foreach (var session in ParseSession(_sessionStr))
+                foreach (var session in ParseSession(pCtrl.Symbol.Session))//设置Symbol时只设置了GS[0]其余公式没有合约 这里用pctrl来获取
                 {
                     _sessionList.Add(session);
                 }
@@ -141,13 +141,6 @@ namespace CStock
             
             //根据不同的类型 设定分时固定宽度 显示固定个数的分时数据
             int linecount = _totalMinutes;
-            //if (marktype == MarkType.MarkGuZhi)
-            //    linecount = 270;
-            //if (marktype == MarkType.MarkZhengZhoung)
-            //    linecount = 225;
-            //if (marktype == MarkType.MarkShangHai)
-            //    linecount = 556;
-
 
             //EndIndex = 0;
             //计算分时每个数据占用的宽度

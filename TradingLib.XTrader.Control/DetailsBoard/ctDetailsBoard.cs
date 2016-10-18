@@ -16,7 +16,7 @@ namespace CStock
 
         ILog logger = LogManager.GetLogger("ctDetailsBoard");
         //盘口信息下面Tab面板
-        string[] ws = { "笔", "价", "指", "配", "值" };
+        string[] ws = { "笔", "价"};//, "指", "配", "值" };
         Control[] PBox = new Control[5];
 
         Color mBackColor = Color.Black;
@@ -586,7 +586,7 @@ namespace CStock
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
                 if (i == 4)
                 {
@@ -615,7 +615,7 @@ namespace CStock
 
         private void TabBox_MouseClick(object sender, MouseEventArgs e)
         {
-            int ButtonWidth = TabBox.Width / ws.Length;
+            int ButtonWidth = TabBox.Width / 5;// ws.Length;
             int ii = e.X / ButtonWidth;
             if (ii != myTabIndex)
             {

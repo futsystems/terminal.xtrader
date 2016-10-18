@@ -25,9 +25,17 @@ namespace CStock
         public TFunclist func;
        
         public List<TBian> mainbian;//保留原始数据
-        //public Stock StockInfo=null;
 
-        public MDSymbol Symbol = null;
+        MDSymbol _symbol = null;
+        public MDSymbol Symbol
+        {
+            get { return _symbol; }
+            set
+            {
+                _symbol = value;
+                _sessionList.Clear();
+            }
+        }
 
         public List<PowerItem> QuanInfo = new List<PowerItem>();//权息集合表
         public QuanType QuanStyle = QuanType.qsNone;//不复权

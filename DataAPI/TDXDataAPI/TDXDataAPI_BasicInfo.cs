@@ -17,20 +17,35 @@ namespace DataAPI.TDX
 {
     public partial class TDXDataAPI
     {
-        Dictionary<string, RawData> rawDataMap = new Dictionary<string, RawData>();
+
+
+
+
+
+
+
 
         List<MDSymbol> symbolList = new List<MDSymbol>();
         Dictionary<string, MDSymbol> symbolMap = new Dictionary<string, MDSymbol>();
-
-        List<BlockInfo> blockInfoList = new List<BlockInfo>();
-
-
         /// <summary>
         /// 所有合约
         /// </summary>
         public IEnumerable<MDSymbol> Symbols { get { return symbolMap.Values; } }
 
+        List<SymbolHighLight> hightLight = new List<SymbolHighLight>();
+        /// <summary>
+        /// 底部亮显合约
+        /// </summary>
+        public IEnumerable<SymbolHighLight> HightLightSymbols { get { return hightLight; } }
+
+        List<BlockInfo> blockInfoList = new List<BlockInfo>();
+        /// <summary>
+        /// 所有板块信息
+        /// </summary>
         public IEnumerable<BlockInfo> BlockInfos { get { return blockInfoList; } }
+
+
+        Dictionary<string, RawData> rawDataMap = new Dictionary<string, RawData>();
         RawData GetRawData(string exchange, string symbol)
         {
             RawData target = null;
@@ -43,12 +58,26 @@ namespace DataAPI.TDX
 
         }
 
+        MDSymbol GetSymbol(string exchange, string symbol)
+        {
+            string key = string.Format("{0}-{1}", exchange, symbol);
+            MDSymbol target = null;
+            if (symbolMap.TryGetValue(key, out target))
+            {
+                return target;
+            }
+            return null;
+        }
+
         string GetBaseFileName()
         {
             return Path.Combine(new string[] { AppDomain.CurrentDomain.BaseDirectory, "base.dat" });
         }
 
-
+        string GetSession(MDSymbol symbol)
+        {
+            return "93000-113000,130000-150000";
+        }
         /// <summary>
         /// 初始化合约信息
         /// </summary>
@@ -103,6 +132,7 @@ namespace DataAPI.TDX
                             symbol.Exchange = ConstsExchange.EXCH_SZE;
                             symbol.BlockType = TDXDecoder.GetStockType(0, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
+                            symbol.Session = GetSession(symbol);
 
                             symbolMap[symbol.UniqueKey] = symbol;
                             symbolList.Add(symbol);
@@ -162,6 +192,9 @@ namespace DataAPI.TDX
                             symbol.Exchange = ConstsExchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
+                            symbol.Session = GetSession(symbol);
+
+
                             symbolMap[symbol.UniqueKey] = symbol;
                             symbolList.Add(symbol);
 
@@ -432,7 +465,7 @@ namespace DataAPI.TDX
                             symbol.Exchange = gname.w3 == 0 ? ConstsExchange.EXCH_SZE : ConstsExchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(gname.w3, symbol.Symbol).ToString();
                             symbol.PreClose = gname.YClose;
-
+                            symbol.Session = GetSession(symbol);
 
 
                             byte[] bb2 = br1.ReadBytes(Marshal.SizeOf(typeof(FinanceData)));
@@ -446,6 +479,7 @@ namespace DataAPI.TDX
                             MDService.EventHub.FireInitializeStatusEvent("初始化数据:" + ((double)i / (double)cnt).ToString("0%"));
                         }
                         //初始化完毕后返回
+                        this.InitHightLight();
                         return;
                     }
                 }
@@ -455,7 +489,25 @@ namespace DataAPI.TDX
             this.InitFinance();
             this.InitPower();
             this.SaveRawData();
+            this.InitHightLight();
 
+
+            
+        }
+
+        void InitHightLight()
+        {
+            MDSymbol sh = this.GetSymbol(ConstsExchange.EXCH_SSE, "999999");
+            MDSymbol sz = this.GetSymbol(ConstsExchange.EXCH_SZE, "399001");
+
+            if (sh != null)
+            {
+                hightLight.Add(new SymbolHighLight("沪", sh));
+            }
+            if (sz != null)
+            {
+                hightLight.Add(new SymbolHighLight("深", sz));
+            }
         }
 
 

@@ -136,15 +136,5 @@ namespace TradingLib.XTrader.Control
         }
     }
 
-    public class SymbolHighLight
-    {
-        public SymbolHighLight(string title, MDSymbol symbol)
-        {
-            this.Title = title;
-            this.Symbol = symbol;
-        }
-        public string Title { get; set; }
-
-        public MDSymbol Symbol { get; set; }
-    }
+    
 }

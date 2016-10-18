@@ -5,6 +5,18 @@ using System.Text;
 
 namespace TradingLib.MarketData
 {
+    public class SymbolHighLight
+    {
+        public SymbolHighLight(string title, MDSymbol symbol)
+        {
+            this.Title = title;
+            this.Symbol = symbol;
+        }
+        public string Title { get; set; }
+
+        public MDSymbol Symbol { get; set; }
+    }
+
     /// <summary>
     /// 合约对象
     /// </summary>
@@ -26,6 +38,7 @@ namespace TradingLib.MarketData
             this.TickSnapshot = new TDX();
             this.LastTickSnapshot = new TDX();
             this.SortKey = string.Empty;
+            this.Session = string.Empty;
         }
 
         string _symbol = string.Empty;
@@ -55,8 +68,13 @@ namespace TradingLib.MarketData
                 _name = value;
                 _keyTitle = string.Format("{0} {1}", this.Symbol, this.Name);
             }
-        
         }
+
+        /// <summary>
+        /// 交易小节
+        /// 用于绘制分时图
+        /// </summary>
+        public string Session { get; set; }
 
         /// <summary>
         /// 品种
@@ -94,7 +112,6 @@ namespace TradingLib.MarketData
             { 
                 _exch = value;
                 _uniquekey = string.Format("{0}-{1}", this.Exchange, this.Symbol);
-                
             }
         }
 
@@ -153,6 +170,9 @@ namespace TradingLib.MarketData
 
 
         string _keyTitle = string.Empty;
+        /// <summary>
+        /// 搜索 显示标题
+        /// </summary>
         public string KeyTitle { get { return _keyTitle; } }
 
     }

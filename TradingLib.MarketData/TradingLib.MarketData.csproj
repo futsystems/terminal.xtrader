@@ -72,7 +72,7 @@
     <Compile Include="MDLoginResponse.cs" />
     <Compile Include="MDSecurityType.cs" />
     <Compile Include="MarketDataService\MDService.cs" />
-    <Compile Include="MDSymbol.cs" />
+    <Compile Include="Common\MDSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\CommonUtils.cs" />
     <Compile Include="Utils.cs" />

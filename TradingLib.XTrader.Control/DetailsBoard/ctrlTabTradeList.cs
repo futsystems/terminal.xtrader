@@ -147,7 +147,7 @@ namespace TradingLib.KryptonControl
                             time = tk.Time;
                         }
                     }
-                    r1.Y = (j - i) * lineHeight + 2;
+                    r1.Y = (j - i) * lineHeight + 5;
                     si = cv.MeasureString(ss, font);
                     if (jj == 1)
                         cv.DrawString(ss, font, Brushes.Gray, (int)(60 - si.Width), r1.Top);
@@ -196,7 +196,7 @@ namespace TradingLib.KryptonControl
                             time = tk.Time/100;
                         }
                     }
-                    r1.Y = (j - i) * lineHeight + 2;
+                    r1.Y = (j - i) * lineHeight + 5;
                     si = cv.MeasureString(ss, font);
                     if (jj == 1)
                         cv.DrawString(ss, font, Brushes.WhiteSmoke, (int)(60 - si.Width), r1.Top);

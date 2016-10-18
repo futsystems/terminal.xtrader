@@ -155,6 +155,12 @@ namespace DataAPI.Futs
         }
 
         /// <summary>
+        /// 底部亮显合约
+        /// </summary>
+        public IEnumerable<SymbolHighLight> HightLightSymbols { get { return new List<SymbolHighLight>(); } }
+
+
+        /// <summary>
         /// 所有板块列表
         /// </summary>
         public IEnumerable<BlockInfo> BlockInfos
