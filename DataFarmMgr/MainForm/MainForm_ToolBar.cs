@@ -29,6 +29,14 @@ namespace TradingLib.DataFarmManager
 
             btnStopFeedTick.Click += new EventHandler(btnStopFeedTick_Click);
             btnStartFeedTick.Click += new EventHandler(btnStartFeedTick_Click);
+            btnFunctionForm.Click += new EventHandler(btnFunctionForm_Click);
+        }
+
+        void btnFunctionForm_Click(object sender, EventArgs e)
+        {
+            fmFunction fm = new fmFunction();
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void btnStartFeedTick_Click(object sender, EventArgs e)

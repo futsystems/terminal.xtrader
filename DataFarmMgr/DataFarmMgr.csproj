@@ -141,6 +141,12 @@
     <Compile Include="Forms\BarData\fmBarData.Designer.cs">
       <DependentUpon>fmBarData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\fmFunction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fmFunction.Designer.cs">
+      <DependentUpon>fmFunction.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BarData\fmBarData.resx">
       <DependentUpon>fmBarData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fmFunction.resx">
+      <DependentUpon>fmFunction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

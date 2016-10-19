@@ -267,6 +267,52 @@ namespace TradingLib.DataFarmManager
             return list;
         }
 
+        public static ArrayList GetBarFrequency()
+        {
+            ArrayList list = new ArrayList();
+            ValueObject<BarFrequency> vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("1分钟");
+            vo.Value = new BarFrequency(BarInterval.CustomTime, 60);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("3分钟");
+            vo.Value = new BarFrequency(BarInterval.CustomTime, 180);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("5分钟");
+            vo.Value = new BarFrequency(BarInterval.CustomTime, 300);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("15分钟");
+            vo.Value = new BarFrequency(BarInterval.CustomTime, 900);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("30分钟");
+            vo.Value = new BarFrequency(BarInterval.CustomTime, 1800);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("60分钟");
+            vo.Value = new BarFrequency(BarInterval.CustomTime, 3600);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("日");
+            vo.Value = new BarFrequency(BarInterval.Day, 1);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("周");
+            vo.Value = new BarFrequency(BarInterval.Day, 7);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("季");
+            vo.Value = new BarFrequency(BarInterval.Day,90);
+            list.Add(vo);
+            vo = new ValueObject<BarFrequency>();
+            vo.Name = string.Format("年");
+            vo.Value = new BarFrequency(BarInterval.Day, 360);
+            list.Add(vo);
+            return list;
+        }
+
         /// <summary>
         /// 生成月连续合约
         /// [SecCode][Month]

@@ -168,18 +168,20 @@ namespace TradingLib.XTrader.Control
             //没有有效行情直接返回
             if (_symbol.TickSnapshot.Time <= 0)
                 return;
+
             //遍历所有单元格 按单元格类型进行数据更新 同时设定样式，行情快照 与单元格数据 一一对应
             foreach (var cell in _columeCellMap.Values)
             {
                 //行情没有最新价 则该合约处于停盘或其他情况
                 if (!_symbol.TickSnapshot.IsValid())
                 {
-                    if (cell.Column.FieldType != EnumFileldType.PRECLOSE)//
+                    if (cell.Column.FieldType != EnumFileldType.PRECLOSE && cell.Column.FieldType != EnumFileldType.PRESETTLEMENT && cell.Column.FieldType != EnumFileldType.TIME)//
                     {
+                        cell.Reset();
                         continue;
                     }
-
                 }
+
                 switch (cell.Column.FieldType)
                 {
                     case EnumFileldType.PRECLOSE:

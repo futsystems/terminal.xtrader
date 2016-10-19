@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.havePartial = new System.Windows.Forms.CheckBox();
             this.fromEnd = new System.Windows.Forms.CheckBox();
             this.startIndex = new System.Windows.Forms.NumericUpDown();
@@ -37,7 +39,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.cbBarFrequency = new System.Windows.Forms.ComboBox();
             this.btnQry = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@
             this.cbExchange = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnUpload = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.startIndex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxCount)).BeginInit();
@@ -65,7 +65,7 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.comboBox4);
+            this.panel1.Controls.Add(this.cbBarFrequency);
             this.panel1.Controls.Add(this.btnQry);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -78,6 +78,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(304, 574);
             this.panel1.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 335);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 12);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "返回最大数量";
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(190, 463);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(75, 23);
+            this.btnUpload.TabIndex = 16;
+            this.btnUpload.Text = "上 传";
+            this.btnUpload.UseVisualStyleBackColor = true;
             // 
             // havePartial
             // 
@@ -165,13 +183,13 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "周期";
             // 
-            // comboBox4
+            // cbBarFrequency
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(203, 72);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(89, 20);
-            this.comboBox4.TabIndex = 7;
+            this.cbBarFrequency.FormattingEnabled = true;
+            this.cbBarFrequency.Location = new System.Drawing.Point(203, 72);
+            this.cbBarFrequency.Name = "cbBarFrequency";
+            this.cbBarFrequency.Size = new System.Drawing.Size(89, 20);
+            this.cbBarFrequency.TabIndex = 7;
             // 
             // btnQry
             // 
@@ -241,24 +259,6 @@
             this.panel2.Size = new System.Drawing.Size(748, 574);
             this.panel2.TabIndex = 1;
             // 
-            // btnUpload
-            // 
-            this.btnUpload.Location = new System.Drawing.Point(190, 463);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(75, 23);
-            this.btnUpload.TabIndex = 16;
-            this.btnUpload.Text = "上 传";
-            this.btnUpload.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 335);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(77, 12);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "返回最大数量";
-            // 
             // fmBarData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -287,7 +287,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox cbBarFrequency;
         private System.Windows.Forms.Button btnQry;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.NumericUpDown maxCount;

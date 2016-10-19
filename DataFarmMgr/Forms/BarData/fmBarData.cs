@@ -32,7 +32,7 @@ namespace TradingLib.DataFarmManager
             ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList(false));
             ManagerHelper.AdapterToIDataSource(cbSecurity).BindDataSource(ManagerHelper.GetSecurityCombListViaExchange(0));
             ManagerHelper.AdapterToIDataSource(cbSymbol).BindDataSource(ManagerHelper.GetSymbolCombListViaSecurity(0));
-
+            ManagerHelper.AdapterToIDataSource(cbBarFrequency).BindDataSource(ManagerHelper.GetBarFrequency());
 
             
 
@@ -51,6 +51,8 @@ namespace TradingLib.DataFarmManager
             DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
 
             cbExchange_SelectedIndexChanged(null, null);
+
+            cbBarFrequency.SelectedIndex = 0;
         }
 
         BarUploader upload = new BarUploader();
@@ -204,7 +206,7 @@ namespace TradingLib.DataFarmManager
             _symbol = symbol;
             int sIdx = (int)startIndex.Value;
             int max = (int)maxCount.Value;
-            BarFrequency freq = new BarFrequency(BarInterval.CustomTime, 60);
+            BarFrequency freq = (BarFrequency)cbBarFrequency.SelectedValue;
             DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, freq.Type,freq.Interval, DateTime.MinValue, DateTime.MaxValue, sIdx, max, fromEnd.Checked, havePartial.Checked);
         }
 
