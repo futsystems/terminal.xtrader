@@ -126,7 +126,6 @@ namespace CStock
             get
             {
                 return ctDetailsBoard1.TradesRowCount;
-                //return (pbox1.Height - 2) / LineHeight;
             }
         }
 

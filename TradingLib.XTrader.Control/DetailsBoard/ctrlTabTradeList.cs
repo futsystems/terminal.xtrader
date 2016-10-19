@@ -22,6 +22,7 @@ namespace TradingLib.KryptonControl
             this.DoubleBuffered = true;
             this.Paint += new PaintEventHandler(ctrlTradeListTab_Paint);
             this.Resize += new EventHandler(ctrlTabTradeList_Resize);
+           
         }
 
         void ctrlTabTradeList_Resize(object sender, EventArgs e)
@@ -31,6 +32,7 @@ namespace TradingLib.KryptonControl
 
         /// <summary>
         /// 返回分笔成交明细可显示行数
+        /// 预计算行数 否则窗口最小化Height为0导致 变成查询所有分时
         /// </summary>
         public int RowCount
         {
@@ -113,7 +115,6 @@ namespace TradingLib.KryptonControl
             int hh = 0;
             int mm = 0;
             //Color priceColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : (symbol.TickSnapshot.Price == symbol.TickSnapshot.PreClose?Constants.ColorEq:Constants.ColorDown);
-            
 
             if (symbol.BlockType == "7")// tk.value > 300) //为指数
             {

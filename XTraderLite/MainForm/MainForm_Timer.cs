@@ -36,6 +36,7 @@ namespace XTraderLite
             //KChart视图
             if (ctrlKChart.Visible)
             {
+                //分时
                 if (ctrlKChart.IsIntraView)
                 {
                     if (MDService.DataAPI.APISetting.QryMinuteDataTimeSupport)
@@ -87,8 +88,12 @@ namespace XTraderLite
                 {
                     if (ctrlKChart.TabValue == 0)
                     {
-                        int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlKChart.TabHigh);
-                        kChartUpdateRequest.TryAdd(reqId, this);
+                        //窗口最小化时候获得的TabHigh为0 会导致查询所有分时数据
+                        if (ctrlKChart.TabHigh > 0)
+                        {
+                            int reqId = MDService.DataAPI.QryTradeSplitData(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0, ctrlKChart.TabHigh);
+                            kChartUpdateRequest.TryAdd(reqId, this);
+                        }
                     }
                     if (ctrlKChart.TabValue == 1)
                     {
@@ -111,6 +116,7 @@ namespace XTraderLite
                 int reqId = MDService.DataAPI.QryPriceVol(ctrlPriceVolList.Symbol.Exchange, ctrlPriceVolList.Symbol.Symbol);
                 priceVolListRequest.TryAdd(reqId, this);
             }
+
 
             #region 根据当前控件所显示合约执行合约查询
             if (MDService.DataAPI.APISetting.TickMode == EnumMDTickMode.FreqQry)
