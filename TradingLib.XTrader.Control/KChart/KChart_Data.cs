@@ -389,7 +389,7 @@ namespace CStock
             GS[0].Symbol = symbol;
             ctDetailsBoard1.SetStock(symbol);
 
-            this.PreClose = symbol.PreClose;
+            this.PreClose = symbol.GetYdPrice();
             //加载除权数据
             this.SetQuan(symbol.PowerData);
 

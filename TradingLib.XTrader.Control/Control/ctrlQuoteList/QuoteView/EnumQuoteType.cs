@@ -17,8 +17,9 @@ namespace TradingLib.XTrader.Control
         ALL=1,
         /// <summary>
         /// 国外期货
+        /// 这里需要针对不同版面执行不同的算法 有些取昨日收盘价 有些取结算价
         /// </summary>
-        FUTURE_OVERSEA=2,
+        FUTURE_IQFeed=2,
         /// <summary>
         /// 国内期货
         /// </summary>

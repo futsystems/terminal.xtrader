@@ -406,7 +406,7 @@ namespace TradingLib.XTrader.Control
 
             double pr = 0;
             if (_symbol != null)
-                pr = _symbol.PreClose;//.GP.YClose;
+                pr = _symbol.GetYdPrice();//.GP.YClose;
 
             SizeF si;
             int maxvol = 1;

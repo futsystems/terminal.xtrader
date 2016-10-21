@@ -379,8 +379,8 @@ namespace DataAPI.TDX
                                 double prize = TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i) / 100.0;
                                 target.TickSnapshot.Price = prize;
                                 target.TickSnapshot.PreClose = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100.0);
-                                if (target.PreClose == 0.0)
-                                    target.PreClose = (float)target.TickSnapshot.PreClose;
+                                //if (target.PreClose == 0.0)
+                                    //target.PreClose = (float)target.TickSnapshot.PreClose;
                                 target.TickSnapshot.Open = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
                                 target.TickSnapshot.High = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);
                                 target.TickSnapshot.Low = prize + (((double)TDX.TDXDecoder.TDXDecode(RecvBuffer, i, ref i)) / 100);

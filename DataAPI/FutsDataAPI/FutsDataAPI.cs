@@ -68,7 +68,7 @@ namespace DataAPI.Futs
                 symbol.TickSnapshot.PreClose = (double)tick.PreClose;
                 symbol.TickSnapshot.PreOI = tick.PreOpenInterest;
                 symbol.TickSnapshot.PreSettlement = (double)tick.PreSettlement;
-                symbol.PreClose = (double)tick.PreClose;
+                //symbol.PreClose = (double)tick.PreClose;
                 if (OnRtnTick != null)
                     OnRtnTick(symbol);
             }

@@ -107,7 +107,7 @@ namespace TradingLib.XTrader.Control
 
 
 
-                if (h.Symbol.TickSnapshot.Price > h.Symbol.PreClose)
+                if (h.Symbol.TickSnapshot.Price > h.Symbol.GetYdPrice())
                 {
                     brush.Color = Color.Red;
                 }
@@ -120,7 +120,7 @@ namespace TradingLib.XTrader.Control
                 g.DrawString(t, priceFont, brush, space += 5, (this.Height - titleFont.Height) / 2);
 
                 space += (int)g.MeasureString(t, titleFont).Width;
-                t = string.Format("{0:F2}", Math.Abs(h.Symbol.TickSnapshot.Price - h.Symbol.PreClose));
+                t = string.Format("{0:F2}", Math.Abs(h.Symbol.TickSnapshot.Price - h.Symbol.GetYdPrice()));
                 g.DrawString(t, priceFont, brush, space += 10, (this.Height - priceFont.Height) / 2);
 
 

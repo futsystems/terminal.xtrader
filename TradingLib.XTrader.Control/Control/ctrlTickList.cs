@@ -518,11 +518,11 @@ namespace TradingLib.XTrader.Control
 
                             text = string.Format("{0:F2}", split.Price);
                             tWidth = g.MeasureString(text, font).Width;
-                            if (split.Price == _symbol.PreClose)
+                            if (split.Price == _symbol.GetYdPrice())
                             {
                                 _brushPrice.Color = Color.White;
                             }
-                            else if (split.Price > _symbol.PreClose)
+                            else if (split.Price > _symbol.GetYdPrice())
                             {
                                 _brushPrice.Color = UIConstant.ColorUp;
                             }

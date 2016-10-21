@@ -31,7 +31,7 @@ namespace TradingLib.MarketData
             this.SizeRate = 1;
             this.Multiple = 1;
             this.Precision = 2;
-            this.PreClose = 0;
+            //this.PreClose = 0;
             this.SecurityType = MDSecurityType.STK;
             this.Currency = MDCurrency.RMB;
             this.FinanceData = new FinanceData();
@@ -160,8 +160,24 @@ namespace TradingLib.MarketData
         public TDX LastTickSnapshot;
 
 
-        public double PreClose { get; set; }
+        //public double PreClose { get; set; }
 
+        /// <summary>
+        /// 获得昨日收盘/结算价格
+        /// </summary>
+        /// <returns></returns>
+        public double GetYdPrice()
+        {
+            switch (this.SecurityType)
+            { 
+                case MDSecurityType.STK:
+                    return this.TickSnapshot.PreClose;
+                case MDSecurityType.FUT:
+                    return this.TickSnapshot.PreSettlement;
+                default:
+                    return this.TickSnapshot.PreClose;
+            }
+        }
         string _uniquekey = string.Empty;
         /// <summary>
         /// 通过交易所-合约 组成唯一Key

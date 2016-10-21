@@ -578,7 +578,7 @@ namespace CStock
             stockinfo.Symbol = "000001";
             stockinfo.Name = "平安银行";
             stockinfo.Precision = 2;
-            stockinfo.PreClose = 11.5f;
+            //stockinfo.PreClose = 11.5f;
 
             stockinfo.TickSnapshot = new TDX();
             stockinfo.TickSnapshot.Sell5 = 11.54;
@@ -608,6 +608,7 @@ namespace CStock
             stockinfo.TickSnapshot.Price = 11.50;
             stockinfo.TickSnapshot.Volume = 318773;
             stockinfo.TickSnapshot.Amount = 367350848;
+            
 
             //stockinfo.FinanceData = new TradingLib.MarketData.FinanceData();
             stockinfo.FinanceData.LTG = 557590.1875;

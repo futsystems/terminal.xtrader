@@ -90,7 +90,7 @@ namespace TradingLib.KryptonControl
             float lw = (this.Width - 52) / 2; ;
             double pr = 0;
             if (symbol != null)
-                pr = symbol.PreClose;//.GP.YClose;
+                pr = symbol.GetYdPrice();
 
             SizeF si;
             int maxvol = 1;

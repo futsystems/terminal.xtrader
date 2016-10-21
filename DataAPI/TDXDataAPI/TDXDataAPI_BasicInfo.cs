@@ -131,7 +131,7 @@ namespace DataAPI.TDX
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
                             symbol.Exchange = ConstsExchange.EXCH_SZE;
                             symbol.BlockType = TDXDecoder.GetStockType(0, symbol.Symbol).ToString();
-                            symbol.PreClose = gname.YClose;
+                            //symbol.PreClose = gname.YClose;
                             symbol.Session = GetSession(symbol);
 
                             symbolMap[symbol.UniqueKey] = symbol;
@@ -191,7 +191,7 @@ namespace DataAPI.TDX
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, 0);
                             symbol.Exchange = ConstsExchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(1, symbol.Symbol).ToString();
-                            symbol.PreClose = gname.YClose;
+                            //symbol.PreClose = gname.YClose;
                             symbol.Session = GetSession(symbol);
 
 
@@ -464,7 +464,7 @@ namespace DataAPI.TDX
                             symbol.NCode = TDX.TDXDecoder.EnCodeMark(symbol.Symbol, gname.w3);
                             symbol.Exchange = gname.w3 == 0 ? ConstsExchange.EXCH_SZE : ConstsExchange.EXCH_SSE;
                             symbol.BlockType = TDXDecoder.GetStockType(gname.w3, symbol.Symbol).ToString();
-                            symbol.PreClose = gname.YClose;
+                            //symbol.PreClose = gname.YClose;
                             symbol.Session = GetSession(symbol);
 
 

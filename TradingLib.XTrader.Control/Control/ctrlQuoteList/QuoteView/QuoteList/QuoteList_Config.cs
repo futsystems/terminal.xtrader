@@ -13,7 +13,8 @@ namespace TradingLib.XTrader.Control
 {
     public partial class ViewQuoteList
     {
-
+        EnumQuoteListType _blockType = EnumQuoteListType.ALL;
+        public EnumQuoteListType BlockType { get { return _blockType; } }
         Dictionary<EnumQuoteListType, QuoteColumnConfigs> configMap = new Dictionary<EnumQuoteListType, QuoteColumnConfigs>();
         void InitConfig()
         {
@@ -67,7 +68,7 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 3));
             configMap.Add(EnumQuoteListType.FUTURE_CN, tmp);
 
-            tmp = new QuoteColumnConfigs(EnumQuoteListType.FUTURE_OVERSEA);
+            tmp = new QuoteColumnConfigs(EnumQuoteListType.FUTURE_IQFeed);
             tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 7));
@@ -81,7 +82,7 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.VOL, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.PREOI, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGE, 4));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.PRECLOSE, 4));
+            //tmp.AddColumn(new ColumnConfig(EnumFileldType.PRECLOSE, 4));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.OPEN, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.HIGH, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LOW, 5));
@@ -89,16 +90,19 @@ namespace TradingLib.XTrader.Control
             tmp.AddColumn(new ColumnConfig(EnumFileldType.PRESETTLEMENT, 4));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.TIME, 6));
 
-            configMap.Add(EnumQuoteListType.FUTURE_OVERSEA, tmp);
+            configMap.Add(EnumQuoteListType.FUTURE_IQFeed, tmp);
 
 
         }
 
+         
         public void ApplyConfig(EnumQuoteListType type)
         {
+            
             QuoteColumnConfigs configs = null;
             if (configMap.TryGetValue(type, out configs))
             {
+                _blockType = type;
                 ColumnConfig cfg = null;
                 foreach (var column in totalColumns)
                 {

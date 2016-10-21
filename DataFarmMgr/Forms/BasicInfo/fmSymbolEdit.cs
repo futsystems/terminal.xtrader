@@ -50,6 +50,7 @@ namespace TradingLib.DataFarmManager
                         //设置到期日期,合约类别
                     case SecurityType.FUT:
                         _symbol.ExpireDate = Util.ToTLDate(this.expiredate.Value);
+                        _symbol.Month = ManagerHelper.GetMonth((int)cbMonth.SelectedValue);
                         _symbol.SymbolType = (QSEnumSymbolType)cbSymbolType.SelectedValue;
                         break;
                     //case SecurityType.STK:
@@ -99,15 +100,16 @@ namespace TradingLib.DataFarmManager
                         if (target.SymbolType == QSEnumSymbolType.Standard)
                         {
                             int fullmonth = (int)cbMonth.SelectedValue;
-                            DateTime dt = GetExpireDateTime(fullmonth);
+                            //DateTime dt = GetExpireDateTime(fullmonth);
 
                             target.Month = ManagerHelper.GetMonth(fullmonth);
-                            if (this.expiredate.Value < dt.FirstDayOfMonth() || this.expiredate.Value > dt.LastDayOfMonth())
-                            {
-                                MessageBox.Show("到期日选择不正确");
-                                return;
-                            }
+                            //if (this.expiredate.Value < dt.FirstDayOfMonth() || this.expiredate.Value > dt.LastDayOfMonth())
+                            //{
+                            //    MessageBox.Show("到期日选择不正确");
+                            //    return;
+                            //}
                             target.ExpireDate = Util.ToTLDate(this.expiredate.Value);
+                            //target.Name = target.GetName();
                         }
                         else
                         {
@@ -177,9 +179,13 @@ namespace TradingLib.DataFarmManager
                     //    break;
                     case SecurityType.FUT:
                         //symbol.Visible = true;
-                        cbMonth.Enabled = true;
+                        if (_symbol == null)
+                        {
+                            cbMonth.Enabled = true;
+                            cbSymbolType.Enabled = true;
+                        }
                         expiredate.Enabled = true;
-                        cbSymbolType.Enabled = true;
+                        
                         break;
                     default:
                         break;
@@ -196,26 +202,26 @@ namespace TradingLib.DataFarmManager
 
         void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!_loaded) return;
-            try
-            {
-                int expire = (int)cbMonth.SelectedValue;
-                SecurityFamilyImpl sec = CurrentSecurity;
-                if (sec == null) return;
-                //如果是标准合约则更新过期日期
-                QSEnumSymbolType symboltype = (QSEnumSymbolType)cbSymbolType.SelectedValue;
+            //if (!_loaded) return;
+            //try
+            //{
+            //    int expire = (int)cbMonth.SelectedValue;
+            //    SecurityFamilyImpl sec = CurrentSecurity;
+            //    if (sec == null) return;
+            //    //如果是标准合约则更新过期日期
+            //    QSEnumSymbolType symboltype = (QSEnumSymbolType)cbSymbolType.SelectedValue;
 
-                //MessageBox.Show("year:" + year.ToString() + " month:" + m.ToString());
-                if (symboltype == QSEnumSymbolType.Standard)
-                {
-                    this.expiredate.Value = GetExpireDateTime(expire).LastDayOfMonth();
-                }
+            //    //MessageBox.Show("year:" + year.ToString() + " month:" + m.ToString());
+            //    if (symboltype == QSEnumSymbolType.Standard)
+            //    {
+            //        //this.expiredate.Value = GetExpireDateTime(expire).LastDayOfMonth();
+            //    }
 
-            }
-            catch (Exception ex)
-            {
-                //Globals.Debug("error expiremonth:" + ex.ToString());
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //Globals.Debug("error expiremonth:" + ex.ToString());
+            //}
 
             GenSymbolName();
         }
@@ -280,6 +286,7 @@ namespace TradingLib.DataFarmManager
             if (!_loaded) return;
             try
             {
+                if (_symbol != null) return;
                 SecurityFamilyImpl sec = CurrentSecurity;
                 if (sec == null) return;
 
@@ -352,20 +359,25 @@ namespace TradingLib.DataFarmManager
                 {
                     //绑定月份
                     ManagerHelper.AdapterToIDataSource(cbMonth).BindDataSource(ManagerHelper.GetExpireMonth());
-                    cbMonth.SelectedValue = (int)_symbol.ExpireDate / 100;
+
+                    int year, month;
+                    string sec;
+                    _symbol.ParseFututureContract(out sec, out year, out month);
+
+                    cbMonth.SelectedValue = year * 100 + month;
                     cbMonth.Enabled = false;
 
                     //设定过期日
                     this.expiredate.Value = (_symbol.ExpireDate == 0 ? DateTime.Now : Util.ToDateTime(_symbol.ExpireDate, 0));
                     cbSymbolType.Enabled = false;
-                    if (_symbol.SymbolType == QSEnumSymbolType.MonthContinuous)
-                    {
-                        this.expiredate.Enabled = false;
-                    }
-                    else
-                    {
-                        expiredate.Enabled = true;
-                    }
+                    //if (_symbol.SymbolType == QSEnumSymbolType.MonthContinuous)
+                    //{
+                    //    this.expiredate.Enabled = false;
+                    //}
+                    //else
+                    //{
+                    //    expiredate.Enabled = true;
+                    //}
                 }
 
             }

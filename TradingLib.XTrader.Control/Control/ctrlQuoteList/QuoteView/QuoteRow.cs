@@ -160,6 +160,18 @@ namespace TradingLib.XTrader.Control
             //}
         }
 
+        double GetYdPrice(MDSymbol symbol)
+        {
+            switch (_quotelist.BlockType)
+            { 
+                case EnumQuoteListType.STOCK_CN:
+                    return symbol.TickSnapshot.PreClose;
+                case EnumQuoteListType.FUTURE_IQFeed:
+                    return symbol.TickSnapshot.PreSettlement;
+                default:
+                    return symbol.TickSnapshot.PreClose;
+            }
+        }
         /// <summary>
         /// 更新数值
         /// </summary>
@@ -190,7 +202,8 @@ namespace TradingLib.XTrader.Control
 
                     case EnumFileldType.LAST:
                         cell.Value = _symbol.TickSnapshot.Price;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price, _symbol.TickSnapshot.PreClose);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price, GetYdPrice(_symbol));
+
                         if (_symbol.LastTickSnapshot.Price > 0 && _symbol.TickSnapshot.Price != _symbol.LastTickSnapshot.Price)
                         {
                             cell.CellStyle.BackColor = _symbol.TickSnapshot.Price > _symbol.LastTickSnapshot.Price ? Color.Tomato : Color.SpringGreen;
@@ -205,11 +218,11 @@ namespace TradingLib.XTrader.Control
                         break;
                     case EnumFileldType.BID:
                         cell.Value = _symbol.TickSnapshot.Buy1;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Buy1, _symbol.TickSnapshot.PreClose);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Buy1, GetYdPrice(_symbol));
                         break;
                     case EnumFileldType.ASK:
                         cell.Value = _symbol.TickSnapshot.Sell1;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Sell1, _symbol.TickSnapshot.PreClose);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Sell1, GetYdPrice(_symbol));
                         break;
                     case EnumFileldType.ASKSIZE:
                         cell.Value = _symbol.TickSnapshot.SellQTY1;
@@ -218,12 +231,12 @@ namespace TradingLib.XTrader.Control
                         cell.Value = _symbol.TickSnapshot.Volume;
                         break;
                     case EnumFileldType.CHANGE:
-                        cell.Value = _symbol.TickSnapshot.Price - _symbol.TickSnapshot.PreClose;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - _symbol.TickSnapshot.PreClose, 0);
+                        cell.Value = _symbol.TickSnapshot.Price - GetYdPrice(_symbol);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - GetYdPrice(_symbol), 0);
                         break;
                     case EnumFileldType.CHANGEPECT:
-                        cell.Value = (_symbol.TickSnapshot.Price - _symbol.TickSnapshot.PreClose) / _symbol.TickSnapshot.PreClose * 100;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - _symbol.TickSnapshot.PreClose, 0);
+                        cell.Value = (_symbol.TickSnapshot.Price - GetYdPrice(_symbol)) / GetYdPrice(_symbol) * 100;
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Price - GetYdPrice(_symbol), 0);
                         break;
                     case EnumFileldType.OI:
                         cell.Value = _symbol.TickSnapshot.OI;
@@ -240,15 +253,15 @@ namespace TradingLib.XTrader.Control
                         break;
                     case EnumFileldType.OPEN:
                         cell.Value = _symbol.TickSnapshot.Open;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Open, _symbol.TickSnapshot.PreClose);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Open, GetYdPrice(_symbol));
                         break;
                     case EnumFileldType.HIGH:
                         cell.Value = _symbol.TickSnapshot.High;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.High, _symbol.TickSnapshot.PreClose);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.High, GetYdPrice(_symbol));
                         break;
                     case EnumFileldType.LOW:
                         cell.Value = _symbol.TickSnapshot.Low;
-                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, _symbol.TickSnapshot.PreClose);
+                        cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, GetYdPrice(_symbol));
                         break;
                     case EnumFileldType.EXCHANGE:
                         break;
@@ -257,7 +270,7 @@ namespace TradingLib.XTrader.Control
                         {
                             double avgprice = (_symbol.TickSnapshot.Amount / _symbol.TickSnapshot.Volume) / 100.0; //股票1手=100股
                             cell.Value = avgprice;
-                            cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, _symbol.TickSnapshot.PreClose);
+                            cell.CellStyle.FontColor = _quotelist.GetUpDownColor(_symbol.TickSnapshot.Low, GetYdPrice(_symbol));
                         }
                         break;
                     case EnumFileldType.AMOUNT:
