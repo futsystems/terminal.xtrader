@@ -244,7 +244,7 @@ namespace TradingLib.DataFarmManager
         {
             ArrayList list = new ArrayList();
             DateTime lastday = Convert.ToDateTime(DateTime.Now.AddMonths(1).ToString("yyyy-MM-01")).AddDays(-1);
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 20; i++)
             {
                 ValueObject<int> vo = new ValueObject<int>();
                 vo.Name = lastday.AddMonths(i).ToString("yyyyMM");//201501

@@ -206,7 +206,7 @@ namespace TradingLib.KryptonControl
 
                     ss = string.Format("{0:F2}", tk.Price);
                     si = cv.MeasureString(ss, font);
-                    priceBrush.Color = GetPriceColor(symbol.TickSnapshot.PreClose, tk.Price);
+                    priceBrush.Color = GetPriceColor(symbol.GetYdPrice(), tk.Price);
                     cv.DrawString(ss, font, priceBrush, (int)(50 + lw - si.Width), r1.Top);
 
                     ss = string.Format("{0:D}", tk.Vol);

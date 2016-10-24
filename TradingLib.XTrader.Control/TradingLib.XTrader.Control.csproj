@@ -201,6 +201,12 @@
     <Compile Include="Control\ctrlSymbolHighLight.Designer.cs">
       <DependentUpon>ctrlSymbolHighLight.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetailsBoard\ctrlStockQuoteInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DetailsBoard\ctrlStockQuoteInfo.Designer.cs">
+      <DependentUpon>ctrlStockQuoteInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailsBoard\ctrlTabTradeList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -219,6 +225,13 @@
     <Compile Include="DetailsBoard\ctrlTabPriceVolList.Designer.cs">
       <DependentUpon>ctrlTabPriceVolList.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetailsBoard\ctrlQuoteInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DetailsBoard\ctrlQuoteInfo.Designer.cs">
+      <DependentUpon>ctrlQuoteInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailsBoard\IQuoteInfo.cs" />
     <Compile Include="EditFunc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DetailsBoard\ctDetailsBoard.resx">
       <DependentUpon>ctDetailsBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailsBoard\ctrlStockQuoteInfo.resx">
+      <DependentUpon>ctrlStockQuoteInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditFunc.resx">
       <DependentUpon>EditFunc.cs</DependentUpon>

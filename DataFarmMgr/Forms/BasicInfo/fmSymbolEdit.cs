@@ -50,8 +50,9 @@ namespace TradingLib.DataFarmManager
                         //设置到期日期,合约类别
                     case SecurityType.FUT:
                         _symbol.ExpireDate = Util.ToTLDate(this.expiredate.Value);
-                        _symbol.Month = ManagerHelper.GetMonth((int)cbMonth.SelectedValue);
+                        //_symbol.Month = ManagerHelper.GetMonth((int)cbMonth.SelectedValue);
                         _symbol.SymbolType = (QSEnumSymbolType)cbSymbolType.SelectedValue;
+                        _symbol.Tradeable = cbTradable.Checked;
                         break;
                     //case SecurityType.STK:
                     //    _symbol.Name = symName.Text;
@@ -76,7 +77,7 @@ namespace TradingLib.DataFarmManager
 
                 target.Symbol = lbSymbol.Text;
                 target.SymbolType = (QSEnumSymbolType)cbSymbolType.SelectedValue;
-
+                target.Tradeable = cbTradable.Checked;
                 target.security_fk = sec.ID;
 
                 //按照品种设定对应的信息
@@ -354,7 +355,7 @@ namespace TradingLib.DataFarmManager
                 cbMonth.Enabled = false;
                 expiredate.Enabled = false;
                 cbSymbolType.Enabled = false;
-
+                cbTradable.Checked = _symbol.Tradeable;
                 if (_symbol.SecurityFamily.Type == SecurityType.FUT)
                 {
                     //绑定月份

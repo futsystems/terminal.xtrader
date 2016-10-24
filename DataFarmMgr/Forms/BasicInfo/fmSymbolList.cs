@@ -201,6 +201,7 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][MONTH] = GetMonth(sym);//sym.Month;
                     gt.Rows[i][EXPIREDATE] = GetExpireDate(sym);//sym.ExpireDate;
                     gt.Rows[i][SYMBOLTYPE] = Util.GetEnumDescription(sym.SymbolType);
+                    gt.Rows[i][TRADEABLE] = sym.Tradeable;
 
                 }
                 else
@@ -219,6 +220,7 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][EXPIREDATE] = GetExpireDate(sym);//sym.ExpireDate;
                  
                     gt.Rows[i][SYMBOLTYPE] = Util.GetEnumDescription(sym.SymbolType);
+                    gt.Rows[i][TRADEABLE] = sym.Tradeable;
                 }
             }
             
@@ -262,7 +264,7 @@ namespace TradingLib.DataFarmManager
         const string MONTH = "月份";
         const string EXPIREDATE = "到期日";
         const string SYMBOLTYPE = "类别";
-
+        const string TRADEABLE = "可交易";
 
 
         #endregion
@@ -284,6 +286,7 @@ namespace TradingLib.DataFarmManager
             gt.Columns.Add(MONTH);
             gt.Columns.Add(EXPIREDATE);
             gt.Columns.Add(SYMBOLTYPE);
+            gt.Columns.Add(TRADEABLE);
 
         }
 

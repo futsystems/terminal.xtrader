@@ -104,6 +104,7 @@ namespace DataAPI.Futs
         {
             foreach (var target in DataCoreService.DataClient.Symbols)
             {
+                if (!target.Tradeable) continue;
                 MDSymbol symbol = new MDSymbol();
                 symbol.Symbol = target.Symbol;
                 symbol.SecCode = target.SecurityFamily.Code;

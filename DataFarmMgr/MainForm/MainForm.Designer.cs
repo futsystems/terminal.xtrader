@@ -41,6 +41,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnStartFeedTick = new System.Windows.Forms.ToolStripButton();
             this.btnStopFeedTick = new System.Windows.Forms.ToolStripButton();
+            this.btnFunctionForm = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -53,7 +54,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnFunctionForm = new System.Windows.Forms.ToolStripButton();
+            this.menuRestoreTask = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -166,6 +167,15 @@
             this.btnStopFeedTick.Size = new System.Drawing.Size(70, 22);
             this.btnStopFeedTick.Text = "RejectTick";
             // 
+            // btnFunctionForm
+            // 
+            this.btnFunctionForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnFunctionForm.Image = ((System.Drawing.Image)(resources.GetObject("btnFunctionForm.Image")));
+            this.btnFunctionForm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFunctionForm.Name = "btnFunctionForm";
+            this.btnFunctionForm.Size = new System.Drawing.Size(36, 22);
+            this.btnFunctionForm.Text = "工具";
+            // 
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.ctrlQuoteList);
@@ -238,6 +248,7 @@
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBarData,
+            this.menuRestoreTask,
             this.toolStripMenuItem4});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 21);
@@ -255,14 +266,11 @@
             this.toolStripMenuItem4.Size = new System.Drawing.Size(192, 22);
             this.toolStripMenuItem4.Text = "toolStripMenuItem4";
             // 
-            // btnFunctionForm
+            // menuRestoreTask
             // 
-            this.btnFunctionForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnFunctionForm.Image = ((System.Drawing.Image)(resources.GetObject("btnFunctionForm.Image")));
-            this.btnFunctionForm.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFunctionForm.Name = "btnFunctionForm";
-            this.btnFunctionForm.Size = new System.Drawing.Size(36, 22);
-            this.btnFunctionForm.Text = "工具";
+            this.menuRestoreTask.Name = "menuRestoreTask";
+            this.menuRestoreTask.Size = new System.Drawing.Size(192, 22);
+            this.menuRestoreTask.Text = "数据恢复任务";
             // 
             // MainForm
             // 
@@ -314,5 +322,6 @@
         private System.Windows.Forms.ToolStripButton btnStartFeedTick;
         private System.Windows.Forms.ToolStripButton btnStopFeedTick;
         private System.Windows.Forms.ToolStripButton btnFunctionForm;
+        private System.Windows.Forms.ToolStripMenuItem menuRestoreTask;
     }
 }

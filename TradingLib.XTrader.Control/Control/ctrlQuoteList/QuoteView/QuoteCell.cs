@@ -58,6 +58,7 @@ namespace TradingLib.XTrader.Control
         {
             _value = double.NaN;
         }
+
         #region 构造函数
         public QuoteCell(QuoteRow row,QuoteColumn column, CellStyle cellstyle)
         {

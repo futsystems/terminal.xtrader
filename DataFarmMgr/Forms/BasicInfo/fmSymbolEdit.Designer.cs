@@ -41,6 +41,7 @@
             this.expiredate = new System.Windows.Forms.DateTimePicker();
             this.cbSymbolType = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.cbTradable = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -147,18 +148,29 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(176, 202);
+            this.btnSubmit.Location = new System.Drawing.Point(176, 228);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 12;
             this.btnSubmit.Text = "提 交";
             this.btnSubmit.UseVisualStyleBackColor = true;
             // 
+            // cbTradable
+            // 
+            this.cbTradable.AutoSize = true;
+            this.cbTradable.Location = new System.Drawing.Point(96, 164);
+            this.cbTradable.Name = "cbTradable";
+            this.cbTradable.Size = new System.Drawing.Size(48, 16);
+            this.cbTradable.TabIndex = 13;
+            this.cbTradable.Text = "交易";
+            this.cbTradable.UseVisualStyleBackColor = true;
+            // 
             // fmSymbolEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 237);
+            this.ClientSize = new System.Drawing.Size(263, 263);
+            this.Controls.Add(this.cbTradable);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.cbSymbolType);
             this.Controls.Add(this.expiredate);
@@ -196,5 +208,6 @@
         private System.Windows.Forms.DateTimePicker expiredate;
         private System.Windows.Forms.ComboBox cbSymbolType;
         private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.CheckBox cbTradable;
     }
 }

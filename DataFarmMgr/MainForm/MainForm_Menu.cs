@@ -24,6 +24,14 @@ namespace TradingLib.DataFarmManager
             menuExchange.Click += new EventHandler(menuExchange_Click);
 
             menuBarData.Click += new EventHandler(menuBarData_Click);
+            menuRestoreTask.Click += new EventHandler(menuRestoreTask_Click);
+        }
+
+        void menuRestoreTask_Click(object sender, EventArgs e)
+        {
+            fmRestoreTask fm = new fmRestoreTask();
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void menuBarData_Click(object sender, EventArgs e)
