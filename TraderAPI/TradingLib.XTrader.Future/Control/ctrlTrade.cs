@@ -12,51 +12,51 @@ using Common.Logging;
 
 namespace TradingLib.XTrader.Future
 {
-    public partial class ctrlPosition : UserControl
+    public partial class ctrlTrade : UserControl
     {
         ILog logger = LogManager.GetLogger("ctrlPosition");
-        FGrid positionGrid = null;
-        public ctrlPosition()
+        FGrid tradeGrid = null;
+        public ctrlTrade()
         {
             InitializeComponent();
 
-            checkButton.Paint += new PaintEventHandler(button1_Paint);
+            //checkButton.Paint += new PaintEventHandler(button1_Paint);
 
-            this.positionGrid = new FGrid();
-            this.positionGrid.Dock = DockStyle.Fill;
-            this.panel2.Controls.Add(positionGrid);
+            this.tradeGrid = new FGrid();
+            this.tradeGrid.Dock = DockStyle.Fill;
+            this.panel2.Controls.Add(tradeGrid);
 
 
             InitTable();
             BindToTable();
         }
 
-        void button1_Paint(object sender, PaintEventArgs e)
-        {
-            Color f = Color.FromArgb(127, 157, 185);
-            ControlPaint.DrawBorder(e.Graphics, positionGrid.ClientRectangle,
-                 f, 1, ButtonBorderStyle.Solid,
-                 f, 1, ButtonBorderStyle.Solid,
-                 f, 1, ButtonBorderStyle.Solid,
-                 f, 1, ButtonBorderStyle.Solid);
-        }
+        //void button1_Paint(object sender, PaintEventArgs e)
+        //{
+        //    Color f = Color.FromArgb(127, 157, 185);
+        //    ControlPaint.DrawBorder(e.Graphics, positionGrid.ClientRectangle,
+        //         f, 1, ButtonBorderStyle.Solid,
+        //         f, 1, ButtonBorderStyle.Solid,
+        //         f, 1, ButtonBorderStyle.Solid,
+        //         f, 1, ButtonBorderStyle.Solid);
+        //}
 
 
 
-        const string POSKEY = "持仓键";
+
+        const string TIME = "成交时间";
         const string SYMBOL = "合约";
-        const string SIDE = "方向";
 
-        const string PROPERTY = "属性";
-        const string SIZE = "持仓";
+        const string SIDE = "买卖";
+        const string FLAG = "开平";
 
-        const string SIZECANFLAT = "可用";
-        const string AVGPRICE = "开仓均价";
-        const string LOSSTARGET = "止损/数量";
+        const string PRICE = "成交价格";
+        const string SIZE = "手数";
+        const string ORDERID = "委托号";
 
-        const string PROFITTARGET = "止盈/数量";
-        const string FLAG = "投保";
         const string NAME = "名称";
+        const string SYSID = "系统号";
+        const string TRADERID = "成交号";
 
 
 
@@ -69,21 +69,18 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         private void InitTable()
         {
-            tb.Columns.Add(POSKEY);
+            tb.Columns.Add(TIME);
             tb.Columns.Add(SYMBOL);
             tb.Columns.Add(SIDE);
 
-            tb.Columns.Add(PROPERTY);
-            tb.Columns.Add(SIZE);
-            tb.Columns.Add(SIZECANFLAT);
-            tb.Columns.Add(AVGPRICE);
-            tb.Columns.Add(LOSSTARGET);
-
-            tb.Columns.Add(PROFITTARGET);
             tb.Columns.Add(FLAG);
+            tb.Columns.Add(PRICE);
+            tb.Columns.Add(SIZE);
+            tb.Columns.Add(ORDERID);
             tb.Columns.Add(NAME);
 
-
+            tb.Columns.Add(SYSID);
+            tb.Columns.Add(TRADERID);
         }
 
         //void ResetColumeSize()
@@ -112,15 +109,13 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         private void BindToTable()
         {
-            DataGridView grid  = positionGrid;
+            DataGridView grid = tradeGrid;
             //grid.TableElement.BeginUpdate();             
             //grid.MasterTemplate.Columns.Clear(); 
             datasource.DataSource = tb;
             //datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
 
-            grid.Columns[POSKEY].Visible = false;
-            
             for (int i = 0; i < tb.Columns.Count; i++)
             {
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;

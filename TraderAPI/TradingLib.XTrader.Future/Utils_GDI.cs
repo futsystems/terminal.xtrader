@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace TradingLib.TraderAPI
+namespace TradingLib.XTrader
 {
     public enum buttonStyle
     { 

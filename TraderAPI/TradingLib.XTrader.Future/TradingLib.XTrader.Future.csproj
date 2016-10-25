@@ -49,6 +49,7 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
+    <Reference Include="XTrader.Future, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -66,6 +67,18 @@
     </Compile>
     <Compile Include="Control\ctVerify.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlOrder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlOrder.Designer.cs">
+      <DependentUpon>ctrlOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlTrade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlTrade.Designer.cs">
+      <DependentUpon>ctrlTrade.cs</DependentUpon>
     </Compile>
     <Compile Include="ctrlFutureTrader.cs">
       <SubType>UserControl</SubType>
@@ -85,11 +98,54 @@
     <Compile Include="FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IPage.cs" />
     <Compile Include="MainContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="MainContainer.Designer.cs">
       <DependentUpon>MainContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageHelp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageHelp.Designer.cs">
+      <DependentUpon>PageHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagePosition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PagePosition.Designer.cs">
+      <DependentUpon>PagePosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageOrder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageOrder.Designer.cs">
+      <DependentUpon>PageOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageTrading.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageTrading.Designer.cs">
+      <DependentUpon>PageTrading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageTrade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageTrade.Designer.cs">
+      <DependentUpon>PageTrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageBank.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageBank.Designer.cs">
+      <DependentUpon>PageBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagePass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PagePass.Designer.cs">
+      <DependentUpon>PagePass.cs</DependentUpon>
     </Compile>
     <Compile Include="PageTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +166,12 @@
     <EmbeddedResource Include="Control\ctrlOrderEntry.resx">
       <DependentUpon>ctrlOrderEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctrlOrder.resx">
+      <DependentUpon>ctrlOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctrlTrade.resx">
+      <DependentUpon>ctrlTrade.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ctrlFutureTrader.resx">
       <DependentUpon>ctrlFutureTrader.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +183,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainContainer.resx">
       <DependentUpon>MainContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageHelp.resx">
+      <DependentUpon>PageHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PagePosition.resx">
+      <DependentUpon>PagePosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageOrder.resx">
+      <DependentUpon>PageOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageTrading.resx">
+      <DependentUpon>PageTrading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageTrade.resx">
+      <DependentUpon>PageTrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageBank.resx">
+      <DependentUpon>PageBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PagePass.resx">
+      <DependentUpon>PagePass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -45,8 +45,8 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.fButton1 = new TradingLib.TraderAPI.FButton();
-            this.fButton2 = new TradingLib.TraderAPI.FButton();
+            this.fButton2 = new FButton();
+            this.fButton1 = new FButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -234,24 +234,6 @@
             this.tabPage2.Text = "三键下单";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // fButton1
-            // 
-            this.fButton1.BackColor = System.Drawing.Color.Transparent;
-            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
-            this.fButton1.Location = new System.Drawing.Point(153, 137);
-            this.fButton1.Name = "fButton1";
-            this.fButton1.OrderEntryButton = true;
-            this.fButton1.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.fButton1.Size = new System.Drawing.Size(80, 60);
-            this.fButton1.TabIndex = 16;
-            this.fButton1.Text = "买入";
-            this.fButton1.UseVisualStyleBackColor = true;
-            // 
             // fButton2
             // 
             this.fButton2.BackColor = System.Drawing.Color.Transparent;
@@ -270,6 +252,24 @@
             this.fButton2.Text = "卖出";
             this.fButton2.UseVisualStyleBackColor = true;
             // 
+            // fButton1
+            // 
+            this.fButton1.BackColor = System.Drawing.Color.Transparent;
+            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
+            this.fButton1.Location = new System.Drawing.Point(153, 137);
+            this.fButton1.Name = "fButton1";
+            this.fButton1.OrderEntryButton = true;
+            this.fButton1.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.fButton1.Size = new System.Drawing.Size(80, 60);
+            this.fButton1.TabIndex = 16;
+            this.fButton1.Text = "买入";
+            this.fButton1.UseVisualStyleBackColor = true;
+            // 
             // ctrlOrderEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -277,7 +277,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tabControl1);
             this.Name = "ctrlOrderEntry";
-            this.Size = new System.Drawing.Size(358, 233);
+            this.Size = new System.Drawing.Size(335, 233);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -305,7 +305,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private TraderAPI.FButton fButton1;
-        private TraderAPI.FButton fButton2;
+        private FButton fButton1;
+        private FButton fButton2;
     }
 }

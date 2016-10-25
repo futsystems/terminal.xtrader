@@ -11,58 +11,58 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// 交易首页
         /// </summary>
-        public static string PAGE_TRADING = "TradingIndex";
+        public const string PAGE_TRADING = "TradingIndex";
 
         /// <summary>
         /// 委托
         /// </summary>
-        public static string PAGE_ORDER = "Order";
+        public const string PAGE_ORDER = "Order";
 
         /// <summary>
         /// 成交
         /// </summary>
-        public static string PAGE_TRADE = "Trade";
+        public const string PAGE_TRADE = "Trade";
 
         /// <summary>
         /// 持仓
         /// </summary>
-        public static string PAGE_POSITION = "Position";
+        public const string PAGE_POSITION = "Position";
 
         /// <summary>
         /// 条件单
         /// </summary>
-        public static string PAGE_CONDITION_ORDER = "ConditionOrder";
+        public const string PAGE_CONDITION_ORDER = "ConditionOrder";
 
         /// <summary>
         /// 查询
         /// </summary>
-        public static string PAGE_QRY = "Qry";
+        public const string PAGE_QRY = "Qry";
 
         /// <summary>
         /// 行权
         /// </summary>
-        public static string PAGE_RIGHT = "FillRight";
+        public const string PAGE_RIGHT = "FillRight";
 
 
         /// <summary>
         /// 帮助
         /// </summary>
-        public static string PAGE_HELP = "Help";
+        public const string PAGE_HELP = "Help";
 
 
         /// <summary>
         /// 银期转账
         /// </summary>
-        public static string PAGE_BANK = "Bank";
+        public const string PAGE_BANK = "Bank";
 
         /// <summary>
         /// 交易统计
         /// </summary>
-        public static string PAGE_STATISTIC = "Statistic";
+        public const string PAGE_STATISTIC = "Statistic";
 
         /// <summary>
         /// 修改密码
         /// </summary>
-        public static string PAGE_PASS = "Pass";
+        public const string PAGE_PASS = "Pass";
     }
 }

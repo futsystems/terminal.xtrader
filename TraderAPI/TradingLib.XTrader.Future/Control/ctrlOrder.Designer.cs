@@ -1,6 +1,6 @@
 ﻿namespace TradingLib.XTrader.Future
 {
-    partial class ctrlPosition
+    partial class ctrlOrder
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,111 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkButton = new TradingLib.XTrader.FButton();
+            this.btnAll = new TradingLib.XTrader.FButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button6 = new TradingLib.XTrader.FButton();
-            this.button5 = new TradingLib.XTrader.FButton();
-            this.button4 = new TradingLib.XTrader.FButton();
             this.button3 = new TradingLib.XTrader.FButton();
             this.button2 = new TradingLib.XTrader.FButton();
             this.panel2 = new TradingLib.XTrader.FButton();
-            this.fButton1 = new TradingLib.XTrader.FButton();
+            this.btnCancel = new TradingLib.XTrader.FButton();
+            this.button6 = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // checkButton
+            // btnAll
             // 
-            this.checkButton.BackColor = System.Drawing.Color.White;
-            this.checkButton.CheckButton = true;
-            this.checkButton.Checked = true;
-            this.checkButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkButton.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkButton.Location = new System.Drawing.Point(0, 0);
-            this.checkButton.Name = "checkButton";
-            this.checkButton.OrderEntryButton = false;
-            this.checkButton.Price = new decimal(new int[] {
+            this.btnAll.BackColor = System.Drawing.Color.White;
+            this.btnAll.CheckButton = true;
+            this.btnAll.Checked = true;
+            this.btnAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnAll.Location = new System.Drawing.Point(0, 0);
+            this.btnAll.Name = "btnAll";
+            this.btnAll.OrderEntryButton = false;
+            this.btnAll.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.checkButton.Size = new System.Drawing.Size(27, 233);
-            this.checkButton.TabIndex = 1;
-            this.checkButton.Text = "持仓";
-            this.checkButton.UseVisualStyleBackColor = true;
+            this.btnAll.Size = new System.Drawing.Size(27, 116);
+            this.btnAll.TabIndex = 1;
+            this.btnAll.Text = "全部";
+            this.btnAll.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.fButton1);
             this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Location = new System.Drawing.Point(27, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(775, 25);
             this.panel1.TabIndex = 2;
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.CheckButton = false;
-            this.button6.Checked = false;
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.Location = new System.Drawing.Point(291, 2);
-            this.button6.Name = "button6";
-            this.button6.OrderEntryButton = false;
-            this.button6.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.button6.Size = new System.Drawing.Size(66, 20);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "止损止盈";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.White;
-            this.button5.CheckButton = false;
-            this.button5.Checked = false;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.Location = new System.Drawing.Point(219, 2);
-            this.button5.Name = "button5";
-            this.button5.OrderEntryButton = false;
-            this.button5.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.button5.Size = new System.Drawing.Size(66, 20);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "快捷锁仓";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.White;
-            this.button4.CheckButton = false;
-            this.button4.Checked = false;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Location = new System.Drawing.Point(147, 2);
-            this.button4.Name = "button4";
-            this.button4.OrderEntryButton = false;
-            this.button4.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.button4.Size = new System.Drawing.Size(66, 20);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "快捷反手";
-            this.button4.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -150,7 +87,7 @@
             131072});
             this.button3.Size = new System.Drawing.Size(66, 20);
             this.button3.TabIndex = 1;
-            this.button3.Text = "快捷平仓";
+            this.button3.Text = "全部撤单";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // button2
@@ -169,7 +106,7 @@
             131072});
             this.button2.Size = new System.Drawing.Size(66, 20);
             this.button2.TabIndex = 0;
-            this.button2.Text = "全部平仓";
+            this.button2.Text = "撤单";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -193,34 +130,56 @@
             this.panel2.TabIndex = 3;
             this.panel2.UseVisualStyleBackColor = false;
             // 
-            // fButton1
+            // btnCancel
             // 
-            this.fButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fButton1.BackColor = System.Drawing.Color.White;
-            this.fButton1.CheckButton = false;
-            this.fButton1.Checked = false;
-            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton1.Location = new System.Drawing.Point(715, 2);
-            this.fButton1.Name = "fButton1";
-            this.fButton1.OrderEntryButton = false;
-            this.fButton1.Price = new decimal(new int[] {
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.CheckButton = true;
+            this.btnCancel.Checked = false;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCancel.Location = new System.Drawing.Point(0, 117);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.OrderEntryButton = false;
+            this.btnCancel.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.fButton1.Size = new System.Drawing.Size(47, 20);
-            this.fButton1.TabIndex = 5;
-            this.fButton1.Text = "导出";
-            this.fButton1.UseVisualStyleBackColor = true;
+            this.btnCancel.Size = new System.Drawing.Size(27, 116);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "可撤";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // ctrlPosition
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.BackColor = System.Drawing.Color.White;
+            this.button6.CheckButton = false;
+            this.button6.Checked = false;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.Location = new System.Drawing.Point(715, 2);
+            this.button6.Name = "button6";
+            this.button6.OrderEntryButton = false;
+            this.button6.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.button6.Size = new System.Drawing.Size(47, 20);
+            this.button6.TabIndex = 5;
+            this.button6.Text = "导出";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // ctrlOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.checkButton);
-            this.Name = "ctrlPosition";
+            this.Controls.Add(this.btnAll);
+            this.Name = "ctrlOrder";
             this.Size = new System.Drawing.Size(802, 233);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -229,14 +188,12 @@
 
         #endregion
 
-        private FButton checkButton;
+        private FButton btnAll;
         private System.Windows.Forms.Panel panel1;
         private FButton button2;
-        private FButton button5;
-        private FButton button4;
         private FButton button3;
-        private FButton button6;
         private FButton panel2;
-        private FButton fButton1;
+        private FButton btnCancel;
+        private FButton button6;
     }
 }
