@@ -8,8 +8,8 @@
     <ProjectGuid>{64E6EAA4-11EE-43E2-B72B-EB803AE1952C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TradingLib.TraderAPI.Future</RootNamespace>
-    <AssemblyName>TradingLib.TraderAPI.Future</AssemblyName>
+    <RootNamespace>TradingLib.XTrader.Future</RootNamespace>
+    <AssemblyName>XTrader.Future</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\XTraderLite\bin\Debug\TraderAPI\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,33 +31,148 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\Futs.base\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TradingLib.API">
+      <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TradingLib.Common">
+      <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="XTrader.Future, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Control\ctrlOrderEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlOrderEntry.Designer.cs">
+      <DependentUpon>ctrlOrderEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlListMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlListMenu.Designer.cs">
+      <DependentUpon>ctrlListMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctVerify.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlFutureTrader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlFutureTrader.Designer.cs">
+      <DependentUpon>ctrlFutureTrader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctrlTraderLogin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlTraderLogin.Designer.cs">
+      <DependentUpon>ctrlTraderLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FPosition.cs">
+    <Compile Include="FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ctrlPosition.cs">
+    <Compile Include="MainContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ctrlPosition.Designer.cs">
+    <Compile Include="MainContainer.Designer.cs">
+      <DependentUpon>MainContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PageTypes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Control\ctrlPosition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlPosition.Designer.cs">
       <DependentUpon>ctrlPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils_GDI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ctrlPosition.resx">
+    <EmbeddedResource Include="Control\ctrlOrderEntry.resx">
+      <DependentUpon>ctrlOrderEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctrlFutureTrader.resx">
+      <DependentUpon>ctrlFutureTrader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctrlPosition.resx">
       <DependentUpon>ctrlPosition.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ctrlTraderLogin.resx">
+      <DependentUpon>ctrlTraderLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainContainer.resx">
+      <DependentUpon>MainContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">
+      <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
+      <Name>TradingLib.MarketData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
+      <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>
+      <Name>TradingLib.TraderCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zj.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -67,4 +182,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.API.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.TraderCore.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\Build\XTraderLite\TraderAPI\" SkipUnchangedFiles="false" />
+  </Target>
 </Project>

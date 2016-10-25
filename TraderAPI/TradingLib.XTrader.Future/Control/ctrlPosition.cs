@@ -8,16 +8,24 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Common.Logging;
 
-namespace TradingLib.TraderAPI.Future
+namespace TradingLib.XTrader.Future
 {
     public partial class ctrlPosition : UserControl
     {
+        ILog logger = LogManager.GetLogger("ctrlPosition");
+        FGrid positionGrid = null;
         public ctrlPosition()
         {
             InitializeComponent();
 
             button1.Paint += new PaintEventHandler(button1_Paint);
+
+            this.positionGrid = new FGrid();
+            this.positionGrid.Dock = DockStyle.Fill;
+            this.panel2.Controls.Add(positionGrid);
+
             InitTable();
             BindToTable();
         }

@@ -17,7 +17,7 @@ namespace TradingLib.TraderAPI
             this.Cursor = System.Windows.Forms.Cursors.Hand;
         }
 
-        
+
         protected override void OnPaint(PaintEventArgs e)
         {
 

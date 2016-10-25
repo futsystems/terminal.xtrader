@@ -1,4 +1,4 @@
-﻿namespace TradingLib.TraderAPI.Future
+﻿namespace TradingLib.XTrader.Future
 {
     partial class ctrlPosition
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
@@ -36,9 +35,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.positionGrid = new TradingLib.TraderAPI.FPosition();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.positionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -110,38 +108,24 @@
             this.button2.Text = "全部平仓";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // positionGrid
+            // panel2
             // 
-            this.positionGrid.AllowUserToAddRows = false;
-            this.positionGrid.AllowUserToDeleteRows = false;
-            this.positionGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.positionGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.positionGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.positionGrid.BackgroundColor = System.Drawing.Color.White;
-            this.positionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.positionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.positionGrid.Location = new System.Drawing.Point(27, 25);
-            this.positionGrid.Margin = new System.Windows.Forms.Padding(0);
-            this.positionGrid.Name = "positionGrid";
-            this.positionGrid.ReadOnly = true;
-            this.positionGrid.RowHeadersVisible = false;
-            this.positionGrid.RowTemplate.Height = 23;
-            this.positionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.positionGrid.Size = new System.Drawing.Size(775, 208);
-            this.positionGrid.TabIndex = 3;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(27, 25);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(775, 208);
+            this.panel2.TabIndex = 3;
             // 
             // ctrlPosition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.positionGrid);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Name = "ctrlPosition";
             this.Size = new System.Drawing.Size(802, 233);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.positionGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -155,6 +139,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button6;
-        private FPosition positionGrid;
+        private System.Windows.Forms.Panel panel2;
     }
 }
