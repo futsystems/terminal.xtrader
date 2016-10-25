@@ -121,10 +121,10 @@
             this.Board.BackColor = System.Drawing.Color.Black;
             this.Board.Controls.Add(this.ctDetailsBoard1);
             this.Board.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Board.Location = new System.Drawing.Point(596, 0);
+            this.Board.Location = new System.Drawing.Point(602, 0);
             this.Board.MinimumSize = new System.Drawing.Size(160, 0);
             this.Board.Name = "Board";
-            this.Board.Size = new System.Drawing.Size(246, 660);
+            this.Board.Size = new System.Drawing.Size(240, 660);
             this.Board.TabIndex = 8;
             this.Board.Resize += new System.EventHandler(this.Board_Resize);
             // 
@@ -133,8 +133,7 @@
             this.ctDetailsBoard1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctDetailsBoard1.Location = new System.Drawing.Point(0, 0);
             this.ctDetailsBoard1.Name = "ctDetailsBoard1";
-            this.ctDetailsBoard1.Size = new System.Drawing.Size(246, 660);
-            //this.ctDetailsBoard1.StockLabel = "00001 深发展A";
+            this.ctDetailsBoard1.Size = new System.Drawing.Size(240, 660);
             this.ctDetailsBoard1.TabIndex = 25;
             this.ctDetailsBoard1.TabStop = false;
             // 
@@ -142,7 +141,7 @@
             // 
             this.SP1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.SP1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.SP1.Location = new System.Drawing.Point(595, 0);
+            this.SP1.Location = new System.Drawing.Point(601, 0);
             this.SP1.Name = "SP1";
             this.SP1.Size = new System.Drawing.Size(1, 660);
             this.SP1.TabIndex = 19;
@@ -580,7 +579,7 @@
             this.Tab.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Tab.Location = new System.Drawing.Point(46, 643);
             this.Tab.Name = "Tab";
-            this.Tab.Size = new System.Drawing.Size(549, 17);
+            this.Tab.Size = new System.Drawing.Size(555, 17);
             this.Tab.TabIndex = 20;
             this.Tab.TabStop = false;
             this.Tab.Visible = false;

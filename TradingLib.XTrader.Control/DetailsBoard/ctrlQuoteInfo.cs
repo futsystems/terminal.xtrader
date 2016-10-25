@@ -47,6 +47,7 @@ namespace TradingLib.XTrader
         {
             _symbol = sym;
             _symTitle = string.Format("{0}({1})", _symbol.Name, _symbol.Symbol);
+            _priceFormat = sym.GetFormat();
         }
 
         string _symTitle = "美原油(CLX6)";
@@ -59,6 +60,7 @@ namespace TradingLib.XTrader
         const string SELL = "卖出";
         const string BUY = "买入";
         const string LASTPRICE = "最新";
+        const string LASTSIZE = "现手";
         const string AVGPRICE = "均价";
         const string CHANGE = "涨跌";
         const string PRESETTLE = "昨结";
@@ -120,9 +122,13 @@ namespace TradingLib.XTrader
             double quotrate = 0.4;
             if (_symbol != null)
             {
+                
                 double f1 = _symbol.TickSnapshot.SellQTY1;
                 double f2 = _symbol.TickSnapshot.BuyQTY1;
-                quotrate = f2 / (f2+f1);
+                if (f1 + f2 > 0)
+                {
+                    quotrate = f2 / (f2 + f1);
+                }
             }
 
             pen.Width = quoteRateHight;
@@ -214,7 +220,14 @@ namespace TradingLib.XTrader
 
             _brush.Color = Constants.ColorLabel;
             
-            cv.DrawString(AVGPRICE, Constants.Font_QuoteInfo_FieldTitle, _brush, this.Width/2, locatioin.Height + 3);
+            cv.DrawString(LASTSIZE, Constants.Font_QuoteInfo_FieldTitle, _brush, this.Width/2, locatioin.Height + 3);
+            if (_symbol != null)
+            {
+                pricestr = _symbol.TickSnapshot.Size.ToString();
+            }
+            _brush.Color = Color.Yellow;
+            fsize = cv.MeasureString(pricestr, Constants.Font_QuoteInfo_FieldPrice);
+            cv.DrawString(pricestr, Constants.Font_QuoteInfo_FieldPrice, _brush, this.Width, locatioin.Height + 3, rformat);
 
             locatioin.Height += (fsize.Height + 3);
 

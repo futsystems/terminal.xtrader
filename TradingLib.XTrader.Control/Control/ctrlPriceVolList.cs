@@ -166,9 +166,11 @@ namespace TradingLib.XTrader.Control
 
         public MDSymbol Symbol { get { return _symbol; } }
         MDSymbol _symbol = new MDSymbol();
+        string _priceFormat = "{0:F2}";
         public void SetSymbol(MDSymbol symbol)
         {
             _symbol = symbol;
+            _priceFormat = symbol.GetFormat();
             this.Invalidate();
         }
 
@@ -453,7 +455,7 @@ namespace TradingLib.XTrader.Control
 
 
 
-                    text = string.Format("{0:F2}", split.Price);
+                    text = string.Format(_priceFormat, split.Price);
                     si = g.MeasureString(text,UIConstant.QuoteFont);
                     if (split.Price > pr)
                         g.DrawString(text, UIConstant.QuoteFont, Brushes.Red, rect.X + (int)(50 - si.Width), rect.Top + (lineHeight - fontHeight) / 2);

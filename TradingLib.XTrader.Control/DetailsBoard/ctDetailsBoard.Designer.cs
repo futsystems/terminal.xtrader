@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.QuoteInfoBox = new System.Windows.Forms.Panel();
+            this.ctrlQuoteInfo1 = new TradingLib.XTrader.ctrlQuoteInfo();
+            this.ctrlStockQuoteInfo1 = new CStock.ctrlStockQuoteInfo();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.pbox5 = new System.Windows.Forms.Panel();
             this.pbox4 = new System.Windows.Forms.Panel();
             this.pbox3 = new System.Windows.Forms.Panel();
             this.TabBox = new System.Windows.Forms.PictureBox();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.DetailTabBox = new System.Windows.Forms.Panel();
             this.pbox2 = new TradingLib.KryptonControl.ctrlTabPriceVolList();
             this.pbox1 = new TradingLib.KryptonControl.ctrlTabTradeList();
-            this.ctrlQuoteInfo1 = new TradingLib.XTrader.ctrlQuoteInfo();
-            this.ctrlStockQuoteInfo1 = new CStock.ctrlStockQuoteInfo();
             this.QuoteInfoBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabBox)).BeginInit();
             this.DetailTabBox.SuspendLayout();
@@ -56,6 +56,32 @@
             this.QuoteInfoBox.Name = "QuoteInfoBox";
             this.QuoteInfoBox.Size = new System.Drawing.Size(302, 437);
             this.QuoteInfoBox.TabIndex = 9;
+            // 
+            // ctrlQuoteInfo1
+            // 
+            this.ctrlQuoteInfo1.Location = new System.Drawing.Point(13, 120);
+            this.ctrlQuoteInfo1.Name = "ctrlQuoteInfo1";
+            this.ctrlQuoteInfo1.Size = new System.Drawing.Size(272, 202);
+            this.ctrlQuoteInfo1.TabIndex = 26;
+            this.ctrlQuoteInfo1.Text = "ctrlQuoteInfo1";
+            // 
+            // ctrlStockQuoteInfo1
+            // 
+            this.ctrlStockQuoteInfo1.Location = new System.Drawing.Point(3, 3);
+            this.ctrlStockQuoteInfo1.Name = "ctrlStockQuoteInfo1";
+            this.ctrlStockQuoteInfo1.Size = new System.Drawing.Size(176, 97);
+            this.ctrlStockQuoteInfo1.TabIndex = 25;
+            // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitter1.Enabled = false;
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(302, 1);
+            this.splitter1.TabIndex = 24;
+            this.splitter1.TabStop = false;
             // 
             // pbox5
             // 
@@ -99,25 +125,14 @@
             this.TabBox.Paint += new System.Windows.Forms.PaintEventHandler(this.TabBox_Paint);
             this.TabBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TabBox_MouseClick);
             // 
-            // splitter1
-            // 
-            this.splitter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Enabled = false;
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(302, 1);
-            this.splitter1.TabIndex = 24;
-            this.splitter1.TabStop = false;
-            // 
             // DetailTabBox
             // 
             this.DetailTabBox.Controls.Add(this.pbox2);
-            this.DetailTabBox.Controls.Add(this.TabBox);
             this.DetailTabBox.Controls.Add(this.pbox1);
             this.DetailTabBox.Controls.Add(this.pbox5);
             this.DetailTabBox.Controls.Add(this.pbox3);
             this.DetailTabBox.Controls.Add(this.pbox4);
+            this.DetailTabBox.Controls.Add(this.TabBox);
             this.DetailTabBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DetailTabBox.Location = new System.Drawing.Point(0, 437);
             this.DetailTabBox.Name = "DetailTabBox";
@@ -142,21 +157,6 @@
             this.pbox1.TabIndex = 6;
             this.pbox1.Text = "ctrlTabTradeList1";
             this.pbox1.DoubleClick += new System.EventHandler(this.pbox1_DoubleClick);
-            // 
-            // ctrlQuoteInfo1
-            // 
-            this.ctrlQuoteInfo1.Location = new System.Drawing.Point(13, 120);
-            this.ctrlQuoteInfo1.Name = "ctrlQuoteInfo1";
-            this.ctrlQuoteInfo1.Size = new System.Drawing.Size(272, 202);
-            this.ctrlQuoteInfo1.TabIndex = 26;
-            this.ctrlQuoteInfo1.Text = "ctrlQuoteInfo1";
-            // 
-            // ctrlStockQuoteInfo1
-            // 
-            this.ctrlStockQuoteInfo1.Location = new System.Drawing.Point(3, 3);
-            this.ctrlStockQuoteInfo1.Name = "ctrlStockQuoteInfo1";
-            this.ctrlStockQuoteInfo1.Size = new System.Drawing.Size(176, 97);
-            this.ctrlStockQuoteInfo1.TabIndex = 25;
             // 
             // ctDetailsBoard
             // 

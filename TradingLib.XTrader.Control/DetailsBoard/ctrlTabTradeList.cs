@@ -38,7 +38,7 @@ namespace TradingLib.KryptonControl
         {
             get
             {
-                return (this.Height - 2) / lineHeight;
+                return (this.Height - titleHeight- 2) / lineHeight;
             }
         }
 
@@ -71,9 +71,11 @@ namespace TradingLib.KryptonControl
 
 
         MDSymbol symbol = null;
+        string _priceFormat = "{0:F2}";
         public void SetSymbol(MDSymbol sym)
         {
             symbol = sym;
+            _priceFormat = sym.GetFormat();
         }
 
 
@@ -84,11 +86,13 @@ namespace TradingLib.KryptonControl
             return Color.Silver;
         }
         int lineHeight = 18;
+        int titleHeight = 20;
         List<TradeSplit> tradeList = new List<TradeSplit>();
         SolidBrush priceBrush = new SolidBrush(Color.Silver);
+
         void ctrlTradeListTab_Paint(object sender, PaintEventArgs e)
         {
-            //logger.Info("paint .....");
+            //logger.Info("paint ....."+this.Height);
             Graphics cv = e.Graphics;
             Rectangle r1 = this.ClientRectangle;
             Brush br = new SolidBrush(Color.Black);
@@ -155,7 +159,7 @@ namespace TradingLib.KryptonControl
                     else
                         cv.DrawString(ss, font, Brushes.Gray, (int)(60 - si.Width - 1), r1.Top);
 
-                    ss = string.Format("{0:F2}", tk.Price);
+                    ss = string.Format(_priceFormat, tk.Price);
                     si = cv.MeasureString(ss, font);
                     cv.DrawString(ss, font, Brushes.Red, (int)(50 + lw - si.Width), r1.Top);
 
@@ -166,20 +170,34 @@ namespace TradingLib.KryptonControl
             }
             else
             {
-                lw = (this.Width - 92) / 2;
+                lw = (this.Width - 100) / 2;
+                //绘制标题
+                ss = "时间";
+                si = cv.MeasureString(ss, Constants.Font_QuoteInfo_FieldTitle);
+                cv.DrawString(ss, Constants.Font_QuoteInfo_FieldTitle, Brushes.Gray,10, r1.Top);
+
+                ss = "价格";
+                si = cv.MeasureString(ss, Constants.Font_QuoteInfo_FieldTitle);
+                cv.DrawString(ss, Constants.Font_QuoteInfo_FieldTitle, Brushes.Gray, (int)(52 + lw - si.Width), r1.Top);
+
+                ss = "现手";
+                si = cv.MeasureString(ss, Constants.Font_QuoteInfo_FieldTitle);
+                cv.DrawString(ss, Constants.Font_QuoteInfo_FieldTitle, Brushes.Gray, (int)(52 + 2 * lw - si.Width), r1.Top);
+
+
                 for (int j = i; j < tradeList.Count; j++)
                 {
+                    tk = tradeList[j];
+                    //绘制时间
                     se = tk.Time % 100;
                     hh = tk.Time / 10000;
                     mm = (tk.Time - se) / 100 % 100;
 
-
-                    tk = tradeList[j];
                     ss = "";
                     if (time == -1)
                     {
                         jj = 1;
-                        ss = string.Format("{0:D2}:{1:D2}:{2:D2}", hh,mm, se==0?jj:se);
+                        ss = string.Format("{0:D2}:{1:D2}", hh,mm, se==0?jj:se);
                         time = tk.Time/100; //保留分钟
                     }
                     else
@@ -193,38 +211,47 @@ namespace TradingLib.KryptonControl
                         if (tk.Time/100 > time)// (tk.time - time) > 100)
                         {
                             jj = 1;
-                            ss = string.Format("{0:D2}:{1:D2}:{2:D2}", hh, mm, se == 0 ? jj : se);
+                            ss = string.Format("{0:D2}:{1:D2}", hh, mm, se == 0 ? jj : se);
                             time = tk.Time/100;
                         }
                     }
-                    r1.Y = (j - i) * lineHeight + 5;
+                    r1.Y = (j - i) * lineHeight + titleHeight;
                     si = cv.MeasureString(ss, font);
                     if (jj == 1)
-                        cv.DrawString(ss, font, Brushes.WhiteSmoke, (int)(60 - si.Width), r1.Top);
+                        cv.DrawString(ss, font, Brushes.WhiteSmoke, (int)(52 - si.Width), r1.Top);
                     else
-                        cv.DrawString(ss, secendFont, Brushes.WhiteSmoke, (int)(60 - si.Width-3), r1.Top);
+                        cv.DrawString(ss, secendFont, Brushes.WhiteSmoke, (int)(52 - si.Width-3), r1.Top);
 
-                    ss = string.Format("{0:F2}", tk.Price);
+                    //绘制价格
+                    ss = string.Format(_priceFormat, tk.Price);
                     si = cv.MeasureString(ss, font);
                     priceBrush.Color = GetPriceColor(symbol.GetYdPrice(), tk.Price);
-                    cv.DrawString(ss, font, priceBrush, (int)(50 + lw - si.Width), r1.Top);
+                    cv.DrawString(ss, font, priceBrush, (int)(52 + lw - si.Width), r1.Top);
 
+
+                    //绘制数量
                     ss = string.Format("{0:D}", tk.Vol);
                     si = cv.MeasureString(ss, font);
-                    cv.DrawString(ss, font, Brushes.Yellow, (int)(50 + 2 * lw - si.Width), r1.Top);
+                    cv.DrawString(ss, font, Brushes.Yellow, (int)(52 + 2 * lw - si.Width), r1.Top);
 
+                    //绘制S/B
+                    //0:Buy 1:Sell 2:无效
                     if (tk.Flag == 1)
                         ss = "S";
-                    else
+                    else if (tk.Flag == 0)
                         ss = "B";
+                    else
+                        ss = "";
                     si = cv.MeasureString(ss, font);
                     if (tk.Flag == 1)
                         cv.DrawString(ss, font, Brushes.Lime, this.Width - 40, r1.Top);
                     else
                         cv.DrawString(ss, font, Brushes.Red, this.Width - 40, r1.Top);
+                    //绘制成交笔数
                     ss = tk.TradeCount.ToString();
                     si = cv.MeasureString(ss, font);
                     cv.DrawString(ss, font, Brushes.Gray, this.Width - si.Width, r1.Top);
+                    
                 }
             }
         }

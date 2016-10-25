@@ -316,7 +316,7 @@ namespace DataAPI.Futs
             }
             foreach(var trade in obj.Trades)
             {
-                target.Add(new TradeSplit(trade.Time, (double)trade.Trade, trade.Size, 0, 1));
+                target.Add(new TradeSplit(trade.Time, (double)trade.Trade, trade.Size,trade.TradeFlag, 1));
             }
             if (obj.IsLast)
             {

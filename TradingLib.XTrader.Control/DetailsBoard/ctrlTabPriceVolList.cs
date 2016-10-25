@@ -69,9 +69,11 @@ namespace TradingLib.KryptonControl
 
 
         MDSymbol symbol = null;
+        string _priceFormat = "{0:F2}";
         public void SetSymbol(MDSymbol sym)
         {
             symbol = sym;
+            _priceFormat = sym.GetFormat();
         }
 
 
@@ -105,7 +107,7 @@ namespace TradingLib.KryptonControl
                 PriceVolPair tk = pvList[j];
                 r1.Y = (pvList.Count - 1 - j) * lineHeight + 2;
 
-                ss = string.Format("{0:F2}", tk.Price);
+                ss = string.Format(_priceFormat, tk.Price);
                 si = cv.MeasureString(ss, Constants.QuoteFont);
                 if (tk.Price > pr)
                     cv.DrawString(ss, Constants.QuoteFont, Brushes.Red, (int)(50 - si.Width), r1.Top);
