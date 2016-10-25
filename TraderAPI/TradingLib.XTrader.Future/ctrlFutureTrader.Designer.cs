@@ -34,9 +34,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelHolder = new System.Windows.Forms.Panel();
+            this.orderEntryPanel = new System.Windows.Forms.Panel();
+            this.ctrlPosition1 = new TradingLib.XTrader.Future.ctrlPosition();
+            this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.Control.ctrlOrderEntry();
             this.ctrlListMenu1 = new TradingLib.XTrader.Future.ctrlListMenu();
             this.panelTop.SuspendLayout();
             this.panelHolder.SuspendLayout();
+            this.orderEntryPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTop
@@ -92,12 +96,40 @@
             // 
             // panelHolder
             // 
+            this.panelHolder.Controls.Add(this.ctrlPosition1);
+            this.panelHolder.Controls.Add(this.orderEntryPanel);
             this.panelHolder.Controls.Add(this.ctrlListMenu1);
             this.panelHolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHolder.Location = new System.Drawing.Point(0, 25);
             this.panelHolder.Name = "panelHolder";
             this.panelHolder.Size = new System.Drawing.Size(1080, 234);
             this.panelHolder.TabIndex = 1;
+            // 
+            // orderEntryPanel
+            // 
+            this.orderEntryPanel.Controls.Add(this.ctrlOrderEntry1);
+            this.orderEntryPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.orderEntryPanel.Location = new System.Drawing.Point(120, 0);
+            this.orderEntryPanel.Name = "orderEntryPanel";
+            this.orderEntryPanel.Size = new System.Drawing.Size(353, 234);
+            this.orderEntryPanel.TabIndex = 2;
+            // 
+            // ctrlPosition1
+            // 
+            this.ctrlPosition1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlPosition1.Location = new System.Drawing.Point(473, 0);
+            this.ctrlPosition1.Name = "ctrlPosition1";
+            this.ctrlPosition1.Size = new System.Drawing.Size(607, 234);
+            this.ctrlPosition1.TabIndex = 3;
+            // 
+            // ctrlOrderEntry1
+            // 
+            this.ctrlOrderEntry1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ctrlOrderEntry1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlOrderEntry1.Location = new System.Drawing.Point(0, 0);
+            this.ctrlOrderEntry1.Name = "ctrlOrderEntry1";
+            this.ctrlOrderEntry1.Size = new System.Drawing.Size(353, 234);
+            this.ctrlOrderEntry1.TabIndex = 0;
             // 
             // ctrlListMenu1
             // 
@@ -119,6 +151,7 @@
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelHolder.ResumeLayout(false);
+            this.orderEntryPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -132,5 +165,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panelHolder;
         private ctrlListMenu ctrlListMenu1;
+        private System.Windows.Forms.Panel orderEntryPanel;
+        private Control.ctrlOrderEntry ctrlOrderEntry1;
+        private ctrlPosition ctrlPosition1;
     }
 }

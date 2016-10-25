@@ -77,9 +77,16 @@ namespace TradingLib.TraderAPI
 
         static Pen _borderPen = new Pen(Color.FromArgb(0, 60, 116));
 
-        static Pen _dashPen = new Pen(Color.FromArgb(35, 39, 48),0.5f);
+        static Pen _dashPen = new Pen(Color.FromArgb(35, 39, 48));
+        static Pen _splitPen = new Pen(Color.Gray);
 
-        static SolidBrush _clickBrush = new SolidBrush(Color.FromArgb(226, 226,218));
+        static SolidBrush _clickBrush = new SolidBrush(Color.FromArgb(227, 226,218));
+        static SolidBrush _txtBrush = new SolidBrush(Color.FromArgb(189, 9, 9));
+
+        static Color _shadowEnd = Color.FromArgb(249, 181, 53);
+        static Color _shadownStart = Color.FromArgb(253, 232, 187);
+        static Pen _shadownPen = new Pen(_shadownStart, 2);
+
         /// <summary> 
         /// 绘制圆角按钮
         /// </summary> 
@@ -90,9 +97,10 @@ namespace TradingLib.TraderAPI
         public static void DrawRoundButton(string Text, Graphics g, Rectangle rect,buttonStyle btnStyle)
         {
             //g.Clear(Color.White);
-            g.SmoothingMode = SmoothingMode.AntiAlias;//消除锯齿
-            Rectangle rectangle = rect;
+            //g.SmoothingMode = SmoothingMode.AntiAlias;//消除锯齿
+            Rectangle rectBorder = new Rectangle(rect.X, rect.Y, rect.Width - 1, rect.Height - 1);
             Brush b = b = new SolidBrush(Color.Black); 
+
             if (btnStyle == buttonStyle.ButtonFocuse)
             {
                 b = new SolidBrush(ColorTranslator.FromHtml("#338FCC"));
@@ -105,41 +113,56 @@ namespace TradingLib.TraderAPI
             {
                 b = new SolidBrush(ColorTranslator.FromHtml("#C6A300"));
             }
-            g.FillRectangle(new SolidBrush(Color.WhiteSmoke), rectangle);//白色背景
-            g.DrawPath(_borderPen, GetRoundRectangle(rectangle, 3));
-            rectangle = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
+
+            //g.FillRectangle(new SolidBrush(Color.White), rectangle);//白色背景
+            g.DrawPath(_borderPen, GetRoundRectangle(rectBorder, 3));
+            Rectangle rectShadow = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4 -1, rect.Height - 4-1);
+            Rectangle rectDash = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4 - 1, rect.Height - 4 - 1);
+
             if (btnStyle == buttonStyle.ButtonFocuseAndMouseOver || btnStyle == buttonStyle.ButtonMouseOver)
             {
+                _shadownPen.Color = _shadownStart;
+                g.DrawLine(_shadownPen, rectShadow.X, rectShadow.Y, rectShadow.X + rectShadow.Width, rectShadow.Y);
 
-                g.DrawPath(new Pen(Color.FromArgb(249,184,62), 2), GetRoundRectangle(rectangle, 2));
+                using (LinearGradientBrush brush = new LinearGradientBrush(new Point(rectShadow.X, rectShadow.Y), new Point(rectShadow.X, rectShadow.Y + rectShadow.Height), _shadownStart, _shadowEnd))
+                {
+                    Pen pen = new Pen(brush);
+                    pen.Width = 2;
+                    //绘制左右渐变阴影
+                    g.DrawLine(pen, rectShadow.X, rectShadow.Y, rectShadow.X, rectShadow.Y + rectShadow.Height);
+                    g.DrawLine(pen, rectShadow.X + rectShadow.Width, rectShadow.Y, rectShadow.X + rectShadow.Width, rectShadow.Y + rectShadow.Height);
+                }
+                _shadownPen.Color = _shadowEnd;
+                g.DrawLine(_shadownPen, rectShadow.X, rectShadow.Y + rectShadow.Height, rectShadow.X + rectShadow.Width, rectShadow.Y + rectShadow.Height);
+                //g.DrawRectangle(new Pen(Color.FromArgb(249, 184, 62), 2), rectShadow);//GetRoundRectangle(rectShadow, 2));
             }
-            Pen p=new Pen(Color.Black,0.5f);
-            p.DashStyle = DashStyle.Dash;
+            //按钮焦点 按钮焦点鼠标悬停 绘制虚线
             if (btnStyle == buttonStyle.ButtonFocuse || btnStyle == buttonStyle.ButtonFocuseAndMouseOver)
             {
                 _dashPen.DashStyle = DashStyle.Dot;
-                g.DrawPath(_dashPen, GetRoundRectangle(rectangle,2));//虚线框
+                g.DrawRectangle(_dashPen, rectDash);
             }
+            //按下按钮 绘制虚线 凸显背景
             if (btnStyle == buttonStyle.ButtonDown)
             {
-                Rectangle tmp = new Rectangle(rect.X + 1, rect.Y + 1, rect.Width - 2, rect.Height - 2);
-                g.FillRectangle(_clickBrush, tmp);
+                g.FillRectangle(_clickBrush, rectShadow);
 
                 _dashPen.DashStyle = DashStyle.Dot;
-                g.DrawPath(_dashPen, GetRoundRectangle(rectangle, 2));//虚线框
+                g.DrawRectangle(_dashPen, rectDash);//虚线框
             }
 
-            Font f = new Font("宋体", 10);
+            Font f = new Font("宋体", 35);
             //g.FillRectangle(new SolidBrush(Color.WhiteSmoke),rectangle);//白色背景
             StringFormat sf = new StringFormat();
             sf.Alignment = StringAlignment.Center;
-            sf.LineAlignment = StringAlignment.Center;
-            rectangle.Y = rectangle.Y + (rect.Height - f.Height) + 2;
-            g.DrawString(Text, new Font("宋体", 10), new SolidBrush(Color.Black), rectangle, sf);
+            sf.LineAlignment = StringAlignment.Far;
+            //rectangle.Y = rectangle.Y + (rect.Height - f.Height) + 2;
+            //g.DrawLine(_splitPen,2,)
+            g.DrawString(Text, new Font("宋体", 20,FontStyle.Bold), _txtBrush, rectDash, sf);
 
-            p.Dispose();
-            b.Dispose();
-            g.SmoothingMode = SmoothingMode.Default;
+            //p.Dispose();
+            //b.Dispose();
+            //g.SmoothingMode = SmoothingMode.Default;
         }
  
        /// <summary> 
