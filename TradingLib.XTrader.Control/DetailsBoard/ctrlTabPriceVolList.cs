@@ -78,6 +78,7 @@ namespace TradingLib.KryptonControl
 
 
         int lineHeight = 18;
+        int titleHeight = 20;
         List<PriceVolPair> pvList = new List<PriceVolPair>();
         void ctrlPriceVolList_Paint(object sender, PaintEventArgs e)
         {
@@ -89,7 +90,7 @@ namespace TradingLib.KryptonControl
                 return;
 
             string ss;
-            float lw = (this.Width - 52) / 2; ;
+            float lw = (this.Width - 60) / 2; ;
             double pr = 0;
             if (symbol != null)
                 pr = symbol.GetYdPrice();
@@ -102,25 +103,35 @@ namespace TradingLib.KryptonControl
                 if (tk.Vol > maxvol)
                     maxvol = tk.Vol;
             }
+            //绘制标题
+            ss = "价格";
+            si = cv.MeasureString(ss, Constants.Font_QuoteInfo_FieldTitle);
+            cv.DrawString(ss, Constants.Font_QuoteInfo_FieldTitle, Brushes.Gray, 15, r1.Top);
+
+            ss = "数量";
+            si = cv.MeasureString(ss, Constants.Font_QuoteInfo_FieldTitle);
+            cv.DrawString(ss, Constants.Font_QuoteInfo_FieldTitle, Brushes.Gray, (int)(60 + lw - si.Width), r1.Top);
+
+
             for (int j = pvList.Count - 1; j > -1; j--)
             {
                 PriceVolPair tk = pvList[j];
-                r1.Y = (pvList.Count - 1 - j) * lineHeight + 2;
+                r1.Y = (pvList.Count - 1 - j) * lineHeight + titleHeight +2;
 
                 ss = string.Format(_priceFormat, tk.Price);
                 si = cv.MeasureString(ss, Constants.QuoteFont);
                 if (tk.Price > pr)
-                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Red, (int)(50 - si.Width), r1.Top);
+                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Red, (int)(60 - si.Width), r1.Top);
                 else
-                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Green, (int)(50 - si.Width), r1.Top);
+                    cv.DrawString(ss, Constants.QuoteFont, Brushes.Green, (int)(60 - si.Width), r1.Top);
 
                 ss = string.Format("{0:D}", tk.Vol);
                 si = cv.MeasureString(ss, Constants.QuoteFont);
-                cv.DrawString(ss, Constants.QuoteFont, Brushes.Yellow, (int)(50 + 1 * lw - si.Width), r1.Top);
+                cv.DrawString(ss, Constants.QuoteFont, Brushes.Yellow, (int)(60 + 1 * lw - si.Width), r1.Top);
                 int ww = (int)(tk.Vol * (lw - 4) / maxvol);
                 if (ww == 0)
                     ww = 1;
-                cv.FillRectangle(Brushes.Aqua, (50 + lw + 2), r1.Top + 2, ww, lineHeight - 4);
+                cv.FillRectangle(Brushes.Aqua, (60 + lw + 2), r1.Top + 2, ww, lineHeight - 4);
 
                 if (r1.Y + lineHeight > this.Height)
                     break;

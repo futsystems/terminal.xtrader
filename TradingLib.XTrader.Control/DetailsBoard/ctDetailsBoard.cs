@@ -160,21 +160,19 @@ namespace CStock
                 return;
            
             _symbol = symbol;
-            quoteInfoType = GetQuoteInfoType(symbol);
+
             //设定当前显示的QuoteInfo
+            quoteInfoType = GetQuoteInfoType(symbol);
             SelectQuoteInfo(quoteInfoType);
 
             if (CurrentQuoteInfo != null)
             {
                 CurrentQuoteInfo.SetSymbol(symbol);
             }
-
-
             pbox1.SetSymbol(symbol);
-            this.Update(symbol);
-           
-            //this.Update(symbol);
+            pbox2.SetSymbol(symbol);
 
+            this.Update(symbol);
         }
 
 
