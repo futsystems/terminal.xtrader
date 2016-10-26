@@ -30,28 +30,25 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.fPriceInput1 = new TradingLib.XTrader.Future.FPriceInput();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.ctrlSymbolSelecter1 = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
-            this.fButton2 = new TradingLib.XTrader.FButton();
-            this.fButton1 = new TradingLib.XTrader.FButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.fPriceInput2 = new TradingLib.XTrader.Future.FPriceInput();
+            this.fPriceInput1 = new TradingLib.XTrader.Future.FPriceInput();
+            this.ctrlSymbolSelecter1 = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
+            this.fButton2 = new TradingLib.XTrader.FButton();
+            this.fButton1 = new TradingLib.XTrader.FButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -66,8 +63,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.fPriceInput2);
             this.tabPage1.Controls.Add(this.fPriceInput1);
-            this.tabPage1.Controls.Add(this.numericUpDown2);
             this.tabPage1.Controls.Add(this.ctrlSymbolSelecter1);
             this.tabPage1.Controls.Add(this.fButton2);
             this.tabPage1.Controls.Add(this.fButton1);
@@ -77,7 +74,6 @@
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.numericUpDown1);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.radioButton3);
             this.tabPage1.Controls.Add(this.radioButton2);
@@ -90,81 +86,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // fPriceInput1
-            // 
-            this.fPriceInput1.Location = new System.Drawing.Point(186, 81);
-            this.fPriceInput1.Name = "fPriceInput1";
-            this.fPriceInput1.Size = new System.Drawing.Size(119, 20);
-            this.fPriceInput1.TabIndex = 20;
-            this.fPriceInput1.Text = "fPriceInput1";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.numericUpDown2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
-            this.numericUpDown2.Location = new System.Drawing.Point(41, 102);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(121, 21);
-            this.numericUpDown2.TabIndex = 19;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            22,
-            0,
-            0,
-            0});
-            // 
-            // ctrlSymbolSelecter1
-            // 
-            this.ctrlSymbolSelecter1.AllowResizeDropDown = true;
-            this.ctrlSymbolSelecter1.ControlSize = new System.Drawing.Size(1, 1);
-            this.ctrlSymbolSelecter1.DropDownControl = null;
-            this.ctrlSymbolSelecter1.DropSize = new System.Drawing.Size(121, 106);
-            this.ctrlSymbolSelecter1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
-            this.ctrlSymbolSelecter1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
-            this.ctrlSymbolSelecter1.Location = new System.Drawing.Point(42, 11);
-            this.ctrlSymbolSelecter1.Name = "ctrlSymbolSelecter1";
-            this.ctrlSymbolSelecter1.Size = new System.Drawing.Size(151, 20);
-            this.ctrlSymbolSelecter1.TabIndex = 18;
-            // 
-            // fButton2
-            // 
-            this.fButton2.BackColor = System.Drawing.Color.Transparent;
-            this.fButton2.CheckButton = false;
-            this.fButton2.Checked = false;
-            this.fButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
-            this.fButton2.Location = new System.Drawing.Point(239, 137);
-            this.fButton2.Name = "fButton2";
-            this.fButton2.OrderEntryButton = true;
-            this.fButton2.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.fButton2.Size = new System.Drawing.Size(80, 60);
-            this.fButton2.TabIndex = 17;
-            this.fButton2.Text = "卖出";
-            this.fButton2.UseVisualStyleBackColor = true;
-            // 
-            // fButton1
-            // 
-            this.fButton1.BackColor = System.Drawing.Color.Transparent;
-            this.fButton1.CheckButton = false;
-            this.fButton1.Checked = false;
-            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
-            this.fButton1.Location = new System.Drawing.Point(153, 137);
-            this.fButton1.Name = "fButton1";
-            this.fButton1.OrderEntryButton = true;
-            this.fButton1.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.fButton1.Size = new System.Drawing.Size(80, 60);
-            this.fButton1.TabIndex = 16;
-            this.fButton1.Text = "买入";
-            this.fButton1.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -222,25 +143,6 @@
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 7;
             this.label3.Text = "价格";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.numericUpDown1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
-            this.numericUpDown1.Location = new System.Drawing.Point(41, 72);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(79, 21);
-            this.numericUpDown1.TabIndex = 6;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // label2
             // 
@@ -303,6 +205,99 @@
             this.tabPage2.Text = "三键下单";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // fPriceInput2
+            // 
+            this.fPriceInput2.DecimalPlace = 2;
+            this.fPriceInput2.Location = new System.Drawing.Point(41, 69);
+            this.fPriceInput2.MaxVal = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.fPriceInput2.MinVal = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.fPriceInput2.Name = "fPriceInput2";
+            this.fPriceInput2.Size = new System.Drawing.Size(79, 20);
+            this.fPriceInput2.TabIndex = 21;
+            this.fPriceInput2.Text = "fPriceInput2";
+            this.fPriceInput2.TxtValue = "1";
+            // 
+            // fPriceInput1
+            // 
+            this.fPriceInput1.DecimalPlace = 2;
+            this.fPriceInput1.Location = new System.Drawing.Point(41, 104);
+            this.fPriceInput1.MaxVal = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.fPriceInput1.MinVal = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.fPriceInput1.Name = "fPriceInput1";
+            this.fPriceInput1.Size = new System.Drawing.Size(119, 20);
+            this.fPriceInput1.TabIndex = 20;
+            this.fPriceInput1.Text = "fPriceInput1";
+            this.fPriceInput1.TxtValue = "0";
+            // 
+            // ctrlSymbolSelecter1
+            // 
+            this.ctrlSymbolSelecter1.AllowResizeDropDown = true;
+            this.ctrlSymbolSelecter1.ControlSize = new System.Drawing.Size(1, 1);
+            this.ctrlSymbolSelecter1.DropDownControl = null;
+            this.ctrlSymbolSelecter1.DropSize = new System.Drawing.Size(121, 106);
+            this.ctrlSymbolSelecter1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.ctrlSymbolSelecter1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
+            this.ctrlSymbolSelecter1.Location = new System.Drawing.Point(42, 11);
+            this.ctrlSymbolSelecter1.Name = "ctrlSymbolSelecter1";
+            this.ctrlSymbolSelecter1.Size = new System.Drawing.Size(151, 20);
+            this.ctrlSymbolSelecter1.TabIndex = 18;
+            // 
+            // fButton2
+            // 
+            this.fButton2.BackColor = System.Drawing.Color.Transparent;
+            this.fButton2.CheckButton = false;
+            this.fButton2.Checked = false;
+            this.fButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
+            this.fButton2.Location = new System.Drawing.Point(239, 137);
+            this.fButton2.Name = "fButton2";
+            this.fButton2.OrderEntryButton = true;
+            this.fButton2.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.fButton2.Size = new System.Drawing.Size(80, 60);
+            this.fButton2.TabIndex = 17;
+            this.fButton2.Text = "卖出";
+            this.fButton2.UseVisualStyleBackColor = true;
+            // 
+            // fButton1
+            // 
+            this.fButton1.BackColor = System.Drawing.Color.Transparent;
+            this.fButton1.CheckButton = false;
+            this.fButton1.Checked = false;
+            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
+            this.fButton1.Location = new System.Drawing.Point(153, 137);
+            this.fButton1.Name = "fButton1";
+            this.fButton1.OrderEntryButton = true;
+            this.fButton1.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.fButton1.Size = new System.Drawing.Size(80, 60);
+            this.fButton1.TabIndex = 16;
+            this.fButton1.Text = "买入";
+            this.fButton1.UseVisualStyleBackColor = true;
+            // 
             // ctrlOrderEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -314,8 +309,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -330,7 +323,6 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -340,7 +332,7 @@
         private FButton fButton1;
         private FButton fButton2;
         private ctrlSymbolSelecter ctrlSymbolSelecter1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
         private FPriceInput fPriceInput1;
+        private FPriceInput fPriceInput2;
     }
 }

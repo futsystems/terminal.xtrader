@@ -182,6 +182,12 @@ namespace TradingLib.XTrader.Future
         }
 
 
+        public decimal MinVal { get { return _mindval; } set { _mindval = value; } }
+        public decimal MaxVal { get { return _maxdval; } set { _maxdval = value; } }
+        public int DecimalPlace { get { return _decimalplace; } set { _decimalplace = value; } }
+
+        public string TxtValue { get { return _txtvalue; } set { _txtvalue = value; } }
+        int _decimalplace = 2;
         decimal _increment = 1;
         decimal _mindval = 0;
         decimal _maxdval = 1000000;
@@ -193,19 +199,19 @@ namespace TradingLib.XTrader.Future
         void InternalSetSelectionStart(int start)
         {
             if (start < 0) return;
-            if (start > value.Length) return;
+            if (start > _txtvalue.Length) return;
             _selectionStart = start;
         }
 
         void OnUpArrowDown()
         { 
             decimal dvalue=0;
-            if (!decimal.TryParse(value, out dvalue)) dvalue = 0;
+            if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             if (dvalue + _increment <= _maxdval)
             {
                 dvalue += _increment;
-                value = dvalue.ToString();
-
+                _txtvalue = dvalue.ToString();
+                _selectionStart = _txtvalue.Length;
                 this.Invalidate();
             }
         }
@@ -214,13 +220,13 @@ namespace TradingLib.XTrader.Future
         void OnDnArrowDown()
         {
             decimal dvalue = 0;
-            if (!decimal.TryParse(value, out dvalue)) dvalue = 0;
+            if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             //默认为能小于0
             if (dvalue- _increment >= _mindval)
             {
                 dvalue -= _increment;
-                value = dvalue.ToString();
-
+                _txtvalue = dvalue.ToString();
+                _selectionStart = _txtvalue.Length;
                 this.Invalidate();
             }
         }
@@ -241,9 +247,12 @@ namespace TradingLib.XTrader.Future
             {
                 logger.Info("exit chart select status");
                 //设定光标位置为当前选中位置
-                int v = _selectionStart;
-                this.InternalSetSelectionStart(_SelectionEnd);
-                _SelectionEnd = v;
+                if (_selectionStart > _SelectionEnd)
+                {
+                    int v = _selectionStart;
+                    this.InternalSetSelectionStart(_SelectionEnd);
+                    _SelectionEnd = v;
+                }
                 _charSelect = false;
                 this.Invalidate();
             }
@@ -272,27 +281,86 @@ namespace TradingLib.XTrader.Future
             var keyData = (Keys)e.KeyChar;
             if ((keyData >= Keys.D0 && keyData <= Keys.D9) || (keyData >= Keys.NumPad0 && keyData <= Keys.NumPad9))
             {
-                if (value.Length < maxLen)
+
+                if (_selected)
+                {
+                    if (_selectionStart == 0 && _SelectionEnd == _txtvalue.Length)
+                    {
+                        _txtvalue = string.Empty + e.KeyChar;
+                    }
+                    else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
+                    {
+                        _txtvalue = e.KeyChar +_txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                    }
+                    else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
+                    {
+                        _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar;
+                    }
+                    else
+                    {
+                        _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                    }
+                    _selectionStart++;//插入字符后selectStart后移一位
+                    if (_selectionStart > _txtvalue.Length)
+                        _selectionStart = _txtvalue.Length;
+                    _selected = false;
+                    this.Invalidate();
+                }
+                else
                 {
                     //value += e.KeyChar;
-                    value = value.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= value.Length ? "" : value.Substring(_selectionStart));
+                    _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
+                    decimal dvalue = 0;
+                    if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
+                    if (dvalue > this.MaxVal)
+                        _txtvalue = this.MaxVal.ToString();
                     _selectionStart++;//插入字符后selectStart后移一位
+                    if (_selectionStart > _txtvalue.Length)
+                        _selectionStart = _txtvalue.Length;
 
                     this.Invalidate();
                 }
                 
+                
             }
             if (keyData == Keys.Back)
             {
-                if (value.Length > 0)
+                if (_txtvalue.Length > 0)
                 {
-                    if (_selectionStart - 1 >= 0)
+                    if (_selected)//删除选中字符
                     {
-                        //value = value.Substring(0, value.Length - 1);
-                        value = value.Substring(0, _selectionStart - 1) + (_selectionStart >= value.Length ? "" : value.Substring(_selectionStart));
-                        _selectionStart--;//删除一个字符后 selectStart前移一位;
-
+                        if (_selectionStart == 0 && _SelectionEnd == _txtvalue.Length)
+                        {
+                            _txtvalue = string.Empty;
+                        }
+                        else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
+                        {
+                            _txtvalue = _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                        }
+                        else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
+                        {
+                            _txtvalue = _txtvalue.Substring(0, _selectionStart);
+                        }
+                        else
+                        {
+                            _txtvalue = _txtvalue.Substring(0, _selectionStart) + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                        }
+                        //_selectionStart--;//删除一个字符后 selectStart前移一位;
+                        //if (_selectionStart < 0)
+                        //    _selectionStart = 0;
+                        _selected = false;
                         this.Invalidate();
+                    }
+                    else //删除selectionStart前一位字符
+                    {
+                        if (_selectionStart - 1 >= 0)
+                        {
+                            _txtvalue = _txtvalue.Substring(0, _selectionStart - 1) + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
+                            _selectionStart--;//删除一个字符后 selectStart前移一位;
+                            if (_selectionStart < 0)
+                                _selectionStart = 0;
+                            this.Invalidate();
+                        }
                     }
                 }
             }
@@ -300,9 +368,9 @@ namespace TradingLib.XTrader.Future
             //小数点
             if (e.KeyChar == '.')
             {
-                if (!value.Contains('.'))
+                if (_decimalplace > 0 && !_txtvalue.Contains('.'))
                 {
-                    value = value.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= value.Length ? "" : value.Substring(_selectionStart));
+                    _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
                     _selectionStart++;//插入字符后selectStart后移一位
                     this.Invalidate();
                 }
@@ -317,7 +385,7 @@ namespace TradingLib.XTrader.Future
 
         
 
-        string value = string.Empty;
+        string _txtvalue = string.Empty;
 
         
         int _currentX = 0;
@@ -477,9 +545,9 @@ namespace TradingLib.XTrader.Future
             bool inTxt = false;
             int location = 0;
             SizeF size;
-            for (int i = 1; i <= value.Length; i++)
+            for (int i = 1; i <= _txtvalue.Length; i++)
             {
-                string tmp = value.Substring(0, i);
+                string tmp = _txtvalue.Substring(0, i);
                 size = g.MeasureString(tmp, _font);
                 if (size.Width >= _currentX)
                 {
@@ -491,7 +559,7 @@ namespace TradingLib.XTrader.Future
             //当前坐标不在字符串中则为整个字符串长度
             if (!inTxt)
             {
-                location = value.Length;
+                location = _txtvalue.Length;
             }
             return location;
         }
@@ -504,7 +572,7 @@ namespace TradingLib.XTrader.Future
             Point location = new Point(0,0);
             location.Y += 5;
 
-            SizeF size = g.MeasureString(value, _font);
+            SizeF size = g.MeasureString(_txtvalue, _font);
             Rectangle rectBorder = this.ClientRectangle;
             rectBorder.Height--;
             rectBorder.Width--;
@@ -526,14 +594,12 @@ namespace TradingLib.XTrader.Future
                 logger.Info(string.Format("_currentX:{0} cursor location:{1}", _currentX, locatioin));
             }
 
-            string ss = value.Substring(0, _selectionStart);
+            string ss = _txtvalue.Substring(0, _selectionStart);
             size = g.MeasureString(ss, _font);
 
             int selectionStartX = (int)size.Width + 1;
 
-            ss = value.Substring(0, _SelectionEnd);
-            size = g.MeasureString(ss, _font);
-            int selectionEndX = (int)size.Width + 1;
+            
 
             if (this.Focused)
             {
@@ -551,12 +617,12 @@ namespace TradingLib.XTrader.Future
                 if (_SelectionEnd < _selectionStart)
                 {
 
-                    Rectangle selectRect = new Rectangle(_currentX, 1, selectionStartX - _currentX, this.Height);
+                    Rectangle selectRect = new Rectangle(_currentX, txtOffset, selectionStartX - _currentX, _font.Height);
                     g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
                 }
                 if (_SelectionEnd > _selectionStart)
                 {
-                    Rectangle selectRect = new Rectangle(selectionStartX, 1, _currentX - selectionStartX, this.Height);
+                    Rectangle selectRect = new Rectangle(selectionStartX, txtOffset, _currentX - selectionStartX, _font.Height);
                     g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
 
                 }
@@ -568,20 +634,24 @@ namespace TradingLib.XTrader.Future
             //不在选择状态 则显示当前选中的
             if (!_charSelect && _selected)
             {
+                ss = _txtvalue.Substring(0, _SelectionEnd);
+                size = g.MeasureString(ss, _font);
+                int selectionEndX = (int)size.Width + 1;
+
                 if (selectionStartX > selectionEndX)
                 {
-                    Rectangle selectRect = new Rectangle(selectionEndX, 1, selectionStartX - selectionEndX, this.Height);
+                    Rectangle selectRect = new Rectangle(selectionEndX, txtOffset, selectionStartX - selectionEndX, _font.Height);
                     g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
                 }
                 if (selectionStartX < selectionEndX)
                 {
-                    Rectangle selectRect = new Rectangle(selectionStartX, 1, selectionEndX - selectionStartX, this.Height);
+                    Rectangle selectRect = new Rectangle(selectionStartX, txtOffset, selectionEndX - selectionStartX, _font.Height);
                     g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
                 }
             }
 
             _brush.Color = _itemColor;
-            g.DrawString(value, _font, _brush, 0, txtOffset);
+            g.DrawString(_txtvalue, _font, _brush, 0, txtOffset);
 
         }
     }
