@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using TradingLib.MarketData;
 using Common.Logging;
 
@@ -24,7 +26,14 @@ namespace TradingLib.XTrader.Future
 
         ILog logger = LogManager.GetLogger("FPriceInput");
 
-
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool CreateCaret(IntPtr hWnd, IntPtr hBmp, int w, int h);
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SetCaretPos(int x, int y);
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool ShowCaret(IntPtr hWnd);
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool DestroyCaret();
 
         public FPriceInput()
         {
@@ -91,7 +100,11 @@ namespace TradingLib.XTrader.Future
 
         protected override void OnGotFocus(EventArgs e)
         {
-            logger.Info("got focus");
+            logger.Info("got focus cursor x:"+Cursor.Position.X.ToString() + " y:"+Cursor.Position.Y.ToString());
+
+            CreateCaret(this.Handle, IntPtr.Zero, 1, this.Height - 4);
+            SetCaretPos(2, 2);
+            ShowCaret(this.Handle);
             base.OnGotFocus(e);
             this.Invalidate();
         }
@@ -99,6 +112,7 @@ namespace TradingLib.XTrader.Future
         protected override void OnLostFocus(EventArgs e)
         {
             logger.Info("lost focus");
+            DestroyCaret();
             base.OnLostFocus(e);
             this.Invalidate();
         }
@@ -142,24 +156,37 @@ namespace TradingLib.XTrader.Future
 
 
         decimal _increment = 1;
+        decimal _mindval = 0;
+        decimal _maxdval = 1000000;
+        int _selectionStart = 0;//光标所处位置
+
+
         void OnUpArrowDown()
         { 
             decimal dvalue=0;
             if (!decimal.TryParse(value, out dvalue)) dvalue = 0;
-            dvalue += _increment;
-            value = dvalue.ToString();
+            if (dvalue + _increment <= _maxdval)
+            {
+                dvalue += _increment;
+                value = dvalue.ToString();
 
-            this.Invalidate();
+                this.Invalidate();
+            }
         }
+
 
         void OnDnArrowDown()
         {
             decimal dvalue = 0;
             if (!decimal.TryParse(value, out dvalue)) dvalue = 0;
-            dvalue -= _increment;
-            value = dvalue.ToString();
+            //默认为能小于0
+            if (dvalue- _increment >= _mindval)
+            {
+                dvalue -= _increment;
+                value = dvalue.ToString();
 
-            this.Invalidate();
+                this.Invalidate();
+            }
         }
 
 
@@ -215,6 +242,16 @@ namespace TradingLib.XTrader.Future
                     this.Invalidate();
                 }
             }
+            
+            //小数点
+            if (e.KeyChar == '.')
+            {
+                if (!value.Contains('.'))
+                {
+                    value += e.KeyChar;
+                    this.Invalidate();
+                }
+            }
             base.OnKeyPress(e);
         }
 
@@ -266,8 +303,16 @@ namespace TradingLib.XTrader.Future
         {
             //位于按钮区域
             if (e.X > this.Width - 15 - 1 && e.Y > 0 && e.X < this.Width && e.Y < this.Height)
-            { 
-                
+            {
+
+            }
+            else
+            {
+                //判定当前光标位置
+                for (int i = 0; i < value.Length; i++)
+                { 
+                    
+                }
             }
         }
 
@@ -352,10 +397,11 @@ namespace TradingLib.XTrader.Future
             Point location = new Point(0,0);
             location.Y += 5;
 
+            SizeF size = g.MeasureString(value, _font);
             Rectangle rectBorder = this.ClientRectangle;
             rectBorder.Height--;
             rectBorder.Width--;
-            _pen.Color = Color.Black;
+            _pen.Color = Constants.BorderColor;
             g.DrawRectangle(_pen, rectBorder);
 
             
@@ -368,7 +414,8 @@ namespace TradingLib.XTrader.Future
 
             if (this.Focused)
             {
-                //g.DrawString("8", _font, _brush, 0, 0);
+                SetCaretPos((int)size.Width + 2, 2);
+                
             }
         }
     }
