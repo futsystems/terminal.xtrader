@@ -48,6 +48,20 @@ namespace TradingLib.XTrader.Future
 
         }
 
+        #region 外部属性
+        public decimal MinVal { get { return _mindval; } set { _mindval = value; } }
+        public decimal MaxVal { get { return _maxdval; } set { _maxdval = value; } }
+        public int DecimalPlace { get { return _decimalplace; } set { _decimalplace = value; } }
+
+        public string TxtValue { get { return _txtvalue; } set { _txtvalue = value; } }
+        int _decimalplace = 2;
+        decimal _increment = 1;
+        decimal _mindval = 0;
+        decimal _maxdval = 1000000;
+        string _txtvalue = string.Empty;
+        #endregion
+
+        #region 内部状态变量
         bool _upBtnMouseDown = false;
         bool _dnBtnMouseDown = false;
 
@@ -95,9 +109,38 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        bool _txtMouseDown = false;
 
-        bool mousedown = false;
+        bool TxtMouseDown
+        {
+            get { return _txtMouseDown; }
+            set
+            {
+                _txtMouseDown = value;
+                this.Invalidate();
+            }
+        }
+        //记录鼠标点击时坐标
+        int _mouseDownX = 0;
+        int _mouseDownY = 0;
 
+        //记录鼠标当前位置
+        int _currentX = 0;
+        int _currentY = 0;
+
+        //是否处于字符选择中状态 按住鼠标拖动执行选择操作
+        bool _charSelect = false;
+        //是否处于字符选择完毕状态 选择完毕松开按键后被选中的字符处于高亮状态
+        bool _selected = false;
+
+
+        int _selectionStart = 0;//光标所处开始
+        int _SelectionEnd = 0;//光标所处结束
+        
+
+        #endregion
+
+        #region 覆写 鼠标 键盘操作处理
         protected override void OnGotFocus(EventArgs e)
         {
             logger.Info("got focus cursor x:"+Cursor.Position.X.ToString() + " y:"+Cursor.Position.Y.ToString());
@@ -117,21 +160,8 @@ namespace TradingLib.XTrader.Future
             this.Invalidate();
         }
 
-        bool _txtMouseDown = false;
-
-        bool TxtMouseDown { get { return _txtMouseDown; }
-            set {
-                _txtMouseDown = value;
-                this.Invalidate();
-            }
-        }
-
-        int _mouseDownX = 0;
-        int _mouseDownY = 0;
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            
-            mousedown = true;
             _mouseDownX = e.X;
             _mouseDownY = e.Y;
 
@@ -181,67 +211,14 @@ namespace TradingLib.XTrader.Future
 
         }
 
-
-        public decimal MinVal { get { return _mindval; } set { _mindval = value; } }
-        public decimal MaxVal { get { return _maxdval; } set { _maxdval = value; } }
-        public int DecimalPlace { get { return _decimalplace; } set { _decimalplace = value; } }
-
-        public string TxtValue { get { return _txtvalue; } set { _txtvalue = value; } }
-        int _decimalplace = 2;
-        decimal _increment = 1;
-        decimal _mindval = 0;
-        decimal _maxdval = 1000000;
-        int _selectionStart = 0;//光标所处位置
-        /// <summary>
-        /// 设置当前光标位置
-        /// </summary>
-        /// <param name="start"></param>
-        void InternalSetSelectionStart(int start)
-        {
-            if (start < 0) return;
-            if (start > _txtvalue.Length) return;
-            _selectionStart = start;
-        }
-
-        void OnUpArrowDown()
-        { 
-            decimal dvalue=0;
-            if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
-            if (dvalue + _increment <= _maxdval)
-            {
-                dvalue += _increment;
-                _txtvalue = dvalue.ToString();
-                _selectionStart = _txtvalue.Length;
-                this.Invalidate();
-            }
-        }
-
-
-        void OnDnArrowDown()
-        {
-            decimal dvalue = 0;
-            if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
-            //默认为能小于0
-            if (dvalue- _increment >= _mindval)
-            {
-                dvalue -= _increment;
-                _txtvalue = dvalue.ToString();
-                _selectionStart = _txtvalue.Length;
-                this.Invalidate();
-            }
-        }
-
-
         protected override void OnMouseUp(MouseEventArgs e)
         {
             //鼠标up则所有按钮MoouseDonwn为False
             this.DnBtnMouseDown = false;
             this.UpBtnMouseDown = false;
 
-            if(this.TxtMouseDown)
+            if (this.TxtMouseDown)
                 this.TxtMouseDown = false;
-
-            mousedown = false;
 
             if (_charSelect)
             {
@@ -262,15 +239,15 @@ namespace TradingLib.XTrader.Future
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            //鼠标离开控件则所有按钮MouseOver为False
-            this.UpBtnMouseOver = false;
-            this.DnBtnMouseOver = false;
+
             base.OnMouseEnter(e);
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
-
+            //鼠标离开控件则所有按钮MouseOver为False
+            this.UpBtnMouseOver = false;
+            this.DnBtnMouseOver = false;
             base.OnMouseLeave(e);
         }
 
@@ -290,7 +267,7 @@ namespace TradingLib.XTrader.Future
                     }
                     else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
                     {
-                        _txtvalue = e.KeyChar +_txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                        _txtvalue = e.KeyChar + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
                     }
                     else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
                     {
@@ -320,8 +297,8 @@ namespace TradingLib.XTrader.Future
 
                     this.Invalidate();
                 }
-                
-                
+
+
             }
             if (keyData == Keys.Back)
             {
@@ -364,7 +341,7 @@ namespace TradingLib.XTrader.Future
                     }
                 }
             }
-            
+
             //小数点
             if (e.KeyChar == '.')
             {
@@ -378,24 +355,6 @@ namespace TradingLib.XTrader.Future
             base.OnKeyPress(e);
         }
 
-
-
-        int maxLen = 10;
-
-
-        
-
-        string _txtvalue = string.Empty;
-
-        
-        int _currentX = 0;
-        int _currentY = 0;
-
-
-        bool _charSelect = false;
-        int _SelectionEnd = 0;
-        bool _selected = false;
-        /// <summary>
         /// 通过鼠标移动来捕捉当前是否在按钮之上
         /// </summary>
         /// <param name="sender"></param>
@@ -448,7 +407,7 @@ namespace TradingLib.XTrader.Future
 
         }
 
-        
+
         void FListBox_MouseClick(object sender, MouseEventArgs e)
         {
             //位于按钮区域
@@ -462,6 +421,7 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        /*
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             if (e.Delta > 0)
@@ -473,9 +433,6 @@ namespace TradingLib.XTrader.Future
                 ScrollRowUp();
             }
         }
-
-
-
 
         void ScrollRowUp()
         {
@@ -489,34 +446,73 @@ namespace TradingLib.XTrader.Future
         void ScrollRowDown()
         {
             int totalNum = this.Height / lineHeight;
-            if (_startIdx>0)
+            if (_startIdx > 0)
             {
                 _startIdx--;
+                this.Invalidate();
+            }
+        }**/
+
+        #endregion
+
+
+
+
+        #region 内部函数
+        /// <summary>
+        /// 设置当前光标位置
+        /// </summary>
+        /// <param name="start"></param>
+        void InternalSetSelectionStart(int start)
+        {
+            if (start < 0) return;
+            if (start > _txtvalue.Length) return;
+            _selectionStart = start;
+        }
+
+        void OnUpArrowDown()
+        { 
+            decimal dvalue=0;
+            if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
+            if (dvalue + _increment <= _maxdval)
+            {
+                dvalue += _increment;
+                _txtvalue = dvalue.ToString();
+                _selectionStart = _txtvalue.Length;
                 this.Invalidate();
             }
         }
 
 
 
-        public event Action<string> ItemSelected;
-
-        string _selectedItem = string.Empty;
-        public string SelectedItem
+        void OnDnArrowDown()
         {
-            get { return _selectedItem; }
+            decimal dvalue = 0;
+            if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
+            //默认为能小于0
+            if (dvalue- _increment >= _mindval)
+            {
+                dvalue -= _increment;
+                _txtvalue = dvalue.ToString();
+                _selectionStart = _txtvalue.Length;
+                this.Invalidate();
+            }
         }
-        List<string> _items = new List<string>();
+        #endregion
 
-        public List<string> Items { get { return _items; } }
 
-        int lineHeight = 16;
+
+        
+
+
+
+
         Font _font = new Font("宋体", 10f,FontStyle.Bold);
         Color _itemColor = Color.FromArgb(4, 60, 109);
         SolidBrush _brush = new SolidBrush(Color.Black);
         SolidBrush _mouseOverBrush = new SolidBrush(Color.FromArgb(51, 153, 255));
         StringFormat itemFormat = new StringFormat();
 
-        int _startIdx = 0;
         Pen _pen = new Pen(Color.Black);
 
 
@@ -597,7 +593,7 @@ namespace TradingLib.XTrader.Future
             string ss = _txtvalue.Substring(0, _selectionStart);
             size = g.MeasureString(ss, _font);
 
-            int selectionStartX = (int)size.Width + 1;
+            int selectionStartX = (int)size.Width+1;
 
             
 
