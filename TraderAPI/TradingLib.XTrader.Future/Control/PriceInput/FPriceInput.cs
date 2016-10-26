@@ -103,7 +103,7 @@ namespace TradingLib.XTrader.Future
             logger.Info("got focus cursor x:"+Cursor.Position.X.ToString() + " y:"+Cursor.Position.Y.ToString());
 
             CreateCaret(this.Handle, IntPtr.Zero, 1, this.Height - 4);
-            SetCaretPos(2, 2);
+            SetCaretPos(1, 2);
             ShowCaret(this.Handle);
             base.OnGotFocus(e);
             this.Invalidate();
@@ -116,7 +116,15 @@ namespace TradingLib.XTrader.Future
             base.OnLostFocus(e);
             this.Invalidate();
         }
-        
+
+        bool _txtMouseDown = false;
+
+        bool TxtMouseDown { get { return _txtMouseDown; }
+            set {
+                _txtMouseDown = value;
+                this.Invalidate();
+            }
+        }
         protected override void OnMouseDown(MouseEventArgs e)
         {
             
@@ -147,6 +155,13 @@ namespace TradingLib.XTrader.Future
             {
                 this.DnBtnMouseDown = false;
                 this.UpBtnMouseDown = false;
+
+                //文本区域MouseDown
+                if (e.X > 0 && e.X < this.Width - 15 - 1 && e.Y > 0 && e.Y < this.Height)
+                {
+                    if(!this.TxtMouseDown)
+                        this.TxtMouseDown = true;
+                }
             }
 
             base.OnMouseDown(e);
@@ -159,7 +174,16 @@ namespace TradingLib.XTrader.Future
         decimal _mindval = 0;
         decimal _maxdval = 1000000;
         int _selectionStart = 0;//光标所处位置
-
+        /// <summary>
+        /// 设置当前光标位置
+        /// </summary>
+        /// <param name="start"></param>
+        void InternalSetSelectionStart(int start)
+        {
+            if (start < 0) return;
+            if (start > value.Length) return;
+            _selectionStart = start;
+        }
 
         void OnUpArrowDown()
         { 
@@ -196,6 +220,9 @@ namespace TradingLib.XTrader.Future
             this.DnBtnMouseDown = false;
             this.UpBtnMouseDown = false;
 
+            if(this.TxtMouseDown)
+                this.TxtMouseDown = false;
+
             mousedown = false;
 
 
@@ -227,7 +254,7 @@ namespace TradingLib.XTrader.Future
                 if (value.Length < maxLen)
                 {
                     value += e.KeyChar;
-
+                    _selectionStart++;//插入字符后selectStart后移一位
 
                     this.Invalidate();
                 }
@@ -237,9 +264,14 @@ namespace TradingLib.XTrader.Future
             {
                 if (value.Length > 0)
                 {
-                    value = value.Substring(0, value.Length - 1);
+                    if (_selectionStart - 1 >= 0)
+                    {
+                        //value = value.Substring(0, value.Length - 1);
+                        value = value.Substring(0, _selectionStart - 1) + (_selectionStart >= value.Length ? "" : value.Substring(_selectionStart));
+                        _selectionStart--;//删除一个字符后 selectStart前移一位;
 
-                    this.Invalidate();
+                        this.Invalidate();
+                    }
                 }
             }
             
@@ -249,6 +281,7 @@ namespace TradingLib.XTrader.Future
                 if (!value.Contains('.'))
                 {
                     value += e.KeyChar;
+                    _selectionStart++;//插入字符后selectStart后移一位
                     this.Invalidate();
                 }
             }
@@ -264,6 +297,11 @@ namespace TradingLib.XTrader.Future
 
         string value = string.Empty;
 
+        
+        int _currentX = 0;
+        int _currentY = 0;
+
+
         /// <summary>
         /// 通过鼠标移动来捕捉当前是否在按钮之上
         /// </summary>
@@ -271,9 +309,14 @@ namespace TradingLib.XTrader.Future
         /// <param name="e"></param>
         void FListBox_MouseMove(object sender, MouseEventArgs e)
         {
+            _currentX = e.X;
+            _currentY = e.Y;
+
+
             //位于按钮区域
             if (e.X > this.Width - 15 - 1 && e.Y > 0 && e.X < this.Width && e.Y < this.Height)
             {
+                this.Cursor = Cursors.Default;
                 if (e.X > this.Width - 15 - 1 && e.Y > 0 && e.X < this.Width && e.Y < 10)
                 {
                     this.UpBtnMouseOver = true;
@@ -293,12 +336,14 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
+                this.Cursor = Cursors.IBeam;
                 this.UpBtnMouseOver = false;
                 this.DnBtnMouseOver = false;
             }
 
         }
 
+        
         void FListBox_MouseClick(object sender, MouseEventArgs e)
         {
             //位于按钮区域
@@ -308,11 +353,12 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                //判定当前光标位置
-                for (int i = 0; i < value.Length; i++)
-                { 
+                ////判定当前光标位置
+                //for (int i = 1 ; i <= value.Length; i++)
+                //{
+                //    string tmp = value.Substring(0, i);
                     
-                }
+                //}
             }
         }
 
@@ -412,10 +458,36 @@ namespace TradingLib.XTrader.Future
             _brush.Color = _itemColor;
             g.DrawString(value, _font, _brush, 0, txtOffset);
 
+            int _cursorLocation = 0;
+            bool _inTxt = false;
+            if (this.TxtMouseDown)
+            {
+                for (int i = 1; i <= value.Length; i++)
+                {
+                    string tmp = value.Substring(0, i);
+                    size = g.MeasureString(tmp, _font);
+                    if (size.Width >= _currentX)
+                    {
+                        _inTxt = true;
+                        _cursorLocation = i - 1;
+                        break;
+                    }
+                }
+                if (!_inTxt)
+                {
+                    _cursorLocation = value.Length;
+                }
+
+                InternalSetSelectionStart(_cursorLocation);
+                logger.Info(string.Format("_currentX:{0} cursor location:{1}", _currentX, _cursorLocation));
+            }
+            
             if (this.Focused)
             {
-                SetCaretPos((int)size.Width + 2, 2);
-                
+                string tmp = value.Substring(0, _selectionStart);
+                size = g.MeasureString(tmp, _font);
+
+                SetCaretPos((int)size.Width+1, 2);
             }
         }
     }
