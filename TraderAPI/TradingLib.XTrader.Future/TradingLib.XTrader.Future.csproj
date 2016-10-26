@@ -57,6 +57,12 @@
     <Compile Include="Control\ComboBoxEx\ctrlSymbolSelecter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Control\ComboBoxEx\FListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ComboBoxEx\FListBox.Designer.cs">
+      <DependentUpon>FListBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\ComboBoxEx\CustomComboBox.cs">
       <SubType>Component</SubType>
     </Compile>

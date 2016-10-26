@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ctrlSymbolSelecter1 = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.fButton2 = new TradingLib.XTrader.FButton();
             this.fButton1 = new TradingLib.XTrader.FButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ctrlSymbolSelecter1 = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -87,6 +87,19 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ctrlSymbolSelecter1
+            // 
+            this.ctrlSymbolSelecter1.AllowResizeDropDown = true;
+            this.ctrlSymbolSelecter1.ControlSize = new System.Drawing.Size(1, 1);
+            this.ctrlSymbolSelecter1.DropDownControl = null;
+            this.ctrlSymbolSelecter1.DropSize = new System.Drawing.Size(121, 106);
+            this.ctrlSymbolSelecter1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.ctrlSymbolSelecter1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
+            this.ctrlSymbolSelecter1.Location = new System.Drawing.Point(42, 11);
+            this.ctrlSymbolSelecter1.Name = "ctrlSymbolSelecter1";
+            this.ctrlSymbolSelecter1.Size = new System.Drawing.Size(151, 20);
+            this.ctrlSymbolSelecter1.TabIndex = 18;
             // 
             // fButton2
             // 
@@ -265,17 +278,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "三键下单";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // ctrlSymbolSelecter1
-            // 
-            this.ctrlSymbolSelecter1.AllowResizeDropDown = true;
-            this.ctrlSymbolSelecter1.ControlSize = new System.Drawing.Size(1, 1);
-            this.ctrlSymbolSelecter1.DropDownControl = null;
-            this.ctrlSymbolSelecter1.DropSize = new System.Drawing.Size(121, 106);
-            this.ctrlSymbolSelecter1.Location = new System.Drawing.Point(42, 11);
-            this.ctrlSymbolSelecter1.Name = "ctrlSymbolSelecter1";
-            this.ctrlSymbolSelecter1.Size = new System.Drawing.Size(151, 20);
-            this.ctrlSymbolSelecter1.TabIndex = 18;
             // 
             // ctrlOrderEntry
             // 

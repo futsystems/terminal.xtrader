@@ -26,40 +26,62 @@ namespace TradingLib.XTrader.Future
             : base()
         {
             m_sizeCombo = new Size(base.DropDownWidth, base.DropDownHeight);
+            this.ForeColor = Color.FromArgb(4, 60, 109);
+            this.Font = new Font("宋体", 9f, FontStyle.Bold);
             m_popupCtrl.Closing += new ToolStripDropDownClosingEventHandler(m_dropDown_Closing);
 
             m_titleList.Height = 200;
-            m_titleList.BorderStyle = BorderStyle.None;
-            m_symbolList.BorderStyle = BorderStyle.None;
+            m_symbolList.Height = 80;
+            //m_titleList.BorderStyle = BorderStyle.None;
+            //m_symbolList.BorderStyle = BorderStyle.None;
 
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("CL");
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("CL");
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("CL");
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("CL");
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("CL");
-            m_titleList.Items.Add("IF");
-            m_titleList.Items.Add("HSI");
-            m_titleList.Items.Add("CL");
-            m_titleList.Items.Add("CL");
+            m_titleList.Items.Add("IF  股指1");
+            m_titleList.Items.Add("HSI 恒指2");
+            m_titleList.Items.Add("CL  原油3");
+            m_titleList.Items.Add("IF  股指4");
+            m_titleList.Items.Add("HSI 股指5");
+            m_titleList.Items.Add("CL  股指6");
+            m_titleList.Items.Add("IF  股指7");
+            m_titleList.Items.Add("HSI 股指8");
+            m_titleList.Items.Add("IF  股指9");
+            m_titleList.Items.Add("HSI 股指10");
+            m_titleList.Items.Add("CL11");
+            m_titleList.Items.Add("IF12");
+            m_titleList.Items.Add("HSI13");
+            m_titleList.Items.Add("CL14");
+            m_titleList.Items.Add("IF15");
+            m_titleList.Items.Add("HSI16");
+            m_titleList.Items.Add("CL17");
+            m_titleList.Items.Add("IF18");
+            m_titleList.Items.Add("HSI19");
+            m_titleList.Items.Add("CL20");
+            m_titleList.Items.Add("CL21");
 
-            m_symbolList.Items.Add("CLX6");
-            m_symbolList.Items.Add("CLZ6");
+            m_symbolList.Items.Add("CLX622");
+            m_symbolList.Items.Add("CLZ623");
 
-            m_symbolList.SelectedValueChanged += new EventHandler(m_symbolList_SelectedValueChanged);
+            //m_symbolList.SelectedValueChanged += new EventHandler(m_symbolList_SelectedValueChanged);
 
-            m_titleList.SelectedValueChanged += new EventHandler(m_titleList_SelectedValueChanged);
+            //m_titleList.SelectedValueChanged += new EventHandler(m_titleList_SelectedValueChanged);
+            m_titleList.ItemSelected += new Action<string>(m_titleList_ItemSelected);
+            m_symbolList.ItemSelected += new Action<string>(m_symbolList_ItemSelected);
+        }
+
+        void m_symbolList_ItemSelected(string obj)
+        {
+            if (m_popupCtrl != null && this.IsDroppedDown)
+            {
+                //关闭合约列表
+                m_popupCtrl.Hide();
+            }
+            this.Text = obj;
+        }
+
+        void m_titleList_ItemSelected(string obj)
+        {
+            ShowSymbolList(obj);
+
+
         }
 
         void m_titleList_SelectedValueChanged(object sender, EventArgs e)
@@ -177,9 +199,9 @@ namespace TradingLib.XTrader.Future
             /// </summary>
             DropDownSymbol,
         }
-        ListBox m_titleList = new ListBox();
+        FListBox m_titleList = new FListBox();
 
-        ListBox m_symbolList = new ListBox();
+        FListBox m_symbolList = new FListBox();
 
         #endregion
 
