@@ -121,7 +121,7 @@ namespace TradingLib.XTrader.Future
             g.FillRectangle(Brushes.White, this.ClientRectangle);
 
             Point location = new Point(0,0);
-            location.Y += 5;
+            location.Y +=1;
 
             int fheight = _font.Height;
             int offset = (lineHeight-fheight)/2;

@@ -1,6 +1,6 @@
 ﻿namespace TradingLib.XTrader.Future
 {
-    partial class FPriceInput
+    partial class FNumberInput
     {
         /// <summary>
         /// 必需的设计器变量。

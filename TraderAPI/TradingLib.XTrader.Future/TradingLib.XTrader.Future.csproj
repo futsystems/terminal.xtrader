@@ -56,17 +56,17 @@
     <Compile Include="Control\ComboBoxEx\ctrlSymbolSelecter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\ComboBoxEx\FListBox.cs">
+    <Compile Include="Common\FListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\ComboBoxEx\FListBox.Designer.cs">
+    <Compile Include="Common\FListBox.Designer.cs">
       <DependentUpon>FListBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\ComboBoxEx\CustomComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\ComboBoxEx\OldNewEvent.cs" />
-    <Compile Include="Control\ComboBoxEx\PopupControl.cs">
+    <Compile Include="Common\DropDown\OldNewEvent.cs" />
+    <Compile Include="Common\DropDown\PopupControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Control\ComboBoxEx\SymbolSet.cs" />
@@ -76,10 +76,10 @@
     <Compile Include="Control\ctrlOrderEntry.Designer.cs">
       <DependentUpon>ctrlOrderEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\ctrlListMenu.cs">
+    <Compile Include="Common\ctrlListMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\ctrlListMenu.Designer.cs">
+    <Compile Include="Common\ctrlListMenu.Designer.cs">
       <DependentUpon>ctrlListMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\ctVerify.cs">
@@ -97,17 +97,11 @@
     <Compile Include="Control\ctrlTrade.Designer.cs">
       <DependentUpon>ctrlTrade.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\PriceInput\FPriceInput.cs">
+    <Compile Include="Common\FNumberInput.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\PriceInput\FPriceInput.Designer.cs">
-      <DependentUpon>FPriceInput.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Control\PriceInput\PriceInput.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Control\PriceInput\PriceInput.Designer.cs">
-      <DependentUpon>PriceInput.cs</DependentUpon>
+    <Compile Include="Common\FNumberInput.Designer.cs">
+      <DependentUpon>FNumberInput.cs</DependentUpon>
     </Compile>
     <Compile Include="ctrlFutureTrader.cs">
       <SubType>UserControl</SubType>
@@ -121,10 +115,10 @@
     <Compile Include="ctrlTraderLogin.Designer.cs">
       <DependentUpon>ctrlTraderLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FButton.cs">
+    <Compile Include="Common\FButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FGrid.cs">
+    <Compile Include="Common\FGrid.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="IPage.cs" />
@@ -200,9 +194,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctrlTrade.resx">
       <DependentUpon>ctrlTrade.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Control\PriceInput\PriceInput.resx">
-      <DependentUpon>PriceInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ctrlFutureTrader.resx">
       <DependentUpon>ctrlFutureTrader.cs</DependentUpon>
@@ -305,6 +296,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-up-mouse-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Control\PriceInput\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

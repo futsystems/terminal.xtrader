@@ -18,10 +18,11 @@ namespace TradingLib.XTrader.Future
         UPBtnMouseOver,
         UpBtnMouseClick,
     }
+
     /// <summary>
     /// 通过Panel绘制以及Control控件直接绘制 比较发现原生控件效率高
     /// </summary>
-    public partial class FPriceInput : System.Windows.Forms.Control
+    public partial class FNumberInput : System.Windows.Forms.Control, IPopupControlHost
     {
 
         ILog logger = LogManager.GetLogger("FPriceInput");
@@ -35,7 +36,7 @@ namespace TradingLib.XTrader.Future
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool DestroyCaret();
 
-        public FPriceInput()
+        public FNumberInput()
         {
             
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace TradingLib.XTrader.Future
         }
 
         #region 外部属性
+        public bool ShowTop { get; set; }
         public decimal MinVal { get { return _mindval; } set { _mindval = value; } }
         public decimal MaxVal { get { return _maxdval; } set { _maxdval = value; } }
         public int DecimalPlace { get { return _decimalplace; } set { _decimalplace = value; } }
@@ -60,6 +62,16 @@ namespace TradingLib.XTrader.Future
         decimal _maxdval = 1000000;
         string _txtvalue = string.Empty;
         #endregion
+
+        bool _txtMode = false;
+        public void SetTxtVal(string txt)
+        {
+            _txtMode = true;
+            _txtvalue = txt;
+            _selectionStart = _txtvalue.Length;
+            _SelectionEnd = 0;
+            this.Invalidate();
+        }
 
         #region 内部状态变量
         bool _upBtnMouseDown = false;
@@ -192,20 +204,28 @@ namespace TradingLib.XTrader.Future
                 this.DnBtnMouseDown = false;
                 this.UpBtnMouseDown = false;
 
-                //文本区域MouseDown
-                if (e.X > 0 && e.X < this.Width - 15 - 1 && e.Y > 0 && e.Y < this.Height)
+                if (!_txtMode)
                 {
-                    if(!this.TxtMouseDown)
-                        this.TxtMouseDown = true;
-                }
+                    //文本区域MouseDown
+                    if (e.X > 0 && e.X < this.Width - 15 - 1 && e.Y > 0 && e.Y < this.Height)
+                    {
+                        if (!this.TxtMouseDown)
+                            this.TxtMouseDown = true;
+                    }
 
-                if (_selected)
-                {
-                    logger.Info("clear selected");
-                    _selected = false;
+                    if (_selected)
+                    {
+                        logger.Info("clear selected");
+                        _selected = false;
+                    }
                 }
+                else
+                {
+                    _selected = true;
+                }
+                ShowDropDown();
             }
-
+            
             base.OnMouseDown(e);
             this.Focus();
 
@@ -248,6 +268,8 @@ namespace TradingLib.XTrader.Future
             //鼠标离开控件则所有按钮MouseOver为False
             this.UpBtnMouseOver = false;
             this.DnBtnMouseOver = false;
+
+            //this.HideDropDown();
             base.OnMouseLeave(e);
         }
 
@@ -258,44 +280,46 @@ namespace TradingLib.XTrader.Future
             var keyData = (Keys)e.KeyChar;
             if ((keyData >= Keys.D0 && keyData <= Keys.D9) || (keyData >= Keys.NumPad0 && keyData <= Keys.NumPad9))
             {
-
-                if (_selected)
+                if (!_txtMode)//非文字模式可编辑数字 否则不接受字符
                 {
-                    if (_selectionStart == 0 && _SelectionEnd == _txtvalue.Length)
+                    if (_selected)
                     {
-                        _txtvalue = string.Empty + e.KeyChar;
-                    }
-                    else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
-                    {
-                        _txtvalue = e.KeyChar + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
-                    }
-                    else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
-                    {
-                        _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar;
+                        if (_selectionStart == 0 && _SelectionEnd == _txtvalue.Length)
+                        {
+                            _txtvalue = string.Empty + e.KeyChar;
+                        }
+                        else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
+                        {
+                            _txtvalue = e.KeyChar + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                        }
+                        else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
+                        {
+                            _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar;
+                        }
+                        else
+                        {
+                            _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                        }
+                        _selectionStart++;//插入字符后selectStart后移一位
+                        if (_selectionStart > _txtvalue.Length)
+                            _selectionStart = _txtvalue.Length;
+                        _selected = false;
+                        this.Invalidate();
                     }
                     else
                     {
-                        _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
-                    }
-                    _selectionStart++;//插入字符后selectStart后移一位
-                    if (_selectionStart > _txtvalue.Length)
-                        _selectionStart = _txtvalue.Length;
-                    _selected = false;
-                    this.Invalidate();
-                }
-                else
-                {
-                    //value += e.KeyChar;
-                    _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
-                    decimal dvalue = 0;
-                    if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
-                    if (dvalue > this.MaxVal)
-                        _txtvalue = this.MaxVal.ToString();
-                    _selectionStart++;//插入字符后selectStart后移一位
-                    if (_selectionStart > _txtvalue.Length)
-                        _selectionStart = _txtvalue.Length;
+                        //value += e.KeyChar;
+                        _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
+                        decimal dvalue = 0;
+                        if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
+                        if (dvalue > this.MaxVal)
+                            _txtvalue = this.MaxVal.ToString();
+                        _selectionStart++;//插入字符后selectStart后移一位
+                        if (_selectionStart > _txtvalue.Length)
+                            _selectionStart = _txtvalue.Length;
 
-                    this.Invalidate();
+                        this.Invalidate();
+                    }
                 }
 
 
@@ -304,40 +328,49 @@ namespace TradingLib.XTrader.Future
             {
                 if (_txtvalue.Length > 0)
                 {
-                    if (_selected)//删除选中字符
+                    if (!_txtMode)
                     {
-                        if (_selectionStart == 0 && _SelectionEnd == _txtvalue.Length)
+                        if (_selected)//删除选中字符
                         {
-                            _txtvalue = string.Empty;
-                        }
-                        else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
-                        {
-                            _txtvalue = _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
-                        }
-                        else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
-                        {
-                            _txtvalue = _txtvalue.Substring(0, _selectionStart);
-                        }
-                        else
-                        {
-                            _txtvalue = _txtvalue.Substring(0, _selectionStart) + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
-                        }
-                        //_selectionStart--;//删除一个字符后 selectStart前移一位;
-                        //if (_selectionStart < 0)
-                        //    _selectionStart = 0;
-                        _selected = false;
-                        this.Invalidate();
-                    }
-                    else //删除selectionStart前一位字符
-                    {
-                        if (_selectionStart - 1 >= 0)
-                        {
-                            _txtvalue = _txtvalue.Substring(0, _selectionStart - 1) + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
-                            _selectionStart--;//删除一个字符后 selectStart前移一位;
-                            if (_selectionStart < 0)
-                                _selectionStart = 0;
+                            if (_selectionStart == 0 && _SelectionEnd == _txtvalue.Length)
+                            {
+                                _txtvalue = string.Empty;
+                            }
+                            else if (_selectionStart == 0 && _SelectionEnd < _txtvalue.Length)
+                            {
+                                _txtvalue = _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                            }
+                            else if (_selectionStart > 0 && _SelectionEnd == _txtvalue.Length)
+                            {
+                                _txtvalue = _txtvalue.Substring(0, _selectionStart);
+                            }
+                            else
+                            {
+                                _txtvalue = _txtvalue.Substring(0, _selectionStart) + _txtvalue.Substring(_SelectionEnd, _txtvalue.Length - _SelectionEnd);
+                            }
+                            //_selectionStart--;//删除一个字符后 selectStart前移一位;
+                            //if (_selectionStart < 0)
+                            //    _selectionStart = 0;
+                            _selected = false;
                             this.Invalidate();
                         }
+                        else //删除selectionStart前一位字符
+                        {
+                            if (_selectionStart - 1 >= 0)
+                            {
+                                _txtvalue = _txtvalue.Substring(0, _selectionStart - 1) + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
+                                _selectionStart--;//删除一个字符后 selectStart前移一位;
+                                if (_selectionStart < 0)
+                                    _selectionStart = 0;
+                                this.Invalidate();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _txtvalue = string.Empty;
+                        _selectionStart = 0;
+                        this.Invalidate();
                     }
                 }
             }
@@ -345,11 +378,14 @@ namespace TradingLib.XTrader.Future
             //小数点
             if (e.KeyChar == '.')
             {
-                if (_decimalplace > 0 && !_txtvalue.Contains('.'))
+                if (!_txtMode)//非文字模式可编辑数字 否则不接受字符
                 {
-                    _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
-                    _selectionStart++;//插入字符后selectStart后移一位
-                    this.Invalidate();
+                    if (_decimalplace > 0 && !_txtvalue.Contains('.'))
+                    {
+                        _txtvalue = _txtvalue.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= _txtvalue.Length ? "" : _txtvalue.Substring(_selectionStart));
+                        _selectionStart++;//插入字符后selectStart后移一位
+                        this.Invalidate();
+                    }
                 }
             }
             base.OnKeyPress(e);
@@ -455,9 +491,6 @@ namespace TradingLib.XTrader.Future
 
         #endregion
 
-
-
-
         #region 内部函数
         /// <summary>
         /// 设置当前光标位置
@@ -471,7 +504,8 @@ namespace TradingLib.XTrader.Future
         }
 
         void OnUpArrowDown()
-        { 
+        {
+            _txtMode = false;
             decimal dvalue=0;
             if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             if (dvalue + _increment <= _maxdval)
@@ -487,6 +521,7 @@ namespace TradingLib.XTrader.Future
 
         void OnDnArrowDown()
         {
+            _txtMode = false;
             decimal dvalue = 0;
             if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             //默认为能小于0
@@ -501,8 +536,188 @@ namespace TradingLib.XTrader.Future
         #endregion
 
 
+        #region IPopupControlHost
 
-        
+        /// <summary>
+        /// Popup control.
+        /// </summary>
+        private PopupControl m_popupCtrl = new PopupControl();
+
+        /// <summary>
+        /// Actual drop-down control itself.
+        /// </summary>
+        System.Windows.Forms.Control m_dropDownCtrl;
+
+        /// <summary>
+        /// Indicates if drop-down is currently shown.
+        /// </summary>
+        bool m_bDroppedDown = false;
+        /// <summary>
+        /// Indicates current sizing mode.
+        /// </summary>
+        SizeMode m_sizeMode = SizeMode.UseComboSize;
+        /// <summary>
+        /// Time drop-down was last hidden.
+        /// </summary>
+        DateTime m_lastHideTime = DateTime.Now;
+
+        /// <summary>
+        /// Automatic focus timer helps make sure drop-down control is focused for user
+        /// input upon drop-down.
+        /// </summary>
+        Timer m_timerAutoFocus;
+        /// <summary>
+        /// Original size of control dimensions when first assigned.
+        /// </summary>
+        Size m_sizeOriginal = new Size(1, 1);
+        /// <summary>
+        /// Original size of combo box dropdown when first assigned.
+        /// </summary>
+        Size m_sizeCombo;
+        /// <summary>
+        /// Indicates if drop-down is resizable.
+        /// </summary>
+        bool m_bIsResizable = true;
+
+        private static DateTime m_sShowTime = DateTime.Now;
+
+
+        /// <summary>
+        /// Automatically resize drop-down from properties.
+        /// </summary>
+        protected void AutoSizeDropDown()
+        {
+            if (DropDownControl != null)
+            {
+                switch (DropDownSizeMode)
+                {
+                    case SizeMode.UseComboSize:
+                        DropDownControl.Size = new Size(Width, m_sizeCombo.Height);
+                        break;
+
+                    case SizeMode.UseControlSize:
+                        DropDownControl.Size = new Size(m_sizeOriginal.Width, m_sizeOriginal.Height);
+                        break;
+
+                    case SizeMode.UseDropDownSize:
+                        DropDownControl.Size = m_sizeCombo;
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// Assigns control to custom drop-down area of combo box.
+        /// </summary>
+        /// <param name="control">Control to be used as drop-down. Please note that this control must not be contained elsewhere.</param>
+        protected virtual void AssignControl(System.Windows.Forms.Control control)
+        {
+            // If specified control is different then...
+            if (control != DropDownControl)
+            {
+                // Preserve original container size.
+                m_sizeOriginal = control.Size;
+
+                // Reference the user-specified drop down control.
+                m_dropDownCtrl = control;
+            }
+        }
+
+        public SizeMode DropDownSizeMode
+        {
+            get { return this.m_sizeMode; }
+            set
+            {
+                if (value != this.m_sizeMode)
+                {
+                    this.m_sizeMode = value;
+                    AutoSizeDropDown();
+                }
+            }
+        }
+
+        public System.Windows.Forms.Control DropDownControl
+        {
+            get { return m_dropDownCtrl; }
+            set { AssignControl(value); }
+        }
+
+        bool IsDroppedDown
+        {
+            get { return this.m_bDroppedDown /*&& m_popupCtrl.Visible*/; }
+        }
+
+        private void timerAutoFocus_Tick(object sender, EventArgs e)
+        {
+            if (m_popupCtrl.Visible && !DropDownControl.Focused)
+            {
+                DropDownControl.Focus();
+                m_timerAutoFocus.Enabled = false;
+            }
+
+            //if (base.DroppedDown)
+            //    base.DroppedDown = false;
+        }
+
+        /// <summary>
+        /// Displays drop-down area of combo box, if not already shown.
+        /// </summary>
+        public virtual void ShowDropDown()
+        {
+            if (m_popupCtrl != null && !IsDroppedDown)
+            {
+                // Raise drop-down event.
+                //RaiseDropDownEvent();
+
+                // Restore original control size.
+                AutoSizeDropDown();
+
+                Point location = PointToScreen(new Point(0, Height));
+
+                // Actually show popup.
+                PopupResizeMode resizeMode = PopupResizeMode.Bottom;// (this.m_bIsResizable ? PopupResizeMode.BottomRight : PopupResizeMode.None);
+                m_popupCtrl.Show(this.DropDownControl, location.X, location.Y, Width, Height, resizeMode, this.ShowTop);
+                m_bDroppedDown = true;
+
+                m_popupCtrl.PopupControlHost = this;
+
+                // Initialize automatic focus timer?
+                //if (m_timerAutoFocus == null)
+                //{
+                //    m_timerAutoFocus = new Timer();
+                //    m_timerAutoFocus.Interval = 10;
+                //    m_timerAutoFocus.Tick += new EventHandler(timerAutoFocus_Tick);
+                //}
+                //// Enable the timer!
+                //m_timerAutoFocus.Enabled = true;
+                //m_sShowTime = DateTime.Now;
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// Hides drop-down area of combo box, if shown.
+        /// </summary>
+        public virtual void HideDropDown()
+        {
+            if (m_popupCtrl != null && IsDroppedDown)
+            {
+                // Hide drop-down control.
+                m_popupCtrl.Hide();
+                m_bDroppedDown = false;
+
+                // Disable automatic focus timer.
+                if (m_timerAutoFocus != null && m_timerAutoFocus.Enabled)
+                    m_timerAutoFocus.Enabled = false;
+
+                // Raise drop-down closed event.
+                //RaiseDropDownClosedEvent();
+            }
+        }
+
+        #endregion
+
 
 
 
@@ -579,71 +794,88 @@ namespace TradingLib.XTrader.Future
             //绘制右侧按钮
             g.DrawImage(GetUpArrowImg(), new Point(this.Width - 1 - 15, 1));//上箭头
             g.DrawImage(GetDnArrowImg(), new Point(this.Width - 1 - 15, 1 + 9));//下箭头
+            string ss = string.Empty;
 
-            
-            //设定当前光标
-            if (this.TxtMouseDown && !_charSelect)
+            if (!_txtMode)
             {
-
-                int locatioin = GetCurrentLocation(g, _currentX);
-                InternalSetSelectionStart(locatioin);
-                logger.Info(string.Format("_currentX:{0} cursor location:{1}", _currentX, locatioin));
-            }
-
-            string ss = _txtvalue.Substring(0, _selectionStart);
-            size = g.MeasureString(ss, _font);
-
-            int selectionStartX = (int)size.Width+1;
-
-            
-
-            if (this.Focused)
-            {
-                SetCaretPos(selectionStartX, 2);
-
-            }
-
-            //鼠标长按 拖动鼠标选择字符串
-            if (_charSelect)
-            {
-                //获得当前坐标对应的字符串位置
-                _SelectionEnd = GetCurrentLocation(g,_currentX);
-
-                //根据位置绘制阴影
-                if (_SelectionEnd < _selectionStart)
+                //设定当前光标
+                if (this.TxtMouseDown && !_charSelect)
                 {
 
-                    Rectangle selectRect = new Rectangle(_currentX, txtOffset, selectionStartX - _currentX, _font.Height);
-                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                    int locatioin = GetCurrentLocation(g, _currentX);
+                    InternalSetSelectionStart(locatioin);
+                    logger.Info(string.Format("_currentX:{0} cursor location:{1}", _currentX, locatioin));
                 }
-                if (_SelectionEnd > _selectionStart)
-                {
-                    Rectangle selectRect = new Rectangle(selectionStartX, txtOffset, _currentX - selectionStartX, _font.Height);
-                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
 
-                }
-                
-                logger.Info("SelectEnd:" + _SelectionEnd.ToString() +" SelectStart:"+_selectionStart.ToString());
-                _selected = true;
-            }
 
-            //不在选择状态 则显示当前选中的
-            if (!_charSelect && _selected)
-            {
-                ss = _txtvalue.Substring(0, _SelectionEnd);
+                ss = _txtvalue.Substring(0, _selectionStart);
                 size = g.MeasureString(ss, _font);
-                int selectionEndX = (int)size.Width + 1;
 
-                if (selectionStartX > selectionEndX)
+                int selectionStartX = (int)size.Width + 1;
+
+
+
+                if (this.Focused)
                 {
-                    Rectangle selectRect = new Rectangle(selectionEndX, txtOffset, selectionStartX - selectionEndX, _font.Height);
-                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                    SetCaretPos(selectionStartX, 2);
+
                 }
-                if (selectionStartX < selectionEndX)
+
+
+                //鼠标长按 拖动鼠标选择字符串
+                if (_charSelect)
                 {
-                    Rectangle selectRect = new Rectangle(selectionStartX, txtOffset, selectionEndX - selectionStartX, _font.Height);
-                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                    //获得当前坐标对应的字符串位置
+                    _SelectionEnd = GetCurrentLocation(g, _currentX);
+
+                    //根据位置绘制阴影
+                    if (_SelectionEnd < _selectionStart)
+                    {
+
+                        Rectangle selectRect = new Rectangle(_currentX, txtOffset, selectionStartX - _currentX, _font.Height);
+                        g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                    }
+                    if (_SelectionEnd > _selectionStart)
+                    {
+                        Rectangle selectRect = new Rectangle(selectionStartX, txtOffset, _currentX - selectionStartX, _font.Height);
+                        g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+
+                    }
+
+                    logger.Info("SelectEnd:" + _SelectionEnd.ToString() + " SelectStart:" + _selectionStart.ToString());
+                    _selected = true;
                 }
+
+                //不在选择状态 则显示当前选中的
+                if (!_charSelect && _selected)
+                {
+                    ss = _txtvalue.Substring(0, _SelectionEnd);
+                    size = g.MeasureString(ss, _font);
+                    int selectionEndX = (int)size.Width + 1;
+
+                    if (selectionStartX > selectionEndX)
+                    {
+                        Rectangle selectRect = new Rectangle(selectionEndX, txtOffset, selectionStartX - selectionEndX, _font.Height);
+                        g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                    }
+                    if (selectionStartX < selectionEndX)
+                    {
+                        Rectangle selectRect = new Rectangle(selectionStartX, txtOffset, selectionEndX - selectionStartX, _font.Height);
+                        g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                    }
+                }
+            }
+            else
+            {
+                size = g.MeasureString(_txtvalue, _font);
+                SetCaretPos((int)size.Width + 1, 2);
+                //在文字模式下 鼠标点击文本框 全选所有文字 同时光标在最后一个位置闪烁
+                //if (_selected)
+                //{
+                    
+                //    Rectangle selectRect = new Rectangle(0, txtOffset, (int)size.Width+1, _font.Height);
+                //    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                //}
             }
 
             _brush.Color = _itemColor;

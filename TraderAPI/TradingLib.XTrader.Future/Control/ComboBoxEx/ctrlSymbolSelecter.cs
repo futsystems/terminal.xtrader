@@ -9,8 +9,13 @@ using System.Windows.Forms.Design;
 
 namespace TradingLib.XTrader.Future
 {
-    
 
+    public enum SizeMode
+    {
+        UseComboSize,
+        UseControlSize,
+        UseDropDownSize,
+    }
 
     /// <summary>
     /// <c>CustomComboBox</c> is an extension of <c>ComboBox</c> which provides drop-down customization.
@@ -406,12 +411,7 @@ namespace TradingLib.XTrader.Future
 
         #region Enumerations
 
-        public enum SizeMode
-        {
-            UseComboSize,
-            UseControlSize,
-            UseDropDownSize,
-        }
+
 
         #endregion
 
