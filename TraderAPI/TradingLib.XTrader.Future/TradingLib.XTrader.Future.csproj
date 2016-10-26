@@ -98,6 +98,18 @@
     <Compile Include="Control\ctrlTrade.Designer.cs">
       <DependentUpon>ctrlTrade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\PriceInput\FPriceInput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\PriceInput\FPriceInput.Designer.cs">
+      <DependentUpon>FPriceInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\PriceInput\PriceInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\PriceInput\PriceInput.Designer.cs">
+      <DependentUpon>PriceInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="ctrlFutureTrader.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -190,6 +202,9 @@
     <EmbeddedResource Include="Control\ctrlTrade.resx">
       <DependentUpon>ctrlTrade.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Control\PriceInput\PriceInput.resx">
+      <DependentUpon>PriceInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ctrlFutureTrader.resx">
       <DependentUpon>ctrlFutureTrader.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +288,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-down-mouse-over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-up-mouse-over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-down-mouse-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-up-mouse-down.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

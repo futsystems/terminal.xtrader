@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.fPriceInput1 = new TradingLib.XTrader.Future.FPriceInput();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.ctrlSymbolSelecter1 = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.fButton2 = new TradingLib.XTrader.FButton();
             this.fButton1 = new TradingLib.XTrader.FButton();
@@ -38,7 +40,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +50,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,6 +66,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.fPriceInput1);
+            this.tabPage1.Controls.Add(this.numericUpDown2);
             this.tabPage1.Controls.Add(this.ctrlSymbolSelecter1);
             this.tabPage1.Controls.Add(this.fButton2);
             this.tabPage1.Controls.Add(this.fButton1);
@@ -72,7 +76,6 @@
             this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.comboBox2);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.numericUpDown1);
             this.tabPage1.Controls.Add(this.label2);
@@ -87,6 +90,28 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // fPriceInput1
+            // 
+            this.fPriceInput1.Location = new System.Drawing.Point(186, 81);
+            this.fPriceInput1.Name = "fPriceInput1";
+            this.fPriceInput1.Size = new System.Drawing.Size(119, 20);
+            this.fPriceInput1.TabIndex = 20;
+            this.fPriceInput1.Text = "fPriceInput1";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
+            this.numericUpDown2.Location = new System.Drawing.Point(41, 102);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(121, 21);
+            this.numericUpDown2.TabIndex = 19;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            22,
+            0,
+            0,
+            0});
             // 
             // ctrlSymbolSelecter1
             // 
@@ -189,14 +214,6 @@
             this.button1.Text = "查可开";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(41, 101);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 20);
-            this.comboBox2.TabIndex = 8;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -208,7 +225,14 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
             this.numericUpDown1.Location = new System.Drawing.Point(41, 72);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(79, 21);
             this.numericUpDown1.TabIndex = 6;
@@ -290,6 +314,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
@@ -307,7 +332,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -316,5 +340,7 @@
         private FButton fButton1;
         private FButton fButton2;
         private ctrlSymbolSelecter ctrlSymbolSelecter1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private FPriceInput fPriceInput1;
     }
 }
