@@ -125,10 +125,16 @@ namespace TradingLib.XTrader.Future
                 this.Invalidate();
             }
         }
+
+        int _mouseDownX = 0;
+        int _mouseDownY = 0;
         protected override void OnMouseDown(MouseEventArgs e)
         {
             
             mousedown = true;
+            _mouseDownX = e.X;
+            _mouseDownY = e.Y;
+
             //在特定区域内 检查按钮是否被按下 其余区域按钮被弹起
             if (e.X > this.Width - 15 - 1 && e.Y > 0 && e.X < this.Width && e.Y < this.Height)
             {
@@ -161,6 +167,12 @@ namespace TradingLib.XTrader.Future
                 {
                     if(!this.TxtMouseDown)
                         this.TxtMouseDown = true;
+                }
+
+                if (_selected)
+                {
+                    logger.Info("clear selected");
+                    _selected = false;
                 }
             }
 
@@ -225,7 +237,16 @@ namespace TradingLib.XTrader.Future
 
             mousedown = false;
 
-
+            if (_charSelect)
+            {
+                logger.Info("exit chart select status");
+                //设定光标位置为当前选中位置
+                int v = _selectionStart;
+                this.InternalSetSelectionStart(_SelectionEnd);
+                _SelectionEnd = v;
+                _charSelect = false;
+                this.Invalidate();
+            }
 
             base.OnMouseUp(e);
         }
@@ -253,7 +274,8 @@ namespace TradingLib.XTrader.Future
             {
                 if (value.Length < maxLen)
                 {
-                    value += e.KeyChar;
+                    //value += e.KeyChar;
+                    value = value.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= value.Length ? "" : value.Substring(_selectionStart));
                     _selectionStart++;//插入字符后selectStart后移一位
 
                     this.Invalidate();
@@ -280,7 +302,7 @@ namespace TradingLib.XTrader.Future
             {
                 if (!value.Contains('.'))
                 {
-                    value += e.KeyChar;
+                    value = value.Substring(0, _selectionStart) + e.KeyChar + (_selectionStart >= value.Length ? "" : value.Substring(_selectionStart));
                     _selectionStart++;//插入字符后selectStart后移一位
                     this.Invalidate();
                 }
@@ -302,6 +324,9 @@ namespace TradingLib.XTrader.Future
         int _currentY = 0;
 
 
+        bool _charSelect = false;
+        int _SelectionEnd = 0;
+        bool _selected = false;
         /// <summary>
         /// 通过鼠标移动来捕捉当前是否在按钮之上
         /// </summary>
@@ -339,6 +364,18 @@ namespace TradingLib.XTrader.Future
                 this.Cursor = Cursors.IBeam;
                 this.UpBtnMouseOver = false;
                 this.DnBtnMouseOver = false;
+
+                //处于TxtMouseDown状态 选择字符操作
+                if (this.TxtMouseDown && Math.Abs(_currentX - _mouseDownX) > 3 && !_charSelect)
+                {
+                    logger.Info("start select chars");
+                    _charSelect = true;
+                    this.Invalidate();
+                }
+                if (_charSelect)
+                {
+                    this.Invalidate();
+                }
             }
 
         }
@@ -353,12 +390,7 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                ////判定当前光标位置
-                //for (int i = 1 ; i <= value.Length; i++)
-                //{
-                //    string tmp = value.Substring(0, i);
-                    
-                //}
+
             }
         }
 
@@ -434,6 +466,35 @@ namespace TradingLib.XTrader.Future
             return Properties.Resources.arrow_down;
         }
 
+        /// <summary>
+        /// 获得X坐标对应的字符串位置
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        int GetCurrentLocation(Graphics g, int x)
+        {
+            bool inTxt = false;
+            int location = 0;
+            SizeF size;
+            for (int i = 1; i <= value.Length; i++)
+            {
+                string tmp = value.Substring(0, i);
+                size = g.MeasureString(tmp, _font);
+                if (size.Width >= _currentX)
+                {
+                    inTxt = true;
+                    location = i - 1;
+                    break;
+                }
+            }
+            //当前坐标不在字符串中则为整个字符串长度
+            if (!inTxt)
+            {
+                location = value.Length;
+            }
+            return location;
+        }
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -448,47 +509,80 @@ namespace TradingLib.XTrader.Future
             rectBorder.Height--;
             rectBorder.Width--;
             _pen.Color = Constants.BorderColor;
+            //绘制外部边框
             g.DrawRectangle(_pen, rectBorder);
 
-            
             //绘制右侧按钮
             g.DrawImage(GetUpArrowImg(), new Point(this.Width - 1 - 15, 1));//上箭头
             g.DrawImage(GetDnArrowImg(), new Point(this.Width - 1 - 15, 1 + 9));//下箭头
 
+            
+            //设定当前光标
+            if (this.TxtMouseDown && !_charSelect)
+            {
+
+                int locatioin = GetCurrentLocation(g, _currentX);
+                InternalSetSelectionStart(locatioin);
+                logger.Info(string.Format("_currentX:{0} cursor location:{1}", _currentX, locatioin));
+            }
+
+            string ss = value.Substring(0, _selectionStart);
+            size = g.MeasureString(ss, _font);
+
+            int selectionStartX = (int)size.Width + 1;
+
+            ss = value.Substring(0, _SelectionEnd);
+            size = g.MeasureString(ss, _font);
+            int selectionEndX = (int)size.Width + 1;
+
+            if (this.Focused)
+            {
+                SetCaretPos(selectionStartX, 2);
+
+            }
+
+            //鼠标长按 拖动鼠标选择字符串
+            if (_charSelect)
+            {
+                //获得当前坐标对应的字符串位置
+                _SelectionEnd = GetCurrentLocation(g,_currentX);
+
+                //根据位置绘制阴影
+                if (_SelectionEnd < _selectionStart)
+                {
+
+                    Rectangle selectRect = new Rectangle(_currentX, 1, selectionStartX - _currentX, this.Height);
+                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                }
+                if (_SelectionEnd > _selectionStart)
+                {
+                    Rectangle selectRect = new Rectangle(selectionStartX, 1, _currentX - selectionStartX, this.Height);
+                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+
+                }
+                
+                logger.Info("SelectEnd:" + _SelectionEnd.ToString() +" SelectStart:"+_selectionStart.ToString());
+                _selected = true;
+            }
+
+            //不在选择状态 则显示当前选中的
+            if (!_charSelect && _selected)
+            {
+                if (selectionStartX > selectionEndX)
+                {
+                    Rectangle selectRect = new Rectangle(selectionEndX, 1, selectionStartX - selectionEndX, this.Height);
+                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                }
+                if (selectionStartX < selectionEndX)
+                {
+                    Rectangle selectRect = new Rectangle(selectionStartX, 1, selectionEndX - selectionStartX, this.Height);
+                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                }
+            }
+
             _brush.Color = _itemColor;
             g.DrawString(value, _font, _brush, 0, txtOffset);
 
-            int _cursorLocation = 0;
-            bool _inTxt = false;
-            if (this.TxtMouseDown)
-            {
-                for (int i = 1; i <= value.Length; i++)
-                {
-                    string tmp = value.Substring(0, i);
-                    size = g.MeasureString(tmp, _font);
-                    if (size.Width >= _currentX)
-                    {
-                        _inTxt = true;
-                        _cursorLocation = i - 1;
-                        break;
-                    }
-                }
-                if (!_inTxt)
-                {
-                    _cursorLocation = value.Length;
-                }
-
-                InternalSetSelectionStart(_cursorLocation);
-                logger.Info(string.Format("_currentX:{0} cursor location:{1}", _currentX, _cursorLocation));
-            }
-            
-            if (this.Focused)
-            {
-                string tmp = value.Substring(0, _selectionStart);
-                size = g.MeasureString(tmp, _font);
-
-                SetCaretPos((int)size.Width+1, 2);
-            }
         }
     }
 }
