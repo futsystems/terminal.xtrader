@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAll = new TradingLib.XTrader.FButton();
+            this.tabAll = new TradingLib.XTrader.FButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new TradingLib.XTrader.FButton();
-            this.button2 = new TradingLib.XTrader.FButton();
-            this.panel2 = new TradingLib.XTrader.FButton();
-            this.btnCancel = new TradingLib.XTrader.FButton();
             this.button6 = new TradingLib.XTrader.FButton();
+            this.btnCancelAll = new TradingLib.XTrader.FButton();
+            this.btnCancel = new TradingLib.XTrader.FButton();
+            this.panel2 = new TradingLib.XTrader.FButton();
+            this.tabCancel = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnAll
+            // tabAll
             // 
-            this.btnAll.BackColor = System.Drawing.Color.White;
-            this.btnAll.CheckButton = true;
-            this.btnAll.Checked = true;
-            this.btnAll.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnAll.Location = new System.Drawing.Point(0, 0);
-            this.btnAll.Name = "btnAll";
-            this.btnAll.OrderEntryButton = false;
-            this.btnAll.Price = new decimal(new int[] {
+            this.tabAll.BackColor = System.Drawing.Color.White;
+            this.tabAll.CheckButton = true;
+            this.tabAll.Checked = true;
+            this.tabAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabAll.Location = new System.Drawing.Point(0, 0);
+            this.tabAll.Name = "tabAll";
+            this.tabAll.OrderEntryButton = false;
+            this.tabAll.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.btnAll.Size = new System.Drawing.Size(27, 116);
-            this.btnAll.TabIndex = 1;
-            this.btnAll.Text = "全部";
-            this.btnAll.UseVisualStyleBackColor = true;
+            this.tabAll.Size = new System.Drawing.Size(27, 116);
+            this.tabAll.TabIndex = 1;
+            this.tabAll.Text = "全部";
+            this.tabAll.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -64,50 +64,70 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.btnCancelAll);
+            this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Location = new System.Drawing.Point(27, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(775, 25);
             this.panel1.TabIndex = 2;
             // 
-            // button3
+            // button6
             // 
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.CheckButton = false;
-            this.button3.Checked = false;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Location = new System.Drawing.Point(75, 2);
-            this.button3.Name = "button3";
-            this.button3.OrderEntryButton = false;
-            this.button3.Price = new decimal(new int[] {
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.BackColor = System.Drawing.Color.White;
+            this.button6.CheckButton = false;
+            this.button6.Checked = false;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.Location = new System.Drawing.Point(715, 2);
+            this.button6.Name = "button6";
+            this.button6.OrderEntryButton = false;
+            this.button6.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.button3.Size = new System.Drawing.Size(66, 20);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "全部撤单";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button6.Size = new System.Drawing.Size(47, 20);
+            this.button6.TabIndex = 5;
+            this.button6.Text = "导出";
+            this.button6.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnCancelAll
             // 
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.CheckButton = false;
-            this.button2.Checked = false;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Location = new System.Drawing.Point(3, 2);
-            this.button2.Name = "button2";
-            this.button2.OrderEntryButton = false;
-            this.button2.Price = new decimal(new int[] {
+            this.btnCancelAll.BackColor = System.Drawing.Color.White;
+            this.btnCancelAll.CheckButton = false;
+            this.btnCancelAll.Checked = false;
+            this.btnCancelAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelAll.Location = new System.Drawing.Point(75, 2);
+            this.btnCancelAll.Name = "btnCancelAll";
+            this.btnCancelAll.OrderEntryButton = false;
+            this.btnCancelAll.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.button2.Size = new System.Drawing.Size(66, 20);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "撤单";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancelAll.Size = new System.Drawing.Size(66, 20);
+            this.btnCancelAll.TabIndex = 1;
+            this.btnCancelAll.Text = "全部撤单";
+            this.btnCancelAll.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.CheckButton = false;
+            this.btnCancel.Checked = false;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Location = new System.Drawing.Point(3, 2);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.OrderEntryButton = false;
+            this.btnCancel.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.btnCancel.Size = new System.Drawing.Size(66, 20);
+            this.btnCancel.TabIndex = 0;
+            this.btnCancel.Text = "撤单";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -130,55 +150,35 @@
             this.panel2.TabIndex = 3;
             this.panel2.UseVisualStyleBackColor = false;
             // 
-            // btnCancel
+            // tabCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.BackColor = System.Drawing.Color.White;
-            this.btnCancel.CheckButton = true;
-            this.btnCancel.Checked = false;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(0, 117);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.OrderEntryButton = false;
-            this.btnCancel.Price = new decimal(new int[] {
+            this.tabCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabCancel.BackColor = System.Drawing.Color.White;
+            this.tabCancel.CheckButton = true;
+            this.tabCancel.Checked = false;
+            this.tabCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabCancel.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabCancel.Location = new System.Drawing.Point(0, 117);
+            this.tabCancel.Name = "tabCancel";
+            this.tabCancel.OrderEntryButton = false;
+            this.tabCancel.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.btnCancel.Size = new System.Drawing.Size(27, 116);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "可撤";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.CheckButton = false;
-            this.button6.Checked = false;
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.Location = new System.Drawing.Point(715, 2);
-            this.button6.Name = "button6";
-            this.button6.OrderEntryButton = false;
-            this.button6.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.button6.Size = new System.Drawing.Size(47, 20);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "导出";
-            this.button6.UseVisualStyleBackColor = true;
+            this.tabCancel.Size = new System.Drawing.Size(27, 116);
+            this.tabCancel.TabIndex = 4;
+            this.tabCancel.Text = "可撤";
+            this.tabCancel.UseVisualStyleBackColor = true;
             // 
             // ctrlOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.tabCancel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnAll);
+            this.Controls.Add(this.tabAll);
             this.Name = "ctrlOrder";
             this.Size = new System.Drawing.Size(802, 233);
             this.panel1.ResumeLayout(false);
@@ -188,12 +188,12 @@
 
         #endregion
 
-        private FButton btnAll;
+        private FButton tabAll;
         private System.Windows.Forms.Panel panel1;
-        private FButton button2;
-        private FButton button3;
-        private FButton panel2;
         private FButton btnCancel;
+        private FButton btnCancelAll;
+        private FButton panel2;
+        private FButton tabCancel;
         private FButton button6;
     }
 }

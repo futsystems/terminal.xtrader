@@ -35,8 +35,8 @@
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
-            this.fButton2 = new TradingLib.XTrader.FButton();
-            this.fButton1 = new TradingLib.XTrader.FButton();
+            this.btnSell = new TradingLib.XTrader.FButton();
+            this.btnBuy = new TradingLib.XTrader.FButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.inputFlagAuto = new System.Windows.Forms.CheckBox();
@@ -74,8 +74,8 @@
             this.tabPage1.Controls.Add(this.inputSize);
             this.tabPage1.Controls.Add(this.inputPrice);
             this.tabPage1.Controls.Add(this.inputSymbol);
-            this.tabPage1.Controls.Add(this.fButton2);
-            this.tabPage1.Controls.Add(this.fButton1);
+            this.tabPage1.Controls.Add(this.btnSell);
+            this.tabPage1.Controls.Add(this.btnBuy);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.inputFlagAuto);
@@ -183,45 +183,45 @@
             this.inputSymbol.Size = new System.Drawing.Size(151, 22);
             this.inputSymbol.TabIndex = 18;
             // 
-            // fButton2
+            // btnSell
             // 
-            this.fButton2.BackColor = System.Drawing.Color.Transparent;
-            this.fButton2.CheckButton = false;
-            this.fButton2.Checked = false;
-            this.fButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
-            this.fButton2.Location = new System.Drawing.Point(239, 137);
-            this.fButton2.Name = "fButton2";
-            this.fButton2.OrderEntryButton = true;
-            this.fButton2.Price = new decimal(new int[] {
+            this.btnSell.BackColor = System.Drawing.Color.Transparent;
+            this.btnSell.CheckButton = false;
+            this.btnSell.Checked = false;
+            this.btnSell.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
+            this.btnSell.Location = new System.Drawing.Point(239, 137);
+            this.btnSell.Name = "btnSell";
+            this.btnSell.OrderEntryButton = true;
+            this.btnSell.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.fButton2.Size = new System.Drawing.Size(80, 60);
-            this.fButton2.TabIndex = 17;
-            this.fButton2.Text = "卖出";
-            this.fButton2.UseVisualStyleBackColor = true;
+            this.btnSell.Size = new System.Drawing.Size(80, 60);
+            this.btnSell.TabIndex = 17;
+            this.btnSell.Text = "卖出";
+            this.btnSell.UseVisualStyleBackColor = true;
             // 
-            // fButton1
+            // btnBuy
             // 
-            this.fButton1.BackColor = System.Drawing.Color.Transparent;
-            this.fButton1.CheckButton = false;
-            this.fButton1.Checked = false;
-            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
-            this.fButton1.Location = new System.Drawing.Point(153, 137);
-            this.fButton1.Name = "fButton1";
-            this.fButton1.OrderEntryButton = true;
-            this.fButton1.Price = new decimal(new int[] {
+            this.btnBuy.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuy.CheckButton = false;
+            this.btnBuy.Checked = false;
+            this.btnBuy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
+            this.btnBuy.Location = new System.Drawing.Point(153, 137);
+            this.btnBuy.Name = "btnBuy";
+            this.btnBuy.OrderEntryButton = true;
+            this.btnBuy.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.fButton1.Size = new System.Drawing.Size(80, 60);
-            this.fButton1.TabIndex = 16;
-            this.fButton1.Text = "买入";
-            this.fButton1.UseVisualStyleBackColor = true;
+            this.btnBuy.Size = new System.Drawing.Size(80, 60);
+            this.btnBuy.TabIndex = 16;
+            this.btnBuy.Text = "买入";
+            this.btnBuy.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -390,8 +390,8 @@
         private System.Windows.Forms.CheckBox inputFlagAuto;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private FButton fButton1;
-        private FButton fButton2;
+        private FButton btnBuy;
+        private FButton btnSell;
         private ctrlSymbolSelecter inputSymbol;
         private FNumberInput inputPrice;
         private FNumberInput inputSize;
