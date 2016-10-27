@@ -24,7 +24,7 @@ namespace TradingLib.XTrader.Future
         private IntPtr _editHandle;
         private ControlState _buttonState;
         private Color _baseColor = Color.FromArgb(51, 161, 224);
-        private Color _borderColor = Color.FromArgb(51, 161, 224);
+        private Color _borderColor = Color.FromArgb(127, 157, 185);
         private Color _arrowColor = Color.FromArgb(19, 88, 128);
         private bool _bPainting;
 
@@ -307,11 +307,22 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        Bitmap GetBtnImg(ControlState state)
+        {
+            if (state == ControlState.Pressed) return Properties.Resources.combox_btn_mouse_down;
+            if (state == ControlState.Hover) return Properties.Resources.combox_btn_mouse_over;
+
+            return Properties.Resources.combox_btn_normal;
+        }
+
         private void RenderConboBoxDropDownButton(
             Graphics g, 
             Rectangle buttonRect, 
             ControlState state)
         {
+            g.DrawImage(GetBtnImg(state), new Point(buttonRect.X + 1, buttonRect.Y + 1));
+            return;
+            //以下为自绘
             Color baseColor;
             Color backColor = Color.FromArgb(160, 250, 250, 250);
             Color borderColor = base.Enabled ?

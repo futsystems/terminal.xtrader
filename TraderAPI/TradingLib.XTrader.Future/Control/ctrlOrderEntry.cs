@@ -43,6 +43,9 @@ namespace TradingLib.XTrader.Future.Control
         ctrlNumBox sizeBox;
         void InitControl()
         {
+            //inputArbflag.Items.Add("投机");
+            //inputArbflag.Items.Add("保值");
+
             inputSymbol.DropDownSizeMode = SizeMode.UseControlSize;
 
             ListBox f = new ListBox();

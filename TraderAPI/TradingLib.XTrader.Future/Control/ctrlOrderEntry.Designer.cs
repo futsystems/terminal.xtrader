@@ -44,6 +44,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
@@ -67,6 +68,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox2);
             this.tabPage1.Controls.Add(this.inputSize);
             this.tabPage1.Controls.Add(this.inputPrice);
             this.tabPage1.Controls.Add(this.inputSymbol);
@@ -95,7 +97,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label5.Location = new System.Drawing.Point(126, 81);
+            this.label5.Location = new System.Drawing.Point(128, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 12);
             this.label5.TabIndex = 13;
@@ -105,7 +107,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(126, 65);
+            this.label4.Location = new System.Drawing.Point(128, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 12);
             this.label4.TabIndex = 12;
@@ -114,7 +116,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(186, 45);
+            this.checkBox1.Location = new System.Drawing.Point(185, 48);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(48, 16);
             this.checkBox1.TabIndex = 11;
@@ -123,7 +125,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 162);
+            this.button2.Location = new System.Drawing.Point(8, 162);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(50, 23);
             this.button2.TabIndex = 10;
@@ -132,7 +134,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 137);
+            this.button1.Location = new System.Drawing.Point(8, 137);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(50, 23);
             this.button1.TabIndex = 9;
@@ -142,7 +144,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 104);
+            this.label3.Location = new System.Drawing.Point(8, 104);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 7;
@@ -151,7 +153,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 74);
+            this.label2.Location = new System.Drawing.Point(8, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 5;
@@ -160,7 +162,7 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(115, 46);
+            this.radioButton3.Location = new System.Drawing.Point(117, 47);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(47, 16);
             this.radioButton3.TabIndex = 4;
@@ -170,7 +172,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(62, 46);
+            this.radioButton2.Location = new System.Drawing.Point(64, 47);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(47, 16);
             this.radioButton2.TabIndex = 3;
@@ -181,7 +183,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(9, 46);
+            this.radioButton1.Location = new System.Drawing.Point(11, 46);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(47, 16);
             this.radioButton1.TabIndex = 2;
@@ -192,7 +194,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 13);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 0;
@@ -203,7 +205,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(325, 205);
+            this.tabPage2.Size = new System.Drawing.Size(326, 205);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "三键下单";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -213,7 +215,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(325, 205);
+            this.tabPage3.Size = new System.Drawing.Size(326, 205);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "传统下单";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -222,17 +224,28 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(325, 205);
+            this.tabPage4.Size = new System.Drawing.Size(326, 205);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "快鼠下单";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(251, 35);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(72, 16);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "套利移仓";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // inputSize
             // 
             this.inputSize.DecimalPlace = 2;
             this.inputSize.DropDownControl = null;
             this.inputSize.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
-            this.inputSize.Location = new System.Drawing.Point(41, 69);
+            this.inputSize.Location = new System.Drawing.Point(43, 72);
             this.inputSize.MaxVal = new decimal(new int[] {
             1000,
             0,
@@ -255,7 +268,7 @@
             this.inputPrice.DecimalPlace = 2;
             this.inputPrice.DropDownControl = null;
             this.inputPrice.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
-            this.inputPrice.Location = new System.Drawing.Point(41, 104);
+            this.inputPrice.Location = new System.Drawing.Point(43, 104);
             this.inputPrice.MaxVal = new decimal(new int[] {
             1000000,
             0,
@@ -277,13 +290,14 @@
             // 
             this.inputSymbol.AllowResizeDropDown = true;
             this.inputSymbol.ControlSize = new System.Drawing.Size(1, 1);
+            this.inputSymbol.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.inputSymbol.DropDownControl = null;
             this.inputSymbol.DropSize = new System.Drawing.Size(121, 106);
             this.inputSymbol.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.inputSymbol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(60)))), ((int)(((byte)(109)))));
-            this.inputSymbol.Location = new System.Drawing.Point(42, 11);
+            this.inputSymbol.Location = new System.Drawing.Point(44, 7);
             this.inputSymbol.Name = "inputSymbol";
-            this.inputSymbol.Size = new System.Drawing.Size(151, 20);
+            this.inputSymbol.Size = new System.Drawing.Size(151, 22);
             this.inputSymbol.TabIndex = 18;
             // 
             // fButton2
@@ -364,5 +378,6 @@
         private FNumberInput inputSize;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
