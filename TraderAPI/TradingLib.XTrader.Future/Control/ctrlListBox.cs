@@ -37,11 +37,16 @@ namespace TradingLib.XTrader.Future
 
         void ctrlListBox_Load(object sender, EventArgs e)
         {
+            InitScrollBar();
+        }
+
+        public void InitScrollBar()
+        {
             if (fListBox1.ShowCount < fListBox1.Items.Count)
             {
                 vScrollBar1.Visible = true;
                 vScrollBar1.LargeChange = 1;
-                
+
                 //最后一条显示的index
                 vScrollBar1.Minimum = fListBox1.ShowCount;
                 vScrollBar1.Maximum = fListBox1.Items.Count;
@@ -51,7 +56,6 @@ namespace TradingLib.XTrader.Future
                 vScrollBar1.Visible = false;
             }
         }
-
         void  fListBox1_ItemSelected(string obj)
         {
             if (ItemSelected != null)

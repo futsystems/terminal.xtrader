@@ -535,6 +535,7 @@ namespace TradingLib.XTrader.Future
                         this.m_symbolList.Items.Add(string.Format("{0}|{1}",item.Value.Symbol,item.Value.GetName()));
                     }
                 }
+                this.m_symbolList.InitScrollBar();
                 Point location = PointToScreen(new Point(0, Height));
                 // Actually show popup.
                 PopupResizeMode resizeMode = (this.m_bIsResizable ? PopupResizeMode.BottomRight : PopupResizeMode.None);
