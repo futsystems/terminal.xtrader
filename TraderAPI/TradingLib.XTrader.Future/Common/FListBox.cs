@@ -37,7 +37,7 @@ namespace TradingLib.XTrader.Future
 
         void FListBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.X > 0 && e.X < this.Width - 2 - scrollWidth)
+            if (e.X > 0 && e.X < this.Width - 2)
             {
                 int rowIdx = e.Y / lineHeight;
 
@@ -62,6 +62,13 @@ namespace TradingLib.XTrader.Future
         }
 
 
+        public void Clear()
+        {
+            _startIdx = 0;
+            _rowIdMouseOver = 0;
+            _itemIdxMouseOver = 0;
+            this.Items.Clear();
+        }
 
         /// <summary>
         /// 显示的总行数
@@ -143,7 +150,6 @@ namespace TradingLib.XTrader.Future
         StringFormat itemFormat = new StringFormat();
 
         int _startIdx = 0;
-        int scrollWidth = 10;
         private void GDIControl_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;

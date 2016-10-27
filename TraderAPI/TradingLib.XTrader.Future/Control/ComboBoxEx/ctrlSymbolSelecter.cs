@@ -525,7 +525,7 @@ namespace TradingLib.XTrader.Future
         {
             if (m_popupCtrl != null && this.IsDroppedDown)
             {
-                this.m_symbolList.Items.Clear();
+                this.m_symbolList.Clear();
                 SymbolSet target = null;
                 if (symbolSetMap.TryGetValue(title, out target))
                 {

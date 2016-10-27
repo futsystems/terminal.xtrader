@@ -77,5 +77,10 @@ namespace TradingLib.XTrader.Future
 
         public int ItemHeight { get { return fListBox1.ItemHeight; } }
 
+
+        public void Clear()
+        {
+            this.fListBox1.Clear();
+        }
     }
 }
