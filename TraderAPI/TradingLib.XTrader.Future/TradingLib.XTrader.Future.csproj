@@ -54,6 +54,15 @@
   <ItemGroup>
     <Compile Include="Common\MouseHook.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\ComboBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\ControlPaintEx.cs" />
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\ControlState.cs" />
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\GraphicsPathHelper.cs" />
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\NativeMethods.cs" />
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\RenderHelper.cs" />
+    <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\RoundStyle.cs" />
     <Compile Include="Control\ComboBoxEx\ctrlSymbolSelecter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -317,7 +326,7 @@
     <None Include="Resources\arrow-up-mouse-down.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Control\PriceInput\" />
+    <None Include="Resources\combox-btn-mouse-down.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\scrollbar\downarrow.png" />
@@ -339,6 +348,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\scrollbar\uparrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\combox-btn-mouse-over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\combox-btn-normal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

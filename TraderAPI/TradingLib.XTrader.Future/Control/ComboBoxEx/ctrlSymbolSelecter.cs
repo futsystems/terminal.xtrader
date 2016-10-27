@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace TradingLib.XTrader.Future
 {
@@ -25,11 +27,335 @@ namespace TradingLib.XTrader.Future
     [Designer(typeof(ctrlSymbolSelecterDesigner))]
     public class ctrlSymbolSelecter : ComboBox, IPopupControlHost
     {
+        #region 控件自绘
+        #region Fields
+
+        private IntPtr _editHandle;
+        private ControlState _buttonState;
+        private Color _baseColor = Color.FromArgb(51, 161, 224);
+        private Color _borderColor = Color.FromArgb(127, 157, 185);
+        private Color _arrowColor = Color.FromArgb(19, 88, 128);
+        private bool _bPainting;
+
+        #endregion
+
+        #region Properties
+
+        [DefaultValue(typeof(Color), "51, 161, 224")]
+        public Color BaseColor
+        {
+            get { return _baseColor; }
+            set
+            {
+                if (_baseColor != value)
+                {
+                    _baseColor = value;
+                    base.Invalidate();
+                }
+            }
+        }
+
+        [DefaultValue(typeof(Color), "127, 157, 185")]
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                if (_borderColor != value)
+                {
+                    _borderColor = value;
+                    base.Invalidate();
+                }
+            }
+        }
+
+        [DefaultValue(typeof(Color), "19, 88, 128")]
+        public Color ArrowColor
+        {
+            get { return _arrowColor; }
+            set
+            {
+                if (_arrowColor != value)
+                {
+                    _arrowColor = value;
+                    base.Invalidate();
+                }
+            }
+        }
+
+        internal ControlState ButtonState
+        {
+            get { return _buttonState; }
+            set
+            {
+                if (_buttonState != value)
+                {
+                    _buttonState = value;
+                    Invalidate(ButtonRect);
+                }
+            }
+        }
+
+        internal Rectangle ButtonRect
+        {
+            get
+            {
+                return GetDropDownButtonRect();
+            }
+        }
+
+        internal bool ButtonPressed
+        {
+            get
+            {
+                if (IsHandleCreated)
+                {
+                    return GetComboBoxButtonPressed();
+                }
+                return false;
+            }
+        }
+
+        internal IntPtr EditHandle
+        {
+            get { return _editHandle; }
+        }
+
+        internal Rectangle EditRect
+        {
+            get
+            {
+                if (DropDownStyle == ComboBoxStyle.DropDownList)
+                {
+                    Rectangle rect = new Rectangle(
+                        3, 3, Width - ButtonRect.Width - 6, Height - 6);
+                    if (RightToLeft == RightToLeft.Yes)
+                    {
+                        rect.X += ButtonRect.Right;
+                    }
+                    return rect;
+                }
+                if (IsHandleCreated && EditHandle != IntPtr.Zero)
+                {
+                    NativeMethods.RECT rcClient = new NativeMethods.RECT();
+                    NativeMethods.GetWindowRect(EditHandle, ref rcClient);
+                    return RectangleToClient(rcClient.Rect);
+                }
+                return Rectangle.Empty;
+            }
+        }
+
+        #endregion
+
+        #region Render Methods
+
+        private void RenderComboBox(ref Message m)
+        {
+            Rectangle rect = new Rectangle(Point.Empty, Size);
+            Rectangle buttonRect = ButtonRect;
+            ControlState state = ButtonPressed ?
+                ControlState.Pressed : ButtonState;
+            using (Graphics g = Graphics.FromHwnd(m.HWnd))
+            {
+                g.Clear(Color.White);
+                RenderComboBoxBackground(g, rect, buttonRect);
+                RenderConboBoxDropDownButton(g, ButtonRect, state);
+                RenderConboBoxBorder(g, rect);
+            }
+        }
+
+        private void RenderConboBoxBorder(
+            Graphics g, Rectangle rect)
+        {
+            Color borderColor = base.Enabled ?
+                _borderColor : SystemColors.ControlDarkDark;
+            using (Pen pen = new Pen(borderColor))
+            {
+                rect.Width--;
+                rect.Height--;
+                g.DrawRectangle(pen, rect);
+            }
+        }
+
+        private void RenderComboBoxBackground(
+            Graphics g,
+            Rectangle rect,
+            Rectangle buttonRect)
+        {
+            
+            Color backColor = base.Enabled ?
+                base.BackColor : SystemColors.Control;
+            using (SolidBrush brush = new SolidBrush(backColor))
+            {
+                buttonRect.Inflate(-1, -1);
+                rect.Inflate(-1, -1);
+                using (Region region = new Region(rect))
+                {
+                    region.Exclude(buttonRect);
+                    region.Exclude(EditRect);
+                    g.FillRegion(brush, region);
+                }
+            }
+        }
+
+        Bitmap GetBtnImg(ControlState state)
+        {
+            if (state == ControlState.Pressed) return Properties.Resources.combox_btn_mouse_down;
+            if (state == ControlState.Hover) return Properties.Resources.combox_btn_mouse_over;
+            
+            return Properties.Resources.combox_btn_normal;
+        }
+        private void RenderConboBoxDropDownButton(
+            Graphics g,
+            Rectangle buttonRect,
+            ControlState state)
+        {
+
+            g.DrawImage(GetBtnImg(state), new Point(buttonRect.X+1, buttonRect.Y+1));
+        }
+        #endregion
+
+        #region Help Methods
+
+        private NativeMethods.ComboBoxInfo GetComboBoxInfo()
+        {
+            NativeMethods.ComboBoxInfo cbi = new NativeMethods.ComboBoxInfo();
+            cbi.cbSize = Marshal.SizeOf(cbi);
+            NativeMethods.GetComboBoxInfo(base.Handle, ref cbi);
+            return cbi;
+        }
+
+        private bool GetComboBoxButtonPressed()
+        {
+            NativeMethods.ComboBoxInfo cbi = GetComboBoxInfo();
+            return cbi.stateButton ==
+                NativeMethods.ComboBoxButtonState.STATE_SYSTEM_PRESSED;
+        }
+
+        private Rectangle GetDropDownButtonRect()
+        {
+            NativeMethods.ComboBoxInfo cbi = GetComboBoxInfo();
+
+            return cbi.rcButton.Rect;
+        }
+
+        #endregion
+
+        #region Windows Message Methods
+
+        private void WmPaint(ref Message m)
+        {
+            if (base.DropDownStyle == ComboBoxStyle.Simple)
+            {
+                base.WndProc(ref m);
+                return;
+            }
+
+            if (base.DropDownStyle == ComboBoxStyle.DropDown)
+            {
+                if (!_bPainting)
+                {
+                    NativeMethods.PAINTSTRUCT ps =
+                        new NativeMethods.PAINTSTRUCT();
+
+                    _bPainting = true;
+                    NativeMethods.BeginPaint(m.HWnd, ref ps);
+
+                    RenderComboBox(ref m);
+
+                    NativeMethods.EndPaint(m.HWnd, ref ps);
+                    _bPainting = false;
+                    m.Result = NativeMethods.TRUE;
+                }
+                else
+                {
+                    base.WndProc(ref m);
+                }
+            }
+            else
+            {
+                base.WndProc(ref m);
+                RenderComboBox(ref m);
+            }
+        }
+
+        #endregion
+
+
+        protected override void OnDropDown(EventArgs e)
+        {
+            //base.OnDropDown(e);
+            
+        }
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+
+            NativeMethods.ComboBoxInfo cbi = GetComboBoxInfo();
+            _editHandle = cbi.hwndEdit;
+        }
+
+        
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            Point point = e.Location;
+            if (ButtonRect.Contains(point))
+            {
+                ButtonState = ControlState.Hover;
+            }
+            else
+            {
+                ButtonState = ControlState.Normal;
+            }
+        }
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+
+            Point point = PointToClient(Cursor.Position);
+            if (ButtonRect.Contains(point))
+            {
+                ButtonState = ControlState.Hover;
+            }
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+
+            ButtonState = ControlState.Normal;
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            ButtonState = ControlState.Normal;
+        }
+
+        //protected override void WndProc(ref Message m)
+        //{
+        //    switch (m.Msg)
+        //    {
+        //        case NativeMethods.WM_PAINT:
+        //            WmPaint(ref m);
+        //            break;
+        //        default:
+        //            base.WndProc(ref m);
+        //            break;
+        //    }
+        //}
+        #endregion
+
         #region Construction and destruction
 
         public ctrlSymbolSelecter()
             : base()
         {
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+
             m_sizeCombo = new Size(base.DropDownWidth, base.DropDownHeight);
             this.ForeColor = Color.FromArgb(4, 60, 109);
             this.Font = new Font("宋体", 9f, FontStyle.Bold);
@@ -141,6 +467,9 @@ namespace TradingLib.XTrader.Future
             }
             base.Dispose(disposing);
         }
+
+
+
 
         #endregion
 
@@ -406,6 +735,11 @@ namespace TradingLib.XTrader.Future
                             HideDropDown();
                         return;
                 }
+            }
+            if (m.Msg == NativeMethods.WM_PAINT)
+            {
+                WmPaint(ref m);
+                return;
             }
 
             base.WndProc(ref m);

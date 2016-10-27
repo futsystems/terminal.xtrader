@@ -123,6 +123,36 @@ namespace TradingLib.XTrader.Future.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap combox_btn_mouse_down {
+            get {
+                object obj = ResourceManager.GetObject("combox_btn_mouse_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap combox_btn_mouse_over {
+            get {
+                object obj = ResourceManager.GetObject("combox_btn_mouse_over", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap combox_btn_normal {
+            get {
+                object obj = ResourceManager.GetObject("combox_btn_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap downarrow {
             get {
                 object obj = ResourceManager.GetObject("downarrow", resourceCulture);
