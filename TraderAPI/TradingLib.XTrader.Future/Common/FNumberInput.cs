@@ -80,14 +80,22 @@ namespace TradingLib.XTrader.Future
         public int DecimalPlace { get { return _decimalplace; } set { _decimalplace = value; } }
 
         public string TxtValue { get { return _txtvalue; } set { _txtvalue = value; } }
+        /// <summary>
+        /// 是否处于文字模式
+        /// 文字模式通过文字内容来判定价格
+        /// 数字模式直接取数字
+        /// </summary>
+        public bool IsTxtMode { get { return _txtMode; } }
         int _decimalplace = 2;
         decimal _increment = 1;
         decimal _mindval = 0;
         decimal _maxdval = 1000000;
         string _txtvalue = string.Empty;
+        bool _txtMode = false;
         #endregion
 
-        bool _txtMode = false;
+
+        
         /// <summary>
         /// 设定输入框文本
         /// </summary>
@@ -106,6 +114,15 @@ namespace TradingLib.XTrader.Future
             this.Invalidate();
         }
 
+        public void SetValue(string val)
+        {
+            decimal d = 0;
+            if (!decimal.TryParse(val, out d)) d = 0;
+            _txtvalue = val;
+            _selectionStart = _txtvalue.Length;
+            _SelectionEnd = 0;
+            this.Invalidate();
+        }
         #region 内部状态变量
         bool _upBtnMouseDown = false;
         bool _dnBtnMouseDown = false;
@@ -559,7 +576,7 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// Popup control.
         /// </summary>
-        private PopupControl m_popupCtrl = new PopupControl();
+        private PopupControl m_popupCtrl = new PopupControl(false);
 
         /// <summary>
         /// Actual drop-down control itself.

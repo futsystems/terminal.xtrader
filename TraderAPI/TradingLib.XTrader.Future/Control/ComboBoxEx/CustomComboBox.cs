@@ -446,7 +446,7 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// Popup control.
         /// </summary>
-        private PopupControl m_popupCtrl = new PopupControl();
+        private PopupControl m_popupCtrl = new PopupControl(true);
 
         /// <summary>
         /// Actual drop-down control itself.

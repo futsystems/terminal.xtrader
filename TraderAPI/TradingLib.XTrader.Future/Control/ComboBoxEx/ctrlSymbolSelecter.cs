@@ -34,9 +34,13 @@ namespace TradingLib.XTrader.Future
             this.ForeColor = Color.FromArgb(4, 60, 109);
             this.Font = new Font("宋体", 9f, FontStyle.Bold);
             m_popupCtrl.Closing += new ToolStripDropDownClosingEventHandler(m_dropDown_Closing);
-
+            
             m_titleList.Height = 200;
+            m_titleList.Width = 1;
             m_symbolList.Height = 80;
+            m_symbolList.Width = 1;
+
+            
             //m_titleList.BorderStyle = BorderStyle.None;
             //m_symbolList.BorderStyle = BorderStyle.None;
 
@@ -204,9 +208,9 @@ namespace TradingLib.XTrader.Future
             /// </summary>
             DropDownSymbol,
         }
-        FListBox m_titleList = new FListBox();
+        ctrlListBox m_titleList = new ctrlListBox();
 
-        FListBox m_symbolList = new FListBox();
+        ctrlListBox m_symbolList = new ctrlListBox();
 
         #endregion
 
@@ -577,7 +581,7 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// Popup control.
         /// </summary>
-        private PopupControl m_popupCtrl = new PopupControl();
+        private PopupControl m_popupCtrl = new PopupControl(true);//dropdown自动关闭
 
         /// <summary>
         /// Actual drop-down control itself.

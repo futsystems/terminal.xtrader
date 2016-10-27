@@ -66,6 +66,10 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         public List<string> Items { get { return fListBox1.Items; } }
 
+        /// <summary>
+        /// 当前选中
+        /// </summary>
+        public string SelectedItem { get { return fListBox1.SelectedItem; } }
 
 
     }

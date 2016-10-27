@@ -27,11 +27,12 @@ namespace TradingLib.XTrader.Future.Control
             //btnHide.Click += new EventHandler(btnHide_Click);
         }
         ctrlListBox priceBox;
+        ctrlNumBox sizeBox;
         void InitControl()
         {
+            inputSymbol.DropDownSizeMode = SizeMode.UseControlSize;
+
             ListBox f = new ListBox();
-            
-            
             priceBox = new ctrlListBox();
             priceBox.ItemSelected += new Action<string>(box_ItemSelected);
             priceBox.Height = 80;
@@ -45,13 +46,21 @@ namespace TradingLib.XTrader.Future.Control
             priceBox.Items.Add("市价");
             priceBox.Items.Add("涨停价");
             priceBox.Items.Add("跌停价");
-           
 
             inputPrice.DropDownSizeMode = SizeMode.UseControlSize;
             inputPrice.DropDownControl = priceBox;
 
-            TextBox tb = new TextBox();
-            inputSize.DropDownControl = tb;
+            sizeBox = new ctrlNumBox();
+            sizeBox.NumSelected += new Action<int>(sizeBox_NumSelected);
+            inputSize.DropDownControl = sizeBox;
+            inputSize.DropDownSizeMode = SizeMode.UseControlSize;
+
+        }
+
+        void sizeBox_NumSelected(int obj)
+        {
+            inputSize.SetValue(obj.ToString());
+            inputSize.HideDropDown();
         }
 
         void box_ItemSelected(string obj)

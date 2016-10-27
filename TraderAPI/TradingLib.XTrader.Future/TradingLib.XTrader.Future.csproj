@@ -50,7 +50,6 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
-    <Reference Include="XTrader.Future, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\MouseHook.cs" />
@@ -77,6 +76,12 @@
     </Compile>
     <Compile Include="Control\ctrlListBox.Designer.cs">
       <DependentUpon>ctrlListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ctrlNumBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlNumBox.Designer.cs">
+      <DependentUpon>ctrlNumBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\ctrlOrderEntry.cs">
       <SubType>UserControl</SubType>
@@ -196,6 +201,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Control\ctrlListBox.resx">
       <DependentUpon>ctrlListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ctrlNumBox.resx">
+      <DependentUpon>ctrlNumBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctrlOrderEntry.resx">
       <DependentUpon>ctrlOrderEntry.cs</DependentUpon>

@@ -117,11 +117,11 @@ namespace TradingLib.XTrader.Future
     {
         #region Construction and destruction
 
-        public PopupDropDown(bool autoSize)
+        public PopupDropDown(bool autoSize,bool autclose)
         {
             AutoSize = autoSize;
             Padding = Margin = Padding.Empty;
-            AutoClose = false;//如果autoClose=true 则对应的NumberInput无法获得键盘数据 可以通过其他事件来触发关闭
+            AutoClose = autclose;//如果autoClose=true 则对应的NumberInput无法获得键盘数据 可以通过其他事件来触发关闭
         }
 
         #endregion
@@ -212,8 +212,9 @@ namespace TradingLib.XTrader.Future
                 m_lockedHostedControlSize = true;
                 m_lockedThisSize = true;
 
+                
                 // Display actual popup and occupy just 1x1 pixel to avoid automatic reposition.
-                Size = new Size(1, 1);
+                Size = new Size(width, height);
                 base.Show(x, y);
 
                 m_lockedHostedControlSize = false;
@@ -352,7 +353,7 @@ namespace TradingLib.XTrader.Future
                 contentSize.Height += 16;
 
             // Add some additional space to allow for borders.
-            contentSize.Width += 2;
+            //contentSize.Width += 2;
             contentSize.Height += 2;
 
             return contentSize;
@@ -599,9 +600,11 @@ namespace TradingLib.XTrader.Future
     {
         #region Construction and destruction
 
-        public PopupControl()
+        public PopupControl(bool autoclose)
         {
+            m_autoClose = autoclose;
             InitializeDropDown();
+            
         }
 
         #endregion
@@ -737,7 +740,7 @@ namespace TradingLib.XTrader.Future
             // Does a drop down exist?
             if (m_dropDown == null)
             {
-                m_dropDown = new PopupDropDown(false);
+                m_dropDown = new PopupDropDown(false, m_autoClose);
                 m_dropDown.Closed += new ToolStripDropDownClosedEventHandler(m_dropDown_Closed);
             }
         }
@@ -783,6 +786,7 @@ namespace TradingLib.XTrader.Future
 
         #region Attributes
 
+        private bool m_autoClose = false;
         private ToolStripControlHost m_host;
         private PopupDropDown m_dropDown;
 
