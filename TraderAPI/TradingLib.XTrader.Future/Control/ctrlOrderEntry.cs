@@ -25,7 +25,20 @@ namespace TradingLib.XTrader.Future.Control
         void WireEvent()
         {
             //btnHide.Click += new EventHandler(btnHide_Click);
+            tabControl1.Selecting += new TabControlCancelEventHandler(tabControl1_Selecting);
         }
+
+        /// <summary>
+        /// 禁止切换Tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            e.Cancel = true;
+        }
+
+
         ctrlListBox priceBox;
         ctrlNumBox sizeBox;
         void InitControl()

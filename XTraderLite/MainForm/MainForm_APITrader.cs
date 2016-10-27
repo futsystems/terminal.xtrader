@@ -43,6 +43,8 @@ namespace XTraderLite
 
                 if (_traderApi != null)
                 {
+                    splitter.MinSize = _traderApi.APISetting.TradingBoxMinHeight;
+                    panelBroker.Height = _traderApi.APISetting.TradingBoxMinHeight;//根据插件设定最小交易box高度
                     _traderCtrl = _traderApi as Control;
                     if (_traderCtrl != null)
                     {

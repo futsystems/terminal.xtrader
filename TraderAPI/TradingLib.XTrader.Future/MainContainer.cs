@@ -31,7 +31,9 @@ namespace TradingLib.XTrader.Future
     /// </summary>
     public partial class MainContainer : UserControl,ITraderAPI
     {
+        public TraderAPISetting APISetting { get { return apisetting; } }
 
+        TraderAPISetting apisetting = new TraderAPISetting();
         public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
 
         /// <summary>
@@ -45,6 +47,8 @@ namespace TradingLib.XTrader.Future
             ctrlTraderLogin.BackColor = Color.White;
 
             WireEvent();
+
+            apisetting.TradingBoxMinHeight = 258;
 
             if (_trader == null)
             {

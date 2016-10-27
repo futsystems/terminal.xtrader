@@ -42,6 +42,8 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
@@ -55,10 +57,12 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(1, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(333, 231);
+            this.tabControl1.Size = new System.Drawing.Size(334, 231);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -82,7 +86,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(325, 205);
+            this.tabPage1.Size = new System.Drawing.Size(326, 205);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -160,7 +164,6 @@
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(47, 16);
             this.radioButton3.TabIndex = 4;
-            this.radioButton3.TabStop = true;
             this.radioButton3.Text = "平今";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
@@ -171,13 +174,13 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(47, 16);
             this.radioButton2.TabIndex = 3;
-            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "平仓";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(9, 46);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(47, 16);
@@ -204,6 +207,25 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "三键下单";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(325, 205);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "传统下单";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(325, 205);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "快鼠下单";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // inputSize
             // 
@@ -311,7 +333,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tabControl1);
             this.Name = "ctrlOrderEntry";
-            this.Size = new System.Drawing.Size(335, 233);
+            this.Size = new System.Drawing.Size(335, 250);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -340,5 +362,7 @@
         private ctrlSymbolSelecter inputSymbol;
         private FNumberInput inputPrice;
         private FNumberInput inputSize;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }

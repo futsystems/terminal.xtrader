@@ -98,7 +98,7 @@ namespace TradingLib.XTrader.Control
 
             if (symbolList.Count == 0)
             {
-                g.DrawString("ctrlSymbolHighLight", priceFont, Brushes.Black, 0, 0);
+                return;
             }
             foreach (var h in symbolList)
             {

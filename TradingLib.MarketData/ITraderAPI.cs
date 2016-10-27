@@ -15,10 +15,25 @@ namespace TradingLib.MarketData
 
 
     /// <summary>
+    /// 行情接口工作参数
+    /// </summary>
+    public class TraderAPISetting
+    {
+
+        /// <summary>
+        /// 交易框最小高度
+        /// </summary>
+        public int TradingBoxMinHeight { get; set; }
+    }
+
+
+
+    /// <summary>
     /// 交易控件接口
     /// </summary>
     public interface ITraderAPI
     {
+        TraderAPISetting APISetting { get; }
         /// <summary>
         /// 是否可见
         /// </summary>
