@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Drawing;
 
-namespace TradingLib.XTrader.Future
+namespace CSharpWin
 {
     /* 作者：Starts_2000
      * 日期：2009-09-20

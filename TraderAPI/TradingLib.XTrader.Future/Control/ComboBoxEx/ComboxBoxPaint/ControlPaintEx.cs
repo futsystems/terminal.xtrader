@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace TradingLib.XTrader.Future
+namespace CSharpWin
 {
     /* 作者：Starts_2000
      * 日期：2009-09-08

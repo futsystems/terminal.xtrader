@@ -43,8 +43,10 @@ namespace TradingLib.XTrader.Future.Control
         ctrlNumBox sizeBox;
         void InitControl()
         {
-            //inputArbflag.Items.Add("投机");
-            //inputArbflag.Items.Add("保值");
+            inputArbFlag.SelectedIndex = 0;
+            //inputArbFlag.DrawMode = DrawMode.OwnerDrawVariable;
+            //inputArbFlag.ItemHeight = 16;
+            //inputArbFlag.IntegralHeight = false;
 
             inputSymbol.DropDownSizeMode = SizeMode.UseControlSize;
 

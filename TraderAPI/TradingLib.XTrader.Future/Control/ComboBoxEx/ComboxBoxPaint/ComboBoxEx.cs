@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 
-namespace TradingLib.XTrader.Future
+namespace CSharpWin
 {
     /* 作者：Starts_2000
      * 日期：2009-09-20
@@ -36,8 +36,6 @@ namespace TradingLib.XTrader.Future
             : base()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-
-            this.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
         }
 
         #endregion
@@ -152,11 +150,6 @@ namespace TradingLib.XTrader.Future
 
         #region Override Methods
 
-        
-        protected override void OnDropDown(EventArgs e)
-        {
-            //base.OnDropDown(e);
-        }
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -307,12 +300,15 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+
+
         Bitmap GetBtnImg(ControlState state)
         {
-            if (state == ControlState.Pressed) return Properties.Resources.combox_btn_mouse_down;
-            if (state == ControlState.Hover) return Properties.Resources.combox_btn_mouse_over;
 
-            return Properties.Resources.combox_btn_normal;
+            if (state == ControlState.Pressed) return TradingLib.XTrader.Future.Properties.Resources.combox_btn_mouse_down;
+            if (state == ControlState.Hover) return TradingLib.XTrader.Future.Properties.Resources.combox_btn_mouse_over;
+
+            return TradingLib.XTrader.Future.Properties.Resources.combox_btn_normal;
         }
 
         private void RenderConboBoxDropDownButton(
@@ -321,8 +317,9 @@ namespace TradingLib.XTrader.Future
             ControlState state)
         {
             g.DrawImage(GetBtnImg(state), new Point(buttonRect.X + 1, buttonRect.Y + 1));
+
             return;
-            //以下为自绘
+
             Color baseColor;
             Color backColor = Color.FromArgb(160, 250, 250, 250);
             Color borderColor = base.Enabled ?
@@ -475,5 +472,18 @@ namespace TradingLib.XTrader.Future
         }
 
         #endregion
+
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            var index = e.Index;
+            if (index < 0 || index >= Items.Count) return;
+            using (var brush = new SolidBrush(e.ForeColor))
+            {
+                Rectangle rec = new Rectangle(e.Bounds.Left, e.Bounds.Top + ((e.Bounds.Height - ItemHeight) / 2), e.Bounds.Width, ItemHeight);
+                e.Graphics.DrawString(this.Items[e.Index].ToString(), e.Font, new SolidBrush(this.ForeColor), rec);
+            }
+            //e.DrawFocusRectangle();
+        }   
     }
 }

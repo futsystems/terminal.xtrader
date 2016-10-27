@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
+using CSharpWin;
 
 namespace TradingLib.XTrader.Future
 {

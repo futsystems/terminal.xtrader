@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace TradingLib.XTrader.Future
+namespace CSharpWin
 {
     /* 作者：Starts_2000
      * 日期：2009-09-20

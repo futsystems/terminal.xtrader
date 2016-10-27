@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -44,7 +45,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.inputArbFlag = new CSharpWin.ComboBoxEx();
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
@@ -68,6 +69,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.inputArbFlag);
             this.tabPage1.Controls.Add(this.checkBox2);
             this.tabPage1.Controls.Add(this.inputSize);
             this.tabPage1.Controls.Add(this.inputPrice);
@@ -92,6 +94,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(251, 35);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(72, 16);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "套利移仓";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -229,16 +242,22 @@
             this.tabPage4.Text = "快鼠下单";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // inputArbFlag
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(251, 35);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(72, 16);
-            this.checkBox2.TabIndex = 23;
-            this.checkBox2.Text = "套利移仓";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.inputArbFlag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
+            this.inputArbFlag.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.inputArbFlag.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.inputArbFlag.ForeColor = System.Drawing.Color.Black;
+            this.inputArbFlag.FormattingEnabled = true;
+            this.inputArbFlag.ItemHeight = 14;
+            this.inputArbFlag.Items.AddRange(new object[] {
+            "保值",
+            "投机"});
+            this.inputArbFlag.Location = new System.Drawing.Point(239, 7);
+            this.inputArbFlag.Name = "inputArbFlag";
+            this.inputArbFlag.Size = new System.Drawing.Size(80, 22);
+            this.inputArbFlag.TabIndex = 24;
+            this.inputArbFlag.TabStop = false;
             // 
             // inputSize
             // 
@@ -379,5 +398,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.CheckBox checkBox2;
+        private CSharpWin.ComboBoxEx inputArbFlag;
     }
 }

@@ -50,6 +50,7 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
+    <Reference Include="XTrader.Future, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\MouseHook.cs" />

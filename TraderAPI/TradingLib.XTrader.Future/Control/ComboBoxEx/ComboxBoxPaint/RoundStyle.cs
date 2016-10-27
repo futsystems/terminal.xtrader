@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TradingLib.XTrader.Future
+namespace CSharpWin
 {
     /* 作者：Starts_2000
      * 日期：2009-07-31
