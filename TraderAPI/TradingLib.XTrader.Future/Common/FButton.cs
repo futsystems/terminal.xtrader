@@ -20,7 +20,7 @@ namespace TradingLib.XTrader
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             //this.BackColor = Color.Transparent;
             this.BackColor = Color.White;
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            //this.Cursor = System.Windows.Forms.Cursors.Hand;
             _orderStringFormat = new StringFormat();
             _orderStringFormat.Alignment = StringAlignment.Center;
             _orderStringFormat.LineAlignment = StringAlignment.Far;

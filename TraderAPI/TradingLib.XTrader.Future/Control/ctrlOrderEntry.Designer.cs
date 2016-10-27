@@ -188,7 +188,7 @@
             this.btnSell.BackColor = System.Drawing.Color.Transparent;
             this.btnSell.CheckButton = false;
             this.btnSell.Checked = false;
-            this.btnSell.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSell.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnSell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
             this.btnSell.Location = new System.Drawing.Point(239, 137);
             this.btnSell.Name = "btnSell";
@@ -208,7 +208,7 @@
             this.btnBuy.BackColor = System.Drawing.Color.Transparent;
             this.btnBuy.CheckButton = false;
             this.btnBuy.Checked = false;
-            this.btnBuy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuy.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnBuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
             this.btnBuy.Location = new System.Drawing.Point(153, 137);
             this.btnBuy.Name = "btnBuy";

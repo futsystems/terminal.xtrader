@@ -48,6 +48,88 @@ namespace TradingLib.XTrader.Future
             tabCancel.Click += new EventHandler(tabCancel_Click);
             btnCancel.Click += new EventHandler(btnCancel_Click);
             btnCancelAll.Click += new EventHandler(btnCancelAll_Click);
+
+            orderGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(orderGrid_CellFormatting);
+            orderGrid.MouseClick += new MouseEventHandler(orderGrid_MouseClick);
+        }
+
+        //protected override void OnLostFocus(EventArgs e)
+        //{
+        //    logger.Info("lost focus");
+        //    if (orderGrid.SelectedRows.Count > 0)
+        //    {
+        //        orderGrid.SelectedRows[0].Selected = false;
+        //    }
+        //    base.OnLostFocus(e);
+        //}
+        void orderGrid_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+            //orderGrid.SelectedRows[0].Selected = false;
+            int rowid = GetRowIndexAt(e.Y);
+            if (rowid == -1)
+            {
+                if (orderGrid.SelectedRows.Count > 0)
+                {
+                    orderGrid.SelectedRows[0].Selected = false;
+                }
+            }
+            //MessageBox.Show(rowid.ToString());
+        }
+        int GetRowIndexAt(int mouseLocation_Y)
+        {
+            if (orderGrid.FirstDisplayedScrollingRowIndex < 0)
+            {
+                return -1;  // no rows.   
+            }
+            if (orderGrid.ColumnHeadersVisible == true && mouseLocation_Y <= orderGrid.ColumnHeadersHeight)
+            {
+                return -1;
+            }
+            int index = orderGrid.FirstDisplayedScrollingRowIndex;
+            int displayedCount = orderGrid.DisplayedRowCount(true);
+            for (int k = 1; k <= displayedCount; )  // 因为行不能ReOrder，故只需要搜索显示的行   
+            {
+                if (orderGrid.Rows[index].Visible == true)
+                {
+                    Rectangle rect = orderGrid.GetRowDisplayRectangle(index, true);  // 取该区域的显示部分区域   
+                    if (rect.Top <= mouseLocation_Y && mouseLocation_Y < rect.Bottom)
+                    {
+                        return index;
+                    }
+                    k++;  // 只计数显示的行;   
+                }
+                index++;
+            }
+            return -1;
+        }  
+
+
+        void orderGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 5)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    bool side = false;
+                    bool.TryParse(orderGrid[4, e.RowIndex].Value.ToString(), out side);
+                    e.CellStyle.ForeColor = side ? Constants.BuyColor : Constants.SellColor;
+                }
+                if (e.ColumnIndex == 6)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    bool open = orderGrid[6, e.RowIndex].Value.ToString() == "开";
+
+                    e.CellStyle.ForeColor = open ? Color.Black : Color.Blue;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error("cell format error:" + ex.ToString());
+            }
         }
 
         void btnCancelAll_Click(object sender, EventArgs e)
@@ -123,6 +205,10 @@ namespace TradingLib.XTrader.Future
                 CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
                 CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             }
+            if (orderGrid.SelectedRows.Count > 0)
+            {
+                orderGrid.SelectedRows[0].Selected = false;
+            }
         }
 
 
@@ -148,6 +234,11 @@ namespace TradingLib.XTrader.Future
             foreach (var order in CoreService.TradingInfoTracker.OrderTracker)
             {
                 this.GotOrder(order);
+            }
+
+            if (orderGrid.SelectedRows.Count > 0)
+            {
+                orderGrid.SelectedRows[0].Selected = false;
             }
         }
 
@@ -228,7 +319,11 @@ namespace TradingLib.XTrader.Future
             if (o.oSymbol != null) val.ToFormatStr(o.oSymbol);
             return val.ToFormatStr();
         }
-
+        string GetSymbolName(Order o)
+        {
+            if (o.oSymbol != null) return o.oSymbol.GetName();
+            return o.Symbol;
+        }
 
         public void GotOrder(Order o)
         {
@@ -251,8 +346,9 @@ namespace TradingLib.XTrader.Future
                         tb.Rows[i][DATETIME] = o.GetDateTime();
                         tb.Rows[i][TIME] = GetDateTimeString(o);
                         tb.Rows[i][SYMBOL] = o.Symbol;
-                        tb.Rows[i][SIDE] = o.Side ? "买" : "  卖";
-                        tb.Rows[i][FLAG] = o.IsEntryPosition ? "开仓" : "平仓";
+                        tb.Rows[i][SIDE] = o.Side;
+                        tb.Rows[i][SIDESTR] = o.Side ? "买" : "  卖";
+                        tb.Rows[i][FLAG] = o.IsEntryPosition ? "开" : " 平";
                         tb.Rows[i][ORDERPRICE] = FormatPrice(o, o.LimitPrice);//o.LimitPrice.ToFormatStr(o.oSymbol.SecurityFamily.GetPriceFormat());
 
 
@@ -265,6 +361,7 @@ namespace TradingLib.XTrader.Future
                         tb.Rows[i][COMMENT] = o.Comment;
                         tb.Rows[i][SPECULATE] = "投";
                         tb.Rows[i][ORDERID] = o.OrderSysID;
+                        tb.Rows[i][NAME] = GetSymbolName(o);
 
                     }
                     else
@@ -288,8 +385,8 @@ namespace TradingLib.XTrader.Future
         const string DATETIME = "DATETIME";
         const string TIME = "委托时间";
         const string SYMBOL = "合约";
-
-        const string SIDE = "买卖";
+        const string SIDE = "SIDE";
+        const string SIDESTR = "买卖";
         const string FLAG = "开平";
 
         const string ORDERPRICE = "委托价格";
@@ -316,6 +413,7 @@ namespace TradingLib.XTrader.Future
             tb.Columns.Add(SYMBOL);
 
             tb.Columns.Add(SIDE);
+            tb.Columns.Add(SIDESTR);
             tb.Columns.Add(FLAG);
             tb.Columns.Add(ORDERPRICE);
             tb.Columns.Add(TOTALSIZE);
@@ -367,6 +465,7 @@ namespace TradingLib.XTrader.Future
             grid.DataSource = datasource;
 
             grid.Columns[ID].Visible = false;
+            grid.Columns[SIDE].Visible = false;
             grid.Columns[DATETIME].Visible = false;
             grid.Columns[STATUS].Visible = false;
             

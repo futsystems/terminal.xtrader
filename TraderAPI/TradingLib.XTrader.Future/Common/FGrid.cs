@@ -5,12 +5,14 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Common.Logging;
 
 namespace TradingLib.XTrader.Future
 {
     public class  FGrid:System.Windows.Forms.DataGridView
     {
         static Color lineColor = Color.FromArgb(127, 157, 185);
+        ILog logger = LogManager.GetLogger("FGrid");
         static Pen pen = new Pen(lineColor, 1);
         public FGrid()
         {
@@ -26,8 +28,8 @@ namespace TradingLib.XTrader.Future
             this.ReadOnly = true;
             this.RowHeadersVisible = false;
             //this.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-           
-
+            this.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            this.Font = new Font("宋体", 9.5f);
             this.EnableHeadersVisualStyles = false;//表头部适用系统样式
 
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -42,7 +44,15 @@ namespace TradingLib.XTrader.Future
 
 
 
-        
+        protected override void OnLostFocus(EventArgs e)
+        {
+            //logger.Info("lost focus");
+            if (this.SelectedRows.Count > 0)
+            {
+                this.SelectedRows[0].Selected = false;
+            }
+            base.OnLostFocus(e);
+        }
 
         void FPosition_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {

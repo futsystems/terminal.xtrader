@@ -43,7 +43,7 @@
             this.tabAll.BackColor = System.Drawing.Color.White;
             this.tabAll.CheckButton = true;
             this.tabAll.Checked = true;
-            this.tabAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabAll.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabAll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabAll.Location = new System.Drawing.Point(0, 0);
             this.tabAll.Name = "tabAll";
@@ -96,7 +96,7 @@
             this.btnCancelAll.BackColor = System.Drawing.Color.White;
             this.btnCancelAll.CheckButton = false;
             this.btnCancelAll.Checked = false;
-            this.btnCancelAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelAll.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnCancelAll.Location = new System.Drawing.Point(75, 2);
             this.btnCancelAll.Name = "btnCancelAll";
             this.btnCancelAll.OrderEntryButton = false;
@@ -115,7 +115,7 @@
             this.btnCancel.BackColor = System.Drawing.Color.White;
             this.btnCancel.CheckButton = false;
             this.btnCancel.Checked = false;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnCancel.Location = new System.Drawing.Point(3, 2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OrderEntryButton = false;
@@ -137,7 +137,7 @@
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.CheckButton = false;
             this.panel2.Checked = false;
-            this.panel2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel2.Location = new System.Drawing.Point(28, 25);
             this.panel2.Name = "panel2";
             this.panel2.OrderEntryButton = false;
@@ -156,7 +156,7 @@
             this.tabCancel.BackColor = System.Drawing.Color.White;
             this.tabCancel.CheckButton = true;
             this.tabCancel.Checked = false;
-            this.tabCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabCancel.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabCancel.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabCancel.Location = new System.Drawing.Point(0, 117);
             this.tabCancel.Name = "tabCancel";

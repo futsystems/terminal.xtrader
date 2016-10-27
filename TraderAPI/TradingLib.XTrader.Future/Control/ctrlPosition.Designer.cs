@@ -28,38 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabPosition = new TradingLib.XTrader.FButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new TradingLib.XTrader.FButton();
             this.fButton1 = new TradingLib.XTrader.FButton();
             this.button6 = new TradingLib.XTrader.FButton();
             this.button5 = new TradingLib.XTrader.FButton();
             this.button4 = new TradingLib.XTrader.FButton();
             this.button3 = new TradingLib.XTrader.FButton();
             this.button2 = new TradingLib.XTrader.FButton();
-            this.panel2 = new TradingLib.XTrader.FButton();
+            this.tabPosition = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabPosition
-            // 
-            this.tabPosition.BackColor = System.Drawing.Color.White;
-            this.tabPosition.CheckButton = true;
-            this.tabPosition.Checked = true;
-            this.tabPosition.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tabPosition.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tabPosition.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPosition.Location = new System.Drawing.Point(0, 0);
-            this.tabPosition.Name = "tabPosition";
-            this.tabPosition.OrderEntryButton = false;
-            this.tabPosition.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.tabPosition.Size = new System.Drawing.Size(27, 233);
-            this.tabPosition.TabIndex = 1;
-            this.tabPosition.Text = "持仓";
-            this.tabPosition.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -76,6 +55,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(775, 25);
             this.panel1.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.CheckButton = false;
+            this.panel2.Checked = false;
+            this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.panel2.Location = new System.Drawing.Point(28, 25);
+            this.panel2.Name = "panel2";
+            this.panel2.OrderEntryButton = false;
+            this.panel2.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.panel2.Size = new System.Drawing.Size(773, 208);
+            this.panel2.TabIndex = 3;
+            this.panel2.UseVisualStyleBackColor = false;
             // 
             // fButton1
             // 
@@ -102,7 +102,7 @@
             this.button6.BackColor = System.Drawing.Color.White;
             this.button6.CheckButton = false;
             this.button6.Checked = false;
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Default;
             this.button6.Location = new System.Drawing.Point(291, 2);
             this.button6.Name = "button6";
             this.button6.OrderEntryButton = false;
@@ -121,7 +121,7 @@
             this.button5.BackColor = System.Drawing.Color.White;
             this.button5.CheckButton = false;
             this.button5.Checked = false;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.Cursor = System.Windows.Forms.Cursors.Default;
             this.button5.Location = new System.Drawing.Point(219, 2);
             this.button5.Name = "button5";
             this.button5.OrderEntryButton = false;
@@ -140,7 +140,7 @@
             this.button4.BackColor = System.Drawing.Color.White;
             this.button4.CheckButton = false;
             this.button4.Checked = false;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Default;
             this.button4.Location = new System.Drawing.Point(147, 2);
             this.button4.Name = "button4";
             this.button4.OrderEntryButton = false;
@@ -159,7 +159,7 @@
             this.button3.BackColor = System.Drawing.Color.White;
             this.button3.CheckButton = false;
             this.button3.Checked = false;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
             this.button3.Location = new System.Drawing.Point(75, 2);
             this.button3.Name = "button3";
             this.button3.OrderEntryButton = false;
@@ -178,7 +178,7 @@
             this.button2.BackColor = System.Drawing.Color.White;
             this.button2.CheckButton = false;
             this.button2.Checked = false;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
             this.button2.Location = new System.Drawing.Point(3, 2);
             this.button2.Name = "button2";
             this.button2.OrderEntryButton = false;
@@ -192,26 +192,26 @@
             this.button2.Text = "全部平仓";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // tabPosition
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.CheckButton = false;
-            this.panel2.Checked = false;
-            this.panel2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel2.Location = new System.Drawing.Point(28, 25);
-            this.panel2.Name = "panel2";
-            this.panel2.OrderEntryButton = false;
-            this.panel2.Price = new decimal(new int[] {
+            this.tabPosition.BackColor = System.Drawing.Color.White;
+            this.tabPosition.CheckButton = true;
+            this.tabPosition.Checked = true;
+            this.tabPosition.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tabPosition.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tabPosition.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabPosition.Location = new System.Drawing.Point(0, 0);
+            this.tabPosition.Name = "tabPosition";
+            this.tabPosition.OrderEntryButton = false;
+            this.tabPosition.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.panel2.Size = new System.Drawing.Size(773, 208);
-            this.panel2.TabIndex = 3;
-            this.panel2.UseVisualStyleBackColor = false;
+            this.tabPosition.Size = new System.Drawing.Size(27, 233);
+            this.tabPosition.TabIndex = 1;
+            this.tabPosition.Text = "持仓";
+            this.tabPosition.UseVisualStyleBackColor = true;
             // 
             // ctrlPosition
             // 

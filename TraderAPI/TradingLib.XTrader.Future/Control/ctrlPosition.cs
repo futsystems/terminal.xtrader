@@ -34,14 +34,88 @@ namespace TradingLib.XTrader.Future
             InitTable();
             BindToTable();
 
-            //this.positionGrid.SizeChanged += new EventHandler(positionGrid_SizeChanged);
-            //this.positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
-            this.Load += new EventHandler(ctPositionViewSTK_Load);
+            WireEvent();
 
         }
 
 
-        void ctPositionViewSTK_Load(object sender, EventArgs e)
+        void WireEvent()
+        {
+            this.Load += new EventHandler(ctrlPosition_Load);
+            positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
+            positionGrid.MouseClick += new MouseEventHandler(positionGrid_MouseClick);
+        }
+
+        void positionGrid_MouseClick(object sender, MouseEventArgs e)
+        {
+            //orderGrid.SelectedRows[0].Selected = false;
+            int rowid = GetRowIndexAt(e.Y);
+            if (rowid == -1)
+            {
+                if (positionGrid.SelectedRows.Count > 0)
+                {
+                    positionGrid.SelectedRows[0].Selected = false;
+                }
+            }
+            //MessageBox.Show(rowid.ToString());
+        }
+        int GetRowIndexAt(int mouseLocation_Y)
+        {
+            if (positionGrid.FirstDisplayedScrollingRowIndex < 0)
+            {
+                return -1;  // no rows.   
+            }
+            if (positionGrid.ColumnHeadersVisible == true && mouseLocation_Y <= positionGrid.ColumnHeadersHeight)
+            {
+                return -1;
+            }
+            int index = positionGrid.FirstDisplayedScrollingRowIndex;
+            int displayedCount = positionGrid.DisplayedRowCount(true);
+            for (int k = 1; k <= displayedCount; )  // 因为行不能ReOrder，故只需要搜索显示的行   
+            {
+                if (positionGrid.Rows[index].Visible == true)
+                {
+                    Rectangle rect = positionGrid.GetRowDisplayRectangle(index, true);  // 取该区域的显示部分区域   
+                    if (rect.Top <= mouseLocation_Y && mouseLocation_Y < rect.Bottom)
+                    {
+                        return index;
+                    }
+                    k++;  // 只计数显示的行;   
+                }
+                index++;
+            }
+            return -1;
+        }  
+
+
+
+        void positionGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 5)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    bool side = false;
+                    bool.TryParse(positionGrid[4, e.RowIndex].Value.ToString(), out side);
+                    e.CellStyle.ForeColor = side ? Constants.BuyColor : Constants.SellColor;
+                }
+                if (e.ColumnIndex == 6)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    //bool open = positionGrid[6, e.RowIndex].Value.ToString() == "开";
+
+                    e.CellStyle.ForeColor = Color.Blue;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error("cell format error:" + ex.ToString());
+            }
+        }
+        void ctrlPosition_Load(object sender, EventArgs e)
         {
             try
             {
@@ -56,6 +130,9 @@ namespace TradingLib.XTrader.Future
                 }
 
                 positionGrid.DoubleClick += new EventHandler(positionGrid_DoubleClick);
+
+                
+
             }
             catch (Exception ex)
             {
@@ -121,7 +198,10 @@ namespace TradingLib.XTrader.Future
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
             }
-
+            if (positionGrid.SelectedRows.Count > 0)
+            {
+                positionGrid.SelectedRows[0].Selected = false;
+            }
         }
 
         public void OnDisposed()
@@ -187,7 +267,7 @@ namespace TradingLib.XTrader.Future
             tb.Rows[i][SYMBOLKEY] = pos.oSymbol.GetUniqueKey();
             tb.Rows[i][SYMBOL] = pos.Symbol;
             tb.Rows[i][SIDE] = pos.DirectionType == QSEnumPositionDirectionType.Long;//??
-            
+            tb.Rows[i][SIDESTR] = (pos.DirectionType == QSEnumPositionDirectionType.Long?"买":" 卖");
 
 
 
@@ -202,6 +282,16 @@ namespace TradingLib.XTrader.Future
         {
             OrderTracker ot = CoreService.TradingInfoTracker.OrderTracker;
             return pos.isFlat ? 0 : (pos.UnsignedSize - ot.GetPendingExitSize(pos.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false));
+        }
+
+        /// 获得合约名称
+        /// </summary>
+        /// <param name="fill"></param>
+        /// <returns></returns>
+        string GetSymbolName(Position pos)
+        {
+            if (pos.oSymbol != null) return pos.oSymbol.GetName();
+            return pos.Symbol;
         }
 
         public void GotPosition(Position pos)
@@ -224,7 +314,8 @@ namespace TradingLib.XTrader.Future
                     tb.Rows[i][UNREALIZEDPL] = "";
                     tb.Rows[i][LOSSTARGET] = "";
                     tb.Rows[i][PROFITTARGET] = "";
-                    tb.Rows[i][FLAG] = "投";
+                    tb.Rows[i][FLAG] = "投机";
+                    tb.Rows[i][NAME] = GetSymbolName(pos);
 
                 }
                 else
@@ -244,8 +335,8 @@ namespace TradingLib.XTrader.Future
         const string ACCOUNT = "ACCOUNT";
         const string SYMBOLKEY = "合约键";
         const string SYMBOL = "合约";
-        const string SIDE = "方向";
-
+        const string SIDE = "SIDE";
+        const string SIDESTR = "方向";
         const string PROPERTY = "属性";
         const string SIZE = "持仓";
 
@@ -275,7 +366,7 @@ namespace TradingLib.XTrader.Future
             tb.Columns.Add(ACCOUNT);
             tb.Columns.Add(SYMBOLKEY);
             tb.Columns.Add(SIDE);
-
+            tb.Columns.Add(SIDESTR);
             tb.Columns.Add(PROPERTY);
             tb.Columns.Add(SIZE);
             tb.Columns.Add(SIZECANFLAT);
@@ -290,26 +381,26 @@ namespace TradingLib.XTrader.Future
 
         }
 
-        //void ResetColumeSize()
-        //{
-        //    ComponentFactory.Krypton.Toolkit.KryptonDataGridView grid = positionGrid;
+        void ResetColumeSize()
+        {
+            DataGridView grid = positionGrid;
 
-        //    grid.Columns[SYMBOL].Width = 100;
-        //    grid.Columns[SYMBOLNAME].Width = 100;
-        //    grid.Columns[TOTALSIZE].Width = 60;
-        //    grid.Columns[AVABILESIZE].Width = 60;
-        //    grid.Columns[FRONZENSIZE].Width = 60;
+            grid.Columns[SYMBOL].Width = 120;
+            grid.Columns[SIDESTR].Width = 40;
+            grid.Columns[PROPERTY].Width = 40;
+            grid.Columns[SIZE].Width = 46;
+            grid.Columns[SIZECANFLAT].Width = 46;
 
-        //    grid.Columns[POSITIONPROFIT].Width = 80;
-        //    grid.Columns[AVGPRICE].Width = 80;
-        //    grid.Columns[LASTPRICE].Width = 80;
-        //    grid.Columns[POSITIONPROFITPECT].Width = 80;
-        //    grid.Columns[MARKETVALUE].Width = 120;
+            grid.Columns[AVGPRICE].Width = 90;
+            grid.Columns[UNREALIZEDPL].Width = 90;
+            grid.Columns[LOSSTARGET].Width = 75;
+            grid.Columns[PROFITTARGET].Width = 75;
+            grid.Columns[FLAG].Width = 40;
+            grid.Columns[NAME].Width = 120;
 
 
 
-
-        //}
+        }
 
         /// <summary>
         /// 绑定数据表格到grid
@@ -325,6 +416,7 @@ namespace TradingLib.XTrader.Future
 
             grid.Columns[POSKEY].Visible = false;
             grid.Columns[ACCOUNT].Visible = false;
+            grid.Columns[SIDE].Visible = false;
             grid.Columns[SYMBOLKEY].Visible = false;
             
             for (int i = 0; i < tb.Columns.Count; i++)
@@ -332,7 +424,7 @@ namespace TradingLib.XTrader.Future
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
-            ///ResetColumeSize();
+            ResetColumeSize();
         }
 
         /// <summary>

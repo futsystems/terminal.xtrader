@@ -11,5 +11,10 @@ namespace TradingLib.XTrader.Future
     {
         public static Color BorderColor = Color.FromArgb(127, 157, 185);
         public static Color ListMenuSelectedBGColor = Color.FromArgb(51, 153, 255);
+        public static System.Drawing.Color LongSideColor = System.Drawing.Color.Crimson;
+        public static System.Drawing.Color ShortSideColor = System.Drawing.Color.LimeGreen;
+
+        public static System.Drawing.Color BuyColor = Color.FromArgb(254, 36, 36);
+        public static System.Drawing.Color SellColor = Color.FromArgb(0, 127, 0);
     }
 }
