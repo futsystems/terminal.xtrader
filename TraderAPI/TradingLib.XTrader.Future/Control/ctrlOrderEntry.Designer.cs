@@ -30,7 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.fPriceInput2 = new TradingLib.XTrader.Future.FNumberInput();
+            this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.ctrlSymbolSelecter1 = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.fButton2 = new TradingLib.XTrader.FButton();
@@ -63,7 +63,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.fPriceInput2);
+            this.tabPage1.Controls.Add(this.inputSize);
             this.tabPage1.Controls.Add(this.inputPrice);
             this.tabPage1.Controls.Add(this.ctrlSymbolSelecter1);
             this.tabPage1.Controls.Add(this.fButton2);
@@ -87,27 +87,28 @@
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // fPriceInput2
+            // inputSize
             // 
-            this.fPriceInput2.DecimalPlace = 2;
-            this.fPriceInput2.DropDownControl = null;
-            this.fPriceInput2.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
-            this.fPriceInput2.Location = new System.Drawing.Point(41, 69);
-            this.fPriceInput2.MaxVal = new decimal(new int[] {
+            this.inputSize.DecimalPlace = 2;
+            this.inputSize.DropDownControl = null;
+            this.inputSize.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
+            this.inputSize.Location = new System.Drawing.Point(41, 69);
+            this.inputSize.MaxVal = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.fPriceInput2.MinVal = new decimal(new int[] {
+            this.inputSize.MinVal = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.fPriceInput2.Name = "fPriceInput2";
-            this.fPriceInput2.Size = new System.Drawing.Size(79, 20);
-            this.fPriceInput2.TabIndex = 21;
-            this.fPriceInput2.Text = "fPriceInput2";
-            this.fPriceInput2.TxtValue = "1";
+            this.inputSize.Name = "inputSize";
+            this.inputSize.ShowTop = false;
+            this.inputSize.Size = new System.Drawing.Size(79, 20);
+            this.inputSize.TabIndex = 21;
+            this.inputSize.Text = "fPriceInput2";
+            this.inputSize.TxtValue = "1";
             // 
             // inputPrice
             // 
@@ -126,6 +127,7 @@
             0,
             0});
             this.inputPrice.Name = "inputPrice";
+            this.inputPrice.ShowTop = false;
             this.inputPrice.Size = new System.Drawing.Size(119, 20);
             this.inputPrice.TabIndex = 20;
             this.inputPrice.Text = "fPriceInput1";
@@ -337,6 +339,6 @@
         private FButton fButton2;
         private ctrlSymbolSelecter ctrlSymbolSelecter1;
         private FNumberInput inputPrice;
-        private FNumberInput fPriceInput2;
+        private FNumberInput inputSize;
     }
 }

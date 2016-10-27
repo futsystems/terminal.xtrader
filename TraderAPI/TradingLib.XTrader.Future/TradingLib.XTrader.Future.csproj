@@ -50,8 +50,10 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
+    <Reference Include="XTrader.Future, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\MouseHook.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Control\ComboBoxEx\ctrlSymbolSelecter.cs">
       <SubType>Component</SubType>
@@ -70,6 +72,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Control\ComboBoxEx\SymbolSet.cs" />
+    <Compile Include="Control\ctrlListBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ctrlListBox.Designer.cs">
+      <DependentUpon>ctrlListBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\ctrlOrderEntry.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -186,6 +194,9 @@
     <Compile Include="Utils_GDI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Control\ctrlListBox.resx">
+      <DependentUpon>ctrlListBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control\ctrlOrderEntry.resx">
       <DependentUpon>ctrlOrderEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -299,6 +310,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Control\PriceInput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\downarrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\ThumbBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\ThumbMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\ThumbSpanBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\ThumbSpanTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\ThumbTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scrollbar\uparrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

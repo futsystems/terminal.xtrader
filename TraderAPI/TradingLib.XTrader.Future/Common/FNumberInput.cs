@@ -14,7 +14,7 @@ using Common.Logging;
 namespace TradingLib.XTrader.Future
 {
     enum MouseStatus
-    { 
+    {
         UPBtnMouseOver,
         UpBtnMouseClick,
     }
@@ -38,16 +38,40 @@ namespace TradingLib.XTrader.Future
 
         public FNumberInput()
         {
-            
+
             InitializeComponent();
             this.DoubleBuffered = true;
             itemFormat.LineAlignment = StringAlignment.Center;
 
             this.Height = 20;
             this.MouseClick += new MouseEventHandler(FListBox_MouseClick);
-            this.MouseMove += new MouseEventHandler(FListBox_MouseMove);
+
+            MouseHook.Start();
+            MouseHook.MouseMove += new MouseEventHandler(MouseHook_MouseMove);
+
+
 
         }
+
+        void MouseHook_MouseMove(object sender, MouseEventArgs e)
+        {
+            //屏幕坐标
+            if (this.DropDownControl != null && this.IsDroppedDown)
+            {
+                //logger.Info(string.Format("mouse move x:{0} y:{1}", e.X, e.Y));
+                Point p = PointToScreen(new Point(0, 0));
+                Rectangle rect = new Rectangle(p.X, p.Y, this.Width, this.Height + this.DropDownControl.Height);
+
+                //鼠标脱离工作区域 关闭dropdown
+                if (!rect.Contains(new Point(e.X, e.Y)))
+                {
+                    this.HideDropDown();
+                }
+            }
+
+        }
+
+
 
         #region 外部属性
         public bool ShowTop { get; set; }
@@ -64,12 +88,21 @@ namespace TradingLib.XTrader.Future
         #endregion
 
         bool _txtMode = false;
+        /// <summary>
+        /// 设定输入框文本
+        /// </summary>
+        /// <param name="txt"></param>
         public void SetTxtVal(string txt)
         {
             _txtMode = true;
             _txtvalue = txt;
             _selectionStart = _txtvalue.Length;
             _SelectionEnd = 0;
+            if (_selected)
+            {
+                logger.Info("Entry TxtMode exit selected");
+                _selected = false;
+            }
             this.Invalidate();
         }
 
@@ -148,14 +181,14 @@ namespace TradingLib.XTrader.Future
 
         int _selectionStart = 0;//光标所处开始
         int _SelectionEnd = 0;//光标所处结束
-        
+
 
         #endregion
 
         #region 覆写 鼠标 键盘操作处理
         protected override void OnGotFocus(EventArgs e)
         {
-            logger.Info("got focus cursor x:"+Cursor.Position.X.ToString() + " y:"+Cursor.Position.Y.ToString());
+            logger.Info("got focus cursor x:" + Cursor.Position.X.ToString() + " y:" + Cursor.Position.Y.ToString());
 
             CreateCaret(this.Handle, IntPtr.Zero, 1, this.Height - 4);
             SetCaretPos(1, 2);
@@ -221,11 +254,17 @@ namespace TradingLib.XTrader.Future
                 }
                 else
                 {
-                    _selected = true;
+                    //文字模式 鼠标单击 进入选中模式
+                    if (!_selected)
+                    {
+                        logger.Info("Txt Mode, mouse down entry selected");
+                        _selected = true;
+                        this.Invalidate();
+                    }
                 }
                 ShowDropDown();
             }
-            
+
             base.OnMouseDown(e);
             this.Focus();
 
@@ -321,6 +360,10 @@ namespace TradingLib.XTrader.Future
                         this.Invalidate();
                     }
                 }
+                else
+                { 
+                    
+                }
 
 
             }
@@ -368,8 +411,15 @@ namespace TradingLib.XTrader.Future
                     }
                     else
                     {
+                        //文本模式下删除键 删除所有字符串
                         _txtvalue = string.Empty;
                         _selectionStart = 0;
+                        if (_txtMode)
+                        {
+                            logger.Info("Txt Mode, delete txt, eixt txtmode");
+                            _txtMode = false;
+                            _selected = false;
+                        }
                         this.Invalidate();
                     }
                 }
@@ -391,11 +441,7 @@ namespace TradingLib.XTrader.Future
             base.OnKeyPress(e);
         }
 
-        /// 通过鼠标移动来捕捉当前是否在按钮之上
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void FListBox_MouseMove(object sender, MouseEventArgs e)
+        protected override void OnMouseMove(MouseEventArgs e)
         {
             _currentX = e.X;
             _currentY = e.Y;
@@ -441,7 +487,9 @@ namespace TradingLib.XTrader.Future
                 }
             }
 
+            base.OnMouseMove(e);
         }
+
 
 
         void FListBox_MouseClick(object sender, MouseEventArgs e)
@@ -457,37 +505,7 @@ namespace TradingLib.XTrader.Future
             }
         }
 
-        /*
-        protected override void OnMouseWheel(MouseEventArgs e)
-        {
-            if (e.Delta > 0)
-            {
-                ScrollRowDown();
-            }
-            else
-            {
-                ScrollRowUp();
-            }
-        }
 
-        void ScrollRowUp()
-        {
-            int totalNum = this.Height / lineHeight;
-            if ((_startIdx + totalNum) < this.Items.Count)
-            {
-                _startIdx++;
-                this.Invalidate();
-            }
-        }
-        void ScrollRowDown()
-        {
-            int totalNum = this.Height / lineHeight;
-            if (_startIdx > 0)
-            {
-                _startIdx--;
-                this.Invalidate();
-            }
-        }**/
 
         #endregion
 
@@ -506,7 +524,7 @@ namespace TradingLib.XTrader.Future
         void OnUpArrowDown()
         {
             _txtMode = false;
-            decimal dvalue=0;
+            decimal dvalue = 0;
             if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             if (dvalue + _increment <= _maxdval)
             {
@@ -525,7 +543,7 @@ namespace TradingLib.XTrader.Future
             decimal dvalue = 0;
             if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             //默认为能小于0
-            if (dvalue- _increment >= _mindval)
+            if (dvalue - _increment >= _mindval)
             {
                 dvalue -= _increment;
                 _txtvalue = dvalue.ToString();
@@ -658,6 +676,14 @@ namespace TradingLib.XTrader.Future
             //    base.DroppedDown = false;
         }
 
+        private readonly ToolStripDropDown _toolStripDropDown = new ToolStripDropDown
+        {
+            //TopLevel = false,
+            CanOverflow = true,
+            AutoClose = true,
+            DropShadowEnabled = true
+        };
+
         /// <summary>
         /// Displays drop-down area of combo box, if not already shown.
         /// </summary>
@@ -675,7 +701,7 @@ namespace TradingLib.XTrader.Future
 
                 // Actually show popup.
                 PopupResizeMode resizeMode = PopupResizeMode.Bottom;// (this.m_bIsResizable ? PopupResizeMode.BottomRight : PopupResizeMode.None);
-                m_popupCtrl.Show(this.DropDownControl, location.X, location.Y, Width, Height, resizeMode, this.ShowTop);
+                m_popupCtrl.Show(this.DropDownControl, location.X, location.Y, Width, Height, resizeMode, this.ShowTop, false);
                 m_bDroppedDown = true;
 
                 m_popupCtrl.PopupControlHost = this;
@@ -722,7 +748,7 @@ namespace TradingLib.XTrader.Future
 
 
 
-        Font _font = new Font("宋体", 10f,FontStyle.Bold);
+        Font _font = new Font("宋体", 10f, FontStyle.Bold);
         Color _itemColor = Color.FromArgb(4, 60, 109);
         SolidBrush _brush = new SolidBrush(Color.Black);
         SolidBrush _mouseOverBrush = new SolidBrush(Color.FromArgb(51, 153, 255));
@@ -780,7 +806,7 @@ namespace TradingLib.XTrader.Future
             g.FillRectangle(Brushes.White, this.ClientRectangle);
 
             int txtOffset = (this.Height - _font.Height) / 2;
-            Point location = new Point(0,0);
+            Point location = new Point(0, 0);
             location.Y += 5;
 
             SizeF size = g.MeasureString(_txtvalue, _font);
@@ -817,6 +843,7 @@ namespace TradingLib.XTrader.Future
 
                 if (this.Focused)
                 {
+                    logger.Info("set caret");
                     SetCaretPos(selectionStartX, 2);
 
                 }
@@ -870,12 +897,12 @@ namespace TradingLib.XTrader.Future
                 size = g.MeasureString(_txtvalue, _font);
                 SetCaretPos((int)size.Width + 1, 2);
                 //在文字模式下 鼠标点击文本框 全选所有文字 同时光标在最后一个位置闪烁
-                //if (_selected)
-                //{
-                    
-                //    Rectangle selectRect = new Rectangle(0, txtOffset, (int)size.Width+1, _font.Height);
-                //    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
-                //}
+                if (_selected)
+                {
+
+                    Rectangle selectRect = new Rectangle(0, txtOffset, (int)size.Width + 1, _font.Height);
+                    g.FillRectangle(new SolidBrush(Constants.ListMenuSelectedBGColor), selectRect);
+                }
             }
 
             _brush.Color = _itemColor;

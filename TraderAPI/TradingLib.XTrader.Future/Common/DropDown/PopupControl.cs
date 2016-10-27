@@ -121,6 +121,7 @@ namespace TradingLib.XTrader.Future
         {
             AutoSize = autoSize;
             Padding = Margin = Padding.Empty;
+            AutoClose = false;//如果autoClose=true 则对应的NumberInput无法获得键盘数据 可以通过其他事件来触发关闭
         }
 
         #endregion
@@ -647,7 +648,7 @@ namespace TradingLib.XTrader.Future
             Show(control, x, y, -1, -1, resizeMode);
         }
 
-        public void Show(System.Windows.Forms.Control control, int x, int y, int width, int height, PopupResizeMode resizeMode, bool showup = false)
+        public void Show(System.Windows.Forms.Control control, int x, int y, int width, int height, PopupResizeMode resizeMode, bool showup = false,bool focus=false)
         {
             Size controlSize = control.Size;
             
@@ -656,14 +657,25 @@ namespace TradingLib.XTrader.Future
             m_dropDown.ResizeMode = resizeMode;
             m_dropDown.Show(x, y, width, height,showup);
 
-            control.Focus();
+            if (focus)
+            {
+                control.Focus();
+            }
         }
 
         public void Hide()
         {
             if (m_dropDown != null && m_dropDown.Visible)
             {
-                m_dropDown.Hide();
+                //m_dropDown.Hide();
+                if (m_dropDown.AutoClose)
+                {
+                    m_dropDown.Hide();
+                }
+                else
+                {
+                    m_dropDown.Close();
+                }
                 DisposeHost();
             }
         }
