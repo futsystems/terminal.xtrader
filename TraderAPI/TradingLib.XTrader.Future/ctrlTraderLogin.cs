@@ -208,7 +208,7 @@ namespace TradingLib.XTrader.Future
             _loginstart = true;
             _logintime = DateTime.Now;
 
-            CoreService.TLClient.ReqLogin(account.Text, password.Text);
+            CoreService.TLClient.ReqLogin(account.Text, password.Text, ProductInfo.T_XTRADER_FUTURE);
         }
 
         bool _qrybasicinfo = false;

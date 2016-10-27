@@ -57,8 +57,8 @@ namespace TradingLib.XTrader.Future
                 _trader.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(tmp_TraderWindowOpeartion);
                 this.Controls.Add(_trader);
             }
-            ctrlTraderLogin.Visible = false;
-            _trader.Show();
+            //ctrlTraderLogin.Visible = false;
+            //_trader.Show();
         }
 
         void WireEvent()

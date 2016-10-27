@@ -71,6 +71,7 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         public string SelectedItem { get { return fListBox1.SelectedItem; } }
 
+        public int ItemHeight { get { return fListBox1.ItemHeight; } }
 
     }
 }

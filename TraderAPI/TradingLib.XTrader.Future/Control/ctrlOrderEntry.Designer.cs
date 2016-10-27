@@ -30,27 +30,27 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.inputArbFlag = new CSharpWin.ComboBoxEx();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.fButton2 = new TradingLib.XTrader.FButton();
             this.fButton1 = new TradingLib.XTrader.FButton();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.inputFlagAuto = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.inputFlagCloseToday = new System.Windows.Forms.RadioButton();
+            this.inputFlagClose = new System.Windows.Forms.RadioButton();
+            this.inputFlagOpen = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -78,14 +78,14 @@
             this.tabPage1.Controls.Add(this.fButton1);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.checkBox1);
+            this.tabPage1.Controls.Add(this.inputFlagAuto);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.radioButton3);
-            this.tabPage1.Controls.Add(this.radioButton2);
-            this.tabPage1.Controls.Add(this.radioButton1);
+            this.tabPage1.Controls.Add(this.inputFlagCloseToday);
+            this.tabPage1.Controls.Add(this.inputFlagClose);
+            this.tabPage1.Controls.Add(this.inputFlagOpen);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -94,153 +94,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(251, 35);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(72, 16);
-            this.checkBox2.TabIndex = 23;
-            this.checkBox2.Text = "套利移仓";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label5.Location = new System.Drawing.Point(128, 84);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 12);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "卖:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(128, 68);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 12);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "买:";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(185, 48);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(48, 16);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "自动";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(8, 162);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "复位";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(8, 137);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "查可开";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 104);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "价格";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "数量";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(117, 47);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(47, 16);
-            this.radioButton3.TabIndex = 4;
-            this.radioButton3.Text = "平今";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(64, 47);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(47, 16);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.Text = "平仓";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(11, 46);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 16);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "开仓";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "合约";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(326, 205);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "三键下单";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(326, 205);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "传统下单";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(326, 205);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "快鼠下单";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // inputArbFlag
             // 
@@ -258,6 +111,17 @@
             this.inputArbFlag.Size = new System.Drawing.Size(80, 22);
             this.inputArbFlag.TabIndex = 24;
             this.inputArbFlag.TabStop = false;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(251, 35);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(72, 16);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "套利移仓";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // inputSize
             // 
@@ -359,6 +223,142 @@
             this.fButton1.Text = "买入";
             this.fButton1.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label5.Location = new System.Drawing.Point(128, 84);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(23, 12);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "卖:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(128, 68);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 12);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "买:";
+            // 
+            // inputFlagAuto
+            // 
+            this.inputFlagAuto.AutoSize = true;
+            this.inputFlagAuto.Location = new System.Drawing.Point(185, 48);
+            this.inputFlagAuto.Name = "inputFlagAuto";
+            this.inputFlagAuto.Size = new System.Drawing.Size(48, 16);
+            this.inputFlagAuto.TabIndex = 11;
+            this.inputFlagAuto.Text = "自动";
+            this.inputFlagAuto.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(8, 162);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(50, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "复位";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 137);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(50, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "查可开";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 104);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "价格";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 77);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "数量";
+            // 
+            // inputFlagCloseToday
+            // 
+            this.inputFlagCloseToday.AutoSize = true;
+            this.inputFlagCloseToday.Location = new System.Drawing.Point(117, 47);
+            this.inputFlagCloseToday.Name = "inputFlagCloseToday";
+            this.inputFlagCloseToday.Size = new System.Drawing.Size(47, 16);
+            this.inputFlagCloseToday.TabIndex = 4;
+            this.inputFlagCloseToday.Text = "平今";
+            this.inputFlagCloseToday.UseVisualStyleBackColor = true;
+            // 
+            // inputFlagClose
+            // 
+            this.inputFlagClose.AutoSize = true;
+            this.inputFlagClose.Location = new System.Drawing.Point(64, 47);
+            this.inputFlagClose.Name = "inputFlagClose";
+            this.inputFlagClose.Size = new System.Drawing.Size(47, 16);
+            this.inputFlagClose.TabIndex = 3;
+            this.inputFlagClose.Text = "平仓";
+            this.inputFlagClose.UseVisualStyleBackColor = true;
+            // 
+            // inputFlagOpen
+            // 
+            this.inputFlagOpen.AutoSize = true;
+            this.inputFlagOpen.Checked = true;
+            this.inputFlagOpen.Location = new System.Drawing.Point(11, 46);
+            this.inputFlagOpen.Name = "inputFlagOpen";
+            this.inputFlagOpen.Size = new System.Drawing.Size(47, 16);
+            this.inputFlagOpen.TabIndex = 2;
+            this.inputFlagOpen.TabStop = true;
+            this.inputFlagOpen.Text = "开仓";
+            this.inputFlagOpen.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "合约";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(326, 205);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "三键下单";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(326, 205);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "传统下单";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(326, 205);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "快鼠下单";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // ctrlOrderEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -380,14 +380,14 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton inputFlagOpen;
+        private System.Windows.Forms.RadioButton inputFlagClose;
+        private System.Windows.Forms.RadioButton inputFlagCloseToday;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox inputFlagAuto;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private FButton fButton1;

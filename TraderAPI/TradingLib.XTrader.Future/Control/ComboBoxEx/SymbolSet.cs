@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TradingLib.API;
+using TradingLib.Common;
 
 namespace TradingLib.XTrader.Future
 {
@@ -14,16 +16,16 @@ namespace TradingLib.XTrader.Future
         public SymbolSet(string setTitle)
         {
             this.SetTitle = setTitle;
-            this.Symbols = new List<string>();
+            this.Symbols = new Dictionary<string, Symbol>();
         }
 
         /// <summary>
         /// 向合约集中添加合约
         /// </summary>
         /// <param name="symbol"></param>
-        public void AddSymbol(string symbol)
+        public void AddSymbol(Symbol symbol)
         {
-            this.Symbols.Add(symbol);
+            this.Symbols.Add(symbol.Symbol,symbol);
         }
         /// <summary>
         /// 合约集名称
@@ -33,6 +35,17 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// 合约列表
         /// </summary>
-        public List<string> Symbols { get; set; }
+        public Dictionary<string,Symbol> Symbols { get; set; }
+
+
+        public Symbol GetSymbol(string symbol)
+        {
+            Symbol target = null;
+            if (this.Symbols.TryGetValue(symbol, out target))
+            {
+                return target;
+            }
+            return null;
+        }
     }
 }

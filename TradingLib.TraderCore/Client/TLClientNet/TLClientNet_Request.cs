@@ -70,14 +70,14 @@ namespace TradingLib.TraderCore
         /// </summary>
         /// <param name="loginid"></param>
         /// <param name="pass"></param>
-        public int  ReqLogin(string loginid, string pass, int logintype = 1)
+        public int  ReqLogin(string loginid, string pass,string productInfo, int logintype = 1)
         {
             logger.Info(string.Format("Request Login Account:{0} Pass:{1}",loginid,pass));
             LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(++requestid);
             request.LoginID = loginid;
             request.Passwd = pass;
             request.LoginType = 1;
-            request.ProductInfo = Constants.ProductInfo;
+            request.ProductInfo = productInfo;
             request.IPAddress = "";// info.IP;
             
             //request.IPAddress = "22.22.22.22";

@@ -106,7 +106,7 @@
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(160, 21);
             this.account.TabIndex = 2;
-            this.account.Text = "8500010";
+            this.account.Text = "8500007";
             // 
             // encrypt
             // 

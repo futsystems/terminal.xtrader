@@ -208,7 +208,7 @@ namespace TradingLib.XTrader.Stock
             _loginstart = true;
             _logintime = DateTime.Now;
 
-            CoreService.TLClient.ReqLogin(account.Text, password.Text);
+            CoreService.TLClient.ReqLogin(account.Text, password.Text, ProductInfo.T_XTRADER_STOCK);
         }
 
         bool _qrybasicinfo = false;

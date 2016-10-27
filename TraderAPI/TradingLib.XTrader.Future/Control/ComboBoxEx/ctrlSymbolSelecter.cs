@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using CSharpWin;
+using TradingLib.API;
+using TradingLib.Common;
 
 namespace TradingLib.XTrader.Future
 {
@@ -150,7 +153,7 @@ namespace TradingLib.XTrader.Future
 
         #region Render Methods
 
-        private void RenderComboBox(ref Message m)
+        private void RenderComboBox(ref  System.Windows.Forms.Message m)
         {
             Rectangle rect = new Rectangle(Point.Empty, Size);
             Rectangle buttonRect = ButtonRect;
@@ -244,7 +247,7 @@ namespace TradingLib.XTrader.Future
 
         #region Windows Message Methods
 
-        private void WmPaint(ref Message m)
+        private void WmPaint(ref System.Windows.Forms.Message m)
         {
             if (base.DropDownStyle == ComboBoxStyle.Simple)
             {
@@ -351,6 +354,7 @@ namespace TradingLib.XTrader.Future
 
         #region Construction and destruction
 
+        public event Action<Symbol> SymbolSelected = delegate { };
         public ctrlSymbolSelecter()
             : base()
         {
@@ -367,38 +371,6 @@ namespace TradingLib.XTrader.Future
             m_symbolList.Height = 80;
             m_symbolList.Width = 1;
 
-            
-            //m_titleList.BorderStyle = BorderStyle.None;
-            //m_symbolList.BorderStyle = BorderStyle.None;
-
-            m_titleList.Items.Add("IF  股指1");
-            m_titleList.Items.Add("HSI 恒指2");
-            m_titleList.Items.Add("CL  原油3");
-            m_titleList.Items.Add("IF  股指4");
-            m_titleList.Items.Add("HSI 股指5");
-            m_titleList.Items.Add("CL  股指6");
-            m_titleList.Items.Add("IF  股指7");
-            m_titleList.Items.Add("HSI 股指8");
-            m_titleList.Items.Add("IF  股指9");
-            m_titleList.Items.Add("HSI 股指10");
-            m_titleList.Items.Add("CL11");
-            m_titleList.Items.Add("IF12");
-            m_titleList.Items.Add("HSI13");
-            m_titleList.Items.Add("CL14");
-            m_titleList.Items.Add("IF15");
-            m_titleList.Items.Add("HSI16");
-            m_titleList.Items.Add("CL17");
-            m_titleList.Items.Add("IF18");
-            m_titleList.Items.Add("HSI19");
-            m_titleList.Items.Add("CL20");
-            m_titleList.Items.Add("CL21");
-
-            m_symbolList.Items.Add("CLX622");
-            m_symbolList.Items.Add("CLZ623");
-
-            //m_symbolList.SelectedValueChanged += new EventHandler(m_symbolList_SelectedValueChanged);
-
-            //m_titleList.SelectedValueChanged += new EventHandler(m_titleList_SelectedValueChanged);
             m_titleList.ItemSelected += new Action<string>(m_titleList_ItemSelected);
             m_symbolList.ItemSelected += new Action<string>(m_symbolList_ItemSelected);
         }
@@ -411,34 +383,21 @@ namespace TradingLib.XTrader.Future
                 m_popupCtrl.Hide();
             }
             this.Text = obj;
+
+            if (_currentSymbolSet != null)
+            {
+                string[] rec = obj.Split('|');
+                Symbol sym = _currentSymbolSet.GetSymbol(rec[0]);
+                if (sym != null)
+                {
+                    SymbolSelected(sym);
+                }
+            }
         }
 
         void m_titleList_ItemSelected(string obj)
         {
             ShowSymbolList(obj);
-
-
-        }
-
-        void m_titleList_SelectedValueChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show("sec:" + m_titleList.SelectedItem.ToString());
-            //根据选择的品种显示合约列表
-            string sectitle = m_titleList.SelectedItem.ToString();
-            ShowSymbolList(sectitle);
-        }
-
-        void m_symbolList_SelectedValueChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show("symbol:" + m_symbolList.SelectedItem.ToString());
-
-            string symbol = m_symbolList.SelectedItem.ToString();
-            if (m_popupCtrl != null && this.IsDroppedDown)
-            {
-                //关闭合约列表
-                m_popupCtrl.Hide();
-            }
-            this.Text = symbol;
         }
 
         void m_dropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
@@ -527,17 +486,32 @@ namespace TradingLib.XTrader.Future
 
         #region 下拉List控件
 
-        enum EnumSymbolSelectStatus
-        { 
-            /// <summary>
-            /// 下拉品种
-            /// </summary>
-            DropDownSecurity,
-            /// <summary>
-            /// 下拉合约
-            /// </summary>
-            DropDownSymbol,
+        Dictionary<string, SymbolSet> symbolSetMap = new Dictionary<string, SymbolSet>();
+
+        /// <summary>
+        /// 添加合约组
+        /// </summary>
+        /// <param name="set"></param>
+        public void AddSymbolSet(SymbolSet set)
+        {
+            if (!symbolSetMap.Keys.Contains(set.SetTitle))
+            {
+                symbolSetMap.Add(set.SetTitle, set);
+            }
         }
+
+        public void InitListBox()
+        {
+            if (m_titleList.Items.Count == 0)
+            {
+                foreach (var key in symbolSetMap.Keys)
+                {
+                    m_titleList.Items.Add(key);
+                }
+            }
+            m_titleList.Height = Math.Min(150, m_titleList.Items.Count * m_titleList.ItemHeight);
+        }
+        
         ctrlListBox m_titleList = new ctrlListBox();
 
         ctrlListBox m_symbolList = new ctrlListBox();
@@ -546,13 +520,22 @@ namespace TradingLib.XTrader.Future
 
         #region IPopupControlHost Members
 
-
+        SymbolSet _currentSymbolSet = null;
         void ShowSymbolList(string title)
         {
             if (m_popupCtrl != null && this.IsDroppedDown)
             {
+                this.m_symbolList.Items.Clear();
+                SymbolSet target = null;
+                if (symbolSetMap.TryGetValue(title, out target))
+                {
+                    _currentSymbolSet = target;
+                    foreach (var item in target.Symbols)
+                    {
+                        this.m_symbolList.Items.Add(string.Format("{0}|{1}",item.Value.Symbol,item.Value.GetName()));
+                    }
+                }
                 Point location = PointToScreen(new Point(0, Height));
-
                 // Actually show popup.
                 PopupResizeMode resizeMode = (this.m_bIsResizable ? PopupResizeMode.BottomRight : PopupResizeMode.None);
                 m_popupCtrl.Show(this.m_symbolList, location.X, location.Y, Width, Height,PopupResizeMode.Top);
@@ -695,7 +678,7 @@ namespace TradingLib.XTrader.Future
             return (uint)(n >> 16) & 0xffff;
         }
 
-        public override bool PreProcessMessage(ref Message m)
+        public override bool PreProcessMessage(ref  System.Windows.Forms.Message m)
         {
             if (m.Msg == (WM_REFLECT + WM_COMMAND))
             {
@@ -715,7 +698,7 @@ namespace TradingLib.XTrader.Future
                 ShowDropDown();
         }
 
-        protected override void WndProc(ref Message m)
+        protected override void WndProc(ref  System.Windows.Forms.Message m)
         {
             if (m.Msg == WM_LBUTTONDOWN)
             {
@@ -748,11 +731,6 @@ namespace TradingLib.XTrader.Future
 
         #endregion
 
-        #region Enumerations
-
-
-
-        #endregion
 
         #region Properties
 

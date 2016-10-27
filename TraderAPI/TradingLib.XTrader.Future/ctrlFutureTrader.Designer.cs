@@ -32,13 +32,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbAccount = new System.Windows.Forms.Label();
             this.panelHolder = new System.Windows.Forms.Panel();
+            this.panelPageHolder = new System.Windows.Forms.Panel();
             this.orderEntryPanel = new System.Windows.Forms.Panel();
             this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.Control.ctrlOrderEntry();
             this.btnHide = new TradingLib.XTrader.FButton();
             this.ctrlListMenu1 = new TradingLib.XTrader.Future.ctrlListMenu();
-            this.panelPageHolder = new System.Windows.Forms.Panel();
             this.panelTop.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.orderEntryPanel.SuspendLayout();
@@ -49,7 +49,7 @@
             this.panelTop.Controls.Add(this.button2);
             this.panelTop.Controls.Add(this.button1);
             this.panelTop.Controls.Add(this.label2);
-            this.panelTop.Controls.Add(this.label1);
+            this.panelTop.Controls.Add(this.lbAccount);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
@@ -86,14 +86,14 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "可用资金:23232.99";
             // 
-            // label1
+            // lbAccount
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "交易者，您好";
+            this.lbAccount.AutoSize = true;
+            this.lbAccount.Location = new System.Drawing.Point(3, 5);
+            this.lbAccount.Name = "lbAccount";
+            this.lbAccount.Size = new System.Drawing.Size(77, 12);
+            this.lbAccount.TabIndex = 0;
+            this.lbAccount.Text = "交易者，您好";
             // 
             // panelHolder
             // 
@@ -105,6 +105,14 @@
             this.panelHolder.Name = "panelHolder";
             this.panelHolder.Size = new System.Drawing.Size(1080, 234);
             this.panelHolder.TabIndex = 1;
+            // 
+            // panelPageHolder
+            // 
+            this.panelPageHolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPageHolder.Location = new System.Drawing.Point(464, 0);
+            this.panelPageHolder.Name = "panelPageHolder";
+            this.panelPageHolder.Size = new System.Drawing.Size(616, 234);
+            this.panelPageHolder.TabIndex = 3;
             // 
             // orderEntryPanel
             // 
@@ -158,14 +166,6 @@
             this.ctrlListMenu1.TabIndex = 1;
             this.ctrlListMenu1.Text = "ctrlListMenu1";
             // 
-            // panelPageHolder
-            // 
-            this.panelPageHolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelPageHolder.Location = new System.Drawing.Point(464, 0);
-            this.panelPageHolder.Name = "panelPageHolder";
-            this.panelPageHolder.Size = new System.Drawing.Size(616, 234);
-            this.panelPageHolder.TabIndex = 3;
-            // 
             // ctrlFutureTrader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -185,7 +185,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbAccount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;

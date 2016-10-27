@@ -53,6 +53,8 @@ namespace TradingLib.XTrader.Future
 
         }
 
+
+        #region Page部分
         Dictionary<string, IPage> pagemap = new Dictionary<string, IPage>();
         void InitPage()
         {
@@ -72,20 +74,6 @@ namespace TradingLib.XTrader.Future
                 c.Dock = DockStyle.Fill;
             }
         }
-
-        /// <summary>
-        /// 显示某个类别的页面
-        /// </summary>
-        /// <param name="type"></param>
-        //void ShowPage(string type)
-        //{
-        //    IPage page = null;
-        //    if (pagemap.TryGetValue(type, out page))
-        //    {
-        //        HideAllPage();
-        //        page.Show();
-        //    }
-        //}
 
         IPage GetPage(string pagetype)
         {
@@ -160,10 +148,15 @@ namespace TradingLib.XTrader.Future
                 page.Hide();
             }
         }
+        #endregion
+
+
         void WireEvent()
         {
             ///btnHideOrderEntry.Click += new EventHandler(btnHideOrderEntry_Click);
             btnHide.Click += new EventHandler(btnHide_Click);
+
+            CoreService.EventCore.RegIEventHandler(this);
         }
 
         bool _expandOrderEntry = true;
@@ -187,8 +180,19 @@ namespace TradingLib.XTrader.Future
         }
 
         public void OnInit()
-        { 
-        
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(OnInit), new object[] { });
+            }
+            else
+            {
+                
+                lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
+
+                //cbAccount.Items.Add(string.Format("{0}-{1}", CoreService.TradingInfoTracker.Account.Name, CoreService.TradingInfoTracker.Account.Account));
+                //cbAccount.SelectedIndex = 0;
+            }
         }
 
         public void OnDisposed()
