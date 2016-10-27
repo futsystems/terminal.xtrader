@@ -482,8 +482,9 @@ namespace TradingLib.MarketData
                             }
                         }
                     }
-                    catch
+                    catch(Exception ex)
                     {
+                        logger.Error("load plugin error:" + ex.ToString());
                     }
                 }
             }

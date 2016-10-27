@@ -28,38 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkButton = new TradingLib.XTrader.FButton();
+            this.tabPosition = new TradingLib.XTrader.FButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.fButton1 = new TradingLib.XTrader.FButton();
             this.button6 = new TradingLib.XTrader.FButton();
             this.button5 = new TradingLib.XTrader.FButton();
             this.button4 = new TradingLib.XTrader.FButton();
             this.button3 = new TradingLib.XTrader.FButton();
             this.button2 = new TradingLib.XTrader.FButton();
             this.panel2 = new TradingLib.XTrader.FButton();
-            this.fButton1 = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // checkButton
+            // tabPosition
             // 
-            this.checkButton.BackColor = System.Drawing.Color.White;
-            this.checkButton.CheckButton = true;
-            this.checkButton.Checked = true;
-            this.checkButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkButton.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkButton.Location = new System.Drawing.Point(0, 0);
-            this.checkButton.Name = "checkButton";
-            this.checkButton.OrderEntryButton = false;
-            this.checkButton.Price = new decimal(new int[] {
+            this.tabPosition.BackColor = System.Drawing.Color.White;
+            this.tabPosition.CheckButton = true;
+            this.tabPosition.Checked = true;
+            this.tabPosition.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabPosition.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tabPosition.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabPosition.Location = new System.Drawing.Point(0, 0);
+            this.tabPosition.Name = "tabPosition";
+            this.tabPosition.OrderEntryButton = false;
+            this.tabPosition.Price = new decimal(new int[] {
             122400,
             0,
             0,
             131072});
-            this.checkButton.Size = new System.Drawing.Size(27, 233);
-            this.checkButton.TabIndex = 1;
-            this.checkButton.Text = "持仓";
-            this.checkButton.UseVisualStyleBackColor = true;
+            this.tabPosition.Size = new System.Drawing.Size(27, 233);
+            this.tabPosition.TabIndex = 1;
+            this.tabPosition.Text = "持仓";
+            this.tabPosition.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -76,6 +76,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(775, 25);
             this.panel1.TabIndex = 2;
+            // 
+            // fButton1
+            // 
+            this.fButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fButton1.BackColor = System.Drawing.Color.White;
+            this.fButton1.CheckButton = false;
+            this.fButton1.Checked = false;
+            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fButton1.Location = new System.Drawing.Point(715, 2);
+            this.fButton1.Name = "fButton1";
+            this.fButton1.OrderEntryButton = false;
+            this.fButton1.Price = new decimal(new int[] {
+            122400,
+            0,
+            0,
+            131072});
+            this.fButton1.Size = new System.Drawing.Size(47, 20);
+            this.fButton1.TabIndex = 5;
+            this.fButton1.Text = "导出";
+            this.fButton1.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -193,33 +213,13 @@
             this.panel2.TabIndex = 3;
             this.panel2.UseVisualStyleBackColor = false;
             // 
-            // fButton1
-            // 
-            this.fButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fButton1.BackColor = System.Drawing.Color.White;
-            this.fButton1.CheckButton = false;
-            this.fButton1.Checked = false;
-            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton1.Location = new System.Drawing.Point(715, 2);
-            this.fButton1.Name = "fButton1";
-            this.fButton1.OrderEntryButton = false;
-            this.fButton1.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
-            this.fButton1.Size = new System.Drawing.Size(47, 20);
-            this.fButton1.TabIndex = 5;
-            this.fButton1.Text = "导出";
-            this.fButton1.UseVisualStyleBackColor = true;
-            // 
             // ctrlPosition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.checkButton);
+            this.Controls.Add(this.tabPosition);
             this.Name = "ctrlPosition";
             this.Size = new System.Drawing.Size(802, 233);
             this.panel1.ResumeLayout(false);
@@ -229,7 +229,7 @@
 
         #endregion
 
-        private FButton checkButton;
+        private FButton tabPosition;
         private System.Windows.Forms.Panel panel1;
         private FButton button2;
         private FButton button5;
