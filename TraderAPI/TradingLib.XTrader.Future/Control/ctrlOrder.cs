@@ -212,6 +212,8 @@ namespace TradingLib.XTrader.Future
             {
                 this.GotOrder(order);
             }
+
+            orderGrid.ClearSelection();
         }
 
         void EventOther_OnResumeDataStart()
@@ -229,10 +231,7 @@ namespace TradingLib.XTrader.Future
                 this.GotOrder(order);
             }
 
-            if (orderGrid.SelectedRows.Count > 0)
-            {
-                orderGrid.SelectedRows[0].Selected = false;
-            }
+            orderGrid.ClearSelection();
         }
 
         public void OnDisposed()
@@ -468,6 +467,7 @@ namespace TradingLib.XTrader.Future
             }
 
             ResetColumeSize();
+            
         }
 
         /// <summary>

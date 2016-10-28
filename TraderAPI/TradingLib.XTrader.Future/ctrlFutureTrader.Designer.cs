@@ -30,7 +30,7 @@
         {
             this.panelTop = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lbAccount = new System.Windows.Forms.Label();
             this.panelHolder = new System.Windows.Forms.Panel();
@@ -47,7 +47,7 @@
             // panelTop
             // 
             this.panelTop.Controls.Add(this.button2);
-            this.panelTop.Controls.Add(this.button1);
+            this.panelTop.Controls.Add(this.btnRefresh);
             this.panelTop.Controls.Add(this.label2);
             this.panelTop.Controls.Add(this.lbAccount);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -66,15 +66,15 @@
             this.button2.Text = "锁定";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnRefresh
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(862, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "刷新";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.Location = new System.Drawing.Point(862, 1);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 2;
+            this.btnRefresh.Text = "刷新";
+            this.btnRefresh.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -187,7 +187,7 @@
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Label lbAccount;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panelHolder;
         private ctrlListMenu ctrlListMenu1;

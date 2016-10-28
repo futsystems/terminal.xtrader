@@ -145,7 +145,13 @@ namespace TradingLib.XTrader.Future
 
                 e.Graphics.DrawRectangle(_dashPen, x, y, width, height);
             }
+            //if (e.RowIndex == -1)
+            //{
+            //    e.Graphics.DrawLine(_dashPen, 0, e.RowBounds.Height, e.RowBounds.Width, e.RowBounds.Height);
+            //}
         }
+
+        
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -155,6 +161,8 @@ namespace TradingLib.XTrader.Future
                 lineColor, 1, ButtonBorderStyle.Solid,
                 lineColor, 1, ButtonBorderStyle.Solid,
                 lineColor, 1, ButtonBorderStyle.Solid);
+
+            e.Graphics.DrawLine(pen, 0, this.ColumnHeadersHeight, this.Width, this.ColumnHeadersHeight);
         }
 
         protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
@@ -186,6 +194,7 @@ namespace TradingLib.XTrader.Future
                     e.Graphics.DrawRectangle(pen, border);
                 }
                 e.PaintContent(e.CellBounds);
+                //e.Graphics.DrawLine(pen, 0, e.CellBounds.Height, this.Width, e.CellBounds.Height);
                 e.Handled = true;
             }
             else if (e.ColumnIndex == -1)

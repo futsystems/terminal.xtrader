@@ -155,11 +155,36 @@ namespace TradingLib.XTrader.Future
         {
             ///btnHideOrderEntry.Click += new EventHandler(btnHideOrderEntry_Click);
             btnHide.Click += new EventHandler(btnHide_Click);
-
+            btnRefresh.Click += new EventHandler(btnRefresh_Click);
             CoreService.EventCore.RegIEventHandler(this);
         }
 
+        DateTime lastRefresh = DateTime.Now;
+        bool refreshed = false;
+
+        /// <summary>
+        /// 重新请求日内交易记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (refreshed && DateTime.Now.Subtract(lastRefresh).TotalSeconds < 1)
+            {
+                MessageBox.Show("请勿频繁刷新数据");
+                return;
+            }
+            CoreService.TradingInfoTracker.ResumeData();
+            lastRefresh = DateTime.Now;
+            refreshed = true;
+        }
+
         bool _expandOrderEntry = true;
+        /// <summary>
+        /// 隐藏下单面板按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void btnHide_Click(object sender, EventArgs e)
         {
             _expandOrderEntry = !_expandOrderEntry;

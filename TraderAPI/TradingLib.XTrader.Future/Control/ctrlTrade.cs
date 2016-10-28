@@ -231,6 +231,7 @@ namespace TradingLib.XTrader.Future
                 CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
                 CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             }
+            tradeGrid.ClearSelection();
         }
 
         void EventOther_OnResumeDataEnd()
@@ -239,6 +240,7 @@ namespace TradingLib.XTrader.Future
             {
                 this.GotFill(f);
             }
+            tradeGrid.ClearSelection();
         }
 
         void EventOther_OnResumeDataStart()
@@ -418,6 +420,7 @@ namespace TradingLib.XTrader.Future
             }
 
             ResetColumeSize();
+            
         }
 
         /// <summary>

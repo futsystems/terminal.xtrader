@@ -153,6 +153,8 @@ namespace TradingLib.XTrader.Future
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
             }
+
+            positionGrid.ClearSelection();
         }
 
         void EventOther_OnResumeDataStart()
@@ -200,10 +202,7 @@ namespace TradingLib.XTrader.Future
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
             }
-            if (positionGrid.SelectedRows.Count > 0)
-            {
-                positionGrid.SelectedRows[0].Selected = false;
-            }
+            positionGrid.ClearSelection();
         }
 
         public void OnDisposed()
