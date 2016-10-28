@@ -17,11 +17,12 @@ namespace TradingLib.XTrader.Future
         public FGrid()
         {
 
-
+            this.DoubleBuffered = true;
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToResizeRows = false;
-            //this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            //this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//自适应宽度 用于横向满幅填充
             this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;//如果禁止Resize则表头高度会无法修改
             this.ColumnHeadersHeight = 25;
             //this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -32,13 +33,45 @@ namespace TradingLib.XTrader.Future
             this.Font = new Font("宋体", 9.5f);
             this.EnableHeadersVisualStyles = false;//表头部适用系统样式
 
-            this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;//按行选择
+            this.MultiSelect = false;//禁止选择多行
             this.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
-            this.BackgroundColor = Color.White;
+
+            this.BackgroundColor = Color.White;//底色
             this.Margin = new Padding(0);
             //this.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 
             _dashPen.DashStyle = DashStyle.Dot;
+
+            this.ColumnWidthChanged += new DataGridViewColumnEventHandler(FGrid_ColumnWidthChanged);
+           
+        }
+
+        /// <summary>
+        /// 横向滑动滚动条时 需要强制重绘选中行 否则选中航虚线框会造成重叠
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnScroll(ScrollEventArgs e)
+        {
+            base.OnScroll(e);
+            if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+            {
+                if (this.SelectedRows.Count > 0)
+                {
+                    this.InvalidateRow(this.SelectedRows[0].Index);
+                }
+            }
+        }
+       
+        /// <summary>
+        /// 列宽发生变化后 重新计算总的有效列宽
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void FGrid_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            this.CalcRowWidth();
         }
 
 
@@ -84,6 +117,22 @@ namespace TradingLib.XTrader.Future
         }
 
 
+        
+        
+        //protected int DashBorderWidth { get { return _dashWidth; } set { _dashWidth = value; } }
+        int _dashWidth = 0;
+
+        public void CalcRowWidth()
+        {
+            int w = 0;
+            for (int i = 0; i < this.Columns.Count;i++ )
+            {
+                if (!this.Columns[i].Visible) continue;
+                w += this.Columns[i].Width;
+            }
+            _dashWidth = w;
+        }
+
         Pen _dashPen = new Pen(Color.Black, 1);
         protected override void OnRowPostPaint(DataGridViewRowPostPaintEventArgs e)
         {
@@ -91,7 +140,7 @@ namespace TradingLib.XTrader.Future
             {
                 int x = e.RowBounds.Left;
                 int y = e.RowBounds.Top;
-                int width = e.RowBounds.Width;
+                int width = _dashWidth -1 ;
                 int height = e.RowBounds.Height - 1;
 
                 e.Graphics.DrawRectangle(_dashPen, x, y, width, height);
@@ -153,6 +202,10 @@ namespace TradingLib.XTrader.Future
                 e.PaintContent(e.CellBounds);
                 e.Handled = true;
             }
+            //else if (this.Rows[e.RowIndex].Selected)
+            //{
+            //    e.Paint(e.CellBounds, DataGridViewPaintParts.Border);
+            //}
         }
     }
 }

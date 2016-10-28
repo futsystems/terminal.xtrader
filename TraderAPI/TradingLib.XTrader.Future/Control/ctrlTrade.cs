@@ -393,7 +393,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[TRADERID].Width = 80;
 
 
-
+            tradeGrid.CalcRowWidth();
 
         }
 

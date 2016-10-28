@@ -138,9 +138,8 @@
             this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel2.Location = new System.Drawing.Point(28, 25);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(773, 208);
+            this.panel2.Size = new System.Drawing.Size(774, 208);
             this.panel2.TabIndex = 3;
-
             // 
             // tabCancel
             // 

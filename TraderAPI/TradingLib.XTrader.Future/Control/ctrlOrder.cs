@@ -441,7 +441,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[NAME].Width = 120;
 
 
-
+            orderGrid.CalcRowWidth();
 
         }
 
