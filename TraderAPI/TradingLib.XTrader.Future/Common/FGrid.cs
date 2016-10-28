@@ -38,7 +38,7 @@ namespace TradingLib.XTrader.Future
             this.Margin = new Padding(0);
             //this.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
 
-      
+            _dashPen.DashStyle = DashStyle.Dot;
         }
 
 
@@ -84,6 +84,19 @@ namespace TradingLib.XTrader.Future
         }
 
 
+        Pen _dashPen = new Pen(Color.Black, 1);
+        protected override void OnRowPostPaint(DataGridViewRowPostPaintEventArgs e)
+        {
+            if (Rows[e.RowIndex].Selected)
+            {
+                int x = e.RowBounds.Left;
+                int y = e.RowBounds.Top;
+                int width = e.RowBounds.Width;
+                int height = e.RowBounds.Height - 1;
+
+                e.Graphics.DrawRectangle(_dashPen, x, y, width, height);
+            }
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
