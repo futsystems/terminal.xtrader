@@ -403,8 +403,13 @@ namespace TradingLib.XTrader.Future
                         else
                         {
                             tb.Rows[i][UNREALIZEDPL] = (pos.UnRealizedPL * pos.oSymbol.Multiple).ToFormatStr();
-
                         }
+
+                        tb.Rows[i][LOSSTARGET] = "";
+                        tb.Rows[i][PROFITTARGET] = "";
+                        tb.Rows[i][FLAG] = "投机";
+                        tb.Rows[i][NAME] = GetSymbolName(pos);
+
                     }
                     else
                     {
@@ -437,7 +442,7 @@ namespace TradingLib.XTrader.Future
         {
             if (InvokeRequired)
             {
-                Invoke(new FillDelegate(GotFill), new object[] { order });
+                Invoke(new OrderDelegate(GotOrder), new object[] { order });
             }
             else
             {
