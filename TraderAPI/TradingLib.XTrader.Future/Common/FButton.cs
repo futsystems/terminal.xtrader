@@ -82,9 +82,9 @@ namespace TradingLib.XTrader
         static Font _priceFont = new Font("宋体", 12, FontStyle.Bold);
         static Font _sideFont = new Font("宋体", 18, FontStyle.Bold);
 
-        decimal _price = 1224.00M;
+        //decimal _price = 1224.00M;
 
-        string _priceFormat = "{0:F2}";
+        //string _priceFormat = "{0:F2}";
 
 
 
@@ -116,15 +116,15 @@ namespace TradingLib.XTrader
                 Invalidate();
             }
         }
-        public decimal Price
-        {
-            get { return _price; }
-            set
-            {
-                _price = value;
-                this.Invalidate();
-            }
-        }
+        //public decimal Price
+        //{
+        //    get { return _price; }
+        //    set
+        //    {
+        //        _price = value;
+        //        this.Invalidate();
+        //    }
+        //}
         /// <summary> 
         /// 绘制圆角按钮
         /// </summary> 
@@ -234,9 +234,12 @@ namespace TradingLib.XTrader
                     Rectangle txtRect = new Rectangle(0, ly, rect.Width, rect.Height - ly);
                     Rectangle priceRect = new Rectangle(0, 0, rect.Width, ly);
 
-                    string pricestr = string.Format(_priceFormat, this.Price);
+                    //string pricestr = string.Format(_priceFormat, this.Price);
                     _txtBrush.Color = this.ForeColor;
-                    g.DrawString(pricestr, _priceFont, _txtBrush, priceRect, _orderStringFormat);
+                    if (this.IsPriceOn && !string.IsNullOrEmpty(this.PriceStr))
+                    {
+                        g.DrawString(this.PriceStr, _priceFont, _txtBrush, priceRect, _orderStringFormat);
+                    }
                     g.DrawString(Text, _sideFont, _txtBrush, txtRect, _orderStringFormat);
                 }
                 else
@@ -247,6 +250,17 @@ namespace TradingLib.XTrader
                 }
             }
         }
+
+        string _pricestr = string.Empty;
+        public string PriceStr { get { return _pricestr; } set { _pricestr = value; this.Invalidate(); } }
+        /// <summary>
+        /// 是否输出价格信息
+        /// </summary>
+        public bool IsPriceOn { get; set; }
+
+        
+
+
 
         static GraphicsPath GetRoundRectangle(Rectangle rectangle, int r)
         {

@@ -94,11 +94,6 @@
             this.button6.Location = new System.Drawing.Point(742, 2);
             this.button6.Name = "button6";
             this.button6.OrderEntryButton = false;
-            this.button6.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.button6.Size = new System.Drawing.Size(47, 20);
             this.button6.TabIndex = 4;
             this.button6.Text = "导出";

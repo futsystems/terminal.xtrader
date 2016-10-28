@@ -147,11 +147,6 @@
             this.btnHide.Location = new System.Drawing.Point(335, 0);
             this.btnHide.Name = "btnHide";
             this.btnHide.OrderEntryButton = false;
-            this.btnHide.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.btnHide.Size = new System.Drawing.Size(7, 234);
             this.btnHide.TabIndex = 2;
             this.btnHide.Text = "<";

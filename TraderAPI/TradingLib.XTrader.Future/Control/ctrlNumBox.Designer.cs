@@ -49,11 +49,6 @@
             this.fButton1.Location = new System.Drawing.Point(1, 1);
             this.fButton1.Name = "fButton1";
             this.fButton1.OrderEntryButton = false;
-            this.fButton1.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton1.Size = new System.Drawing.Size(24, 24);
             this.fButton1.TabIndex = 0;
             this.fButton1.Text = "1";
@@ -69,11 +64,6 @@
             this.fButton2.Location = new System.Drawing.Point(26, 1);
             this.fButton2.Name = "fButton2";
             this.fButton2.OrderEntryButton = false;
-            this.fButton2.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton2.Size = new System.Drawing.Size(24, 24);
             this.fButton2.TabIndex = 1;
             this.fButton2.Text = "2";
@@ -89,11 +79,6 @@
             this.fButton3.Location = new System.Drawing.Point(51, 1);
             this.fButton3.Name = "fButton3";
             this.fButton3.OrderEntryButton = false;
-            this.fButton3.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton3.Size = new System.Drawing.Size(24, 24);
             this.fButton3.TabIndex = 2;
             this.fButton3.Text = "3";
@@ -109,11 +94,6 @@
             this.fButton4.Location = new System.Drawing.Point(51, 26);
             this.fButton4.Name = "fButton4";
             this.fButton4.OrderEntryButton = false;
-            this.fButton4.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton4.Size = new System.Drawing.Size(24, 24);
             this.fButton4.TabIndex = 5;
             this.fButton4.Text = "20";
@@ -129,11 +109,6 @@
             this.fButton5.Location = new System.Drawing.Point(26, 26);
             this.fButton5.Name = "fButton5";
             this.fButton5.OrderEntryButton = false;
-            this.fButton5.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton5.Size = new System.Drawing.Size(24, 24);
             this.fButton5.TabIndex = 4;
             this.fButton5.Text = "10";
@@ -149,11 +124,6 @@
             this.fButton6.Location = new System.Drawing.Point(1, 26);
             this.fButton6.Name = "fButton6";
             this.fButton6.OrderEntryButton = false;
-            this.fButton6.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton6.Size = new System.Drawing.Size(24, 24);
             this.fButton6.TabIndex = 3;
             this.fButton6.Text = "5";
@@ -169,11 +139,6 @@
             this.fButton7.Location = new System.Drawing.Point(51, 51);
             this.fButton7.Name = "fButton7";
             this.fButton7.OrderEntryButton = false;
-            this.fButton7.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton7.Size = new System.Drawing.Size(24, 24);
             this.fButton7.TabIndex = 8;
             this.fButton7.Text = "200";
@@ -189,11 +154,6 @@
             this.fButton8.Location = new System.Drawing.Point(26, 51);
             this.fButton8.Name = "fButton8";
             this.fButton8.OrderEntryButton = false;
-            this.fButton8.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton8.Size = new System.Drawing.Size(24, 24);
             this.fButton8.TabIndex = 7;
             this.fButton8.Text = "100";
@@ -209,11 +169,6 @@
             this.fButton9.Location = new System.Drawing.Point(1, 51);
             this.fButton9.Name = "fButton9";
             this.fButton9.OrderEntryButton = false;
-            this.fButton9.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton9.Size = new System.Drawing.Size(24, 24);
             this.fButton9.TabIndex = 6;
             this.fButton9.Text = "50";

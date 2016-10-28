@@ -135,11 +135,6 @@
             this.fButton1.Location = new System.Drawing.Point(184, 124);
             this.fButton1.Name = "fButton1";
             this.fButton1.OrderEntryButton = false;
-            this.fButton1.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.fButton1.Size = new System.Drawing.Size(75, 23);
             this.fButton1.TabIndex = 8;
             this.fButton1.Text = "修改";

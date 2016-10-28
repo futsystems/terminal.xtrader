@@ -193,11 +193,6 @@
             this.btnSell.Location = new System.Drawing.Point(239, 137);
             this.btnSell.Name = "btnSell";
             this.btnSell.OrderEntryButton = true;
-            this.btnSell.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.btnSell.Size = new System.Drawing.Size(80, 60);
             this.btnSell.TabIndex = 17;
             this.btnSell.Text = "卖出";
@@ -213,11 +208,6 @@
             this.btnBuy.Location = new System.Drawing.Point(153, 137);
             this.btnBuy.Name = "btnBuy";
             this.btnBuy.OrderEntryButton = true;
-            this.btnBuy.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.btnBuy.Size = new System.Drawing.Size(80, 60);
             this.btnBuy.TabIndex = 16;
             this.btnBuy.Text = "买入";

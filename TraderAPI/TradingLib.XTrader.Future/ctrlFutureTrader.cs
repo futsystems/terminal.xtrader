@@ -184,7 +184,9 @@ namespace TradingLib.XTrader.Future
         {
             if (arg2 != null)
             {
+                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Exchange, arg2.Symbol);
                 CoreService.TLClient.ReqRegisterSymbol(arg2.Symbol);
+                
             }
         }
 

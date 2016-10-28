@@ -51,7 +51,7 @@ namespace TradingLib.XTrader.Future
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
 
-
+            CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
 
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
@@ -59,13 +59,38 @@ namespace TradingLib.XTrader.Future
             CoreService.EventCore.RegIEventHandler(this);
         }
 
+
+        /// <summary>
+        /// 响应实时行情
+        /// </summary>
+        /// <param name="obj"></param>
+        void EventIndicator_GotTickEvent(Tick obj)
+        {
+            if (obj == null) return;
+            if (_symbol == null || _symbol.Symbol != obj.Symbol || _symbol.Exchange != obj.Exchange) return;
+
+            if(obj.UpdateType=="X" || obj.UpdateType == "Q" || obj.UpdateType == "S")
+            {
+                //输出盘口价格
+                btnBuy.PriceStr = string.Format(_priceFormat, obj.AskPrice);
+                btnSell.PriceStr = string.Format(_priceFormat, obj.BidPrice);
+            }
+
+        }
+
+
+        string _priceFormat = "{0:F2}";
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
             if (arg2 != null && (_symbol == null || _symbol.Symbol != arg2.Symbol))
             {
 
                 _symbol = arg2;
-
+                _priceFormat = _symbol.SecurityFamily.GetPriceFormat();
+                btnBuy.IsPriceOn = true;
+                btnSell.IsPriceOn = true;
+                btnBuy.PriceStr = string.Empty;
+                btnSell.PriceStr = string.Empty;
                 //lbSymbolName.Text = _symbol.GetName();
                 //SetSymbol(arg2.Exchange, arg2.Symbol, false);//1.合约输入框输入代码 触发自动查询并返回合约 2.行情联动直接设定下单面板合约(需要执行查询) 3.持仓面板双击持仓 设定下单面板合约
 

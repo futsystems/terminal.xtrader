@@ -48,11 +48,6 @@
             this.tabAll.Location = new System.Drawing.Point(0, 0);
             this.tabAll.Name = "tabAll";
             this.tabAll.OrderEntryButton = false;
-            this.tabAll.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.tabAll.Size = new System.Drawing.Size(27, 116);
             this.tabAll.TabIndex = 1;
             this.tabAll.Text = "全部";
@@ -81,11 +76,6 @@
             this.button6.Location = new System.Drawing.Point(715, 2);
             this.button6.Name = "button6";
             this.button6.OrderEntryButton = false;
-            this.button6.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.button6.Size = new System.Drawing.Size(47, 20);
             this.button6.TabIndex = 5;
             this.button6.Text = "导出";
@@ -100,11 +90,6 @@
             this.btnCancelAll.Location = new System.Drawing.Point(75, 2);
             this.btnCancelAll.Name = "btnCancelAll";
             this.btnCancelAll.OrderEntryButton = false;
-            this.btnCancelAll.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.btnCancelAll.Size = new System.Drawing.Size(66, 20);
             this.btnCancelAll.TabIndex = 1;
             this.btnCancelAll.Text = "全部撤单";
@@ -119,11 +104,6 @@
             this.btnCancel.Location = new System.Drawing.Point(3, 2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OrderEntryButton = false;
-            this.btnCancel.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.btnCancel.Size = new System.Drawing.Size(66, 20);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "撤单";
@@ -152,11 +132,6 @@
             this.tabCancel.Location = new System.Drawing.Point(0, 117);
             this.tabCancel.Name = "tabCancel";
             this.tabCancel.OrderEntryButton = false;
-            this.tabCancel.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.tabCancel.Size = new System.Drawing.Size(27, 116);
             this.tabCancel.TabIndex = 4;
             this.tabCancel.Text = "可撤";
