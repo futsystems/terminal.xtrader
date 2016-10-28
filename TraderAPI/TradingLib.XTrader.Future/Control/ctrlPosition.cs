@@ -44,6 +44,17 @@ namespace TradingLib.XTrader.Future
             this.Load += new EventHandler(ctrlPosition_Load);
             positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
             positionGrid.MouseClick += new MouseEventHandler(positionGrid_MouseClick);
+            positionGrid.MouseDoubleClick += new MouseEventHandler(positionGrid_MouseDoubleClick);
+        }
+
+        void positionGrid_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Position pos = CurrentPositoin;
+            if (pos != null)
+            {
+                CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+                CoreService.EventUI.FirePositionSelectedEvent(this, pos);
+            }
         }
 
         void positionGrid_MouseClick(object sender, MouseEventArgs e)
@@ -59,6 +70,12 @@ namespace TradingLib.XTrader.Future
             else
             {
                 positionGrid.SetSelectedBackground(true);
+            }
+
+            Position pos = CurrentPositoin;
+            if (pos != null)
+            {
+                CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
             }
         }
         int GetRowIndexAt(int mouseLocation_Y)

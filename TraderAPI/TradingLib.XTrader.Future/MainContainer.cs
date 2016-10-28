@@ -69,11 +69,11 @@ namespace TradingLib.XTrader.Future
             if(arg2 == null) return;
             if (ViewKChart != null)
             {
-                //持仓双击 产生的合约选择事件
-                //if(arg1 is ctPositionViewSTK)
-                //{
-                //    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
-                //}
+                //点击持仓 选择合约
+                if (arg1 is ctrlPosition)
+                {
+                    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                }
                 if (arg1 is ctrlOrderEntry)
                 {
                     ViewKChart(arg2.Exchange, arg2.Symbol, 0);

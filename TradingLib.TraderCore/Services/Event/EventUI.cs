@@ -52,5 +52,18 @@ namespace TradingLib.TraderCore
                 OnRefreshEvent();
             }
         }
+
+
+        public event Action<object,Position> OnPositionSelectedEvent = delegate { };
+
+        /// <summary>
+        /// 触发持仓选中事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="position"></param>
+        public void FirePositionSelectedEvent(object sender, Position position)
+        {
+            OnPositionSelectedEvent(sender, position);
+        }
     }
 }

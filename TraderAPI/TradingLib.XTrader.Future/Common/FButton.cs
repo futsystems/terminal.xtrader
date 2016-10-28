@@ -71,7 +71,7 @@ namespace TradingLib.XTrader
 
         static SolidBrush _clickBrush = new SolidBrush(Color.FromArgb(227, 226, 218));
         static SolidBrush _txtBrush = new SolidBrush(Color.FromArgb(189, 9, 9));
-
+        static SolidBrush _disableBrush = new SolidBrush(Color.FromArgb(245, 244, 234));
         static Color _shadowEnd = Color.FromArgb(249, 181, 53);
         static Color _shadownStart = Color.FromArgb(253, 232, 187);
         static Color _bgStart = Color.FromArgb(252, 252, 252);
@@ -136,17 +136,23 @@ namespace TradingLib.XTrader
         {
             Rectangle rectBorder = new Rectangle(rect.X, rect.Y, rect.Width - 1, rect.Height - 1);
 
-            
 
-            if (this.Checked)
+            if (this.Enabled)
             {
-                g.FillRectangle(_clickBrush, rect);
+                if (this.Checked)
+                {
+                    g.FillRectangle(_clickBrush, rect);
+                }
+                else
+                {
+                    //渐变填充背景
+                    LinearGradientBrush bgbrush = new LinearGradientBrush(rect, _bgStart, _bgEnd, 90);
+                    g.FillRectangle(bgbrush, rect);
+                }
             }
             else
             {
-                //渐变填充背景
-                LinearGradientBrush bgbrush = new LinearGradientBrush(rect, _bgStart, _bgEnd, 90);
-                g.FillRectangle(bgbrush, rect);
+                g.FillRectangle(_disableBrush, rect);
             }
 
             //绘制按钮边框
@@ -190,42 +196,43 @@ namespace TradingLib.XTrader
             }
             else
             {
-               
 
-                if (btnStyle == buttonStyle.ButtonFocuseAndMouseOver || btnStyle == buttonStyle.ButtonMouseOver)
+                if (this.Enabled)
                 {
-                    //绘制渐变阴影
-                    _shadownPen.Color = _shadownStart;
-                    g.DrawLine(_shadownPen, rectShadow.X, rectShadow.Y, rectShadow.X + rectShadow.Width, rectShadow.Y);
-
-                    using (LinearGradientBrush brush = new LinearGradientBrush(new Point(rectShadow.X, rectShadow.Y), new Point(rectShadow.X, rectShadow.Y + rectShadow.Height), _shadownStart, _shadowEnd))
+                    if (btnStyle == buttonStyle.ButtonFocuseAndMouseOver || btnStyle == buttonStyle.ButtonMouseOver)
                     {
-                        Pen pen = new Pen(brush);
-                        pen.Width = 2;
-                        //绘制左右渐变阴影
-                        g.DrawLine(pen, rectShadow.X, rectShadow.Y, rectShadow.X, rectShadow.Y + rectShadow.Height);
-                        g.DrawLine(pen, rectShadow.X + rectShadow.Width, rectShadow.Y, rectShadow.X + rectShadow.Width, rectShadow.Y + rectShadow.Height);
+                        //绘制渐变阴影
+                        _shadownPen.Color = _shadownStart;
+                        g.DrawLine(_shadownPen, rectShadow.X, rectShadow.Y, rectShadow.X + rectShadow.Width, rectShadow.Y);
+
+                        using (LinearGradientBrush brush = new LinearGradientBrush(new Point(rectShadow.X, rectShadow.Y), new Point(rectShadow.X, rectShadow.Y + rectShadow.Height), _shadownStart, _shadowEnd))
+                        {
+                            Pen pen = new Pen(brush);
+                            pen.Width = 2;
+                            //绘制左右渐变阴影
+                            g.DrawLine(pen, rectShadow.X, rectShadow.Y, rectShadow.X, rectShadow.Y + rectShadow.Height);
+                            g.DrawLine(pen, rectShadow.X + rectShadow.Width, rectShadow.Y, rectShadow.X + rectShadow.Width, rectShadow.Y + rectShadow.Height);
+                        }
+                        _shadownPen.Color = _shadowEnd;
+                        g.DrawLine(_shadownPen, rectShadow.X, rectShadow.Y + rectShadow.Height, rectShadow.X + rectShadow.Width, rectShadow.Y + rectShadow.Height);
                     }
-                    _shadownPen.Color = _shadowEnd;
-                    g.DrawLine(_shadownPen, rectShadow.X, rectShadow.Y + rectShadow.Height, rectShadow.X + rectShadow.Width, rectShadow.Y + rectShadow.Height);
+
+                    //按钮焦点 按钮焦点鼠标悬停 绘制虚线
+                    if (btnStyle == buttonStyle.ButtonFocuse || btnStyle == buttonStyle.ButtonFocuseAndMouseOver)
+                    {
+                        _dashPen.DashStyle = DashStyle.Dot;
+                        g.DrawRectangle(_dashPen, rectDash);
+                    }
+
+                    //按下按钮 绘制虚线 凸显背景
+                    if (btnStyle == buttonStyle.ButtonDown)
+                    {
+                        g.FillRectangle(_clickBrush, rectShadow);
+
+                        _dashPen.DashStyle = DashStyle.Dot;
+                        g.DrawRectangle(_dashPen, rectDash);//虚线框
+                    }
                 }
-
-                //按钮焦点 按钮焦点鼠标悬停 绘制虚线
-                if (btnStyle == buttonStyle.ButtonFocuse || btnStyle == buttonStyle.ButtonFocuseAndMouseOver)
-                {
-                    _dashPen.DashStyle = DashStyle.Dot;
-                    g.DrawRectangle(_dashPen, rectDash);
-                }
-
-                //按下按钮 绘制虚线 凸显背景
-                if (btnStyle == buttonStyle.ButtonDown)
-                {
-                    g.FillRectangle(_clickBrush, rectShadow);
-
-                    _dashPen.DashStyle = DashStyle.Dot;
-                    g.DrawRectangle(_dashPen, rectDash);//虚线框
-                }
-
                 if (this.OrderEntryButton)
                 {
                     //输出价格与文字
@@ -235,7 +242,7 @@ namespace TradingLib.XTrader
                     Rectangle priceRect = new Rectangle(0, 0, rect.Width, ly);
 
                     //string pricestr = string.Format(_priceFormat, this.Price);
-                    _txtBrush.Color = this.ForeColor;
+                    _txtBrush.Color = GetTxtColor();// this.ForeColor;
                     if (this.IsPriceOn && !string.IsNullOrEmpty(this.PriceStr))
                     {
                         g.DrawString(this.PriceStr, _priceFont, _txtBrush, priceRect, _orderStringFormat);
@@ -245,10 +252,15 @@ namespace TradingLib.XTrader
                 else
                 {
                     //居中输出文字
-                    _txtBrush.Color = this.ForeColor;
+                    _txtBrush.Color = GetTxtColor();
                     g.DrawString(this.Text, this.Font, _txtBrush, rect, _normalStrFormat);
                 }
             }
+        }
+
+        Color GetTxtColor()
+        {
+            return this.Enabled ? this.ForeColor : Color.DarkGray;
         }
 
         string _pricestr = string.Empty;

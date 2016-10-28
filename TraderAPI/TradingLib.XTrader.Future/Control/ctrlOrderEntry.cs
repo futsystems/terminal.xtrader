@@ -55,13 +55,25 @@ namespace TradingLib.XTrader.Future
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
 
+            btnReset.Click += new EventHandler(btnReset_Click);
+
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
-
+            CoreService.EventUI.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        void btnReset_Click(object sender, EventArgs e)
+        {
+            btnBuy.Enabled = true;
+            btnSell.Enabled = true;
+            inputSize.SetValue("1");
+
+        }
+
+        
 
         /// <summary>
         /// 价格输入框价格变化后 更新按钮价格
@@ -122,6 +134,13 @@ namespace TradingLib.XTrader.Future
 
                 _symbol = arg2;
                 _priceFormat = _symbol.SecurityFamily.GetPriceFormat();
+                
+                //合约选择框文字
+                if (!inputSymbol.Text.StartsWith(_symbol.Symbol))
+                {
+                    inputSymbol.Text = _symbol.Symbol;
+                }
+
                 //下单按钮可以显示盘口价格
                 btnBuy.IsPriceOn = true;
                 btnSell.IsPriceOn = true;
@@ -148,6 +167,31 @@ namespace TradingLib.XTrader.Future
                 //QryAccountFinance();
             }
         }
+
+        /// <summary>
+        /// 持仓选择事件
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        void EventUI_OnPositionSelectedEvent(object arg1, Position arg2)
+        {
+
+            if (arg2.isLong)
+            {
+                btnBuy.Enabled = false;
+                inputFlagClose.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
+            }
+            else
+            {
+                btnSell.Enabled = false;
+                inputFlagClose.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
+            }
+        }
+
 
         void EventIndicator_GotErrorOrderEvent(Order arg1, RspInfo arg2)
         {
