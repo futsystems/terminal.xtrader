@@ -77,7 +77,15 @@ namespace TradingLib.XTrader.Future
         public bool ShowTop { get; set; }
         public decimal MinVal { get { return _mindval; } set { _mindval = value; } }
         public decimal MaxVal { get { return _maxdval; } set { _maxdval = value; } }
-        public int DecimalPlace { get { return _decimalplace; } set { _decimalplace = value; } }
+        public int DecimalPlace { get { return _decimalplace; } 
+            set 
+            { 
+                _decimalplace = value;
+            } 
+        }
+
+        public decimal Increment { get { return _increment; } set { _increment = value; } }
+        public string PriceFormat { get { return _priceFormat; } set { _priceFormat = value; } }
 
         public string TxtValue { get { return _txtvalue; } set { _txtvalue = value; } }
         /// <summary>
@@ -92,10 +100,18 @@ namespace TradingLib.XTrader.Future
         decimal _maxdval = 1000000;
         string _txtvalue = string.Empty;
         bool _txtMode = false;
+        string _priceFormat = "{0:F2}";
+
+        bool _symSelected = false;
+        /// <summary>
+        /// 合约是否选中标识 在合约没选中状态无法上下调节价格
+        /// </summary>
+        public bool SymbolSelected { get { return _symSelected; } set { _symSelected = value; } }
         #endregion
 
 
-        
+
+        public event Action<string> NumTxtValSelected = delegate { };
         /// <summary>
         /// 设定输入框文本
         /// </summary>
@@ -112,6 +128,7 @@ namespace TradingLib.XTrader.Future
                 _selected = false;
             }
             this.Invalidate();
+            NumTxtValSelected(txt);
         }
 
         public void SetValue(string val)
@@ -123,6 +140,16 @@ namespace TradingLib.XTrader.Future
             _SelectionEnd = 0;
             this.Invalidate();
         }
+
+        decimal _lowprice = -1;
+        decimal _upprice = -1;
+
+        public void SetBenchPrice(decimal a, decimal b)
+        {
+            _lowprice = Math.Min(a, b);
+            _upprice = Math.Max(a, b);
+        }
+
         #region 内部状态变量
         bool _upBtnMouseDown = false;
         bool _dnBtnMouseDown = false;
@@ -538,9 +565,16 @@ namespace TradingLib.XTrader.Future
             _selectionStart = start;
         }
 
+        public event Action<decimal> ValueChanged = delegate { };
         void OnUpArrowDown()
         {
-            _txtMode = false;
+            if (_txtMode && _txtvalue == "市价") return;
+            if (_txtMode)
+            {
+                if (!this.SymbolSelected) return;
+                _txtMode = false;
+                _txtvalue = string.Format(_priceFormat, _upprice);
+            }
             decimal dvalue = 0;
             if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             if (dvalue + _increment <= _maxdval)
@@ -549,6 +583,7 @@ namespace TradingLib.XTrader.Future
                 _txtvalue = dvalue.ToString();
                 _selectionStart = _txtvalue.Length;
                 this.Invalidate();
+                ValueChanged(dvalue);
             }
         }
 
@@ -556,7 +591,13 @@ namespace TradingLib.XTrader.Future
 
         void OnDnArrowDown()
         {
-            _txtMode = false;
+            if (_txtMode && _txtvalue == "市价") return;
+            if (_txtMode)
+            {
+                if (!this.SymbolSelected) return;
+                _txtMode = false;
+                _txtvalue = string.Format(_priceFormat, _lowprice);
+            }
             decimal dvalue = 0;
             if (!decimal.TryParse(_txtvalue, out dvalue)) dvalue = 0;
             //默认为能小于0
@@ -566,6 +607,7 @@ namespace TradingLib.XTrader.Future
                 _txtvalue = dvalue.ToString();
                 _selectionStart = _txtvalue.Length;
                 this.Invalidate();
+                ValueChanged(dvalue);
             }
         }
         #endregion

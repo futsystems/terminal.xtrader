@@ -460,7 +460,7 @@ namespace TradingLib.XTrader.Future
                 {
                     if (k.UpdateType != "X" && k.UpdateType !="S") return;
 
-                    logger.Info("tick:" + k.ToString());
+                    //logger.Info("tick:" + k.ToString());
                     for (int i = 0; i < tb.Rows.Count; i++)
                     {
                         if (tb.Rows[i][SYMBOLKEY].ToString() == k.GetSymbolUniqueKey())

@@ -41,12 +41,16 @@ namespace TradingLib.XTrader.Future
             //合约选择控件
             inputSymbol.SymbolSelected += new Action<Symbol>(inputSymbol_SymbolSelected);//下拉选择
             inputSymbol.TextChanged += new EventHandler(inputSymbol_TextChanged);//合约输入
-
+            //inputSymbol.DropDown += new EventHandler(inputSymbol_DropDown);
+            inputSymbol.SecuritySelected += new Action(inputSymbol_SecuritySelected);
+            
             inputFlagClose.Click += new EventHandler(inputFlagClose_Click);
             inputFlagCloseToday.Click += new EventHandler(inputFlagCloseToday_Click);
             inputFlagOpen.Click += new EventHandler(inputFlagOpen_Click);
             inputFlagAuto.CheckedChanged += new EventHandler(inputFlagAuto_CheckedChanged);
 
+            inputPrice.NumTxtValSelected += new Action<string>(inputPrice_NumTxtValSelected);
+            inputPrice.ValueChanged += new Action<decimal>(inputPrice_ValueChanged);
 
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
@@ -58,6 +62,35 @@ namespace TradingLib.XTrader.Future
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        /// <summary>
+        /// 价格输入框价格变化后 更新按钮价格
+        /// </summary>
+        /// <param name="obj"></param>
+        void inputPrice_ValueChanged(decimal obj)
+        {
+            UpdatePriceButton();
+        }
+
+        /// <summary>
+        /// 取价模式切换 重新更新按钮当前对应显示价格
+        /// 同时需要根据当前设定的取价模式 设定上下价格。用于上下调节按钮进行调节
+        /// </summary>
+        /// <param name="obj"></param>
+        void inputPrice_NumTxtValSelected(string obj)
+        {
+            UpdatePriceButton();
+        }
+
+        /// <summary>
+        /// 下拉选择品种后 重置价格输入控件
+        /// </summary>
+        void inputSymbol_SecuritySelected()
+        {
+            this.ResetInputPrice();
+        }
+
+        
 
 
         /// <summary>
@@ -72,25 +105,33 @@ namespace TradingLib.XTrader.Future
             if(obj.UpdateType=="X" || obj.UpdateType == "Q" || obj.UpdateType == "S")
             {
                 //输出盘口价格
-                btnBuy.PriceStr = string.Format(_priceFormat, obj.AskPrice);
-                btnSell.PriceStr = string.Format(_priceFormat, obj.BidPrice);
+                //btnBuy.PriceStr = string.Format(_priceFormat, obj.AskPrice);
+                //btnSell.PriceStr = string.Format(_priceFormat, obj.BidPrice);
+                UpdatePriceButton();
             }
-
         }
+
+
 
 
         string _priceFormat = "{0:F2}";
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-            if (arg2 != null && (_symbol == null || _symbol.Symbol != arg2.Symbol))
+            if (arg2 != null)// && (_symbol == null || _symbol.Symbol != arg2.Symbol))
             {
 
                 _symbol = arg2;
                 _priceFormat = _symbol.SecurityFamily.GetPriceFormat();
+                //下单按钮可以显示盘口价格
                 btnBuy.IsPriceOn = true;
                 btnSell.IsPriceOn = true;
-                btnBuy.PriceStr = string.Empty;
-                btnSell.PriceStr = string.Empty;
+
+                //设定priceInput的 相关参数
+                inputPrice.PriceFormat = _symbol.SecurityFamily.GetPriceFormat();
+                inputPrice.Increment = _symbol.SecurityFamily.PriceTick;
+                inputPrice.SymbolSelected = true;
+
+
                 //lbSymbolName.Text = _symbol.GetName();
                 //SetSymbol(arg2.Exchange, arg2.Symbol, false);//1.合约输入框输入代码 触发自动查询并返回合约 2.行情联动直接设定下单面板合约(需要执行查询) 3.持仓面板双击持仓 设定下单面板合约
 
@@ -179,22 +220,37 @@ namespace TradingLib.XTrader.Future
             inputSize.DropDownControl = sizeBox;
             inputSize.DropDownSizeMode = SizeMode.UseControlSize;
 
+            ResetInputPrice();
+            ResetPriceButton();
 
             _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
         }
 
         void inputSymbol_TextChanged(object sender, EventArgs e)
         {
-            if (inputSymbol.Text.Length >= 4)
+            string s = inputSymbol.Text;
+            if (inputSymbol.Text.Contains("|"))
             {
-                Symbol symbol = CoreService.BasicInfoTracker.Symbols.Where(sym => sym.Symbol == inputSymbol.Text).FirstOrDefault();
-                if (symbol != null)
-                {
-                    logger.Info(string.Format("Symbol:{0} Selected", symbol.Symbol));
-                    CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
-                    //_symbol = symbol;
-                }
+                s = inputSymbol.Text.Split('|')[0];
+                
             }
+            Symbol symbol = CoreService.BasicInfoTracker.Symbols.Where(sym => sym.Symbol == s).FirstOrDefault();
+            if (symbol != null)
+            {
+                logger.Info(string.Format("Symbol:{0} Selected", symbol.Symbol));
+                CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+            }
+            else //当前没有选中任何合约
+            {
+                logger.Info("clear selected symbol");
+                _symbol = null;
+
+                inputPrice.SymbolSelected = false;
+                ResetPriceButton();
+                ResetInputPrice();
+
+            }
+            
         }
 
         void inputSymbol_SymbolSelected(Symbol obj)
@@ -228,6 +284,99 @@ namespace TradingLib.XTrader.Future
         }
 
 
+        void ResetInputPrice()
+        {
+            inputPrice.SetTxtVal("对手价");
+        }
+
+        void ResetPriceButton()
+        {
+            btnBuy.IsPriceOn = false;
+            btnSell.IsPriceOn = false;
+            btnBuy.PriceStr = string.Empty;
+            btnSell.PriceStr = string.Empty;
+        }
+
+        /// <summary>
+        /// 更新价格信息
+        /// </summary>
+        /// <param name="tick"></param>
+        void UpdatePriceButton()
+        {
+            if (_symbol == null) return;
+            if (inputPrice.IsTxtMode)
+            {
+                Tick snapshot = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange, _symbol.Symbol];
+                if (snapshot == null) return;
+                switch (inputPrice.TxtValue)
+                {
+                    case "对手价":
+                        {
+                            btnBuy.PriceStr = string.Format(_priceFormat, snapshot.AskPrice);
+                            btnSell.PriceStr = string.Format(_priceFormat, snapshot.BidPrice);
+                            inputPrice.SetBenchPrice(snapshot.AskPrice, snapshot.BidPrice);
+                            return;
+                        }
+                    case "对手价超一":
+                        {
+                            btnBuy.PriceStr = string.Format(_priceFormat, snapshot.AskPrice + _symbol.SecurityFamily.PriceTick);
+                            btnSell.PriceStr = string.Format(_priceFormat, snapshot.BidPrice - _symbol.SecurityFamily.PriceTick);
+                            inputPrice.SetBenchPrice(snapshot.AskPrice + _symbol.SecurityFamily.PriceTick, snapshot.BidPrice - _symbol.SecurityFamily.PriceTick);
+                            return;
+                        }
+                    case "对手价超二":
+                        {
+                            btnBuy.PriceStr = string.Format(_priceFormat, snapshot.AskPrice + 2 * _symbol.SecurityFamily.PriceTick);
+                            btnSell.PriceStr = string.Format(_priceFormat, snapshot.BidPrice - 2 * _symbol.SecurityFamily.PriceTick);
+                            inputPrice.SetBenchPrice(snapshot.AskPrice + 2*_symbol.SecurityFamily.PriceTick, snapshot.BidPrice - 2*_symbol.SecurityFamily.PriceTick);
+                            return;
+                        }
+                    case "挂单价":
+                        {
+                            btnBuy.PriceStr = string.Format(_priceFormat, snapshot.BidPrice);
+                            btnSell.PriceStr = string.Format(_priceFormat, snapshot.AskPrice);
+                            inputPrice.SetBenchPrice(snapshot.AskPrice, snapshot.BidPrice);
+                            return;
+                        }
+                    case "最新价":
+                        {
+                            btnBuy.PriceStr = string.Format(_priceFormat, snapshot.Trade);
+                            btnSell.PriceStr = string.Format(_priceFormat, snapshot.Trade);
+                            inputPrice.SetBenchPrice(snapshot.Trade, snapshot.Trade);
+                            return;
+                        }
+                    case "市价":
+                        {
+                            btnBuy.PriceStr = string.Empty;
+                            btnSell.PriceStr = string.Empty;
+                            inputPrice.SetBenchPrice(-1,-1);
+                            return;
+                        }
+                    //case "涨停价":
+                    //    {
+                    //        price = snapshot.UpperLimit;
+                    //        return true;
+                    //    }
+                    //case "跌停价":
+                    //    {
+                    //        price = snapshot.LowerLimit;
+                    //        return true;
+                    //    }
+                    default:
+                        return;
+                }
+            }
+            else
+            {
+                decimal price = 0;
+                //根据输入的价格返回
+                if (!decimal.TryParse(inputPrice.TxtValue, out price)) price = 0;
+
+                btnBuy.PriceStr = string.Format(_priceFormat, price);
+                btnSell.PriceStr = string.Format(_priceFormat, price);
+                return;
+            }
+        }
 
         #region 提交委托
         int _orderInesertId = 0;

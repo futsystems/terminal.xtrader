@@ -355,6 +355,8 @@ namespace TradingLib.XTrader.Future
         #region Construction and destruction
 
         public event Action<Symbol> SymbolSelected = delegate { };
+
+        public event Action SecuritySelected = delegate { };
         public ctrlSymbolSelecter()
             : base()
         {
@@ -397,7 +399,9 @@ namespace TradingLib.XTrader.Future
 
         void m_titleList_ItemSelected(string obj)
         {
+
             ShowSymbolList(obj);
+            SecuritySelected();
         }
 
         void m_dropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
