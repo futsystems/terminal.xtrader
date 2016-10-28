@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new TradingLib.XTrader.FButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.fButton1 = new TradingLib.XTrader.FButton();
             this.button6 = new TradingLib.XTrader.FButton();
             this.button5 = new TradingLib.XTrader.FButton();
@@ -62,20 +62,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.CheckButton = false;
-            this.panel2.Checked = false;
             this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel2.Location = new System.Drawing.Point(28, 25);
             this.panel2.Name = "panel2";
-            this.panel2.OrderEntryButton = false;
-            this.panel2.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.panel2.Size = new System.Drawing.Size(773, 208);
             this.panel2.TabIndex = 3;
-            this.panel2.UseVisualStyleBackColor = false;
             // 
             // fButton1
             // 
@@ -236,7 +227,7 @@
         private FButton button4;
         private FButton button3;
         private FButton button6;
-        private FButton panel2;
+        private System.Windows.Forms.Panel panel2;
         private FButton fButton1;
     }
 }

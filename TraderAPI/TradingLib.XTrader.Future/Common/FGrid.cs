@@ -38,24 +38,56 @@ namespace TradingLib.XTrader.Future
             this.Margin = new Padding(0);
             //this.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
 
-            this.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(FPosition_CellPainting);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(FPosition_Paint);
+      
         }
 
 
 
         protected override void OnLostFocus(EventArgs e)
         {
-            //logger.Info("lost focus");
             if (this.SelectedRows.Count > 0)
             {
-                this.SelectedRows[0].Selected = false;
+                this.SetSelectedBackground(false);
             }
             base.OnLostFocus(e);
         }
 
-        void FPosition_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+
+
+        public void SetSelectedBackground(bool blue)
         {
+
+            if (blue)
+            {
+                this.DefaultCellStyle.SelectionBackColor = Color.FromArgb(51, 153, 255);
+                this.DefaultCellStyle.SelectionForeColor = Color.White;
+            }
+            else
+            {
+                //根据Row奇偶来定颜色
+                if (this.SelectedRows.Count > 0)
+                {
+
+                    if (this.SelectedRows[0].Index % 2 == 0) //根据奇偶来设定选择行背景色 以保持和原来的色调一致
+                    {
+                        this.DefaultCellStyle.SelectionBackColor = Color.White;
+                    }
+                    else
+                    {
+                        this.DefaultCellStyle.SelectionBackColor = this.AlternatingRowsDefaultCellStyle.BackColor;
+                    }
+                    
+                    this.DefaultCellStyle.SelectionForeColor = Color.Black;
+                }
+                
+            }
+        }
+
+
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
             ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
                 lineColor, 1, ButtonBorderStyle.Solid,
                 lineColor, 1, ButtonBorderStyle.Solid,
@@ -63,8 +95,9 @@ namespace TradingLib.XTrader.Future
                 lineColor, 1, ButtonBorderStyle.Solid);
         }
 
-        void FPosition_CellPainting(object sender, System.Windows.Forms.DataGridViewCellPaintingEventArgs e)
+        protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
         {
+            base.OnCellPainting(e);
             if (e.ColumnIndex == -1 && e.RowIndex == -1)
             {
                 using (LinearGradientBrush brush = new LinearGradientBrush(e.CellBounds, Color.LightGray,

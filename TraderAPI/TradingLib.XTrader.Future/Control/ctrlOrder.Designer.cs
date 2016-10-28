@@ -33,7 +33,7 @@
             this.button6 = new TradingLib.XTrader.FButton();
             this.btnCancelAll = new TradingLib.XTrader.FButton();
             this.btnCancel = new TradingLib.XTrader.FButton();
-            this.panel2 = new TradingLib.XTrader.FButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabCancel = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -135,20 +135,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.CheckButton = false;
-            this.panel2.Checked = false;
             this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel2.Location = new System.Drawing.Point(28, 25);
             this.panel2.Name = "panel2";
-            this.panel2.OrderEntryButton = false;
-            this.panel2.Price = new decimal(new int[] {
-            122400,
-            0,
-            0,
-            131072});
             this.panel2.Size = new System.Drawing.Size(773, 208);
             this.panel2.TabIndex = 3;
-            this.panel2.UseVisualStyleBackColor = false;
+
             // 
             // tabCancel
             // 
@@ -192,7 +184,7 @@
         private System.Windows.Forms.Panel panel1;
         private FButton btnCancel;
         private FButton btnCancelAll;
-        private FButton panel2;
+        private System.Windows.Forms.Panel panel2;
         private FButton tabCancel;
         private FButton button6;
     }

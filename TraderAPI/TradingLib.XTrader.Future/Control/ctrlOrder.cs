@@ -53,28 +53,21 @@ namespace TradingLib.XTrader.Future
             orderGrid.MouseClick += new MouseEventHandler(orderGrid_MouseClick);
         }
 
-        //protected override void OnLostFocus(EventArgs e)
-        //{
-        //    logger.Info("lost focus");
-        //    if (orderGrid.SelectedRows.Count > 0)
-        //    {
-        //        orderGrid.SelectedRows[0].Selected = false;
-        //    }
-        //    base.OnLostFocus(e);
-        //}
+
         void orderGrid_MouseClick(object sender, MouseEventArgs e)
         {
-            
-            //orderGrid.SelectedRows[0].Selected = false;
             int rowid = GetRowIndexAt(e.Y);
             if (rowid == -1)
             {
                 if (orderGrid.SelectedRows.Count > 0)
                 {
-                    orderGrid.SelectedRows[0].Selected = false;
+                    orderGrid.SetSelectedBackground(false);
                 }
             }
-            //MessageBox.Show(rowid.ToString());
+            else
+            {
+                orderGrid.SetSelectedBackground(true);
+            }
         }
         int GetRowIndexAt(int mouseLocation_Y)
         {

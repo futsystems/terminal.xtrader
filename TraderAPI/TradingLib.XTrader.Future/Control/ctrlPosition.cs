@@ -48,16 +48,18 @@ namespace TradingLib.XTrader.Future
 
         void positionGrid_MouseClick(object sender, MouseEventArgs e)
         {
-            //orderGrid.SelectedRows[0].Selected = false;
             int rowid = GetRowIndexAt(e.Y);
             if (rowid == -1)
             {
                 if (positionGrid.SelectedRows.Count > 0)
                 {
-                    positionGrid.SelectedRows[0].Selected = false;
+                    positionGrid.SetSelectedBackground(false);
                 }
             }
-            //MessageBox.Show(rowid.ToString());
+            else
+            {
+                positionGrid.SetSelectedBackground(true);
+            }
         }
         int GetRowIndexAt(int mouseLocation_Y)
         {
