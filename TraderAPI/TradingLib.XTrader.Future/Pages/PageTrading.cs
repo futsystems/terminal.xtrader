@@ -18,13 +18,20 @@ namespace TradingLib.XTrader.Future
         {
             InitializeComponent();
             this.SizeChanged += new EventHandler(PageTrading_SizeChanged);
+            this.splitContainer1.SplitterMoved += new SplitterEventHandler(splitContainer1_SplitterMoved);
+        }
+
+        void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            
         }
 
         void PageTrading_SizeChanged(object sender, EventArgs e)
         {
-            this.ctrlPosition1.Height = (this.Height - 2) / 2;
-            this.ctrlOrder1.Location = new Point(0, this.ctrlPosition1.Height + 2);
-            this.ctrlOrder1.Height = this.Height - this.ctrlPosition1.Height - 2;
+            double pect = (double)this.ctrlPosition1.Height / (double)(this.ctrlPosition1.Height + this.ctrlOrder1.Height);
+            int newHeight = (int)(this.Height * pect);
+
+            this.splitContainer1.SplitterDistance = newHeight;
         }
     }
 }
