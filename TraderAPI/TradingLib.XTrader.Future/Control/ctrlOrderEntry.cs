@@ -11,7 +11,7 @@ using TradingLib.Common;
 using TradingLib.TraderCore;
 using Common.Logging;
 
-namespace TradingLib.XTrader.Future.Control
+namespace TradingLib.XTrader.Future
 {
     public partial class ctrlOrderEntry : UserControl, TradingLib.API.IEventBinder
     {
@@ -52,9 +52,35 @@ namespace TradingLib.XTrader.Future.Control
             btnSell.Click += new EventHandler(btnSell_Click);
 
 
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
+
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
             CoreService.EventCore.RegIEventHandler(this);
+        }
+
+        void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
+        {
+            if (arg2 != null && (_symbol == null || _symbol.Symbol != arg2.Symbol))
+            {
+
+                _symbol = arg2;
+
+                //lbSymbolName.Text = _symbol.GetName();
+                //SetSymbol(arg2.Exchange, arg2.Symbol, false);//1.合约输入框输入代码 触发自动查询并返回合约 2.行情联动直接设定下单面板合约(需要执行查询) 3.持仓面板双击持仓 设定下单面板合约
+
+                //Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange, _symbol.Symbol];
+                //if (k != null)
+                //{
+                //    price.Value = _side ? k.AskPrice : k.BidPrice;
+                //}
+
+                //btnSubmit.Enabled = true;
+                //查询最大可开委托数量
+                //QryMaxOrderVol();
+                //查询可用资金
+                //QryAccountFinance();
+            }
         }
 
         void EventIndicator_GotErrorOrderEvent(Order arg1, RspInfo arg2)
@@ -128,6 +154,8 @@ namespace TradingLib.XTrader.Future.Control
             inputSize.DropDownControl = sizeBox;
             inputSize.DropDownSizeMode = SizeMode.UseControlSize;
 
+
+            _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
         }
 
         void inputSymbol_TextChanged(object sender, EventArgs e)
@@ -138,7 +166,8 @@ namespace TradingLib.XTrader.Future.Control
                 if (symbol != null)
                 {
                     logger.Info(string.Format("Symbol:{0} Selected", symbol.Symbol));
-                    _symbol = symbol;
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+                    //_symbol = symbol;
                 }
             }
         }
@@ -146,7 +175,8 @@ namespace TradingLib.XTrader.Future.Control
         void inputSymbol_SymbolSelected(Symbol obj)
         {
             logger.Info(string.Format("Symbol:{0} Selected", obj.Symbol));
-            _symbol = obj;
+            CoreService.EventUI.FireSymbolSelectedEvent(this, obj);
+            //_symbol = obj;
         }
 
 
@@ -305,6 +335,7 @@ namespace TradingLib.XTrader.Future.Control
             order.Size = size;
             order.Side = side;
             order.LimitPrice = price;
+            order.OffsetFlag = _currentOffsetFlag;
 
             //以价格:00 买入1手 
             string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(), GetOffsetString());

@@ -36,7 +36,7 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.panelPageHolder = new System.Windows.Forms.Panel();
             this.orderEntryPanel = new System.Windows.Forms.Panel();
-            this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.Control.ctrlOrderEntry();
+            this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.ctrlOrderEntry();
             this.btnHide = new TradingLib.XTrader.FButton();
             this.ctrlListMenu1 = new TradingLib.XTrader.Future.ctrlListMenu();
             this.panelTop.SuspendLayout();
@@ -193,7 +193,7 @@
         private ctrlListMenu ctrlListMenu1;
         private System.Windows.Forms.Panel orderEntryPanel;
         private FButton btnHide;
-        private Control.ctrlOrderEntry ctrlOrderEntry1;
+        private ctrlOrderEntry ctrlOrderEntry1;
         private System.Windows.Forms.Panel panelPageHolder;
     }
 }

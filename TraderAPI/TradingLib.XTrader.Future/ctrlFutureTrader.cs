@@ -33,6 +33,8 @@ namespace TradingLib.XTrader.Future
             InitMenu();
 
             WireEvent();
+
+            InitMessageBW();
         }
 
 
@@ -153,11 +155,58 @@ namespace TradingLib.XTrader.Future
 
         void WireEvent()
         {
+            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+
+            CoreService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
+            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
+
+
             ///btnHideOrderEntry.Click += new EventHandler(btnHideOrderEntry_Click);
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        void EventUI_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                //非常驻合约 则需要取消 避免不必要的订阅
+                if (!CoreService.TradingInfoTracker.HotSymbols.Contains(arg2))
+                {
+                    CoreService.TLClient.ReqUnRegisterSymbol(arg2.Symbol);
+                }
+            }
+        }
+
+        void EventUI_OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
+        {
+            if (arg2 != null)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(arg2.Symbol);
+            }
+        }
+
+
+
+        void EventOther_OnResumeDataEnd()
+        {
+            btnRefresh.Enabled = true;
+
+            //数据恢复完毕后 订阅常驻合约 放入持仓列表中注册
+            //foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
+            //{
+            //    CoreService.TLClient.ReqRegisterSymbol(sym.Symbol);
+            //}
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            btnRefresh.Enabled = false;
+        }
+
+
 
         DateTime lastRefresh = DateTime.Now;
         bool refreshed = false;
@@ -225,7 +274,68 @@ namespace TradingLib.XTrader.Future
         
         }
 
+        #region 弹窗提醒
 
+
+
+        System.ComponentModel.BackgroundWorker bg;
+
+        TradingLib.MarketData.RingBuffer<PromptMessage> infobuffer = new TradingLib.MarketData.RingBuffer<PromptMessage>(1000);
+
+
+
+
+        void InitMessageBW()
+        {
+            bg = new BackgroundWorker();
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.RunWorkerAsync();
+            CoreService.EventCore.OnPromptMessageEvent += new Action<PromptMessage>(EventCore_OnPromptMessageEvent);
+        }
+
+        void EventCore_OnPromptMessageEvent(PromptMessage obj)
+        {
+            infobuffer.Write(obj);
+        }
+
+        /// <summary>
+        /// 后台工作流程 当缓存中有数据是通过ReportProgress进行触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void bg_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                try
+                {
+                    //如果消息缓存中有内容则弹窗提醒
+                    while (infobuffer.hasItems)
+                    {
+                        PromptMessage info = infobuffer.Read();
+                        if (info != null)
+                        {
+                            MethodInvoker mi = new MethodInvoker(() =>
+                            {
+                                MessageBox.Show(info.Message, "信息:" + info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            );
+                            IAsyncResult result = this.BeginInvoke(mi);
+                            this.EndInvoke(result);
+                        }
+                        System.Threading.Thread.Sleep(100);
+                    }
+                    System.Threading.Thread.Sleep(100);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("bg worker error:" + ex.ToString());
+                }
+            }
+        }
+
+
+        #endregion
         #region 内部控件暴露到MainContainer的操作
 
         public void PageSTKOrderEntry_SetSymbol(string exchange, string symbol)

@@ -321,23 +321,35 @@ namespace TradingLib.TraderCore
                     subscriber.ReceiveReady += (s, e) =>
                     {
                         string tickstr = subscriber.ReceiveString(Encoding.UTF8);
-                        string[] p = tickstr.Split('^');
-                        if (p.Length == 2)
-                        {
-                            string symbol = p[0];
-                            string tickcontent = p[1];
+
+                        //Tick k = TickImpl.Deserialize2(tickstr);
+                        if (!string.IsNullOrEmpty(tickstr) && tickstr!="H,")
+                        { 
                             Message msg = new Message();
                             msg.Type = MessageTypes.TICKNOTIFY;
-                            msg.Content = tickcontent;
+                            msg.Content = tickstr;
+
                             handleMessage(msg);
                         }
-                        else if (p[0] == "TICKHEARTBEAT")
-                        {
-                            Message msg = new Message();
-                            msg.Type = MessageTypes.TICKHEARTBEAT;
-                            msg.Content = "TICKHEARTBEAT";
-                            handleMessage(msg);
-                        }
+
+
+                        //string[] p = tickstr.Split('^');
+                        //if (p.Length == 2)
+                        //{
+                        //    string symbol = p[0];
+                        //    string tickcontent = p[1];
+                        //    Message msg = new Message();
+                        //    msg.Type = MessageTypes.TICKNOTIFY;
+                        //    msg.Content = tickcontent;
+                        //    handleMessage(msg);
+                        //}
+                        //else if (p[0] == "TICKHEARTBEAT")
+                        //{
+                        //    Message msg = new Message();
+                        //    msg.Type = MessageTypes.TICKHEARTBEAT;
+                        //    msg.Content = "TICKHEARTBEAT";
+                        //    handleMessage(msg);
+                        //}
                     };
 
                     using (var poller = new Poller())
@@ -497,19 +509,25 @@ namespace TradingLib.TraderCore
         void SubscribeTickHeartBeat()
         {
             if (subscriber == null) return;
-            string prefix = "TICKHEARTBEAT";
+            string prefix = "H,";
             subscriber.Subscribe(Encoding.UTF8.GetBytes(prefix));
         }
 
+
+        List<string> _prefixList = new List<string>() { "X,", "Q,", "F,", "S," };
         /// <summary>
         /// 订阅某个合约的数据
+        /// 
         /// </summary>
         /// <param name="symbol"></param>
         public void Subscribe(string symbol)
         {
             if (subscriber == null) return;
-            string prefix = symbol + "^";
-            subscriber.Subscribe(Encoding.UTF8.GetBytes(prefix));
+            //string prefix = symbol + "^";
+            foreach (var prefix in _prefixList)
+            {
+                subscriber.Subscribe(Encoding.UTF8.GetBytes(prefix+symbol));
+            }
             //SubscribeTickHeartBeat();
         }
 
@@ -520,8 +538,11 @@ namespace TradingLib.TraderCore
         public void UnSubscribe(string symbol)
         {
             if (subscriber == null) return;
-            string prefix = symbol + "^";
-            subscriber.Unsubscribe(Encoding.UTF8.GetBytes(prefix));
+            //string prefix = symbol + "^";
+            foreach (var prefix in _prefixList)
+            {
+                subscriber.Unsubscribe(Encoding.UTF8.GetBytes(prefix + symbol));
+            }
         }
 
         

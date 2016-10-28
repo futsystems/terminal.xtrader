@@ -1,4 +1,4 @@
-﻿namespace TradingLib.XTrader.Future.Control
+﻿namespace TradingLib.XTrader.Future
 {
     partial class ctrlOrderEntry
     {

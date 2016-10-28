@@ -81,7 +81,12 @@ namespace TradingLib.TraderCore
         void EventIndicator_GotTickEvent(Tick obj)
         {
             TickTracker.GotTick(obj);
-            PositionTracker.GotTick(obj);
+
+            //持仓处理成交数据
+            if (obj.UpdateType == "X" || obj.UpdateType == "S")
+            {
+                PositionTracker.GotTick(obj);
+            }
         }
 
         void EventIndicator_GotFillEvent(Trade obj)

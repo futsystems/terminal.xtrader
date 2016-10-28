@@ -43,22 +43,15 @@ namespace TradingLib.XTrader.Future
 
         public MainContainer()
         {
+            apisetting.TradingBoxMinHeight = 258;
+
+
             InitializeComponent();
             ctrlTraderLogin.BackColor = Color.White;
 
             WireEvent();
 
-            apisetting.TradingBoxMinHeight = 258;
-
-            if (_trader == null)
-            {
-                _trader = new ctrlFutureTrader();
-                _trader.Dock = DockStyle.Fill;
-                _trader.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(tmp_TraderWindowOpeartion);
-                this.Controls.Add(_trader);
-            }
-            //ctrlTraderLogin.Visible = false;
-            //_trader.Show();
+            
         }
 
         void WireEvent()
@@ -81,10 +74,10 @@ namespace TradingLib.XTrader.Future
                 //{
                 //    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
                 //}
-                //if (arg1 is ctOrderSenderSTK)
-                //{
-                //    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
-                //}
+                if (arg1 is ctrlOrderEntry)
+                {
+                    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                }
             }
         }
 

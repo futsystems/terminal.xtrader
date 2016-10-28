@@ -110,6 +110,24 @@ namespace TradingLib.XTrader.Future
                     e.CellStyle.ForeColor = Color.Blue;
                 }
 
+                if (e.ColumnIndex == 10)
+                {
+                    decimal val = 0;
+                    if (!decimal.TryParse(positionGrid[10, e.RowIndex].Value.ToString(), out val)) val = 0;
+                    if (val == 0)
+                    {
+                        e.CellStyle.ForeColor = Color.Black;
+                    }
+                    else if (val > 0)
+                    {
+                        e.CellStyle.ForeColor = Constants.BuyColor;
+                    }
+                    else
+                    {
+                        e.CellStyle.ForeColor = Constants.SellColor;
+                    }
+
+                }
 
             }
             catch (Exception ex)
@@ -124,8 +142,9 @@ namespace TradingLib.XTrader.Future
                 if (this._realview)
                 {
                     CoreService.EventCore.RegIEventHandler(this);
-                    //CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
-                    //CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+                    CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
+                    CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+                    CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
 
                     CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
                     CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
@@ -142,6 +161,8 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        
+
         /// <summary>
         /// 交易数据恢复结束后 查询每个持仓合约的行情快照
         /// </summary>
@@ -152,6 +173,7 @@ namespace TradingLib.XTrader.Future
             {
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
+                CoreService.TLClient.ReqRegisterSymbol(pos.Symbol);//注册合约
             }
 
             positionGrid.ClearSelection();
@@ -201,6 +223,7 @@ namespace TradingLib.XTrader.Future
             {
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
+                CoreService.TLClient.ReqRegisterSymbol(pos.Symbol);//注册合约
             }
             positionGrid.ClearSelection();
         }
@@ -265,6 +288,7 @@ namespace TradingLib.XTrader.Future
 
             int i = tb.Rows.Count - 1;
             tb.Rows[i][POSKEY] = key;
+            tb.Rows[i][ACCOUNT] = pos.Account;
             tb.Rows[i][SYMBOLKEY] = pos.oSymbol.GetUniqueKey();
             tb.Rows[i][SYMBOL] = pos.Symbol;
             tb.Rows[i][SIDE] = pos.DirectionType == QSEnumPositionDirectionType.Long;//??
@@ -312,7 +336,7 @@ namespace TradingLib.XTrader.Future
                     tb.Rows[i][SIZECANFLAT] = GetCanFlatSize(pos);
                     tb.Rows[i][AVGPRICE] = FormatPrice(pos,pos.AvgPrice);
 
-                    tb.Rows[i][UNREALIZEDPL] = "";
+                    tb.Rows[i][UNREALIZEDPL] = 0;
                     tb.Rows[i][LOSSTARGET] = "";
                     tb.Rows[i][PROFITTARGET] = "";
                     tb.Rows[i][FLAG] = "投机";
@@ -328,6 +352,144 @@ namespace TradingLib.XTrader.Future
                 }
             }
 
+        }
+
+        /// <summary>
+        /// 响应成交数据
+        /// </summary>
+        /// <param name="f"></param>
+        public void GotFill(Trade f)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new FillDelegate(GotFill), new object[] { f });
+            }
+            else
+            {
+                try
+                {
+                    Position pos = CoreService.TradingInfoTracker.PositionTracker[f.Symbol,f.Account, f.PositionSide];//获得对应持仓数据
+                    string key = pos.GetPositionKey();
+                    int posidx = PosiitonRowIdx(key);
+                    if ((posidx > -1) && (posidx < tb.Rows.Count))
+                    {
+                        int i = posidx;
+                        tb.Rows[i][SIZE] = pos.UnsignedSize;
+                        tb.Rows[i][SIZECANFLAT] = GetCanFlatSize(pos); ;
+                        tb.Rows[i][AVGPRICE] = pos.FormatPrice(pos.AvgPrice);
+
+                        //更新浮动盈亏
+                        if (pos.isFlat)
+                        {
+                            tb.Rows[i][UNREALIZEDPL] = 0;
+                        }
+                        else
+                        {
+                            tb.Rows[i][UNREALIZEDPL] = (pos.UnRealizedPL * pos.oSymbol.Multiple).ToFormatStr();
+
+                        }
+                    }
+                    else
+                    {
+                        int i = InsertNewRow(pos);
+                        tb.Rows[i][SIZE] = pos.UnsignedSize;
+                        tb.Rows[i][SIZECANFLAT] = GetCanFlatSize(pos); ;
+                        tb.Rows[i][AVGPRICE] = pos.FormatPrice(pos.AvgPrice);
+
+                        //更新浮动盈亏
+                        if (pos.isFlat)
+                        {
+                            tb.Rows[i][UNREALIZEDPL] = 0;
+                        }
+                        else
+                        {
+                            tb.Rows[i][UNREALIZEDPL] = (pos.UnRealizedPL * pos.oSymbol.Multiple).ToFormatStr();
+
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Got Fill Error:" + ex.ToString());
+                }
+            }
+        }
+
+        void GotOrder(Order order)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new FillDelegate(GotFill), new object[] { order });
+            }
+            else
+            {
+                try
+                {
+                    Position pos = CoreService.TradingInfoTracker.PositionTracker[order.Symbol,order.Account, order.PositionSide];//获得对应持仓数据
+                    string key = pos.GetPositionKey();
+                    int posidx = PosiitonRowIdx(key);
+                    if ((posidx > -1) && (posidx < tb.Rows.Count))
+                    {
+                        int i = posidx;
+                        tb.Rows[i][SIZE] = pos.UnsignedSize;
+                        tb.Rows[i][SIZECANFLAT] = GetCanFlatSize(pos); ;
+                        tb.Rows[i][AVGPRICE] = pos.FormatPrice(pos.AvgPrice);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Got Order Error:" + ex.ToString());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 响应行情数据
+        /// </summary>
+        /// <param name="k"></param>
+        public void GotTick(Tick k)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new TickDelegate(GotTick), new object[] { k });
+            }
+            else
+            {
+                try
+                {
+                    if (k.UpdateType != "X" && k.UpdateType !="S") return;
+
+                    logger.Info("tick:" + k.ToString());
+                    for (int i = 0; i < tb.Rows.Count; i++)
+                    {
+                        if (tb.Rows[i][SYMBOLKEY].ToString() == k.GetSymbolUniqueKey())
+                        {
+                            //记录该仓位所属账户 持仓方向 
+                            string account = tb.Rows[i][ACCOUNT].ToString();
+                            bool posside = bool.Parse(tb.Rows[i][SIDE].ToString());
+                            Position pos = CoreService.TradingInfoTracker.PositionTracker[k.Symbol, account, posside];
+
+                            decimal unrealizedpl = pos.UnRealizedPL;
+
+                            //更新浮动盈亏
+                            if (pos.isFlat)
+                            {
+                                tb.Rows[i][UNREALIZEDPL] = 0;
+                            }
+                            else
+                            {
+                                tb.Rows[i][UNREALIZEDPL] = (unrealizedpl * pos.oSymbol.Multiple).ToFormatStr();
+                               
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Got Tick Error:" + ex.ToString());
+                }
+            }
         }
 
 
