@@ -72,13 +72,10 @@ namespace TradingLib.XTrader.Future
 
         void btnReset_Click(object sender, EventArgs e)
         {
-            btnBuy.Enabled = true;
-            btnSell.Enabled = true;
-            inputSize.SetValue("1");
-            //查询账户财务信息
-            QryAccountFinance();
+            ResetInput();
         }
 
+       
         
 
         /// <summary>
@@ -181,6 +178,7 @@ namespace TradingLib.XTrader.Future
         /// <param name="arg2"></param>
         void EventUI_OnPositionSelectedEvent(object arg1, Position arg2)
         {
+            ResetInput();
 
             if (arg2.isLong)
             {
@@ -356,6 +354,17 @@ namespace TradingLib.XTrader.Future
             btnSell.IsPriceOn = false;
             btnBuy.PriceStr = string.Empty;
             btnSell.PriceStr = string.Empty;
+        }
+
+        void ResetInput()
+        {
+            btnBuy.Enabled = true;
+            btnSell.Enabled = true;
+            inputSize.SetValue("1");
+            _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+            inputFlagOpen.Checked = true;
+            //查询账户财务信息
+            QryAccountFinance();
         }
 
         /// <summary>
