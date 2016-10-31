@@ -7,7 +7,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using Common.Logging;
 using TradingLib.API;
@@ -16,6 +15,7 @@ using TradingLib.TraderCore;
 
 namespace TradingLib.XTrader.Future
 {
+    
     public partial class ctrlPosition : UserControl,TradingLib.API.IEventBinder
     {
         ILog logger = LogManager.GetLogger("ctrlPosition");
@@ -41,11 +41,156 @@ namespace TradingLib.XTrader.Future
 
         void WireEvent()
         {
+            btnFlat.Click += new EventHandler(btnFlat_Click);
+            btnFlatAll.Click += new EventHandler(btnFlatAll_Click);
+            btnReserve.Click += new EventHandler(btnReserve_Click);
             this.Load += new EventHandler(ctrlPosition_Load);
             positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
             positionGrid.MouseClick += new MouseEventHandler(positionGrid_MouseClick);
             positionGrid.MouseDoubleClick += new MouseEventHandler(positionGrid_MouseDoubleClick);
         }
+
+        void btnReserve_Click(object sender, EventArgs e)
+        {
+            Position pos = this.CurrentPositoin;
+            if (pos == null)
+            {
+                MessageBox.Show("请选择持仓");
+                return;
+            }
+            if(pos.isFlat)
+            {
+                MessageBox.Show("持仓数量为零，无可平持仓");
+                return;
+            }
+
+            tasklist.Add(ExTask.CreateReserveTask(pos));
+            System.Threading.ThreadPool.QueueUserWorkItem((o) => { ProcessTask(); });
+        }
+
+
+
+        ThreadSafeList<ExTask> tasklist = new ThreadSafeList<ExTask>();
+        void ProcessTask()
+        {
+            while (tasklist.Count > 0)
+            {
+                List<ExTask> removelist = new List<ExTask>();
+                foreach (var task in tasklist)
+                {
+                    switch (task.TaskType)
+                    {
+                        case EnumExTaskType.TaskReserve:
+                            {
+                                if (task.FlatSentCount == 0)
+                                {
+                                    this.FlatPosition(task.Position);
+                                    task.FlatSentCount = 1;
+                                    task.StartTime = DateTime.Now;
+                                }
+                                else
+                                {
+                                    if (task.Position.Size == 0 && task.ReverseSentcount == 0)
+                                    {
+                                        CoreService.TLClient.ReqOrderInsert(task.Order);
+                                        task.ReverseSentcount = 1;
+                                    }
+
+                                }
+
+                                if (task.FlatSentCount > 0 && task.ReverseSentcount > 0)
+                                {
+                                    bool side = task.OrigSize > 0 ? false : true;
+                                    Position newPos = CoreService.TradingInfoTracker.PositionTracker[task.Position.Symbol, task.Position.Account, side];
+                                    if (newPos != null && newPos.Size + task.OrigSize == 0)
+                                    {
+                                        logger.Info("反手任务执行成功");
+                                        removelist.Add(task);
+                                    }
+                                }
+                                if (DateTime.Now.Subtract(task.StartTime).TotalSeconds > 10)
+                                {
+                                    logger.Info("反手任务执行超时");
+                                    removelist.Add(task);
+                                }
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
+
+                foreach (var task in removelist)
+                {
+                    tasklist.Remove(task);
+                }
+
+                System.Threading.Thread.Sleep(200);
+            }
+        }
+
+        void btnFlatAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确认平掉所有持仓?", "确认全平", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                foreach (Position pos in CoreService.TradingInfoTracker.PositionTracker)
+                {
+                    if (!pos.isFlat)
+                    {
+                        FlatPosition(pos);
+                    }
+                }
+            }
+        }
+
+        void btnFlat_Click(object sender, EventArgs e)
+        {
+            Position pos = this.CurrentPositoin;
+            if (pos == null)
+            {
+                MessageBox.Show("请选择持仓");
+                return;
+            }
+            this.FlatPosition(pos);
+        }
+
+        void FlatPosition(Position pos)
+        {
+            logger.Info("FlatPositon:" + pos.GetPositionKey());
+            if (pos == null || pos.isFlat) return;
+
+            bool side = pos.isLong ? true : false;
+            //上期所区分平今平昨
+            if (pos.oSymbol.SecurityFamily.Exchange.EXCode == "SHFE")
+            {
+                int voltd = pos.PositionDetailTodayNew.Sum(p => p.Volume);//今日持仓
+                int volyd = pos.PositionDetailYdNew.Sum(p => p.Volume);//昨日持仓
+                //Tick snapshot = TLCtxHelper.ModuleDataRouter.GetTickSnapshot(pos.Account);
+                if (volyd != 0)
+                {
+                    Order oyd = new OrderImpl(pos.Symbol, volyd * (side ? 1 : -1) * -1);
+                    oyd.OffsetFlag = QSEnumOffsetFlag.CLOSE;
+
+                    CoreService.TLClient.ReqOrderInsert(oyd);
+                }
+                if (voltd != 0)
+                {
+                    Order otd = new OrderImpl(pos.Symbol, voltd * (side ? 1 : -1) * -1);
+                    otd.OffsetFlag = QSEnumOffsetFlag.CLOSETODAY;
+
+                    CoreService.TLClient.ReqOrderInsert(otd);
+                }
+            }
+            else
+            {
+                Order o = new MarketOrderFlat(pos);
+                o.Symbol = pos.oSymbol.Symbol;
+                o.Exchange = pos.oSymbol.Exchange;
+                CoreService.TLClient.ReqOrderInsert(o);
+            }
+        }
+
+
 
         void positionGrid_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -78,6 +223,7 @@ namespace TradingLib.XTrader.Future
                 CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
             }
         }
+
         int GetRowIndexAt(int mouseLocation_Y)
         {
             if (positionGrid.FirstDisplayedScrollingRowIndex < 0)

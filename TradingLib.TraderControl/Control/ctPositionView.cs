@@ -804,6 +804,7 @@ namespace TradingLib.TraderControl
             FlatPosition(CurrentPositoin);
             
         }
+
         //平调所有持仓
         private void btnFlatAll_Click(object sender, EventArgs e)
         {

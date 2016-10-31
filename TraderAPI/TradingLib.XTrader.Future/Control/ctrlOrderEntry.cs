@@ -641,8 +641,8 @@ namespace TradingLib.XTrader.Future
         void QryMaxOrderVol()
         {
             if (_symbol == null) return;
-            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol,true);
-            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol,false);
+            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol,true,QSEnumOffsetFlag.OPEN);
+            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol, false, QSEnumOffsetFlag.OPEN);
         }
         void EventQry_OnRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse obj)
         {
