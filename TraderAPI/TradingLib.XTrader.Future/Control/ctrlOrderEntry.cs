@@ -358,6 +358,7 @@ namespace TradingLib.XTrader.Future
 
         void ResetInput()
         {
+            logger.Info("重置输入按钮");
             btnBuy.Enabled = true;
             btnSell.Enabled = true;
             inputSize.SetValue("1");

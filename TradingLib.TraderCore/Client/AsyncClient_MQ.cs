@@ -323,33 +323,24 @@ namespace TradingLib.TraderCore
                         string tickstr = subscriber.ReceiveString(Encoding.UTF8);
 
                         //Tick k = TickImpl.Deserialize2(tickstr);
-                        if (!string.IsNullOrEmpty(tickstr) && tickstr!="H,")
-                        { 
-                            Message msg = new Message();
-                            msg.Type = MessageTypes.TICKNOTIFY;
-                            msg.Content = tickstr;
+                        if (!string.IsNullOrEmpty(tickstr))// && tickstr!="H,")
+                        {
+                            if (tickstr == "H,")
+                            {
+                                Message msg = new Message();
+                                msg.Type = MessageTypes.TICKHEARTBEAT;
+                                msg.Content = "H,";
+                                handleMessage(msg);
+                            }
+                            else
+                            {
+                                Message msg = new Message();
+                                msg.Type = MessageTypes.TICKNOTIFY;
+                                msg.Content = tickstr;
 
-                            handleMessage(msg);
+                                handleMessage(msg);
+                            }
                         }
-
-
-                        //string[] p = tickstr.Split('^');
-                        //if (p.Length == 2)
-                        //{
-                        //    string symbol = p[0];
-                        //    string tickcontent = p[1];
-                        //    Message msg = new Message();
-                        //    msg.Type = MessageTypes.TICKNOTIFY;
-                        //    msg.Content = tickcontent;
-                        //    handleMessage(msg);
-                        //}
-                        //else if (p[0] == "TICKHEARTBEAT")
-                        //{
-                        //    Message msg = new Message();
-                        //    msg.Type = MessageTypes.TICKHEARTBEAT;
-                        //    msg.Content = "TICKHEARTBEAT";
-                        //    handleMessage(msg);
-                        //}
                     };
 
                     using (var poller = new Poller())
