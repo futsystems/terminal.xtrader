@@ -97,44 +97,44 @@ namespace TradingLib.XTrader.Future
                 {
                     case PageTypes.PAGE_TRADING:
                         {
-                            orderEntryPanel.Visible = true;
+                            panelOrderEntry.Visible = true;
                             page.Show();
                             return;
                         }
                     case PageTypes.PAGE_ORDER:
                         {
-                            orderEntryPanel.Visible = true;
+                            panelOrderEntry.Visible = true;
                             page.Show();
                             return;
                         }
                     case PageTypes.PAGE_TRADE:
                         {
-                            orderEntryPanel.Visible = true;
+                            panelOrderEntry.Visible = true;
                             page.Show();
                             return;
                         }
                     case PageTypes.PAGE_POSITION:
                         {
-                            orderEntryPanel.Visible = true;
+                            panelOrderEntry.Visible = true;
                             page.Show();
                             return;
                         }
                     case PageTypes.PAGE_HELP:
                         {
                             page.Show();
-                            orderEntryPanel.Visible = false;
+                            panelOrderEntry.Visible = false;
                             return;
                         }
                     case PageTypes.PAGE_BANK:
                         {
                             page.Show();
-                            orderEntryPanel.Visible = false;
+                            panelOrderEntry.Visible = false;
                             return;
                         }
                     case PageTypes.PAGE_PASS:
                         {
                             page.Show();
-                            orderEntryPanel.Visible = false;
+                            panelOrderEntry.Visible = false;
                             return;
                         }
                     default:
@@ -241,11 +241,11 @@ namespace TradingLib.XTrader.Future
             _expandOrderEntry = !_expandOrderEntry;
             if (!_expandOrderEntry)
             {
-                orderEntryPanel.Width = 9;
+                panelOrderEntry.Width = 9;
             }
             else
             {
-                orderEntryPanel.Width = 344;
+                panelOrderEntry.Width = 344;
             }
             
         }

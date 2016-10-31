@@ -75,7 +75,13 @@ namespace TradingLib.XTrader.Future
             this.DoubleBuffered = true;
             linePen.DashStyle = DashStyle.Dot;
 
+            this.SizeChanged += new EventHandler(ctrlListMenu_SizeChanged);
             this.MouseClick += new MouseEventHandler(ctrlListMenu_MouseClick);
+        }
+
+        void ctrlListMenu_SizeChanged(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
 
         MenuItem _selected = null;
