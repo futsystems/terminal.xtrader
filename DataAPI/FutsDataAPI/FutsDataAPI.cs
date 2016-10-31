@@ -78,7 +78,7 @@ namespace DataAPI.Futs
         {
             MDLoginResponse response = new MDLoginResponse();
             response.LoginSuccess = obj.Authorized;
-            response.TradingDay = obj.Date;
+            response.TradingDay = obj.TradingDay;
             response.ErrorCode = obj.RspInfo.ErrorID.ToString();
             response.ErrorMessage = obj.RspInfo.ErrorMessage;
             MDService.EventHub.FireLoginEvent(response);
@@ -135,6 +135,8 @@ namespace DataAPI.Futs
                 }), 2));
             }
 
+            //查询市场快照
+            DataCoreService.DataClient.QryTickSnapshot(string.Empty, string.Empty);
 
             MDService.EventHub.FireInitializeStatusEvent("基础数据初始化完毕");
 

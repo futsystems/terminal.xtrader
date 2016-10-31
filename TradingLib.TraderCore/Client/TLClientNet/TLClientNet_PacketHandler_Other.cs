@@ -33,6 +33,8 @@ namespace TradingLib.TraderCore
                 CoreService.EventCore.FirePromptMessageEvent(msg);
             }
         }
+
+        
         
     }
 }

@@ -99,6 +99,12 @@ namespace TradingLib.DataCore
                         DataCoreService.EventHub.FireRtnTickEvent(response.Tick);
                         return;
                     }
+                case MessageTypes.XTICKSNAPSHOTRESPONSE:
+                    {
+                        RspXQryTickSnapShotResponse response = obj as RspXQryTickSnapShotResponse;
+                        DataCoreService.EventHub.FireRtnTickEvent(response.Tick);
+                        return;
+                    }
                 case MessageTypes.XMARKETTIMERESPONSE:
                     {
                         RspXQryMarketTimeResponse response = obj as RspXQryMarketTimeResponse;

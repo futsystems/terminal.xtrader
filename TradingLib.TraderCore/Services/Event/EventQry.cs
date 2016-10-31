@@ -96,6 +96,16 @@ namespace TradingLib.TraderCore
 
         }
 
+        /// <summary>
+        /// 结算单查询回报
+        /// </summary>
+        public event Action<RspXQrySettleInfoResponse> OnRspXQrySettlementResponse;
+        internal void FireRspXQrySettlementResponse(RspXQrySettleInfoResponse response)
+        {
+            if (OnRspXQrySettlementResponse != null)
+                OnRspXQrySettlementResponse(response);
+        }
+
 
 
     }

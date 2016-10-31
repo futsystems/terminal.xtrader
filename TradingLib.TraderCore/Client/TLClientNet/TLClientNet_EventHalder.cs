@@ -48,7 +48,7 @@ namespace TradingLib.TraderCore
             if (response.Authorized)
             {
                 _account = response.Account;
-                _tradingday = response.Date;
+                _tradingday = response.TradingDay;
             }
             CoreService.EventCore.FireLoginEvent(response);
 

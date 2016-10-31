@@ -596,6 +596,7 @@ namespace TradingLib.XTrader.Future
             //grid.TableElement.BeginUpdate();             
             //grid.MasterTemplate.Columns.Clear(); 
             datasource.DataSource = tb;
+            datasource.Filter = SIZE + " > 0";
             //datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
 

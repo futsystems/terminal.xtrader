@@ -131,6 +131,21 @@ namespace TradingLib.DataCore
             //histClient.TLSend(request);
         }
 
+        /// <summary>
+        /// 查询行情快照
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        public int QryTickSnapshot(string exchange, string symbol)
+        { 
+            int reqid = NextRequestID;
+            XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(reqid);
+            request.Exchange = exchange;
+            request.Symbol = symbol;
+            mktClient.TLSend(request);
+            return reqid;
+        }
 
         /// <summary>
         /// 以开始位置和最大返回数量为条件查询Bar数据

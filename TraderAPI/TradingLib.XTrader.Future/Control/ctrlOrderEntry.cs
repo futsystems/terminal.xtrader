@@ -61,16 +61,22 @@ namespace TradingLib.XTrader.Future
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
             CoreService.EventUI.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
+            CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
+
+            CoreService.EventQry.OnRspXQryMaxOrderVolResponse +=new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse);
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        
 
         void btnReset_Click(object sender, EventArgs e)
         {
             btnBuy.Enabled = true;
             btnSell.Enabled = true;
             inputSize.SetValue("1");
-
+            //查询账户财务信息
+            QryAccountFinance();
         }
 
         
@@ -162,9 +168,9 @@ namespace TradingLib.XTrader.Future
 
                 //btnSubmit.Enabled = true;
                 //查询最大可开委托数量
-                //QryMaxOrderVol();
+                QryMaxOrderVol();
                 //查询可用资金
-                //QryAccountFinance();
+                QryAccountFinance();
             }
         }
 
@@ -223,12 +229,23 @@ namespace TradingLib.XTrader.Future
                     btnSell.Enabled = true;
                 }
 
-                if (obj.Status == QSEnumOrderStatus.Opened)
+                //委托处于Open状态 则查询一次财务信息与可开
+                if (obj.Status == QSEnumOrderStatus.Opened || obj.Status == QSEnumOrderStatus.Canceled)
                 {
-                    //QryMaxOrderVol();
-                    //QryAccountFinance();
+                    QryMaxOrderVol();
+                    QryAccountFinance();
                 }
+                
             }
+        }
+        /// <summary>
+        /// 获得成交回报后查询财务信息
+        /// </summary>
+        /// <param name="obj"></param>
+        void EventIndicator_GotFillEvent(Trade obj)
+        {
+            QryMaxOrderVol();
+            QryAccountFinance();
         }
 
         
@@ -611,7 +628,59 @@ namespace TradingLib.XTrader.Future
 
 
 
+        #region 可开与账户财务查询
+        //获得某个持仓的可平数量
+        int GetCanFlatSize(Position pos)
+        {
+            OrderTracker ot = CoreService.TradingInfoTracker.OrderTracker;
+            return pos.isFlat ? 0 : (pos.UnsignedSize - ot.GetPendingExitSize(pos.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false));
+        }
+        /// <summary>
+        /// 查询最大交易数量
+        /// </summary>
+        void QryMaxOrderVol()
+        {
+            if (_symbol == null) return;
+            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol,true);
+            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol,false);
+        }
+        void EventQry_OnRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse obj)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse), new object[] { obj });
+            }
+            else
+            {
+                if(obj.Symbol == _symbol.Symbol)
+                {
 
+                    string accout = CoreService.TradingInfoTracker.Account.Account;
+                    if (obj.Side)
+                    {
+                        Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,accout, obj.Side];
+                        lbLongVol.Text = string.Format("可开<={0} 可平 {1}", obj.MaxVol, pos == null ? 0 : GetCanFlatSize(pos));
+                    }
+                    else
+                    {
+                        Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,accout, obj.Side];
+                        lbShortVol.Text = string.Format("可开<={0} 可平 {1}", obj.MaxVol, pos == null ? 0 : GetCanFlatSize(pos));
+                    }
+                }
+            }
+        }
+
+
+        int qryAccountFinanceId = 0;
+        /// <summary>
+        /// 查询交易账户
+        /// </summary>
+        void QryAccountFinance()
+        {
+            qryAccountFinanceId = CoreService.TLClient.ReqXQryAccountFinance();
+        }
+
+        #endregion
 
 
 

@@ -94,6 +94,10 @@ namespace TradingLib.TraderCore
                     CliOnChangePass(packet as RspReqChangePasswordResponse);
                     break;
 
+                case MessageTypes.XQRYSETTLEINFO://结算单回报
+                    CliOnXQrySettlement(packet as RspXQrySettleInfoResponse);
+                    break;
+
                 #endregion
 
                 default:

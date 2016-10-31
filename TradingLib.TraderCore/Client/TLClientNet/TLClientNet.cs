@@ -22,6 +22,7 @@ namespace TradingLib.TraderCore
         int requestid = 0;
         int _tradingday = 0;
 
+        public int TradingDay { get { return _tradingday; } }
         public bool IsConnected
         {
             get
@@ -95,6 +96,7 @@ namespace TradingLib.TraderCore
             connecton.OnLoginResponse += new LoginResponseDel(connecton_OnLoginResponse);
             connecton.OnPacketEvent += new IPacketDelegate(connecton_OnPacketEvent);
         }
+
 
 
         public void Reset()

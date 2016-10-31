@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panelTop = new System.Windows.Forms.Panel();
+            this.panelControlBox = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.PictureBox();
+            this.btnMax = new System.Windows.Forms.PictureBox();
+            this.btnMin = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,27 +41,25 @@
             this.panelRight = new System.Windows.Forms.Panel();
             this.panelPageHolder = new System.Windows.Forms.Panel();
             this.panelOrderEntry = new System.Windows.Forms.Panel();
-            this.panelLeft = new System.Windows.Forms.Panel();
-            this.panelControlBox = new System.Windows.Forms.Panel();
-            this.btnClose = new System.Windows.Forms.PictureBox();
-            this.btnMax = new System.Windows.Forms.PictureBox();
-            this.btnMin = new System.Windows.Forms.PictureBox();
             this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.ctrlOrderEntry();
             this.btnHide = new TradingLib.XTrader.FButton();
+            this.panelLeft = new System.Windows.Forms.Panel();
             this.ctrlListMenu1 = new TradingLib.XTrader.Future.ctrlListMenu();
+            this.lbMoneyAvabile = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
-            this.panelHolder.SuspendLayout();
-            this.panelRight.SuspendLayout();
-            this.panelOrderEntry.SuspendLayout();
-            this.panelLeft.SuspendLayout();
             this.panelControlBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
+            this.panelHolder.SuspendLayout();
+            this.panelRight.SuspendLayout();
+            this.panelOrderEntry.SuspendLayout();
+            this.panelLeft.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.lbMoneyAvabile);
             this.panelTop.Controls.Add(this.panelControlBox);
             this.panelTop.Controls.Add(this.button2);
             this.panelTop.Controls.Add(this.btnRefresh);
@@ -68,6 +70,44 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1080, 25);
             this.panelTop.TabIndex = 0;
+            // 
+            // panelControlBox
+            // 
+            this.panelControlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControlBox.Controls.Add(this.btnClose);
+            this.panelControlBox.Controls.Add(this.btnMax);
+            this.panelControlBox.Controls.Add(this.btnMin);
+            this.panelControlBox.Location = new System.Drawing.Point(1011, 2);
+            this.panelControlBox.Name = "panelControlBox";
+            this.panelControlBox.Size = new System.Drawing.Size(66, 22);
+            this.panelControlBox.TabIndex = 0;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_close;
+            this.btnClose.Location = new System.Drawing.Point(44, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(22, 22);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.TabStop = false;
+            // 
+            // btnMax
+            // 
+            this.btnMax.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_max;
+            this.btnMax.Location = new System.Drawing.Point(22, 0);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(22, 22);
+            this.btnMax.TabIndex = 1;
+            this.btnMax.TabStop = false;
+            // 
+            // btnMin
+            // 
+            this.btnMin.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_min;
+            this.btnMin.Location = new System.Drawing.Point(0, 0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(22, 22);
+            this.btnMin.TabIndex = 0;
+            this.btnMin.TabStop = false;
             // 
             // button2
             // 
@@ -95,9 +135,9 @@
             this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(119, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 12);
+            this.label2.Size = new System.Drawing.Size(64, 12);
             this.label2.TabIndex = 1;
-            this.label2.Text = "可用资金:23232.99";
+            this.label2.Text = "可用资金:";
             // 
             // lbAccount
             // 
@@ -147,53 +187,6 @@
             this.panelOrderEntry.Size = new System.Drawing.Size(344, 234);
             this.panelOrderEntry.TabIndex = 2;
             // 
-            // panelLeft
-            // 
-            this.panelLeft.Controls.Add(this.ctrlListMenu1);
-            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLeft.Location = new System.Drawing.Point(0, 0);
-            this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(120, 234);
-            this.panelLeft.TabIndex = 4;
-            // 
-            // panelControlBox
-            // 
-            this.panelControlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelControlBox.Controls.Add(this.btnClose);
-            this.panelControlBox.Controls.Add(this.btnMax);
-            this.panelControlBox.Controls.Add(this.btnMin);
-            this.panelControlBox.Location = new System.Drawing.Point(1011, 2);
-            this.panelControlBox.Name = "panelControlBox";
-            this.panelControlBox.Size = new System.Drawing.Size(66, 22);
-            this.panelControlBox.TabIndex = 0;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_close;
-            this.btnClose.Location = new System.Drawing.Point(44, 0);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(22, 22);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.TabStop = false;
-            // 
-            // btnMax
-            // 
-            this.btnMax.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_max;
-            this.btnMax.Location = new System.Drawing.Point(22, 0);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(22, 22);
-            this.btnMax.TabIndex = 1;
-            this.btnMax.TabStop = false;
-            // 
-            // btnMin
-            // 
-            this.btnMin.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_min;
-            this.btnMin.Location = new System.Drawing.Point(0, 0);
-            this.btnMin.Name = "btnMin";
-            this.btnMin.Size = new System.Drawing.Size(22, 22);
-            this.btnMin.TabIndex = 0;
-            this.btnMin.TabStop = false;
-            // 
             // ctrlOrderEntry1
             // 
             this.ctrlOrderEntry1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -223,6 +216,15 @@
             this.btnHide.Text = "<";
             this.btnHide.UseVisualStyleBackColor = false;
             // 
+            // panelLeft
+            // 
+            this.panelLeft.Controls.Add(this.ctrlListMenu1);
+            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelLeft.Name = "panelLeft";
+            this.panelLeft.Size = new System.Drawing.Size(120, 234);
+            this.panelLeft.TabIndex = 4;
+            // 
             // ctrlListMenu1
             // 
             this.ctrlListMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -231,6 +233,16 @@
             this.ctrlListMenu1.Size = new System.Drawing.Size(120, 234);
             this.ctrlListMenu1.TabIndex = 1;
             this.ctrlListMenu1.Text = "ctrlListMenu1";
+            // 
+            // lbMoneyAvabile
+            // 
+            this.lbMoneyAvabile.AutoSize = true;
+            this.lbMoneyAvabile.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbMoneyAvabile.Location = new System.Drawing.Point(180, 5);
+            this.lbMoneyAvabile.Name = "lbMoneyAvabile";
+            this.lbMoneyAvabile.Size = new System.Drawing.Size(19, 12);
+            this.lbMoneyAvabile.TabIndex = 4;
+            this.lbMoneyAvabile.Text = "--";
             // 
             // ctrlFutureTrader
             // 
@@ -242,14 +254,14 @@
             this.Size = new System.Drawing.Size(1080, 259);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.panelHolder.ResumeLayout(false);
-            this.panelRight.ResumeLayout(false);
-            this.panelOrderEntry.ResumeLayout(false);
-            this.panelLeft.ResumeLayout(false);
             this.panelControlBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
+            this.panelHolder.ResumeLayout(false);
+            this.panelRight.ResumeLayout(false);
+            this.panelOrderEntry.ResumeLayout(false);
+            this.panelLeft.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -273,5 +285,6 @@
         private System.Windows.Forms.PictureBox btnClose;
         private System.Windows.Forms.PictureBox btnMax;
         private System.Windows.Forms.PictureBox btnMin;
+        private System.Windows.Forms.Label lbMoneyAvabile;
     }
 }

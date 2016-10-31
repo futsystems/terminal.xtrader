@@ -50,9 +50,13 @@
     <Reference Include="TradingLib.Common">
       <HintPath>..\..\..\Futs.base\lib\TradingLib\TradingLib.Common.dll</HintPath>
     </Reference>
+    <Reference Include="XTrader.Future, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\MouseHook.cs" />
+    <Compile Include="Common\FRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\ComboBoxEx.cs">
       <SubType>Component</SubType>
@@ -168,6 +172,12 @@
     <Compile Include="Pages\PageOrder.Designer.cs">
       <DependentUpon>PageOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageQry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageQry.Designer.cs">
+      <DependentUpon>PageQry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageTrading.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -243,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageOrder.resx">
       <DependentUpon>PageOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageQry.resx">
+      <DependentUpon>PageQry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageTrading.resx">
       <DependentUpon>PageTrading.cs</DependentUpon>

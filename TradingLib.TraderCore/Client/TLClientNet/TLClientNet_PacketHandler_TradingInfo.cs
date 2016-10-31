@@ -161,21 +161,15 @@ namespace TradingLib.TraderCore
             }
         }
 
+        /// <summary>
+        /// 查询账户对象
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXQryAccount(RspXQryAccountResponse response)
         {
             logger.Debug("Got XQry AccountInfo Response:" + response.ToString());
             CoreService.EventQry.FireRspXQryAccountResponse(response.Account, response.RspInfo, response.RequestID, response.IsLast);
         }
-
-        ///// <summary>
-        ///// 响应帐户查询
-        ///// </summary>
-        ///// <param name="response"></param>
-        //void CliOnQryAccountFinance( response)
-        //{
-        //    logger.Debug("got qry account info response:" + response.ToString());
-        //    CoreService.EventQry.FireRspXQryAccountFinanceEvent(response.Report, response.RspInfo, response.RequestID, response.IsLast);
-        //}
 
         /// <summary>
         /// 查询最大可开手数量
@@ -187,10 +181,24 @@ namespace TradingLib.TraderCore
             CoreService.EventQry.FireRspXQryMaxOrderVolResponse(response);
         }
 
+        /// <summary>
+        /// 查询账户财务信息
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnAccountFinance(RspXQryAccountFinanceResponse response)
         {
             logger.Debug("Got XQry Account Finance Response:" + response.ToString());
             CoreService.EventQry.FireRspXQryAccountFinanceEvent(response);
+        }
+
+        /// <summary>
+        /// 查询结算单回报
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnXQrySettlement(RspXQrySettleInfoResponse response)
+        {
+            logger.Debug("Got XQry Settlement Response:" + response.ToString());
+            CoreService.EventQry.FireRspXQrySettlementResponse(response);
         }
        
     }

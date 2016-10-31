@@ -64,7 +64,7 @@ namespace TradingLib.XTrader.Future
             pagemap.Add(PageTypes.PAGE_ORDER, new PageOrder());
             pagemap.Add(PageTypes.PAGE_TRADE, new PageTrade());
             pagemap.Add(PageTypes.PAGE_POSITION, new PagePosition());
-
+            pagemap.Add(PageTypes.PAGE_QRY, new PageQry());
             pagemap.Add(PageTypes.PAGE_HELP, new PageHelp());
             pagemap.Add(PageTypes.PAGE_BANK, new PageBank());
             pagemap.Add(PageTypes.PAGE_PASS, new PagePass());
@@ -137,6 +137,12 @@ namespace TradingLib.XTrader.Future
                             panelOrderEntry.Visible = false;
                             return;
                         }
+                    case PageTypes.PAGE_QRY:
+                        {
+                            page.Show();
+                            panelOrderEntry.Visible = false;
+                            return;
+                        }
                     default:
                         return;
                 }
@@ -160,7 +166,7 @@ namespace TradingLib.XTrader.Future
 
             CoreService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
-
+            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
 
             btnMin.Click += new EventHandler(btnMin_Click);
             btnMax.Click += new EventHandler(btnMax_Click);
@@ -169,6 +175,15 @@ namespace TradingLib.XTrader.Future
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             CoreService.EventCore.RegIEventHandler(this);
+        }
+
+        /// <summary>
+        /// 账户财务信息查询回报
+        /// </summary>
+        /// <param name="obj"></param>
+        void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse obj)
+        {
+            lbMoneyAvabile.Text = obj.Report.AvabileFunds.ToFormatStr();
         }
 
         #region ControlBox
@@ -299,7 +314,7 @@ namespace TradingLib.XTrader.Future
             {
                 
                 lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
-
+                CoreService.TLClient.ReqXQryAccountFinance();
                 //cbAccount.Items.Add(string.Format("{0}-{1}", CoreService.TradingInfoTracker.Account.Name, CoreService.TradingInfoTracker.Account.Account));
                 //cbAccount.SelectedIndex = 0;
             }

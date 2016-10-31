@@ -292,6 +292,16 @@ namespace TradingLib.TraderCore
             return requestid;
         }
 
+        public int ReqXQrySettlement(int tradingday)
+        {
+            logger.Info("Qry Settlement:" + tradingday.ToString());
+            XQrySettleInfoRequest request = RequestTemplate<XQrySettleInfoRequest>.CliSendRequest(++requestid);
+            request.Tradingday = tradingday;
+            SendPacket(request);
+            return requestid;
+
+        }
+
         #endregion
 
 
