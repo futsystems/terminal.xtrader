@@ -162,11 +162,45 @@ namespace TradingLib.XTrader.Future
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
 
 
+            btnMin.Click += new EventHandler(btnMin_Click);
+            btnMax.Click += new EventHandler(btnMax_Click);
+            btnClose.Click += new EventHandler(btnClose_Click);
             ///btnHideOrderEntry.Click += new EventHandler(btnHideOrderEntry_Click);
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        #region ControlBox
+        void btnClose_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("确认退出交易系统?", "关闭", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                if (TraderWindowOpeartion != null)
+                {
+                    TraderWindowOpeartion(EnumTraderWindowOperation.Close);
+                }
+            }
+        }
+
+        void btnMax_Click(object sender, EventArgs e)
+        {
+            if (TraderWindowOpeartion != null)
+            {
+                TraderWindowOpeartion(EnumTraderWindowOperation.Max);
+            }
+        }
+
+        void btnMin_Click(object sender, EventArgs e)
+        {
+            if (TraderWindowOpeartion != null)
+            {
+                TraderWindowOpeartion(EnumTraderWindowOperation.Min);
+            }
+        }
+        #endregion
+
 
         void EventUI_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
         {

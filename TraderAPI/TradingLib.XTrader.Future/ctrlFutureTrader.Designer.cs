@@ -34,22 +34,31 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbAccount = new System.Windows.Forms.Label();
             this.panelHolder = new System.Windows.Forms.Panel();
-            this.panelOrderEntry = new System.Windows.Forms.Panel();
-            this.panelLeft = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
             this.panelPageHolder = new System.Windows.Forms.Panel();
+            this.panelOrderEntry = new System.Windows.Forms.Panel();
+            this.panelLeft = new System.Windows.Forms.Panel();
+            this.panelControlBox = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.PictureBox();
+            this.btnMax = new System.Windows.Forms.PictureBox();
+            this.btnMin = new System.Windows.Forms.PictureBox();
             this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.ctrlOrderEntry();
             this.btnHide = new TradingLib.XTrader.FButton();
             this.ctrlListMenu1 = new TradingLib.XTrader.Future.ctrlListMenu();
             this.panelTop.SuspendLayout();
             this.panelHolder.SuspendLayout();
+            this.panelRight.SuspendLayout();
             this.panelOrderEntry.SuspendLayout();
             this.panelLeft.SuspendLayout();
-            this.panelRight.SuspendLayout();
+            this.panelControlBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.panelControlBox);
             this.panelTop.Controls.Add(this.button2);
             this.panelTop.Controls.Add(this.btnRefresh);
             this.panelTop.Controls.Add(this.label2);
@@ -63,7 +72,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(943, 1);
+            this.button2.Location = new System.Drawing.Point(925, 1);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
@@ -73,7 +82,7 @@
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(862, 1);
+            this.btnRefresh.Location = new System.Drawing.Point(844, 1);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 2;
@@ -109,6 +118,24 @@
             this.panelHolder.Size = new System.Drawing.Size(1080, 234);
             this.panelHolder.TabIndex = 1;
             // 
+            // panelRight
+            // 
+            this.panelRight.Controls.Add(this.panelPageHolder);
+            this.panelRight.Controls.Add(this.panelOrderEntry);
+            this.panelRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRight.Location = new System.Drawing.Point(120, 0);
+            this.panelRight.Name = "panelRight";
+            this.panelRight.Size = new System.Drawing.Size(960, 234);
+            this.panelRight.TabIndex = 5;
+            // 
+            // panelPageHolder
+            // 
+            this.panelPageHolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPageHolder.Location = new System.Drawing.Point(344, 0);
+            this.panelPageHolder.Name = "panelPageHolder";
+            this.panelPageHolder.Size = new System.Drawing.Size(616, 234);
+            this.panelPageHolder.TabIndex = 3;
+            // 
             // panelOrderEntry
             // 
             this.panelOrderEntry.BackColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -129,23 +156,43 @@
             this.panelLeft.Size = new System.Drawing.Size(120, 234);
             this.panelLeft.TabIndex = 4;
             // 
-            // panelRight
+            // panelControlBox
             // 
-            this.panelRight.Controls.Add(this.panelPageHolder);
-            this.panelRight.Controls.Add(this.panelOrderEntry);
-            this.panelRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRight.Location = new System.Drawing.Point(120, 0);
-            this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(960, 234);
-            this.panelRight.TabIndex = 5;
+            this.panelControlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControlBox.Controls.Add(this.btnClose);
+            this.panelControlBox.Controls.Add(this.btnMax);
+            this.panelControlBox.Controls.Add(this.btnMin);
+            this.panelControlBox.Location = new System.Drawing.Point(1011, 2);
+            this.panelControlBox.Name = "panelControlBox";
+            this.panelControlBox.Size = new System.Drawing.Size(66, 22);
+            this.panelControlBox.TabIndex = 0;
             // 
-            // panelPageHolder
+            // btnClose
             // 
-            this.panelPageHolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelPageHolder.Location = new System.Drawing.Point(344, 0);
-            this.panelPageHolder.Name = "panelPageHolder";
-            this.panelPageHolder.Size = new System.Drawing.Size(616, 234);
-            this.panelPageHolder.TabIndex = 3;
+            this.btnClose.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_close;
+            this.btnClose.Location = new System.Drawing.Point(44, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(22, 22);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.TabStop = false;
+            // 
+            // btnMax
+            // 
+            this.btnMax.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_max;
+            this.btnMax.Location = new System.Drawing.Point(22, 0);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(22, 22);
+            this.btnMax.TabIndex = 1;
+            this.btnMax.TabStop = false;
+            // 
+            // btnMin
+            // 
+            this.btnMin.Image = global::TradingLib.XTrader.Future.Properties.Resources.winop_min;
+            this.btnMin.Location = new System.Drawing.Point(0, 0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(22, 22);
+            this.btnMin.TabIndex = 0;
+            this.btnMin.TabStop = false;
             // 
             // ctrlOrderEntry1
             // 
@@ -196,9 +243,13 @@
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelHolder.ResumeLayout(false);
+            this.panelRight.ResumeLayout(false);
             this.panelOrderEntry.ResumeLayout(false);
             this.panelLeft.ResumeLayout(false);
-            this.panelRight.ResumeLayout(false);
+            this.panelControlBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -218,5 +269,9 @@
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Panel panelPageHolder;
+        private System.Windows.Forms.Panel panelControlBox;
+        private System.Windows.Forms.PictureBox btnClose;
+        private System.Windows.Forms.PictureBox btnMax;
+        private System.Windows.Forms.PictureBox btnMin;
     }
 }
