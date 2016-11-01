@@ -460,6 +460,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[SIDE].Visible = false;
             grid.Columns[DATETIME].Visible = false;
             grid.Columns[STATUS].Visible = false;
+            grid.Columns[SPECULATE].Visible = Constants.HedgeFieldVisible;
             
             for (int i = 0; i < tb.Columns.Count; i++)
             {

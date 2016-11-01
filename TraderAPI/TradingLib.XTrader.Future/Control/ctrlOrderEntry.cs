@@ -244,6 +244,11 @@ namespace TradingLib.XTrader.Future
 
         void InitControl()
         {
+            if (Constants.HedgeFieldVisible)
+            {
+                inputArbFlag.Items.Add("套保");
+            }
+            inputArbFlag.Items.Add("投机");
             inputArbFlag.SelectedIndex = 0;
             //inputArbFlag.DrawMode = DrawMode.OwnerDrawVariable;
             //inputArbFlag.ItemHeight = 16;

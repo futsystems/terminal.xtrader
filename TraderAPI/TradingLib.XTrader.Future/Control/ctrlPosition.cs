@@ -750,7 +750,8 @@ namespace TradingLib.XTrader.Future
             grid.Columns[ACCOUNT].Visible = false;
             grid.Columns[SIDE].Visible = false;
             grid.Columns[SYMBOLKEY].Visible = false;
-            
+            grid.Columns[FLAG].Visible = Constants.HedgeFieldVisible;
+
             for (int i = 0; i < tb.Columns.Count; i++)
             {
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;

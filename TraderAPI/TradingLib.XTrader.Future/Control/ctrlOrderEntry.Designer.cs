@@ -165,9 +165,6 @@
             this.inputArbFlag.ForeColor = System.Drawing.Color.Black;
             this.inputArbFlag.FormattingEnabled = true;
             this.inputArbFlag.ItemHeight = 14;
-            this.inputArbFlag.Items.AddRange(new object[] {
-            "保值",
-            "投机"});
             this.inputArbFlag.Location = new System.Drawing.Point(239, 7);
             this.inputArbFlag.Name = "inputArbFlag";
             this.inputArbFlag.Size = new System.Drawing.Size(80, 22);

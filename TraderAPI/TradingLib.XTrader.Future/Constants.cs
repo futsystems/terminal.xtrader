@@ -9,6 +9,8 @@ namespace TradingLib.XTrader.Future
 {
     public class Constants
     {
+        public static bool HedgeFieldVisible = false;
+
         public static Color BorderColor = Color.FromArgb(127, 157, 185);
         public static Color ListMenuSelectedBGColor = Color.FromArgb(51, 153, 255);
         public static System.Drawing.Color LongSideColor = System.Drawing.Color.Crimson;
