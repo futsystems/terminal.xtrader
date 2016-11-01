@@ -55,11 +55,46 @@ namespace XTraderLite
 
                     _traderApi.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(_traderApi_TraderWindowOpeartion);
                     _traderApi.ViewKChart += new Action<string, string, int>(_traderApi_ViewKChart);
+                    _traderApi.PositionNotify += new Action<string, string, bool,int, decimal>(_traderApi_PositionNotify);
+                    _traderApi.TradingInfoRest += new Action(_traderApi_TradingInfoRest);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("交易插件加载异常,请检查配置文件");
+            }
+        }
+
+        void _traderApi_TradingInfoRest()
+        {
+            foreach (var sym in MDService.DataAPI.Symbols)
+            {
+                sym.LongPosition.Reset();
+                sym.ShortPosition.Reset();
+            }
+        }
+
+        void _traderApi_PositionNotify(string exchange, string symbol,bool side, int size, decimal avgprice)
+        {
+            MDSymbol sym = MDService.DataAPI.GetSymbol(exchange,symbol);
+            if (sym != null)
+            {
+                if (side)
+                {
+                    sym.LongPosition.Size = size;
+                    sym.LongPosition.PositionCost = (double)avgprice;
+                    sym.LongPosition.UnRealizedPL = (sym.LastTickSnapshot.Price - sym.LongPosition.PositionCost) * sym.Multiple * sym.LongPosition.Size;
+                }
+                else
+                {
+                    sym.ShortPosition.Size = size;
+                    sym.ShortPosition.PositionCost = (double)avgprice;
+                    sym.ShortPosition.UnRealizedPL = -1 * (sym.LastTickSnapshot.Price - sym.ShortPosition.PositionCost) * sym.Multiple * sym.ShortPosition.Size;
+                }
+                if (ctrlKChart.Visible && _currentSymbol != null && _currentSymbol.UniqueKey == sym.UniqueKey)
+                {
+                    ctrlKChart.ReDraw();
+                }
             }
         }
 

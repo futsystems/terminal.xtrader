@@ -508,12 +508,13 @@ namespace XTraderLite
                     ctrlKChart.Update(symbol);
                 }
                 ctrlSymbolHighLight.Update(symbol);
-
                 //保存LastTick
                 if (symbol.TickSnapshot.Time != symbol.LastTickSnapshot.Time)
                 {
                     symbol.LastTickSnapshot = symbol.TickSnapshot;
                 }
+
+
             }
         }
         void DataAPI_OnRtnTick(MDSymbol obj)

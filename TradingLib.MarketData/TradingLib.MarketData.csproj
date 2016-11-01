@@ -58,6 +58,7 @@
     <Compile Include="Common\MDBarWriter.cs" />
     <Compile Include="ITraderAPI.cs" />
     <Compile Include="Common\MDTradeTick.cs" />
+    <Compile Include="Common\MDPosition.cs" />
     <Compile Include="Profiler\Profiler.cs" />
     <Compile Include="Profiler\SectionStackEntry.cs" />
     <Compile Include="Profiler\SectionStats.cs" />

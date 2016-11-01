@@ -10,6 +10,8 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
+using TradingLib.MarketData;
+using TradingLib.XTrader.Control;
 namespace CStock
 {
     /// <summary>
@@ -1128,6 +1130,7 @@ namespace CStock
                     }
                     #endregion
 
+                  
                 }
                 #endregion
 
@@ -1967,6 +1970,84 @@ namespace CStock
                                 dd1 = dd;
                             }
                         }
+                    }
+                }
+                #endregion
+
+                #region 绘制持仓均线
+
+                if (((showk == -1) && (main == true)) || (showk == 1) || ((showfs == true) && (main == true))) //是主图加入k线
+                {
+
+                    if (pCtrl.Symbol.LongPosition.Size != 0)
+                    {
+
+                        pen.Color = Constants.ColorUp;
+                        float avg_y = (rectHeight - both) - (float)((pCtrl.Symbol.LongPosition.PositionCost - min1) * scale);
+                        string lbsize = string.Format("{0} 买{1}手", string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.LongPosition.PositionCost), pCtrl.Symbol.LongPosition.Size);
+                        string lbpl = string.Format("{0} {1}", pCtrl.Symbol.LongPosition.UnRealizedPL > 0 ? "盈" : (pCtrl.Symbol.LongPosition.UnRealizedPL == 0 ? "平" : "亏"), string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.LongPosition.UnRealizedPL));
+                        float lbsizew = (canvas.MeasureString(lbsize, font).Width);
+                        float lbplw = (canvas.MeasureString(lbpl, font).Width);
+
+
+
+                        float lbY = (int)avg_y - 20;
+                        float lbX = leftYAxisWidth + 2;
+                        int lboffset = (20 - font.Height) / 2;
+
+                        FBrush.Color = this.BackColor;
+                        Rectangle lbrect = new Rectangle(leftYAxisWidth + 1, (int)lbY, (int)lbsizew + 3 + (int)lbplw + 3, 20);
+                        canvas.FillRectangle(FBrush, lbrect);
+
+                        FBrush.Color = Color.Yellow;
+                        canvas.DrawString(lbsize, font, FBrush, lbX, lbY + lboffset);
+
+                        lbX += lbsizew + 2;
+                        FBrush.Color = UIConstant.GetChangeColor(pCtrl.Symbol.LongPosition.UnRealizedPL);
+                        canvas.DrawString(lbpl, font, FBrush, lbX, lbY + lboffset);
+
+
+                        pen.DashStyle = DashStyle.Dash;
+                        canvas.DrawLine(pen, leftYAxisWidth, avg_y, rectWidth, avg_y);
+                        pen.DashStyle = DashStyle.Solid;
+                        canvas.DrawLine(pen, leftYAxisWidth + 1, lbY, leftYAxisWidth + 1, avg_y);
+                        canvas.DrawLine(pen, leftYAxisWidth + 1, lbY, leftYAxisWidth + 1 + lbrect.Width, lbY);
+                        canvas.DrawLine(pen, leftYAxisWidth + 1 + lbrect.Width, lbY, leftYAxisWidth + 1 + lbrect.Width, avg_y);
+
+                    }
+                    if (pCtrl.Symbol.ShortPosition.Size != 0)
+                    {
+                        pen.Color = Constants.ColorDown;
+                        float avg_y = (rectHeight - both) - (float)((pCtrl.Symbol.ShortPosition.PositionCost - min1) * scale);
+                        string lbsize = string.Format("{0} 卖{1}手", string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.ShortPosition.PositionCost), pCtrl.Symbol.ShortPosition.Size);
+                        string lbpl = string.Format("{0} {1}", pCtrl.Symbol.ShortPosition.UnRealizedPL > 0 ? "盈" : (pCtrl.Symbol.ShortPosition.UnRealizedPL == 0 ? "平" : "亏"), string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.ShortPosition.UnRealizedPL));
+                        float lbsizew = (canvas.MeasureString(lbsize, font).Width);
+                        float lbplw = (canvas.MeasureString(lbpl, font).Width);
+
+
+
+                        float lbY = (int)avg_y - 20;
+                        float lbX = leftYAxisWidth + 2;
+                        int lboffset = (20 - font.Height) / 2;
+
+                        FBrush.Color = this.BackColor;
+                        Rectangle lbrect = new Rectangle(leftYAxisWidth + 1, (int)lbY, (int)lbsizew + 3 + (int)lbplw + 3, 20);
+                        canvas.FillRectangle(FBrush, lbrect);
+
+                        FBrush.Color = Color.Yellow;
+                        canvas.DrawString(lbsize, font, FBrush, lbX, lbY + lboffset);
+
+                        lbX += lbsizew + 2;
+                        FBrush.Color = UIConstant.GetChangeColor(pCtrl.Symbol.ShortPosition.UnRealizedPL);
+                        canvas.DrawString(lbpl, font, FBrush, lbX, lbY + lboffset);
+
+
+                        pen.DashStyle = DashStyle.Dash;
+                        canvas.DrawLine(pen, leftYAxisWidth, avg_y, rectWidth, avg_y);
+                        pen.DashStyle = DashStyle.Solid;
+                        canvas.DrawLine(pen, leftYAxisWidth + 1, lbY, leftYAxisWidth + 1, avg_y);
+                        canvas.DrawLine(pen, leftYAxisWidth + 1, lbY, leftYAxisWidth + 1 + lbrect.Width, lbY);
+                        canvas.DrawLine(pen, leftYAxisWidth + 1 + lbrect.Width, lbY, leftYAxisWidth + 1 + lbrect.Width, avg_y);
                     }
                 }
                 #endregion

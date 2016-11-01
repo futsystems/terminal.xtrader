@@ -54,6 +54,8 @@ namespace TradingLib.TraderCore
         void CliOnPositionUpdateNotify(PositionNotify response)
         {
             logger.Info("Got Postion Notify:" + response.Position.ToString());
+            CoreService.EventIndicator.FirePositionNotify(response.Position);
+            
         }
 
         /// <summary>

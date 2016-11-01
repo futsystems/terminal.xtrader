@@ -169,6 +169,7 @@ namespace TradingLib.XTrader.Control
             UpdateBeginEndIdx();
             ResetRect();
             Refresh();
+            
             //logger.Info("selected row:" + _selectedRow.ToString());
         }
 

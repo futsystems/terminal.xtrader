@@ -69,6 +69,14 @@ namespace DataAPI.Futs
                 symbol.TickSnapshot.PreOI = tick.PreOpenInterest;
                 symbol.TickSnapshot.PreSettlement = (double)tick.PreSettlement;
                 //symbol.PreClose = (double)tick.PreClose;
+                if (symbol.LongPosition.Size != 0)
+                {
+                    symbol.LongPosition.UnRealizedPL = (symbol.LastTickSnapshot.Price - symbol.LongPosition.PositionCost) * symbol.Multiple * symbol.LongPosition.Size;
+                }
+                if (symbol.ShortPosition.Size != 0)
+                {
+                    symbol.ShortPosition.UnRealizedPL = -1 * (symbol.LastTickSnapshot.Price - symbol.ShortPosition.PositionCost) * symbol.Multiple * symbol.ShortPosition.Size;
+                }
                 if (OnRtnTick != null)
                     OnRtnTick(symbol);
             }

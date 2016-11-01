@@ -119,23 +119,54 @@ namespace XTraderLite
 
 
             #region 根据当前控件所显示合约执行合约查询
+            IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
+            //底部高亮合约
+            symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
+
+
+
+            //当前K线图合约
+            symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
+
+            //如果合约报价列表可见 合并对应可见合约
+            if (ctrlQuoteList.Visible)
+            {
+                symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
+            }
             if (MDService.DataAPI.APISetting.TickMode == EnumMDTickMode.FreqQry)
             {
-                IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
-                //底部高亮合约
-                symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
+                //IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
+                ////底部高亮合约
+                //symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
 
-                //当前K线图合约
-                symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
+                ////当前K线图合约
+                //symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
 
-                //如果合约报价列表可见 合并对应可见合约
-                if (ctrlQuoteList.Visible)
-                {
-                    symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
-                }
+                ////如果合约报价列表可见 合并对应可见合约
+                //if (ctrlQuoteList.Visible)
+                //{
+                //    symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
+                //}
                 if (symlist.Count() > 0)
                 {
                     MDService.DataAPI.QryTickSnapshot(symlist.ToArray());
+                }
+            }
+            else
+            { 
+                List<MDSymbol> needReg = new List<MDSymbol>();
+                foreach(var sym in symlist)
+                {
+                    if (!quoteListRegister.Contains(sym))
+                    {
+                        needReg.Add(sym);
+                    }
+                }
+                if (needReg.Count > 0)
+                {
+                    MDService.DataAPI.RegisterSymbol(needReg.ToArray());
+
+                    quoteListRegister.AddRange(needReg);
                 }
             }
             #endregion

@@ -40,6 +40,18 @@ namespace TradingLib.XTrader.Stock
         /// </summary>
         public event Action<string, string, int> ViewKChart;
 
+        /// <summary>
+        /// 持仓更新事件
+        /// </summary>
+        public event Action<string, string,bool, int, decimal> PositionNotify = delegate { };
+
+        /// <summary>
+        /// 交易数据重置
+        /// </summary>
+        public event Action TradingInfoRest = delegate { };
+
+
+
         public MainContainer()
         {
             InitializeComponent();

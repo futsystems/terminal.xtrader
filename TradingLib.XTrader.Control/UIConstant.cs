@@ -45,5 +45,13 @@ namespace TradingLib.XTrader.Control
 
         //K线图默认
         public static Font AxisFont = new Font("Arial", 9f);
+
+
+        public static Color GetChangeColor(double change)
+        {
+            if (change > 0) return LongSideColor;
+            if (change < 0) return ShortSideColor;
+            return Color.Gray;
+        }
     }
 }

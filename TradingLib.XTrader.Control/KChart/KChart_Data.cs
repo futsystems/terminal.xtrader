@@ -368,6 +368,11 @@ namespace CStock
             {
                 ctDetailsBoard1.Update(symbol);
             }
+            bool priceChagne = symbol.TickSnapshot.Price != symbol.LastTickSnapshot.Price;
+            if (priceChagne)
+            {
+                this.ReDraw();
+            }
             
         }
         #endregion

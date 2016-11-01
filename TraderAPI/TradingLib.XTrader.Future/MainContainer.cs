@@ -34,8 +34,21 @@ namespace TradingLib.XTrader.Future
         public TraderAPISetting APISetting { get { return apisetting; } }
 
         TraderAPISetting apisetting = new TraderAPISetting();
+
+        /// <summary>
+        /// 交易窗口操作 关闭 最小化 最大化操作
+        /// </summary>
         public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
 
+        /// <summary>
+        /// 持仓更新事件
+        /// </summary>
+        public event Action<string, string,bool, int, decimal> PositionNotify = delegate { };
+
+        /// <summary>
+        /// 交易数据重置
+        /// </summary>
+        public event Action TradingInfoRest = delegate { };
         /// <summary>
         /// 查看KChart事件
         /// </summary>
@@ -60,6 +73,40 @@ namespace TradingLib.XTrader.Future
             //ctrlTraderLogin.ExitTrader += new Action(ctrlTraderLogin_ExitTrader);
 
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
+            CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
+            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventIndicator.GotPositionNotifyEvent += new Action<PositionEx>(EventIndicator_GotPositionNotifyEvent);
+        }
+
+        void EventIndicator_GotPositionNotifyEvent(PositionEx obj)
+        {
+            PositionNotify(obj.Exchange, obj.Symbol, obj.Side, obj.Position, obj.AvgPrice);
+        }
+
+        void EventOther_OnResumeDataStart()
+        {
+            TradingInfoRest();
+        }
+
+        void EventOther_OnResumeDataEnd()
+        {
+            foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos=>!pos.isFlat))
+            {
+                PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+            }
+        }
+
+        /// <summary>
+        /// 初始化完毕事件
+        /// 将当前持仓以事件的方式对外发送 向行情组件填充数据
+        /// </summary>
+        void EventCore_OnInitializedEvent()
+        {
+            foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
+            {
+                PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+            }
         }
 
 

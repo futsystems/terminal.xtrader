@@ -34,11 +34,16 @@ namespace TradingLib.MarketData
             //this.PreClose = 0;
             this.SecurityType = MDSecurityType.STK;
             this.Currency = MDCurrency.RMB;
+            
+            this.SortKey = string.Empty;
+            this.Session = string.Empty;
+
             this.FinanceData = new FinanceData();
             this.TickSnapshot = new TDX();
             this.LastTickSnapshot = new TDX();
-            this.SortKey = string.Empty;
-            this.Session = string.Empty;
+
+            this.LongPosition = new MDPosition();
+            this.ShortPosition = new MDPosition();
         }
 
         string _symbol = string.Empty;
@@ -160,7 +165,17 @@ namespace TradingLib.MarketData
         public TDX LastTickSnapshot;
 
 
-        //public double PreClose { get; set; }
+        /// <summary>
+        /// 多头持仓
+        /// </summary>
+        public MDPosition LongPosition;
+
+        /// <summary>
+        /// 空头持仓
+        /// </summary>
+        public MDPosition ShortPosition;
+
+
 
         /// <summary>
         /// 获得昨日收盘/结算价格

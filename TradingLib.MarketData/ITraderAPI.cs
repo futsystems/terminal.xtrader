@@ -91,5 +91,15 @@ namespace TradingLib.MarketData
         /// </summary>
         event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
 
+        /// <summary>
+        /// 持仓更新事件
+        /// </summary>
+        event Action<string, string,bool, int, decimal> PositionNotify;
+
+        /// <summary>
+        /// 交易数据重置
+        /// 刷新交易数据时 需要将行情组件内的持仓信息重置 然后再讲最新数据填充到行情组件
+        /// </summary>
+        event Action TradingInfoRest;
     }
 }
