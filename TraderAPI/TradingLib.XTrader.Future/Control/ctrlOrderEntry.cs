@@ -720,7 +720,7 @@ namespace TradingLib.XTrader.Future
                         if (lbShortOpenVol.Visible == false)
                         {
                             lbShortOpenVol.Visible = true;
-                            lbShortCloseVol.Visible = false;
+                            lbShortCloseVol.Visible = true;
                         }
                         Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,accout, obj.Side];
                         lbShortOpenVol.Text = string.Format("可开<={0}", obj.MaxVol);

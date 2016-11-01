@@ -140,10 +140,7 @@ namespace TradingLib.XTrader.Future
             else
             {
                 //SaveLoginConfig();
-                new Thread(delegate()
-                {
-                    Connect();
-                }).Start();
+                System.Threading.ThreadPool.QueueUserWorkItem((o) => { Connect(); });
                 this.btnLogin.Enabled = false;
                 
             }
@@ -231,7 +228,8 @@ namespace TradingLib.XTrader.Future
             {
                 ShowStatus("登入失败:" + response.RspInfo.ErrorMessage);
                 _loggedin = false;
-                Reset();
+                System.Threading.ThreadPool.QueueUserWorkItem((o) => { Reset(); });
+                //Reset();
             }
         }
 
