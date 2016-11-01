@@ -165,8 +165,10 @@ namespace TradingLib.XTrader.Future
         {
             if (TraderWindowOpeartion != null)
             {
-                new System.Threading.Thread(delegate()
+                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                 {
+                    TradingInfoRest();
+
                     TraderWindowOpeartion(obj);
 
                     if (obj == EnumTraderWindowOperation.Close)
@@ -177,8 +179,8 @@ namespace TradingLib.XTrader.Future
                         _trader.Visible = false;
 
                     }
-                    
-                }).Start();
+
+                });
             
             }
         }

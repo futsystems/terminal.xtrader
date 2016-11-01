@@ -115,8 +115,8 @@ namespace CStock
             //分时模式 底部宽度为0 底部宽度为1
             if (showfs)
             {
-                if (showtop == false)
-                    toph = 0;
+                //if (showtop == false) //分时成交量一栏 增加顶部title位置
+                //    toph = 0;
                 if (showbottom == false)
                     both = 1;
             }

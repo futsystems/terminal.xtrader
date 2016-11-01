@@ -51,7 +51,7 @@ namespace TradingLib.XTrader.Future
             ctrlListMenu1.AddMenu(new MenuItem("帮助及说明", Properties.Resources.f9, true, delegate() { ShowPage(PageTypes.PAGE_HELP); }));
             ctrlListMenu1.AddMenu(new MenuItem("银期转账", Properties.Resources.zj, true, delegate() { ShowPage(PageTypes.PAGE_BANK); }));
             ctrlListMenu1.AddMenu(new MenuItem("交易统计", Properties.Resources.tj, true, delegate() { ShowPage(PageTypes.PAGE_STATISTIC); }));
-            ctrlListMenu1.AddMenu(new MenuItem("密码", Properties.Resources.pass, true, delegate() { ShowPage(PageTypes.PAGE_PASS); }));
+            ctrlListMenu1.AddMenu(new MenuItem("修改密码", Properties.Resources.pass, true, delegate() { ShowPage(PageTypes.PAGE_PASS); }));
 
         }
 

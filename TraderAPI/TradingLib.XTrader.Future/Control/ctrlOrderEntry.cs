@@ -157,21 +157,8 @@ namespace TradingLib.XTrader.Future
                 inputPrice.Increment = _symbol.SecurityFamily.PriceTick;
                 inputPrice.SymbolSelected = true;
 
-
-                //lbSymbolName.Text = _symbol.GetName();
-                //SetSymbol(arg2.Exchange, arg2.Symbol, false);//1.合约输入框输入代码 触发自动查询并返回合约 2.行情联动直接设定下单面板合约(需要执行查询) 3.持仓面板双击持仓 设定下单面板合约
-
-                //Tick k = CoreService.TradingInfoTracker.TickTracker[_symbol.Exchange, _symbol.Symbol];
-                //if (k != null)
-                //{
-                //    price.Value = _side ? k.AskPrice : k.BidPrice;
-                //}
-
-                //btnSubmit.Enabled = true;
-                //查询最大可开委托数量
-                QryMaxOrderVol();
-                //查询可用资金
-                QryAccountFinance();
+                //重置输入控件
+                ResetInput();
             }
         }
 
@@ -394,6 +381,10 @@ namespace TradingLib.XTrader.Future
 
             inputArbFlag.SelectedIndex = 0;
 
+            if (_symbol != null)
+            {
+                QryMaxOrderVol();
+            }
             //查询账户财务信息
             QryAccountFinance();
         }

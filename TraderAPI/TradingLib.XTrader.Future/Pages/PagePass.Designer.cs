@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnChange = new TradingLib.XTrader.FButton();
+            this.cbPassType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.fButton1 = new TradingLib.XTrader.FButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pass = new System.Windows.Forms.MaskedTextBox();
+            this.newpass1 = new System.Windows.Forms.MaskedTextBox();
+            this.newpass2 = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,11 +47,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.fButton1);
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.maskedTextBox3);
-            this.panel1.Controls.Add(this.maskedTextBox2);
-            this.panel1.Controls.Add(this.maskedTextBox1);
+            this.panel1.Controls.Add(this.newpass2);
+            this.panel1.Controls.Add(this.newpass1);
+            this.panel1.Controls.Add(this.pass);
+            this.panel1.Controls.Add(this.btnChange);
+            this.panel1.Controls.Add(this.cbPassType);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -61,32 +61,31 @@
             this.panel1.Size = new System.Drawing.Size(870, 319);
             this.panel1.TabIndex = 26;
             // 
-            // label1
+            // btnChange
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "密码类型:";
+            this.btnChange.BackColor = System.Drawing.Color.White;
+            this.btnChange.CheckButton = false;
+            this.btnChange.Checked = false;
+            this.btnChange.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChange.IsPriceOn = false;
+            this.btnChange.Location = new System.Drawing.Point(184, 124);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.OrderEntryButton = false;
+            this.btnChange.PriceStr = "";
+            this.btnChange.Size = new System.Drawing.Size(75, 23);
+            this.btnChange.TabIndex = 8;
+            this.btnChange.Text = "修改";
+            this.btnChange.UseVisualStyleBackColor = false;
             // 
-            // label2
+            // cbPassType
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "当前密码:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 70);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 12);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "新密码:";
+            this.cbPassType.FormattingEnabled = true;
+            this.cbPassType.Items.AddRange(new object[] {
+            "交易密码"});
+            this.cbPassType.Location = new System.Drawing.Point(129, 7);
+            this.cbPassType.Name = "cbPassType";
+            this.cbPassType.Size = new System.Drawing.Size(130, 20);
+            this.cbPassType.TabIndex = 7;
             // 
             // label4
             // 
@@ -97,48 +96,56 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "再次输入新密码:";
             // 
-            // maskedTextBox1
+            // label3
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(129, 37);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(130, 21);
-            this.maskedTextBox1.TabIndex = 4;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 70);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 12);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "新密码:";
             // 
-            // maskedTextBox2
+            // label2
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(129, 67);
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(130, 21);
-            this.maskedTextBox2.TabIndex = 5;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "当前密码:";
             // 
-            // maskedTextBox3
+            // label1
             // 
-            this.maskedTextBox3.Location = new System.Drawing.Point(129, 97);
-            this.maskedTextBox3.Name = "maskedTextBox3";
-            this.maskedTextBox3.Size = new System.Drawing.Size(130, 21);
-            this.maskedTextBox3.TabIndex = 6;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "密码类型:";
             // 
-            // comboBox1
+            // pass
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(129, 7);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(130, 20);
-            this.comboBox1.TabIndex = 7;
+            this.pass.Location = new System.Drawing.Point(129, 37);
+            this.pass.Name = "pass";
+            this.pass.PasswordChar = '*';
+            this.pass.Size = new System.Drawing.Size(130, 21);
+            this.pass.TabIndex = 9;
             // 
-            // fButton1
+            // newpass1
             // 
-            this.fButton1.BackColor = System.Drawing.Color.White;
-            this.fButton1.CheckButton = false;
-            this.fButton1.Checked = false;
-            this.fButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fButton1.Location = new System.Drawing.Point(184, 124);
-            this.fButton1.Name = "fButton1";
-            this.fButton1.OrderEntryButton = false;
-            this.fButton1.Size = new System.Drawing.Size(75, 23);
-            this.fButton1.TabIndex = 8;
-            this.fButton1.Text = "修改";
-            this.fButton1.UseVisualStyleBackColor = false;
+            this.newpass1.Location = new System.Drawing.Point(129, 67);
+            this.newpass1.Name = "newpass1";
+            this.newpass1.PasswordChar = '*';
+            this.newpass1.Size = new System.Drawing.Size(130, 21);
+            this.newpass1.TabIndex = 10;
+            // 
+            // newpass2
+            // 
+            this.newpass2.Location = new System.Drawing.Point(129, 97);
+            this.newpass2.Name = "newpass2";
+            this.newpass2.PasswordChar = '*';
+            this.newpass2.Size = new System.Drawing.Size(130, 21);
+            this.newpass2.TabIndex = 11;
             // 
             // PagePass
             // 
@@ -161,10 +168,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private FButton fButton1;
+        private System.Windows.Forms.ComboBox cbPassType;
+        private FButton btnChange;
+        private System.Windows.Forms.MaskedTextBox newpass2;
+        private System.Windows.Forms.MaskedTextBox newpass1;
+        private System.Windows.Forms.MaskedTextBox pass;
     }
 }

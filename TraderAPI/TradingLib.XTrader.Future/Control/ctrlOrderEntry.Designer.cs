@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbShortCloseVol = new System.Windows.Forms.Label();
+            this.lbLongCloseVol = new System.Windows.Forms.Label();
             this.lbShortOpenVol = new System.Windows.Forms.Label();
             this.lbLongOpenVol = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -45,8 +47,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lbLongCloseVol = new System.Windows.Forms.Label();
-            this.lbShortCloseVol = new System.Windows.Forms.Label();
             this.btnConditionOrder = new TradingLib.XTrader.FButton();
             this.inputArbFlag = new CSharpWin.ComboBoxEx();
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
@@ -104,6 +104,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbShortCloseVol
+            // 
+            this.lbShortCloseVol.AutoSize = true;
+            this.lbShortCloseVol.Location = new System.Drawing.Point(216, 68);
+            this.lbShortCloseVol.Name = "lbShortCloseVol";
+            this.lbShortCloseVol.Size = new System.Drawing.Size(17, 12);
+            this.lbShortCloseVol.TabIndex = 29;
+            this.lbShortCloseVol.Text = "--";
+            // 
+            // lbLongCloseVol
+            // 
+            this.lbLongCloseVol.AutoSize = true;
+            this.lbLongCloseVol.Location = new System.Drawing.Point(216, 84);
+            this.lbLongCloseVol.Name = "lbLongCloseVol";
+            this.lbLongCloseVol.Size = new System.Drawing.Size(17, 12);
+            this.lbLongCloseVol.TabIndex = 28;
+            this.lbLongCloseVol.Text = "--";
             // 
             // lbShortOpenVol
             // 
@@ -251,24 +269,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "快鼠下单";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // lbLongCloseVol
-            // 
-            this.lbLongCloseVol.AutoSize = true;
-            this.lbLongCloseVol.Location = new System.Drawing.Point(216, 68);
-            this.lbLongCloseVol.Name = "lbLongCloseVol";
-            this.lbLongCloseVol.Size = new System.Drawing.Size(17, 12);
-            this.lbLongCloseVol.TabIndex = 28;
-            this.lbLongCloseVol.Text = "--";
-            // 
-            // lbShortCloseVol
-            // 
-            this.lbShortCloseVol.AutoSize = true;
-            this.lbShortCloseVol.Location = new System.Drawing.Point(216, 84);
-            this.lbShortCloseVol.Name = "lbShortCloseVol";
-            this.lbShortCloseVol.Size = new System.Drawing.Size(17, 12);
-            this.lbShortCloseVol.TabIndex = 29;
-            this.lbShortCloseVol.Text = "--";
             // 
             // btnConditionOrder
             // 
