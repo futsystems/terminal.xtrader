@@ -37,13 +37,7 @@ namespace XTraderLite
         /// <param name="symbol"></param>
         void SetKChartSymbol(MDSymbol symbol,bool focus=true)
         {
-            bool changeSymbol = false;
-            if (_currentSymbol != symbol)
-            {
-                changeSymbol = true;
-            }
             _currentSymbol = symbol;
-
             if (focus)
             {
                 ctrlKChart.Focus();

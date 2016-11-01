@@ -159,6 +159,51 @@ namespace XTraderLite
         void btnRefresh_Click(object sender, EventArgs e)
         {
             logger.Info("refresh data");
+            if (ctrlKChart.Visible)
+            {
+                ctrlKChart.ClearData();
+                ctrlKChart.SetSymbol(_currentSymbol);
+                ctrlKChart.SetCycle(_currentFreq);
+
+                if (_currentSymbol != null && !string.IsNullOrEmpty(_currentFreq))
+                {
+                    //盘口面板信息与频率和合约无关 直接查询获得更新
+                    if (ctrlKChart.ShowDetailPanel)
+                    {
+                        if (ctrlKChart.TabValue == 0)
+                        {
+                            int reqId = MDService.DataAPI.QryTradeSplitData(_currentSymbol.Exchange, _currentSymbol.Symbol, 0, ctrlKChart.TabHigh);
+                            kChartLoadTradeRequest.TryAdd(reqId, this);
+                        }
+                        if (ctrlKChart.TabValue == 1)
+                        {
+                            MDService.DataAPI.QryPriceVol(_currentSymbol.Exchange, _currentSymbol.Symbol);
+                        }
+                    }
+
+                    //分时数据查询
+                    if (ctrlKChart.DaysForIntradayView > 1)
+                    {
+                        minuteData.Clear();
+                        int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, ConstFreq.Freq_Day, 1, 10);//获得最近10日K线 当天日新不请求 该日分时通过日内分时查询
+                        kChartIntraViewDayBarRequest.TryAdd(reqid, this);
+                    }
+                    else
+                    {
+                        MDService.DataAPI.QryMinuteDate(_currentSymbol.Exchange, _currentSymbol.Symbol, 0);
+                    }
+
+                    //Bar数据查询
+                    MDService.DataAPI.QrySecurityBars(_currentSymbol.Exchange, _currentSymbol.Symbol, _currentFreq, 0, 800);
+                }
+            }
+            //报价列表
+            if (ctrlQuoteList.Visible)
+            {
+                //重新订阅实时行情
+                MDService.DataAPI.RegisterSymbol(ctrlQuoteList.SymbolVisible.ToArray());
+            
+            }
         }
 
 

@@ -163,10 +163,6 @@ namespace XTraderLite
                 case CStock.KChartViewType.TimeView:
                     {
                         SetCurrentViewType(EnumViewType.KChart, true);
-                        //SetCurBoard(BoardStyle.Stock);
-                        //GP.ShowFs ^= true;
-                        //if (FCurStock == null)
-                        //    FCurStock = (CStock.Stock)Stklist.Items[Stklist.SelectedIndex];
                         if (_currentSymbol != null)
                             SetKChartSymbol(_currentSymbol);
                         return;
@@ -174,9 +170,6 @@ namespace XTraderLite
                 case CStock.KChartViewType.KView:
                     {
                         SetCurrentViewType(EnumViewType.KChart, true);
-                        //GP.ShowFs ^= true;
-                        //if (FCurStock == null)
-                        //    FCurStock = (CStock.Stock)Stklist.Items[Stklist.SelectedIndex];
                         if (_currentSymbol != null)
                             SetKChartSymbol(_currentSymbol);
                         return;
