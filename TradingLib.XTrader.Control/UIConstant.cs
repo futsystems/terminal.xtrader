@@ -47,10 +47,15 @@ namespace TradingLib.XTrader.Control
         public static Font AxisFont = new Font("Arial", 9f);
 
 
-        public static Color GetChangeColor(double change)
+        /// <summary>
+        /// 获得持仓线 盈亏颜色
+        /// </summary>
+        /// <param name="change"></param>
+        /// <returns></returns>
+        public static Color GetPositionLableProfitColor(double change)
         {
-            if (change > 0) return LongSideColor;
-            if (change < 0) return ShortSideColor;
+            if (change > 0) return System.Drawing.Color.Crimson;
+            if (change < 0) return Color.FromArgb(0,255,255);
             return Color.Gray;
         }
     }

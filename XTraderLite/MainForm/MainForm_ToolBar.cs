@@ -276,10 +276,14 @@ namespace XTraderLite
                 _currentFreq = ConstFreq.Freq_Day;
             //最后一个频率 返回第一个频率
             if (_currentFreq == freqLink.Last.Value)
+            {
                 _currentFreq = freqLink.First.Value;
-
-            LinkedListNode<string> node =  freqLink.Find(_currentFreq);
-            _currentFreq = node.Next.Value;
+            }
+            else
+            {
+                LinkedListNode<string> node = freqLink.Find(_currentFreq);
+                _currentFreq = node.Next.Value;
+            }
 
             ctrlKChart.KChartViewType = CStock.KChartViewType.KView;
             //设定当前显示视图

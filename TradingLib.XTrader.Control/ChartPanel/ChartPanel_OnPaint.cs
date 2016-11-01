@@ -1985,7 +1985,7 @@ namespace CStock
                         pen.Color = Constants.ColorUp;
                         float avg_y = (rectHeight - both) - (float)((pCtrl.Symbol.LongPosition.PositionCost - min1) * scale);
                         string lbsize = string.Format("{0} 买{1}手", string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.LongPosition.PositionCost), pCtrl.Symbol.LongPosition.Size);
-                        string lbpl = string.Format("{0} {1}", pCtrl.Symbol.LongPosition.UnRealizedPL > 0 ? "盈" : (pCtrl.Symbol.LongPosition.UnRealizedPL == 0 ? "平" : "亏"), string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.LongPosition.UnRealizedPL));
+                        string lbpl = string.Format("{0} {1}", pCtrl.Symbol.LongPosition.UnRealizedPL > 0 ? "盈" : (pCtrl.Symbol.LongPosition.UnRealizedPL == 0 ? "平" : "亏"), string.Format(pCtrl.Symbol.GetFormat(), Math.Abs(pCtrl.Symbol.LongPosition.UnRealizedPL)));
                         float lbsizew = (canvas.MeasureString(lbsize, font).Width);
                         float lbplw = (canvas.MeasureString(lbpl, font).Width);
 
@@ -2003,7 +2003,7 @@ namespace CStock
                         canvas.DrawString(lbsize, font, FBrush, lbX, lbY + lboffset);
 
                         lbX += lbsizew + 2;
-                        FBrush.Color = UIConstant.GetChangeColor(pCtrl.Symbol.LongPosition.UnRealizedPL);
+                        FBrush.Color = UIConstant.GetPositionLableProfitColor(pCtrl.Symbol.LongPosition.UnRealizedPL);
                         canvas.DrawString(lbpl, font, FBrush, lbX, lbY + lboffset);
 
 
@@ -2020,7 +2020,7 @@ namespace CStock
                         pen.Color = Constants.ColorDown;
                         float avg_y = (rectHeight - both) - (float)((pCtrl.Symbol.ShortPosition.PositionCost - min1) * scale);
                         string lbsize = string.Format("{0} 卖{1}手", string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.ShortPosition.PositionCost), pCtrl.Symbol.ShortPosition.Size);
-                        string lbpl = string.Format("{0} {1}", pCtrl.Symbol.ShortPosition.UnRealizedPL > 0 ? "盈" : (pCtrl.Symbol.ShortPosition.UnRealizedPL == 0 ? "平" : "亏"), string.Format(pCtrl.Symbol.GetFormat(), pCtrl.Symbol.ShortPosition.UnRealizedPL));
+                        string lbpl = string.Format("{0} {1}", pCtrl.Symbol.ShortPosition.UnRealizedPL > 0 ? "盈" : (pCtrl.Symbol.ShortPosition.UnRealizedPL == 0 ? "平" : "亏"), string.Format(pCtrl.Symbol.GetFormat(), Math.Abs(pCtrl.Symbol.ShortPosition.UnRealizedPL)));
                         float lbsizew = (canvas.MeasureString(lbsize, font).Width);
                         float lbplw = (canvas.MeasureString(lbpl, font).Width);
 
@@ -2038,7 +2038,7 @@ namespace CStock
                         canvas.DrawString(lbsize, font, FBrush, lbX, lbY + lboffset);
 
                         lbX += lbsizew + 2;
-                        FBrush.Color = UIConstant.GetChangeColor(pCtrl.Symbol.ShortPosition.UnRealizedPL);
+                        FBrush.Color = UIConstant.GetPositionLableProfitColor(pCtrl.Symbol.ShortPosition.UnRealizedPL);
                         canvas.DrawString(lbpl, font, FBrush, lbX, lbY + lboffset);
 
 
