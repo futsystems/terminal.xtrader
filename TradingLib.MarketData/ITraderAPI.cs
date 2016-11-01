@@ -65,6 +65,13 @@ namespace TradingLib.MarketData
         void EntryOrder(bool side, string exchange, string symbol);
 
         /// <summary>
+        /// 选中某合约
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
+        void SelectSymbol(string exchange, string symbol);
+
+        /// <summary>
         /// 提交委托
         /// </summary>
         /// <param name="side"></param>

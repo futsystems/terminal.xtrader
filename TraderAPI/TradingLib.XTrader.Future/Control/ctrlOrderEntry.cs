@@ -55,6 +55,7 @@ namespace TradingLib.XTrader.Future
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
 
+            btnQryMaxVol.Click += new EventHandler(btnQryMaxVol_Click);
             btnReset.Click += new EventHandler(btnReset_Click);
 
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
@@ -66,6 +67,11 @@ namespace TradingLib.XTrader.Future
 
             CoreService.EventQry.OnRspXQryMaxOrderVolResponse +=new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse);
             CoreService.EventCore.RegIEventHandler(this);
+        }
+
+        void btnQryMaxVol_Click(object sender, EventArgs e)
+        {
+            QryMaxOrderVol();
         }
 
         
@@ -103,6 +109,7 @@ namespace TradingLib.XTrader.Future
         void inputSymbol_SecuritySelected()
         {
             this.ResetInputPrice();
+            this.ResetPriceButton();
         }
 
         
@@ -119,9 +126,6 @@ namespace TradingLib.XTrader.Future
 
             if(obj.UpdateType=="X" || obj.UpdateType == "Q" || obj.UpdateType == "S")
             {
-                //输出盘口价格
-                //btnBuy.PriceStr = string.Format(_priceFormat, obj.AskPrice);
-                //btnSell.PriceStr = string.Format(_priceFormat, obj.BidPrice);
                 UpdatePriceButton();
             }
         }
@@ -170,6 +174,9 @@ namespace TradingLib.XTrader.Future
                 QryAccountFinance();
             }
         }
+
+
+
 
         /// <summary>
         /// 持仓选择事件
@@ -285,6 +292,7 @@ namespace TradingLib.XTrader.Future
             _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
         }
 
+        #region 合约选择控件 选择合约
         void inputSymbol_TextChanged(object sender, EventArgs e)
         {
             string s = inputSymbol.Text;
@@ -301,13 +309,8 @@ namespace TradingLib.XTrader.Future
             }
             else //当前没有选中任何合约
             {
-                logger.Info("clear selected symbol");
-                _symbol = null;
 
-                inputPrice.SymbolSelected = false;
-                ResetPriceButton();
-                ResetInputPrice();
-
+                ClearSymbol();
             }
             
         }
@@ -316,8 +319,30 @@ namespace TradingLib.XTrader.Future
         {
             logger.Info(string.Format("Symbol:{0} Selected", obj.Symbol));
             CoreService.EventUI.FireSymbolSelectedEvent(this, obj);
-            //_symbol = obj;
         }
+
+        /// <summary>
+        /// 清空选中的合约
+        /// </summary>
+        public void ClearSymbol()
+        {
+            logger.Info("clear selected symbol");
+            _symbol = null;
+
+            inputPrice.SymbolSelected = false;
+            ResetPriceButton();
+            ResetInput();
+
+            lbLongOpenVol.Visible = false;
+            lbLongCloseVol.Visible = false;
+            lbShortOpenVol.Visible = false;
+            lbShortCloseVol.Visible = false;
+
+            inputSymbol.Text = string.Empty;
+
+        }
+        #endregion
+
 
 
 
@@ -364,9 +389,16 @@ namespace TradingLib.XTrader.Future
             inputSize.SetValue("1");
             _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
             inputFlagOpen.Checked = true;
+
+            inputPrice.SetTxtVal("对手价");
+
+            inputArbFlag.SelectedIndex = 0;
+
             //查询账户财务信息
             QryAccountFinance();
         }
+
+        
 
         /// <summary>
         /// 更新价格信息
@@ -651,7 +683,12 @@ namespace TradingLib.XTrader.Future
         void QryMaxOrderVol()
         {
             if (_symbol == null) return;
-            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol,true,QSEnumOffsetFlag.OPEN);
+            
+            lbLongOpenVol.Visible = false;
+            lbShortOpenVol.Visible = false;
+            System.Threading.Thread.Sleep(100);
+
+            CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol, true, QSEnumOffsetFlag.OPEN);
             CoreService.TLClient.ReqXQryMaxOrderVol(_symbol.Exchange, _symbol.Symbol, false, QSEnumOffsetFlag.OPEN);
         }
         void EventQry_OnRspXQryMaxOrderVolResponse(RspXQryMaxOrderVolResponse obj)
@@ -668,13 +705,26 @@ namespace TradingLib.XTrader.Future
                     string accout = CoreService.TradingInfoTracker.Account.Account;
                     if (obj.Side)
                     {
+                        if (lbLongOpenVol.Visible == false)
+                        {
+                            lbLongOpenVol.Visible = true;
+                            lbLongCloseVol.Visible = true;
+                        }
+
                         Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,accout, obj.Side];
-                        lbLongVol.Text = string.Format("可开<={0} 可平 {1}", obj.MaxVol, pos == null ? 0 : GetCanFlatSize(pos));
+                        lbLongOpenVol.Text = string.Format("可开<={0}", obj.MaxVol);
+                        lbLongCloseVol.Text = string.Format("可平 {0}",pos == null ? 0 : GetCanFlatSize(pos));
                     }
                     else
                     {
+                        if (lbShortOpenVol.Visible == false)
+                        {
+                            lbShortOpenVol.Visible = true;
+                            lbShortCloseVol.Visible = false;
+                        }
                         Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,accout, obj.Side];
-                        lbShortVol.Text = string.Format("可开<={0} 可平 {1}", obj.MaxVol, pos == null ? 0 : GetCanFlatSize(pos));
+                        lbShortOpenVol.Text = string.Format("可开<={0}", obj.MaxVol);
+                        lbShortCloseVol.Text = string.Format("可平 {0}",pos == null ? 0 : GetCanFlatSize(pos));
                     }
                 }
             }

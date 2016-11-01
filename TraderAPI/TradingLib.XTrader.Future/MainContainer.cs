@@ -138,6 +138,22 @@ namespace TradingLib.XTrader.Future
 
 
         #region 操作
+        public void SelectSymbol(string exchange, string symbol)
+        {
+            if (_trader != null)
+            {
+                Symbol sym = CoreService.BasicInfoTracker.GetSymbol(exchange, symbol);
+                if (sym != null)
+                {
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, sym);
+                }
+                else
+                {
+                    _trader.OrderEntryClearSymbol();
+                }
+            }
+        }
+
         /// <summary>
         /// 进入委托提交状态
         /// </summary>
@@ -146,21 +162,8 @@ namespace TradingLib.XTrader.Future
         /// <param name="symbol"></param>
         public void EntryOrder(bool side, string exchange, string symbol)
         {
-            if (_trader != null)
-            {
-                //根据买卖方向进入对应的页面
-                if (side)
-                {
-                    _trader.EntryBuyPage();
-                }
-                else
-                {
-                    _trader.EntrySellPage();
-                }
+        
 
-                //下单面板尝试选择合约
-                _trader.PageSTKOrderEntry_SetSymbol(exchange, symbol);
-            }
         }
 
         /// <summary>

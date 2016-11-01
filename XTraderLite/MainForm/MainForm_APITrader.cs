@@ -105,8 +105,16 @@ namespace XTraderLite
             {
                 logger.Info(string.Format("Entry Order Panel, Size:{0} Symbol:{1}", side, symbol.UniqueKey));
                 _traderApi.EntryOrder(side, symbol.Exchange, symbol.Symbol);
+                _traderApi.SelectSymbol(symbol.Exchange, symbol.Symbol);
             }
-            
+        }
+
+        void TraderAPI_SelectSymbol(MDSymbol symbol)
+        {
+            if (_traderApi != null)
+            {
+                _traderApi.SelectSymbol(symbol.Exchange, symbol.Symbol);
+            }
         }
 
         

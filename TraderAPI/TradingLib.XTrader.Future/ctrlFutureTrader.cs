@@ -389,44 +389,10 @@ namespace TradingLib.XTrader.Future
         #endregion
         #region 内部控件暴露到MainContainer的操作
 
-        public void PageSTKOrderEntry_SetSymbol(string exchange, string symbol)
+        public void OrderEntryClearSymbol()
         {
-            //IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
-            //if (page != null)
-            //{
-            //    PageSTKOrderEntry p = (page as PageSTKOrderEntry);
-            //    if (p != null)
-            //    {
-            //        p.SetSymbol(exchange, symbol);
-            //    }
-            //}
+            ctrlOrderEntry1.ClearSymbol();
         }
-
-        public void EntryBuyPage()
-        {
-            //IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
-            //if (page != null)
-            //{
-            //    (page as PageSTKOrderEntry).Mode = 0;
-            //    ShowPage(PageTypes.PAGE_ORDER_ENTRY);
-            //    btnBuy.Checked = true;
-            //    btnBuy.ForeColor = Color.Red;
-            //}
-        }
-
-        public void EntrySellPage()
-        {
-            //IPage page = pagemap[PageTypes.PAGE_ORDER_ENTRY];
-            //if (page != null)
-            //{
-            //    (page as PageSTKOrderEntry).Mode = 1;
-            //    ShowPage(PageTypes.PAGE_ORDER_ENTRY);
-            //    btnSell.Checked = true;
-            //    btnSell.ForeColor = Color.Red;
-            //}
-        }
-
-
         #endregion
 
 

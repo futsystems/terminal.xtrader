@@ -30,19 +30,12 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnConditionOrder = new TradingLib.XTrader.FButton();
-            this.inputArbFlag = new CSharpWin.ComboBoxEx();
+            this.lbShortOpenVol = new System.Windows.Forms.Label();
+            this.lbLongOpenVol = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
-            this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
-            this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
-            this.btnSell = new TradingLib.XTrader.FButton();
-            this.btnBuy = new TradingLib.XTrader.FButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.inputFlagAuto = new System.Windows.Forms.CheckBox();
-            this.btnReset = new TradingLib.XTrader.FButton();
-            this.button1 = new TradingLib.XTrader.FButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.inputFlagCloseToday = new System.Windows.Forms.RadioButton();
@@ -52,8 +45,17 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lbLongVol = new System.Windows.Forms.Label();
-            this.lbShortVol = new System.Windows.Forms.Label();
+            this.lbLongCloseVol = new System.Windows.Forms.Label();
+            this.lbShortCloseVol = new System.Windows.Forms.Label();
+            this.btnConditionOrder = new TradingLib.XTrader.FButton();
+            this.inputArbFlag = new CSharpWin.ComboBoxEx();
+            this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
+            this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
+            this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
+            this.btnSell = new TradingLib.XTrader.FButton();
+            this.btnBuy = new TradingLib.XTrader.FButton();
+            this.btnReset = new TradingLib.XTrader.FButton();
+            this.btnQryMaxVol = new TradingLib.XTrader.FButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -72,8 +74,10 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.lbShortVol);
-            this.tabPage1.Controls.Add(this.lbLongVol);
+            this.tabPage1.Controls.Add(this.lbShortCloseVol);
+            this.tabPage1.Controls.Add(this.lbLongCloseVol);
+            this.tabPage1.Controls.Add(this.lbShortOpenVol);
+            this.tabPage1.Controls.Add(this.lbLongOpenVol);
             this.tabPage1.Controls.Add(this.btnConditionOrder);
             this.tabPage1.Controls.Add(this.inputArbFlag);
             this.tabPage1.Controls.Add(this.checkBox2);
@@ -86,7 +90,7 @@
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.inputFlagAuto);
             this.tabPage1.Controls.Add(this.btnReset);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btnQryMaxVol);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.inputFlagCloseToday);
@@ -100,6 +104,171 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "闪电下单";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbShortOpenVol
+            // 
+            this.lbShortOpenVol.AutoSize = true;
+            this.lbShortOpenVol.Location = new System.Drawing.Point(151, 84);
+            this.lbShortOpenVol.Name = "lbShortOpenVol";
+            this.lbShortOpenVol.Size = new System.Drawing.Size(17, 12);
+            this.lbShortOpenVol.TabIndex = 27;
+            this.lbShortOpenVol.Text = "--";
+            // 
+            // lbLongOpenVol
+            // 
+            this.lbLongOpenVol.AutoSize = true;
+            this.lbLongOpenVol.Location = new System.Drawing.Point(151, 68);
+            this.lbLongOpenVol.Name = "lbLongOpenVol";
+            this.lbLongOpenVol.Size = new System.Drawing.Size(17, 12);
+            this.lbLongOpenVol.TabIndex = 26;
+            this.lbLongOpenVol.Text = "--";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(251, 35);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(72, 16);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "套利移仓";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label5.Location = new System.Drawing.Point(128, 84);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(23, 12);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "卖:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(128, 68);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 12);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "买:";
+            // 
+            // inputFlagAuto
+            // 
+            this.inputFlagAuto.AutoSize = true;
+            this.inputFlagAuto.Location = new System.Drawing.Point(185, 48);
+            this.inputFlagAuto.Name = "inputFlagAuto";
+            this.inputFlagAuto.Size = new System.Drawing.Size(48, 16);
+            this.inputFlagAuto.TabIndex = 11;
+            this.inputFlagAuto.Text = "自动";
+            this.inputFlagAuto.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 104);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "价格";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 77);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "数量";
+            // 
+            // inputFlagCloseToday
+            // 
+            this.inputFlagCloseToday.AutoSize = true;
+            this.inputFlagCloseToday.Location = new System.Drawing.Point(117, 47);
+            this.inputFlagCloseToday.Name = "inputFlagCloseToday";
+            this.inputFlagCloseToday.Size = new System.Drawing.Size(47, 16);
+            this.inputFlagCloseToday.TabIndex = 4;
+            this.inputFlagCloseToday.Text = "平今";
+            this.inputFlagCloseToday.UseVisualStyleBackColor = true;
+            // 
+            // inputFlagClose
+            // 
+            this.inputFlagClose.AutoSize = true;
+            this.inputFlagClose.Location = new System.Drawing.Point(64, 47);
+            this.inputFlagClose.Name = "inputFlagClose";
+            this.inputFlagClose.Size = new System.Drawing.Size(47, 16);
+            this.inputFlagClose.TabIndex = 3;
+            this.inputFlagClose.Text = "平仓";
+            this.inputFlagClose.UseVisualStyleBackColor = true;
+            // 
+            // inputFlagOpen
+            // 
+            this.inputFlagOpen.AutoSize = true;
+            this.inputFlagOpen.Checked = true;
+            this.inputFlagOpen.Location = new System.Drawing.Point(11, 46);
+            this.inputFlagOpen.Name = "inputFlagOpen";
+            this.inputFlagOpen.Size = new System.Drawing.Size(47, 16);
+            this.inputFlagOpen.TabIndex = 2;
+            this.inputFlagOpen.TabStop = true;
+            this.inputFlagOpen.Text = "开仓";
+            this.inputFlagOpen.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "合约";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(326, 205);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "三键下单";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(326, 205);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "传统下单";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(326, 205);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "快鼠下单";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // lbLongCloseVol
+            // 
+            this.lbLongCloseVol.AutoSize = true;
+            this.lbLongCloseVol.Location = new System.Drawing.Point(216, 68);
+            this.lbLongCloseVol.Name = "lbLongCloseVol";
+            this.lbLongCloseVol.Size = new System.Drawing.Size(17, 12);
+            this.lbLongCloseVol.TabIndex = 28;
+            this.lbLongCloseVol.Text = "--";
+            // 
+            // lbShortCloseVol
+            // 
+            this.lbShortCloseVol.AutoSize = true;
+            this.lbShortCloseVol.Location = new System.Drawing.Point(216, 84);
+            this.lbShortCloseVol.Name = "lbShortCloseVol";
+            this.lbShortCloseVol.Size = new System.Drawing.Size(17, 12);
+            this.lbShortCloseVol.TabIndex = 29;
+            this.lbShortCloseVol.Text = "--";
             // 
             // btnConditionOrder
             // 
@@ -133,17 +302,6 @@
             this.inputArbFlag.Size = new System.Drawing.Size(80, 22);
             this.inputArbFlag.TabIndex = 24;
             this.inputArbFlag.TabStop = false;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(251, 35);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(72, 16);
-            this.checkBox2.TabIndex = 23;
-            this.checkBox2.Text = "套利移仓";
-            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // inputSize
             // 
@@ -253,36 +411,6 @@
             this.btnBuy.Text = "买入";
             this.btnBuy.UseVisualStyleBackColor = true;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label5.Location = new System.Drawing.Point(128, 84);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 12);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "卖:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(128, 68);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 12);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "买:";
-            // 
-            // inputFlagAuto
-            // 
-            this.inputFlagAuto.AutoSize = true;
-            this.inputFlagAuto.Location = new System.Drawing.Point(185, 48);
-            this.inputFlagAuto.Name = "inputFlagAuto";
-            this.inputFlagAuto.Size = new System.Drawing.Size(48, 16);
-            this.inputFlagAuto.TabIndex = 11;
-            this.inputFlagAuto.Text = "自动";
-            this.inputFlagAuto.UseVisualStyleBackColor = true;
-            // 
             // btnReset
             // 
             this.btnReset.BackColor = System.Drawing.Color.White;
@@ -298,126 +426,20 @@
             this.btnReset.Text = "复位";
             this.btnReset.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnQryMaxVol
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.CheckButton = false;
-            this.button1.Checked = false;
-            this.button1.IsPriceOn = false;
-            this.button1.Location = new System.Drawing.Point(8, 137);
-            this.button1.Name = "button1";
-            this.button1.OrderEntryButton = false;
-            this.button1.PriceStr = "";
-            this.button1.Size = new System.Drawing.Size(50, 18);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "查可开";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 104);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "价格";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "数量";
-            // 
-            // inputFlagCloseToday
-            // 
-            this.inputFlagCloseToday.AutoSize = true;
-            this.inputFlagCloseToday.Location = new System.Drawing.Point(117, 47);
-            this.inputFlagCloseToday.Name = "inputFlagCloseToday";
-            this.inputFlagCloseToday.Size = new System.Drawing.Size(47, 16);
-            this.inputFlagCloseToday.TabIndex = 4;
-            this.inputFlagCloseToday.Text = "平今";
-            this.inputFlagCloseToday.UseVisualStyleBackColor = true;
-            // 
-            // inputFlagClose
-            // 
-            this.inputFlagClose.AutoSize = true;
-            this.inputFlagClose.Location = new System.Drawing.Point(64, 47);
-            this.inputFlagClose.Name = "inputFlagClose";
-            this.inputFlagClose.Size = new System.Drawing.Size(47, 16);
-            this.inputFlagClose.TabIndex = 3;
-            this.inputFlagClose.Text = "平仓";
-            this.inputFlagClose.UseVisualStyleBackColor = true;
-            // 
-            // inputFlagOpen
-            // 
-            this.inputFlagOpen.AutoSize = true;
-            this.inputFlagOpen.Checked = true;
-            this.inputFlagOpen.Location = new System.Drawing.Point(11, 46);
-            this.inputFlagOpen.Name = "inputFlagOpen";
-            this.inputFlagOpen.Size = new System.Drawing.Size(47, 16);
-            this.inputFlagOpen.TabIndex = 2;
-            this.inputFlagOpen.TabStop = true;
-            this.inputFlagOpen.Text = "开仓";
-            this.inputFlagOpen.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "合约";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(326, 205);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "三键下单";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(326, 205);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "传统下单";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(326, 205);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "快鼠下单";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // lbLongVol
-            // 
-            this.lbLongVol.AutoSize = true;
-            this.lbLongVol.Location = new System.Drawing.Point(151, 68);
-            this.lbLongVol.Name = "lbLongVol";
-            this.lbLongVol.Size = new System.Drawing.Size(17, 12);
-            this.lbLongVol.TabIndex = 26;
-            this.lbLongVol.Text = "--";
-            // 
-            // lbShortVol
-            // 
-            this.lbShortVol.AutoSize = true;
-            this.lbShortVol.Location = new System.Drawing.Point(151, 84);
-            this.lbShortVol.Name = "lbShortVol";
-            this.lbShortVol.Size = new System.Drawing.Size(17, 12);
-            this.lbShortVol.TabIndex = 27;
-            this.lbShortVol.Text = "--";
+            this.btnQryMaxVol.BackColor = System.Drawing.Color.White;
+            this.btnQryMaxVol.CheckButton = false;
+            this.btnQryMaxVol.Checked = false;
+            this.btnQryMaxVol.IsPriceOn = false;
+            this.btnQryMaxVol.Location = new System.Drawing.Point(8, 137);
+            this.btnQryMaxVol.Name = "btnQryMaxVol";
+            this.btnQryMaxVol.OrderEntryButton = false;
+            this.btnQryMaxVol.PriceStr = "";
+            this.btnQryMaxVol.Size = new System.Drawing.Size(50, 18);
+            this.btnQryMaxVol.TabIndex = 9;
+            this.btnQryMaxVol.Text = "查可开";
+            this.btnQryMaxVol.UseVisualStyleBackColor = true;
             // 
             // ctrlOrderEntry
             // 
@@ -445,7 +467,7 @@
         private System.Windows.Forms.RadioButton inputFlagCloseToday;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private FButton button1;
+        private FButton btnQryMaxVol;
         private FButton btnReset;
         private System.Windows.Forms.CheckBox inputFlagAuto;
         private System.Windows.Forms.Label label5;
@@ -460,7 +482,9 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private CSharpWin.ComboBoxEx inputArbFlag;
         private FButton btnConditionOrder;
-        private System.Windows.Forms.Label lbShortVol;
-        private System.Windows.Forms.Label lbLongVol;
+        private System.Windows.Forms.Label lbShortOpenVol;
+        private System.Windows.Forms.Label lbLongOpenVol;
+        private System.Windows.Forms.Label lbLongCloseVol;
+        private System.Windows.Forms.Label lbShortCloseVol;
     }
 }

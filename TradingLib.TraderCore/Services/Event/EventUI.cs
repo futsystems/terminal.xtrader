@@ -22,6 +22,7 @@ namespace TradingLib.TraderCore
                 FireSymbolUnSelectedEvent(sender, _symbolSelected);
                 _symbolSelected = symbol;
             }
+            
             if (OnSymbolSelectedEvent != null)
                 OnSymbolSelectedEvent(sender,symbol);
         }

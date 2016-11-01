@@ -134,6 +134,10 @@ namespace TradingLib.XTrader.Stock
 
 
         #region 操作
+        public void SelectSymbol(string exchange, string symbol)
+        {
+            
+        }
         /// <summary>
         /// 进入委托提交状态
         /// </summary>

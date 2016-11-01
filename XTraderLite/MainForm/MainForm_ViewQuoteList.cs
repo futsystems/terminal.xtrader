@@ -54,15 +54,18 @@ namespace XTraderLite
                     {
                         logger.Info("QuoteView Select Symbol:" + arg1.Symbol);
                         ViewKChart();
+                        TraderAPI_SelectSymbol(arg1);
                         break;
                     }
                 case QuoteMouseEventType.SymbolBuyClick:
                     {
+                        ViewKChart();
                         EntryOrderPanel(true, arg1);
                         break;
                     }
                 case QuoteMouseEventType.SymbolSellClick:
                     {
+                        ViewKChart();
                         EntryOrderPanel(false, arg1);
                         break;
                     }
