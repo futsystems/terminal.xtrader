@@ -35,7 +35,7 @@ namespace XTraderLite
         /// 选中当前合约
         /// </summary>
         /// <param name="symbol"></param>
-        void SetKChartSymbol(MDSymbol symbol)
+        void SetKChartSymbol(MDSymbol symbol,bool focus=true)
         {
             bool changeSymbol = false;
             if (_currentSymbol != symbol)
@@ -44,7 +44,10 @@ namespace XTraderLite
             }
             _currentSymbol = symbol;
 
-            ctrlKChart.Focus();
+            if (focus)
+            {
+                ctrlKChart.Focus();
+            }
             bool symChange = (symbol != ctrlKChart.Symbol);
             bool cycleChange = _currentFreq != ctrlKChart.Cycle;
             

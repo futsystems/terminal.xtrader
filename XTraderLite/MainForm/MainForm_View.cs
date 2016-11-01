@@ -23,7 +23,7 @@ namespace XTraderLite
         /// 设置当前有效视图
         /// </summary>
         /// <param name="type"></param>
-        void SetCurrentViewType(EnumViewType type,bool enter=true)
+        void SetCurrentViewType(EnumViewType type,bool focus,bool enter=true)
         {
             //logger.Info("set ?????????????:" + type.ToString());
             IView target = null;
@@ -44,7 +44,10 @@ namespace XTraderLite
                 viewLink.AddLast(target);
             }
             target.Show();
-            target.Focus();
+            if (focus)
+            {
+                target.Focus();
+            }
         }
 
         /// <summary>
@@ -122,14 +125,14 @@ namespace XTraderLite
         /// </summary>
         void ViewQuoteList()
         {
-            SetCurrentViewType(EnumViewType.QuoteList);
+            SetCurrentViewType(EnumViewType.QuoteList,true);
             UpdateToolBarStatus();
         }
 
         /// <summary>
         /// 查看K线图
         /// </summary>
-        void ViewKChart(MDSymbol symbol=null)
+        void ViewKChart(MDSymbol symbol = null, bool focus=true)
         {
             MDSymbol tmp = symbol;
             if (tmp == null)
@@ -138,8 +141,8 @@ namespace XTraderLite
                 if (tmp == null) return;
             }
 
-            SetCurrentViewType(EnumViewType.KChart);
-            SetKChartSymbol(tmp);
+            SetCurrentViewType(EnumViewType.KChart, focus);
+            SetKChartSymbol(tmp,focus);
             UpdateToolBarStatus();
         }
 
@@ -152,7 +155,7 @@ namespace XTraderLite
             MDSymbol tmp = GetAvabileSymbol();
             if (tmp == null) return;
 
-            SetCurrentViewType(EnumViewType.TradeSplit);
+            SetCurrentViewType(EnumViewType.TradeSplit, true);
             ctrlTickList.Clear();
             ctrlTickList.SetSymbol(tmp);
             int reqId = MDService.DataAPI.QryTradeSplitData(tmp.Exchange, tmp.Symbol, 0, 2000);
@@ -169,7 +172,7 @@ namespace XTraderLite
             MDSymbol tmp = GetAvabileSymbol();
             if (tmp == null) return;
 
-            SetCurrentViewType(EnumViewType.PriceVol);
+            SetCurrentViewType(EnumViewType.PriceVol, true);
             ctrlPriceVolList.Clear();
             ctrlPriceVolList.SetSymbol(tmp);
             int reqId = MDService.DataAPI.QryPriceVol(tmp.Exchange, tmp.Symbol);
@@ -184,7 +187,7 @@ namespace XTraderLite
             MDSymbol tmp = GetAvabileSymbol();
             if (tmp == null) return;
 
-            SetCurrentViewType(EnumViewType.BasicInfo);
+            SetCurrentViewType(EnumViewType.BasicInfo, true);
             ctrlSymbolInfo.Clear();
             ctrlSymbolInfo.SetSymbol(tmp);
             MDService.DataAPI.QrySymbolInfoType(tmp.Exchange, tmp.Symbol);

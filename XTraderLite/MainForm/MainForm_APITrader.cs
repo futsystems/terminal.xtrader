@@ -134,7 +134,7 @@ namespace XTraderLite
                 if (symbol != null)
                 {
                     ctrlKChart.KChartViewType = (arg3 == 0 ? CStock.KChartViewType.TimeView : CStock.KChartViewType.KView);
-                    ViewKChart(symbol);
+                    ViewKChart(symbol,false);//KChart组件不获得焦点
                 }
             }
         }
