@@ -35,7 +35,7 @@ namespace DataAPI.Futs
         public void RegisterSymbol(MDSymbol[] symbols)
         {
             if (symbols == null || symbols.Length == 0) return;
-            foreach (var g in symbols.GroupBy(sym => sym.Exchange))
+            foreach (var g in symbols.Where(s=>s!=null).GroupBy(sym => sym.Exchange))
             {
                 DataCoreService.DataClient.RegisterSymbol(g.Key, g.Select(sym => sym.Symbol).ToArray());
             }
@@ -48,7 +48,7 @@ namespace DataAPI.Futs
         public void UnregisterSymbol(MDSymbol[] symbols)
         {
             if (symbols == null || symbols.Length == 0) return;
-            foreach (var g in symbols.GroupBy(sym => sym.Exchange))
+            foreach (var g in symbols.Where(s => s != null).GroupBy(sym => sym.Exchange))
             {
                 DataCoreService.DataClient.UnRegisterSymbol(g.Key, g.Select(sym => sym.Symbol).ToArray());
             }

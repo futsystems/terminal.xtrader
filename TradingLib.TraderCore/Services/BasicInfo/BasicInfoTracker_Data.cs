@@ -122,5 +122,33 @@ namespace TradingLib.TraderCore
         }
 
 
+        /// <summary>
+        /// 返回所有汇率数据
+        /// </summary>
+        IEnumerable<ExchangeRate> ExchangeRates { get { return this.exchangRateCurrencyMap.Values; } }
+
+        public ExchangeRate GetExchangeRate(int id)
+        {
+            ExchangeRate target = null;
+            if (this.exchangeRateMap.TryGetValue(id, out target))
+            {
+                return target;
+            }
+            return target;
+        }
+
+
+        public ExchangeRate GetExchangeRate(CurrencyType currency)
+        {
+            ExchangeRate target = null;
+            if (this.exchangRateCurrencyMap.TryGetValue(currency, out target))
+            {
+                return target;
+            }
+            return null;
+        }
+
+
+
     }
 }

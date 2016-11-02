@@ -57,5 +57,11 @@ namespace TradingLib.TraderCore
         /// </summary>
         Dictionary<string, SymbolImpl> symbolkeyemap = new Dictionary<string, SymbolImpl>();
 
+
+        /// <summary>
+        /// 汇率数据
+        /// </summary>
+        Dictionary<CurrencyType, ExchangeRate> exchangRateCurrencyMap = new Dictionary<CurrencyType, ExchangeRate>();
+        Dictionary<int, ExchangeRate> exchangeRateMap = new Dictionary<int, ExchangeRate>();
     }
 }

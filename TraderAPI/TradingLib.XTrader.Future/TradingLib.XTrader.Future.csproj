@@ -216,6 +216,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils_GDI.cs" />
+    <Compile Include="Util_Account.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\ctrlListBox.resx">

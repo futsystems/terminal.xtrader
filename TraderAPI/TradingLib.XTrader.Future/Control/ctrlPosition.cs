@@ -273,10 +273,10 @@ namespace TradingLib.XTrader.Future
                     e.CellStyle.ForeColor = Color.Blue;
                 }
 
-                if (e.ColumnIndex == 10)
+                if (e.ColumnIndex == 10 || e.ColumnIndex == 11)
                 {
                     decimal val = 0;
-                    if (!decimal.TryParse(positionGrid[10, e.RowIndex].Value.ToString(), out val)) val = 0;
+                    if (!decimal.TryParse(positionGrid[12, e.RowIndex].Value.ToString(), out val)) val = 0;
                     if (val == 0)
                     {
                         e.CellStyle.ForeColor = Color.Black;
@@ -500,6 +500,7 @@ namespace TradingLib.XTrader.Future
                     tb.Rows[i][AVGPRICE] = FormatPrice(pos,pos.AvgPrice);
 
                     tb.Rows[i][UNREALIZEDPL] = 0;
+                    tb.Rows[i][UNREALIZEDPOINT] = 0;
                     tb.Rows[i][LOSSTARGET] = "";
                     tb.Rows[i][PROFITTARGET] = "";
                     tb.Rows[i][FLAG] = "投机";
@@ -568,11 +569,14 @@ namespace TradingLib.XTrader.Future
                         if (pos.isFlat)
                         {
                             tb.Rows[i][UNREALIZEDPL] = 0;
+                            tb.Rows[i][UNREALIZEDPLACCTCURRENCY] = 0;
+                            tb.Rows[i][UNREALIZEDPOINT] = 0;
                         }
                         else
                         {
-                            tb.Rows[i][UNREALIZEDPL] = (pos.UnRealizedPL * pos.oSymbol.Multiple).ToFormatStr();
-
+                            tb.Rows[i][UNREALIZEDPL] = (pos.UnRealizedPL * pos.oSymbol.Multiple).ToFormatStr() + " " + pos.oSymbol.SecurityFamily.Currency.ToString(); ;
+                            tb.Rows[i][UNREALIZEDPOINT] = pos.UnRealizedPL.ToFormatStr();
+                            tb.Rows[i][UNREALIZEDPLACCTCURRENCY] = (pos.UnRealizedPL * pos.oSymbol.Multiple*CoreService.TradingInfoTracker.Account.GetExchangeRate(pos.oSymbol.SecurityFamily.Currency)).ToFormatStr();
                         }
 
                     }
@@ -644,11 +648,14 @@ namespace TradingLib.XTrader.Future
                             if (pos.isFlat)
                             {
                                 tb.Rows[i][UNREALIZEDPL] = 0;
+                                tb.Rows[i][UNREALIZEDPLACCTCURRENCY] = 0;
+                                tb.Rows[i][UNREALIZEDPOINT] = 0;
                             }
                             else
                             {
-                                tb.Rows[i][UNREALIZEDPL] = (unrealizedpl * pos.oSymbol.Multiple).ToFormatStr();
-                               
+                                tb.Rows[i][UNREALIZEDPL] = (unrealizedpl * pos.oSymbol.Multiple).ToFormatStr() +" "+pos.oSymbol.SecurityFamily.Currency.ToString();
+                                tb.Rows[i][UNREALIZEDPOINT] = unrealizedpl;
+                                tb.Rows[i][UNREALIZEDPLACCTCURRENCY] = (pos.UnRealizedPL * pos.oSymbol.Multiple*CoreService.TradingInfoTracker.Account.GetExchangeRate(pos.oSymbol.SecurityFamily.Currency)).ToFormatStr();
                             }
                         }
                     }
@@ -674,6 +681,8 @@ namespace TradingLib.XTrader.Future
         const string SIZECANFLAT = "可用";
         const string AVGPRICE = "开仓均价";
         const string UNREALIZEDPL = "浮动盈亏";
+        const string UNREALIZEDPLACCTCURRENCY = "浮盈(基币)";
+        const string UNREALIZEDPOINT = "浮盈(点)";
         const string LOSSTARGET = "止损/数量";
 
         const string PROFITTARGET = "止盈/数量";
@@ -703,8 +712,10 @@ namespace TradingLib.XTrader.Future
             tb.Columns.Add(SIZECANFLAT);
             tb.Columns.Add(AVGPRICE);
             tb.Columns.Add(UNREALIZEDPL);
-            tb.Columns.Add(LOSSTARGET);
+            tb.Columns.Add(UNREALIZEDPLACCTCURRENCY);
+            tb.Columns.Add(UNREALIZEDPOINT);
 
+            tb.Columns.Add(LOSSTARGET);
             tb.Columns.Add(PROFITTARGET);
             tb.Columns.Add(FLAG);
             tb.Columns.Add(NAME);
@@ -723,7 +734,8 @@ namespace TradingLib.XTrader.Future
             grid.Columns[SIZECANFLAT].Width = 46;
 
             grid.Columns[AVGPRICE].Width = 90;
-            grid.Columns[UNREALIZEDPL].Width = 90;
+            grid.Columns[UNREALIZEDPL].Width = 120;
+            grid.Columns[UNREALIZEDPLACCTCURRENCY].Width = 90;
             grid.Columns[LOSSTARGET].Width = 75;
             grid.Columns[PROFITTARGET].Width = 75;
             grid.Columns[FLAG].Width = 40;
@@ -750,6 +762,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[ACCOUNT].Visible = false;
             grid.Columns[SIDE].Visible = false;
             grid.Columns[SYMBOLKEY].Visible = false;
+            grid.Columns[UNREALIZEDPOINT].Visible = false;
             grid.Columns[FLAG].Visible = Constants.HedgeFieldVisible;
 
             for (int i = 0; i < tb.Columns.Count; i++)

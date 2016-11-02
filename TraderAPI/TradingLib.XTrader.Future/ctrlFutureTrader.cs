@@ -183,7 +183,7 @@ namespace TradingLib.XTrader.Future
         /// <param name="obj"></param>
         void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse obj)
         {
-            lbMoneyAvabile.Text = obj.Report.AvabileFunds.ToFormatStr();
+            lbMoneyAvabile.Text = string.Format("{0:F2} ({1})", obj.Report.AvabileFunds, Util.GetEnumDescription(CoreService.TradingInfoTracker.Account.Currency));
         }
 
         #region ControlBox
@@ -387,6 +387,8 @@ namespace TradingLib.XTrader.Future
 
 
         #endregion
+
+
         #region 内部控件暴露到MainContainer的操作
 
         public void OrderEntryClearSymbol()

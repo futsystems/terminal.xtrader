@@ -202,6 +202,8 @@ namespace TradingLib.TraderCore
             logger.Debug("Got XQry Settlement Response:" + response.ToString());
             CoreService.EventQry.FireRspXQrySettlementResponse(response);
         }
+
+       
        
     }
 }

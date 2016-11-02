@@ -107,6 +107,11 @@ namespace TradingLib.TraderCore
         }
 
 
-
+        //public event Action<RspXQryExchangeRateResponse> OnRspXQryExchangeRateResponse;
+        //internal void FireRspXQryExchangeRateResponse(RspXQryExchangeRateResponse response)
+        //{
+        //    if (OnRspXQryExchangeRateResponse != null)
+        //        OnRspXQryExchangeRateResponse(response);           
+        //}
     }
 }

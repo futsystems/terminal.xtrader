@@ -292,6 +292,11 @@ namespace TradingLib.TraderCore
             return requestid;
         }
 
+        /// <summary>
+        /// 查询结算单
+        /// </summary>
+        /// <param name="tradingday"></param>
+        /// <returns></returns>
         public int ReqXQrySettlement(int tradingday)
         {
             logger.Info("Qry Settlement:" + tradingday.ToString());
@@ -302,6 +307,18 @@ namespace TradingLib.TraderCore
 
         }
 
+        /// <summary>
+        /// 查询汇率数据
+        /// </summary>
+        /// <returns></returns>
+        public int ReqXQryExchangeRate()
+        {
+            logger.Info("Qry ExchangeRate");
+            XQryExchangeRateRequest request = RequestTemplate<XQryExchangeRateRequest>.CliSendRequest(++requestid);
+
+            SendPacket(request);
+            return requestid;
+        }
         #endregion
 
 

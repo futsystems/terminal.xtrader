@@ -32,6 +32,17 @@ namespace TradingLib.TraderCore
             CoreService.BasicInfoTracker.GotSecurity(response.SecurityFaimly, response.IsLast);
         }
 
+        /// <summary>
+        /// 查询汇率回报
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnXQryExchangeRate(RspXQryExchangeRateResponse response)
+        {
+            logger.Debug("Got XQry ExchangeRate Response:" + response.ToString());
+            CoreService.BasicInfoTracker.GotExchagneRate(response.ExchangeRate, response.IsLast);
+            
+        }
+
         void CliOnXSymbol(RspXQrySymbolResponse response)
         {
             logger.Debug("Got Symbol Response:" + response.ToString());

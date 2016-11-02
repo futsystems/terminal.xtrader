@@ -174,13 +174,39 @@ namespace TradingLib.TraderCore
             }
             if (islast&& (!_inited))
             {
-                Status("合约查询完毕,查询隔夜持仓");
+                Status("合约查询完毕,查询汇率");
+                //BindData();
+                //_inited = true;
+                //CoreService.TradingInfoTracker.ResumeData();
+                CoreService.TLClient.ReqXQryExchangeRate();
+            }
+        }
+
+        public void GotExchagneRate(ExchangeRate rate, bool islast)
+        {
+            if (rate != null)
+            {
+                ExchangeRate target = null;
+                if (this.exchangeRateMap.TryGetValue(rate.ID, out target))
+                {
+                    target.AskRate = rate.AskRate;
+                    target.BidRate = rate.BidRate;
+                    target.IntermediateRate = rate.IntermediateRate;
+                    target.UpdateTime = rate.UpdateTime;
+                }
+                else
+                {
+                    this.exchangeRateMap.Add(rate.ID, rate);
+                    this.exchangRateCurrencyMap[rate.Currency] = rate;
+                }
+            }
+            if (islast && (!_inited))
+            {
+                Status("汇率查询完毕,查询隔夜持仓");
                 BindData();
                 _inited = true;
                 CoreService.TradingInfoTracker.ResumeData();
             }
-            
-
         }
 
         /// <summary>

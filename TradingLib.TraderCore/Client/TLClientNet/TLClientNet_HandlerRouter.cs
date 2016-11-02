@@ -98,6 +98,10 @@ namespace TradingLib.TraderCore
                     CliOnXQrySettlement(packet as RspXQrySettleInfoResponse);
                     break;
 
+                case MessageTypes.XQRYEXCHANGERATERESPONSE://查询汇率信息回报
+                    CliOnXQryExchangeRate(packet as RspXQryExchangeRateResponse);
+                    break;
+
                 #endregion
 
                 default:
