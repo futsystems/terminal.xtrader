@@ -52,11 +52,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DataSource.cs" />
     <Compile Include="Common\ExTask.cs" />
     <Compile Include="Common\MouseHook.cs" />
     <Compile Include="Common\FRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Common\ValueObject.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Control\ComboBoxEx\ComboxBoxPaint\ComboBoxEx.cs">
       <SubType>Component</SubType>
@@ -128,6 +130,12 @@
     </Compile>
     <Compile Include="Common\FNumberInput.Designer.cs">
       <DependentUpon>FNumberInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\frmPositionOffset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\frmPositionOffset.Designer.cs">
+      <DependentUpon>frmPositionOffset.cs</DependentUpon>
     </Compile>
     <Compile Include="ctrlFutureTrader.cs">
       <SubType>UserControl</SubType>
@@ -233,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctrlTrade.resx">
       <DependentUpon>ctrlTrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\frmPositionOffset.resx">
+      <DependentUpon>frmPositionOffset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ctrlFutureTrader.resx">
       <DependentUpon>ctrlFutureTrader.cs</DependentUpon>

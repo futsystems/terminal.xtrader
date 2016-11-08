@@ -11,6 +11,9 @@ using Common.Logging;
 namespace TradingLib.TraderCore
 {
 
+    /// <summary>
+    /// 持仓 止盈止损参数
+    /// </summary>
     public class PositionOffsetArgs
     {
         public PositionOffsetArgs(Position pos)
@@ -102,8 +105,6 @@ namespace TradingLib.TraderCore
                 }
                 return false;
             }
-            
-            
         }
 
         /// <summary>
@@ -180,7 +181,7 @@ namespace TradingLib.TraderCore
     public class PositionWatcher
     {
 
-        ILog logger = LogManager.GetLogger("PositionCheckCentre");
+        ILog logger = LogManager.GetLogger("PositionWatcher");
 
         Dictionary<string, PositionOffsetArgs> argsmap = new Dictionary<string, PositionOffsetArgs>();
 
@@ -241,6 +242,7 @@ namespace TradingLib.TraderCore
         void GotTick(Tick k)
         {
             if (k == null || !k.IsValid()) return;
+            if (k.UpdateType != "X") return;
             ThreadSafeList<PositionOffsetArgs> target = null;
             if (symbolargsmap.TryGetValue(k.Symbol, out target))
             {
@@ -306,67 +308,6 @@ namespace TradingLib.TraderCore
                 }
                 return;
             }
-
-            //如果标记需要执行止盈操作 并且仍然有持仓 则检查是否需要重新发送委托
-            //if (args.NeedTakeProfit)
-            //{
-            //    //如果时间超过重发间隔,重新发送委托
-            //    if (DateTime.Now.Subtract(args.ProfitTakeTime).TotalSeconds > PositionOffset.SendOrderDelay && po.ProfitFireCount < PositionOffset.SendRetry)
-            //    {
-            //        if (po.ProfitTakeOrder > 0)//表明发送过委托 但是由于某些原因没有被成交,则取消该委托后重新发送委托
-            //        {
-            //            CancelOrder(po.ProfitTakeOrder);
-            //            if (WaitAfterCancel) return;
-            //        }
-            //        else
-            //        {
-            //            po.ProfitFireCount++;//累加触发次数
-            //            po.ProfitTakeTime = DateTime.Now;//记录触发时间
-            //            po.ProfitTakeOrder = FlatPosition(po.Position, "服务端止盈");//平仓
-            //        }
-            //    }
-            //    if (po.ProfitFireCount == PositionOffset.SendRetry)
-            //    {
-            //        if (po.ProfitTakeOrder > 0)//表明发送过委托 但是由于某些原因没有被成交,则取消该委托后重新发送委托
-            //        {
-            //            CancelOrder(po.ProfitTakeOrder);
-            //        }
-            //        //达到最大触发次数 记录错误并报警
-            //        debug(po.ToString() + "多次触发 异常", QSEnumDebugLevel.ERROR);
-            //        po.Reset();
-            //    }
-
-            //}
-            ////如果标记需要执行止损操作 并且仍然有持仓 则检查是否需要重新发送委托
-            //if (po.NeedTakeLoss)
-            //{
-            //    if (DateTime.Now.Subtract(po.LossTakeTime).TotalSeconds > PositionOffset.SendOrderDelay && po.LossFireCount < PositionOffset.SendRetry)
-            //    {
-            //        if (po.LossTakeOrder > 0)
-            //        {
-            //            CancelOrder(po.LossTakeOrder);
-            //            if (WaitAfterCancel) return;
-            //        }
-            //        else
-            //        {
-            //            po.LossFireCount++;
-            //            po.LossTakeTime = DateTime.Now;
-            //            po.LossTakeOrder = FlatPosition(po.Position, "服务端止损");
-            //        }
-            //    }
-            //    if (po.LossFireCount == PositionOffset.SendRetry)
-            //    {
-            //        //达到最大触发次数 记录错误并报警
-            //        if (po.LossTakeOrder > 0)
-            //        {
-            //            CancelOrder(po.LossTakeOrder);
-            //        }
-            //        debug(po.ToString() + "多次触发 异常", QSEnumDebugLevel.ERROR);
-            //        po.Reset();
-            //    }
-            //}
-
-
         }
 
 
@@ -385,6 +326,7 @@ namespace TradingLib.TraderCore
                 if (volyd != 0)
                 {
                     Order oyd = new OrderImpl(pos.Symbol, volyd * (side ? 1 : -1) * -1);
+                    oyd.Exchange = pos.oSymbol.Exchange;
                     oyd.OffsetFlag = QSEnumOffsetFlag.CLOSE;
 
                     CoreService.TLClient.ReqOrderInsert(oyd);
@@ -392,6 +334,7 @@ namespace TradingLib.TraderCore
                 if (voltd != 0)
                 {
                     Order otd = new OrderImpl(pos.Symbol, voltd * (side ? 1 : -1) * -1);
+                    otd.Exchange = pos.oSymbol.Exchange;
                     otd.OffsetFlag = QSEnumOffsetFlag.CLOSETODAY;
 
                     CoreService.TLClient.ReqOrderInsert(otd);
@@ -400,10 +343,10 @@ namespace TradingLib.TraderCore
             else
             {
                 Order o = new MarketOrderFlat(pos);
+                o.Exchange = pos.oSymbol.Exchange;
                 size = Math.Abs(size);
                 if (size > 0 && size<o.UnsignedSize)//如果size有设定(不为0且小于持仓数量);
                 {
-
                     o.Size = size * (o.Side ? 1 : -1);
                 }
                 CoreService.TLClient.ReqOrderInsert(o);

@@ -181,6 +181,7 @@
             this.checkBox2.TabIndex = 23;
             this.checkBox2.Text = "套利移仓";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
             // 
             // inputSize
             // 

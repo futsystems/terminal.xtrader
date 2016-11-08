@@ -217,10 +217,46 @@ namespace TradingLib.XTrader.Future
                 positionGrid.SetSelectedBackground(true);
             }
 
-            Position pos = CurrentPositoin;
-            if (pos != null)
+            Position current_pos = CurrentPositoin;
+            if (current_pos != null)
             {
-                CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+                int rownum = positionGrid.CurrentRow.Index + 1;
+                if (positionGrid.CurrentCell.ColumnIndex == 13)
+                {
+                    PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                    if (args == null) return;
+
+                    frmPositionOffset fm = new frmPositionOffset();
+                    fm.Height = 180;
+                    fm.TopMost = true;
+                    fm.ParseOffset(current_pos, args.LossArg);
+                    Point p = this.PointToScreen(positionGrid.Location);
+                    p.X = p.X + 300;
+                    p.Y = p.Y - 200;
+                    fm.Location = p;
+                    fm.Show();
+                    return;
+                }
+                else if (positionGrid.CurrentCell.ColumnIndex == 14)
+                {
+                    PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                    if (args == null) return;
+
+                    frmPositionOffset fm = new frmPositionOffset();
+                    fm.Height = 180;
+                    fm.TopMost = true;
+                    fm.ParseOffset(current_pos, args.ProfitArg);
+                    Point p = this.PointToScreen(positionGrid.Location);
+                    p.X = p.X + 300;
+                    p.Y = p.Y - 200;
+                    fm.Location = p;
+                    fm.Show();
+                    return;
+                }
+                else
+                {
+                    CoreService.EventUI.FireSymbolSelectedEvent(this, current_pos.oSymbol);
+                }
             }
         }
 
@@ -656,6 +692,13 @@ namespace TradingLib.XTrader.Future
                                 tb.Rows[i][UNREALIZEDPL] = (unrealizedpl * pos.oSymbol.Multiple).ToFormatStr() +" "+pos.oSymbol.SecurityFamily.Currency.ToString();
                                 tb.Rows[i][UNREALIZEDPOINT] = unrealizedpl;
                                 tb.Rows[i][UNREALIZEDPLACCTCURRENCY] = (pos.UnRealizedPL * pos.oSymbol.Multiple*CoreService.TradingInfoTracker.Account.GetExchangeRate(pos.oSymbol.SecurityFamily.Currency)).ToFormatStr();
+
+                                //更新止盈止损数值
+                                string lossstr = GetGridPositionOffsetText(pos, QSEnumPositionOffsetDirection.LOSS);
+                                string profitstr = GetGridPositionOffsetText(pos, QSEnumPositionOffsetDirection.PROFIT);
+                                tb.Rows[i][LOSSTARGET] = lossstr;
+                                tb.Rows[i][PROFITTARGET] = profitstr;
+
                             }
                         }
                     }
@@ -667,6 +710,36 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+
+        string GetGridPositionOffsetText(Position pos, QSEnumPositionOffsetDirection direction)
+        {
+            PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
+            if (args == null) return "无";
+            decimal targetprice = 0;
+            //logger.Info("it is here");
+            //return "x";
+            if (direction == QSEnumPositionOffsetDirection.LOSS)
+            {
+                targetprice = args.LossArg.TargetPrice(pos);
+            }
+            else
+            {
+                targetprice = args.ProfitArg.TargetPrice(pos);
+            }
+
+            if (targetprice == -1)
+            {
+                return "停止";
+            }
+            if (targetprice == 0)
+            {
+                return "无持仓";
+            }
+            else
+            {
+                return targetprice.ToFormatStr(pos.oSymbol.SecurityFamily.GetPriceFormat());
+            }
+        }
 
         #region 表格
         const string POSKEY = "持仓键";
@@ -701,24 +774,24 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         private void InitTable()
         {
-            tb.Columns.Add(POSKEY);
-            tb.Columns.Add(SYMBOL);
-            tb.Columns.Add(ACCOUNT);
-            tb.Columns.Add(SYMBOLKEY);
-            tb.Columns.Add(SIDE);
-            tb.Columns.Add(SIDESTR);
-            tb.Columns.Add(PROPERTY);
-            tb.Columns.Add(SIZE);
-            tb.Columns.Add(SIZECANFLAT);
-            tb.Columns.Add(AVGPRICE);
-            tb.Columns.Add(UNREALIZEDPL);
-            tb.Columns.Add(UNREALIZEDPLACCTCURRENCY);
-            tb.Columns.Add(UNREALIZEDPOINT);
+            tb.Columns.Add(POSKEY);//0
+            tb.Columns.Add(SYMBOL);//1
+            tb.Columns.Add(ACCOUNT);//2
+            tb.Columns.Add(SYMBOLKEY);//3
+            tb.Columns.Add(SIDE);//4
+            tb.Columns.Add(SIDESTR);//5
+            tb.Columns.Add(PROPERTY);//6
+            tb.Columns.Add(SIZE);//7
+            tb.Columns.Add(SIZECANFLAT);//8
+            tb.Columns.Add(AVGPRICE);//9
+            tb.Columns.Add(UNREALIZEDPL);//10
+            tb.Columns.Add(UNREALIZEDPLACCTCURRENCY);//11
+            tb.Columns.Add(UNREALIZEDPOINT);//12
 
-            tb.Columns.Add(LOSSTARGET);
-            tb.Columns.Add(PROFITTARGET);
-            tb.Columns.Add(FLAG);
-            tb.Columns.Add(NAME);
+            tb.Columns.Add(LOSSTARGET);//13
+            tb.Columns.Add(PROFITTARGET);//14
+            tb.Columns.Add(FLAG);//15
+            tb.Columns.Add(NAME);//16
 
 
         }

@@ -358,6 +358,7 @@ namespace TradingLib.XTrader.Future
                     }
                     else
                     {
+                        tb.Rows[i][ORDERID] = o.OrderSysID;
                         tb.Rows[i][FILLSIZE] = o.FilledSize;
                         tb.Rows[i][STATUS] = o.Status;
                         tb.Rows[i][STATUSSTR] = Util.GetEnumDescription(o.Status);

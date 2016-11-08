@@ -15,7 +15,7 @@ using TradingLib.TraderCore;
 
 namespace TradingLib.XTrader.Future
 {
-    public partial class ctrlTrade : UserControl
+    public partial class ctrlTrade : UserControl,TradingLib.API.IEventBinder
     {
         ILog logger = LogManager.GetLogger("ctrlPosition");
         FGrid tradeGrid = null;
@@ -250,10 +250,12 @@ namespace TradingLib.XTrader.Future
 
         public void OnInit()
         {
-            foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
-            {
-                this.GotFill(f);
-            }
+            //foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
+            //{
+            //    this.GotFill(f);
+            //}
+            _tradeViewType = EnumTradeViewType.Detail;
+            LoadTrade();
 
         }
 
@@ -322,6 +324,7 @@ namespace TradingLib.XTrader.Future
 
                 DataRow r = tb.Rows.Add(fill.id);
                 int i = tb.Rows.Count - 1;//得到新建的Row号
+                tb.Rows[i][DATETIME] = Util.ToTLDateTime(fill.xDate, fill.xTime);
                 tb.Rows[i][TIME] = GetDateTime(fill);
                 tb.Rows[i][SYMBOL] = fill.Symbol;
                 tb.Rows[i][SIDE] = fill.Side;
@@ -341,6 +344,7 @@ namespace TradingLib.XTrader.Future
 
         #region 表格
 
+        const string DATETIME = "DATEIME";
         const string TIME = "成交时间";
         const string SYMBOL = "合约";
         const string SIDE = "SIDE";
@@ -365,6 +369,7 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         private void InitTable()
         {
+            
             tb.Columns.Add(TIME);
             tb.Columns.Add(SYMBOL);
             tb.Columns.Add(SIDE);
@@ -376,6 +381,7 @@ namespace TradingLib.XTrader.Future
             tb.Columns.Add(ORDERSYSID);
             tb.Columns.Add(NAME);
             tb.Columns.Add(TRADERID);
+            tb.Columns.Add(DATETIME);
         }
 
         void ResetColumeSize()
@@ -408,11 +414,11 @@ namespace TradingLib.XTrader.Future
             //grid.TableElement.BeginUpdate();             
             //grid.MasterTemplate.Columns.Clear(); 
             datasource.DataSource = tb;
-            //datasource.Sort = DATETIME + " DESC";
+            datasource.Sort = DATETIME + " DESC";
             grid.DataSource = datasource;
 
             grid.Columns[SIDE].Visible = false;
-
+            grid.Columns[DATETIME].Visible = false;
 
             for (int i = 0; i < tb.Columns.Count; i++)
             {
