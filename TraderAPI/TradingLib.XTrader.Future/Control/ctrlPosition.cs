@@ -217,45 +217,48 @@ namespace TradingLib.XTrader.Future
                 positionGrid.SetSelectedBackground(true);
             }
 
-            Position current_pos = CurrentPositoin;
-            if (current_pos != null)
+            if (rowid != -1)
             {
-                int rownum = positionGrid.CurrentRow.Index + 1;
-                if (positionGrid.CurrentCell.ColumnIndex == 13)
+                Position current_pos = CurrentPositoin;
+                if (current_pos != null)
                 {
-                    PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
-                    if (args == null) return;
+                    int rownum = positionGrid.CurrentRow.Index + 1;
+                    if (positionGrid.CurrentCell.ColumnIndex == 13)
+                    {
+                        PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                        if (args == null) return;
 
-                    frmPositionOffset fm = new frmPositionOffset();
-                    fm.Height = 180;
-                    fm.TopMost = true;
-                    fm.ParseOffset(current_pos, args.LossArg);
-                    Point p = this.PointToScreen(positionGrid.Location);
-                    p.X = p.X + 300;
-                    p.Y = p.Y - 200;
-                    fm.Location = p;
-                    fm.Show();
-                    return;
-                }
-                else if (positionGrid.CurrentCell.ColumnIndex == 14)
-                {
-                    PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
-                    if (args == null) return;
+                        frmPositionOffset fm = new frmPositionOffset();
+                        fm.Height = 180;
+                        fm.TopMost = true;
+                        fm.ParseOffset(current_pos, args.LossArg);
+                        Point p = this.PointToScreen(positionGrid.Location);
+                        p.X = p.X + 300;
+                        p.Y = p.Y - 200;
+                        fm.Location = p;
+                        fm.Show();
+                        return;
+                    }
+                    else if (positionGrid.CurrentCell.ColumnIndex == 14)
+                    {
+                        PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                        if (args == null) return;
 
-                    frmPositionOffset fm = new frmPositionOffset();
-                    fm.Height = 180;
-                    fm.TopMost = true;
-                    fm.ParseOffset(current_pos, args.ProfitArg);
-                    Point p = this.PointToScreen(positionGrid.Location);
-                    p.X = p.X + 300;
-                    p.Y = p.Y - 200;
-                    fm.Location = p;
-                    fm.Show();
-                    return;
-                }
-                else
-                {
-                    CoreService.EventUI.FireSymbolSelectedEvent(this, current_pos.oSymbol);
+                        frmPositionOffset fm = new frmPositionOffset();
+                        fm.Height = 180;
+                        fm.TopMost = true;
+                        fm.ParseOffset(current_pos, args.ProfitArg);
+                        Point p = this.PointToScreen(positionGrid.Location);
+                        p.X = p.X + 300;
+                        p.Y = p.Y - 200;
+                        fm.Location = p;
+                        fm.Show();
+                        return;
+                    }
+                    else
+                    {
+                        CoreService.EventUI.FireSymbolSelectedEvent(this, current_pos.oSymbol);
+                    }
                 }
             }
         }

@@ -52,7 +52,7 @@
             // 
             // radPanel1
             // 
-            this.radPanel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.radPanel1.BackColor = System.Drawing.Color.White;
             this.radPanel1.Controls.Add(this.directionLabel);
             this.radPanel1.Controls.Add(this.btnUpdateOffset);
             this.radPanel1.Controls.Add(this.btnSwitchOffset);
@@ -71,7 +71,7 @@
             this.radPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radPanel1.Location = new System.Drawing.Point(0, 0);
             this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(212, 159);
+            this.radPanel1.Size = new System.Drawing.Size(208, 155);
             this.radPanel1.TabIndex = 0;
             // 
             // directionLabel
@@ -81,6 +81,7 @@
             this.directionLabel.Size = new System.Drawing.Size(78, 18);
             this.directionLabel.TabIndex = 22;
             this.directionLabel.Text = "--";
+            this.directionLabel.Visible = false;
             // 
             // btnUpdateOffset
             // 
@@ -209,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(212, 159);
+            this.ClientSize = new System.Drawing.Size(208, 155);
             this.ControlBox = false;
             this.Controls.Add(this.radPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
