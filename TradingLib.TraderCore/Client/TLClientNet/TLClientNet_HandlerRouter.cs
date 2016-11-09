@@ -94,12 +94,15 @@ namespace TradingLib.TraderCore
                     CliOnChangePass(packet as RspReqChangePasswordResponse);
                     break;
 
-                case MessageTypes.XQRYSETTLEINFO://结算单回报
+                case MessageTypes.XSETTLEINFORESPONSE://结算单回报
                     CliOnXQrySettlement(packet as RspXQrySettleInfoResponse);
                     break;
 
                 case MessageTypes.XQRYEXCHANGERATERESPONSE://查询汇率信息回报
                     CliOnXQryExchangeRate(packet as RspXQryExchangeRateResponse);
+                    break;
+                case MessageTypes.XPOSITIONDETAILRESPONSE://查询持仓明细回报
+                    CliOnXQryPositionDetails(packet as RspXQryPositionDetailResponse);
                     break;
 
                 #endregion

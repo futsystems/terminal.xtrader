@@ -43,6 +43,16 @@ namespace TradingLib.TraderCore
             
         }
 
+        /// <summary>
+        /// 查询持仓明细回报
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnXQryPositionDetails(RspXQryPositionDetailResponse response)
+        {
+            logger.Debug("Got XQry PositionDetail Response:" + response.ToString());
+            CoreService.EventQry.FireRspXQryPositionDetailResponse(response);
+        }
+
         void CliOnXSymbol(RspXQrySymbolResponse response)
         {
             logger.Debug("Got Symbol Response:" + response.ToString());

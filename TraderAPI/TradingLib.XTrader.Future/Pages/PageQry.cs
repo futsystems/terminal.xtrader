@@ -31,12 +31,18 @@ namespace TradingLib.XTrader.Future
             tabControl1.Selected += new TabControlEventHandler(tabControl1_Selected);
             btnQryAccountFinace.Click += new EventHandler(btnQryAccountFinace_Click);
             btnQrySettlement.Click += new EventHandler(btnQrySettlement_Click);
+            btnQryPositionDetail.Click += new EventHandler(btnQryPositionDetail_Click);
 
             CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
             CoreService.EventQry.OnRspXQrySettlementResponse += new Action<RspXQrySettleInfoResponse>(EventQry_OnRspXQrySettlementResponse);
+            CoreService.EventQry.OnRspXQryPositionDetailResponse += new Action<RspXQryPositionDetailResponse>(EventQry_OnRspXQryPositionDetailResponse);
 
             this.Load += new EventHandler(PageQry_Load);
         }
+
+        
+
+       
 
         void PageQry_Load(object sender, EventArgs e)
         {
@@ -129,7 +135,147 @@ namespace TradingLib.XTrader.Future
         #endregion
 
 
+        #region 持仓明细
 
 
+        List<PositionDetail> positiondetaillist = new List<PositionDetail>();
+        void EventQry_OnRspXQryPositionDetailResponse(RspXQryPositionDetailResponse obj)
+        {
+            if (obj.RequestID != qryID_PositionDetail) return;
+
+            if (obj.PositionDetail != null)
+                positiondetaillist.Add(obj.PositionDetail);
+
+
+            if (obj.IsLast)
+            {
+
+                if (positiondetaillist.Count() > 0)
+                {
+                    List<string> settlelist = new List<string>();
+                    int ln = 142;
+                    string sline = Line(ln);
+
+                    int i = 0;
+                    int size = 0;
+                    decimal unpl = 0;
+                    decimal unplbydate = 0;
+                    decimal hmargin = 0;
+
+                    settlelist.Add(SectionName("持仓明细"));
+                    settlelist.Add(sline);
+                    settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|",
+                        "交易所".PadCenterEx(len_EXCH),
+                        "品种".PadCenterEx(len_SECURITY),
+                        "合约".PadCenterEx( len_SYMBOL),
+                        "开仓日期".PadCenterEx( len_DATE),
+                        "投/保".PadCenterEx( len_TBMM),
+                        "买/卖".PadCenterEx(len_TBMM),
+                        "持仓量".PadCenterEx( len_SIZE),
+                        "开仓价".PadCenterEx( len_PRICE),
+                        "昨结算".PadCenterEx( len_PRICE),
+                        "今结算".PadCenterEx( len_PRICE),
+                        "浮动盈亏".PadCenterEx( len_PROFIT),
+                        "盯市盈亏".PadCenterEx( len_PROFIT),
+                        "保证金".PadCenterEx(len_MARGIN)
+                        ));
+                    settlelist.Add(sline);
+                    foreach (PositionDetail pd in positiondetaillist)
+                    {
+                        SecurityFamily sym = CoreService.BasicInfoTracker.GetSecurity(pd.SecCode);
+                        if (pd.Volume == 0) continue;
+                        i++;
+                        size += pd.Volume;
+                        unpl += 0;
+                        unplbydate += pd.PositionProfitByDate;
+                        hmargin += pd.Margin;
+
+                        settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|",
+                            pd.Exchange.PadCenterEx( len_EXCH),
+                            sym.GetSecurityName().PadCenterEx(len_SECURITY),
+                            pd.Symbol.PadCenterEx( len_SYMBOL),
+                            pd.OpenDate.ToString().PadCenterEx( len_DATE),
+                            "投".PadCenterEx(len_TBMM),
+                            (pd.Side ? "买" : " 卖").PadLeftEx(len_TBMM),
+                            pd.Volume.ToString().PadRightEx(len_SIZE),
+                            pd.OpenPrice.ToFormatStr().PadCenterEx( len_PRICE),
+                            pd.LastSettlementPrice.ToFormatStr().PadCenterEx( len_PRICE),
+                            pd.SettlementPrice.ToFormatStr().PadCenterEx( len_PRICE),
+                            "0".PadRightEx( len_PROFIT),
+                            pd.PositionProfitByDate.ToFormatStr().PadRightEx( len_PROFIT),
+                            pd.Margin.ToFormatStr().PadRightEx( len_MARGIN),
+                            pd.Margin.ToFormatStr().PadRightEx( len_MARGIN)
+                            ));
+                    }
+                    settlelist.Add(sline);
+                    //settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|",
+                    //    padLeftEx("共" + i.ToString() + "条", len_EXCH),
+                    //    padCenterEx("", len_SECURITY),
+                    //    padCenterEx("", len_SYMBOL),
+                    //    padCenterEx("", len_DATE),
+                    //    padCenterEx("", len_TBMM),
+                    //    padCenterEx("", len_TBMM),
+                    //    padRightEx(size.ToString(), len_SIZE),
+                    //    padCenterEx("", len_PRICE),
+                    //    padCenterEx("", len_PRICE),
+                    //    padCenterEx("", len_PRICE),
+                    //    padCenterEx("", len_PROFIT),
+                    //    padCenterEx("", len_PROFIT),
+                    //    padCenterEx("", len_MARGIN)
+
+                    //    //padRightEx(unpl.ToFormatStr(), len_PROFIT),
+                    //    //padRightEx(unplbydate.ToFormatStr(), len_PROFIT),
+                    //    //padRightEx(hmargin.ToFormatStr(), len_MARGIN)
+                    //    ));
+                    //settlelist.Add(sline);
+                    //settlelist.Add(NewLine);
+                    //settlelist.Add(NewLine);
+                    rtPositionDetails.Text = string.Join("\r\n",settlelist.ToArray());
+                }
+
+
+
+                
+               
+                positiondetaillist.Clear();
+            }
+        }
+
+
+        int qryID_PositionDetail = 0;
+        void btnQryPositionDetail_Click(object sender, EventArgs e)
+        {
+            qryID_PositionDetail = CoreService.TLClient.ReqXQryPositionDetail();
+        }
+        #endregion
+
+        const int len_EXCH = 10;
+        const int len_SECURITY = 12;
+        const int len_SYMBOL = 10;
+        const int len_DATE = 8;
+        const int len_TBMM = 5;
+        const int len_SIZE = 6;
+        const int len_PRICE = 12;
+        const int len_MARGIN = 12;
+        const int len_PROFIT = 12;
+        const int len_TURNOVER = 13;
+        const int len_COMMISSION = 12;
+        const int len_SEQID = 8;
+
+        static int section_location = 50;
+        static string SectionName(string name)
+        {
+            return string.Format("{0," + section_location.ToString() + "}", name);
+        }
+
+        public static string Line(int num)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < num; i++)
+            {
+                sb.Append("-");
+            }
+            return sb.ToString();
+        }
     }
 }

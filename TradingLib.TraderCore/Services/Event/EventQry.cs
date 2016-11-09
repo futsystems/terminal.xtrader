@@ -107,6 +107,15 @@ namespace TradingLib.TraderCore
         }
 
 
+        /// <summary>
+        /// 查询持仓明细
+        /// </summary>
+        public event Action<RspXQryPositionDetailResponse> OnRspXQryPositionDetailResponse;
+        internal void FireRspXQryPositionDetailResponse(RspXQryPositionDetailResponse response)
+        {
+            if (OnRspXQryPositionDetailResponse != null)
+                OnRspXQryPositionDetailResponse(response);
+        }
         //public event Action<RspXQryExchangeRateResponse> OnRspXQryExchangeRateResponse;
         //internal void FireRspXQryExchangeRateResponse(RspXQryExchangeRateResponse response)
         //{

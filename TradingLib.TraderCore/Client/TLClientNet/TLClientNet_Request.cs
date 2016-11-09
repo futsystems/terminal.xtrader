@@ -319,6 +319,20 @@ namespace TradingLib.TraderCore
             SendPacket(request);
             return requestid;
         }
+
+
+        /// <summary>
+        /// 查询持仓明细
+        /// </summary>
+        /// <returns></returns>
+        public int ReqXQryPositionDetail()
+        {
+            logger.Info("Qry PositionDetail");
+            XQryPositionDetailRequest request = RequestTemplate<XQryPositionDetailRequest>.CliSendRequest(++requestid);
+
+            SendPacket(request);
+            return requestid;
+        }
         #endregion
 
 
