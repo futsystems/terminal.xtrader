@@ -177,15 +177,21 @@ namespace TradingLib.XTrader.Future
             if (arg2.isLong)
             {
                 btnBuy.Enabled = false;
-                inputFlagClose.Checked = true;
-                _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                if (!_autoflag)
+                {
+                    inputFlagClose.Checked = true;
+                    _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                }
                 inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
             }
             else
             {
                 btnSell.Enabled = false;
-                inputFlagClose.Checked = true;
-                _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                if (!_autoflag)
+                {
+                    inputFlagClose.Checked = true;
+                    _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                }
                 inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
             }
         }
@@ -281,6 +287,7 @@ namespace TradingLib.XTrader.Future
             ResetInputPrice();
             ResetPriceButton();
 
+            inputFlagOpen.Checked = true;
             _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
         }
 
@@ -379,8 +386,11 @@ namespace TradingLib.XTrader.Future
             btnBuy.Enabled = true;
             btnSell.Enabled = true;
             inputSize.SetValue("1");
-            _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
-            inputFlagOpen.Checked = true;
+            if (!_autoflag)
+            {
+                _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+                inputFlagOpen.Checked = true;
+            }
 
             inputPrice.SetTxtVal("对手价");
 
@@ -623,10 +633,12 @@ namespace TradingLib.XTrader.Future
 
 
         #region OrderOffsetFlag
+        bool _autoflag = false;
         void inputFlagAuto_CheckedChanged(object sender, EventArgs e)
         {
             if (inputFlagAuto.Checked)
             {
+                _autoflag = true;
                 _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;//服务端自动判定
                 inputFlagClose.Enabled = false;
                 inputFlagOpen.Enabled = false;
@@ -638,6 +650,7 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
+                _autoflag = false;
                 _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
                 inputFlagClose.Enabled = true;
                 inputFlagOpen.Enabled = true;
@@ -649,16 +662,19 @@ namespace TradingLib.XTrader.Future
         }
         void inputFlagOpen_Click(object sender, EventArgs e)
         {
+            _autoflag = false;
             _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
         }
 
         void inputFlagCloseToday_Click(object sender, EventArgs e)
         {
+            _autoflag = false;
             _currentOffsetFlag = QSEnumOffsetFlag.CLOSETODAY;
         }
 
         void inputFlagClose_Click(object sender, EventArgs e)
         {
+            _autoflag = false;
             _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
         }
         #endregion
