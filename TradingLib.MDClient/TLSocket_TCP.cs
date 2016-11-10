@@ -181,7 +181,7 @@ namespace TradingLib.DataCore
                         {
                             gotlen += msg.ByteLength;
                             j++;
-                            if (msg.Type == MessageTypes.BIN_BARRESPONSE)
+                            if (msg.Type == MessageTypes.TICKNOTIFY)
                             {
                                 int x = 0;
                             }

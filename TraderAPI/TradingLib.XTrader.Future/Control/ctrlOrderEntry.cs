@@ -177,15 +177,15 @@ namespace TradingLib.XTrader.Future
             if (arg2.isLong)
             {
                 btnBuy.Enabled = false;
-                inputFlagClose.Checked = true;
-                _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                inputFlagAuto.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;
                 inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
             }
             else
             {
                 btnSell.Enabled = false;
-                inputFlagClose.Checked = true;
-                _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                inputFlagAuto.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;
                 inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
             }
         }
