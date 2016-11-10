@@ -56,7 +56,7 @@ namespace TradingLib.XTrader.Future
 
         public MainContainer()
         {
-            apisetting.TradingBoxMinHeight = 358;
+            apisetting.TradingBoxMinHeight = 300;
 
 
             InitializeComponent();
