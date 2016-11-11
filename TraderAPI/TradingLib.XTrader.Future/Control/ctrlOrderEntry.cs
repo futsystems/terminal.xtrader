@@ -164,7 +164,8 @@ namespace TradingLib.XTrader.Future
 
 
 
-
+        bool _positionSelected = false;
+        Position _position = null;
         /// <summary>
         /// 持仓选择事件
         /// </summary>
@@ -194,6 +195,8 @@ namespace TradingLib.XTrader.Future
                 }
                 inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
             }
+            _positionSelected = true;
+            _position = arg2;
         }
 
 
@@ -242,8 +245,19 @@ namespace TradingLib.XTrader.Future
         /// <param name="obj"></param>
         void EventIndicator_GotFillEvent(Trade obj)
         {
-            QryMaxOrderVol();
-            QryAccountFinance();
+            if (_positionSelected && _position!= null)
+            {
+                if (obj.Symbol == _position.Symbol)
+                {
+                    ResetInput(false);
+                }
+            }
+            else
+            {
+                QryMaxOrderVol();
+                QryAccountFinance();
+            }
+            
         }
 
         
@@ -380,9 +394,10 @@ namespace TradingLib.XTrader.Future
             btnSell.PriceStr = string.Empty;
         }
 
-        void ResetInput()
+        void ResetInput(bool resetprice = true)
         {
             logger.Info("重置输入按钮");
+            _positionSelected = false;
             btnBuy.Enabled = true;
             btnSell.Enabled = true;
             inputSize.SetValue("1");
@@ -391,8 +406,10 @@ namespace TradingLib.XTrader.Future
                 _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
                 inputFlagOpen.Checked = true;
             }
-
-            inputPrice.SetTxtVal("对手价");
+            if (resetprice)
+            {
+                inputPrice.SetTxtVal("对手价");
+            }
 
             inputArbFlag.SelectedIndex = 0;
 
