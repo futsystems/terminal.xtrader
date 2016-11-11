@@ -2078,23 +2078,67 @@ namespace CStock
 
                         if ((showfs))
                         {
-                            int fw11 = Convert.ToInt32(TextWidth(canvas, font, "88:88") / 2) + 3;
-                            i = (int)((curx - leftYAxisWidth) / FScale);
-                            if ((both >= fh1) && (i < linecount))
+                            //int fw11 = Convert.ToInt32(TextWidth(canvas, font, "88:88") / 2) + 3;
+                            //i = (int)((curx - leftYAxisWidth) / FScale);
+                            //if ((both >= fh1) && (i < linecount))
+                            //{
+                            //    FBrush.Color = Color.Blue;
+                            //    pen.Color = Color.Red;
+                            //    dx = Math.Max(curx, leftYAxisWidth + fw11);
+                            //    canvas.FillRectangle(FBrush, dx - fw11, rectHeight - both, fw11 + fw11, both - 2);
+                            //    canvas.DrawRectangle(pen, dx - fw11, rectHeight - both, fw11 + fw11, both - 2);
+                            //    b = i > 120 ? 1 : 0;
+                            //    h = 9 + b * 4 + Convert.ToInt32((i + 30 - 150 * b) / 60);
+                            //    m = (i + 30 - 150 * b) % 60;
+                            //    s1 = string.Format("{0:d}:{1:d}", h, m);
+                            //    dx = Math.Max(curx - fw11 + 3, leftYAxisWidth + 1);
+                            //    FBrush.Color = Color.White;
+                            //    canvas.DrawString(s1, font, FBrush, dx, rectHeight - both + 2);
+                            //}
+
+                            h = StartIndex + (int)((curx - leftYAxisWidth) / FScale);
+                            s1 = "";
+                            s2 = "";
+                            if ((h < recordCount))
                             {
-                                FBrush.Color = Color.Blue;
-                                pen.Color = Color.Red;
-                                dx = Math.Max(curx, leftYAxisWidth + fw11);
-                                canvas.FillRectangle(FBrush, dx - fw11, rectHeight - both, fw11 + fw11, both - 2);
-                                canvas.DrawRectangle(pen, dx - fw11, rectHeight - both, fw11 + fw11, both - 2);
-                                b = i > 120 ? 1 : 0;
-                                h = 9 + b * 4 + Convert.ToInt32((i + 30 - 150 * b) / 60);
-                                m = (i + 30 - 150 * b) % 60;
-                                s1 = string.Format("{0:d}:{1:d}", h, m);
-                                dx = Math.Max(curx - fw11 + 3, leftYAxisWidth + 1);
-                                FBrush.Color = Color.White;
-                                canvas.DrawString(s1, font, FBrush, dx, rectHeight - both + 2);
+                                b11 = check("date");
+                                //if ((b11 != null))
+                                //{
+                                //    s1 = string.Format("{0:d}", (int)(b11.value[h]));
+                                //}
+                                b12 = check("time");
+                                //if ((b12 != null))
+                                //{
+                                //    h = (int)b12.value[h];
+                                //    h = h / 100;
+                                //    m = h % 100;
+                                //    h = h / 100;
+                                //    s2 = string.Format("{0:d2}:{1:d2}", h, m);
+                                //}
+                                if (b11 != null && b12 != null)
+                                {
+                                    DateTime dt = Utils.ToDateTime((int)(b11.value[h]), (int)b12.value[h]);
+                                    s1 = dt.ToString("MM-dd HH:mm");
+                                }
+                                //if ((s2 != ""))
+                                //    s1 = s1 + " " + s2;
                             }
+                            if (s1.Length > 0)
+                            {
+                                int fw11 = TextWidth(canvas, font, s1) / 2 + 2;
+                                cx = curx;
+                                if ((curx + fw11 + 3 > rectWidth))
+                                    cx = rectWidth - fw11 - 2;
+                                if ((both >= fh1) && (h < EndIndex))
+                                {
+                                    FBrush.Color = Color.FromArgb(0, 0, 127);// .Blue;
+                                    pen.Color = Color.Red;
+                                    canvas.FillRectangle(FBrush, cx, rectHeight - both, fw11 + fw11, both - 2);
+                                    FBrush.Color = Color.FromArgb(191, 191, 191);// .White;
+                                    canvas.DrawString(s1, font, FBrush, cx + 3, rectHeight - both + 2);
+                                }
+                            }
+
                         }
                         else
                         {
