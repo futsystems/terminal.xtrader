@@ -227,7 +227,7 @@ namespace CStock
             #region IntraView 框架
             if (showfs == true)
             {
-                FBrush.Color = LineColor;
+                FBrush.Color = Color.White;
                 pen.Color = LineColor;
                 if (showtop)
                 {
@@ -284,12 +284,13 @@ namespace CStock
 
                         while (sessionMin < session.TotalMinutes)
                         {
-                            //进入session后 直接进行偏移绘制区间中的竖线 区间第一条线由上个区间的最后一条来替代 区间首位相连
+                            //进入session后 直接进行偏移绘制区间中的竖线 区间第一条线由上个区间的最后一条来替代 区间首尾相连
                             sessionMin += spaceMinute;
                             cursorMin = finishMin + sessionMin;//完成Session的分钟数累加 + 当前Session的分钟数
                             //比如11：45收盘 30分区间 则最后一条线会直接绘制成12点,这个不是我们希望的 因此跳过
                             if (sessionMin > session.TotalMinutes)
                                 continue;
+                            
 
                             Session.ParseHMS(Session.FTADD(session.Start, sessionMin * 60), out hh, out mm, out ss);
                             if (mm == 30)
@@ -300,9 +301,12 @@ namespace CStock
                             pen.DashStyle = DashStyle.Solid;
                             
                             s1 = String.Format("{0:d2}", hh) + ":" + String.Format("{0:d2}", mm);
-                            
-                            canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(cursorMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
-                            
+
+                            //如果剩余分钟不足一个SpaceMinute则不绘制时间文字 由下一个区段周期结束绘制
+                            if ((session.TotalMinutes - sessionMin) >= spaceMinute)
+                            {
+                                canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(cursorMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
+                            }
                         }
 
                         finishMin += session.TotalMinutes;
@@ -315,11 +319,6 @@ namespace CStock
                             canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(finishMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
 
                         }
-                        //if (j == _sessionList.Count - 1)
-                        //{ 
-                        //    //绘制Session结束
-                        //}
-
                         sessionMin = 0;
                     }
                 }
