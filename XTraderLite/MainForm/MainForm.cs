@@ -171,6 +171,8 @@ namespace XTraderLite
 
 
                 btnBarView.Image = Properties.Resources.xqj_bar;
+                btnIntraView.Image = Properties.Resources.xqj_timeview;
+
                 btnQuoteView.Image = Properties.Resources.xqj_quote;
                 btnFreqDay.Image = Properties.Resources.xgj_freq_day;
                 btnFreqWeek.Image = Properties.Resources.xgj_freq_week;
@@ -178,6 +180,7 @@ namespace XTraderLite
                 btnFreqQuarter.Image = Properties.Resources.xgj_freq_quarter;
                 btnFreqYear.Image = Properties.Resources.xgj_freq_x;
                 btnRefresh.Image = Properties.Resources.xqj_refresh;
+                btnDrawBox.Image = Properties.Resources.xqj_draw;
 
 
                 btnFreqM1.Image = Properties.Resources.xgj_freq_1min;
@@ -186,6 +189,13 @@ namespace XTraderLite
                 btnFreqM15.Image = Properties.Resources.xqj_freq_15min;
                 btnFreqM30.Image = Properties.Resources.xqj_freq_30min;
                 btnFreqM60.Image = Properties.Resources.xqj_freq_60min;
+
+                this.Icon = Properties.Resources.xgj;
+
+                //btnTickList.Visible = false;
+                //btnPriceVolList.Visible = false;
+                //btnWatchList.Visible = false;
+                //toolStripSeparator5.Visible = false;
 
 
             }

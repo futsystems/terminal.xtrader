@@ -63,6 +63,7 @@ namespace XTraderLite
             holder.Width = 730;
             panel_XGJ.Dock = DockStyle.Fill;
             panel_Classic.Visible = false;
+            this.Icon = Properties.Resources.xgj;
 
         }
 

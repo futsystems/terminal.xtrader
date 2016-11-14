@@ -481,6 +481,16 @@ namespace XTraderLite.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon xgj {
+            get {
+                object obj = ResourceManager.GetObject("xgj", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap xgj_freq_1min {
@@ -716,6 +726,16 @@ namespace XTraderLite.Properties {
         internal static System.Drawing.Bitmap xqj_refresh {
             get {
                 object obj = ResourceManager.GetObject("xqj_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap xqj_timeview {
+            get {
+                object obj = ResourceManager.GetObject("xqj_timeview", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

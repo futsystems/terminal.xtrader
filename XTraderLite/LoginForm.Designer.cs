@@ -39,25 +39,25 @@
             this.cbServer = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.password = new System.Windows.Forms.MaskedTextBox();
-            this.panel_Classic = new System.Windows.Forms.Panel();
             this.panel_XGJ = new System.Windows.Forms.Panel();
+            this.@__msg2 = new System.Windows.Forms.Label();
+            this.password2 = new System.Windows.Forms.MaskedTextBox();
+            this.username2 = new System.Windows.Forms.TextBox();
             this.panel_controlbox = new System.Windows.Forms.Panel();
             this.btnClose2 = new System.Windows.Forms.PictureBox();
             this.btnMin2 = new System.Windows.Forms.PictureBox();
             this.btnLogin2 = new System.Windows.Forms.Button();
+            this.panel_Classic = new System.Windows.Forms.Panel();
             this.topImage = new System.Windows.Forms.PictureBox();
-            this.username2 = new System.Windows.Forms.TextBox();
-            this.password2 = new System.Windows.Forms.MaskedTextBox();
-            this.@__msg2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.password = new System.Windows.Forms.MaskedTextBox();
             this.holder.SuspendLayout();
-            this.panel_Classic.SuspendLayout();
             this.panel_XGJ.SuspendLayout();
             this.panel_controlbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).BeginInit();
+            this.panel_Classic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,53 +159,6 @@
             this.holder.Size = new System.Drawing.Size(1020, 707);
             this.holder.TabIndex = 2;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(20, 333);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(143, 21);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "交易大师 荣誉出品";
-            // 
-            // label4
-            // 
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(218, 244);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(2, 110);
-            this.label4.TabIndex = 22;
-            // 
-            // password
-            // 
-            this.password.Location = new System.Drawing.Point(297, 298);
-            this.password.Name = "password";
-            this.password.PasswordChar = '*';
-            this.password.Size = new System.Drawing.Size(74, 21);
-            this.password.TabIndex = 3;
-            this.password.Text = "888888";
-            // 
-            // panel_Classic
-            // 
-            this.panel_Classic.Controls.Add(this.topImage);
-            this.panel_Classic.Controls.Add(this.label4);
-            this.panel_Classic.Controls.Add(this.label5);
-            this.panel_Classic.Controls.Add(this.password);
-            this.panel_Classic.Controls.Add(this.btnLogin);
-            this.panel_Classic.Controls.Add(this._msg);
-            this.panel_Classic.Controls.Add(this.label3);
-            this.panel_Classic.Controls.Add(this.btnCancel);
-            this.panel_Classic.Controls.Add(this.username);
-            this.panel_Classic.Controls.Add(this.label2);
-            this.panel_Classic.Controls.Add(this.label1);
-            this.panel_Classic.Controls.Add(this.cbServer);
-            this.panel_Classic.Controls.Add(this.checkBox1);
-            this.panel_Classic.Location = new System.Drawing.Point(3, 3);
-            this.panel_Classic.Name = "panel_Classic";
-            this.panel_Classic.Size = new System.Drawing.Size(574, 115);
-            this.panel_Classic.TabIndex = 24;
-            // 
             // panel_XGJ
             // 
             this.panel_XGJ.BackgroundImage = global::XTraderLite.Properties.Resources.bg;
@@ -218,6 +171,39 @@
             this.panel_XGJ.Name = "panel_XGJ";
             this.panel_XGJ.Size = new System.Drawing.Size(730, 410);
             this.panel_XGJ.TabIndex = 25;
+            // 
+            // __msg2
+            // 
+            this.@__msg2.AutoSize = true;
+            this.@__msg2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
+            this.@__msg2.Location = new System.Drawing.Point(37, 371);
+            this.@__msg2.Name = "__msg2";
+            this.@__msg2.Size = new System.Drawing.Size(17, 12);
+            this.@__msg2.TabIndex = 4;
+            this.@__msg2.Text = "--";
+            // 
+            // password2
+            // 
+            this.password2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
+            this.password2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.password2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.password2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(110)))), ((int)(((byte)(165)))));
+            this.password2.Location = new System.Drawing.Point(510, 157);
+            this.password2.Name = "password2";
+            this.password2.PasswordChar = '*';
+            this.password2.Size = new System.Drawing.Size(135, 16);
+            this.password2.TabIndex = 3;
+            // 
+            // username2
+            // 
+            this.username2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
+            this.username2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.username2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.username2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(110)))), ((int)(((byte)(165)))));
+            this.username2.Location = new System.Drawing.Point(510, 117);
+            this.username2.Name = "username2";
+            this.username2.Size = new System.Drawing.Size(135, 16);
+            this.username2.TabIndex = 2;
             // 
             // panel_controlbox
             // 
@@ -255,6 +241,26 @@
             this.btnLogin2.TabIndex = 0;
             this.btnLogin2.UseVisualStyleBackColor = true;
             // 
+            // panel_Classic
+            // 
+            this.panel_Classic.Controls.Add(this.topImage);
+            this.panel_Classic.Controls.Add(this.label4);
+            this.panel_Classic.Controls.Add(this.label5);
+            this.panel_Classic.Controls.Add(this.password);
+            this.panel_Classic.Controls.Add(this.btnLogin);
+            this.panel_Classic.Controls.Add(this._msg);
+            this.panel_Classic.Controls.Add(this.label3);
+            this.panel_Classic.Controls.Add(this.btnCancel);
+            this.panel_Classic.Controls.Add(this.username);
+            this.panel_Classic.Controls.Add(this.label2);
+            this.panel_Classic.Controls.Add(this.label1);
+            this.panel_Classic.Controls.Add(this.cbServer);
+            this.panel_Classic.Controls.Add(this.checkBox1);
+            this.panel_Classic.Location = new System.Drawing.Point(3, 3);
+            this.panel_Classic.Name = "panel_Classic";
+            this.panel_Classic.Size = new System.Drawing.Size(574, 115);
+            this.panel_Classic.TabIndex = 24;
+            // 
             // topImage
             // 
             this.topImage.Dock = System.Windows.Forms.DockStyle.Top;
@@ -266,38 +272,32 @@
             this.topImage.TabIndex = 0;
             this.topImage.TabStop = false;
             // 
-            // username2
+            // label4
             // 
-            this.username2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
-            this.username2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.username2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.username2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(110)))), ((int)(((byte)(165)))));
-            this.username2.Location = new System.Drawing.Point(510, 117);
-            this.username2.Name = "username2";
-            this.username2.Size = new System.Drawing.Size(135, 16);
-            this.username2.TabIndex = 2;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(218, 244);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(2, 110);
+            this.label4.TabIndex = 22;
             // 
-            // password2
+            // label5
             // 
-            this.password2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
-            this.password2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.password2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.password2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(110)))), ((int)(((byte)(165)))));
-            this.password2.Location = new System.Drawing.Point(510, 157);
-            this.password2.Name = "password2";
-            this.password2.PasswordChar = '*';
-            this.password2.Size = new System.Drawing.Size(135, 16);
-            this.password2.TabIndex = 3;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(20, 333);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(143, 21);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "交易大师 荣誉出品";
             // 
-            // __msg2
+            // password
             // 
-            this.@__msg2.AutoSize = true;
-            this.@__msg2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
-            this.@__msg2.Location = new System.Drawing.Point(37, 371);
-            this.@__msg2.Name = "__msg2";
-            this.@__msg2.Size = new System.Drawing.Size(17, 12);
-            this.@__msg2.TabIndex = 4;
-            this.@__msg2.Text = "--";
+            this.password.Location = new System.Drawing.Point(297, 298);
+            this.password.Name = "password";
+            this.password.PasswordChar = '*';
+            this.password.Size = new System.Drawing.Size(74, 21);
+            this.password.TabIndex = 3;
+            this.password.Text = "888888";
             // 
             // LoginForm
             // 
@@ -311,13 +311,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登入交易大师";
             this.holder.ResumeLayout(false);
-            this.panel_Classic.ResumeLayout(false);
-            this.panel_Classic.PerformLayout();
             this.panel_XGJ.ResumeLayout(false);
             this.panel_XGJ.PerformLayout();
             this.panel_controlbox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).EndInit();
+            this.panel_Classic.ResumeLayout(false);
+            this.panel_Classic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
             this.ResumeLayout(false);
 
