@@ -191,7 +191,6 @@ namespace XTraderLite
                 btnFreqM60.Image = Properties.Resources.xqj_freq_60min;
 
                 this.Icon = Properties.Resources.xgj;
-
                 //btnTickList.Visible = false;
                 //btnPriceVolList.Visible = false;
                 //btnWatchList.Visible = false;
@@ -424,8 +423,18 @@ namespace XTraderLite
 
         void btnClose_Click(object sender, EventArgs e)
         {
-            Application.ExitThread();
-            Environment.Exit(0);
+            if(MessageBox.Show("退出金融投资分析系统?","确认",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+            {
+                try
+                {
+                    Application.ExitThread();
+                    Environment.Exit(0);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                }
+            }
         }
         #endregion
 
