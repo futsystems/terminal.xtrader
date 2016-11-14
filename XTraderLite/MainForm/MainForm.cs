@@ -158,6 +158,37 @@ namespace XTraderLite
             //this.Update();
             //typeof(Panel).InvokeMember("DoubleBuffered",BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,null, panelBroker, new object[] { true });
 
+            if (Global.IsXGJStyle)
+            {
+                panelMenu.Location = new Point(panelMenu.Location.X - pictureBox1.Width, panelMenu.Location.Y);
+                pictureBox1.Visible = false;
+
+
+                btnBack.Image = Properties.Resources.xqj_back;
+                btnHome.Image = Properties.Resources.xqj_home;
+
+                btnF10.Image = Properties.Resources.xqj_f10;
+
+
+                btnBarView.Image = Properties.Resources.xqj_bar;
+                btnQuoteView.Image = Properties.Resources.xqj_quote;
+                btnFreqDay.Image = Properties.Resources.xgj_freq_day;
+                btnFreqWeek.Image = Properties.Resources.xgj_freq_week;
+                btnFreqMonth.Image = Properties.Resources.xgj_freq_month;
+                btnFreqQuarter.Image = Properties.Resources.xgj_freq_quarter;
+                btnFreqYear.Image = Properties.Resources.xgj_freq_x;
+                btnRefresh.Image = Properties.Resources.xqj_refresh;
+
+
+                btnFreqM1.Image = Properties.Resources.xgj_freq_1min;
+                btnFreqM3.Image = Properties.Resources.xqj_freq_3min;
+                btnFreqM5.Image = Properties.Resources.xqj_freq_5min;
+                btnFreqM15.Image = Properties.Resources.xqj_freq_15min;
+                btnFreqM30.Image = Properties.Resources.xqj_freq_30min;
+                btnFreqM60.Image = Properties.Resources.xqj_freq_60min;
+
+
+            }
             UpdateTime();
 
 

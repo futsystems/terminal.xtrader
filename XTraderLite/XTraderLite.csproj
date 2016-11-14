@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>main.ico</ApplicationIcon>
+    <ApplicationIcon>xgj.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ant.Component">
@@ -88,6 +88,7 @@
     <Compile Include="frmShortCutKey.Designer.cs">
       <DependentUpon>frmShortCutKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Global.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,7 +183,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -279,6 +279,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
+    <None Include="Resources\style2.txt" />
+    <None Include="Resources\xgj\toobar\xgj_freq_1min.png" />
+    <None Include="Resources\xgj\toobar\xgj_freq_day.png" />
+    <None Include="Resources\xgj\toobar\xgj_freq_month.png" />
+    <None Include="Resources\xgj\toobar\xgj_freq_quarter.png" />
+    <None Include="Resources\xgj\toobar\xgj_freq_week.png" />
+    <None Include="Resources\xgj\toobar\xgj_freq_x.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_2hour.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_3min.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_4hour.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_5min.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_15min.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_30min.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_60min.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_y.png" />
+    <None Include="Resources\xgj\toobar\style.png" />
+    <None Include="Resources\xgj\toobar\xqh_tick.png" />
+    <None Include="Resources\xgj\toobar\xqj_back.png" />
+    <None Include="Resources\xgj\toobar\xqj_bar.png" />
+    <None Include="Resources\xgj\toobar\xqj_draw.png" />
+    <None Include="Resources\xgj\toobar\xqj_f10.png" />
+    <None Include="Resources\xgj\toobar\xqj_filter.png" />
+    <None Include="Resources\xgj\toobar\xqj_home.png" />
+    <None Include="Resources\xgj\toobar\xqj_info.png" />
+    <None Include="Resources\xgj\toobar\xqj_refresh.png" />
+    <None Include="Resources\xgj\toobar\xqj_warn.png" />
+    <None Include="Resources\xgj\toobar\xqj_zoomin.png" />
+    <None Include="Resources\xgj\toobar\xqj_zoomout.png" />
+    <None Include="Resources\xgj\toobar\xqj_quote.png" />
+    <Content Include="xgj.ico" />
+    <None Include="Resources\xgj\min-normal.png" />
+    <None Include="Resources\xgj\close-normal.png" />
+    <None Include="Resources\xgj\login-over.png" />
+    <None Include="Resources\xgj\login-click.png" />
+    <None Include="Resources\xgj\login-normal.png" />
+    <None Include="Resources\xgj\bg.png" />
     <None Include="Resources\Min2.png" />
     <None Include="Resources\Max2.png" />
     <None Include="Resources\Close2.png" />

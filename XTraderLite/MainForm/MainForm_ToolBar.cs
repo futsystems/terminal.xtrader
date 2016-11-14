@@ -29,7 +29,7 @@ namespace XTraderLite
             btnFreqWeek.Click += new EventHandler(btnFreq_Click);
             btnFreqMonth.Click += new EventHandler(btnFreq_Click);
             btnFreqQuarter.Click += new EventHandler(btnFreq_Click);
-            btnFreqYear.Click += new EventHandler(btnFreq_Click);
+            //btnFreqYear.Click += new EventHandler(btnFreq_Click);
             btnFreqM1.Click += new EventHandler(btnFreq_Click);
             btnFreqM5.Click += new EventHandler(btnFreq_Click);
             btnFreqM15.Click += new EventHandler(btnFreq_Click);

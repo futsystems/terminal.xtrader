@@ -24,6 +24,16 @@ namespace XTraderLite
 
             InitializeComponent();
             InitContrl();
+
+            if (Global.IsXGJStyle)
+            {
+                XGJLogin();
+            }
+            else
+            {
+                ClassicLogin();
+            }
+
             mStarter = start;
             btnLogin.Enabled = false;
             _msg.Visible = false;
@@ -32,6 +42,28 @@ namespace XTraderLite
             InitBW();
 
             
+        }
+
+        void ClassicLogin()
+        {
+            this.Height = 372;
+            this.Width = 562;
+            holder.Height = 370;
+            holder.Width = 560;
+            panel_Classic.Dock = DockStyle.Fill;
+            panel_XGJ.Visible = false;
+
+        }
+
+        void XGJLogin()
+        {
+            this.Height = 412;
+            this.Width = 732;
+            holder.Height = 410;
+            holder.Width = 730;
+            panel_XGJ.Dock = DockStyle.Fill;
+            panel_Classic.Visible = false;
+
         }
 
         void InitContrl()
@@ -56,6 +88,9 @@ namespace XTraderLite
             this.Load += new EventHandler(LoginForm_Load);
             this.Activated += new EventHandler(LoginForm_Activated);
             btnLogin.Click += new EventHandler(btnLogin_Click);
+            btnLogin2.Click += new EventHandler(btnLogin_Click);
+
+
             btnCancel.Click += new EventHandler(btnCancel_Click);
 
             holder.MouseDown += new MouseEventHandler(move_MouseDown);
@@ -66,13 +101,53 @@ namespace XTraderLite
             topImage.MouseUp += new MouseEventHandler(move_MouseUp);
             topImage.MouseMove += new MouseEventHandler(move_MouseMove);
 
+            panel_XGJ.MouseDown += new MouseEventHandler(move_MouseDown);
+            panel_XGJ.MouseUp += new MouseEventHandler(move_MouseUp);
+            panel_XGJ.MouseMove += new MouseEventHandler(move_MouseMove);
+
             MDService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
             MDService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
             MDService.EventHub.OnLoginEvent += new Action<MDLoginResponse>(EventHub_OnLoginEvent);
             MDService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
             MDService.EventHub.OnInitializeStatusEvent += new Action<string>(EventHub_OnInitializeStatusEvent);
+
+            btnLogin2.MouseEnter += new EventHandler(btnLogin2_MouseEnter);
+            btnLogin2.MouseLeave += new EventHandler(btnLogin2_MouseLeave);
+            btnLogin2.MouseDown += new MouseEventHandler(btnLogin2_MouseDown);
+            btnLogin2.MouseUp += new MouseEventHandler(btnLogin2_MouseUp);
+
+            btnMin2.Click += new EventHandler(btnMin2_Click);
+            btnClose2.Click += new EventHandler(btnCancel_Click);
+
             
         }
+
+        void btnMin2_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        void btnLogin2_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnLogin2.BackgroundImage = Properties.Resources.login_normal;
+        }
+
+        void btnLogin2_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnLogin2.BackgroundImage = Properties.Resources.login_click;
+        }
+
+        void btnLogin2_MouseLeave(object sender, EventArgs e)
+        {
+            btnLogin2.BackgroundImage = Properties.Resources.login_normal ;
+        }
+
+        void btnLogin2_MouseEnter(object sender, EventArgs e)
+        {
+            btnLogin2.BackgroundImage = Properties.Resources.login_over;
+        }
+
+
 
         void LoginForm_Activated(object sender, EventArgs e)
         {
@@ -285,6 +360,7 @@ namespace XTraderLite
             else
             {
                 _msg.Text = msg;
+                __msg2.Text = msg;
             }
         }
         /// <summary>
