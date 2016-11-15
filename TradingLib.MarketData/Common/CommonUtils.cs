@@ -13,6 +13,13 @@ namespace TradingLib.MarketData
             return "{0:F" + symbol.Precision.ToString() + "}";
         }
 
+        public static DateTime GetLocalDateTime(this MDSymbol symbol, int date, int time)
+        {
+            DateTime dt = Utils.ToDateTime(date, time);
+            if (symbol.TimeZoneOffset == 0) return dt;
+            return dt + symbol.TimeSpanOffset;
+        }
+
         public static bool IsValid(this TDX ticksanpshot)
         {
             if (ticksanpshot.Price > 0) return true;

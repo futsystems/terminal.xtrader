@@ -286,7 +286,7 @@ namespace TradingLib.XTrader.Control
                         cell.Value = _symbol.TickSnapshot.S;
                         break;
                     case EnumFileldType.TIME:
-                        cell.Time = Utils.ToDateTime(0, _symbol.TickSnapshot.Time).ToString("HH:mm:ss");
+                        cell.Time = _symbol.GetLocalDateTime(_symbol.TickSnapshot.Date,_symbol.TickSnapshot.Time).ToString("HH:mm:ss");
                         break;
                     case EnumFileldType.PE:
                         {

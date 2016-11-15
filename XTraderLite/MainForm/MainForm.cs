@@ -427,8 +427,12 @@ namespace XTraderLite
             {
                 try
                 {
-                    Application.ExitThread();
-                    Environment.Exit(0);
+                    //timer.Stop();
+                    //System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Disconnect());
+
+                    //MDService.DataAPI.Disconnect();
+                    //Application.ExitThread();
+                    System.Environment.Exit(0);
                 }
                 catch (Exception ex)
                 {

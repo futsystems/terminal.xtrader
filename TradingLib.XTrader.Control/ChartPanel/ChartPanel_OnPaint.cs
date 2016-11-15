@@ -2117,7 +2117,7 @@ namespace CStock
                                 //}
                                 if (b11 != null && b12 != null)
                                 {
-                                    DateTime dt = Utils.ToDateTime((int)(b11.value[h]), (int)b12.value[h]);
+                                    DateTime dt = pCtrl.Symbol.GetLocalDateTime((int)(b11.value[h]), (int)b12.value[h]);
                                     s1 = dt.ToString("MM-dd HH:mm");
                                 }
                                 //if ((s2 != ""))
@@ -2148,19 +2148,24 @@ namespace CStock
                             if ((h < recordCount))
                             {
                                 b11 = check("date");
-                                if ((b11 != null))
-                                    s1 = string.Format("{0:d}", (int)(b11.value[h]));
+                                //if ((b11 != null))
+                                //    s1 = string.Format("{0:d}", (int)(b11.value[h]));
                                 b12 = check("time");
-                                if ((b12 != null))
+                                //if ((b12 != null))
+                                //{
+                                //    h = (int)b12.value[h];
+                                //    h = h / 100;
+                                //    m = h % 100;
+                                //    h = h / 100;
+                                //    s2 = string.Format("{0:d2}:{1:d}", h, m);
+                                //}
+                                //if ((s2 != ""))
+                                //    s1 = s1 + " " + s2;
+                                if (b11 != null && b12 != null)
                                 {
-                                    h = (int)b12.value[h];
-                                    h = h / 100;
-                                    m = h % 100;
-                                    h = h / 100;
-                                    s2 = string.Format("{0:d2}:{1:d}", h, m);
+                                    DateTime dt = pCtrl.Symbol.GetLocalDateTime((int)(b11.value[h]), (int)b12.value[h]);
+                                    s1 = dt.ToString("MM-dd HH:mm");
                                 }
-                                if ((s2 != ""))
-                                    s1 = s1 + " " + s2;
                             }
                             if (s1.Length > 0)
                             {

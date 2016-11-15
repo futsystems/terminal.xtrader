@@ -11,6 +11,14 @@ namespace TradingLib.MarketData
         //public byte MarketMode; // 市场
         //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         //public byte[] code;
+
+        /// <summary>
+        /// 日期
+        /// </summary>
+        public int Date;
+        /// <summary>
+        /// 时间
+        /// </summary>
         public int Time;
         /// <summary>
         /// 最高价

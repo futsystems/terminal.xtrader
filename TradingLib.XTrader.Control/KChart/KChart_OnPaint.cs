@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using TradingLib.MarketData;
 
 namespace CStock
 {
@@ -174,22 +175,31 @@ namespace CStock
                 int len = g1.RecordCount;
                 if ((curbar > -1) && (len > 0) && (curbar < len))
                 {
+                    
                     int k = 0;
                     if (this.IsIntraView)
                     {
                         TBian b1 = g1.check("date");
-                        if (b1 != null)
+                        //if (b1 != null)
+                        //{
+                        //    HL[k++].Text = "日期";
+                        //    int day = (int)(b1.value[curbar]);
+                        //    HL[k++].Text = String.Format("{0:D}", day);
+                        //}
+                        TBian b2 = g1.check("time");
+                        //if (b1 != null)
+                        //{
+                        //    HL[k++].Text = "时间";
+                        //    int time = (int)(b1.value[curbar]);
+                        //    HL[k++].Text = String.Format("{0:D}:{1:D}", (time / 100) / 100, (time / 100) % 100);
+                        //}
+                        if (b1 != null && b2 != null)
                         {
+                            DateTime localDataTime = _symbol.GetLocalDateTime((int)(b1.value[curbar]), (int)(b2.value[curbar]));
                             HL[k++].Text = "日期";
-                            int day = (int)(b1.value[curbar]);
-                            HL[k++].Text = String.Format("{0:D}", day);
-                        }
-                        b1 = g1.check("time");
-                        if (b1 != null)
-                        {
+                            HL[k++].Text = localDataTime.ToString("yyyyMMdd");
                             HL[k++].Text = "时间";
-                            int time = (int)(b1.value[curbar]);
-                            HL[k++].Text = String.Format("{0:D}:{1:D}", (time / 100) / 100, (time / 100) % 100);
+                            HL[k++].Text = localDataTime.ToString("HH:mm");
                         }
                         b1 = g1.check("close");
                         if (b1 != null)
@@ -261,23 +271,34 @@ namespace CStock
                     if (this.IsBarView)
                     {
                         TBian b1 = g1.check("date");
-                        if (b1 != null)
+                        TBian time = g1.check("time");
+
+                        if (b1 != null && time != null)
                         {
-                            int day = (int)(b1.value[curbar]);
-                            if (day > 19900101)
-                            {
-                                int yy = day / 10000;
-                                int mm = (day % 10000) / 100;
-                                int dd = day % 100;
-                                if ((mm > 0) && (mm < 13) && (dd > 0) && (dd < 32))
-                                {
-                                    HL[k++].Text = "日期";
-                                    DateTime dt = new DateTime(day / 10000, (day % 10000) / 100, day % 100);
-                                    string wk = WeekStr[(int)dt.DayOfWeek];
-                                    HL[k++].Text = String.Format("{0:D}", day) + "/" + wk; ;
-                                }
-                            }
+                            DateTime localDataTime = _symbol.GetLocalDateTime((int)(b1.value[curbar]), (int)(time.value[curbar]));
+                            HL[k++].Text = "时间";
+                            HL[k++].Text = localDataTime.ToString("MM-dd HH:mm");
+                            //HL[k++].Text = "时间";
+                            //HL[k++].Text = localDataTime.ToString("HH:mm");
                         }
+
+                        //if (b1 != null)
+                        //{
+                        //    int day = (int)(b1.value[curbar]);
+                        //    if (day > 19900101)
+                        //    {
+                        //        int yy = day / 10000;
+                        //        int mm = (day % 10000) / 100;
+                        //        int dd = day % 100;
+                        //        if ((mm > 0) && (mm < 13) && (dd > 0) && (dd < 32))
+                        //        {
+                        //            HL[k++].Text = "日期";
+                        //            DateTime dt = new DateTime(day / 10000, (day % 10000) / 100, day % 100);
+                        //            string wk = WeekStr[(int)dt.DayOfWeek];
+                        //            HL[k++].Text = String.Format("{0:D}", day) + "/" + wk; ;
+                        //        }
+                        //    }
+                        //}
                         b1 = g1.check("close");
                         double pclose = NA;
                         if (curbar > 0)

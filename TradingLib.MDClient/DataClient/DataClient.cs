@@ -67,6 +67,11 @@ namespace TradingLib.DataCore
             mktClient.Start();
         }
 
+        public void Stop()
+        {
+            logger.Info("Stop MDClient");
+            mktClient.Stop();
+        }
         /// <summary>
         /// 绑定事件
         /// </summary>

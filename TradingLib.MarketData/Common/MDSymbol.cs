@@ -44,6 +44,7 @@ namespace TradingLib.MarketData
 
             this.LongPosition = new MDPosition();
             this.ShortPosition = new MDPosition();
+            this.TimeZoneOffset = 0;
         }
 
         string _symbol = string.Empty;
@@ -176,7 +177,21 @@ namespace TradingLib.MarketData
         public MDPosition ShortPosition;
 
 
+        int _offset =0;
+        /// <summary>
+        /// 时区转换偏移秒数
+        /// 用于将时间转换成本地时间
+        /// </summary>
+        public int TimeZoneOffset 
+        { get {return _offset;}
+            
+            set{
+                _offset = value;
+                timeSpanOffset = TimeSpan.FromSeconds(_offset);
+            } }
 
+        TimeSpan timeSpanOffset;
+        public TimeSpan TimeSpanOffset { get { return timeSpanOffset; } }
         /// <summary>
         /// 获得昨日收盘/结算价格
         /// </summary>

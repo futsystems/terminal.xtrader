@@ -7,6 +7,7 @@ using TradingLib.Common;
 using TradingLib.DataCore;
 using TradingLib.MarketData;
 using Common.Logging;
+using NodaTime;
 
 namespace DataAPI.Futs
 {
@@ -50,6 +51,8 @@ namespace DataAPI.Futs
 
         void EventHub_OnRtnTickEvent(Tick tick)
         {
+            
+
             string key = tick.GetSymbolUniqueKey();
             MDSymbol symbol = null;
             if (symbolMap.TryGetValue(key, out symbol))
@@ -60,6 +63,7 @@ namespace DataAPI.Futs
                 symbol.TickSnapshot.BuyQTY1 = tick.BidSize;
                 symbol.TickSnapshot.Sell1 = (double)tick.AskPrice;
                 symbol.TickSnapshot.SellQTY1 = tick.AskSize;
+                symbol.TickSnapshot.Date = tick.Date;
                 symbol.TickSnapshot.Time = tick.Time;
                 symbol.TickSnapshot.Volume = tick.Vol;
                 symbol.TickSnapshot.Open = (double)tick.Open;
@@ -110,6 +114,12 @@ namespace DataAPI.Futs
 
         void EventHub_OnInitializedEvent()
         {
+            Instant now = SystemClock.Instance.Now;//标准UTC时间
+            DateTimeZone localZone = DateTimeZoneProviders.Tzdb.GetSystemDefault();//本地市区
+            Offset localOffset = localZone.GetUtcOffset(now);
+
+            DateTimeZone exZone = null;
+            Offset zoneOffset;
             foreach (var target in DataCoreService.DataClient.Symbols)
             {
                 if (!target.Tradeable) continue;
@@ -126,6 +136,14 @@ namespace DataAPI.Futs
                 symbol.SortKey = target.Month;
                 symbol.Precision = target.SecurityFamily.GetDecimalPlaces();
                 symbol.Session = TradingSessionToMDSession(target.TradingSession);
+
+                exZone = DateTimeZoneProviders.Tzdb.GetZoneOrNull(target.SecurityFamily.Exchange.TimeZoneID);
+                if (exZone != null)
+                {
+                    zoneOffset = exZone.GetUtcOffset(now);
+                    symbol.TimeZoneOffset = (localOffset.Milliseconds - zoneOffset.Milliseconds) / 1000;
+                }
+
                 symbolMap.Add(symbol.UniqueKey, symbol);
             }
 
@@ -196,7 +214,10 @@ namespace DataAPI.Futs
 
         public void Disconnect()
         {
- 
+            if (DataCoreService.DataClient != null)
+            {
+                DataCoreService.DataClient.Stop();
+            }
 
         }
 

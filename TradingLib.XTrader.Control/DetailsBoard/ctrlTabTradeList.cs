@@ -119,17 +119,20 @@ namespace TradingLib.KryptonControl
             int hh = 0;
             int mm = 0;
             //Color priceColor = symbol.TickSnapshot.Price > symbol.TickSnapshot.PreClose ? Constants.ColorUp : (symbol.TickSnapshot.Price == symbol.TickSnapshot.PreClose?Constants.ColorEq:Constants.ColorDown);
-
+            DateTime  localtime;
             if (symbol.BlockType == "7")// tk.value > 300) //为指数
             {
                 lw = (this.Width - 52) / 2;
                 for (int j = i; j < tradeList.Count; j++)
                 {
-                    se = tk.Time % 100;
-                    hh = tk.Time / 10000;
-                    mm = (tk.Time - se) / 100 % 100;
+                    
 
                     tk = tradeList[j];
+                    localtime = symbol.GetLocalDateTime(tk.Date, tk.Time);
+                    se = localtime.Second;
+                    hh = localtime.Hour;
+                    mm = localtime.Minute;
+
                     ss = "";
                     if (time == -1)
                     {
@@ -188,10 +191,10 @@ namespace TradingLib.KryptonControl
                 for (int j = i; j < tradeList.Count; j++)
                 {
                     tk = tradeList[j];
-                    //绘制时间
-                    se = tk.Time % 100;
-                    hh = tk.Time / 10000;
-                    mm = (tk.Time - se) / 100 % 100;
+                    localtime = symbol.GetLocalDateTime(tk.Date, tk.Time);
+                    se = localtime.Second;
+                    hh = localtime.Hour;
+                    mm = localtime.Minute;
 
                     ss = "";
                     if (time == -1)

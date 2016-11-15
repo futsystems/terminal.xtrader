@@ -494,7 +494,7 @@ namespace TradingLib.XTrader.Control
                         //绘制竖线
                         if (i > 0)
                             g.DrawLine(_pen, rect.X, topHeight, rect.X, this.Height);
-
+                        DateTime localdatetime;
                         //绘制所有行
                         for (int j = 0; j < rowCnt; j++)
                         {
@@ -504,10 +504,12 @@ namespace TradingLib.XTrader.Control
                             split = tradeSplitList.ElementAt(cnt - 1);
                             rect.Y = (j) * lineHeight + topHeight + columHeight;
 
-                            ss = split.Time % 100;
-                            hh = split.Time / 10000;
-                            mm = (split.Time - ss) / 100 % 100;
-                            text = string.Format("{0:D2}:{1:D2}:{2:D2}", hh, mm, ss);
+                            localdatetime = _symbol.GetLocalDateTime(split.Date, split.Time);
+                            //ss = split.Time % 100;
+                            //hh = split.Time / 10000;
+                            //mm = (split.Time - ss) / 100 % 100;
+
+                            text = localdatetime.ToString("HH:mm:ss"); //string.Format("{0:D2}:{1:D2}:{2:D2}", hh, mm, ss);
                             tWidth = g.MeasureString(text, font).Width;
                             if (!viewlast && i == colCnt - 1 && j == rowCnt - 1)
                             {
