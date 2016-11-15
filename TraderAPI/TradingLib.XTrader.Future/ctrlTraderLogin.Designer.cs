@@ -42,8 +42,8 @@
             this.seat = new System.Windows.Forms.ComboBox();
             this._msg = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
-            this.ctVerify1 = new TradingLib.XTrader.Future.ctVerify();
             this.password = new System.Windows.Forms.MaskedTextBox();
+            this.ctVerify1 = new TradingLib.XTrader.Future.ctVerify();
             this.holder.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +98,6 @@
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(160, 21);
             this.account.TabIndex = 2;
-            this.account.Text = "8500007";
             // 
             // encrypt
             // 
@@ -185,6 +184,14 @@
             this.holder.Size = new System.Drawing.Size(475, 187);
             this.holder.TabIndex = 14;
             // 
+            // password
+            // 
+            this.password.Location = new System.Drawing.Point(238, 58);
+            this.password.Name = "password";
+            this.password.PasswordChar = '*';
+            this.password.Size = new System.Drawing.Size(160, 21);
+            this.password.TabIndex = 15;
+            // 
             // ctVerify1
             // 
             this.ctVerify1.Location = new System.Drawing.Point(404, 90);
@@ -192,13 +199,6 @@
             this.ctVerify1.Size = new System.Drawing.Size(63, 21);
             this.ctVerify1.TabIndex = 14;
             this.ctVerify1.TabStop = false;
-            // 
-            // password
-            // 
-            this.password.Location = new System.Drawing.Point(238, 58);
-            this.password.Name = "password";
-            this.password.Size = new System.Drawing.Size(160, 21);
-            this.password.TabIndex = 15;
             // 
             // ctrlTraderLogin
             // 

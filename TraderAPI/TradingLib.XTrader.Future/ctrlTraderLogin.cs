@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using TradingLib.MarketData;
 using Common.Logging;
@@ -79,9 +80,28 @@ namespace TradingLib.XTrader.Future
 
         void InitControl()
         {
-
             encrypt.SelectedIndex = 0;
             account.Focus();
+            string fn = Path.Combine(new string[] { "Config", "account.txt" });
+            if (!File.Exists(fn))
+            {
+                File.CreateText(fn);   
+            }
+
+            using (FileStream fs = new FileStream(fn,FileMode.Open))
+            { 
+                using (StreamReader sw = new StreamReader(fs))
+                {
+                    if(sw.Peek()>0)
+                    {
+                        string str = sw.ReadLine();
+                        if (!string.IsNullOrEmpty(str))
+                        {
+                            account.Text = str;
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -127,6 +147,19 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
+                string fn = Path.Combine(new string[] { "Config", "account.txt" });
+                if (!File.Exists(fn))
+                {
+                    File.CreateText(fn);
+                }
+
+                using (FileStream fs = new FileStream(fn, FileMode.Create))
+                {
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(account.Text);
+                    }
+                }
                 System.Threading.ThreadPool.QueueUserWorkItem((o) => { Connect(); });
                 this.btnLogin.Enabled = false;
                 
