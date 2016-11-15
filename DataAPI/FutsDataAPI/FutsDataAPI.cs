@@ -112,6 +112,23 @@ namespace DataAPI.Futs
             MDService.EventHub.FireConnectedEvent();
         }
 
+        /// <summary>
+        /// 从交易小节设置信息 解析出Session对象
+        /// 93000-113000,130000-150000
+        /// </summary>
+        /// <param name="sessionStr"></param>
+        /// <returns></returns>
+        List<MDSession> ParseSession(string sessionStr)
+        {
+            List<MDSession> list = new List<MDSession>();
+            string[] rec = sessionStr.Split(',');
+            foreach (var str in rec)
+            {
+                list.Add(MDSession.Deserialize(str));
+            }
+            return list;
+        }
+
         void EventHub_OnInitializedEvent()
         {
             Instant now = SystemClock.Instance.Now;//标准UTC时间
@@ -137,11 +154,32 @@ namespace DataAPI.Futs
                 symbol.Precision = target.SecurityFamily.GetDecimalPlaces();
                 symbol.Session = TradingSessionToMDSession(target.TradingSession);
 
+                
                 exZone = DateTimeZoneProviders.Tzdb.GetZoneOrNull(target.SecurityFamily.Exchange.TimeZoneID);
                 if (exZone != null)
                 {
                     zoneOffset = exZone.GetUtcOffset(now);
                     symbol.TimeZoneOffset = (localOffset.Milliseconds - zoneOffset.Milliseconds) / 1000;
+                    if (symbol.TimeZoneOffset != 0)
+                    {
+                        List<MDSession> list = ParseSession(symbol.Session);
+                        int today = DateTime.Now.ToTLDate();
+                        int tomorrow = DateTime.Now.AddDays(1).ToTLDate();
+                        DateTime start;
+                        DateTime end;
+
+                        foreach (var session in list)
+                        {
+                            start = symbol.GetLocalDateTime(today, session.Start);
+                            end = symbol.GetLocalDateTime(session.EndInNextDay ? tomorrow : today, session.End);
+
+                            session.Start = start.ToTLTime();
+                            session.End = end.ToTLTime();
+                            session.EndInNextDay = start.ToTLDate() != end.ToTLDate();
+                        }
+
+                        symbol.Session = string.Join(",", list.Select(s => MDSession.Serialize(s)).ToArray());
+                    }
                 }
 
                 symbolMap.Add(symbol.UniqueKey, symbol);

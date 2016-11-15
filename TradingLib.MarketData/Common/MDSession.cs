@@ -28,6 +28,8 @@ namespace TradingLib.MarketData
         /// </summary>
         public bool EndInNextDay { get; set; }
 
+
+        
         /// <summary>
         /// 返回区间分钟数
         /// </summary>
@@ -111,6 +113,11 @@ namespace TradingLib.MarketData
                 s.End = int.Parse(rec[1]);
             }
             return s;
+        }
+
+        public static string Serialize(MDSession session)
+        {
+            return string.Format("{0}-{1}{2}", session.Start, session.EndInNextDay ? "N" : "", session.End);
         }
     }
 }
