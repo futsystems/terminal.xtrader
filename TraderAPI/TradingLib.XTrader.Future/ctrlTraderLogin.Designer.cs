@@ -33,7 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.password = new System.Windows.Forms.MaskedTextBox();
             this.account = new System.Windows.Forms.TextBox();
             this.encrypt = new System.Windows.Forms.ComboBox();
             this.verify = new System.Windows.Forms.MaskedTextBox();
@@ -44,6 +43,7 @@
             this._msg = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
             this.ctVerify1 = new TradingLib.XTrader.Future.ctVerify();
+            this.password = new System.Windows.Forms.MaskedTextBox();
             this.holder.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,14 +91,6 @@
             this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 4;
             this.label4.Text = "安全方式:";
-            // 
-            // password
-            // 
-            this.password.Location = new System.Drawing.Point(238, 58);
-            this.password.Name = "password";
-            this.password.Size = new System.Drawing.Size(160, 21);
-            this.password.TabIndex = 3;
-            this.password.Text = "123456";
             // 
             // account
             // 
@@ -173,6 +165,7 @@
             // holder
             // 
             this.holder.BackColor = System.Drawing.Color.Transparent;
+            this.holder.Controls.Add(this.password);
             this.holder.Controls.Add(this.ctVerify1);
             this.holder.Controls.Add(this.label1);
             this.holder.Controls.Add(this._msg);
@@ -184,7 +177,6 @@
             this.holder.Controls.Add(this.btnExit);
             this.holder.Controls.Add(this.label4);
             this.holder.Controls.Add(this.btnLogin);
-            this.holder.Controls.Add(this.password);
             this.holder.Controls.Add(this.verify);
             this.holder.Controls.Add(this.account);
             this.holder.Controls.Add(this.encrypt);
@@ -200,6 +192,13 @@
             this.ctVerify1.Size = new System.Drawing.Size(63, 21);
             this.ctVerify1.TabIndex = 14;
             this.ctVerify1.TabStop = false;
+            // 
+            // password
+            // 
+            this.password.Location = new System.Drawing.Point(238, 58);
+            this.password.Name = "password";
+            this.password.Size = new System.Drawing.Size(160, 21);
+            this.password.TabIndex = 15;
             // 
             // ctrlTraderLogin
             // 
@@ -222,7 +221,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.MaskedTextBox password;
         private System.Windows.Forms.TextBox account;
         private System.Windows.Forms.ComboBox encrypt;
         private System.Windows.Forms.MaskedTextBox verify;
@@ -233,5 +231,6 @@
         private System.Windows.Forms.Label _msg;
         private System.Windows.Forms.Panel holder;
         private ctVerify ctVerify1;
+        private System.Windows.Forms.MaskedTextBox password;
     }
 }

@@ -163,7 +163,7 @@ namespace TradingLib.XTrader.Future
         {
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
-
+            
             CoreService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
             CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
@@ -171,11 +171,14 @@ namespace TradingLib.XTrader.Future
             btnMin.Click += new EventHandler(btnMin_Click);
             btnMax.Click += new EventHandler(btnMax_Click);
             btnClose.Click += new EventHandler(btnClose_Click);
-            ///btnHideOrderEntry.Click += new EventHandler(btnHideOrderEntry_Click);
+            
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
+
             CoreService.EventCore.RegIEventHandler(this);
+           
         }
+
 
         /// <summary>
         /// 账户财务信息查询回报
@@ -299,11 +302,6 @@ namespace TradingLib.XTrader.Future
             
         }
 
-        void btnHideOrderEntry_Click(object sender, EventArgs e)
-        {
-            //ctrlOrderEntry1.Visible = !ctrlOrderEntry1.Visible;
-        }
-
         public void OnInit()
         {
             if (InvokeRequired)
@@ -312,17 +310,15 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                
+
                 lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
                 CoreService.TLClient.ReqXQryAccountFinance();
-                //cbAccount.Items.Add(string.Format("{0}-{1}", CoreService.TradingInfoTracker.Account.Name, CoreService.TradingInfoTracker.Account.Account));
-                //cbAccount.SelectedIndex = 0;
             }
         }
 
         public void OnDisposed()
-        { 
-        
+        {
+
         }
 
         #region 弹窗提醒

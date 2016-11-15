@@ -22,9 +22,6 @@ namespace TradingLib.XTrader.Future
 
         public event Action EntryTrader;
 
-        //public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
-
-
         ILog logger = LogManager.GetLogger("ctrlTraderLogin");
 
         public ctrlTraderLogin()
@@ -32,10 +29,7 @@ namespace TradingLib.XTrader.Future
             InitializeComponent();
             this.DoubleBuffered = true;
             this.SizeChanged += new EventHandler(ctrlTraderLogin_SizeChanged);
-            //this.Paint += new PaintEventHandler(ctrlTraderLogin_Paint);
-            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            //this.Update();
-            //this.Resize += new EventHandler(ctrlTraderLogin_Resize);
+
 
             InitControl();
 
@@ -54,8 +48,6 @@ namespace TradingLib.XTrader.Future
             CoreService.EventCore.OnLoginEvent += new Action<LoginResponse>(EventCore_OnLoginEvent);
             CoreService.EventCore.OnInitializeStatusEvent += new Action<string>(EventCore_OnInitializeStatusEvent);
             CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
-            
-            //this.AcceptButton = this.btnLogin;
         }
 
 
@@ -96,11 +88,7 @@ namespace TradingLib.XTrader.Future
 
         void btnExit_Click(object sender, EventArgs e)
         {
-            new Thread(delegate()
-            {
-                //停止
-                StopTrader();
-            }).Start();
+            System.Threading.ThreadPool.QueueUserWorkItem(o => StopTrader());
         }
 
 
@@ -139,7 +127,6 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                //SaveLoginConfig();
                 System.Threading.ThreadPool.QueueUserWorkItem((o) => { Connect(); });
                 this.btnLogin.Enabled = false;
                 
@@ -228,8 +215,7 @@ namespace TradingLib.XTrader.Future
             {
                 ShowStatus("登入失败:" + response.RspInfo.ErrorMessage);
                 _loggedin = false;
-                System.Threading.ThreadPool.QueueUserWorkItem((o) => { Reset(); });
-                //Reset();
+                System.Threading.ThreadPool.QueueUserWorkItem((o) => { Reset("登入失败:" + response.RspInfo.ErrorMessage); });
             }
         }
 
@@ -276,9 +262,8 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// 重置异常连接并恢复界面状态
         /// </summary>
-        void Reset()
+        void Reset(string msg ="")
         {
-            ShowStatus("停止交易系统...");
             this.ctVerify1.ResetVerify();
             _connectstart = false;
             _connected = false;
@@ -295,7 +280,10 @@ namespace TradingLib.XTrader.Future
             }
             this.btnLogin.Enabled = true;
 
-            _msg.Text = "电信、联通用户请分别登入电信、联通站点";
+            if (string.IsNullOrEmpty(msg))
+            {
+                _msg.Text = "电信、联通用户请分别登入电信、联通站点";
+            }
         }
 
         public void EnableLogin()
@@ -320,7 +308,6 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         private System.ComponentModel.BackgroundWorker bg;
         bool _bkgo = false;
-        //private PopMessage pmsg = new PopMessage();
         private void bgDoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             logger.Info("TraderLogin BW Started");
@@ -373,7 +360,6 @@ namespace TradingLib.XTrader.Future
             bg = new System.ComponentModel.BackgroundWorker();
             bg.WorkerReportsProgress = true;
             bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgDoWork);
-            //bg.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(bg_ProgressChanged);
             bg.RunWorkerAsync();
         }
         #endregion

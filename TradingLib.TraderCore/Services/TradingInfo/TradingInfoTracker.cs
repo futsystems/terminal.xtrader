@@ -231,37 +231,6 @@ namespace TradingLib.TraderCore
             CoreService.EventOther.FireResumeDataEnd();
         }
 
-        //void EventQry_OnRspQryAccountInfoResponse(AccountInfo arg1, RspInfo arg2, int arg3, bool arg4)
-        //{
-        //    if (arg3 != _qryaccountinfoid) return;
-
-        //    //CoreService.AccountInfo = arg1;
-        //    //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件
-        //    if (!CoreService.Initialized)
-        //    {
-        //        if (arg1 == null)
-        //        {
-        //            Status("帐户信息查询异常");
-        //            return;
-        //        }
-
-        //        if (arg4)
-        //        {
-        //            Status("帐户信息查询完毕");
-        //            CoreService.TLClient.StartTick();
-        //            //核心服务完成初始化
-        //            CoreService.Initialize();
-        //            Status("触发初始化完毕事件");
-        //        }
-        //    }
-
-        //    logger.Info("trading data resume finished");
-        //    CoreService.EventOther.FireResumeDataEnd();
-            
-        //}
-
-
-
         void PositionTracker_NewPositionEvent(Position obj)
         {
             if (GotPositionEvent != null)

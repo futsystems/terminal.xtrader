@@ -177,7 +177,7 @@ namespace TradingLib.XTrader.Future
                         ctrlTraderLogin.Visible = true;
                         ctrlTraderLogin.StopTrader();
                         _trader.Visible = false;
-
+                        _trader = null;
                     }
 
                 });
