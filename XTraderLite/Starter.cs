@@ -19,8 +19,14 @@ namespace XTraderLite
             //MessageBox.Show("start to here");
             if (update.Detect())
             {
-                //MessageBox.Show("detected");
-                update.Update("XTraderLite.exe", true);
+                if (Global.IsXGJStyle)
+                {
+                    update.Update("pobo.exe", true);
+                }
+                else
+                {
+                    update.Update("XTraderLite.exe", true);
+                }
                 return true;
             }
             else

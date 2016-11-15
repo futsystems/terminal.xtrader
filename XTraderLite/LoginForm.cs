@@ -64,6 +64,7 @@ namespace XTraderLite
             panel_XGJ.Dock = DockStyle.Fill;
             panel_Classic.Visible = false;
             this.Icon = Properties.Resources.xgj;
+            this.Text = "信管家";
 
         }
 

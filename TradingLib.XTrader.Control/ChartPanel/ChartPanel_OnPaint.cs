@@ -311,7 +311,7 @@ namespace CStock
 
                         finishMin += session.TotalMinutes;
                         //区间末尾直接越过 没有绘制 比如23:45分收盘 但是spaceMinute为30分钟 因此区间结束线 被越过
-                        if (sessionMin > session.TotalMinutes)
+                        if (sessionMin >= session.TotalMinutes)
                         {
                             canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(finishMin * sch), toph, leftYAxisWidth + Convert.ToInt32(finishMin * sch), rectHeight - both);//IntraviewXAsixGridLine
                             MDSession.ParseHMS(MDSession.FTADD(session.Start, session.TotalMinutes * 60), out hh, out mm, out ss);
