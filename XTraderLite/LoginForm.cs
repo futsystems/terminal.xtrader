@@ -69,9 +69,6 @@ namespace XTraderLite
 
         void InitContrl()
         {
-            
-            
-
             foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
             {
                 cbServer.Items.Add(v);
@@ -82,6 +79,16 @@ namespace XTraderLite
             }
 
             this.AcceptButton = btnLogin;
+
+            updateBasic = Properties.Settings.Default.updateBasic;
+            saveAccout = Properties.Settings.Default.saveAccount;
+            cbUpdateBasic.Image = (updateBasic ? Properties.Resources.cb_yes : Properties.Resources.cb_no);
+            cbSaveAccount.Image = (saveAccout ? Properties.Resources.cb_yes : Properties.Resources.cb_no);
+
+            username2.Text = Properties.Settings.Default.Account;
+            password2.Text = Properties.Settings.Default.Pass;
+
+
         }
 
         void WireEvent()
@@ -119,9 +126,57 @@ namespace XTraderLite
 
             btnMin2.Click += new EventHandler(btnMin2_Click);
             btnClose2.Click += new EventHandler(btnCancel_Click);
-
+            cbSaveAccount.Click += new EventHandler(cbSaveAccount_Click);
+            cbUpdateBasic.Click += new EventHandler(cbUpdateBasic_Click);
             
         }
+
+        bool updateBasic = true;
+        void cbUpdateBasic_Click(object sender, EventArgs e)
+        {
+            updateBasic = !updateBasic;
+            cbUpdateBasic.Image = (updateBasic ? Properties.Resources.cb_yes : Properties.Resources.cb_no);
+        }
+
+        bool saveAccout = true;
+        void cbSaveAccount_Click(object sender, EventArgs e)
+        {
+            saveAccout = !saveAccout;
+            cbSaveAccount.Image = (saveAccout ? Properties.Resources.cb_yes : Properties.Resources.cb_no);
+        }
+
+
+        string GetAccount()
+        {
+            if (Global.IsXGJStyle) return username2.Text;
+            return username.Text;
+        }
+
+        string GetPass()
+        {
+            if (Global.IsXGJStyle) return password2.Text;
+            return password.Text;
+        }
+
+        void SavePropertiesConfig()
+        {
+
+            Properties.Settings.Default.saveAccount = saveAccout;
+            Properties.Settings.Default.updateBasic = updateBasic;
+            if (saveAccout)
+            {
+                Properties.Settings.Default.Account = GetAccount();
+                Properties.Settings.Default.Pass = GetPass();
+            }
+            else
+            {
+                Properties.Settings.Default.Account = string.Empty;
+                Properties.Settings.Default.Pass = string.Empty;
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
 
         void btnMin2_Click(object sender, EventArgs e)
         {
@@ -221,10 +276,8 @@ namespace XTraderLite
             _loginstart = true;
             _logintime = DateTime.Now;
 
-            MDService.DataAPI.Login("", "");
-
-            
-            
+            //执行登入请求
+            MDService.DataAPI.Login(GetAccount(),GetPass());
         }
 
         bool _qrybasicinfo = false;
@@ -411,11 +464,8 @@ namespace XTraderLite
         {
             logger.Info("登入-------------------");
             _msg.Visible = true;
-            //SaveLoginConfig();
-            new Thread(delegate()
-            {
-                Connect();
-            }).Start();
+            SavePropertiesConfig();
+            System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
             this.btnLogin.Enabled = false;
         }
 

@@ -309,6 +309,8 @@
     <None Include="Resources\xgj\toobar\xqj_zoomout.png" />
     <None Include="Resources\xgj\toobar\xqj_quote.png" />
     <None Include="Resources\xgj\toobar\xqj_timeview.png" />
+    <None Include="Resources\xgj\cb-no.png" />
+    <None Include="Resources\xgj\cb-yes.png" />
     <Content Include="xgj.ico" />
     <None Include="Resources\xgj\min-normal.png" />
     <None Include="Resources\xgj\close-normal.png" />

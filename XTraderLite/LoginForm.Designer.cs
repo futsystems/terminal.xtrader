@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
             this.panel_XGJ = new System.Windows.Forms.Panel();
+            this.cbSaveAccount = new System.Windows.Forms.PictureBox();
             this.@__msg2 = new System.Windows.Forms.Label();
             this.password2 = new System.Windows.Forms.MaskedTextBox();
             this.username2 = new System.Windows.Forms.TextBox();
@@ -52,13 +53,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.MaskedTextBox();
+            this.cbUpdateBasic = new System.Windows.Forms.PictureBox();
             this.holder.SuspendLayout();
             this.panel_XGJ.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbSaveAccount)).BeginInit();
             this.panel_controlbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).BeginInit();
             this.panel_Classic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).BeginInit();
             this.SuspendLayout();
             // 
             // _msg
@@ -162,6 +166,8 @@
             // panel_XGJ
             // 
             this.panel_XGJ.BackgroundImage = global::XTraderLite.Properties.Resources.bg;
+            this.panel_XGJ.Controls.Add(this.cbUpdateBasic);
+            this.panel_XGJ.Controls.Add(this.cbSaveAccount);
             this.panel_XGJ.Controls.Add(this.@__msg2);
             this.panel_XGJ.Controls.Add(this.password2);
             this.panel_XGJ.Controls.Add(this.username2);
@@ -171,6 +177,15 @@
             this.panel_XGJ.Name = "panel_XGJ";
             this.panel_XGJ.Size = new System.Drawing.Size(730, 410);
             this.panel_XGJ.TabIndex = 25;
+            // 
+            // cbSaveAccount
+            // 
+            this.cbSaveAccount.Image = global::XTraderLite.Properties.Resources.cb_yes;
+            this.cbSaveAccount.Location = new System.Drawing.Point(490, 195);
+            this.cbSaveAccount.Name = "cbSaveAccount";
+            this.cbSaveAccount.Size = new System.Drawing.Size(14, 14);
+            this.cbSaveAccount.TabIndex = 5;
+            this.cbSaveAccount.TabStop = false;
             // 
             // __msg2
             // 
@@ -299,6 +314,15 @@
             this.password.TabIndex = 3;
             this.password.Text = "888888";
             // 
+            // cbUpdateBasic
+            // 
+            this.cbUpdateBasic.Image = global::XTraderLite.Properties.Resources.cb_yes;
+            this.cbUpdateBasic.Location = new System.Drawing.Point(490, 224);
+            this.cbUpdateBasic.Name = "cbUpdateBasic";
+            this.cbUpdateBasic.Size = new System.Drawing.Size(14, 14);
+            this.cbUpdateBasic.TabIndex = 6;
+            this.cbUpdateBasic.TabStop = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -313,12 +337,14 @@
             this.holder.ResumeLayout(false);
             this.panel_XGJ.ResumeLayout(false);
             this.panel_XGJ.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbSaveAccount)).EndInit();
             this.panel_controlbox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).EndInit();
             this.panel_Classic.ResumeLayout(false);
             this.panel_Classic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -348,5 +374,7 @@
         private System.Windows.Forms.TextBox username2;
         private System.Windows.Forms.MaskedTextBox password2;
         private System.Windows.Forms.Label __msg2;
+        private System.Windows.Forms.PictureBox cbSaveAccount;
+        private System.Windows.Forms.PictureBox cbUpdateBasic;
     }
 }
