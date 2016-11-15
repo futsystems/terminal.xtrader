@@ -24,7 +24,7 @@ namespace CStock
         private static extern int SetCursorPos(int x, int y);
 
 
-        List<Session> _sessionList = new List<Session>();
+        List<MDSession> _sessionList = new List<MDSession>();
         //string _sessionStr = "210000-N23000,90000-101500,103000-113000,133000-150000";
         string _sessionStr = "180000-N170000";
         //string _sessionStr = "180000-230000";
@@ -262,18 +262,18 @@ namespace CStock
                     int sessionMin = 0;//在某个Session内移动的分钟数
                     for (int j = 0; j < _sessionList.Count;j++ )
                     {
-                        Session session = _sessionList[j];
+                        MDSession session = _sessionList[j];
                         //开盘
                         if (j == 0)
                         {
                             canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(cursorMin * sch), toph, leftYAxisWidth + Convert.ToInt32(cursorMin * sch), rectHeight - both);//IntraviewXAsixGridLine
-                            Session.ParseHMS(session.Start, out hh, out mm, out ss);
+                            MDSession.ParseHMS(session.Start, out hh, out mm, out ss);
                             s1 = String.Format("{0:d2}", hh) + ":" + String.Format("{0:d2}", mm);
                             canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(cursorMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
                         }
 
                         //获得Session开始时间 判定分钟数是否处于整数 否则执行偏移
-                        Session.ParseHMS(session.Start, out hh, out mm, out ss);
+                        MDSession.ParseHMS(session.Start, out hh, out mm, out ss);
                         if (mm != 0 && mm != 30)
                         {
                             sessionMin += 15;//15分/45分开盘 偏移15
@@ -290,9 +290,9 @@ namespace CStock
                             //比如11：45收盘 30分区间 则最后一条线会直接绘制成12点,这个不是我们希望的 因此跳过
                             if (sessionMin > session.TotalMinutes)
                                 continue;
-                            
 
-                            Session.ParseHMS(Session.FTADD(session.Start, sessionMin * 60), out hh, out mm, out ss);
+
+                            MDSession.ParseHMS(MDSession.FTADD(session.Start, sessionMin * 60), out hh, out mm, out ss);
                             if (mm == 30)
                             {
                                 pen.DashStyle = DashStyle.Dash;
@@ -314,7 +314,7 @@ namespace CStock
                         if (sessionMin > session.TotalMinutes)
                         {
                             canvas.DrawLine(pen, leftYAxisWidth + Convert.ToInt32(finishMin * sch), toph, leftYAxisWidth + Convert.ToInt32(finishMin * sch), rectHeight - both);//IntraviewXAsixGridLine
-                            Session.ParseHMS(Session.FTADD(session.Start, session.TotalMinutes * 60), out hh, out mm, out ss);
+                            MDSession.ParseHMS(MDSession.FTADD(session.Start, session.TotalMinutes * 60), out hh, out mm, out ss);
                             s1 = String.Format("{0:d2}", hh) + ":" + String.Format("{0:d2}", mm);
                             canvas.DrawString(s1, font, FBrush, leftYAxisWidth + Convert.ToInt32(finishMin * sch - canvas.MeasureString(s1, font).Width / 2), rectHeight - both + 2);//IntraViewCalendarTxt
 

@@ -425,19 +425,22 @@ namespace XTraderLite
         {
             if(MessageBox.Show("退出金融投资分析系统?","确认",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
             {
-                try
-                {
-                    //timer.Stop();
-                    //System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Disconnect());
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
 
-                    //MDService.DataAPI.Disconnect();
-                    //Application.ExitThread();
-                    System.Environment.Exit(0);
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Process.GetCurrentProcess().Kill();
-                }
+                //this.Close();
+                //try
+                //{
+                //    //timer.Stop();
+                //    //System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Disconnect());
+
+                //    //MDService.DataAPI.Disconnect();
+                //    //Application.ExitThread();
+                //    System.Environment.Exit(0);
+                //}
+                //catch (Exception ex)
+                //{
+                //    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                //}
             }
         }
         #endregion

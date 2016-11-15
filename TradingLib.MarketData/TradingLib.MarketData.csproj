@@ -47,6 +47,7 @@
     <Compile Include="BarStream.cs" />
     <Compile Include="Common\Config.cs" />
     <Compile Include="Common\DataStruct.cs" />
+    <Compile Include="Common\MDSession.cs" />
     <Compile Include="Common\MDTradeTickWriter.cs" />
     <Compile Include="Common\Finance.cs" />
     <Compile Include="Common\MDBar.cs" />
