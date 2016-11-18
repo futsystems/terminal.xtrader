@@ -33,6 +33,8 @@ namespace XTraderLite
 
         internal static extern IntPtr GetFocus();
 
+
+        List<ServerNode> srvList = new List<ServerNode>();
         ///获取 当前拥有焦点的控件
         private Control GetFocusedControl()
         {
@@ -198,6 +200,10 @@ namespace XTraderLite
                 this.Text = "信管家";
 
             }
+
+            #region 加载行情服务站点
+            srvList =  (new ServerConfig("market.cfg")).GetServerNodes();
+            #endregion
             UpdateTime();
 
 
@@ -237,6 +243,8 @@ namespace XTraderLite
             menuConnect.Enabled = true;
             menuDisconnect.Enabled = false;
             UpdateConnImg(false);
+
+            UpdateServerInfo();
         }
 
         void EventHub_OnConnectedEvent()
@@ -244,6 +252,11 @@ namespace XTraderLite
             menuConnect.Enabled = false;
             menuDisconnect.Enabled = true;
             UpdateConnImg(true);
+
+            UpdateServerInfo();
+
+            //连接完毕后 执行数据订阅
+            MDService.DataAPI.RegisterSymbol(symbolRegister.ToArray());
         }
 
 
@@ -276,6 +289,9 @@ namespace XTraderLite
             InitHightLight();
 
             InitUserSetting();
+
+
+            UpdateServerInfo();
 
             //启动定时任务
             InitTimer();

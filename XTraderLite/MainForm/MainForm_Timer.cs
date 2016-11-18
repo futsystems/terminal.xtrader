@@ -60,7 +60,7 @@ namespace XTraderLite
                 {
                     if (MDService.DataAPI.APISetting.QryBarTimeSupport)//通过最近的Bar时间来恢复该事件以来的所有Bar数据
                     {
-                        if (ctrlKChart.LastDate > 0 && ctrlKChart.LastTime > 0)
+                        if (ctrlKChart.LastDate > 0 && ctrlKChart.LastTime >= 0)//EOD Bar数据时间为0点 因此这里时间判断加上 等于0
                         {
                             DateTime start = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
                             int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, start, DateTime.MaxValue);
@@ -119,20 +119,21 @@ namespace XTraderLite
 
 
             #region 根据当前控件所显示合约执行合约查询
-            IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
-            //底部高亮合约
-            symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
+            IEnumerable<MDSymbol> symlist = GetSymbolsNeeded();
+                
+                
+            ////底部高亮合约
+            //symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
 
+            ////当前K线图合约
+            //symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
 
-
-            //当前K线图合约
-            symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
-
-            //如果合约报价列表可见 合并对应可见合约
-            if (ctrlQuoteList.Visible)
-            {
-                symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
-            }
+            ////如果合约报价列表可见 合并对应可见合约
+            //if (ctrlQuoteList.Visible)
+            //{
+            //    symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
+            //}
+            //查询模式直接查询合约列表
             if (MDService.DataAPI.APISetting.TickMode == EnumMDTickMode.FreqQry)
             {
                 //IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
@@ -157,7 +158,7 @@ namespace XTraderLite
                 List<MDSymbol> needReg = new List<MDSymbol>();
                 foreach(var sym in symlist)
                 {
-                    if (!quoteListRegister.Contains(sym))
+                    if (!symbolRegister.Contains(sym))
                     {
                         needReg.Add(sym);
                     }
@@ -166,7 +167,7 @@ namespace XTraderLite
                 {
                     MDService.DataAPI.RegisterSymbol(needReg.ToArray());
 
-                    quoteListRegister.AddRange(needReg);
+                    symbolRegister.AddRange(needReg);
                 }
             }
             #endregion

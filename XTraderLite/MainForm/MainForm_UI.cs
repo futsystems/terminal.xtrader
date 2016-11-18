@@ -106,5 +106,27 @@ namespace XTraderLite
                 topHeader.Text = "交易大师-机构版";
             }
         }
+
+        void UpdateServerInfo()
+        {
+            if (MDService.DataAPI.Connected)
+            {
+                if (MDService.DataAPI.CurrentServer != null)
+                {
+                    //MessageBox.Show(MDService.DataAPI.CurrentServer.Address.ToString());
+                    string address = MDService.DataAPI.CurrentServer.Address.ToString();
+                    ServerNode srv = srvList.Where(node => node.Address == address).FirstOrDefault();
+                    if (srv != null)
+                    {
+                        lbCurrentServer.Text = srv.Title;
+
+                    }
+                }
+            }
+            else
+            {
+                lbCurrentServer.Text = "断开";
+            }
+        }
     }
 }

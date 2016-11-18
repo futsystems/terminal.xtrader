@@ -152,6 +152,9 @@
     <Compile Include="MainForm\MainForm_APITrader.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm\MainForm_SymbolRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MyEdit.cs">
       <SubType>Component</SubType>
     </Compile>

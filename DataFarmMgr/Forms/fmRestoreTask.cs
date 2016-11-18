@@ -109,7 +109,7 @@ namespace TradingLib.DataFarmManager
 
                 gt.Rows[i][FEED1MINROUND] = task.DataFeed1MinRoundTime;
                 gt.Rows[i][EXCHANGE1MINROUND] = task.Exchange1MinRoundtime;
-                gt.Rows[i][EODHISTBAREND] = task.EodHistBarEnd;
+                gt.Rows[i][EODHISTBAREND] = task.EodHistBarEndTradingDay;
 
                 gt.Rows[i][COMPLETE] = task.Complete;
                 gt.Rows[i][ENDTIME] = task.CompleteTime;

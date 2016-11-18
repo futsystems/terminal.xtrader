@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
 
 namespace TradingLib.MarketData
 {
@@ -109,6 +110,11 @@ namespace TradingLib.MarketData
         /// 是否处于链接状态
         /// </summary>
         bool Connected { get; }
+
+        /// <summary>
+        /// 返回当前连接服务器地址
+        /// </summary>
+        IPEndPoint CurrentServer { get; }
 
         /// <summary>
         /// 登入服务端

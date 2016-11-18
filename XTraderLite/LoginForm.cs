@@ -259,11 +259,23 @@ namespace XTraderLite
                 Reset();
                 return;
             }
-            ServerNode node = cbServer.SelectedItem as ServerNode;
-            if (node != null)
+
+            //ServerNode node = cbServer.SelectedItem as ServerNode;
+            //if (node != null)
+            //{
+            //    MDService.DataAPI.Connect(new string[] { node.Address }, node.Port);
+            //}
+
+            List<string> serverList = new List<string>();
+            int port = 0;
+            foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
             {
-                MDService.DataAPI.Connect(new string[] { node.Address }, node.Port);
+                if(port ==0) port = v.Port;
+                serverList.Add(v.Address);
             }
+
+            MDService.DataAPI.Connect(serverList.ToArray(), port);
+
         }
 
         bool _loginstart = false;

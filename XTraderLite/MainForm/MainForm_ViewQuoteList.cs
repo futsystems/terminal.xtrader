@@ -16,7 +16,7 @@ namespace XTraderLite
     public partial class MainForm
     {
 
-        List<MDSymbol> quoteListRegister = new List<MDSymbol>();
+        
         void InitQuoteList()
         {
             //绑定对外事件
@@ -35,13 +35,14 @@ namespace XTraderLite
                 }
                 else
                 {
-                    if (quoteListRegister.Count > 0)
+                    if (symbolRegister.Count > 0)
                     {
-                        MDService.DataAPI.UnregisterSymbol(quoteListRegister.ToArray());
-                        quoteListRegister.Clear();
+                        MDService.DataAPI.UnregisterSymbol(symbolRegister.ToArray());
+                        symbolRegister.Clear();
                     }
-                    MDService.DataAPI.RegisterSymbol(e.Symbols);
-                    quoteListRegister.AddRange(e.Symbols);//记录当前QuoteList所注册合约 用于视图变化时注销合约行情
+                    IEnumerable<MDSymbol> symlist = GetSymbolsNeeded();
+                    MDService.DataAPI.RegisterSymbol(symlist.ToArray());
+                    symbolRegister.AddRange(symlist);//记录当前QuoteList所注册合约 用于视图变化时注销合约行情
                 }
             }
         }

@@ -101,11 +101,11 @@ namespace TradingLib.DataCore
             }
         }
 
-        public static void InitClient(string address, int port)
+        public static void InitClient(string[] dataServers, int port)
         {
             if (defaultinstance._client == null)
             {
-                DataClient tlclient = new DataClient(address, port);
+                DataClient tlclient = new DataClient(dataServers, port);
 
                 defaultinstance._client = tlclient;
             }

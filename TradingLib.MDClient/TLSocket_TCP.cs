@@ -110,15 +110,46 @@ namespace TradingLib.DataCore
 
         public override void Disconnect()
         {
-            if (_socket != null && _socket.Connected)
-            {
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Disconnect(true);
-                _connected = false;
-            }
-
+            //if (_socket != null && _socket.Connected)
+            //{
+            //    _socket.Shutdown(SocketShutdown.Both);
+            //    _socket.Disconnect(true);
+            //    _connected = false;
+            //}
+            SafeCloseSocket();
+            _connected = false;
             StopRecv();
         }
+
+
+        void SafeCloseSocket()
+        {
+            if (_socket == null)
+                return;
+
+            if (!_socket.Connected)
+                return;
+
+            try
+            {
+                _socket.Shutdown(SocketShutdown.Both);
+            }
+            catch(Exception ex)
+            {
+                logger.Error("Socket Shutdown error:" + ex.ToString());
+            }
+
+            try
+            {
+                _socket.Close();
+            }
+            catch(Exception ex)
+            {
+                logger.Error("Socket Close Error:" + ex.ToString());
+            }
+
+            
+        }  
 
 
         void StartRecv()
@@ -137,8 +168,9 @@ namespace TradingLib.DataCore
             if (!_recvgo) return;
             logger.Info("stop recv thread");
             _recvgo = false;
-            Util.WaitThreadStop(_recvThread);
-
+            _recvThread.Join();
+            //Util.WaitThreadStop(_recvThread);
+            logger.Info("stopped ");
         }
 
         const int BUFFERSIZE = 65535;
@@ -173,7 +205,7 @@ namespace TradingLib.DataCore
                         Message[] messagelist = Message.gotmessages(ref pdata, ref bufferoffset);//消息不完整则会将数据copy到头部并且设定bufferoffset用于下一次读取数据时进行自动拼接
                         if (bufferoffset != 0)
                         {
-                            Array.Copy(pdata, 0,buffer, 0,bufferoffset);
+                            Array.Copy(pdata, 0, buffer, 0, bufferoffset);
                         }
                         int gotlen = 0;
                         int j = 0;
@@ -188,28 +220,46 @@ namespace TradingLib.DataCore
                             HandleMessage(msg);
                         }
                         //logger.Debug(string.Format("buffer len:{0} buffer offset:{1} ret len:{2} parse len:{3} cnt:{4}", buffer.Length, bufferoffset, ret, gotlen, j));
-                        
+
                     }
                     else if (ret == 0) // socket was shutdown
                     {
                         _connected = IsSocketConnected(_socket);
                         if (!_connected)
                         {
-                            StopRecv();
+                            _recvgo = false;
                         }
                     }
                 }
                 catch (SocketException ex)
                 {
                     logger.Error("socket exception: " + ex.SocketErrorCode + ex.Message + ex.StackTrace);
-
+                    SafeCloseSocket();
+                    _connected = IsSocketConnected(_socket);
+                    if (!_connected)
+                    {
+                        _recvgo = false;
+                    }
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex.Message + ex.StackTrace);
+                    //if (_socket != null)
+                    //{
+                    //    _socket.Shutdown(SocketShutdown.Both);
+                    //    _socket.Disconnect(true);
+                    //    _connected = false;
+                    //}
+                    SafeCloseSocket();
+                    _connected = IsSocketConnected(_socket);
+                    if (!_connected)
+                    {
+                        _recvgo = false;
+                    }
                 }
                 
             }
+            logger.Info("RecvThread stopped");
         }
 
         bool IsSocketConnected(Socket client) 

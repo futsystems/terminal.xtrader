@@ -5,6 +5,7 @@ using System.Text;
 using TradingLib.API;
 using TradingLib.Common;
 using Common.Logging;
+using System.Net;
 
 
 namespace TradingLib.DataCore
@@ -35,15 +36,15 @@ namespace TradingLib.DataCore
 
 
         /// <summary>
-        /// 单台服务器同时提供行情与地址
+        /// 返回当前连接服务器地址
         /// </summary>
-        /// <param name="address"></param>
-        /// <param name="realport"></param>
-        /// <param name="histport"></param>
-        public DataClient(string address, int dataPort)
-            : this(new string[] { address }, dataPort)
+        public IPEndPoint CurrentServer 
         {
 
+            get
+            {
+                return mktClient.CurrentServer;
+            }
         }
 
         /// <summary>

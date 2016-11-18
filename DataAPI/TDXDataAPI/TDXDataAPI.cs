@@ -373,6 +373,16 @@ namespace DataAPI.TDX
 
 
 
+         /// <summary>
+        /// 返回当前连接服务器地址
+        /// </summary>
+        public IPEndPoint CurrentServer
+        {
+            get
+            {
+                return null;
+            }
+        }
 
     }
 }

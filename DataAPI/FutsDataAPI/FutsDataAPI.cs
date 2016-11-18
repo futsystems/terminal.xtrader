@@ -8,6 +8,7 @@ using TradingLib.DataCore;
 using TradingLib.MarketData;
 using Common.Logging;
 using NodaTime;
+using System.Net;
 
 namespace DataAPI.Futs
 {
@@ -246,7 +247,7 @@ namespace DataAPI.Futs
         public void Connect(string[] hosts, int port)
         {
             MDService.EventHub.FireInitializeStatusEvent("连接行情服务器");
-            DataCoreService.InitClient(hosts[0], port);
+            DataCoreService.InitClient(hosts, port);
             DataCoreService.DataClient.Start();
         }
 
@@ -263,6 +264,20 @@ namespace DataAPI.Futs
         {
             MDService.EventHub.FireInitializeStatusEvent("登入行情服务器");
             DataCoreService.DataClient.Login(user, pass);
+        }
+
+        /// <summary>
+        /// 返回当前连接服务器地址
+        /// </summary>
+        public IPEndPoint CurrentServer 
+        {
+            get{
+                if (DataCoreService.DataClient != null)
+                {
+                    return DataCoreService.DataClient.CurrentServer;
+                }
+                return null;
+            }
         }
     }
 }
