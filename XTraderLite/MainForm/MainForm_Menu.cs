@@ -28,6 +28,7 @@ namespace XTraderLite
             printDocument.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
            
             menuExit.Click += new EventHandler(menuExit_Click);
+            menuDataFarmSiteList.Click += new EventHandler(menuDataFarmSiteList_Click);
 
             //分析
             menuIntraView.Click += new EventHandler(menuIntraView_Click);
@@ -44,6 +45,13 @@ namespace XTraderLite
             menuRelief.Click += new EventHandler(menuRelief_Click);
             menuAbout.Click += new EventHandler(menuAbout_Click);
             menuShortCutKey.Click += new EventHandler(menuShortCutKey_Click);
+        }
+
+        void menuDataFarmSiteList_Click(object sender, EventArgs e)
+        {
+            fmDataFarmList fm = new fmDataFarmList();
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void menuShortCutKey_Click(object sender, EventArgs e)
@@ -122,20 +130,19 @@ namespace XTraderLite
 
         void menuDisconnect_Click(object sender, EventArgs e)
         {
-            new System.Threading.Thread(delegate()
-           {
-               MDService.DataAPI.Disconnect();
-           }).Start();
+            System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Disconnect());
         }
 
         void menuConnect_Click(object sender, EventArgs e)
         {
-            new System.Threading.Thread(delegate()
+            List<string> serverList = new List<string>();
+            int port = 0;
+            foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
             {
-                MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
-            }).Start();
-
-            
+                if (port == 0) port = v.Port;
+                serverList.Add(v.Address);
+            }
+            System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Connect(serverList.ToArray(), port));
         }
 
 

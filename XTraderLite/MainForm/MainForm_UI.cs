@@ -49,17 +49,19 @@ namespace XTraderLite
         {
             if (MDService.DataAPI.Connected)
             {
-                new System.Threading.Thread(delegate()
-                {
-                    MDService.DataAPI.Disconnect();
-                }).Start();
+                System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Disconnect());
             }
             else
             {
-                new System.Threading.Thread(delegate()
+                List<string> serverList = new List<string>();
+                int port = 0;
+                foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
                 {
-                    MDService.DataAPI.Connect(new string[] { "218.85.137.40" }, 7709);
-                }).Start();
+                    if (port == 0) port = v.Port;
+                    serverList.Add(v.Address);
+                }
+                System.Threading.ThreadPool.QueueUserWorkItem(o => MDService.DataAPI.Connect(serverList.ToArray(), port));
+               
             }
         }
 

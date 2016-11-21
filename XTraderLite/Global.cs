@@ -7,6 +7,6 @@ namespace XTraderLite
 {
     public class Global
     {
-        public static bool IsXGJStyle = false;
+        public static bool IsXGJStyle = true;
     }
 }

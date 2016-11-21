@@ -198,6 +198,7 @@ namespace XTraderLite
                 //btnWatchList.Visible = false;
                 //toolStripSeparator5.Visible = false;
                 this.Text = "信管家";
+                this.panelSiteInfo.Visible = false;
 
             }
 

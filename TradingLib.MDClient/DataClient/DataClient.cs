@@ -62,6 +62,12 @@ namespace TradingLib.DataCore
         }
 
 
+        public bool Connected
+        {
+            get {
+                return mktClient.IsConnected;
+            }
+        }
         public void Start()
         {
             logger.Info("Start MDClient");
@@ -145,7 +151,16 @@ namespace TradingLib.DataCore
                 case MessageTypes.LOGINRESPONSE:
                     {
                         LoginResponse response = obj as LoginResponse;
+
+                        //登入成功 且未初始化 则查询基础数据
+                        if (!DataCoreService.Initialized && response.Authorized)
+                        {
+                            logger.Info("Login Success Qry Basic Info");
+                            DataCoreService.DataClient.QryMarketTime();
+                        }
+
                         DataCoreService.EventHub.FireLoginEvent(response);
+
                         return;
                     }
                 //查询Bar数据回报

@@ -235,7 +235,7 @@ namespace TradingLib.DataCore
                 {
                     logger.Error("socket exception: " + ex.SocketErrorCode + ex.Message + ex.StackTrace);
                     SafeCloseSocket();
-                    _connected = IsSocketConnected(_socket);
+                    _connected = false;// IsSocketConnected(_socket);
                     if (!_connected)
                     {
                         _recvgo = false;
@@ -251,7 +251,7 @@ namespace TradingLib.DataCore
                     //    _connected = false;
                     //}
                     SafeCloseSocket();
-                    _connected = IsSocketConnected(_socket);
+                    _connected = false;// IsSocketConnected(_socket);
                     if (!_connected)
                     {
                         _recvgo = false;
@@ -270,8 +270,10 @@ namespace TradingLib.DataCore
 
         bool IsSocketConnected(Socket client, out int errorcode)
         {
-            bool blockingState = client.Blocking;
             errorcode = 0;
+            if (client == null) return false;
+            bool blockingState = client.Blocking;
+            
             try
             {
                 byte[] tmp = new byte[1];

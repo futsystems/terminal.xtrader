@@ -96,11 +96,11 @@ namespace DataAPI.Futs
             response.ErrorMessage = obj.RspInfo.ErrorMessage;
             MDService.EventHub.FireLoginEvent(response);
 
-            //登入成功 且未初始化 则查询基础数据
-            if (!DataCoreService.Initialized && obj.Authorized)
-            {
-                DataCoreService.DataClient.QryMarketTime();
-            }
+            ////登入成功 且未初始化 则查询基础数据
+            //if (!DataCoreService.Initialized && obj.Authorized)
+            //{
+            //    DataCoreService.DataClient.QryMarketTime();
+            //}
         }
 
         void EventHub_OnDisconnectedEvent()
@@ -240,7 +240,9 @@ namespace DataAPI.Futs
 
         public bool Connected
         {
-            get { return true;
+            get 
+            {
+                return DataCoreService.DataClient.Connected;
             }
         }
 
