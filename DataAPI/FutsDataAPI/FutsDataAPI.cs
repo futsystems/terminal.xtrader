@@ -161,9 +161,9 @@ namespace DataAPI.Futs
                 {
                     zoneOffset = exZone.GetUtcOffset(now);
                     symbol.TimeZoneOffset = (localOffset.Milliseconds - zoneOffset.Milliseconds) / 1000;
+                    List<MDSession> list = ParseSession(symbol.Session);
                     if (symbol.TimeZoneOffset != 0)
                     {
-                        List<MDSession> list = ParseSession(symbol.Session);
                         int today = DateTime.Now.ToTLDate();
                         int tomorrow = DateTime.Now.AddDays(1).ToTLDate();
                         DateTime start;
@@ -180,6 +180,12 @@ namespace DataAPI.Futs
                         }
 
                         symbol.Session = string.Join(",", list.Select(s => MDSession.Serialize(s)).ToArray());
+                    }
+
+                    //获得开盘事件
+                    if (!string.IsNullOrEmpty(symbol.Session))
+                    {
+                        symbol.OpenTime = list.FirstOrDefault().Start;
                     }
                 }
 

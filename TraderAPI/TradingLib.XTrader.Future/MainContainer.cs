@@ -81,7 +81,10 @@ namespace TradingLib.XTrader.Future
 
         void EventIndicator_GotPositionNotifyEvent(PositionEx obj)
         {
-            PositionNotify(obj.Exchange, obj.Symbol, obj.Side, obj.Position, obj.AvgPrice);
+            if (TraderConfig.ExPositionLine)
+            {
+                PositionNotify(obj.Exchange, obj.Symbol, obj.Side, obj.Position, obj.AvgPrice);
+            }
         }
 
         void EventOther_OnResumeDataStart()
@@ -91,9 +94,12 @@ namespace TradingLib.XTrader.Future
 
         void EventOther_OnResumeDataEnd()
         {
-            foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos=>!pos.isFlat))
+            if (TraderConfig.ExPositionLine)
             {
-                PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+                foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
+                {
+                    PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+                }
             }
         }
 
@@ -103,9 +109,12 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         void EventCore_OnInitializedEvent()
         {
-            foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
+            if (TraderConfig.ExPositionLine)
             {
-                PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+                foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
+                {
+                    PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+                }
             }
         }
 

@@ -606,6 +606,19 @@ namespace CStock
                             min1 = args[p].value[i];
                     }
                 }
+                if (((showk == -1) && (main == true)) || (showk == 1) || ((showfs == true) && (main == true))) //是主图 则取持仓均价来获得最高最低值
+                {
+                    if (pCtrl.Symbol.LongPosition.Size != 0)
+                    {
+                        max1 = Math.Max(max1, pCtrl.Symbol.LongPosition.PositionCost);
+                        min1 = Math.Min(min1, pCtrl.Symbol.LongPosition.PositionCost);
+                    }
+                    if (pCtrl.Symbol.ShortPosition.Size != 0)
+                    {
+                        max1 = Math.Max(max1, pCtrl.Symbol.ShortPosition.PositionCost);
+                        min1 = Math.Min(min1, pCtrl.Symbol.ShortPosition.PositionCost);
+                    }
+                }
 
                 //if ((volstick == true) && (min1 > 0.0))
                 //    min1 = 0.0;
@@ -622,6 +635,8 @@ namespace CStock
                             max1 = prevclose + sch;
                     }
                 }
+
+
                 if (max1 == NA)
                     max1 = 0;
                 if (min1 == NA)

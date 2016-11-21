@@ -31,6 +31,7 @@ namespace XTraderLite
         string CurrentKChartFreq { get { return _currentFreq; } }
 
 
+        bool _openReset = false;
         /// <summary>
         /// 选中当前合约
         /// </summary>
@@ -38,6 +39,7 @@ namespace XTraderLite
         void SetKChartSymbol(MDSymbol symbol,bool focus=true)
         {
             _currentSymbol = symbol;
+            _openReset = false;
             if (focus)
             {
                 ctrlKChart.Focus();

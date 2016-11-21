@@ -45,6 +45,7 @@ namespace TradingLib.MarketData
             this.LongPosition = new MDPosition();
             this.ShortPosition = new MDPosition();
             this.TimeZoneOffset = 0;
+            this.OpenTime = null;
         }
 
         string _symbol = string.Empty;
@@ -192,6 +193,12 @@ namespace TradingLib.MarketData
 
         TimeSpan timeSpanOffset;
         public TimeSpan TimeSpanOffset { get { return timeSpanOffset; } }
+
+        /// <summary>
+        /// 开盘时间
+        /// </summary>
+        public int? OpenTime { get; set; }
+
         /// <summary>
         /// 获得昨日收盘/结算价格
         /// </summary>

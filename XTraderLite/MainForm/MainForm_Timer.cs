@@ -29,6 +29,7 @@ namespace XTraderLite
             timer.Start();
         }
 
+
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (!timeGo) return;
@@ -41,11 +42,29 @@ namespace XTraderLite
                 {
                     if (MDService.DataAPI.APISetting.QryMinuteDataTimeSupport)
                     {
+                        //检查 如果距离开盘前5分钟之内 则执行全量查询
+                        if (CurrentKChartSymbol!= null && CurrentKChartSymbol.OpenTime != null)
+                        {
+                            int now = Utils.ToTLTime();
+                            //开盘前5分钟 执行数据重置
+                            if (now <= CurrentKChartSymbol.OpenTime && Utils.FTDIFF((int)CurrentKChartSymbol.OpenTime, now) <= 5 * 60 && (!_openReset))
+                            {
+                                _openReset = true;
+                                //清空当前分时数据
+                                ctrlKChart.ClearIntraViewData();
+                            }
+                        }
+
                         if (ctrlKChart.LastMinuteDataDay > 0 && ctrlKChart.LastMinuteDataTime > 0)
                         {
                             DateTime start = Utils.ToDateTime(ctrlKChart.LastMinuteDataDay, ctrlKChart.LastMinuteDataTime);
                             int reqid = MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, start);
                             kChartMinuteDataUpdateRequest.TryAdd(reqid, this);
+                        }
+                        else
+                        {
+                            //查询当天所有分时 进行数据更新
+                            MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, 0);
                         }
                     }
                     else

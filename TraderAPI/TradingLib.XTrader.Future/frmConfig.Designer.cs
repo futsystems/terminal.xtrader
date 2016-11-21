@@ -37,6 +37,7 @@
             this.cbExDoubleOrderCancelIfNotFilled = new System.Windows.Forms.CheckBox();
             this.cbExSwitchSymbolOfMarketDataView = new System.Windows.Forms.CheckBox();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.cbExPositionLine = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cbExPositionLine);
             this.tabPage1.Controls.Add(this.cbExSendOrderDirect);
             this.tabPage1.Controls.Add(this.cbExSwitchToOpenWhenCloseOrderSubmit);
             this.tabPage1.Controls.Add(this.cbExDoubleOrderFilledEntryClosePosition);
@@ -79,7 +81,7 @@
             // cbExSendOrderDirect
             // 
             this.cbExSendOrderDirect.AutoSize = true;
-            this.cbExSendOrderDirect.Location = new System.Drawing.Point(9, 95);
+            this.cbExSendOrderDirect.Location = new System.Drawing.Point(9, 117);
             this.cbExSendOrderDirect.Name = "cbExSendOrderDirect";
             this.cbExSendOrderDirect.Size = new System.Drawing.Size(72, 16);
             this.cbExSendOrderDirect.TabIndex = 4;
@@ -135,6 +137,16 @@
             this.btnSubmit.Text = "确 认";
             this.btnSubmit.UseVisualStyleBackColor = true;
             // 
+            // cbExPositionLine
+            // 
+            this.cbExPositionLine.AutoSize = true;
+            this.cbExPositionLine.Location = new System.Drawing.Point(9, 95);
+            this.cbExPositionLine.Name = "cbExPositionLine";
+            this.cbExPositionLine.Size = new System.Drawing.Size(156, 16);
+            this.cbExPositionLine.TabIndex = 5;
+            this.cbExPositionLine.Text = "行情窗口显示持仓成本线";
+            this.cbExPositionLine.UseVisualStyleBackColor = true;
+            // 
             // frmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -165,5 +177,6 @@
         private System.Windows.Forms.CheckBox cbExDoubleOrderFilledEntryClosePosition;
         private System.Windows.Forms.CheckBox cbExSwitchToOpenWhenCloseOrderSubmit;
         private System.Windows.Forms.CheckBox cbExSendOrderDirect;
+        private System.Windows.Forms.CheckBox cbExPositionLine;
     }
 }
