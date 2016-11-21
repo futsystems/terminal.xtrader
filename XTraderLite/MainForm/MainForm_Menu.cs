@@ -49,7 +49,7 @@ namespace XTraderLite
 
         void menuDataFarmSiteList_Click(object sender, EventArgs e)
         {
-            fmDataFarmList fm = new fmDataFarmList();
+            frmDataFarmList fm = new frmDataFarmList();
             fm.ShowDialog();
             fm.Close();
         }

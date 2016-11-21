@@ -116,14 +116,18 @@ namespace TradingLib.XTrader.Future
             if(arg2 == null) return;
             if (ViewKChart != null)
             {
-                //点击持仓 选择合约
-                if (arg1 is ctrlPosition)
+                //同步切换行情窗口中的合约
+                if (TraderConfig.ExSwitchSymbolOfMarketDataView)
                 {
-                    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
-                }
-                if (arg1 is ctrlOrderEntry)
-                {
-                    ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                    //点击持仓 选择合约
+                    if (arg1 is ctrlPosition)
+                    {
+                        ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                    }
+                    if (arg1 is ctrlOrderEntry)
+                    {
+                        ViewKChart(arg2.Exchange, arg2.Symbol, 0);
+                    }
                 }
             }
         }

@@ -51,6 +51,52 @@ namespace TradingLib.XTrader.Future
 
             orderGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(orderGrid_CellFormatting);
             orderGrid.MouseClick += new MouseEventHandler(orderGrid_MouseClick);
+            orderGrid.DoubleClick += new EventHandler(orderGrid_DoubleClick);
+        }
+
+        void orderGrid_DoubleClick(object sender, EventArgs e)
+        {
+            long oid = SelectedOrderID;
+            if (oid == -1)
+            {
+                return;
+            }
+            else
+            {
+                Order o = CoreService.TradingInfoTracker.OrderTracker.SentOrder(oid);
+                if (o.IsPending())
+                {
+                    //双击未完成委托直接撤单
+                    if (TraderConfig.ExDoubleOrderCancelIfNotFilled)
+                    {
+                        CoreService.TLClient.ReqCancelOrder(oid);
+                    }
+                    else
+                    { 
+                        if(MessageBox.Show("确认撤销委托？","撤单",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        {
+                            CoreService.TLClient.ReqCancelOrder(oid);
+                        }
+                    }
+                    return;
+                }
+                
+                //完成委托 进入持仓界面
+                if (o.IsEntryPosition &&  (o.Status == QSEnumOrderStatus.Filled || o.Status == QSEnumOrderStatus.PartFilled))
+                {
+                    Position pos = CoreService.TradingInfoTracker.PositionTracker[o.Symbol,o.Account, o.PositionSide];
+                    if (pos != null)
+                    {
+                        if (pos != null)
+                        {
+                            CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+                            CoreService.EventUI.FirePositionSelectedEvent(this, pos);
+                        }
+                    }
+                }
+
+
+            }
         }
 
 

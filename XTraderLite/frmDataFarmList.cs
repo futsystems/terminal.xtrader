@@ -10,9 +10,9 @@ using TradingLib.MarketData;
 
 namespace XTraderLite
 {
-    public partial class fmDataFarmList : Form
+    public partial class frmDataFarmList : Form
     {
-        public fmDataFarmList()
+        public frmDataFarmList()
         {
             InitializeComponent();
             this.Load += new EventHandler(fmDataFarmList_Load);

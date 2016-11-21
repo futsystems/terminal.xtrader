@@ -1,6 +1,6 @@
 ﻿namespace XTraderLite
 {
-    partial class fmDataFarmList
+    partial class frmDataFarmList
     {
         /// <summary>
         /// Required designer variable.

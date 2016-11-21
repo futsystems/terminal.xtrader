@@ -34,6 +34,11 @@ namespace TradingLib.XTrader.Future
         public const string PAGE_CONDITION_ORDER = "ConditionOrder";
 
         /// <summary>
+        /// 参数设置
+        /// </summary>
+        public const string PAGE_CONFIG = "Config";
+
+        /// <summary>
         /// 查询
         /// </summary>
         public const string PAGE_QRY = "Qry";

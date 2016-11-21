@@ -47,7 +47,7 @@ namespace TradingLib.XTrader.Future
             ctrlListMenu1.AddMenu(new MenuItem("条件单", Properties.Resources.f5, false, delegate() { ShowPage(""); }));
             ctrlListMenu1.AddMenu(new MenuItem("查询", Properties.Resources.f6, true, delegate() { ShowPage(PageTypes.PAGE_QRY); }));
             ctrlListMenu1.AddMenu(new MenuItem("行权", Properties.Resources.f7, false, delegate() { ShowPage(""); }));
-            ctrlListMenu1.AddMenu(new MenuItem("参数设置", Properties.Resources.f8, false, delegate() {  }));
+            ctrlListMenu1.AddMenu(new MenuItem("参数设置", Properties.Resources.f8, true, delegate() { ShowPage(PageTypes.PAGE_CONFIG); }));
             ctrlListMenu1.AddMenu(new MenuItem("帮助及说明", Properties.Resources.f9, true, delegate() { ShowPage(PageTypes.PAGE_HELP); }));
             ctrlListMenu1.AddMenu(new MenuItem("银期转账", Properties.Resources.zj, true, delegate() { ShowPage(PageTypes.PAGE_BANK); }));
             ctrlListMenu1.AddMenu(new MenuItem("交易统计", Properties.Resources.tj, true, delegate() { ShowPage(PageTypes.PAGE_STATISTIC); }));
@@ -90,6 +90,13 @@ namespace TradingLib.XTrader.Future
         void ShowPage(string type)
         {
             IPage page = null;
+            if (type == PageTypes.PAGE_CONFIG)
+            {
+                frmConfig fm = new frmConfig();
+                fm.ShowDialog();
+                fm.Close();
+                return;
+            }
             if (pagemap.TryGetValue(type, out page))
             {
                 HideAllPage();

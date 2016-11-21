@@ -510,11 +510,29 @@ namespace TradingLib.XTrader.Future
         void btnSell_Click(object sender, EventArgs e)
         {
             SendOrder(false);
+            //发送平仓委托后 自动切换回开仓状态
+            if (TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit)
+            {
+                if (!_autoflag && _currentOffsetFlag != QSEnumOffsetFlag.OPEN)
+                {
+                    _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+                    inputFlagOpen.Checked = true;
+                }
+            }
+
         }
 
         void btnBuy_Click(object sender, EventArgs e)
         {
             SendOrder(true);
+            if (TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit)
+            {
+                if (!_autoflag && _currentOffsetFlag != QSEnumOffsetFlag.OPEN)
+                {
+                    _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+                    inputFlagOpen.Checked = true;
+                }
+            }
         }
 
         /// <summary>
@@ -637,13 +655,23 @@ namespace TradingLib.XTrader.Future
             order.LimitPrice = price;
             order.OffsetFlag = _currentOffsetFlag;
 
-            //以价格:00 买入1手 
-            string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(), GetOffsetString());
-            if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            //一键下单
+            if (TraderConfig.ExSendOrderDirect)
             {
                 _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
                 btnBuy.Enabled = false;
                 btnSell.Enabled = false;
+            }
+            else
+            {
+                //以价格:00 买入1手 
+                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(), GetOffsetString());
+                if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
+                    btnBuy.Enabled = false;
+                    btnSell.Enabled = false;
+                }
             }
         }
         #endregion
