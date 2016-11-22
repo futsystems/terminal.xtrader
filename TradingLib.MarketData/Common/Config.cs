@@ -54,7 +54,7 @@ namespace TradingLib.MarketData
         public List<ServerNode> GetServerNodes()
         {
             List<ServerNode> nodelist = new List<ServerNode>();
-            using (StreamReader reader = new StreamReader(fullName, Encoding.Default))
+            using (StreamReader reader = new StreamReader(fullName, Encoding.UTF8))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)

@@ -218,6 +218,7 @@ namespace TradingLib.DataCore
                                 int x = 0;
                             }
                             HandleMessage(msg);
+                            logger.Info(string.Format("Recv Message Type:{0} Content:{1}", msg.Type, msg.Content));
                         }
                         //logger.Debug(string.Format("buffer len:{0} buffer offset:{1} ret len:{2} parse len:{3} cnt:{4}", buffer.Length, bufferoffset, ret, gotlen, j));
 
