@@ -200,13 +200,16 @@ namespace TradingLib.TraderCore
         #endregion
 
 
+        List<string> symbolRegister = new List<string>();
         /// <summary>
         /// 请求注册行情数据
         /// </summary>
         public void ReqRegisterSymbol(string symbol)
         {
+            if (symbolRegister.Contains(symbol)) return;
             logger.Info("Register Symbol Data:" + symbol);
             connecton.Subscribe(symbol);
+            symbolRegister.Add(symbol);
         }
 
         /// <summary>
@@ -215,8 +218,10 @@ namespace TradingLib.TraderCore
         /// <param name="symbol"></param>
         public void ReqUnRegisterSymbol(string symbol)
         {
+            if (!symbolRegister.Contains(symbol)) return;
             logger.Info("UnRegister Symbol Data:" + symbol);
             connecton.UnSubscribe(symbol);
+            symbolRegister.Remove(symbol);
         }
 
         /// <summary>

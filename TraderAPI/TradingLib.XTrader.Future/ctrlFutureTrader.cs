@@ -55,6 +55,39 @@ namespace TradingLib.XTrader.Future
 
         }
 
+        #region 定时操作
+        System.Timers.Timer timer;
+
+        /// <summary>
+        /// 初始化定时任务
+        /// </summary>
+        void InitTimer()
+        {
+            if (timer == null)
+            {
+                timer = new System.Timers.Timer();
+                timer.Interval = 3000;
+                timer.Enabled = true;
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+                timer.Start();
+            }
+        }
+
+        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //定时任务 定时重新注册需要合约的实时行情 避免行情停止
+            foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(sym.Symbol);
+            }
+
+            if (ctrlOrderEntry1.SymbolSelected != null)
+            {
+                CoreService.TLClient.ReqRegisterSymbol(ctrlOrderEntry1.SymbolSelected.Symbol);
+            }
+        }
+
+        #endregion
 
         #region Page部分
         Dictionary<string, IPage> pagemap = new Dictionary<string, IPage>();
@@ -245,7 +278,6 @@ namespace TradingLib.XTrader.Future
             {
                 CoreService.TLClient.ReqXQryTickSnapShot(arg2.Exchange, arg2.Symbol);
                 CoreService.TLClient.ReqRegisterSymbol(arg2.Symbol);
-                
             }
         }
 
@@ -317,6 +349,7 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
+                InitTimer();
 
                 lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
                 CoreService.TLClient.ReqXQryAccountFinance();
@@ -325,7 +358,8 @@ namespace TradingLib.XTrader.Future
 
         public void OnDisposed()
         {
-
+            logger.Info("ctrlFutureTrader Disposed");
+            timer.Stop();
         }
 
         #region 弹窗提醒

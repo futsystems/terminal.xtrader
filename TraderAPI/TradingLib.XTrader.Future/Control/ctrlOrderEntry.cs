@@ -23,6 +23,10 @@ namespace TradingLib.XTrader.Future
         QSEnumOffsetFlag _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;
 
         Symbol _symbol = null;
+        /// <summary>
+        /// 当前选中合约
+        /// </summary>
+        public Symbol SymbolSelected { get { return _symbol; } }
         public ctrlOrderEntry()
         {
             InitializeComponent();
