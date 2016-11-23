@@ -174,7 +174,7 @@ namespace TradingLib.MarketData
         /// <param name="symbol"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        int QryMinuteDate(string exchange, string symbol, DateTime start);
+        int QryMinuteDate(string exchange, string symbol, long start);
 
         
 
@@ -203,7 +203,7 @@ namespace TradingLib.MarketData
         /// <param name="freqStr"></param>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        int QrySecurityBars(string exchange, string symbol, string freqStr, DateTime start, DateTime end);
+        int QrySecurityBars(string exchange, string symbol, string freqStr, long start, long end);
 
 
 

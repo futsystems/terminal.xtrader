@@ -43,11 +43,12 @@ namespace XTraderLite
                     if (MDService.DataAPI.APISetting.QryMinuteDataTimeSupport)
                     {
                         //检查 如果距离开盘前5分钟之内 则执行全量查询
-                        if (CurrentKChartSymbol!= null && CurrentKChartSymbol.OpenTime != null)
+                        if ((!_openReset) && CurrentKChartSymbol!= null && CurrentKChartSymbol.OpenTime != null)
                         {
                             int now = Utils.ToTLTime();
+                            int diff = Utils.FTDIFF(now,(int)CurrentKChartSymbol.OpenTime);
                             //开盘前5分钟 执行数据重置
-                            if (now <= CurrentKChartSymbol.OpenTime && Utils.FTDIFF((int)CurrentKChartSymbol.OpenTime, now) <= 5 * 60 && (!_openReset))
+                            if (now <= CurrentKChartSymbol.OpenTime &&  diff < 5 * 60  && diff>0 )
                             {
                                 _openReset = true;
                                 //清空当前分时数据
@@ -55,9 +56,9 @@ namespace XTraderLite
                             }
                         }
 
-                        if (ctrlKChart.LastMinuteDataDay > 0 && ctrlKChart.LastMinuteDataTime > 0)
+                        if (ctrlKChart.LastMinuteDataDay > 0 && ctrlKChart.LastMinuteDataTime >= 0)
                         {
-                            DateTime start = Utils.ToDateTime(ctrlKChart.LastMinuteDataDay, ctrlKChart.LastMinuteDataTime);
+                            long start = Utils.ToTLDateTime(ctrlKChart.LastMinuteDataDay, ctrlKChart.LastMinuteDataTime);
                             int reqid = MDService.DataAPI.QryMinuteDate(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, start);
                             kChartMinuteDataUpdateRequest.TryAdd(reqid, this);
                         }
@@ -81,8 +82,8 @@ namespace XTraderLite
                     {
                         if (ctrlKChart.LastDate > 0 && ctrlKChart.LastTime >= 0)//EOD Bar数据时间为0点 因此这里时间判断加上 等于0
                         {
-                            DateTime start = Utils.ToDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
-                            int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq, start, DateTime.MaxValue);
+                            long start = Utils.ToTLDateTime(ctrlKChart.LastDate, ctrlKChart.LastTime);
+                            int reqid = MDService.DataAPI.QrySecurityBars(CurrentKChartSymbol.Exchange, CurrentKChartSymbol.Symbol, CurrentKChartFreq,start,Utils.ToTLDateTime(DateTime.MaxValue));
                             kChartRealTimeBarRequest.TryAdd(reqid, this);
                         }
                     }

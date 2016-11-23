@@ -207,7 +207,7 @@ namespace TradingLib.DataFarmManager
             int sIdx = (int)startIndex.Value;
             int max = (int)maxCount.Value;
             BarFrequency freq = (BarFrequency)cbBarFrequency.SelectedValue;
-            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, freq.Type,freq.Interval, DateTime.MinValue, DateTime.MaxValue, sIdx, max, fromEnd.Checked, havePartial.Checked);
+            DataCoreService.DataClient.QryBar(symbol.Exchange, symbol.Symbol, freq.Type,freq.Interval, DateTime.MinValue.ToTLDateTime(), DateTime.MaxValue.ToTLDateTime(), sIdx, max, fromEnd.Checked, havePartial.Checked);
         }
 
         Dictionary<int, BarImpl> bardatamap = new Dictionary<int, BarImpl>();

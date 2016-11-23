@@ -82,7 +82,7 @@ namespace TradingLib.DataFarmManager
         void btnConnect_Click(object sender, EventArgs e)
         {
             //DataCoreService.InitClient("127.0.0.1", 5060);
-            DataCoreService.InitClient("121.41.76.214", 5060);
+            DataCoreService.InitClient(new string[] { "121.41.76.214" }, 5060);
             //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
             DataCoreService.EventHub.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);

@@ -228,7 +228,7 @@ namespace DataAPI.TDX
                 return sb11.RequestId;
             }
         }
-        public int QryMinuteDate(string exchange, string symbol, DateTime start)
+        public int QryMinuteDate(string exchange, string symbol, long start)
         {
             throw new NotImplementedException();
         }
@@ -346,7 +346,7 @@ namespace DataAPI.TDX
         /// <param name="freqStr"></param>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        public int QrySecurityBars(string exchange, string symbol, string freqStr, DateTime start, DateTime end)
+        public int QrySecurityBars(string exchange, string symbol, string freqStr, long start, long end)
         {
             logger.Info("not support qry bar via time");
             return 0;

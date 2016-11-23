@@ -82,7 +82,7 @@ namespace DataAPI.Futs
         /// <param name="symbol"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public int QryMinuteDate(string exchange, string symbol, DateTime start)
+        public int QryMinuteDate(string exchange, string symbol, long start)
         {
             return DataCoreService.DataClient.QryMinuteData(exchange, symbol, start);
         }
@@ -165,7 +165,7 @@ namespace DataAPI.Futs
         /// <param name="freqStr"></param>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        public int QrySecurityBars(string exchange, string symbol, string freqStr, DateTime start, DateTime end)
+        public int QrySecurityBars(string exchange, string symbol, string freqStr, long start, long end)
         {
             return DataCoreService.DataClient.QryBar(exchange, symbol, GetInterval(freqStr), start,end);
         }

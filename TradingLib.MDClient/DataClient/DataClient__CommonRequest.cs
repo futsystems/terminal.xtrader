@@ -13,45 +13,57 @@ namespace TradingLib.DataCore
     public partial class DataClient
     {
 
-
+        /// <summary>
+        /// 发送数据包
+        /// </summary>
+        /// <param name="packet"></param>
         public void SendPacket(IPacket packet)
         {
             mktClient.TLSend(packet);
         }
+
         /// <summary>
         /// 查询交易时间段
         /// </summary>
-        public void QryMarketTime()
+        public int QryMarketTime()
         {
-            XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(0);
+            int reqid = NextRequestID;
+            XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(reqid);
             mktClient.TLSend(request);
+            return reqid;
         }
 
         /// <summary>
         /// 查询交易所
         /// </summary>
-        public void QryExchange()
-        { 
-            XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(0);
+        public int QryExchange()
+        {
+            int reqid = NextRequestID;
+            XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(reqid);
             mktClient.TLSend(request);
+            return reqid;
         }
 
         /// <summary>
         /// 查询品种数据
         /// </summary>
-        public void QrySecurity()
+        public int QrySecurity()
         {
-            XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(0);
+            int reqid = NextRequestID;
+            XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(reqid);
             mktClient.TLSend(request);
+            return reqid;
         }
 
         /// <summary>
         /// 查询合约数据
         /// </summary>
-        public void QrySymbol()
+        public int QrySymbol()
         {
-            XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(0);
+            int reqid = NextRequestID;
+            XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(reqid);
             mktClient.TLSend(request);
+            return reqid;
         }
 
         /// <summary>
@@ -59,13 +71,15 @@ namespace TradingLib.DataCore
         /// </summary>
         /// <param name="username"></param>
         /// <param name="pass"></param>
-        public void Login(string username, string pass)
+        public int Login(string username, string pass)
         {
+            int reqid = NextRequestID;
             logger.Info(string.Format("Request Login Account:{0} Pass:{1}", username, pass));
-            LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(++requestid);
+            LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(reqid);
             request.LoginID = username;
             request.Passwd = pass;
             mktClient.TLSend(request);
+            return reqid;
         }
 
 
@@ -73,10 +87,11 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 订阅合约实时行情
         /// </summary>
-        public void RegisterSymbol(string exchange,string[] symbols)
+        public int RegisterSymbol(string exchange,string[] symbols)
         {
             logger.Info(string.Format("Subscribe market data for exchange:{0} symbol:{1}",exchange, string.Join(",", symbols)));
-            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(NextRequestID);
+            int reqid = NextRequestID;
+            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(reqid);
             request.Exchange = exchange;
             foreach (var symbol in symbols)
             {
@@ -89,16 +104,18 @@ namespace TradingLib.DataCore
                 request.SymbolList.Add(symbol);
             }
             mktClient.TLSend(request);
+            return reqid;
         }
 
         /// <summary>
         /// 注销合约实时行情
         /// </summary>
         /// <param name="symbol"></param>
-        public void UnRegisterSymbol(string exchange,string[] symbols)
+        public int UnRegisterSymbol(string exchange,string[] symbols)
         {
             logger.Info(string.Format("Unsubscribe market data for exchange:{0} symbols:{1}", exchange, string.Join(",", symbols)));
-            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(NextRequestID);
+            int reqid = NextRequestID;
+            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(reqid);
             request.Exchange = exchange;
             foreach (var symbol in symbols)
             {
@@ -111,24 +128,7 @@ namespace TradingLib.DataCore
                 request.SymbolList.Add(symbol);
             }
             mktClient.TLSend(request);
-
-            //logger.Info(string.Format("Unsubscribe market data for symbol:{0}", string.Join(",",symbols)));
-            //UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(NextRequestID);
-                
-            //foreach (var symbol in symbols)
-            //{
-            //    if (symbol != "*")//过滤统配符
-            //    {
-            //        Symbol sym = this.GetSymbol(symbol);
-            //        if (sym == null)
-            //        {
-            //            logger.Warn(string.Format("Symbol:{0} do not exist", symbol));
-            //            continue;
-            //        }
-            //    }
-            //    request.SymbolList.Add(symbol);
-            //}
-            //histClient.TLSend(request);
+            return reqid;
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace TradingLib.DataCore
         /// <returns></returns>
         public int QryBar(string exchange, string symbol, BarFrequency freq, int startIndex, int maxCount)
         {
-            return QryBar(exchange, symbol,freq.Type,freq.Interval, DateTime.MinValue, DateTime.MaxValue, startIndex, maxCount);
+            return QryBar(exchange, symbol,freq.Type,freq.Interval, DateTime.MinValue.ToTLDateTime(), DateTime.MaxValue.ToTLDateTime(), startIndex, maxCount);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace TradingLib.DataCore
         /// <param name="interval"></param>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        public int QryBar(string exchange, string symbol, BarFrequency freq, DateTime start,DateTime end)
+        public int QryBar(string exchange, string symbol, BarFrequency freq, long start,long end)
         {
             return QryBar(exchange, symbol, freq.Type, freq.Interval, start, end, 0, 0);
         }
@@ -184,7 +184,7 @@ namespace TradingLib.DataCore
         /// <param name="end"></param>
         /// <param name="maxcount"></param>
         /// <param name="fromend"></param>
-        public int QryBar(string exchange,string symbol,BarInterval type, int interval,DateTime start,DateTime end,int startIndex,int maxCount,bool fromend = false,bool havepartial = true)
+        public int QryBar(string exchange,string symbol,BarInterval type, int interval,long start,long end,int startIndex,int maxCount,bool fromend = false,bool havepartial = true)
         {
             int reqid = NextRequestID;
             QryBarRequest request = RequestTemplate<QryBarRequest>.CliSendRequest(reqid);
@@ -195,8 +195,8 @@ namespace TradingLib.DataCore
             request.StartIndex = startIndex;
             request.Interval = interval;
             request.IntervalType = type;
-            request.StartTime = start;
-            request.EndTime = end;
+            request.Start = start;
+            request.End = end;
             request.BarResponseType = EnumBarResponseType.BINARY;
             request.HavePartial = havepartial;
             mktClient.TLSend(request);
@@ -212,14 +212,14 @@ namespace TradingLib.DataCore
         /// <param name="macount"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public int QryTrade(string exchange, string symbol, int startIdx, int macount, int date)
+        public int QryTrade(string exchange, string symbol, int startIdx, int maxcount, int date)
         {
             int reqid = NextRequestID;
             XQryTradeSplitRequest request = RequestTemplate<XQryTradeSplitRequest>.CliSendRequest(reqid);
             request.Exchange = exchange;
             request.Symbol = symbol;
             request.StartIndex = startIdx;
-            request.MaxCount = macount;
+            request.MaxCount = maxcount;
             request.Tradingday = date;
 
             mktClient.TLSend(request);
@@ -269,7 +269,7 @@ namespace TradingLib.DataCore
         /// <param name="symbol"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public int QryMinuteData(string exchange, string symbol, DateTime start)
+        public int QryMinuteData(string exchange, string symbol,long start)
         {
             int reqid = NextRequestID;
             XQryMinuteDataRequest request = RequestTemplate<XQryMinuteDataRequest>.CliSendRequest(reqid);
@@ -277,17 +277,6 @@ namespace TradingLib.DataCore
             request.Symbol = symbol;
             request.Start = start;
             request.Tradingday = 0;
-            mktClient.TLSend(request);
-            return reqid;
-        }
-
-        public int DemoTick(int time, decimal price)
-        { 
-            int reqid = NextRequestID;
-            MDDemoTickRequest request = RequestTemplate<MDDemoTickRequest>.CliSendRequest(reqid);
-            request.Time = time;
-            request.Trade = price;
-
             mktClient.TLSend(request);
             return reqid;
         }
