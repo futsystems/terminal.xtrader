@@ -41,7 +41,7 @@ namespace XTraderLite
                         symbolRegister.Clear();
                     }
                     IEnumerable<MDSymbol> symlist = GetSymbolsNeeded();
-                    MDService.DataAPI.RegisterSymbol(symlist.ToArray());
+                    //MDService.DataAPI.RegisterSymbol(symlist.ToArray());
                     symbolRegister.AddRange(symlist);//记录当前QuoteList所注册合约 用于视图变化时注销合约行情
                 }
             }

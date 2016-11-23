@@ -180,7 +180,10 @@ namespace TradingLib.XTrader.Control
             //没有有效行情直接返回
             if (_symbol.TickSnapshot.Time <= 0)
                 return;
-
+            //if (_symbol.Symbol == "HSIX6")
+            //{
+            //    int i = 0;
+            //}
             //遍历所有单元格 按单元格类型进行数据更新 同时设定样式，行情快照 与单元格数据 一一对应
             foreach (var cell in _columeCellMap.Values)
             {

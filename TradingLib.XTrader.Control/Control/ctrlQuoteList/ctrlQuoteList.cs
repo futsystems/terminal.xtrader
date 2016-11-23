@@ -115,12 +115,14 @@ namespace TradingLib.XTrader.Control
                     quotelist.BeginUpdate();
                     IEnumerable<MDSymbol> list = symbolMap.Where(sym => e.TargtButton.SymbolFilter(sym));
 
+                    quotelist.ApplyConfig(e.TargtButton.QuoteType);
+
                     foreach (var g in list.GroupBy(sym => sym.SecCode))
                     {
                         quotelist.AddSymbols(g.OrderBy(sym => sym.SortKey));
                     }
 
-                    quotelist.ApplyConfig(e.TargtButton.QuoteType);
+                    //quotelist.ApplyConfig(e.TargtButton.QuoteType); 在切换Tab时 如果在添加合约之后则会导致 GetPreClose获得异常昨日价格 从而导致计算涨跌幅异常 因此先 applyconfig 然后添加合约
                     quotelist.EndUpdate();
                 }
             }
