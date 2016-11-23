@@ -21,7 +21,7 @@ namespace CStock
         /// <param name="len">最大字符宽度</param>
         /// <param name="sc">格式化输出单位1,10,100</param>
         /// <param name="fmt">格式化输出字符串 用于格式化输出数值</param>
-        void GetFormat(double max, int spaceLen, ref int sc, ref string fmt)
+        void GetFormat(double max, int spaceLen, bool mainview, ref int sc, ref string fmt)
         {
             string s1;
             int integralLength, vi, vf;
@@ -58,11 +58,16 @@ namespace CStock
             {
                 vi = integralLength;
                 vf = spaceLen - integralLength;
+            }                                                                                       
+            //默认取2位小数
+            if ((vf > 2))
+                vf = 2;
+            //TODO  根据主图绘制内容 进行调整小数点 默认取合约对应的小数位数 这里逻辑部分需要完善
+            //主图则以合约的Precision来定显示格式
+            if (mainview)
+            {
+                vf = pCtrl.Symbol.Precision;
             }
-            if ((vf > 3))
-                vf = 3;
-//TODO  根据主图绘制内容 进行调整小数点 默认取合约对应的小数位数 这里逻辑部分需要完善
-            vf = vf >= pCtrl.Symbol.Precision ? pCtrl.Symbol.Precision : vf;
             fmt = "{0:f" + vf.ToString() + "}";
             return;
         }

@@ -183,6 +183,7 @@ namespace TradingLib.XTrader
                 pricestr = "224.8";
                 sizestr = "15";
             }
+            fsize = cv.MeasureString(pricestr, Constants.Font_QuoteInfo_BigQuote);
 
             pen.Color = Constants.Color_TableLine;
             pen.Width = 1;
@@ -237,7 +238,8 @@ namespace TradingLib.XTrader
 
             if (_symbol != null)
             {
-                pricestr = string.Format(_priceFormat, _symbol.TickSnapshot.Price - _symbol.GetYdPrice());
+                pricestr = string.Format(_priceFormat, _symbol.TickSnapshot.Price != 0 ? (_symbol.TickSnapshot.Price - _symbol.GetYdPrice()) : 0);
+                
                 color = GetColor(_symbol.TickSnapshot.Price - _symbol.GetYdPrice());
             }
             _brush.Color = color;
@@ -263,7 +265,7 @@ namespace TradingLib.XTrader
 
             if (_symbol != null)
             {
-                pricestr = string.Format("{0:F2}%", 100*(_symbol.TickSnapshot.Price - _symbol.GetYdPrice()) / _symbol.GetYdPrice());
+                pricestr = string.Format("{0:F2}%", _symbol.TickSnapshot.Price != 0 ? 100 * (_symbol.TickSnapshot.Price - _symbol.GetYdPrice()) / _symbol.GetYdPrice() : 0);
                 color = GetPriceColor(_symbol.TickSnapshot.Price);
             }
             else

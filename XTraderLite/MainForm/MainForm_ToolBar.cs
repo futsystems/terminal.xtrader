@@ -160,6 +160,21 @@ namespace XTraderLite
         void btnRefresh_Click(object sender, EventArgs e)
         {
             logger.Info("refresh data");
+
+            //刷新K线控件
+            RefreshKChart();
+
+            //报价列表
+            if (ctrlQuoteList.Visible)
+            {
+                //重新订阅实时行情
+                MDService.DataAPI.RegisterSymbol(ctrlQuoteList.SymbolVisible.ToArray());
+            
+            }
+        }
+
+        void RefreshKChart()
+        {
             if (ctrlKChart.Visible)
             {
                 ctrlKChart.ClearData();
@@ -197,13 +212,6 @@ namespace XTraderLite
                     //Bar数据查询
                     MDService.DataAPI.QrySecurityBars(_currentSymbol.Exchange, _currentSymbol.Symbol, _currentFreq, 0, 800);
                 }
-            }
-            //报价列表
-            if (ctrlQuoteList.Visible)
-            {
-                //重新订阅实时行情
-                MDService.DataAPI.RegisterSymbol(ctrlQuoteList.SymbolVisible.ToArray());
-            
             }
         }
 

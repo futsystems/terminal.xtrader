@@ -52,7 +52,7 @@ namespace XTraderLite
                             {
                                 _openReset = true;
                                 //清空当前分时数据
-                                ctrlKChart.ClearIntraViewData();
+                                RefreshKChart();
                             }
                         }
 

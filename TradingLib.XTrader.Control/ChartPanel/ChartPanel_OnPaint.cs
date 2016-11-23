@@ -67,8 +67,10 @@ namespace CStock
             int rectWidth, rectHeight;
             float fcx, fcy, fcy1; //fcx1, 
             Bitmap bm;
+            bool mainview = false;
             //通过传入的Bitmap获得绘图句柄
             Graphics canvas = Graphics.FromImage(map);
+            
 
             
 
@@ -162,6 +164,10 @@ namespace CStock
             ////显示股票名称和公式名称
             fw = 0;
 
+            if (((showk == -1) && (main == true)) || (showk == 1) || ((showfs == true) && (main == true))) //是主图 则取持仓均价来获得最高最低值
+            {
+                mainview = true;//主图
+            }
 
             #region 填充背景色 如果当前窗口选中则左侧Y轴区域填充阴影背景
             //填充绘图底色
@@ -606,7 +612,7 @@ namespace CStock
                             min1 = args[p].value[i];
                     }
                 }
-                if (((showk == -1) && (main == true)) || (showk == 1) || ((showfs == true) && (main == true))) //是主图 则取持仓均价来获得最高最低值
+                if (mainview) //是主图 则取持仓均价来获得最高最低值
                 {
                     if (pCtrl.Symbol.LongPosition.Size != 0)
                     {
@@ -669,7 +675,7 @@ namespace CStock
                 c2 = 0;
                 fmt = "";
                 //根据可以输出的字符长度，判断是否需要增加单位设置 成交量 X万 c2为1 10 100等 用于单位显示数值
-                GetFormat(max1, SpaceWidth / TextWidth(canvas, font, "8"), ref  c2, ref fmt);
+                GetFormat(max1, SpaceWidth / TextWidth(canvas, font, "8"),mainview, ref  c2, ref fmt);
                 scale = (rectHeight - toph - both) / (max1 - min1);//绘图尺寸与公式值比例
 
                 #endregion

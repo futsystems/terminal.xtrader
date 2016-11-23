@@ -20,7 +20,7 @@ namespace CStock
 
         ILog logger = LogManager.GetLogger("ChartPanel");
         double NA =double.MinValue;// -10000000.0;
-        public static int SpaceWidth = 50;
+        public static int SpaceWidth = 60;
         public string ErrorString;
         public TFunclist func;
        
