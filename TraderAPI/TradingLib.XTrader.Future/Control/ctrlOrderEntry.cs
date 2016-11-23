@@ -287,8 +287,8 @@ namespace TradingLib.XTrader.Future
             priceBox.Items.Add("挂单价");
             priceBox.Items.Add("最新价");
             priceBox.Items.Add("市价");
-            priceBox.Items.Add("涨停价");
-            priceBox.Items.Add("跌停价");
+            //priceBox.Items.Add("涨停价");
+            //priceBox.Items.Add("跌停价");
 
             inputPrice.DropDownSizeMode = SizeMode.UseControlSize;
             inputPrice.DropDownControl = priceBox;

@@ -14,6 +14,7 @@ namespace TradingLib.MarketData
         public const string Freq_Year = "Freq_Year";
 
         public const string Freq_M1 = "Freq_M1";
+        public const string Freq_M3 = "Freq_M3";
         public const string Freq_M5 = "Freq_M5";
         public const string Freq_M15 = "Freq_M15";
         public const string Freq_M30 = "Freq_M30";

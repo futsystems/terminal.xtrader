@@ -92,16 +92,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frm\AboutUS.cs" />
+    <Compile Include="frm\AboutUS.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frm\AboutUS.Designer.cs">
       <DependentUpon>AboutUS.cs</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
-    <Compile Include="LoginForm.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageHistoryForm.cs" />
+    <Compile Include="MessageHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MessageHistoryForm.Designer.cs">
       <DependentUpon>MessageHistoryForm.cs</DependentUpon>
     </Compile>
@@ -110,7 +116,9 @@
     <Compile Include="ServerCfg.cs" />
     <Compile Include="SplashScreenApplicationContext.cs" />
     <Compile Include="Starter.cs" />
-    <Compile Include="TradeLite.cs" />
+    <Compile Include="TradeLite.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TradeLite.designer.cs">
       <DependentUpon>TradeLite.cs</DependentUpon>
     </Compile>
@@ -136,6 +144,7 @@
     </Compile>
     <EmbeddedResource Include="TradeLite.resx">
       <DependentUpon>TradeLite.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

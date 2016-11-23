@@ -98,6 +98,7 @@ namespace XTraderLite
             this.Activated += new EventHandler(LoginForm_Activated);
             btnLogin.Click += new EventHandler(btnLogin_Click);
             btnLogin2.Click += new EventHandler(btnLogin_Click);
+            btnLogin2.Paint += new PaintEventHandler(btnLogin2_Paint);
 
 
             btnCancel.Click += new EventHandler(btnCancel_Click);
@@ -130,6 +131,11 @@ namespace XTraderLite
             cbSaveAccount.Click += new EventHandler(cbSaveAccount_Click);
             cbUpdateBasic.Click += new EventHandler(cbUpdateBasic_Click);
             
+        }
+
+        void btnLogin2_Paint(object sender, PaintEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         bool updateBasic = true;

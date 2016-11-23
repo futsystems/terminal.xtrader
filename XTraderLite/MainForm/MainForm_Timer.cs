@@ -48,7 +48,7 @@ namespace XTraderLite
                             int now = Utils.ToTLTime();
                             int diff = Utils.FTDIFF(now,(int)CurrentKChartSymbol.OpenTime);
                             //开盘前5分钟 执行数据重置
-                            if (now <= CurrentKChartSymbol.OpenTime &&  diff < 5 * 60  && diff>0 )
+                            if (now <= CurrentKChartSymbol.OpenTime &&  diff < 2 * 60  && diff>0 )//开盘前2分钟执行数据重置 避免客户端时间与服务端时间有偏差导致重置后任然获得上个交易日的数据 从而数据无法重置
                             {
                                 _openReset = true;
                                 //清空当前分时数据

@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
             this.panel_XGJ = new System.Windows.Forms.Panel();
+            this.cbUpdateBasic = new System.Windows.Forms.PictureBox();
             this.cbSaveAccount = new System.Windows.Forms.PictureBox();
             this.@__msg2 = new System.Windows.Forms.Label();
             this.password2 = new System.Windows.Forms.MaskedTextBox();
@@ -53,16 +54,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.MaskedTextBox();
-            this.cbUpdateBasic = new System.Windows.Forms.PictureBox();
             this.holder.SuspendLayout();
             this.panel_XGJ.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSaveAccount)).BeginInit();
             this.panel_controlbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).BeginInit();
             this.panel_Classic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).BeginInit();
             this.SuspendLayout();
             // 
             // _msg
@@ -178,6 +178,15 @@
             this.panel_XGJ.Size = new System.Drawing.Size(730, 410);
             this.panel_XGJ.TabIndex = 25;
             // 
+            // cbUpdateBasic
+            // 
+            this.cbUpdateBasic.Image = global::XTraderLite.Properties.Resources.cb_yes;
+            this.cbUpdateBasic.Location = new System.Drawing.Point(490, 224);
+            this.cbUpdateBasic.Name = "cbUpdateBasic";
+            this.cbUpdateBasic.Size = new System.Drawing.Size(14, 14);
+            this.cbUpdateBasic.TabIndex = 6;
+            this.cbUpdateBasic.TabStop = false;
+            // 
             // cbSaveAccount
             // 
             this.cbSaveAccount.Image = global::XTraderLite.Properties.Resources.cb_yes;
@@ -250,9 +259,11 @@
             // btnLogin2
             // 
             this.btnLogin2.BackgroundImage = global::XTraderLite.Properties.Resources.login_normal;
+            this.btnLogin2.FlatAppearance.BorderSize = 0;
+            this.btnLogin2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin2.Location = new System.Drawing.Point(482, 280);
             this.btnLogin2.Name = "btnLogin2";
-            this.btnLogin2.Size = new System.Drawing.Size(168, 46);
+            this.btnLogin2.Size = new System.Drawing.Size(164, 42);
             this.btnLogin2.TabIndex = 0;
             this.btnLogin2.UseVisualStyleBackColor = true;
             // 
@@ -314,15 +325,6 @@
             this.password.TabIndex = 3;
             this.password.Text = "888888";
             // 
-            // cbUpdateBasic
-            // 
-            this.cbUpdateBasic.Image = global::XTraderLite.Properties.Resources.cb_yes;
-            this.cbUpdateBasic.Location = new System.Drawing.Point(490, 224);
-            this.cbUpdateBasic.Name = "cbUpdateBasic";
-            this.cbUpdateBasic.Size = new System.Drawing.Size(14, 14);
-            this.cbUpdateBasic.TabIndex = 6;
-            this.cbUpdateBasic.TabStop = false;
-            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -337,6 +339,7 @@
             this.holder.ResumeLayout(false);
             this.panel_XGJ.ResumeLayout(false);
             this.panel_XGJ.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSaveAccount)).EndInit();
             this.panel_controlbox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).EndInit();
@@ -344,7 +347,6 @@
             this.panel_Classic.ResumeLayout(false);
             this.panel_Classic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).EndInit();
             this.ResumeLayout(false);
 
         }

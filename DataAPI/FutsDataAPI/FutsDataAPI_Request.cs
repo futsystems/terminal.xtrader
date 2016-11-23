@@ -236,6 +236,7 @@ namespace DataAPI.Futs
             switch (freqStr)
             {
                 case ConstFreq.Freq_M1: return new BarFrequency(BarInterval.Minute,1);
+                case ConstFreq.Freq_M3: return new BarFrequency(BarInterval.ThreeMin, 1);
                 case ConstFreq.Freq_M5: return new BarFrequency(BarInterval.FiveMin,1);
                 case ConstFreq.Freq_M15: return new BarFrequency(BarInterval.FifteenMin, 1);
                 case ConstFreq.Freq_M30: return new BarFrequency(BarInterval.ThirtyMin, 1);

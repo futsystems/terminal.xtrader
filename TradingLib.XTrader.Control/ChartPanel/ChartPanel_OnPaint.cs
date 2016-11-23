@@ -1456,9 +1456,9 @@ namespace CStock
                                 cx = leftYAxisWidth + (int)(FScale * (i - StartIndex));
                                 cy = rectHeight - (both + (int)((f11[i] - min1) * scale));
                                 if (f11[i] > 0)
-                                    pen.Color = cc1;
-                                else
                                     pen.Color = cc2;
+                                else
+                                    pen.Color = cc1;
                                 canvas.DrawLine(pen, cx + (int)(fbsc1 / 2), cy, cx + (int)(fbsc1 / 2), cy1);
                             }
                         }

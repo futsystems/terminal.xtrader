@@ -110,12 +110,14 @@ namespace XTraderLite
             btnFreqQuarter.Tag = ConstFreq.Freq_Quarter;
             btnFreqYear.Tag = ConstFreq.Freq_Year;
             btnFreqM1.Tag = ConstFreq.Freq_M1;
+            btnFreqM3.Tag = ConstFreq.Freq_M3;
             btnFreqM5.Tag = ConstFreq.Freq_M5;
             btnFreqM15.Tag = ConstFreq.Freq_M15;
             btnFreqM30.Tag = ConstFreq.Freq_M30;
             btnFreqM60.Tag = ConstFreq.Freq_M60;
 
             freqLink.AddLast(ConstFreq.Freq_M1);
+            freqLink.AddLast(ConstFreq.Freq_M3);
             freqLink.AddLast(ConstFreq.Freq_M5);
             freqLink.AddLast(ConstFreq.Freq_M15);
             freqLink.AddLast(ConstFreq.Freq_M30);
@@ -132,6 +134,7 @@ namespace XTraderLite
             freqButtons.Add(btnFreqQuarter);
             freqButtons.Add(btnFreqYear);
             freqButtons.Add(btnFreqM1);
+            freqButtons.Add(btnFreqM3);
             freqButtons.Add(btnFreqM5);
             freqButtons.Add(btnFreqM15);
             freqButtons.Add(btnFreqM30);
