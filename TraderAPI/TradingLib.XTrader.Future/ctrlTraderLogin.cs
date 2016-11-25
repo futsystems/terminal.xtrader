@@ -18,6 +18,10 @@ namespace TradingLib.XTrader.Future
 {
     public partial class ctrlTraderLogin : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
 
         public event Action ExitTrader;
 
@@ -108,7 +112,15 @@ namespace TradingLib.XTrader.Future
 
         void btnExit_Click(object sender, EventArgs e)
         {
-            System.Threading.ThreadPool.QueueUserWorkItem(o => StopTrader());
+            //System.Threading.ThreadPool.QueueUserWorkItem(o => { 
+            //    StopTrader();
+                if (TraderWindowOpeartion != null)
+                {
+                    TraderWindowOpeartion(EnumTraderWindowOperation.Close);
+                }
+           
+
+            
         }
 
 

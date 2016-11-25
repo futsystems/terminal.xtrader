@@ -54,6 +54,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.MaskedTextBox();
+            this.lbFocus = new System.Windows.Forms.Label();
             this.holder.SuspendLayout();
             this.panel_XGJ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).BeginInit();
@@ -166,6 +167,7 @@
             // panel_XGJ
             // 
             this.panel_XGJ.BackgroundImage = global::XTraderLite.Properties.Resources.bg;
+            this.panel_XGJ.Controls.Add(this.lbFocus);
             this.panel_XGJ.Controls.Add(this.cbUpdateBasic);
             this.panel_XGJ.Controls.Add(this.cbSaveAccount);
             this.panel_XGJ.Controls.Add(this.@__msg2);
@@ -325,6 +327,15 @@
             this.password.TabIndex = 3;
             this.password.Text = "888888";
             // 
+            // lbFocus
+            // 
+            this.lbFocus.AutoSize = true;
+            this.lbFocus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
+            this.lbFocus.Location = new System.Drawing.Point(488, 255);
+            this.lbFocus.Name = "lbFocus";
+            this.lbFocus.Size = new System.Drawing.Size(0, 12);
+            this.lbFocus.TabIndex = 7;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -378,5 +389,6 @@
         private System.Windows.Forms.Label __msg2;
         private System.Windows.Forms.PictureBox cbSaveAccount;
         private System.Windows.Forms.PictureBox cbUpdateBasic;
+        private System.Windows.Forms.Label lbFocus;
     }
 }

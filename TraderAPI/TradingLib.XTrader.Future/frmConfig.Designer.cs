@@ -38,7 +38,6 @@
             this.cbExDoubleOrderCancelIfNotFilled = new System.Windows.Forms.CheckBox();
             this.cbExSwitchSymbolOfMarketDataView = new System.Windows.Forms.CheckBox();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.cbExFlagAuto = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -65,7 +64,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cbExFlagAuto);
             this.tabPage1.Controls.Add(this.cbExPositionLine);
             this.tabPage1.Controls.Add(this.cbExSendOrderDirect);
             this.tabPage1.Controls.Add(this.cbExSwitchToOpenWhenCloseOrderSubmit);
@@ -149,16 +147,6 @@
             this.btnSubmit.Text = "确 认";
             this.btnSubmit.UseVisualStyleBackColor = true;
             // 
-            // cbExFlagAuto
-            // 
-            this.cbExFlagAuto.AutoSize = true;
-            this.cbExFlagAuto.Location = new System.Drawing.Point(288, 7);
-            this.cbExFlagAuto.Name = "cbExFlagAuto";
-            this.cbExFlagAuto.Size = new System.Drawing.Size(120, 16);
-            this.cbExFlagAuto.TabIndex = 6;
-            this.cbExFlagAuto.Text = "默认下单自动状态";
-            this.cbExFlagAuto.UseVisualStyleBackColor = true;
-            // 
             // frmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -190,6 +178,5 @@
         private System.Windows.Forms.CheckBox cbExSwitchToOpenWhenCloseOrderSubmit;
         private System.Windows.Forms.CheckBox cbExSendOrderDirect;
         private System.Windows.Forms.CheckBox cbExPositionLine;
-        private System.Windows.Forms.CheckBox cbExFlagAuto;
     }
 }

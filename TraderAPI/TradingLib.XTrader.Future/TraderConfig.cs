@@ -30,7 +30,7 @@ namespace TradingLib.XTrader
             if (!_cfgfile.ContainsKey("ExSwitchToOpenWhenCloseOrderSubmit")) _cfgfile.Set("ExSwitchToOpenWhenCloseOrderSubmit", "true");//平仓 平今委托发出后切换回开仓状态
             if (!_cfgfile.ContainsKey("ExPositionLine")) _cfgfile.Set("ExPositionLine", "true");//显示持仓线
             if (!_cfgfile.ContainsKey("ExSendOrderDirect")) _cfgfile.Set("ExSendOrderDirect", "false");//一键下单
-            if (!_cfgfile.ContainsKey("ExFlagAuto")) _cfgfile.Set("ExFlagAuto", "true");//默认下单状态自动
+            //if (!_cfgfile.ContainsKey("ExFlagAuto")) _cfgfile.Set("ExFlagAuto", "true");//默认下单状态自动
             _cfgfile.Save();
             
         }
@@ -48,7 +48,7 @@ namespace TradingLib.XTrader
 
         public static bool ExPositionLine { get { return defaultinstance._cfgfile["ExPositionLine"].AsBool(); } set { defaultinstance._cfgfile.Set("ExPositionLine", value.ToString()); } }
 
-        public static bool ExFlagAuto { get { return defaultinstance._cfgfile["ExFlagAuto"].AsBool(); } set { defaultinstance._cfgfile.Set("ExFlagAuto", value.ToString()); } }
+        //public static bool ExFlagAuto { get { return defaultinstance._cfgfile["ExFlagAuto"].AsBool(); } set { defaultinstance._cfgfile.Set("ExFlagAuto", value.ToString()); } }
 
         /// <summary>
         /// 保存当前设置

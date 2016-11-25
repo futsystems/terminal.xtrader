@@ -207,6 +207,7 @@ namespace XTraderLite
 
         void btnLogin2_MouseEnter(object sender, EventArgs e)
         {
+            this.lbFocus.Focus();//避免按钮获得焦点 有黑色边框
             btnLogin2.BackgroundImage = Properties.Resources.login_over;
         }
 

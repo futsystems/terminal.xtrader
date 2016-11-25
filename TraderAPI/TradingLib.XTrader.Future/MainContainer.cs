@@ -70,6 +70,7 @@ namespace TradingLib.XTrader.Future
         void WireEvent()
         {
             ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
+            ctrlTraderLogin.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
             //ctrlTraderLogin.ExitTrader += new Action(ctrlTraderLogin_ExitTrader);
 
             CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
@@ -78,6 +79,8 @@ namespace TradingLib.XTrader.Future
             CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventIndicator.GotPositionNotifyEvent += new Action<PositionEx>(EventIndicator_GotPositionNotifyEvent);
         }
+
+
 
         void EventIndicator_GotPositionNotifyEvent(PositionEx obj)
         {
@@ -166,7 +169,7 @@ namespace TradingLib.XTrader.Future
                 {
                     _trader = new ctrlFutureTrader();
                     _trader.Dock = DockStyle.Fill;
-                    _trader.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(tmp_TraderWindowOpeartion);
+                    _trader.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
                     this.Controls.Add(_trader);
                 }
                 ctrlTraderLogin.Visible = false;
@@ -174,7 +177,7 @@ namespace TradingLib.XTrader.Future
             }
         }
 
-        void tmp_TraderWindowOpeartion(EnumTraderWindowOperation obj)
+        void OnTraderWindowOpeartion(EnumTraderWindowOperation obj)
         {
             if (TraderWindowOpeartion != null)
             {
@@ -189,8 +192,11 @@ namespace TradingLib.XTrader.Future
                         //关闭交易系统
                         ctrlTraderLogin.Visible = true;
                         ctrlTraderLogin.StopTrader();
-                        _trader.Visible = false;
-                        _trader = null;
+                        if (_trader != null)
+                        {
+                            _trader.Visible = false;
+                            _trader = null;
+                        }
                     }
 
                 });
