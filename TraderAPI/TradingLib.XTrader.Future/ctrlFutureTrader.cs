@@ -286,6 +286,8 @@ namespace TradingLib.XTrader.Future
         void EventOther_OnResumeDataEnd()
         {
             btnRefresh.Enabled = true;
+            //刷新 重新请求交易数据后 查询账户最新财务数据
+            CoreService.TLClient.ReqXQryAccountFinance();
 
             //数据恢复完毕后 订阅常驻合约 放入持仓列表中注册
             //foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)

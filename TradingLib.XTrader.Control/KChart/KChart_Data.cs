@@ -286,6 +286,19 @@ namespace CStock
         }
 
         /// <summary>
+        /// 重置分时图
+        /// 1.清空分时数据
+        /// 2.重新获得昨日基准价格
+        /// </summary>
+        public void ResetIntraView()
+        {
+            //清空分时数据
+            this.ClearIntraViewData();
+            //重置昨日价格
+            this.PreClose = this.Symbol.GetYdPrice();
+        }
+
+        /// <summary>
         /// 重新计算分时数据
         /// </summary>
         /// <param name="obj"></param>

@@ -32,19 +32,19 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rtAccountFinanceReport = new System.Windows.Forms.RichTextBox();
-            this.btnQryAccountFinace = new TradingLib.XTrader.FButton();
             this.p1TradingDay = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.rtSettlement = new System.Windows.Forms.RichTextBox();
             this.p2TradingDay = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnQrySettlement = new TradingLib.XTrader.FButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.rtPositionDetails = new System.Windows.Forms.RichTextBox();
+            this.btnQryAccountFinace = new TradingLib.XTrader.FButton();
+            this.btnQrySettlement = new TradingLib.XTrader.FButton();
             this.btnQryPositionDetail = new TradingLib.XTrader.FButton();
+            this.rtSettlement = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -60,6 +60,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -102,21 +103,6 @@
             this.rtAccountFinanceReport.Size = new System.Drawing.Size(777, 278);
             this.rtAccountFinanceReport.TabIndex = 0;
             this.rtAccountFinanceReport.Text = "";
-            // 
-            // btnQryAccountFinace
-            // 
-            this.btnQryAccountFinace.BackColor = System.Drawing.Color.White;
-            this.btnQryAccountFinace.CheckButton = false;
-            this.btnQryAccountFinace.Checked = false;
-            this.btnQryAccountFinace.IsPriceOn = false;
-            this.btnQryAccountFinace.Location = new System.Drawing.Point(5, 103);
-            this.btnQryAccountFinace.Name = "btnQryAccountFinace";
-            this.btnQryAccountFinace.OrderEntryButton = false;
-            this.btnQryAccountFinace.PriceStr = "";
-            this.btnQryAccountFinace.Size = new System.Drawing.Size(75, 23);
-            this.btnQryAccountFinace.TabIndex = 3;
-            this.btnQryAccountFinace.Text = "查询";
-            this.btnQryAccountFinace.UseVisualStyleBackColor = false;
             // 
             // p1TradingDay
             // 
@@ -161,18 +147,6 @@
             this.panel2.Size = new System.Drawing.Size(778, 280);
             this.panel2.TabIndex = 7;
             // 
-            // rtSettlement
-            // 
-            this.rtSettlement.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtSettlement.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtSettlement.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rtSettlement.Location = new System.Drawing.Point(0, 0);
-            this.rtSettlement.Name = "rtSettlement";
-            this.rtSettlement.Size = new System.Drawing.Size(776, 278);
-            this.rtSettlement.TabIndex = 1;
-            this.rtSettlement.Text = "";
-            this.rtSettlement.WordWrap = false;
-            // 
             // p2TradingDay
             // 
             this.p2TradingDay.Location = new System.Drawing.Point(67, 10);
@@ -188,21 +162,6 @@
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 4;
             this.label2.Text = "结算日期";
-            // 
-            // btnQrySettlement
-            // 
-            this.btnQrySettlement.BackColor = System.Drawing.Color.White;
-            this.btnQrySettlement.CheckButton = false;
-            this.btnQrySettlement.Checked = false;
-            this.btnQrySettlement.IsPriceOn = false;
-            this.btnQrySettlement.Location = new System.Drawing.Point(5, 103);
-            this.btnQrySettlement.Name = "btnQrySettlement";
-            this.btnQrySettlement.OrderEntryButton = false;
-            this.btnQrySettlement.PriceStr = "";
-            this.btnQrySettlement.Size = new System.Drawing.Size(75, 23);
-            this.btnQrySettlement.TabIndex = 6;
-            this.btnQrySettlement.Text = "查询";
-            this.btnQrySettlement.UseVisualStyleBackColor = false;
             // 
             // tabPage3
             // 
@@ -239,6 +198,36 @@
             this.rtPositionDetails.Text = "";
             this.rtPositionDetails.WordWrap = false;
             // 
+            // btnQryAccountFinace
+            // 
+            this.btnQryAccountFinace.BackColor = System.Drawing.Color.White;
+            this.btnQryAccountFinace.CheckButton = false;
+            this.btnQryAccountFinace.Checked = false;
+            this.btnQryAccountFinace.IsPriceOn = false;
+            this.btnQryAccountFinace.Location = new System.Drawing.Point(5, 103);
+            this.btnQryAccountFinace.Name = "btnQryAccountFinace";
+            this.btnQryAccountFinace.OrderEntryButton = false;
+            this.btnQryAccountFinace.PriceStr = "";
+            this.btnQryAccountFinace.Size = new System.Drawing.Size(75, 23);
+            this.btnQryAccountFinace.TabIndex = 3;
+            this.btnQryAccountFinace.Text = "查询";
+            this.btnQryAccountFinace.UseVisualStyleBackColor = false;
+            // 
+            // btnQrySettlement
+            // 
+            this.btnQrySettlement.BackColor = System.Drawing.Color.White;
+            this.btnQrySettlement.CheckButton = false;
+            this.btnQrySettlement.Checked = false;
+            this.btnQrySettlement.IsPriceOn = false;
+            this.btnQrySettlement.Location = new System.Drawing.Point(5, 103);
+            this.btnQrySettlement.Name = "btnQrySettlement";
+            this.btnQrySettlement.OrderEntryButton = false;
+            this.btnQrySettlement.PriceStr = "";
+            this.btnQrySettlement.Size = new System.Drawing.Size(75, 23);
+            this.btnQrySettlement.TabIndex = 6;
+            this.btnQrySettlement.Text = "查询";
+            this.btnQrySettlement.UseVisualStyleBackColor = false;
+            // 
             // btnQryPositionDetail
             // 
             this.btnQryPositionDetail.BackColor = System.Drawing.Color.White;
@@ -254,6 +243,17 @@
             this.btnQryPositionDetail.Text = "查询";
             this.btnQryPositionDetail.UseVisualStyleBackColor = false;
             // 
+            // rtSettlement
+            // 
+            this.rtSettlement.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtSettlement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtSettlement.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtSettlement.Location = new System.Drawing.Point(0, 0);
+            this.rtSettlement.Multiline = true;
+            this.rtSettlement.Name = "rtSettlement";
+            this.rtSettlement.Size = new System.Drawing.Size(776, 278);
+            this.rtSettlement.TabIndex = 8;
+            // 
             // PageQry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -268,6 +268,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -289,9 +290,9 @@
         private System.Windows.Forms.TextBox p2TradingDay;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RichTextBox rtSettlement;
         private FButton btnQryPositionDetail;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RichTextBox rtPositionDetails;
+        private System.Windows.Forms.TextBox rtSettlement;
     }
 }

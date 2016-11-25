@@ -150,6 +150,7 @@ namespace DataAPI.Futs
                 symbol.Multiple = target.Multiple;
                 symbol.SecurityType = MDSecurityType.FUT;
                 symbol.SizeRate = 1;
+                symbol.Key = symbol.Symbol;
                 symbol.NCode = 0;
                 symbol.SortKey = target.Month;
                 symbol.Precision = target.SecurityFamily.GetDecimalPlaces();

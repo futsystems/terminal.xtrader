@@ -34,6 +34,22 @@ namespace XTraderLite
         {
             if (!timeGo) return;
 
+            //开盘前2分钟 重置分时数据
+            if ((!_openReset) && CurrentKChartSymbol != null && CurrentKChartSymbol.OpenTime != null)
+            {
+                int now = Utils.ToTLTime();
+                int diff = Utils.FTDIFF(now, (int)CurrentKChartSymbol.OpenTime);
+                //开盘前5分钟 执行数据重置
+                if (now <= CurrentKChartSymbol.OpenTime && diff < 2 * 60 && diff > 0)//开盘前2分钟执行数据重置 避免客户端时间与服务端时间有偏差导致重置后任然获得上个交易日的数据 从而数据无法重置
+                {
+                    _openReset = true;
+                    //清空当前分时数据
+                    ctrlKChart.ResetIntraView();
+                    //ctrlKChart.ClearIntraViewData();
+                    //RefreshKChart();
+                }
+            }
+
             //KChart视图
             if (ctrlKChart.Visible)
             {
@@ -42,20 +58,6 @@ namespace XTraderLite
                 {
                     if (MDService.DataAPI.APISetting.QryMinuteDataTimeSupport)
                     {
-                        //检查 如果距离开盘前5分钟之内 则执行全量查询
-                        if ((!_openReset) && CurrentKChartSymbol!= null && CurrentKChartSymbol.OpenTime != null)
-                        {
-                            int now = Utils.ToTLTime();
-                            int diff = Utils.FTDIFF(now,(int)CurrentKChartSymbol.OpenTime);
-                            //开盘前5分钟 执行数据重置
-                            if (now <= CurrentKChartSymbol.OpenTime &&  diff < 2 * 60  && diff>0 )//开盘前2分钟执行数据重置 避免客户端时间与服务端时间有偏差导致重置后任然获得上个交易日的数据 从而数据无法重置
-                            {
-                                _openReset = true;
-                                //清空当前分时数据
-                                RefreshKChart();
-                            }
-                        }
-
                         if (ctrlKChart.LastMinuteDataDay > 0 && ctrlKChart.LastMinuteDataTime >= 0)
                         {
                             long start = Utils.ToTLDateTime(ctrlKChart.LastMinuteDataDay, ctrlKChart.LastMinuteDataTime);
@@ -140,34 +142,10 @@ namespace XTraderLite
 
             #region 根据当前控件所显示合约执行合约查询
             IEnumerable<MDSymbol> symlist = GetSymbolsNeeded();
-                
-                
-            ////底部高亮合约
-            //symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
 
-            ////当前K线图合约
-            //symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
-
-            ////如果合约报价列表可见 合并对应可见合约
-            //if (ctrlQuoteList.Visible)
-            //{
-            //    symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
-            //}
             //查询模式直接查询合约列表
             if (MDService.DataAPI.APISetting.TickMode == EnumMDTickMode.FreqQry)
             {
-                //IEnumerable<MDSymbol> symlist = new List<MDSymbol>();
-                ////底部高亮合约
-                //symlist = symlist.Union(ctrlSymbolHighLight.Symbols);
-
-                ////当前K线图合约
-                //symlist = symlist.Union(new MDSymbol[] { ctrlKChart.Symbol });
-
-                ////如果合约报价列表可见 合并对应可见合约
-                //if (ctrlQuoteList.Visible)
-                //{
-                //    symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
-                //}
                 if (symlist.Count() > 0)
                 {
                     MDService.DataAPI.QryTickSnapshot(symlist.ToArray());

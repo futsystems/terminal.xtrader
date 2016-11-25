@@ -90,6 +90,7 @@ namespace TradingLib.XTrader.Future
                 content.Add(string.Format("信用额度:{0}", report.Credit.ToFormatStr().PadRightEx(columnWidth - 9)));
                 
                 rtAccountFinanceReport.Text = string.Join("\r\n",content.ToArray());
+
             }
         }
 
