@@ -75,6 +75,8 @@ namespace TradingLib.XTrader.Future
             {
                 AccountInfo report = obj.Report;
                 List<string> content = new List<string>();
+                content.Add(string.Empty);
+                content.Add(string.Empty);
                 content.Add(string.Format("币种:{0}", Util.GetEnumDescription(CoreService.TradingInfoTracker.Account.Currency).PadRightEx(columnWidth-5)));
                 content.Add(string.Empty);
                 content.Add(string.Format("当前权益:{0}", report.NowEquity.ToFormatStr().PadRightEx(columnWidth - 9)) + split + string.Format("昨日权益:{0}", report.LastEquity.ToFormatStr().PadRightEx(columnWidth - 9)));
@@ -163,6 +165,7 @@ namespace TradingLib.XTrader.Future
                     decimal unplbydate = 0;
                     decimal hmargin = 0;
 
+                    settlelist.Add(string.Empty);
                     settlelist.Add(SectionName("持仓明细"));
                     settlelist.Add(sline);
                     settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|",

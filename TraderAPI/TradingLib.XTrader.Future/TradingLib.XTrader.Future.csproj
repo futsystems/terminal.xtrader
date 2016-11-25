@@ -37,6 +37,9 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.TextEditor">
+      <HintPath>..\..\..\Futs.base\lib\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -414,6 +417,7 @@
       <OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.TraderCore.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
+	  <OutFiles Include="$(OutputPath)\ICSharpCode.TextEditor.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\Build\XTraderLite\TraderAPI\" SkipUnchangedFiles="false" />
   </Target>

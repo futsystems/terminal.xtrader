@@ -305,8 +305,22 @@ namespace TradingLib.XTrader.Future
             ResetInputPrice();
             ResetPriceButton();
 
-            inputFlagOpen.Checked = true;
-            _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+            if (TraderConfig.ExFlagAuto)
+            {
+                inputFlagAuto.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;//服务端自动判定
+                inputFlagClose.Enabled = false;
+                inputFlagOpen.Enabled = false;
+                inputFlagCloseToday.Enabled = false;
+                inputFlagClose.Checked = false;
+                inputFlagOpen.Checked = false;
+                inputFlagCloseToday.Checked = false;
+            }
+            else
+            {
+                inputFlagOpen.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+            }
         }
 
         #region 合约选择控件 选择合约

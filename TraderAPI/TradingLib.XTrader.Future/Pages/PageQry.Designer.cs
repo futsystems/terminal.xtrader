@@ -31,20 +31,20 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rtAccountFinanceReport = new System.Windows.Forms.RichTextBox();
+            this.rtAccountFinanceReport = new ICSharpCode.TextEditor.TextEditorControl();
             this.p1TradingDay = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.rtSettlement = new ICSharpCode.TextEditor.TextEditorControl();
             this.p2TradingDay = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.rtPositionDetails = new System.Windows.Forms.RichTextBox();
+            this.rtPositionDetails = new ICSharpCode.TextEditor.TextEditorControl();
             this.btnQryAccountFinace = new TradingLib.XTrader.FButton();
             this.btnQrySettlement = new TradingLib.XTrader.FButton();
             this.btnQryPositionDetail = new TradingLib.XTrader.FButton();
-            this.rtSettlement = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -95,14 +95,17 @@
             // 
             // rtAccountFinanceReport
             // 
-            this.rtAccountFinanceReport.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtAccountFinanceReport.AutoScroll = true;
             this.rtAccountFinanceReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtAccountFinanceReport.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtAccountFinanceReport.IndentStyle = ICSharpCode.TextEditor.Document.IndentStyle.None;
+            this.rtAccountFinanceReport.IsReadOnly = false;
             this.rtAccountFinanceReport.Location = new System.Drawing.Point(0, 0);
+            this.rtAccountFinanceReport.Margin = new System.Windows.Forms.Padding(0);
             this.rtAccountFinanceReport.Name = "rtAccountFinanceReport";
+            this.rtAccountFinanceReport.ShowLineNumbers = false;
+            this.rtAccountFinanceReport.ShowVRuler = false;
             this.rtAccountFinanceReport.Size = new System.Drawing.Size(777, 278);
-            this.rtAccountFinanceReport.TabIndex = 0;
-            this.rtAccountFinanceReport.Text = "";
+            this.rtAccountFinanceReport.TabIndex = 9;
             // 
             // p1TradingDay
             // 
@@ -147,6 +150,20 @@
             this.panel2.Size = new System.Drawing.Size(778, 280);
             this.panel2.TabIndex = 7;
             // 
+            // rtSettlement
+            // 
+            this.rtSettlement.AutoScroll = true;
+            this.rtSettlement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtSettlement.IndentStyle = ICSharpCode.TextEditor.Document.IndentStyle.None;
+            this.rtSettlement.IsReadOnly = false;
+            this.rtSettlement.Location = new System.Drawing.Point(0, 0);
+            this.rtSettlement.Margin = new System.Windows.Forms.Padding(0);
+            this.rtSettlement.Name = "rtSettlement";
+            this.rtSettlement.ShowLineNumbers = false;
+            this.rtSettlement.ShowVRuler = false;
+            this.rtSettlement.Size = new System.Drawing.Size(776, 278);
+            this.rtSettlement.TabIndex = 8;
+            // 
             // p2TradingDay
             // 
             this.p2TradingDay.Location = new System.Drawing.Point(67, 10);
@@ -188,15 +205,17 @@
             // 
             // rtPositionDetails
             // 
-            this.rtPositionDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtPositionDetails.AutoScroll = true;
             this.rtPositionDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtPositionDetails.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rtPositionDetails.IndentStyle = ICSharpCode.TextEditor.Document.IndentStyle.None;
+            this.rtPositionDetails.IsReadOnly = false;
             this.rtPositionDetails.Location = new System.Drawing.Point(0, 0);
+            this.rtPositionDetails.Margin = new System.Windows.Forms.Padding(0);
             this.rtPositionDetails.Name = "rtPositionDetails";
+            this.rtPositionDetails.ShowLineNumbers = false;
+            this.rtPositionDetails.ShowVRuler = false;
             this.rtPositionDetails.Size = new System.Drawing.Size(776, 278);
-            this.rtPositionDetails.TabIndex = 2;
-            this.rtPositionDetails.Text = "";
-            this.rtPositionDetails.WordWrap = false;
+            this.rtPositionDetails.TabIndex = 9;
             // 
             // btnQryAccountFinace
             // 
@@ -243,17 +262,6 @@
             this.btnQryPositionDetail.Text = "查询";
             this.btnQryPositionDetail.UseVisualStyleBackColor = false;
             // 
-            // rtSettlement
-            // 
-            this.rtSettlement.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtSettlement.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtSettlement.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rtSettlement.Location = new System.Drawing.Point(0, 0);
-            this.rtSettlement.Multiline = true;
-            this.rtSettlement.Name = "rtSettlement";
-            this.rtSettlement.Size = new System.Drawing.Size(776, 278);
-            this.rtSettlement.TabIndex = 8;
-            // 
             // PageQry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -268,7 +276,6 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -285,14 +292,14 @@
         private System.Windows.Forms.TextBox p1TradingDay;
         private FButton btnQryAccountFinace;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RichTextBox rtAccountFinanceReport;
         private FButton btnQrySettlement;
         private System.Windows.Forms.TextBox p2TradingDay;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private FButton btnQryPositionDetail;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RichTextBox rtPositionDetails;
-        private System.Windows.Forms.TextBox rtSettlement;
+        private ICSharpCode.TextEditor.TextEditorControl rtSettlement;
+        private ICSharpCode.TextEditor.TextEditorControl rtAccountFinanceReport;
+        private ICSharpCode.TextEditor.TextEditorControl rtPositionDetails;
     }
 }
