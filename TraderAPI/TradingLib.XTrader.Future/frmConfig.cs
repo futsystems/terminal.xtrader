@@ -29,7 +29,7 @@ namespace TradingLib.XTrader
             TraderConfig.ExSwitchSymbolOfMarketDataView = cbExSwitchSymbolOfMarketDataView.Checked;
             TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit = cbExSwitchToOpenWhenCloseOrderSubmit.Checked;
             TraderConfig.ExPositionLine = cbExPositionLine.Checked;
-            //TraderConfig.ExFlagAuto = cbExFlagAuto.Checked;
+            TraderConfig.ExFlagAuto = cbExFlagAuto.Checked;
             TraderConfig.Save();
             this.Close();
         }
@@ -42,7 +42,7 @@ namespace TradingLib.XTrader
             cbExSwitchToOpenWhenCloseOrderSubmit.Checked = TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit;
             cbExSendOrderDirect.Checked = TraderConfig.ExSendOrderDirect;
             cbExPositionLine.Checked = TraderConfig.ExPositionLine;
-            //cbExFlagAuto.Checked = TraderConfig.ExFlagAuto;
+            cbExFlagAuto.Checked = TraderConfig.ExFlagAuto;
         }
 
 
