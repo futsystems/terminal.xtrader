@@ -61,13 +61,13 @@
     <Compile Include="FutsDataAPI_Helper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TradingLib.DataCore\TradingLib.DataCore.csproj">
+      <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
+      <Name>TradingLib.DataCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TradingLib.MarketData\TradingLib.MarketData.csproj">
       <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
       <Name>TradingLib.MarketData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TradingLib.MDClient\TradingLib.DataCore.csproj">
-      <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
-      <Name>TradingLib.DataCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

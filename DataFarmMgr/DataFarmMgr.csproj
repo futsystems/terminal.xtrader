@@ -271,13 +271,13 @@
     <None Include="Images\img_5M_S.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TradingLib.DataCore\TradingLib.DataCore.csproj">
+      <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
+      <Name>TradingLib.DataCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradingLib.MarketData\TradingLib.MarketData.csproj">
       <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
       <Name>TradingLib.MarketData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TradingLib.MDClient\TradingLib.DataCore.csproj">
-      <Project>{F480745A-4808-4282-8339-AF2AA06FBEC9}</Project>
-      <Name>TradingLib.DataCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\TradingLib.XTrader.Control\TradingLib.XTrader.Control.csproj">
       <Project>{CAFF302A-2E14-45AA-B6B6-C0FF5A18CB7F}</Project>
