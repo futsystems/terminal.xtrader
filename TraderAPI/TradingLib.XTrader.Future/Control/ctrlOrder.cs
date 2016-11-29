@@ -354,9 +354,10 @@ namespace TradingLib.XTrader.Future
 
         string FormatPrice(Order o, decimal val)
         {
-            if (o.oSymbol != null) val.ToFormatStr(o.oSymbol);
+            if (o.oSymbol != null) return val.ToFormatStr(o.oSymbol);
             return val.ToFormatStr();
         }
+
         string GetSymbolName(Order o)
         {
             if (o.oSymbol != null) return o.oSymbol.GetName();
