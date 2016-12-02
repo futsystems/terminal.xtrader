@@ -354,6 +354,7 @@ namespace TradingLib.XTrader.Future
 
         string FormatPrice(Order o, decimal val)
         {
+            if (val == 0) return "市价";
             if (o.oSymbol != null) return val.ToFormatStr(o.oSymbol);
             return val.ToFormatStr();
         }
