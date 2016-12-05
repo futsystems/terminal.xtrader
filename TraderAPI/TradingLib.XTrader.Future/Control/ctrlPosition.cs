@@ -603,7 +603,7 @@ namespace TradingLib.XTrader.Future
                         tb.Rows[i][SIZE] = pos.UnsignedSize;
                         tb.Rows[i][SIZECANFLAT] = GetCanFlatSize(pos); ;
                         tb.Rows[i][AVGPRICE] = pos.FormatPrice(pos.AvgPrice);
-
+                        tb.Rows[i][NAME] = GetSymbolName(pos);
                         //更新浮动盈亏
                         if (pos.isFlat)
                         {
