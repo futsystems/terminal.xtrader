@@ -721,13 +721,16 @@ namespace TradingLib.XTrader.Future
             decimal targetprice = 0;
             //logger.Info("it is here");
             //return "x";
+            string sizestr = string.Empty;
             if (direction == QSEnumPositionOffsetDirection.LOSS)
             {
                 targetprice = args.LossArg.TargetPrice(pos);
+                sizestr = args.LossArg.Size==0?"所有":args.LossArg.Size.ToString();
             }
             else
             {
                 targetprice = args.ProfitArg.TargetPrice(pos);
+                sizestr = args.ProfitArg.Size == 0 ? "所有" : args.LossArg.Size.ToString();
             }
 
             if (targetprice == -1)
@@ -740,7 +743,7 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                return targetprice.ToFormatStr(pos.oSymbol.SecurityFamily.GetPriceFormat());
+                return string.Format("{0}/{1}",pos.FormatPrice(targetprice), sizestr);
             }
         }
 
