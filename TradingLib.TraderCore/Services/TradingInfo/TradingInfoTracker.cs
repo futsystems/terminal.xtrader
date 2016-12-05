@@ -220,7 +220,7 @@ namespace TradingLib.TraderCore
                 if (arg4)
                 {
                     Status("帐户信息查询完毕");
-                    CoreService.TLClient.StartTick();
+                    //CoreService.TLClient.StartTick();
                     //核心服务完成初始化
                     CoreService.Initialize();
                     Status("触发初始化完毕事件");

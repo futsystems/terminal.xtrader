@@ -246,6 +246,7 @@ namespace TradingLib.TraderCore
         Poller _tickpoller = null;
 
         bool _suballtick = false;
+        ManualResetEvent tickstartResetEvent = new ManualResetEvent(false);
         /// <summary>
         /// 启动Tick数据接收,如果TLClient所连接的服务器支持Tick数据,则我们可以启动单独的Tick对话流程,用于接收数据
         /// </summary>
@@ -255,7 +256,7 @@ namespace TradingLib.TraderCore
             if (_tickreceiveruning)
                 return;
             logger.Info("Start Client Tick Reciving Thread....");
-            _tickthread = new Thread(new ThreadStart(TickHandler));
+            _tickthread = new Thread(TickHandler);
             _tickthread.IsBackground = true;
             _tickthread.Start();
 
@@ -321,7 +322,7 @@ namespace TradingLib.TraderCore
                     subscriber.ReceiveReady += (s, e) =>
                     {
                         string tickstr = subscriber.ReceiveString(Encoding.UTF8);
-
+                        //logger.Info(tickstr);
                         //Tick k = TickImpl.Deserialize2(tickstr);
                         if (!string.IsNullOrEmpty(tickstr))// && tickstr!="H,")
                         {

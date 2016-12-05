@@ -49,16 +49,16 @@ namespace TradingLib.TraderCore
         }
 
 
-        /// <summary>
-        /// 启动行情连接
-        /// </summary>
-        public void StartTick()
-        {
-            if (connecton != null && connecton.IsConnected)
-            {
-                connecton.StartTick();
-            }
-        }
+        ///// <summary>
+        ///// 启动行情连接
+        ///// </summary>
+        //public void StartTick()
+        //{
+        //    if (connecton != null && connecton.IsConnected)
+        //    {
+        //        connecton.StartTick();
+        //    }
+        //}
 
 
         public void Start()

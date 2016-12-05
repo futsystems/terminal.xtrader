@@ -566,8 +566,16 @@ namespace TradingLib.TraderCore
                 _mqcli.StopTickReciver();
                 if (OnDataPubDisconnectEvent != null)
                     OnDataPubDisconnectEvent();
-                _mqcli.StartTickReciver();
+                _mqcli.StartTickReciver(false);
                 _tickhartbeat = DateTime.Now.Ticks;
+                //启动行情连接后 注册当前已注册的合约 行情启动是在FeatureList回报中进行的
+                if (_mqcli != null && _mqcli.isConnected)
+                {
+                    foreach (var symbol in symbolRegister)
+                    {
+                        _mqcli.Subscribe(symbol);//订阅合约
+                    }
+                }
 
                 if (OnDataPubConnectEvent != null)
                     OnDataPubConnectEvent();
@@ -594,6 +602,14 @@ namespace TradingLib.TraderCore
             _tickhartbeat = DateTime.Now.Ticks;//将当前时间设定为tickheartbeat时间
             tickenable = true;
             StartTickWatcher();
+            //启动行情连接后 注册当前已注册的合约 行情启动是在FeatureList回报中进行的
+            if (_mqcli != null && _mqcli.isConnected)
+            {
+                foreach (var symbol in symbolRegister)
+                {
+                    _mqcli.Subscribe(symbol);//订阅合约
+                }
+            }
             //启动市场数据接收之后才会触发datapubavabile,这样外层逻辑才可以注册市场数据
             if (OnDataPubConnectEvent != null)
                 OnDataPubConnectEvent();
@@ -601,13 +617,13 @@ namespace TradingLib.TraderCore
             _tickreconnectreq = false;
         }
 
-        /// <summary>
-        /// 启动行情通道
-        /// </summary>
-        public void StartTick()
-        {
-            connectTick();
-        }
+        ///// <summary>
+        ///// 启动行情通道
+        ///// </summary>
+        //public void StartTick()
+        //{
+        //    connectTick();
+        //}
 
 
         #endregion
@@ -853,52 +869,20 @@ namespace TradingLib.TraderCore
 
         }
 
-
-        //SymbolBasket _lastbasekt;
-        //List<string> symlist = new List<string>();
-        ///// <summary>
-        ///// 请求市场数据
-        ///// </summary>
-        ///// <param name="mb"></param>
-        //public void Subscribe(string[] symbols)
-        //{
-        //    //如果mb=null 则订阅所有数据(订阅发布者当前所发布的所有数据)
-        //    if (symbols == null || symbols.Length == 0)
-        //    {
-        //        SubscribeAll_sub();//
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        //通知服务端该客户端请求symbol basket数据
-        //        //Unsubscribe();//先清除原来数据请求
-        //        logger.Info("TLClient注册合约列表:" + string.Join(",",symbols));
-        //        List<string> newlist = new List<string>();
-        //        foreach (string sym in newlist)
-        //        {
-        //            if (!symlist.Contains(sym))
-        //            {
-        //                newlist.Add(sym);
-        //            }
-        //        }
-        //        foreach(string sym in newlist)
-        //        {
-        //            Subscribe_sub(sym);
-        //        }
-        //    }
-        //}
-
+        List<string> symbolRegister = new List<string>();
         /// <summary>
         /// 订阅某个合约
         /// </summary>
         /// <param name="symbol"></param>
         public void Subscribe(string symbol)
         {
+            if (symbolRegister.Contains(symbol)) return;
+            logger.Info("Register Symbol Data:" + symbol);
             if (_mqcli != null && _mqcli.isConnected)
             {
                 _mqcli.Subscribe(symbol);//订阅合约
-
             }
+            symbolRegister.Add(symbol);
         }
         /// <summary>
         /// 取消订阅某个合约
@@ -906,72 +890,17 @@ namespace TradingLib.TraderCore
         /// <param name="symbol"></param>
         public void UnSubscribe(string symbol)
         {
+            if (!symbolRegister.Contains(symbol)) return;
+            logger.Info("UnRegister Symbol Data:" + symbol);
             if (_mqcli != null && _mqcli.isConnected)
             {
                 _mqcli.UnSubscribe(symbol);//订阅合约
 
             }
+            symbolRegister.Remove(symbol);
         }
 
-        //#region tick subscriber 订阅 退订 等函数
-        //void Subscribe_sub(string symbol)
-        //{
-        //    if (_mqcli != null && _mqcli.isConnected)
-        //    {
-        //        _mqcli.Subscribe(symbol);//订阅合约
 
-        //    }
-        //}
-        //void SubscribeAll_sub()
-        //{
-        //    if (_mqcli != null && _mqcli.isConnected)
-        //    {
-        //        _mqcli.SubscribeAll();
-
-        //    }
-        //}
-        ///// <summary>
-        ///// sub 向 pub注销symbol数据请求
-        ///// </summary>
-        //void Unsubscribe_sub(string symbol)
-        //{
-        //    if (_mqcli != null && _mqcli.isConnected)
-        //    {
-        //        //_mqcli.Unsubscribe(symbol);
-        //    }
-        //}
-        ///// <summary>
-        ///// sub 向 pub注销所有数据请求
-        ///// </summary>
-        //void UnsubscribeAll_sub()
-        //{
-        //    logger.Info("注销所有市场订阅...");
-        //    if (_mqcli != null && _mqcli.isConnected)
-        //    {
-        //        if (_lastbasekt != null)
-        //        {
-        //            //foreach (Security sec in _lastbasekt)
-        //            //{
-        //            //    _mqcli.Unsubscribe(sec.Symbol);
-        //            //}
-        //        }
-
-        //    }
-        //}
-        //#endregion
-
-
-        ///// <summary>
-        ///// 注销市场数据
-        ///// </summary>
-        //public void Unsubscribe()
-        //{
-        //    //告诉服务端清除数据
-        //    UnregisterSymbolTickRequest req = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(0);
-        //    TLSend(req);
-        //    UnsubscribeAll_sub();
-
-        //}
         /// <summary>
         /// 发送心跳响应 告诉服务器 该客户端存活
         /// </summary>
@@ -1013,7 +942,7 @@ namespace TradingLib.TraderCore
             }
             //检查是否支持tick然后我们就可以启动tickreceive
             //只有当返回特征列表支持数据服务时,并且设定客户端同时支持 数据服务时 TLClient_MQ才会注册到数据服务地址
-            //checkTickSupport();
+            CheckTickSupport();
         }
 
         /// <summary>
@@ -1058,15 +987,22 @@ namespace TradingLib.TraderCore
         //当有服务特性返回如果对应的服务端支持tick则我们需要单独启动tick数据服务
         //我们使用不同的连接来处理数据以及请求当一个Provider同时满足数据和交易的要求时,我们的交易连接也会根据Featuresupport自动注册到服务端的Tick分发接口.在这里我们需要
         //对provider的类型进行验证.该TLClient所对应的连接是DataFeed还是Execution进行区分。这样数据就不会应为多次注册 造成Tick数据的重复
-        private void checkTickSupport()
+        private void CheckTickSupport()
         {
-            //logger.Info(PROGRAME + ":Checing TickDataSupport...");
+            logger.Info(PROGRAME + ":Checing TickDataSupport...");
             //logger.Info(_skip+"providertype:" + ProviderType.ToString());
-            //if (_rfl.Contains(MessageTypes.TICKNOTIFY) && (ProviderType == QSEnumProviderType.DataFeed || ProviderType == QSEnumProviderType.Both))
-            //{
-            //    logger.Info(_skip+"Spuuort Tick we subscribde tick data server");
-            //    new Thread(connectTick).Start();
-            //}
+            if (_rfl.Contains(MessageTypes.TICKNOTIFY) && (ProviderType == QSEnumProviderType.DataFeed || ProviderType == QSEnumProviderType.Both))
+            {
+                logger.Info(_skip + "Spuuort Tick we subscribde tick data server");
+                //放入线程中执行有可能业务注册合约时 Tick通道没有正常启动
+                //System.Threading.ThreadPool.QueueUserWorkItem(o=>
+                //{
+                //    connectTick();
+                //});
+                connectTick();
+                //new Thread(connectTick).Start();
+                
+            }
         }
 
         /// <summary>
