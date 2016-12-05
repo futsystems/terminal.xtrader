@@ -14,7 +14,20 @@ namespace TradingLib.TraderCore
         #region API操作接口
 
 
-
+        int _orderref = 1;
+        object _orderrefobj = new object();
+        string NextOrderRef
+        {
+            get
+            {
+                lock (_orderrefobj)
+                {
+                    string refstr = _orderref.ToString();
+                    _orderref++;
+                    return refstr;
+                }
+            }
+        }
         /// <summary>
         /// 发送委托
         /// </summary>
@@ -27,7 +40,8 @@ namespace TradingLib.TraderCore
 
             OrderInsertRequest request = RequestTemplate<OrderInsertRequest>.CliSendRequest(++requestid);
             request.Order = order;
-
+            request.Order.OrderRef = NextOrderRef;
+            
             SendPacket(request);
             return requestid;
         }
