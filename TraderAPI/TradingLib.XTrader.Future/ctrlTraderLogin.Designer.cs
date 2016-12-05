@@ -101,6 +101,7 @@
             // 
             // encrypt
             // 
+            this.encrypt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.encrypt.FormattingEnabled = true;
             this.encrypt.Items.AddRange(new object[] {
             "验证码"});
@@ -145,6 +146,7 @@
             // 
             // seat
             // 
+            this.seat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.seat.FormattingEnabled = true;
             this.seat.Location = new System.Drawing.Point(237, 6);
             this.seat.Name = "seat";

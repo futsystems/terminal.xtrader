@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.newpass2 = new System.Windows.Forms.MaskedTextBox();
+            this.newpass1 = new System.Windows.Forms.MaskedTextBox();
+            this.pass = new System.Windows.Forms.MaskedTextBox();
             this.btnChange = new TradingLib.XTrader.FButton();
             this.cbPassType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pass = new System.Windows.Forms.MaskedTextBox();
-            this.newpass1 = new System.Windows.Forms.MaskedTextBox();
-            this.newpass2 = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +61,30 @@
             this.panel1.Size = new System.Drawing.Size(870, 319);
             this.panel1.TabIndex = 26;
             // 
+            // newpass2
+            // 
+            this.newpass2.Location = new System.Drawing.Point(129, 97);
+            this.newpass2.Name = "newpass2";
+            this.newpass2.PasswordChar = '*';
+            this.newpass2.Size = new System.Drawing.Size(130, 21);
+            this.newpass2.TabIndex = 11;
+            // 
+            // newpass1
+            // 
+            this.newpass1.Location = new System.Drawing.Point(129, 67);
+            this.newpass1.Name = "newpass1";
+            this.newpass1.PasswordChar = '*';
+            this.newpass1.Size = new System.Drawing.Size(130, 21);
+            this.newpass1.TabIndex = 10;
+            // 
+            // pass
+            // 
+            this.pass.Location = new System.Drawing.Point(129, 37);
+            this.pass.Name = "pass";
+            this.pass.PasswordChar = '*';
+            this.pass.Size = new System.Drawing.Size(130, 21);
+            this.pass.TabIndex = 9;
+            // 
             // btnChange
             // 
             this.btnChange.BackColor = System.Drawing.Color.White;
@@ -79,6 +103,7 @@
             // 
             // cbPassType
             // 
+            this.cbPassType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPassType.FormattingEnabled = true;
             this.cbPassType.Items.AddRange(new object[] {
             "交易密码"});
@@ -122,30 +147,6 @@
             this.label1.Size = new System.Drawing.Size(59, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "密码类型:";
-            // 
-            // pass
-            // 
-            this.pass.Location = new System.Drawing.Point(129, 37);
-            this.pass.Name = "pass";
-            this.pass.PasswordChar = '*';
-            this.pass.Size = new System.Drawing.Size(130, 21);
-            this.pass.TabIndex = 9;
-            // 
-            // newpass1
-            // 
-            this.newpass1.Location = new System.Drawing.Point(129, 67);
-            this.newpass1.Name = "newpass1";
-            this.newpass1.PasswordChar = '*';
-            this.newpass1.Size = new System.Drawing.Size(130, 21);
-            this.newpass1.TabIndex = 10;
-            // 
-            // newpass2
-            // 
-            this.newpass2.Location = new System.Drawing.Point(129, 97);
-            this.newpass2.Name = "newpass2";
-            this.newpass2.PasswordChar = '*';
-            this.newpass2.Size = new System.Drawing.Size(130, 21);
-            this.newpass2.TabIndex = 11;
             // 
             // PagePass
             // 
