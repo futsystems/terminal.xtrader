@@ -15,7 +15,8 @@ namespace XTraderLite
     {
         void btnDemo1_Click(object sender, EventArgs e)
         {
-            timeGo ^= true;
+            //timeGo ^= true;
+            ctrlKChart.PreClose = 0;
         }
 
         void btnDemo3_Click(object sender, EventArgs e)

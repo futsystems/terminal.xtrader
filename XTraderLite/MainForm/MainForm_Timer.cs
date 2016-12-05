@@ -49,6 +49,7 @@ namespace XTraderLite
                     //RefreshKChart();
                 }
             }
+            
 
             //KChart视图
             if (ctrlKChart.Visible)

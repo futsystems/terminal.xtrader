@@ -375,7 +375,12 @@ namespace CStock
         public void Update(MDSymbol symbol)
         {
             if (symbol == null || symbol.UniqueKey != _symbol.UniqueKey) return;
-            
+
+            //如果当前行的昨日价格与控件设定的昨日价格不一致则重置日内数据
+            if (_symbol.GetYdPrice() != this.PreClose)
+            {
+                this.ResetIntraView();
+            }
             //更新盘口数据
             if (ctDetailsBoard1.Visible)
             {
