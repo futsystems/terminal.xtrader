@@ -11,9 +11,18 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 
-namespace TradingLib.Protocol
+namespace TradingLib.XLProtocol
 {
 
+
+
+    /// <summary>
+    /// 业务结构体FieldID接口
+    /// </summary>
+    public interface IXLField
+    {
+        XLFieldType FieldType { get; }
+    }
     /// <summary>
     /// 错误消息结构体
     /// </summary>
@@ -34,7 +43,7 @@ namespace TradingLib.Protocol
     /// <summary>
     /// 用户登入请求
     /// </summary>
-    public struct ReqLoginField
+    public struct XLReqLoginField : IXLField
     {
         /// <summary>
         /// 账户编号
@@ -71,5 +80,10 @@ namespace TradingLib.Protocol
         /// </summary>
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 10)]
         public string ClientIPAddress;
+
+        /// <summary>
+        /// 域类别
+        /// </summary>
+        public XLFieldType FieldType { get { return XLFieldType.F_REQ_LOGIN; } }
     }
 }

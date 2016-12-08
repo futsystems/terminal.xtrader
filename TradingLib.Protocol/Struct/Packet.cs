@@ -6,8 +6,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 
-namespace TradingLib.Protocol
+namespace TradingLib.XLProtocol
 {
+
     public class demo
     {
         /// <summary>
@@ -18,7 +19,7 @@ namespace TradingLib.Protocol
         /// <returns></returns>
         public static Message CliSendPacket(object requestField, int requestID)
         {
-            if(requestField is ReqLoginField) return new Message((int)MessageType.REP_LOGIN,SerializeRequest(requestField,requestID));
+            if(requestField is XLReqLoginField) return new Message((int)XLMessageType.T_RSP_LOGIN,SerializeRequest(requestField,requestID));
 
             return new Message();
         }
@@ -33,10 +34,10 @@ namespace TradingLib.Protocol
         {
             switch (message.MessageType)
             {
-                case (int)MessageType.REQ_LOGIN:
+                case (int)XLMessageType.T_REQ_LOGIN:
                     {
-                        ReqLoginField reqField;
-                        DeserializeRequest<ReqLoginField>(message.MessageBody, out reqField, out requestID);
+                        XLReqLoginField reqField;
+                        DeserializeRequest<XLReqLoginField>(message.MessageBody, out reqField, out requestID);
                         requestField = reqField;
                         break;
                     }
