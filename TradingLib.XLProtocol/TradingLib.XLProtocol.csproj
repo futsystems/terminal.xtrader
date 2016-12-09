@@ -37,17 +37,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Struct\V1\StructHelp.cs" />
     <Compile Include="Struct\XLStructHelp.cs" />
     <Compile Include="Struct\Enums.cs" />
     <Compile Include="Struct\PacketData.cs" />
     <Compile Include="Struct\XLConstants.cs" />
     <Compile Include="Struct\XLMessageType.cs" />
-    <Compile Include="Struct\Struct_Field.cs" />
+    <Compile Include="Struct\V1\Struct_Field.cs" />
     <Compile Include="ProtocolUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Struct\Message.cs" />
     <Compile Include="Struct\Packet.cs" />
-    <Compile Include="Struct\Struct_Header.cs" />
+    <Compile Include="Struct\Struct_Base.cs" />
     <Compile Include="Struct\XLFieldType.cs" />
   </ItemGroup>
   <ItemGroup />

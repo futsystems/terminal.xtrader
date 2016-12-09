@@ -8,35 +8,13 @@ namespace TradingLib.XLProtocol
 {
     public static class XLStructHelp
     {
-
         /// <summary>
-        /// 将业务数据结构体转换成Byte数组
+        /// 结构体转成byte数组
         /// </summary>
-        /// <param name="field"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
         /// <returns></returns>
-        public static byte[] StructToBytes(IXLField field)
-        {
-            switch (field.FieldType)
-            { 
-                case XLFieldType.F_REQ_LOGIN:
-                    return StructToBytes<XLReqLoginField>((XLReqLoginField)field);
-                default:
-                    return null;
-            }
-        }
-
-        public static IXLField BytesToStruct(byte[] data, int offset, XLFieldType type)
-        {
-            switch (type)
-            { 
-                case XLFieldType.F_REQ_LOGIN:
-                    return BytesToStruct<XLReqLoginField>(data, offset);
-                default:
-                    return null;
-            }
-        }
-
-        public static Byte[] StructToBytes<T>(T obj)// where T : IByteSwap
+        public static byte[] StructToBytes<T>(T obj) //where T : IXLField
         {
             T structure = (T)obj;
             //structure.Swap();
@@ -54,7 +32,15 @@ namespace TradingLib.XLProtocol
                 Marshal.FreeHGlobal(buffer);
             }
         }
-        public static T BytesToStruct<T>(Byte[] bytes, int offset = 0) //where T : struct,IByteSwap
+
+        /// <summary>
+        /// byte数组转成结构体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="bytes"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static T BytesToStruct<T>(byte[] bytes, int offset = 0) //where T : IXLField
         {
             Int32 size = Marshal.SizeOf(typeof(T));
             IntPtr buffer = Marshal.AllocHGlobal(size);

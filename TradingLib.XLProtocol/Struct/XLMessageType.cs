@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-//XLink 消息类型定义
+
 namespace TradingLib.XLProtocol
 {
+    /// <summary>
+    /// 协议 消息类别
+    /// </summary>
     public enum XLMessageType : short
     {
         /// <summary>

@@ -62,13 +62,14 @@ namespace TradingLib.XLProtocol
         {
             XLFieldHeader header = new XLFieldHeader();
             int fieldLen = Marshal.SizeOf(field);
-            FillFieldHeader(ref header, field.FieldType, (ushort)fieldLen);
+            FillFieldHeader(ref header, field.FieldID, (ushort)fieldLen);
 
             _fieldList.Add(new XLFieldData<IXLField>() { FieldHeader = header,FieldData = field});
         }
 
 
 
+        #region 二进制 序列化与反序列化
         /// <summary>
         /// 将业务数据包打包成byte数组
         /// </summary>
@@ -79,7 +80,7 @@ namespace TradingLib.XLProtocol
             XLProtocolHeader protoHeader = new XLProtocolHeader();
             XLDataHeader dataHeader = new XLDataHeader();
 
-            ushort fieldLength = (ushort)packet.FieldList.Sum(d => d.FieldHeader.FieldLength);
+            ushort fieldLength = (ushort)packet.FieldList.Sum(d => (d.FieldHeader.FieldLength + XLConstants.FIELD_HEADER_LEN));
             ushort pktLen = (ushort)(XLConstants.PROTO_HEADER_LEN + XLConstants.DATA_HEADER_LEN + fieldLength);
             ushort fieldCount = (ushort)packet.FieldList.Count;
             FillProtoHeader(ref protoHeader, packet.MessageType, pktLen);
@@ -106,45 +107,41 @@ namespace TradingLib.XLProtocol
         }
 
         /// <summary>
-        /// 
+        /// 从byte数组中解析出PacketData
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="data"></param>
-        /// <param name="offset"></param>
+        /// <param name="type">协议头所获得的消息类型</param>
+        /// <param name="data">数据</param>
+        /// <param name="offset">数据偏移量 此处数据从数据正文开始(不包含协议头4个字节数据)</param>
         /// <returns></returns>
         public static XLPacketData Deserialize(XLMessageType type,byte[] data,int offset)
         { 
             int _offset = offset;
             XLDataHeader dataHeader = XLStructHelp.BytesToStruct<XLDataHeader>(data, _offset);
+            _offset += XLConstants.DATA_HEADER_LEN;
 
-            List<XLFieldData<IXLField>> fieldList = ParsePktDataV12(data, _offset, dataHeader.FieldCount);
-
-            return new XLPacketData(type, fieldList);
-        }
-
-        /// <summary>
-        /// 从数据包中解析 业务数据
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="len"></param>
-        /// <param name="cnt"></param>
-        /// <returns></returns>
-        static List<XLFieldData<IXLField>> ParsePktDataV12(byte[] data, int offset,ushort cnt)
-        {
             List<XLFieldData<IXLField>> list = new List<XLFieldData<IXLField>>();
-            int _offset = offset;
-            for (int i = 0; i < cnt; i++)
+            for (int i = 0; i < dataHeader.FieldCount; i++)
             {
                 XLFieldHeader fieldHeader = XLStructHelp.BytesToStruct<XLFieldHeader>(data, _offset);
                 XLFieldType fieldType = (XLFieldType)fieldHeader.FieldID;
-                IXLField fieldData = XLStructHelp.BytesToStruct(data, _offset + XLConstants.FIELD_HEADER_LEN,fieldType);
-
-                list.Add(new XLFieldData<IXLField> { FieldHeader = fieldHeader, FieldData = fieldData});
-
+                IXLField fieldData = null;
+                switch (dataHeader.Version)
+                {
+                    case XLConstants.XL_VER_1:
+                        fieldData = V1.StructHelp.BytesToStruct(data, _offset + XLConstants.FIELD_HEADER_LEN, fieldType);
+                        break;
+                    default:
+                        throw new Exception(string.Format("Version:{0} not supported", dataHeader.Version));
+                }
+                list.Add(new XLFieldData<IXLField> { FieldHeader = fieldHeader, FieldData = fieldData });
                 offset += XLConstants.FIELD_HEADER_LEN + fieldHeader.FieldLength;
             }
-            return list;
+
+            return new XLPacketData(type, list);
         }
+        #endregion
+
+
 
 
         /// <summary>
@@ -157,6 +154,8 @@ namespace TradingLib.XLProtocol
             return string.Empty;
         }
 
+
+        #region 填充 头字段
         /// <summary>
         /// 填充协议头
         /// </summary>
@@ -170,7 +169,7 @@ namespace TradingLib.XLProtocol
         }
 
         /// <summary>
-        /// 填充数据头
+        /// 填充正文头
         /// </summary>
         /// <param name="header"></param>
         /// <param name="isLast"></param>
@@ -181,8 +180,8 @@ namespace TradingLib.XLProtocol
         /// <param name="pktlen"></param>
         static void FillDataHeader(ref XLDataHeader header, XLEnumSeqType seqType, uint seqNo, ushort fieldCount, ushort pktlen, bool isLast, uint requestId)
         {
-            header.Enctype = XLConstants.XL_VER_1;
-            header.Version = XLConstants.XL_ENC_NONE;
+            header.Enctype = XLConstants.XL_ENC_NONE;
+            header.Version = XLConstants.XL_VER_1;
             header.IsLast = (byte)(isLast?1:0);
             header.SeqType = (byte)seqType;
             header.SeqNo = seqNo;
@@ -192,15 +191,17 @@ namespace TradingLib.XLProtocol
             
         }
         /// <summary>
-        /// 填充业务域头
+        /// 填充域头
         /// </summary>
         /// <param name="header"></param>
         /// <param name="fieldType"></param>
         /// <param name="fieldLen"></param>
-        static void FillFieldHeader(ref XLFieldHeader header,XLFieldType fieldType,ushort fieldLen)
+        static void FillFieldHeader(ref XLFieldHeader header,ushort fieldID,ushort fieldLen)
         {
-            header.FieldID = (ushort)fieldType;
+            header.FieldID = fieldID;
             header.FieldLength = fieldLen;
         }
+        #endregion
+
     }
 }

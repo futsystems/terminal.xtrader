@@ -11,33 +11,8 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 
-namespace TradingLib.XLProtocol
+namespace TradingLib.XLProtocol.V1
 {
-
-    /// <summary>
-    /// 业务结构体FieldID接口
-    /// </summary>
-    public interface IXLField
-    {
-        XLFieldType FieldType { get; }
-    }
-
-    /// <summary>
-    /// 错误消息结构体
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct ErrorField
-    {
-        /// <summary>
-        /// 错误代码
-        /// </summary>
-        public int ErrorID;
-        /// <summary>
-        /// 错误信息
-        /// </summary>
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 81)]
-        public string ErrorMsg;
-    }
 
     /// <summary>
     /// 用户登入请求
@@ -63,12 +38,6 @@ namespace TradingLib.XLProtocol
         public string UserProductInfo;
 
         /// <summary>
-        /// 协议信息
-        /// </summary>
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 11)]
-        public string ProtocolInfo;
-
-        /// <summary>
         /// Mac地址
         /// </summary>
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 21)]
@@ -83,6 +52,6 @@ namespace TradingLib.XLProtocol
         /// <summary>
         /// 域类别
         /// </summary>
-        public XLFieldType FieldType { get { return XLFieldType.F_REQ_LOGIN; } }
+        public ushort FieldID { get { return (ushort)XLFieldType.F_REQ_LOGIN; } }
     }
 }

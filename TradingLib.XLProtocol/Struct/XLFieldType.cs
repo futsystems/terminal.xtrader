@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-//XLink 消息类型定义
+
 namespace TradingLib.XLProtocol
 {
+    /// <summary>
+    /// 数据域ID
+    /// </summary>
     public enum XLFieldType : ushort
     {
+        /// <summary>
+        /// ErrorField
+        /// </summary>
+        F_ERROR = 0,
+
         /// <summary>
         /// 请求登入
         /// </summary>

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 
 /*
  *  XLProtocol 为头部定长协议
  * 
- *  
- * |---XLProtocolHeader----|---XLDataHeader---------------|---XLFieldHeader--XLField---1|---XLFieldHeader--XLField---2|......
+ *     协议头                 正文头             域头           域
+ * |---XLProtocolHeader---|---XLDataHeader---|---XLFieldHeader--XLField---1|---XLFieldHeader--XLField---2|......
  *  
  * 
  * XLProtocolHeader 4个字节
@@ -16,23 +17,13 @@ using System.Text;
  * 
  * 
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  * */
 namespace TradingLib.XLProtocol
 {
     /// <summary>
-    /// 协议报头 4字节
+    /// 协议头 4字节
     /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct XLProtocolHeader
     {
         /// <summary>
@@ -41,7 +32,7 @@ namespace TradingLib.XLProtocol
         public short XLMessageType;
 
         /// <summary>
-        /// 数据包长度
+        /// 数据包长度 不包含协议头4个字节
         /// </summary>
         public ushort XLMessageLength;
 
@@ -49,8 +40,9 @@ namespace TradingLib.XLProtocol
 
 
     /// <summary>
-    /// 协议数据头 16个字节
+    /// 正文头 16个字节
     /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct XLDataHeader
     {
         /// <summary>
@@ -70,7 +62,6 @@ namespace TradingLib.XLProtocol
 
         /// <summary>
         /// 响应序列号类别
-        /// 1:Req 2:Qry 3:RTN
         /// </summary>
         public byte SeqType;
 
@@ -98,8 +89,9 @@ namespace TradingLib.XLProtocol
     }
 
     /// <summary>
-    /// 业务数据头
+    /// 域头
     /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct XLFieldHeader
     {
         /// <summary>
@@ -112,4 +104,38 @@ namespace TradingLib.XLProtocol
         /// </summary>
         public ushort FieldLength;
     }
+
+
+
+    /// <summary>
+    /// 数据域结构体FieldID接口
+    /// </summary>
+    public interface IXLField
+    {
+        ushort FieldID { get; }
+    }
+
+
+    /// <summary>
+    /// 错误消息结构体
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct ErrorField:IXLField
+    {
+        /// <summary>
+        /// 错误代码
+        /// </summary>
+        public int ErrorID;
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 81)]
+        public string ErrorMsg;
+
+        /// <summary>
+        /// 域ID
+        /// </summary>
+        public ushort FieldID { get { return (ushort)XLFieldType.F_ERROR; } }
+    }
+
 }

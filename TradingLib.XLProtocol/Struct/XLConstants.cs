@@ -13,12 +13,12 @@ namespace TradingLib.XLProtocol
         public const ushort PROTO_HEADER_LEN = 4;
 
         /// <summary>
-        /// 数据头长度
+        /// 正文头长度
         /// </summary>
         public const ushort DATA_HEADER_LEN = 16;
 
         /// <summary>
-        /// 数据域头长度
+        /// 域头长度
         /// </summary>
         public const ushort FIELD_HEADER_LEN = 4;
 
