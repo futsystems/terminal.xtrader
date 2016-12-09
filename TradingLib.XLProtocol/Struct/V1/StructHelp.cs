@@ -17,6 +17,8 @@ namespace TradingLib.XLProtocol.V1
             XLFieldType fieldType = (XLFieldType)field.FieldID;
             switch (fieldType)
             {
+                case XLFieldType.F_ERROR:
+                    return XLStructHelp.StructToBytes<ErrorField>((ErrorField)field);
                 case XLFieldType.F_REQ_LOGIN:
                     return XLStructHelp.StructToBytes<XLReqLoginField>((XLReqLoginField)field);
                 case XLFieldType.F_RSP_LOGIN:
@@ -30,6 +32,8 @@ namespace TradingLib.XLProtocol.V1
         {
             switch (type)
             {
+                case XLFieldType.F_ERROR:
+                    return XLStructHelp.BytesToStruct<ErrorField>(data, offset);
                 case XLFieldType.F_REQ_LOGIN:
                     return XLStructHelp.BytesToStruct<XLReqLoginField>(data, offset);
                 case XLFieldType.F_RSP_LOGIN:

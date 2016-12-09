@@ -35,22 +35,21 @@ namespace TradingLib.XLProtocol.Test
             Console.WriteLine(string.Format("MessageType:{0} XLProtoLen:{1}", protoHeader.XLMessageType, protoHeader.XLMessageLength));
             Assert.AreEqual((short)(XLMessageType.T_REQ_LOGIN),protoHeader.XLMessageType);
             Assert.AreEqual(XLConstants.DATA_HEADER_LEN + XLConstants.FIELD_HEADER_LEN + fieldSize, protoHeader.XLMessageLength);//协议头中的数据长度 不包含头长度4个字节
-            
-            //解析正文头16个字节
-            XLDataHeader dataHeader = XLStructHelp.BytesToStruct<XLDataHeader>(ret, XLConstants.PROTO_HEADER_LEN);
+
+            //通过反序列化 获得PktData 还原数据域
+            XLDataHeader dataHeader;
+            XLPacketData pktout = XLPacketData.Deserialize(XLMessageType.T_REQ_LOGIN, ret, XLConstants.PROTO_HEADER_LEN,out dataHeader);
+            Assert.AreEqual(1, pktout.FieldList.Count);
             Console.WriteLine(string.Format("Enc:{0} Ver:{1} IsLast:{2} SeqType:{3} SeqNo:{4} RequestID:{5} FiCnt:{6} FiLen:{7}", dataHeader.Enctype, dataHeader.Version, dataHeader.IsLast, dataHeader.SeqType, dataHeader.SeqNo, dataHeader.RequestID, dataHeader.FieldCount, dataHeader.FieldLength));
-            Assert.AreEqual(XLConstants.XL_ENC_NONE,dataHeader.Enctype);
-            Assert.AreEqual(1,dataHeader.FieldCount);
+            Assert.AreEqual(XLConstants.XL_ENC_NONE, dataHeader.Enctype);
+            Assert.AreEqual(1, dataHeader.FieldCount);
             Assert.AreEqual(XLConstants.FIELD_HEADER_LEN + fieldSize, dataHeader.FieldLength);
-            Assert.AreEqual((byte)1,dataHeader.IsLast);
+            Assert.AreEqual((byte)1, dataHeader.IsLast);
             Assert.AreEqual(requestID, dataHeader.RequestID);
             Assert.AreEqual(seqNo, dataHeader.SeqNo);
             Assert.AreEqual(seqType, (XLEnumSeqType)dataHeader.SeqType);
             Assert.AreEqual(XLConstants.XL_VER_1, dataHeader.Version);
 
-            //通过反序列化 获得PktData 还原数据域
-            XLPacketData pktout = XLPacketData.Deserialize(XLMessageType.T_REQ_LOGIN, ret, XLConstants.PROTO_HEADER_LEN);
-            Assert.AreEqual(1, pktout.FieldList.Count);
             //域头
             Assert.AreEqual(fieldSize, pktout.FieldList[0].FieldHeader.FieldLength);
             Assert.AreEqual(XLFieldType.F_REQ_LOGIN, (XLFieldType)pktout.FieldList[0].FieldHeader.FieldID);

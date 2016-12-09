@@ -113,10 +113,10 @@ namespace TradingLib.XLProtocol
         /// <param name="data">数据</param>
         /// <param name="offset">数据偏移量 此处数据从数据正文开始(不包含协议头4个字节数据)</param>
         /// <returns></returns>
-        public static XLPacketData Deserialize(XLMessageType type,byte[] data,int offset)
+        public static XLPacketData Deserialize(XLMessageType type,byte[] data,int offset,out XLDataHeader dataHeader)
         { 
             int _offset = offset;
-            XLDataHeader dataHeader = XLStructHelp.BytesToStruct<XLDataHeader>(data, _offset);
+            dataHeader = XLStructHelp.BytesToStruct<XLDataHeader>(data, _offset);
             _offset += XLConstants.DATA_HEADER_LEN;
 
             List<XLFieldData<IXLField>> list = new List<XLFieldData<IXLField>>();
@@ -134,7 +134,7 @@ namespace TradingLib.XLProtocol
                         throw new Exception(string.Format("Version:{0} not supported", dataHeader.Version));
                 }
                 list.Add(new XLFieldData<IXLField> { FieldHeader = fieldHeader, FieldData = fieldData });
-                offset += XLConstants.FIELD_HEADER_LEN + fieldHeader.FieldLength;
+                _offset += XLConstants.FIELD_HEADER_LEN + fieldHeader.FieldLength;
             }
 
             return new XLPacketData(type, list);
