@@ -11,11 +11,7 @@ namespace TradingLib.XLProtocol.V1
     /// </summary>
     public class StructHelp
     {
-        /// <summary>
-        /// 将业务数据结构体转换成Byte数组
-        /// </summary>
-        /// <param name="field"></param>
-        /// <returns></returns>
+
         public static byte[] StructToBytes(IXLField field)
         {
             XLFieldType fieldType = (XLFieldType)field.FieldID;
@@ -23,6 +19,8 @@ namespace TradingLib.XLProtocol.V1
             {
                 case XLFieldType.F_REQ_LOGIN:
                     return XLStructHelp.StructToBytes<XLReqLoginField>((XLReqLoginField)field);
+                case XLFieldType.F_RSP_LOGIN:
+                    return XLStructHelp.StructToBytes<XLRspLoginField>((XLRspLoginField)field);
                 default:
                     return null;
             }
@@ -34,6 +32,8 @@ namespace TradingLib.XLProtocol.V1
             {
                 case XLFieldType.F_REQ_LOGIN:
                     return XLStructHelp.BytesToStruct<XLReqLoginField>(data, offset);
+                case XLFieldType.F_RSP_LOGIN:
+                    return XLStructHelp.BytesToStruct<XLRspLoginField>(data, offset);
                 default:
                     return null;
             }
