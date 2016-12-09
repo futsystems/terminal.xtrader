@@ -14,8 +14,6 @@ using System.Runtime.InteropServices;
 namespace TradingLib.XLProtocol
 {
 
-
-
     /// <summary>
     /// 业务结构体FieldID接口
     /// </summary>
@@ -23,6 +21,7 @@ namespace TradingLib.XLProtocol
     {
         XLFieldType FieldType { get; }
     }
+
     /// <summary>
     /// 错误消息结构体
     /// </summary>

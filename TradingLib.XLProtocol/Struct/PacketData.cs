@@ -11,9 +11,16 @@ namespace TradingLib.XLProtocol
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class XLFieldData<T>
+        where T:IXLField
     {
+        /// <summary>
+        /// 业务数据域头
+        /// </summary>
         public XLFieldHeader FieldHeader;
 
+        /// <summary>
+        /// 业务数据域
+        /// </summary>
         public T FieldData;
     }
 
@@ -21,9 +28,15 @@ namespace TradingLib.XLProtocol
     public class XLPacketData
     {
 
-        public XLPacketData(XLMessageType messageType)
+        public XLPacketData(XLMessageType msgType)
         {
-            _messageType = messageType;
+            _messageType = msgType;
+        }
+
+        public XLPacketData(XLMessageType msgType, List<XLFieldData<IXLField>> fields)
+        {
+            _messageType = msgType;
+            _fieldList.AddRange(fields);
         }
 
         XLMessageType _messageType = XLMessageType.T_HEARTBEEAT;
@@ -91,6 +104,48 @@ namespace TradingLib.XLProtocol
 
             return data;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="data"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static XLPacketData Deserialize(XLMessageType type,byte[] data,int offset)
+        { 
+            int _offset = offset;
+            XLDataHeader dataHeader = XLStructHelp.BytesToStruct<XLDataHeader>(data, _offset);
+
+            List<XLFieldData<IXLField>> fieldList = ParsePktDataV12(data, _offset, dataHeader.FieldCount);
+
+            return new XLPacketData(type, fieldList);
+        }
+
+        /// <summary>
+        /// 从数据包中解析 业务数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="len"></param>
+        /// <param name="cnt"></param>
+        /// <returns></returns>
+        static List<XLFieldData<IXLField>> ParsePktDataV12(byte[] data, int offset,ushort cnt)
+        {
+            List<XLFieldData<IXLField>> list = new List<XLFieldData<IXLField>>();
+            int _offset = offset;
+            for (int i = 0; i < cnt; i++)
+            {
+                XLFieldHeader fieldHeader = XLStructHelp.BytesToStruct<XLFieldHeader>(data, _offset);
+                XLFieldType fieldType = (XLFieldType)fieldHeader.FieldID;
+                IXLField fieldData = XLStructHelp.BytesToStruct(data, _offset + XLConstants.FIELD_HEADER_LEN,fieldType);
+
+                list.Add(new XLFieldData<IXLField> { FieldHeader = fieldHeader, FieldData = fieldData});
+
+                offset += XLConstants.FIELD_HEADER_LEN + fieldHeader.FieldLength;
+            }
+            return list;
+        }
+
 
         /// <summary>
         /// 将业务数据包打包成Json字符串

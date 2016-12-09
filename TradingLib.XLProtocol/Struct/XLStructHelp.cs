@@ -25,6 +25,17 @@ namespace TradingLib.XLProtocol
             }
         }
 
+        public static IXLField BytesToStruct(byte[] data, int offset, XLFieldType type)
+        {
+            switch (type)
+            { 
+                case XLFieldType.F_REQ_LOGIN:
+                    return BytesToStruct<XLReqLoginField>(data, offset);
+                default:
+                    return null;
+            }
+        }
+
         public static Byte[] StructToBytes<T>(T obj)// where T : IByteSwap
         {
             T structure = (T)obj;
