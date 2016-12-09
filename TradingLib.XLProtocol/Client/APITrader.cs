@@ -82,37 +82,44 @@ namespace TradingLib.XLProtocol.Client
 
         void _socketClient_DataReceived(XLProtocolHeader header, byte[] data, int offset)
         {
-            XLMessageType msgType = (XLMessageType)header.XLMessageType;
-            XLDataHeader dataHeader;
-            XLPacketData pkt = XLPacketData.Deserialize(msgType, data, offset,out dataHeader);
-            logger.Info(string.Format("Recv Pkt Type:{0}", msgType));
-            switch (msgType)
+            try
             {
-                case XLMessageType.T_RSP_LOGIN:
-                    { 
-                        ErrorField rsp = (ErrorField)pkt.FieldList[0].FieldData;
-                        XLRspLoginField response = (XLRspLoginField)pkt.FieldList[1].FieldData;
-                        OnRspUserLogin(response, rsp, dataHeader.RequestID, (int)dataHeader.IsLast==1?true:false);
+                XLMessageType msgType = (XLMessageType)header.XLMessageType;
+                XLDataHeader dataHeader;
+                XLPacketData pkt = XLPacketData.Deserialize(msgType, data, offset, out dataHeader);
+                logger.Debug(string.Format("PktData Recv Type:{0} Size:{1}", msgType,dataHeader.FieldLength + XLConstants.PROTO_HEADER_LEN + XLConstants.DATA_HEADER_LEN));
+                switch (msgType)
+                {
+                    case XLMessageType.T_RSP_LOGIN:
+                        {
+                            ErrorField rsp = (ErrorField)pkt.FieldList[0].FieldData;
+                            XLRspLoginField response = (XLRspLoginField)pkt.FieldList[1].FieldData;
+                            OnRspUserLogin(response, rsp, dataHeader.RequestID, (int)dataHeader.IsLast == 1 ? true : false);
+                            break;
+                        }
+                    default:
+                        logger.Info(string.Format("Unhandled Pkt:{0}", msgType));
                         break;
-                    }
-                default:
-                    logger.Info(string.Format("Unhandled Pkt:{0}", msgType));
-                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("Data Process Error:{0}", ex.ToString()));
             }
         }
 
         void _socketClient_ThreadExit()
         {
-            logger.Info("SocketClient Thred Exit");
+            //logger.Info("SocketClient Thred Exit");
         }
 
         void _socketClient_ThreadBegin()
         {
-            logger.Info("SocketClient Thred Begin");
+            //logger.Info("SocketClient Thred Begin");
         }
 
 
-
+        #region 接口操作
         /// <summary>
         /// 请求登入
         /// </summary>
@@ -123,18 +130,20 @@ namespace TradingLib.XLProtocol.Client
         {
             XLPacketData pktData = new XLPacketData(XLMessageType.T_REQ_LOGIN);
             pktData.AddField(req);
-
             return SendPktData(pktData, XLEnumSeqType.SeqReq, requestID);
         }
+
+        #endregion
 
 
 
         bool SendPktData(XLPacketData pktData, XLEnumSeqType seqType,uint requestID)
         {
             byte[] data = XLPacketData.PackToBytes(pktData, XLEnumSeqType.SeqReq, 0, requestID, true);
-            logger.Debug(string.Format("PktData Send,Type:{0} Size:{1}", pktData.MessageType, data.Length));
+            logger.Debug(string.Format("PktData Send Type:{0} Size:{1}", pktData.MessageType, data.Length));
             return SendData(data, data.Length);
         }
+
         bool SendData(byte[] data, int count)
         {
             if (_socketClient.IsOpen)

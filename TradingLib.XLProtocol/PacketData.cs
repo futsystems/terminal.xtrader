@@ -101,7 +101,7 @@ namespace TradingLib.XLProtocol
                 Array.Copy(XLStructHelp.StructToBytes<XLFieldHeader>(field.FieldHeader), 0, data, offset, XLConstants.FIELD_HEADER_LEN);
                 Array.Copy(XLStructHelp.StructToBytes(field.FieldData), 0, data, offset + XLConstants.FIELD_HEADER_LEN, field.FieldHeader.FieldLength);
                 offset += (XLConstants.FIELD_HEADER_LEN + field.FieldHeader.FieldLength);
-            }
+              }
 
             return data;
         }

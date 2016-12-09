@@ -29,6 +29,9 @@ namespace TradingLib.XLProtocol.Client
 
         ManualResetEvent manualReset = new ManualResetEvent(false);
 
+        /// <summary>
+        /// 当前Socket是否处于连接状态
+        /// </summary>
         public bool IsOpen
         {
             get
@@ -37,55 +40,80 @@ namespace TradingLib.XLProtocol.Client
             }
         }
 
+        /// <summary>
+        /// 等待线程终止
+        /// </summary>
+        public void Wait()
+        {
+            manualReset.WaitOne();
+        }
+
+        /// <summary>
+        /// 关闭Socket
+        /// </summary>
         public void Close()
         {
             SafeCloseSocket();
         }
 
+        /// <summary>
+        /// 连接到服务端并启动数据接受线程
+        /// </summary>
+        /// <param name="serverIP"></param>
+        /// <param name="port"></param>
+        /// <returns></returns>
         public bool StartClient(string serverIP,int port)
         {
-            if (this.IsOpen) return false;
-
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            IPEndPoint server = new IPEndPoint(IPAddress.Parse(serverIP), port);
-            socket.Connect(server);
-
-            if (socket.Connected)
+            try
             {
+                if (this.IsOpen) return false;
 
-                _socket = socket;
-
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint server = new IPEndPoint(IPAddress.Parse(serverIP), port);
+                socket.Connect(server);
+                if (socket.Connected)
+                {
+                    _socket = socket;
+                }
+                else
+                {
+                    _socket = null;
+                    return false;
+                }
+                _thread = new Thread(SocketClientProc);
+                _thread.IsBackground = true;
+                _thread.Start();
+                manualReset.Reset();
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                _socket = null;
+                logger.Error(string.Format("Start Client Error:{0}", ex.ToString()));
                 return false;
             }
-            _thread = new Thread(SocketClientProc);
-            _thread.IsBackground = true;
-            _thread.Start();
-            manualReset.Reset();
-            return true;
         }
 
+        /// <summary>
+        /// 发送数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public int Send(byte[] data, int count)
         {
             if (!IsOpen) return -1;
             int ret = _socket.Send(data, 0, count, SocketFlags.None);
-            return ret >= 0 ? ret : -1;
+            return ret == count ? ret : -1;
         }
 
         void SocketClientProc()
         {
             byte[] buffer = new byte[_bufferSize];
             int bufferOffset = 0;
-
-            //Notify
-            ThreadBegin();
-
             try
             {
+                //Notify
+                ThreadBegin();
                 while (this.IsOpen)
                 {
                     int ret = _socket.Receive(buffer, bufferOffset, buffer.Length - bufferOffset, SocketFlags.None);
@@ -104,8 +132,6 @@ namespace TradingLib.XLProtocol.Client
                                 pktLen = XLConstants.PROTO_HEADER_LEN + header.XLMessageLength;
                                 if (dataLen - offset >= pktLen)
                                 {
-                                    //byte[] pdata = new byte[pktLen];
-                                    //Array.Copy(buffer, offset, pdata, 0, pktLen);
                                     DataReceived(header, buffer, offset + XLConstants.PROTO_HEADER_LEN);
                                     offset += pktLen;
                                 }
@@ -140,40 +166,20 @@ namespace TradingLib.XLProtocol.Client
             {
                 logger.Error(string.Format("SocketClientProc Error:{0}", ex.ToString()));
             }
-            //logger.Info("SocketClientProc Terminated");
             manualReset.Set();
             ThreadExit();
         }
 
-        /// <summary>
-        /// 等待线程终止
-        /// </summary>
-        public void Wait()
-        {
-            manualReset.WaitOne();
-        }
-
         
 
+        
+        /// <summary>
+        /// 关闭Socket连接
+        /// </summary>
         void SafeCloseSocket()
         {
-            if (_socket == null)
+            if (!IsOpen)
                 return;
-
-            //if (!_socket.Connected)
-            //{
-            //    _socket = null;
-            //    return;
-            //}
-            //try
-            //{
-            //    _socket.Shutdown(SocketShutdown.Both);
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.Error("Socket Shutdown error:" + ex.ToString());
-            //}
-
             try
             {
                 _socket.Close();
@@ -186,40 +192,40 @@ namespace TradingLib.XLProtocol.Client
         }  
 
 
-        bool IsSocketConnected(Socket client, out int errorcode)
-        {
-            errorcode = 0;
-            if (client == null) return false;
-            bool blockingState = client.Blocking;
+        //bool IsSocketConnected(Socket client, out int errorcode)
+        //{
+        //    errorcode = 0;
+        //    if (client == null) return false;
+        //    bool blockingState = client.Blocking;
 
-            try
-            {
-                byte[] tmp = new byte[1];
+        //    try
+        //    {
+        //        byte[] tmp = new byte[1];
 
-                client.Blocking = false;
-                client.Send(tmp, 0, 0);
-            }
-            catch (SocketException e)
-            {
-                // 10035 == WSAEWOULDBLOCK
-                if (e.NativeErrorCode.Equals(10035))
-                {
-                    logger.Info("connected but send blocked.");
-                    return true;
-                }
-                else
-                {
-                    errorcode = e.NativeErrorCode;
-                    logger.Info("disconnected, error: " + errorcode);
-                    return false;
-                }
-            }
-            finally
-            {
-                client.Blocking = blockingState;
-            }
-            return client.Connected;
-        }
+        //        client.Blocking = false;
+        //        client.Send(tmp, 0, 0);
+        //    }
+        //    catch (SocketException e)
+        //    {
+        //        // 10035 == WSAEWOULDBLOCK
+        //        if (e.NativeErrorCode.Equals(10035))
+        //        {
+        //            logger.Info("connected but send blocked.");
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            errorcode = e.NativeErrorCode;
+        //            logger.Info("disconnected, error: " + errorcode);
+        //            return false;
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        client.Blocking = blockingState;
+        //    }
+        //    return client.Connected;
+        //}
     }
 
 
