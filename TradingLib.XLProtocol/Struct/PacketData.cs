@@ -75,7 +75,7 @@ namespace TradingLib.XLProtocol
         /// </summary>
         /// <param name="packet"></param>
         /// <returns></returns>
-        public static byte[] PackToBytes(XLPacketData packet)
+        public static byte[] PackToBytes(XLPacketData packet,XLEnumSeqType seqType,uint seqNo,uint requestID,bool isLast)
         {
             XLProtocolHeader protoHeader = new XLProtocolHeader();
             XLDataHeader dataHeader = new XLDataHeader();
@@ -85,7 +85,7 @@ namespace TradingLib.XLProtocol
             ushort fieldCount = (ushort)packet.FieldList.Count;
             FillProtoHeader(ref protoHeader, packet.MessageType, pktLen);
 
-            FillDataHeader(ref dataHeader, XLEnumSeqType.SeqQry, (uint)0, fieldCount, pktLen, true, 0);
+            FillDataHeader(ref dataHeader, seqType, seqNo, fieldCount, pktLen, requestID, isLast);
 
             Byte[] data = new Byte[pktLen];
 
@@ -178,7 +178,7 @@ namespace TradingLib.XLProtocol
         /// <param name="requestId"></param>
         /// <param name="fieldCount"></param>
         /// <param name="pktlen"></param>
-        static void FillDataHeader(ref XLDataHeader header, XLEnumSeqType seqType, uint seqNo, ushort fieldCount, ushort pktlen, bool isLast, uint requestId)
+        static void FillDataHeader(ref XLDataHeader header, XLEnumSeqType seqType, uint seqNo, ushort fieldCount, ushort pktlen, uint requestId, bool isLast)
         {
             header.Enctype = XLConstants.XL_ENC_NONE;
             header.Version = XLConstants.XL_VER_1;

@@ -23,8 +23,12 @@ namespace TradingLib.XLProtocol.Test
             int fieldSize = Marshal.SizeOf(req);
             packet.AddField(req);
 
+            XLEnumSeqType seqType = XLEnumSeqType.SeqReq;
+            uint seqNo = 100;
+            uint requestID = 101;
+            bool isLast = true;
             //将PktData打包成byte数组
-            byte[] ret = XLPacketData.PackToBytes(packet);
+            byte[] ret = XLPacketData.PackToBytes(packet, seqType, seqNo, requestID, isLast);
 
             //解析协议头4个字节
             XLProtocolHeader protoHeader = XLStructHelp.BytesToStruct<XLProtocolHeader>(ret, 0);
@@ -39,9 +43,9 @@ namespace TradingLib.XLProtocol.Test
             Assert.AreEqual(1,dataHeader.FieldCount);
             Assert.AreEqual(XLConstants.FIELD_HEADER_LEN + fieldSize, dataHeader.FieldLength);
             Assert.AreEqual((byte)1,dataHeader.IsLast);
-            Assert.AreEqual(0, dataHeader.RequestID);
-            Assert.AreEqual(0, dataHeader.SeqNo);
-            Assert.AreEqual(XLEnumSeqType.SeqQry, (XLEnumSeqType)dataHeader.SeqType);
+            Assert.AreEqual(requestID, dataHeader.RequestID);
+            Assert.AreEqual(seqNo, dataHeader.SeqNo);
+            Assert.AreEqual(seqType, (XLEnumSeqType)dataHeader.SeqType);
             Assert.AreEqual(XLConstants.XL_VER_1, dataHeader.Version);
 
             //通过反序列化 获得PktData 还原数据域
