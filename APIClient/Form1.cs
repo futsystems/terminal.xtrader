@@ -44,6 +44,15 @@ namespace APIClient
             btnStopEx.Click += new EventHandler(btnStopEx_Click);
 
             btnExLogin.Click += new EventHandler(btnExLogin_Click);
+            btnExUpdatePass.Click += new EventHandler(btnExUpdatePass_Click);
+        }
+
+        void btnExUpdatePass_Click(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            frm.fmReqUserPasswordUpdate frm = new frm.fmReqUserPasswordUpdate(_apiTrader);
+            frm.ShowDialog();
+            frm.Close();
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -82,6 +91,7 @@ namespace APIClient
             _apiTrader.OnServerDisconnected += new Action<int>(_apiTrader_OnServerDisconnected);
             _apiTrader.OnRspError += new Action<ErrorField>(_apiTrader_OnRspError);
             _apiTrader.OnRspUserLogin += new Action<XLRspLoginField, ErrorField, uint, bool>(_apiTrader_OnRspUserLogin);
+            _apiTrader.OnRspUserPasswordUpdate += new Action<XLRspUserPasswordUpdateField, ErrorField, uint, bool>(_apiTrader_OnRspUserPasswordUpdate);
             new Thread(() =>
             {
 
@@ -89,6 +99,11 @@ namespace APIClient
                 _apiTrader.Join();
                 logger.Info("API Thread Stopped");
             }).Start();
+        }
+
+        void _apiTrader_OnRspUserPasswordUpdate(XLRspUserPasswordUpdateField arg1, ErrorField arg2, uint arg3, bool arg4)
+        {
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
         void _apiTrader_OnRspUserLogin(XLRspLoginField arg1, ErrorField arg2, uint arg3, bool arg4)

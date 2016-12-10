@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.debugControl1 = new APIClient.DebugControl();
+            this.btnExUpdatePass = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnExUpdatePass);
             this.tabPage1.Controls.Add(this.exPass);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.exUser);
@@ -200,6 +202,15 @@
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
+            // btnExUpdatePass
+            // 
+            this.btnExUpdatePass.Location = new System.Drawing.Point(12, 77);
+            this.btnExUpdatePass.Name = "btnExUpdatePass";
+            this.btnExUpdatePass.Size = new System.Drawing.Size(75, 23);
+            this.btnExUpdatePass.TabIndex = 11;
+            this.btnExUpdatePass.Text = "修改交易密码";
+            this.btnExUpdatePass.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -234,6 +245,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox exUser;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnExUpdatePass;
     }
 }
 

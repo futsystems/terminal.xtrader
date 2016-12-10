@@ -85,4 +85,47 @@ namespace TradingLib.XLProtocol.V1
 
     #endregion
 
+    #region 更新密码
+    /// <summary>
+    /// 用户口令变更
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct XLReqUserPasswordUpdateField : IXLField
+    {
+        /// <summary>
+        /// 原来的口令
+        /// </summary>
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 41)]
+        public string OldPassword;
+        /// <summary>
+        /// 新的口令
+        /// </summary>
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 41)]
+        public string NewPassword;
+
+        /// <summary>
+        /// 域类别
+        /// </summary>
+        public ushort FieldID { get { return (ushort)XLFieldType.F_REQ_UPDATEPASS; } }
+    }
+
+    /// <summary>
+    /// 用户口令变更
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct XLRspUserPasswordUpdateField : IXLField
+    {
+        /// <summary>
+        /// 用户代码
+        /// </summary>
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+        public string UserID;
+
+        /// <summary>
+        /// 域类别
+        /// </summary>
+        public ushort FieldID { get { return (ushort)XLFieldType.F_RSP_UPDATEPASS; } }
+    }
+    #endregion
+
 }

@@ -30,6 +30,11 @@ namespace TradingLib.XLProtocol.Client
         /// </summary>
         public event Action<XLRspLoginField, ErrorField, uint, bool> OnRspUserLogin = delegate { };
 
+        /// <summary>
+        /// 服务端修改密码回报
+        /// </summary>
+        public event Action<XLRspUserPasswordUpdateField, ErrorField, uint, bool> OnRspUserPasswordUpdate = delegate { };
+
         #endregion
         string _serverIP = string.Empty;
         int _port = 0;
@@ -97,6 +102,13 @@ namespace TradingLib.XLProtocol.Client
                             OnRspUserLogin(response, rsp, dataHeader.RequestID, (int)dataHeader.IsLast == 1 ? true : false);
                             break;
                         }
+                    case XLMessageType.T_RSP_UPDATEPASS:
+                        {
+                            ErrorField rsp = (ErrorField)pkt.FieldList[0].FieldData;
+                            XLRspUserPasswordUpdateField response = (XLRspUserPasswordUpdateField)pkt.FieldList[1].FieldData;
+                            OnRspUserPasswordUpdate(response, rsp, dataHeader.RequestID, (int)dataHeader.IsLast == 1 ? true : false);
+                            break;
+                        }
                     default:
                         logger.Info(string.Format("Unhandled Pkt:{0}", msgType));
                         break;
@@ -133,6 +145,18 @@ namespace TradingLib.XLProtocol.Client
             return SendPktData(pktData, XLEnumSeqType.SeqReq, requestID);
         }
 
+        /// <summary>
+        /// 请求更新密码
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public bool ReqUserPasswordUpdate(XLReqUserPasswordUpdateField req, uint requestID)
+        {
+            XLPacketData pktData = new XLPacketData(XLMessageType.T_REQ_UPDATEPASS);
+            pktData.AddField(req);
+            return SendPktData(pktData, XLEnumSeqType.SeqReq, requestID);
+        }
         #endregion
 
 
