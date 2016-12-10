@@ -11,6 +11,7 @@ using TradingLib.XLProtocol;
 using TradingLib.XLProtocol.Client;
 using TradingLib.XLProtocol.V1;
 using Common.Logging;
+using Newtonsoft.Json;
 
 namespace APIClient
 {
@@ -92,7 +93,7 @@ namespace APIClient
 
         void _apiTrader_OnRspUserLogin(XLRspLoginField arg1, ErrorField arg2, uint arg3, bool arg4)
         {
-            DispError(arg2);
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
         void _apiTrader_OnRspError(ErrorField obj)

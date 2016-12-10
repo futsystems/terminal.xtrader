@@ -76,6 +76,7 @@ namespace TradingLib.XLProtocol.V1
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
         public string Name;
 
+
         /// <summary>
         /// 域类别
         /// </summary>

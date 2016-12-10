@@ -37,6 +37,9 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\APIClient\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />

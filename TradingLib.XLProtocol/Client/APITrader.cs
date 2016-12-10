@@ -5,7 +5,7 @@ using System.Text;
 using TradingLib.XLProtocol;
 using Common.Logging;
 using TradingLib.XLProtocol.V1;
-
+using Newtonsoft.Json;
 
 namespace TradingLib.XLProtocol.Client
 {
@@ -141,6 +141,7 @@ namespace TradingLib.XLProtocol.Client
         {
             byte[] data = XLPacketData.PackToBytes(pktData, XLEnumSeqType.SeqReq, 0, requestID, true);
             logger.Debug(string.Format("PktData Send Type:{0} Size:{1}", pktData.MessageType, data.Length));
+            //logger.Info(string.Format("PktData Send Type:{0} Data:{1} RequestID:{2}", pktData.MessageType, JsonConvert.SerializeObject(pktData), requestID));
             return SendData(data, data.Length);
         }
 
