@@ -116,16 +116,58 @@ namespace TradingLib.XLProtocol.V1
     public struct XLRspUserPasswordUpdateField : IXLField
     {
         /// <summary>
-        /// 用户代码
-        /// </summary>
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string UserID;
-
-        /// <summary>
         /// 域类别
         /// </summary>
         public ushort FieldID { get { return (ushort)XLFieldType.F_RSP_UPDATEPASS; } }
     }
     #endregion
+
+    #region 查询合约
+    #endregion
+
+    #region 查询委托
+    #endregion
+
+    #region 查询成交
+    #endregion 
+
+    #region 查询持仓
+    #endregion
+
+    #region 查询账户资金
+    #endregion
+
+    #region 查询最大报单数量
+    #endregion
+
+    #region 提交委托
+    #endregion
+
+    #region 提交委托操作
+    #endregion
+
+    #region 委托回报
+    #endregion
+
+    #region 成交回报
+    #endregion
+
+    #region 持仓更新回报
+    #endregion
+
+
+    #region 订阅行情
+    #endregion
+
+    #region 查询分时
+    #endregion
+
+    #region 查询K线
+    #endregion
+
+
+
+
+
 
 }

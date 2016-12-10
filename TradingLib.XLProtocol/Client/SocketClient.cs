@@ -88,6 +88,7 @@ namespace TradingLib.XLProtocol.Client
             }
             catch (Exception ex)
             {
+                SafeCloseSocket();
                 logger.Error(string.Format("Start Client Error:{0}", ex.ToString()));
                 return false;
             }
@@ -164,10 +165,13 @@ namespace TradingLib.XLProtocol.Client
             }
             catch (Exception ex)
             {
+                SafeCloseSocket();
                 logger.Error(string.Format("SocketClientProc Error:{0}", ex.ToString()));
             }
+
             manualReset.Set();
             ThreadExit();
+            
         }
 
         

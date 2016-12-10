@@ -88,6 +88,7 @@
             this.Controls.Add(this.oldpass);
             this.Controls.Add(this.label1);
             this.Name = "fmReqUserPasswordUpdate";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fmReqUserPasswordUpdate";
             this.ResumeLayout(false);
             this.PerformLayout();
