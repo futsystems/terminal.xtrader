@@ -122,6 +122,9 @@ namespace APIClient
             _apiTrader.OnRspQrySymbol += new Action<XLSymbolField, ErrorField, uint, bool>(_apiTrader_OnRspQrySymbol);
             _apiTrader.OnRspQryOrder += new Action<XLOrderField, ErrorField, uint, bool>(_apiTrader_OnRspQryOrder);
             _apiTrader.OnRspQryTrade += new Action<XLTradeField, ErrorField, uint, bool>(_apiTrader_OnRspQryTrade);
+
+            _apiTrader.OnRtnOrder += new Action<XLOrderField>(_apiTrader_OnRtnOrder);
+            _apiTrader.OnRtnTrade += new Action<XLTradeField>(_apiTrader_OnRtnTrade);
             new Thread(() =>
             {
 
@@ -130,6 +133,17 @@ namespace APIClient
                 logger.Info("API Thread Stopped");
             }).Start();
         }
+
+        void _apiTrader_OnRtnTrade(XLTradeField obj)
+        {
+            logger.Info(string.Format("TradeNotify:{0}", JsonConvert.SerializeObject(obj)));
+        }
+
+        void _apiTrader_OnRtnOrder(XLOrderField obj)
+        {
+            logger.Info(string.Format("OrderNotify:{0}", JsonConvert.SerializeObject(obj)));
+        }
+
 
         void _apiTrader_OnRspQryTrade(XLTradeField arg1, ErrorField arg2, uint arg3, bool arg4)
         {
