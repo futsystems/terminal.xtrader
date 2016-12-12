@@ -48,6 +48,15 @@ namespace APIClient
             btnExQrySymbol.Click += new EventHandler(btnExQrySymbol_Click);
             btnExQryOrder.Click += new EventHandler(btnExQryOrder_Click);
             btnExQryTrade.Click += new EventHandler(btnExQryTrade_Click);
+            btnExQryPosition.Click += new EventHandler(btnExQryPosition_Click);
+        }
+
+        void btnExQryPosition_Click(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            XLQryPositionField req = new XLQryPositionField();
+            bool ret = _apiTrader.QryPosition(req, ++_requestId);
+            logger.Info(string.Format("QryPosition Send Success:{0}", ret));
         }
 
         void btnExQryTrade_Click(object sender, EventArgs e)
@@ -122,9 +131,11 @@ namespace APIClient
             _apiTrader.OnRspQrySymbol += new Action<XLSymbolField, ErrorField, uint, bool>(_apiTrader_OnRspQrySymbol);
             _apiTrader.OnRspQryOrder += new Action<XLOrderField, ErrorField, uint, bool>(_apiTrader_OnRspQryOrder);
             _apiTrader.OnRspQryTrade += new Action<XLTradeField, ErrorField, uint, bool>(_apiTrader_OnRspQryTrade);
+            _apiTrader.OnRspQryPosition += new Action<XLPositionField, ErrorField, uint, bool>(_apiTrader_OnRspQryPosition);
 
             _apiTrader.OnRtnOrder += new Action<XLOrderField>(_apiTrader_OnRtnOrder);
             _apiTrader.OnRtnTrade += new Action<XLTradeField>(_apiTrader_OnRtnTrade);
+            _apiTrader.OnRtnPosition += new Action<XLPositionField>(_apiTrader_OnRtnPosition);
             new Thread(() =>
             {
 
@@ -132,6 +143,16 @@ namespace APIClient
                 _apiTrader.Join();
                 logger.Info("API Thread Stopped");
             }).Start();
+        }
+
+        void _apiTrader_OnRtnPosition(XLPositionField obj)
+        {
+            logger.Info(string.Format("PositionNotify:{0}", JsonConvert.SerializeObject(obj)));
+        }
+
+        void _apiTrader_OnRspQryPosition(XLPositionField arg1, ErrorField arg2, uint arg3, bool arg4)
+        {
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
         void _apiTrader_OnRtnTrade(XLTradeField obj)
