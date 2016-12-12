@@ -45,6 +45,24 @@ namespace APIClient
 
             btnExLogin.Click += new EventHandler(btnExLogin_Click);
             btnExUpdatePass.Click += new EventHandler(btnExUpdatePass_Click);
+            btnExQrySymbol.Click += new EventHandler(btnExQrySymbol_Click);
+            btnExQryOrder.Click += new EventHandler(btnExQryOrder_Click);
+        }
+
+        void btnExQryOrder_Click(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            XLQryOrderField req = new XLQryOrderField();
+            bool ret = _apiTrader.QryOrder(req, ++_requestId);
+            logger.Info(string.Format("QryOrder Send Success:{0}", ret));
+        }
+
+        void btnExQrySymbol_Click(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            XLQrySymbolField req = new XLQrySymbolField();
+            bool ret = _apiTrader.QrySymbol(req, ++_requestId);
+            logger.Info(string.Format("QrySymbol Send Success:{0}", ret));
         }
 
         void btnExUpdatePass_Click(object sender, EventArgs e)
@@ -92,6 +110,8 @@ namespace APIClient
             _apiTrader.OnRspError += new Action<ErrorField>(_apiTrader_OnRspError);
             _apiTrader.OnRspUserLogin += new Action<XLRspLoginField, ErrorField, uint, bool>(_apiTrader_OnRspUserLogin);
             _apiTrader.OnRspUserPasswordUpdate += new Action<XLRspUserPasswordUpdateField, ErrorField, uint, bool>(_apiTrader_OnRspUserPasswordUpdate);
+            _apiTrader.OnRspQrySymbol += new Action<XLSymbolField, ErrorField, uint, bool>(_apiTrader_OnRspQrySymbol);
+            _apiTrader.OnRspQryOrder += new Action<XLOrderField, ErrorField, uint, bool>(_apiTrader_OnRspQryOrder);
             new Thread(() =>
             {
 
@@ -99,6 +119,16 @@ namespace APIClient
                 _apiTrader.Join();
                 logger.Info("API Thread Stopped");
             }).Start();
+        }
+
+        void _apiTrader_OnRspQryOrder(XLOrderField arg1, ErrorField arg2, uint arg3, bool arg4)
+        {
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
+        }
+
+        void _apiTrader_OnRspQrySymbol(XLSymbolField arg1, ErrorField arg2, uint arg3, bool arg4)
+        {
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
         void _apiTrader_OnRspUserPasswordUpdate(XLRspUserPasswordUpdateField arg1, ErrorField arg2, uint arg3, bool arg4)

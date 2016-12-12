@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnExUpdatePass = new System.Windows.Forms.Button();
             this.exPass = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.exUser = new System.Windows.Forms.TextBox();
@@ -42,8 +43,9 @@
             this.exAddress = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnExQrySymbol = new System.Windows.Forms.Button();
             this.debugControl1 = new APIClient.DebugControl();
-            this.btnExUpdatePass = new System.Windows.Forms.Button();
+            this.btnExQryOrder = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +64,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnExQryOrder);
+            this.tabPage1.Controls.Add(this.btnExQrySymbol);
             this.tabPage1.Controls.Add(this.btnExUpdatePass);
             this.tabPage1.Controls.Add(this.exPass);
             this.tabPage1.Controls.Add(this.label3);
@@ -81,6 +85,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnExUpdatePass
+            // 
+            this.btnExUpdatePass.Location = new System.Drawing.Point(12, 77);
+            this.btnExUpdatePass.Name = "btnExUpdatePass";
+            this.btnExUpdatePass.Size = new System.Drawing.Size(75, 23);
+            this.btnExUpdatePass.TabIndex = 11;
+            this.btnExUpdatePass.Text = "修改交易密码";
+            this.btnExUpdatePass.UseVisualStyleBackColor = true;
             // 
             // exPass
             // 
@@ -187,6 +200,15 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnExQrySymbol
+            // 
+            this.btnExQrySymbol.Location = new System.Drawing.Point(12, 106);
+            this.btnExQrySymbol.Name = "btnExQrySymbol";
+            this.btnExQrySymbol.Size = new System.Drawing.Size(75, 23);
+            this.btnExQrySymbol.TabIndex = 12;
+            this.btnExQrySymbol.Text = "查询合约";
+            this.btnExQrySymbol.UseVisualStyleBackColor = true;
+            // 
             // debugControl1
             // 
             this.debugControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -202,14 +224,14 @@
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
-            // btnExUpdatePass
+            // btnExQryOrder
             // 
-            this.btnExUpdatePass.Location = new System.Drawing.Point(12, 77);
-            this.btnExUpdatePass.Name = "btnExUpdatePass";
-            this.btnExUpdatePass.Size = new System.Drawing.Size(75, 23);
-            this.btnExUpdatePass.TabIndex = 11;
-            this.btnExUpdatePass.Text = "修改交易密码";
-            this.btnExUpdatePass.UseVisualStyleBackColor = true;
+            this.btnExQryOrder.Location = new System.Drawing.Point(12, 135);
+            this.btnExQryOrder.Name = "btnExQryOrder";
+            this.btnExQryOrder.Size = new System.Drawing.Size(75, 23);
+            this.btnExQryOrder.TabIndex = 13;
+            this.btnExQryOrder.Text = "查询委托";
+            this.btnExQryOrder.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -246,6 +268,8 @@
         private System.Windows.Forms.TextBox exUser;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnExUpdatePass;
+        private System.Windows.Forms.Button btnExQrySymbol;
+        private System.Windows.Forms.Button btnExQryOrder;
     }
 }
 

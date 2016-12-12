@@ -24,8 +24,6 @@ namespace TradingLib.XTrader.Future
         {
             InitializeComponent();
 
-          
-
             this.positionGrid = new FGrid();
             this.positionGrid.Dock = DockStyle.Fill;
             this.panel2.Controls.Add(positionGrid);
@@ -44,10 +42,27 @@ namespace TradingLib.XTrader.Future
             btnFlat.Click += new EventHandler(btnFlat_Click);
             btnFlatAll.Click += new EventHandler(btnFlatAll_Click);
             btnReserve.Click += new EventHandler(btnReserve_Click);
+            btnLockPos.Click += new EventHandler(btnLockPos_Click);
             this.Load += new EventHandler(ctrlPosition_Load);
             positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
             positionGrid.MouseClick += new MouseEventHandler(positionGrid_MouseClick);
             positionGrid.MouseDoubleClick += new MouseEventHandler(positionGrid_MouseDoubleClick);
+        }
+
+        void btnLockPos_Click(object sender, EventArgs e)
+        {
+            Position pos = this.CurrentPositoin;
+            if (pos == null)
+            {
+                MessageBox.Show("请选择持仓");
+                return;
+            }
+            if (pos.isFlat)
+            {
+                MessageBox.Show("持仓数量为零");
+                return;
+            }
+            LockPosition(pos);
         }
 
         void btnReserve_Click(object sender, EventArgs e)
@@ -188,6 +203,20 @@ namespace TradingLib.XTrader.Future
                 o.Exchange = pos.oSymbol.Exchange;
                 CoreService.TLClient.ReqOrderInsert(o);
             }
+        }
+
+        void LockPosition(Position pos)
+        {
+            logger.Info("LockPositon:" + pos.GetPositionKey());
+            if (pos == null || pos.isFlat) return;
+
+            bool side = pos.isLong ? true : false;
+
+            Order o = new MarketOrder(pos.Symbol,pos.Size *-1);
+            o.Exchange = pos.oSymbol.Exchange;
+            o.OffsetFlag = QSEnumOffsetFlag.OPEN;
+            CoreService.TLClient.ReqOrderInsert(o);
+            
         }
 
 

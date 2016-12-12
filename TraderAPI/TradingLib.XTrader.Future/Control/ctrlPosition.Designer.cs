@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.fButton1 = new TradingLib.XTrader.FButton();
             this.button6 = new TradingLib.XTrader.FButton();
-            this.button5 = new TradingLib.XTrader.FButton();
+            this.btnLockPos = new TradingLib.XTrader.FButton();
             this.btnReserve = new TradingLib.XTrader.FButton();
             this.btnFlat = new TradingLib.XTrader.FButton();
             this.btnFlatAll = new TradingLib.XTrader.FButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabPosition = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -47,7 +47,7 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.fButton1);
             this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.btnLockPos);
             this.panel1.Controls.Add(this.btnReserve);
             this.panel1.Controls.Add(this.btnFlat);
             this.panel1.Controls.Add(this.btnFlatAll);
@@ -55,18 +55,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(775, 25);
             this.panel1.TabIndex = 2;
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panel2.Location = new System.Drawing.Point(28, 25);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(773, 208);
-            this.panel2.TabIndex = 3;
             // 
             // fButton1
             // 
@@ -100,23 +88,23 @@
             this.button6.TabIndex = 4;
             this.button6.Text = "止损止盈";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
             // 
-            // button5
+            // btnLockPos
             // 
-            this.button5.BackColor = System.Drawing.Color.White;
-            this.button5.CheckButton = false;
-            this.button5.Checked = false;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button5.Enabled = false;
-            this.button5.IsPriceOn = false;
-            this.button5.Location = new System.Drawing.Point(219, 2);
-            this.button5.Name = "button5";
-            this.button5.OrderEntryButton = false;
-            this.button5.PriceStr = "";
-            this.button5.Size = new System.Drawing.Size(66, 20);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "快捷锁仓";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnLockPos.BackColor = System.Drawing.Color.White;
+            this.btnLockPos.CheckButton = false;
+            this.btnLockPos.Checked = false;
+            this.btnLockPos.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnLockPos.IsPriceOn = false;
+            this.btnLockPos.Location = new System.Drawing.Point(219, 2);
+            this.btnLockPos.Name = "btnLockPos";
+            this.btnLockPos.OrderEntryButton = false;
+            this.btnLockPos.PriceStr = "";
+            this.btnLockPos.Size = new System.Drawing.Size(66, 20);
+            this.btnLockPos.TabIndex = 3;
+            this.btnLockPos.Text = "快捷锁仓";
+            this.btnLockPos.UseVisualStyleBackColor = true;
             // 
             // btnReserve
             // 
@@ -166,6 +154,18 @@
             this.btnFlatAll.Text = "全部平仓";
             this.btnFlatAll.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.panel2.Location = new System.Drawing.Point(28, 25);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(773, 208);
+            this.panel2.TabIndex = 3;
+            // 
             // tabPosition
             // 
             this.tabPosition.BackColor = System.Drawing.Color.White;
@@ -203,7 +203,7 @@
         private FButton tabPosition;
         private System.Windows.Forms.Panel panel1;
         private FButton btnFlatAll;
-        private FButton button5;
+        private FButton btnLockPos;
         private FButton btnReserve;
         private FButton btnFlat;
         private FButton button6;
