@@ -46,6 +46,7 @@
             this.btnExQrySymbol = new System.Windows.Forms.Button();
             this.debugControl1 = new APIClient.DebugControl();
             this.btnExQryOrder = new System.Windows.Forms.Button();
+            this.btnExQryTrade = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +65,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnExQryTrade);
             this.tabPage1.Controls.Add(this.btnExQryOrder);
             this.tabPage1.Controls.Add(this.btnExQrySymbol);
             this.tabPage1.Controls.Add(this.btnExUpdatePass);
@@ -233,6 +235,15 @@
             this.btnExQryOrder.Text = "查询委托";
             this.btnExQryOrder.UseVisualStyleBackColor = true;
             // 
+            // btnExQryTrade
+            // 
+            this.btnExQryTrade.Location = new System.Drawing.Point(12, 164);
+            this.btnExQryTrade.Name = "btnExQryTrade";
+            this.btnExQryTrade.Size = new System.Drawing.Size(75, 23);
+            this.btnExQryTrade.TabIndex = 14;
+            this.btnExQryTrade.Text = "查询成交";
+            this.btnExQryTrade.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -270,6 +281,7 @@
         private System.Windows.Forms.Button btnExUpdatePass;
         private System.Windows.Forms.Button btnExQrySymbol;
         private System.Windows.Forms.Button btnExQryOrder;
+        private System.Windows.Forms.Button btnExQryTrade;
     }
 }
 
