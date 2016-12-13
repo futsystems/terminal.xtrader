@@ -47,8 +47,9 @@
             this.exAddress = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.debugControl1 = new APIClient.DebugControl();
             this.btnExQryTradingAccount = new System.Windows.Forms.Button();
+            this.debugControl1 = new APIClient.DebugControl();
+            this.btnExQryMaxOrderVol = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnExQryMaxOrderVol);
             this.tabPage1.Controls.Add(this.btnExQryTradingAccount);
             this.tabPage1.Controls.Add(this.btnExQryPosition);
             this.tabPage1.Controls.Add(this.btnExQryTrade);
@@ -242,6 +244,15 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnExQryTradingAccount
+            // 
+            this.btnExQryTradingAccount.Location = new System.Drawing.Point(12, 222);
+            this.btnExQryTradingAccount.Name = "btnExQryTradingAccount";
+            this.btnExQryTradingAccount.Size = new System.Drawing.Size(75, 23);
+            this.btnExQryTradingAccount.TabIndex = 16;
+            this.btnExQryTradingAccount.Text = "查询交易账户";
+            this.btnExQryTradingAccount.UseVisualStyleBackColor = true;
+            // 
             // debugControl1
             // 
             this.debugControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -257,14 +268,14 @@
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
-            // btnExQryTradingAccount
+            // btnExQryMaxOrderVol
             // 
-            this.btnExQryTradingAccount.Location = new System.Drawing.Point(12, 222);
-            this.btnExQryTradingAccount.Name = "btnExQryTradingAccount";
-            this.btnExQryTradingAccount.Size = new System.Drawing.Size(75, 23);
-            this.btnExQryTradingAccount.TabIndex = 16;
-            this.btnExQryTradingAccount.Text = "查询交易账户";
-            this.btnExQryTradingAccount.UseVisualStyleBackColor = true;
+            this.btnExQryMaxOrderVol.Location = new System.Drawing.Point(12, 251);
+            this.btnExQryMaxOrderVol.Name = "btnExQryMaxOrderVol";
+            this.btnExQryMaxOrderVol.Size = new System.Drawing.Size(111, 23);
+            this.btnExQryMaxOrderVol.TabIndex = 17;
+            this.btnExQryMaxOrderVol.Text = "查询最大报单数量";
+            this.btnExQryMaxOrderVol.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -306,6 +317,7 @@
         private System.Windows.Forms.Button btnExQryTrade;
         private System.Windows.Forms.Button btnExQryPosition;
         private System.Windows.Forms.Button btnExQryTradingAccount;
+        private System.Windows.Forms.Button btnExQryMaxOrderVol;
     }
 }
 
