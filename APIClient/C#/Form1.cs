@@ -13,6 +13,7 @@ using TradingLib.XLProtocol.V1;
 using Common.Logging;
 using Newtonsoft.Json;
 
+using WebSocket4Net;
 namespace APIClient
 {
     public partial class Form1 : Form
@@ -23,6 +24,7 @@ namespace APIClient
             InitializeComponent();
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(ControlLogFactoryAdapter_SendDebugEvent);
             WireEvent();
+            debugControl1.TimeStamps = false;
             exAddress.Text = "121.40.201.40";
             exAddress.Text = "127.0.0.1";
         }
@@ -44,6 +46,7 @@ namespace APIClient
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             btnStartEx.Click += new EventHandler(btnStartEx_Click);
             btnStopEx.Click += new EventHandler(btnStopEx_Click);
+            exapiverbose.CheckStateChanged += new EventHandler(exapiverbose_CheckStateChanged);
 
             btnExLogin.Click += new EventHandler(btnExLogin_Click);
             btnExUpdatePass.Click += new EventHandler(btnExUpdatePass_Click);
@@ -55,6 +58,65 @@ namespace APIClient
             btnExQryMaxOrderVol.Click += new EventHandler(btnExQryMaxOrderVol_Click);
             btnExPlaceOrder.Click += new EventHandler(btnExPlaceOrder_Click);
             btnExCancelOrder.Click += new EventHandler(btnExCancelOrder_Click);
+
+
+            btnWSStart.Click += new EventHandler(btnWSStart_Click);
+            btnWSStop.Click += new EventHandler(btnWSStop_Click);
+        }
+
+        void btnWSStop_Click(object sender, EventArgs e)
+        {
+            if (websocket == null) return;
+            if (websocket.State == WebSocketState.Open)
+            {
+                websocket.Close();
+            }
+        }
+
+        WebSocket websocket = null;
+        void btnWSStart_Click(object sender, EventArgs e)
+        {
+            if (websocket == null)
+            {
+                websocket = new WebSocket(wsAddress.Text);
+                websocket.Opened += new EventHandler(websocket_Opened);
+                websocket.Error += new EventHandler<SuperSocket.ClientEngine.ErrorEventArgs>(websocket_Error);
+                websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(websocket_MessageReceived);
+                websocket.Closed += new EventHandler(websocket_Closed);
+            }
+            if (websocket.State == WebSocketState.Closed || websocket.State == WebSocketState.None)
+            {
+                websocket.Open();
+            }
+
+        }
+
+        void websocket_Closed(object sender, EventArgs e)
+        {
+            logger.Info("closed");
+        }
+
+        void websocket_MessageReceived(object sender, MessageReceivedEventArgs e)
+        {
+            logger.Info("Message:" + e.Message);
+        }
+
+        void websocket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
+        {
+            logger.Error("Error:" + e.Exception.ToString());
+        }
+
+        void websocket_Opened(object sender, EventArgs e)
+        {
+            logger.Info("Opened");
+        }
+
+
+
+        void exapiverbose_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            _apiTrader.Verbose = exapiverbose.Checked;
         }
 
         void btnExCancelOrder_Click(object sender, EventArgs e)
@@ -178,13 +240,13 @@ namespace APIClient
             _apiTrader.OnRtnOrder += new Action<XLOrderField>(_apiTrader_OnRtnOrder);
             _apiTrader.OnRtnTrade += new Action<XLTradeField>(_apiTrader_OnRtnTrade);
             _apiTrader.OnRtnPosition += new Action<XLPositionField>(_apiTrader_OnRtnPosition);
-            System.Globalization.CultureInfo info = new System.Globalization.CultureInfo("en");
+            //System.Globalization.CultureInfo info = new System.Globalization.CultureInfo("en");
             
-            System.Threading.Thread.CurrentThread.CurrentCulture = info;
-            logger.Info("Encoding:" + Encoding.Default.ToString());
+            //System.Threading.Thread.CurrentThread.CurrentCulture = info;
+            //logger.Info("Encoding:" + Encoding.Default.ToString());
             new Thread(() =>
             {
-
+                _apiTrader.Verbose = exapiverbose.Checked;
                 _apiTrader.Init();
                 _apiTrader.Join();
                 logger.Info("API Thread Stopped");

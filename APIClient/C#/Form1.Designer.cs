@@ -30,6 +30,11 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.exapiverbose = new System.Windows.Forms.CheckBox();
+            this.btnExCancelOrder = new System.Windows.Forms.Button();
+            this.btnExPlaceOrder = new System.Windows.Forms.Button();
+            this.btnExQryMaxOrderVol = new System.Windows.Forms.Button();
+            this.btnExQryTradingAccount = new System.Windows.Forms.Button();
             this.btnExQryPosition = new System.Windows.Forms.Button();
             this.btnExQryTrade = new System.Windows.Forms.Button();
             this.btnExQryOrder = new System.Windows.Forms.Button();
@@ -47,13 +52,14 @@
             this.exAddress = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnExQryTradingAccount = new System.Windows.Forms.Button();
-            this.btnExQryMaxOrderVol = new System.Windows.Forms.Button();
-            this.btnExPlaceOrder = new System.Windows.Forms.Button();
+            this.wsAddress = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnWSStart = new System.Windows.Forms.Button();
             this.debugControl1 = new APIClient.DebugControl();
-            this.btnExCancelOrder = new System.Windows.Forms.Button();
+            this.btnWSStop = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -65,11 +71,12 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(969, 312);
+            this.tabControl1.Size = new System.Drawing.Size(969, 253);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.exapiverbose);
             this.tabPage1.Controls.Add(this.btnExCancelOrder);
             this.tabPage1.Controls.Add(this.btnExPlaceOrder);
             this.tabPage1.Controls.Add(this.btnExQryMaxOrderVol);
@@ -93,10 +100,56 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(961, 286);
+            this.tabPage1.Size = new System.Drawing.Size(961, 227);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Socket/二进制";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // exapiverbose
+            // 
+            this.exapiverbose.AutoSize = true;
+            this.exapiverbose.Location = new System.Drawing.Point(406, 41);
+            this.exapiverbose.Name = "exapiverbose";
+            this.exapiverbose.Size = new System.Drawing.Size(72, 16);
+            this.exapiverbose.TabIndex = 20;
+            this.exapiverbose.Text = "传输日志";
+            this.exapiverbose.UseVisualStyleBackColor = true;
+            // 
+            // btnExCancelOrder
+            // 
+            this.btnExCancelOrder.Location = new System.Drawing.Point(146, 164);
+            this.btnExCancelOrder.Name = "btnExCancelOrder";
+            this.btnExCancelOrder.Size = new System.Drawing.Size(77, 23);
+            this.btnExCancelOrder.TabIndex = 19;
+            this.btnExCancelOrder.Text = "撤销委托";
+            this.btnExCancelOrder.UseVisualStyleBackColor = true;
+            // 
+            // btnExPlaceOrder
+            // 
+            this.btnExPlaceOrder.Location = new System.Drawing.Point(146, 135);
+            this.btnExPlaceOrder.Name = "btnExPlaceOrder";
+            this.btnExPlaceOrder.Size = new System.Drawing.Size(77, 23);
+            this.btnExPlaceOrder.TabIndex = 18;
+            this.btnExPlaceOrder.Text = "提交委托";
+            this.btnExPlaceOrder.UseVisualStyleBackColor = true;
+            // 
+            // btnExQryMaxOrderVol
+            // 
+            this.btnExQryMaxOrderVol.Location = new System.Drawing.Point(146, 106);
+            this.btnExQryMaxOrderVol.Name = "btnExQryMaxOrderVol";
+            this.btnExQryMaxOrderVol.Size = new System.Drawing.Size(111, 23);
+            this.btnExQryMaxOrderVol.TabIndex = 17;
+            this.btnExQryMaxOrderVol.Text = "查询最大报单数量";
+            this.btnExQryMaxOrderVol.UseVisualStyleBackColor = true;
+            // 
+            // btnExQryTradingAccount
+            // 
+            this.btnExQryTradingAccount.Location = new System.Drawing.Point(148, 77);
+            this.btnExQryTradingAccount.Name = "btnExQryTradingAccount";
+            this.btnExQryTradingAccount.Size = new System.Drawing.Size(75, 23);
+            this.btnExQryTradingAccount.TabIndex = 16;
+            this.btnExQryTradingAccount.Text = "查询交易账户";
+            this.btnExQryTradingAccount.UseVisualStyleBackColor = true;
             // 
             // btnExQryPosition
             // 
@@ -240,40 +293,43 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnWSStop);
+            this.tabPage2.Controls.Add(this.btnWSStart);
+            this.tabPage2.Controls.Add(this.wsAddress);
+            this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(961, 286);
+            this.tabPage2.Size = new System.Drawing.Size(961, 227);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "WebSocket/Json";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnExQryTradingAccount
+            // wsAddress
             // 
-            this.btnExQryTradingAccount.Location = new System.Drawing.Point(12, 222);
-            this.btnExQryTradingAccount.Name = "btnExQryTradingAccount";
-            this.btnExQryTradingAccount.Size = new System.Drawing.Size(75, 23);
-            this.btnExQryTradingAccount.TabIndex = 16;
-            this.btnExQryTradingAccount.Text = "查询交易账户";
-            this.btnExQryTradingAccount.UseVisualStyleBackColor = true;
+            this.wsAddress.Location = new System.Drawing.Point(37, 9);
+            this.wsAddress.Name = "wsAddress";
+            this.wsAddress.Size = new System.Drawing.Size(169, 21);
+            this.wsAddress.TabIndex = 3;
+            this.wsAddress.Text = "ws://127.0.0.1:41655/";
             // 
-            // btnExQryMaxOrderVol
+            // label5
             // 
-            this.btnExQryMaxOrderVol.Location = new System.Drawing.Point(12, 251);
-            this.btnExQryMaxOrderVol.Name = "btnExQryMaxOrderVol";
-            this.btnExQryMaxOrderVol.Size = new System.Drawing.Size(111, 23);
-            this.btnExQryMaxOrderVol.TabIndex = 17;
-            this.btnExQryMaxOrderVol.Text = "查询最大报单数量";
-            this.btnExQryMaxOrderVol.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(23, 12);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "URL";
             // 
-            // btnExPlaceOrder
+            // btnWSStart
             // 
-            this.btnExPlaceOrder.Location = new System.Drawing.Point(204, 77);
-            this.btnExPlaceOrder.Name = "btnExPlaceOrder";
-            this.btnExPlaceOrder.Size = new System.Drawing.Size(77, 23);
-            this.btnExPlaceOrder.TabIndex = 18;
-            this.btnExPlaceOrder.Text = "提交委托";
-            this.btnExPlaceOrder.UseVisualStyleBackColor = true;
+            this.btnWSStart.Location = new System.Drawing.Point(212, 7);
+            this.btnWSStart.Name = "btnWSStart";
+            this.btnWSStart.Size = new System.Drawing.Size(92, 23);
+            this.btnWSStart.TabIndex = 5;
+            this.btnWSStart.Text = "启动交易接口";
+            this.btnWSStart.UseVisualStyleBackColor = true;
             // 
             // debugControl1
             // 
@@ -282,22 +338,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.debugControl1.EnableSearching = true;
             this.debugControl1.ExternalTimeStamp = 0;
-            this.debugControl1.Location = new System.Drawing.Point(0, 313);
+            this.debugControl1.Location = new System.Drawing.Point(0, 254);
             this.debugControl1.Margin = new System.Windows.Forms.Padding(2);
             this.debugControl1.Name = "debugControl1";
-            this.debugControl1.Size = new System.Drawing.Size(969, 232);
+            this.debugControl1.Size = new System.Drawing.Size(969, 291);
             this.debugControl1.TabIndex = 0;
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
-            // btnExCancelOrder
+            // btnWSStop
             // 
-            this.btnExCancelOrder.Location = new System.Drawing.Point(204, 106);
-            this.btnExCancelOrder.Name = "btnExCancelOrder";
-            this.btnExCancelOrder.Size = new System.Drawing.Size(77, 23);
-            this.btnExCancelOrder.TabIndex = 19;
-            this.btnExCancelOrder.Text = "撤销委托";
-            this.btnExCancelOrder.UseVisualStyleBackColor = true;
+            this.btnWSStop.Location = new System.Drawing.Point(310, 7);
+            this.btnWSStop.Name = "btnWSStop";
+            this.btnWSStop.Size = new System.Drawing.Size(92, 23);
+            this.btnWSStop.TabIndex = 6;
+            this.btnWSStop.Text = "停止交易接口";
+            this.btnWSStop.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -312,6 +368,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -342,6 +400,11 @@
         private System.Windows.Forms.Button btnExQryMaxOrderVol;
         private System.Windows.Forms.Button btnExPlaceOrder;
         private System.Windows.Forms.Button btnExCancelOrder;
+        private System.Windows.Forms.CheckBox exapiverbose;
+        private System.Windows.Forms.TextBox wsAddress;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnWSStart;
+        private System.Windows.Forms.Button btnWSStop;
     }
 }
 

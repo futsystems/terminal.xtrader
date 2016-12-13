@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutsDataAPI", "DataAPI\Futs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingLib.DataCore", "TradingLib.DataCore\TradingLib.DataCore.csproj", "{F480745A-4808-4282-8339-AF2AA06FBEC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIClient", "APIClient\APIClient.csproj", "{FE65CAAC-1578-41C3-91F8-CA3591993E3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIClient", "APIClient\C#\APIClient.csproj", "{FE65CAAC-1578-41C3-91F8-CA3591993E3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
