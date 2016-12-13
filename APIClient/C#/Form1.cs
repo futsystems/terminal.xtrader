@@ -83,6 +83,8 @@ namespace APIClient
                 websocket.Error += new EventHandler<SuperSocket.ClientEngine.ErrorEventArgs>(websocket_Error);
                 websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(websocket_MessageReceived);
                 websocket.Closed += new EventHandler(websocket_Closed);
+                websocket.EnableAutoSendPing = true;
+                websocket.AutoSendPingInterval = 3;
             }
             if (websocket.State == WebSocketState.Closed || websocket.State == WebSocketState.None)
             {
@@ -108,7 +110,9 @@ namespace APIClient
 
         void websocket_Opened(object sender, EventArgs e)
         {
-            logger.Info("Opened");
+            
+            logger.Info("Opened:" + websocket.Version.ToString());
+            websocket.Send("Hello World!");
         }
 
 
