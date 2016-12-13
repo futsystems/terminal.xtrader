@@ -23,6 +23,8 @@ namespace APIClient
             InitializeComponent();
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(ControlLogFactoryAdapter_SendDebugEvent);
             WireEvent();
+            exAddress.Text = "121.40.201.40";
+            exAddress.Text = "127.0.0.1";
         }
 
         void ControlLogFactoryAdapter_SendDebugEvent(string obj)
@@ -49,6 +51,15 @@ namespace APIClient
             btnExQryOrder.Click += new EventHandler(btnExQryOrder_Click);
             btnExQryTrade.Click += new EventHandler(btnExQryTrade_Click);
             btnExQryPosition.Click += new EventHandler(btnExQryPosition_Click);
+            btnExQryTradingAccount.Click += new EventHandler(btnExQryTradingAccount_Click);
+        }
+
+        void btnExQryTradingAccount_Click(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            XLQryTradingAccountField req = new XLQryTradingAccountField();
+            bool ret = _apiTrader.QryTradingAccount(req, ++_requestId);
+            logger.Info(string.Format("QryTradingAccount Send Success:{0}", ret));
         }
 
         void btnExQryPosition_Click(object sender, EventArgs e)
@@ -132,10 +143,15 @@ namespace APIClient
             _apiTrader.OnRspQryOrder += new Action<XLOrderField, ErrorField, uint, bool>(_apiTrader_OnRspQryOrder);
             _apiTrader.OnRspQryTrade += new Action<XLTradeField, ErrorField, uint, bool>(_apiTrader_OnRspQryTrade);
             _apiTrader.OnRspQryPosition += new Action<XLPositionField, ErrorField, uint, bool>(_apiTrader_OnRspQryPosition);
+            _apiTrader.OnRspQryTradingAccount += new Action<XLTradingAccountField, ErrorField, uint, bool>(_apiTrader_OnRspQryTradingAccount);
 
             _apiTrader.OnRtnOrder += new Action<XLOrderField>(_apiTrader_OnRtnOrder);
             _apiTrader.OnRtnTrade += new Action<XLTradeField>(_apiTrader_OnRtnTrade);
             _apiTrader.OnRtnPosition += new Action<XLPositionField>(_apiTrader_OnRtnPosition);
+            System.Globalization.CultureInfo info = new System.Globalization.CultureInfo("en");
+            
+            System.Threading.Thread.CurrentThread.CurrentCulture = info;
+            logger.Info("Encoding:" + Encoding.Default.ToString());
             new Thread(() =>
             {
 
@@ -143,6 +159,11 @@ namespace APIClient
                 _apiTrader.Join();
                 logger.Info("API Thread Stopped");
             }).Start();
+        }
+
+        void _apiTrader_OnRspQryTradingAccount(XLTradingAccountField arg1, ErrorField arg2, uint arg3, bool arg4)
+        {
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
         void _apiTrader_OnRtnPosition(XLPositionField obj)
@@ -176,8 +197,21 @@ namespace APIClient
             logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
+        /// <summary>
+        /// 服务端封送结构体 字符串通过UTF8编码转换成byte数组
+        /// c#默认使用GB2312编码来接收字符串因此导致出现乱码
+        /// 将字符串通过GGB2312还原成byte数组然后用UTF8解码即可得到正确的字符串
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
+        /// <param name="arg4"></param>
         void _apiTrader_OnRspQrySymbol(XLSymbolField arg1, ErrorField arg2, uint arg3, bool arg4)
         {
+            string s = arg1.SymbolName;
+            byte[] b = Encoding.Default.GetBytes(s);
+            string s2 = Encoding.UTF8.GetString(b);
+
             logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
