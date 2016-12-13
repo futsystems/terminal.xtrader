@@ -54,6 +54,15 @@ namespace APIClient
             btnExQryTradingAccount.Click += new EventHandler(btnExQryTradingAccount_Click);
             btnExQryMaxOrderVol.Click += new EventHandler(btnExQryMaxOrderVol_Click);
             btnExPlaceOrder.Click += new EventHandler(btnExPlaceOrder_Click);
+            btnExCancelOrder.Click += new EventHandler(btnExCancelOrder_Click);
+        }
+
+        void btnExCancelOrder_Click(object sender, EventArgs e)
+        {
+            if (_apiTrader == null) return;
+            frm.fmOrderAction frm = new frm.fmOrderAction(_apiTrader);
+            frm.ShowDialog();
+            frm.Close();
         }
 
         void btnExPlaceOrder_Click(object sender, EventArgs e)
@@ -164,7 +173,7 @@ namespace APIClient
             _apiTrader.OnRspQryTradingAccount += new Action<XLTradingAccountField, ErrorField, uint, bool>(_apiTrader_OnRspQryTradingAccount);
             _apiTrader.OnRspQryMaxOrderVol += new Action<XLQryMaxOrderVolumeField, ErrorField, uint, bool>(_apiTrader_OnRspQryMaxOrderVol);
             _apiTrader.OnRspOrderInsert += new Action<XLInputOrderField, ErrorField, uint, bool>(_apiTrader_OnRspOrderInsert);
-
+            _apiTrader.OnRspOrderAction += new Action<XLInputOrderActionField, ErrorField, uint, bool>(_apiTrader_OnRspOrderAction);
 
             _apiTrader.OnRtnOrder += new Action<XLOrderField>(_apiTrader_OnRtnOrder);
             _apiTrader.OnRtnTrade += new Action<XLTradeField>(_apiTrader_OnRtnTrade);
@@ -180,6 +189,11 @@ namespace APIClient
                 _apiTrader.Join();
                 logger.Info("API Thread Stopped");
             }).Start();
+        }
+
+        void _apiTrader_OnRspOrderAction(XLInputOrderActionField arg1, ErrorField arg2, uint arg3, bool arg4)
+        {
+            logger.Info(string.Format("Field:{0} Rsp:{1} RequestID:{2} IsLast:{3}", JsonConvert.SerializeObject(arg1), JsonConvert.SerializeObject(arg2), arg3, arg4));
         }
 
         void _apiTrader_OnRspOrderInsert(XLInputOrderField arg1, ErrorField arg2, uint arg3, bool arg4)

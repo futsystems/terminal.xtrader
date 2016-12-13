@@ -70,6 +70,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm\fmOrderAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm\fmOrderAction.Designer.cs">
+      <DependentUpon>fmOrderAction.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm\fmQryMaxOrderVol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm\fmOrderAction.resx">
+      <DependentUpon>fmOrderAction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm\fmQryMaxOrderVol.resx">
       <DependentUpon>fmQryMaxOrderVol.cs</DependentUpon>

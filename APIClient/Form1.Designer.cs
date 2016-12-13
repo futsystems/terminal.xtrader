@@ -49,8 +49,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnExQryTradingAccount = new System.Windows.Forms.Button();
             this.btnExQryMaxOrderVol = new System.Windows.Forms.Button();
-            this.debugControl1 = new APIClient.DebugControl();
             this.btnExPlaceOrder = new System.Windows.Forms.Button();
+            this.debugControl1 = new APIClient.DebugControl();
+            this.btnExCancelOrder = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnExCancelOrder);
             this.tabPage1.Controls.Add(this.btnExPlaceOrder);
             this.tabPage1.Controls.Add(this.btnExQryMaxOrderVol);
             this.tabPage1.Controls.Add(this.btnExQryTradingAccount);
@@ -264,6 +266,15 @@
             this.btnExQryMaxOrderVol.Text = "查询最大报单数量";
             this.btnExQryMaxOrderVol.UseVisualStyleBackColor = true;
             // 
+            // btnExPlaceOrder
+            // 
+            this.btnExPlaceOrder.Location = new System.Drawing.Point(204, 77);
+            this.btnExPlaceOrder.Name = "btnExPlaceOrder";
+            this.btnExPlaceOrder.Size = new System.Drawing.Size(77, 23);
+            this.btnExPlaceOrder.TabIndex = 18;
+            this.btnExPlaceOrder.Text = "提交委托";
+            this.btnExPlaceOrder.UseVisualStyleBackColor = true;
+            // 
             // debugControl1
             // 
             this.debugControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -279,14 +290,14 @@
             this.debugControl1.TimeStamps = true;
             this.debugControl1.UseExternalTimeStamp = false;
             // 
-            // btnExPlaceOrder
+            // btnExCancelOrder
             // 
-            this.btnExPlaceOrder.Location = new System.Drawing.Point(204, 77);
-            this.btnExPlaceOrder.Name = "btnExPlaceOrder";
-            this.btnExPlaceOrder.Size = new System.Drawing.Size(77, 23);
-            this.btnExPlaceOrder.TabIndex = 18;
-            this.btnExPlaceOrder.Text = "提交委托";
-            this.btnExPlaceOrder.UseVisualStyleBackColor = true;
+            this.btnExCancelOrder.Location = new System.Drawing.Point(204, 106);
+            this.btnExCancelOrder.Name = "btnExCancelOrder";
+            this.btnExCancelOrder.Size = new System.Drawing.Size(77, 23);
+            this.btnExCancelOrder.TabIndex = 19;
+            this.btnExCancelOrder.Text = "撤销委托";
+            this.btnExCancelOrder.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -330,6 +341,7 @@
         private System.Windows.Forms.Button btnExQryTradingAccount;
         private System.Windows.Forms.Button btnExQryMaxOrderVol;
         private System.Windows.Forms.Button btnExPlaceOrder;
+        private System.Windows.Forms.Button btnExCancelOrder;
     }
 }
 
