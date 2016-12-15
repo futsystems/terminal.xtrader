@@ -63,13 +63,14 @@ namespace TradingLib.XTrader.Future
             btnReset.Click += new EventHandler(btnReset_Click);
 
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
-            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
-            CoreService.EventUI.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
 
-            CoreService.EventQry.OnRspXQryMaxOrderVolResponse +=new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse);
+            CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
+            CoreService.EventHub.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
+            CoreService.EventHub.OnRspXQryMaxOrderVolResponse += new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse);
+
             CoreService.EventCore.RegIEventHandler(this);
         }
 
@@ -338,7 +339,7 @@ namespace TradingLib.XTrader.Future
             if (symbol != null)
             {
                 logger.Info(string.Format("Symbol:{0} Selected", symbol.Symbol));
-                CoreService.EventUI.FireSymbolSelectedEvent(this, symbol);
+                CoreService.EventHub.FireSymbolSelectedEvent(this, symbol);
             }
             else //当前没有选中任何合约
             {
@@ -351,7 +352,7 @@ namespace TradingLib.XTrader.Future
         void inputSymbol_SymbolSelected(Symbol obj)
         {
             logger.Info(string.Format("Symbol:{0} Selected", obj.Symbol));
-            CoreService.EventUI.FireSymbolSelectedEvent(this, obj);
+            CoreService.EventHub.FireSymbolSelectedEvent(this, obj);
         }
 
         /// <summary>

@@ -201,12 +201,12 @@ namespace TradingLib.XTrader.Future
 
         void WireEvent()
         {
-            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
-            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
-            
-            CoreService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
-            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
-            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
+            CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+
+            CoreService.EventHub.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
+            CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
+            CoreService.EventHub.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
 
             btnMin.Click += new EventHandler(btnMin_Click);
             btnMax.Click += new EventHandler(btnMax_Click);

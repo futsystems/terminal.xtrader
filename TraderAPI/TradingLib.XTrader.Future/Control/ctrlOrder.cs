@@ -89,8 +89,8 @@ namespace TradingLib.XTrader.Future
                     {
                         if (pos != null)
                         {
-                            CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
-                            CoreService.EventUI.FirePositionSelectedEvent(this, pos);
+                            CoreService.EventHub.FireSymbolSelectedEvent(this, pos.oSymbol);
+                            CoreService.EventHub.FirePositionSelectedEvent(this, pos);
                         }
                     }
                 }
@@ -241,8 +241,8 @@ namespace TradingLib.XTrader.Future
                 CoreService.EventCore.RegIEventHandler(this);
                 CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
 
-                CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
-                CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+                CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             }
             if (orderGrid.SelectedRows.Count > 0)
             {

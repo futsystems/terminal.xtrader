@@ -11,18 +11,52 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
-        const string PROGRAME = "TLClientNet";
+        const string PROGRAME = "TLClient";
         ILog logger = LogManager.GetLogger(PROGRAME);
+
+        /// <summary>
+        /// 服务器地址列表
+        /// </summary>
         string[] _servers = new string[] { };
+        /// <summary>
+        /// 通讯端口
+        /// </summary>
         int _port = 5570;
 
         TLClient<TCPSocket> connecton = null;
         bool _firstlogin = true;
         string _account = "";
-        int requestid = 0;
-        int _tradingday = 0;
+        
 
+
+        int _tradingday = 0;
+        string _clientID = string.Empty;
+        int _frontID = 0;
+        int _sessionID = 0;
+
+        /// <summary>
+        /// 客户端UUID
+        /// </summary>
+        public string ClientID { get { return _clientID; } }
+
+        /// <summary>
+        /// 前置ID
+        /// </summary>
+        public int FrontID { get { return _frontID; } }
+
+        /// <summary>
+        /// 会话ID
+        /// </summary>
+        public int SessionID { get { return _sessionID; } }
+
+        /// <summary>
+        /// 当前交易日
+        /// </summary>
         public int TradingDay { get { return _tradingday; } }
+        
+        /// <summary>
+        /// 是否处于连接状态
+        /// </summary>
         public bool IsConnected
         {
             get
@@ -32,55 +66,50 @@ namespace TradingLib.TraderCore
             }
         }
 
-        //public bool IsTickConnected
-        //{
-        //    get
-        //    {
-        //        if (connecton == null) return false;
-        //        return connecton.IsTickConnected;
-        //    }
-        //}
-
-        
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="servers"></param>
+        /// <param name="port"></param>
         public TLClientNet(string[] servers, int port)
         {
             _servers = servers;
             _port = port;
         }
 
-
+        /// <summary>
+        /// 启动TLClient
+        /// </summary>
         public void Start()
         {
-            if (!IsConnected)
-            {
-                logger.Info("TLClientNet Starting......");
-                connecton = new TLClient<TCPSocket>(_servers, _port, "TradeCore");
-                //connecton.ProviderType = QSEnumProviderType.Both;
-                BindConnectionEvent();
-                connecton.Start();
-            }
+            if (IsConnected) return;
+
+            logger.Info("Starting......");
+            connecton = new TLClient<TCPSocket>(_servers, _port, "TraderCore");
+            BindConnectionEvent();
+            connecton.Start();
         }
 
+        /// <summary>
+        /// 停止TLClient
+        /// </summary>
         public void Stop()
         {
-            if (IsConnected)
-            {
-                logger.Info("TLClientNet Stopping......");
-                if (connecton != null && connecton.IsConnected)
-                {
-                    connecton.Stop();
-                }
-                connecton = null;
-            }
+            if (!IsConnected) return;
+
+            logger.Info("Stopping......");
+            connecton.Stop();
+            connecton = null;
+            
         }
 
+        /// <summary>
+        /// 绑定连接事件
+        /// </summary>
         void BindConnectionEvent()
         {
             connecton.OnConnectEvent += new ConnectDel(connecton_OnConnectEvent);
             connecton.OnDisconnectEvent += new DisconnectDel(connecton_OnDisconnectEvent);
-            //connecton.OnDataPubConnectEvent += new DataPubConnectDel(connecton_OnDataPubConnectEvent);
-            //connecton.OnDataPubDisconnectEvent += new DataPubDisconnectDel(connecton_OnDataPubDisconnectEvent);
-            //connecton.OnLoginResponse += new LoginResponseDel(connecton_OnLoginResponse);
             connecton.OnPacketEvent +=new Action<IPacket>(connecton_OnPacketEvent);
         }
 
@@ -95,14 +124,7 @@ namespace TradingLib.TraderCore
         }
 
 
-        void SendPacket(IPacket packet)
-        {
-            //权限或者登入状态检查
-            if (connecton != null && connecton.IsConnected)
-            {
-                connecton.TLSend(packet);
-            }
-        }
+        
 
 
         /// <summary>

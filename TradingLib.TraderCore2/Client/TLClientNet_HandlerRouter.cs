@@ -10,6 +10,26 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
+        /// <summary>
+        /// 连接断开
+        /// </summary>
+        void connecton_OnDisconnectEvent()
+        {
+            CoreService.EventCore.FireDisconnectedEvent();
+        }
+
+        /// <summary>
+        /// 连接建立
+        /// </summary>
+        void connecton_OnConnectEvent()
+        {
+            CoreService.EventCore.FireConnectedEvent();
+        }
+
+        /// <summary>
+        /// 数据包到达
+        /// </summary>
+        /// <param name="packet"></param>
         void connecton_OnPacketEvent(IPacket packet)
         {
             switch (packet.Type)
@@ -47,10 +67,6 @@ namespace TradingLib.TraderCore
                     CliOnErrorOrderActionNotify(packet as ErrorOrderActionNotify);
                     break;
 
-
-
-
-                #region 查询
                 case MessageTypes.XMARKETTIMERESPONSE://交易时间段回报
                     CliOnXMarketTime(packet as RspXQryMarketTimeResponse);
                     break;
@@ -67,13 +83,14 @@ namespace TradingLib.TraderCore
                     CliOnXSymbol(packet as RspXQrySymbolResponse);
                     break;
 
-
                 case MessageTypes.XYDPOSITIONRESPONSE://隔夜持仓回报
                     CliOnXQryYDPosition(packet as RspXQryYDPositionResponse);
                     break;
+
                 case MessageTypes.XORDERRESPONSE://委托查询回报
                     CliOnXQryOrder(packet as RspXQryOrderResponse);
                     break;
+
                 case MessageTypes.XTRADERESPONSE://成交查询回报
                     CliOnXQryTrade(packet as RspXQryTradeResponse);
                     break;
@@ -108,8 +125,6 @@ namespace TradingLib.TraderCore
                 case MessageTypes.XPOSITIONDETAILRESPONSE://查询持仓明细回报
                     CliOnXQryPositionDetails(packet as RspXQryPositionDetailResponse);
                     break;
-
-                #endregion
 
                 default:
                     logger.Error("Packet Handler Not Set, Packet:" + packet.ToString());

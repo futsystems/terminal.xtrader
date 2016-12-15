@@ -15,12 +15,12 @@ namespace TradingLib.TraderCore
         /// </summary>
         public void ResumeData()
         {
-            logger.Info("Start to resume basic info");
+            logger.Info("查询交易时间");
             CoreService.TLClient.ReqXQryMarketTime();
         }
 
 
-        public void GotMarketTime(MarketTime mt, bool islast)
+        internal void GotMarketTime(MarketTime mt, bool islast)
         {
             if (mt != null)
             {
@@ -47,7 +47,7 @@ namespace TradingLib.TraderCore
 
         }
 
-        public void GotExchange(Exchange ex, bool islast)
+        internal void GotExchange(Exchange ex, bool islast)
         {
             if (ex != null)
             {
@@ -78,7 +78,7 @@ namespace TradingLib.TraderCore
         /// 获得品种信息
         /// </summary>
         /// <param name="sec"></param>
-        public void GotSecurity(SecurityFamilyImpl sec, bool islast)
+        internal void GotSecurity(SecurityFamilyImpl sec, bool islast)
         {
             if (sec != null)
             {
@@ -129,7 +129,7 @@ namespace TradingLib.TraderCore
         /// 获得合约信息
         /// </summary>
         /// <param name="symbol"></param>
-        public void GotSymbol(SymbolImpl symbol, bool islast)
+        internal void GotSymbol(SymbolImpl symbol, bool islast)
         {
             if (symbol != null)
             {
@@ -175,14 +175,11 @@ namespace TradingLib.TraderCore
             if (islast&& (!_inited))
             {
                 Status("合约查询完毕,查询汇率");
-                //BindData();
-                //_inited = true;
-                //CoreService.TradingInfoTracker.ResumeData();
                 CoreService.TLClient.ReqXQryExchangeRate();
             }
         }
 
-        public void GotExchagneRate(ExchangeRate rate, bool islast)
+        internal void GotExchagneRate(ExchangeRate rate, bool islast)
         {
             if (rate != null)
             {
@@ -204,7 +201,7 @@ namespace TradingLib.TraderCore
             {
                 Status("汇率查询完毕,查询隔夜持仓");
                 BindData();
-                _inited = true;
+                
                 CoreService.TradingInfoTracker.ResumeData();
             }
         }
@@ -223,13 +220,10 @@ namespace TradingLib.TraderCore
 
             foreach (SymbolImpl target in symbolmap.Values)
             {
-                //target.SecurityFamily = this.GetSecurity(target.security_fk);
-                //target.ULSymbol = this.GetSymbol(target.underlaying_fk);
-                //target.UnderlayingSymbol = this.GetSymbol(target.underlayingsymbol_fk);
-
                 symbolkeyemap[target.UniqueKey] = target;
-                //symbolnamemap[symbol.Symbol] = symbol;
             }
+
+            _inited = true;
         }
 
     }

@@ -33,9 +33,9 @@ namespace TradingLib.XTrader.Future
             btnQrySettlement.Click += new EventHandler(btnQrySettlement_Click);
             btnQryPositionDetail.Click += new EventHandler(btnQryPositionDetail_Click);
 
-            CoreService.EventQry.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
-            CoreService.EventQry.OnRspXQrySettlementResponse += new Action<RspXQrySettleInfoResponse>(EventQry_OnRspXQrySettlementResponse);
-            CoreService.EventQry.OnRspXQryPositionDetailResponse += new Action<RspXQryPositionDetailResponse>(EventQry_OnRspXQryPositionDetailResponse);
+            CoreService.EventHub.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
+            CoreService.EventHub.OnRspXQrySettlementResponse += new Action<RspXQrySettleInfoResponse>(EventQry_OnRspXQrySettlementResponse);
+            CoreService.EventHub.OnRspXQryPositionDetailResponse += new Action<RspXQryPositionDetailResponse>(EventQry_OnRspXQryPositionDetailResponse);
 
             this.Load += new EventHandler(PageQry_Load);
         }

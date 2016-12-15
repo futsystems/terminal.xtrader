@@ -6,7 +6,7 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
-        #region 实时交易数据回报处理
+
         /// <summary>
         /// 响应行情
         /// </summary>
@@ -95,8 +95,6 @@ namespace TradingLib.TraderCore
             }
         }
 
-        #endregion
-
 
 
 
@@ -112,8 +110,8 @@ namespace TradingLib.TraderCore
             {
                 pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Exchange,pd.Symbol);
             }
-            
-            CoreService.EventQry.FireRspXQryYDPositionResponse(pd, response.RspInfo, response.RequestID, response.IsLast);
+
+            CoreService.EventHub.FireRspXQryYDPositionResponse(pd, response.RspInfo, response.RequestID, response.IsLast);
         }
 
         /// <summary>
@@ -128,8 +126,8 @@ namespace TradingLib.TraderCore
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Exchange,o.Symbol);
             }
-            
-            CoreService.EventQry.FireRspXQryOrderResponse(o, response.RspInfo, response.RequestID, response.IsLast);
+
+            CoreService.EventHub.FireRspXQryOrderResponse(o, response.RspInfo, response.RequestID, response.IsLast);
         }
 
         /// <summary>
@@ -144,8 +142,8 @@ namespace TradingLib.TraderCore
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Exchange,f.Symbol);
             }
-            
-            CoreService.EventQry.FireRspXQryFillResponese(f, response.RspInfo, response.RequestID, response.IsLast);
+
+            CoreService.EventHub.FireRspXQryFillResponese(f, response.RspInfo, response.RequestID, response.IsLast);
         }
 
         /// <summary>
@@ -170,7 +168,7 @@ namespace TradingLib.TraderCore
         void CliOnXQryAccount(RspXQryAccountResponse response)
         {
             logger.Debug("Got XQry AccountInfo Response:" + response.ToString());
-            CoreService.EventQry.FireRspXQryAccountResponse(response.Account, response.RspInfo, response.RequestID, response.IsLast);
+            CoreService.EventHub.FireRspXQryAccountResponse(response.Account, response.RspInfo, response.RequestID, response.IsLast);
         }
 
         /// <summary>
@@ -180,7 +178,7 @@ namespace TradingLib.TraderCore
         void CliOnMaxOrderVol(RspXQryMaxOrderVolResponse response)
         {
             logger.Debug("Got XQry MaxOrderVol Response:" + response.ToString());
-            CoreService.EventQry.FireRspXQryMaxOrderVolResponse(response);
+            CoreService.EventHub.FireRspXQryMaxOrderVolResponse(response);
         }
 
         /// <summary>
@@ -190,7 +188,7 @@ namespace TradingLib.TraderCore
         void CliOnAccountFinance(RspXQryAccountFinanceResponse response)
         {
             logger.Debug("Got XQry Account Finance Response:" + response.ToString());
-            CoreService.EventQry.FireRspXQryAccountFinanceEvent(response);
+            CoreService.EventHub.FireRspXQryAccountFinanceEvent(response);
         }
 
         /// <summary>
@@ -200,10 +198,28 @@ namespace TradingLib.TraderCore
         void CliOnXQrySettlement(RspXQrySettleInfoResponse response)
         {
             logger.Debug("Got XQry Settlement Response:" + response.ToString());
-            CoreService.EventQry.FireRspXQrySettlementResponse(response);
+            CoreService.EventHub.FireRspXQrySettlementResponse(response);
         }
 
-       
+        /// <summary>
+        /// 响应修改密码回报
+        /// </summary>
+        /// <param name="response"></param>
+        void CliOnChangePass(RspReqChangePasswordResponse response)
+        {
+            logger.Debug("Got ChangePass Response:" + response.ToString());
+            CoreService.EventHub.FireRspReqChangePasswordResponse(response);
+            if (IsRspInfoError(response.RspInfo))
+            {
+                PromptMessage msg = new PromptMessage("修改密码错误", "{0},ErrorCode[{1}]".Put(response.RspInfo.ErrorMessage, response.RspInfo.ErrorID));
+                CoreService.EventCore.FirePromptMessageEvent(msg);
+            }
+            else
+            {
+                PromptMessage msg = new PromptMessage("修改密码成功", "密码修改成功，下次交易请用新密码登入。");
+                CoreService.EventCore.FirePromptMessageEvent(msg);
+            }
+        }
        
     }
 }

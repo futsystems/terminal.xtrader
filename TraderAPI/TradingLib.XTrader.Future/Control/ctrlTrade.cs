@@ -228,8 +228,8 @@ namespace TradingLib.XTrader.Future
                 CoreService.EventCore.RegIEventHandler(this);
                 CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
 
-                CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
-                CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+                CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             }
             tradeGrid.ClearSelection();
         }

@@ -15,6 +15,11 @@ namespace TradingLib.TraderCore
 
         bool _inited = false;
 
+        /// <summary>
+        /// 基础数据维护期初始化标识
+        /// </summary>
+        public bool Inited { get { return _inited; } }
+
         void Status(string msg)
         {
             CoreService.EventCore.FireInitializeStatusEvent(msg);

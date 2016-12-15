@@ -226,8 +226,8 @@ namespace TradingLib.XTrader.Future
             Position pos = CurrentPositoin;
             if (pos != null)
             {
-                CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
-                CoreService.EventUI.FirePositionSelectedEvent(this, pos);
+                CoreService.EventHub.FireSymbolSelectedEvent(this, pos.oSymbol);
+                CoreService.EventHub.FirePositionSelectedEvent(this, pos);
             }
         }
 
@@ -286,7 +286,7 @@ namespace TradingLib.XTrader.Future
                     }
                     else
                     {
-                        CoreService.EventUI.FireSymbolSelectedEvent(this, current_pos.oSymbol);
+                        CoreService.EventHub.FireSymbolSelectedEvent(this, current_pos.oSymbol);
                     }
                 }
             }
@@ -377,8 +377,8 @@ namespace TradingLib.XTrader.Future
                     CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
                     CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
 
-                    CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
-                    CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+                    CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                    CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
                 }
 
                 positionGrid.DoubleClick += new EventHandler(positionGrid_DoubleClick);
@@ -443,7 +443,7 @@ namespace TradingLib.XTrader.Future
             Position pos = CurrentPositoin;
             if (pos == null) return;
             logger.Info(string.Format("Position:{0} selected", pos.GetPositionKey()));
-            CoreService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+            CoreService.EventHub.FireSymbolSelectedEvent(this, pos.oSymbol);
         }
 
 

@@ -24,32 +24,39 @@ namespace TradingLib.TraderCore
                 _clientID = response.ClientID;
                 _frontID = response.FrontIDi;
                 _sessionID = response.SessionIDi;
-
             }
             CoreService.EventCore.FireLoginEvent(response);
-
-            //第一次登入成功 请求基础数据
-            if (_firstlogin && response.Authorized)
+            if (response.Authorized && !CoreService.BasicInfoTracker.Inited)
             {
-                _firstlogin = false;
                 //请求市场交易时间段
                 CoreService.BasicInfoTracker.ResumeData();
             }
         }
 
-
+        /// <summary>
+        /// 响应交易时间段查询回报
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXMarketTime(RspXQryMarketTimeResponse response)
         {
             logger.Debug("Got Markettime Response:" + response.ToString());
             CoreService.BasicInfoTracker.GotMarketTime(response.MarketTime, response.IsLast);
         }
 
+        /// <summary>
+        /// 响应交易所查询回报
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXExchange(RspXQryExchangeResponse response)
         {
             logger.Debug("Got Exchange Response:" + response.ToString());
             CoreService.BasicInfoTracker.GotExchange(response.Exchange, response.IsLast);
         }
 
+        /// <summary>
+        /// 响应品种查询回报
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXSecurity(RspXQrySecurityResponse response)
         {
             logger.Debug("Got Security Response:" + response.ToString());
@@ -74,9 +81,13 @@ namespace TradingLib.TraderCore
         void CliOnXQryPositionDetails(RspXQryPositionDetailResponse response)
         {
             logger.Debug("Got XQry PositionDetail Response:" + response.ToString());
-            CoreService.EventQry.FireRspXQryPositionDetailResponse(response);
+            CoreService.EventHub.FireRspXQryPositionDetailResponse(response);
         }
 
+        /// <summary>
+        /// 查询合约回报
+        /// </summary>
+        /// <param name="response"></param>
         void CliOnXSymbol(RspXQrySymbolResponse response)
         {
             logger.Debug("Got Symbol Response:" + response.ToString());
@@ -89,7 +100,7 @@ namespace TradingLib.TraderCore
                 //不能使用Exchange + Symbol来查找 初始化查询过程中 合约可能没有被正常初始化
                 target = CoreService.BasicInfoTracker.GetSymbol(response.Symbol.ID);
             }
-            CoreService.EventQry.FireRspXQrySymbolResponse(target, response.RspInfo, response.RequestID, response.IsLast);
+            CoreService.EventHub.FireRspXQrySymbolResponse(target, response.RspInfo, response.RequestID, response.IsLast);
 
         }
     }

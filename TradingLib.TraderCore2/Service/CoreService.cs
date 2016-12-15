@@ -54,44 +54,17 @@ namespace TradingLib.TraderCore
         }
 
 
-        EventUI _eventUI = null;
-        /// <summary>
-        /// 界面操作事件中继
-        /// 通过中继触发相关事件，这样可以接触组件之间的耦合与复杂的事件绑定
-        /// </summary>
-        public static EventUI EventUI
-        {
-            get
-            {
-                if (defaultinstance._eventUI == null)
-                    defaultinstance._eventUI = new EventUI();
-                return defaultinstance._eventUI;
-            }
-        }
-
-        EventOther _eventOther = null;
-
-        public static EventOther EventOther
-        {
-            get
-            {
-                if (defaultinstance._eventOther == null)
-                    defaultinstance._eventOther = new EventOther();
-                return defaultinstance._eventOther;
-            }
-        }
-
-        EventQry _eventQry = null;
+        EventHub _eventHub = null;
         /// <summary>
         /// 查询事件中继
         /// </summary>
-        public static EventQry EventQry
+        public static EventHub EventHub
         {
             get
             {
-                if (defaultinstance._eventQry == null)
-                    defaultinstance._eventQry = new EventQry();
-                return defaultinstance._eventQry;
+                if (defaultinstance._eventHub == null)
+                    defaultinstance._eventHub = new EventHub();
+                return defaultinstance._eventHub;
             }
         }
 
@@ -109,9 +82,6 @@ namespace TradingLib.TraderCore
                 return defaultinstance._eventIndicator;
             }
         }
-
-
-
 
 
         BasicInfoTracker _basicinfortracker = null;

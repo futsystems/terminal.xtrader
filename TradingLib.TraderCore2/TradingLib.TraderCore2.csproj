@@ -54,12 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\TLClientNet.cs" />
-    <Compile Include="Client\TLClientNet_.cs" />
-    <Compile Include="Client\TLClientNet_EventHalder.cs" />
     <Compile Include="Client\TLClientNet_HandlerRouter.cs" />
-    <Compile Include="Client\TLClientNet_PacketHandler_.cs" />
     <Compile Include="Client\TLClientNet_PacketHandler_BasicInfo.cs" />
-    <Compile Include="Client\TLClientNet_PacketHandler_Other.cs" />
     <Compile Include="Client\TLClientNet_PacketHandler_TradingInfo.cs" />
     <Compile Include="Client\TLClientNet_Request.cs" />
     <Compile Include="PromptMessage.cs" />
@@ -69,17 +65,13 @@
     <Compile Include="Service\BasicInfo\BasicInfoTracker_Handler.cs" />
     <Compile Include="Service\Event\EventCore.cs" />
     <Compile Include="Service\Event\EventIndicator.cs" />
-    <Compile Include="Service\Event\EventOther.cs" />
-    <Compile Include="Service\Event\EventQry.cs" />
-    <Compile Include="Service\Event\EventUI.cs" />
+    <Compile Include="Service\Event\EventHub.cs" />
     <Compile Include="IEventBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CoreService.cs" />
     <Compile Include="Service\LogService.cs" />
     <Compile Include="Service\PositionWatcher.cs" />
-    <Compile Include="Service\TradingInfo\TradingInfoTracker.cs" />
-    <Compile Include="Service\TradingInfo\TradingInfoTracker_.cs" />
-    <Compile Include="Service\TradingInfo\TradingInfoTracker_Utils.cs" />
+    <Compile Include="Service\TradingInfoTracker.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -68,14 +68,12 @@ namespace TradingLib.TraderCore
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);
 
-            CoreService.EventQry.OnRspXQryOrderResponse += new Action<Order, RspInfo, int, bool>(EventQry_OnRspXQryOrderResponse);
-            CoreService.EventQry.OnRspXQryYDPositionResponse += new Action<PositionDetail, RspInfo, int, bool>(EventQry_OnRspXQryYDPositionResponse);
-            CoreService.EventQry.OnRspXQryFillResponese += new Action<Trade, RspInfo, int, bool>(EventQry_OnRspXQryFillResponese);
-            //CoreService.EventQry.OnRspQryAccountInfoResponse += new Action<AccountInfo, RspInfo, int, bool>(EventQry_OnRspQryAccountInfoResponse);
-            CoreService.EventQry.OnRspXQryAccountResponse += new Action<AccountLite, RspInfo, int, bool>(EventQry_OnRspXQryAccountResponse);
+            CoreService.EventHub.OnRspXQryOrderResponse += new Action<Order, RspInfo, int, bool>(EventQry_OnRspXQryOrderResponse);
+            CoreService.EventHub.OnRspXQryYDPositionResponse += new Action<PositionDetail, RspInfo, int, bool>(EventQry_OnRspXQryYDPositionResponse);
+            CoreService.EventHub.OnRspXQryFillResponese += new Action<Trade, RspInfo, int, bool>(EventQry_OnRspXQryFillResponese);
+            CoreService.EventHub.OnRspXQryAccountResponse += new Action<AccountLite, RspInfo, int, bool>(EventQry_OnRspXQryAccountResponse);
             PositionTracker.NewPositionEvent += new Action<Position>(PositionTracker_NewPositionEvent);
         }
-
 
 
         void EventIndicator_GotTickEvent(Tick obj)
@@ -114,17 +112,11 @@ namespace TradingLib.TraderCore
         /// </summary>
         public void ResumeData()
         {
-            logger.Info("Start to resueme trading data");
-            CoreService.EventOther.FireResumeDataStart();
-
-            //清空当前交易记录维护器
-            OrderTracker.Clear();
-            PositionTracker.Clear();
-            HoldPositionTracker.Clear();
-            TradeTracker.Clear();
-            HotSymbols.Clear();
-
+            CoreService.EventHub.FireResumeDataStart();
+            //重置维护期
+            Reset();
             //执行隔夜持仓查询 并按序触发后续查询
+            Status("查询隔夜持仓");
             _qrypositionid = CoreService.TLClient.ReqXQryYDPositon();
         }
 
@@ -199,7 +191,7 @@ namespace TradingLib.TraderCore
             }
             if (arg4)
             {
-                Status("成交查询完毕,查询帐户信息");
+                Status("成交查询完毕,查询账户");
                 _qryaccountinfoid = CoreService.TLClient.ReqXQryAccount();
             }
         }
@@ -220,15 +212,13 @@ namespace TradingLib.TraderCore
                 if (arg4)
                 {
                     Status("帐户信息查询完毕");
-                    //CoreService.TLClient.StartTick();
-                    //核心服务完成初始化
                     CoreService.Initialize();
                     Status("触发初始化完毕事件");
                 }
             }
 
-            logger.Info("trading data resume finished");
-            CoreService.EventOther.FireResumeDataEnd();
+            logger.Info("交易信息回复完毕");
+            CoreService.EventHub.FireResumeDataEnd();
         }
 
         void PositionTracker_NewPositionEvent(Position obj)

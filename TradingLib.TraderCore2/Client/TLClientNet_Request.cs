@@ -11,9 +11,21 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
+        int requestid = 0;
+        /// <summary>
+        /// 发送业务数据包
+        /// </summary>
+        /// <param name="packet"></param>
+        void SendPacket(IPacket packet)
+        {
+            //权限或者登入状态检查
+            if (connecton != null && connecton.IsConnected)
+            {
+                connecton.TLSend(packet);
+            }
+        }
+
         #region API操作接口
-
-
         int _orderref = 1;
         object _orderrefobj = new object();
         string NextOrderRef

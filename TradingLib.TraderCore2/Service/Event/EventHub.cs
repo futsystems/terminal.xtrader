@@ -10,7 +10,7 @@ namespace TradingLib.TraderCore
     /// <summary>
     /// 查询事件中继
     /// </summary>
-    public class EventQry
+    public class EventHub
     {
         /// <summary>
         /// 查询成交回报
@@ -116,11 +116,94 @@ namespace TradingLib.TraderCore
             if (OnRspXQryPositionDetailResponse != null)
                 OnRspXQryPositionDetailResponse(response);
         }
-        //public event Action<RspXQryExchangeRateResponse> OnRspXQryExchangeRateResponse;
-        //internal void FireRspXQryExchangeRateResponse(RspXQryExchangeRateResponse response)
-        //{
-        //    if (OnRspXQryExchangeRateResponse != null)
-        //        OnRspXQryExchangeRateResponse(response);           
-        //}
+
+        
+
+
+
+        public event Action<RspReqChangePasswordResponse> OnRspReqChangePasswordResponse;
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="response"></param>
+        internal void FireRspReqChangePasswordResponse(RspReqChangePasswordResponse response)
+        {
+            if (OnRspReqChangePasswordResponse != null)
+            {
+                OnRspReqChangePasswordResponse(response);
+            }
+        }
+
+
+        /// <summary>
+        /// 交易记录开始恢复
+        /// </summary>
+        public event Action OnResumeDataStart;
+        internal void FireResumeDataStart()
+        {
+            if (OnResumeDataStart != null)
+            {
+                OnResumeDataStart();
+            }
+        }
+
+        /// <summary>
+        /// 交易记录恢复完成
+        /// </summary>
+        public event Action OnResumeDataEnd;
+        internal void FireResumeDataEnd()
+        {
+            if (OnResumeDataEnd != null)
+            {
+                OnResumeDataEnd();
+            }
+        }
+
+
+        #region 合约 持仓 选中事件
+        static Symbol _symbolSelected = null;
+        public event Action<Object, Symbol> OnSymbolSelectedEvent;
+        /// <summary>
+        /// 触发合约选择事件
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void FireSymbolSelectedEvent(Object sender, Symbol symbol)
+        {
+            if (_symbolSelected != null && symbol != null)
+            {
+                FireSymbolUnSelectedEvent(sender, _symbolSelected);
+                _symbolSelected = symbol;
+            }
+
+            if (OnSymbolSelectedEvent != null)
+                OnSymbolSelectedEvent(sender, symbol);
+        }
+
+        public event Action<object, Symbol> OnSymbolUnSelectedEvent;
+        /// <summary>
+        /// 触发合约取消选择事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="symbol"></param>
+        public void FireSymbolUnSelectedEvent(Object sender, Symbol symbol)
+        {
+            if (OnSymbolUnSelectedEvent != null)
+                OnSymbolUnSelectedEvent(sender, symbol);
+        }
+
+
+
+        public event Action<object, Position> OnPositionSelectedEvent = delegate { };
+
+        /// <summary>
+        /// 触发持仓选中事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="position"></param>
+        public void FirePositionSelectedEvent(object sender, Position position)
+        {
+            OnPositionSelectedEvent(sender, position);
+        }
+        #endregion
     }
 }

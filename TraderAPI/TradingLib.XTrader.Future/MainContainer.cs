@@ -73,11 +73,14 @@ namespace TradingLib.XTrader.Future
             ctrlTraderLogin.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
             //ctrlTraderLogin.ExitTrader += new Action(ctrlTraderLogin_ExitTrader);
 
-            CoreService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
             CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
-            CoreService.EventOther.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
-            CoreService.EventOther.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+
             CoreService.EventIndicator.GotPositionNotifyEvent += new Action<PositionEx>(EventIndicator_GotPositionNotifyEvent);
+
+            CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
+            CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+            CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+            
         }
 
 
@@ -213,7 +216,7 @@ namespace TradingLib.XTrader.Future
                 Symbol sym = CoreService.BasicInfoTracker.GetSymbol(exchange, symbol);
                 if (sym != null)
                 {
-                    CoreService.EventUI.FireSymbolSelectedEvent(this, sym);
+                    CoreService.EventHub.FireSymbolSelectedEvent(this, sym);
                 }
                 else
                 {

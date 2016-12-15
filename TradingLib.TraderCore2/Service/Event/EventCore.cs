@@ -112,22 +112,6 @@ namespace TradingLib.TraderCore
         }
 
 
-        public event VoidDelegate OnDataConnectedEvent;
-        internal void FireDataConnectedEvent()
-        {
-            LogService.Debug("FireDataConnectedEvent");
-            if (OnDataConnectedEvent != null)
-                OnDataConnectedEvent();
-        }
-
-        public event VoidDelegate OnDataDisconnectedEvent;
-        internal void FireDataDisconnectedEvent()
-        {
-            LogService.Debug("FireDataDisconnectedEvent");
-            if (OnDataDisconnectedEvent != null)
-                OnDataDisconnectedEvent();
-        }
-
         public event Action<LoginResponse> OnLoginEvent;
         internal void FireLoginEvent(LoginResponse response)
         {
@@ -162,24 +146,6 @@ namespace TradingLib.TraderCore
             {
                 OnPromptMessageEvent(msg);
             }
-        }
-
-
-        public event Action<ManagerNotify> OnManagerNotifyEvent;
-        internal void FireManagerNotifyEvent(ManagerNotify notify)
-        {
-            LogService.Debug("FireManagerNotifyEvent");
-
-            RspInfo info = new TradingLib.Common.RspInfoImpl();
-            info.ErrorID = notify.ErrorID;
-            info.ErrorMessage = notify.ErrorMessage;
-
-            //触发pop窗口
-            FireRspInfoEvent(info);
-
-            //触发其他监听事件
-            if (OnManagerNotifyEvent != null)
-                OnManagerNotifyEvent(notify);
         }
     }
 }
