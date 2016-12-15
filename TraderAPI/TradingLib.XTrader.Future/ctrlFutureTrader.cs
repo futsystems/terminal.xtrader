@@ -78,12 +78,12 @@ namespace TradingLib.XTrader.Future
             //定时任务 定时重新注册需要合约的实时行情 避免行情停止
             foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
             {
-                CoreService.TLClient.ReqRegisterSymbol(sym.Symbol);
+                CoreService.TLClient.ReqRegisterSymbol(sym);
             }
 
             if (ctrlOrderEntry1.SymbolSelected != null)
             {
-                CoreService.TLClient.ReqRegisterSymbol(ctrlOrderEntry1.SymbolSelected.Symbol);
+                CoreService.TLClient.ReqRegisterSymbol(ctrlOrderEntry1.SymbolSelected);
             }
         }
 
@@ -267,7 +267,7 @@ namespace TradingLib.XTrader.Future
                 //非常驻合约 则需要取消 避免不必要的订阅
                 if (!CoreService.TradingInfoTracker.HotSymbols.Contains(arg2))
                 {
-                    CoreService.TLClient.ReqUnRegisterSymbol(arg2.Symbol);
+                    CoreService.TLClient.ReqUnRegisterSymbol(arg2);
                 }
             }
         }
@@ -277,7 +277,7 @@ namespace TradingLib.XTrader.Future
             if (arg2 != null)
             {
                 CoreService.TLClient.ReqXQryTickSnapShot(arg2.Exchange, arg2.Symbol);
-                CoreService.TLClient.ReqRegisterSymbol(arg2.Symbol);
+                CoreService.TLClient.ReqRegisterSymbol(arg2);
             }
         }
 

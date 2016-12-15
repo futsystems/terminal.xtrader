@@ -152,9 +152,6 @@ namespace TradingLib.TraderCore
                 TLClientNet tlclient = new TLClientNet(new string[] { address }, port);
 
                 defaultinstance._tlclient = tlclient;
-
-               
-
                 //执行初始化 如果TradingInfo延迟调用会导致 ctrlPosition订阅成交在TradingInfo之前
                 if (defaultinstance._tradinginfotracker == null)
                     defaultinstance._tradinginfotracker = new TradingInfoTracker();

@@ -25,6 +25,7 @@ namespace TradingLib.TraderCore
             }
         }
 
+
         #region API操作接口
         int _orderref = 1;
         object _orderrefobj = new object();
@@ -40,6 +41,7 @@ namespace TradingLib.TraderCore
                 }
             }
         }
+
         /// <summary>
         /// 发送委托
         /// </summary>
@@ -226,25 +228,52 @@ namespace TradingLib.TraderCore
         #endregion
 
 
-        
         /// <summary>
-        /// 请求注册行情数据
+        /// 订阅合约实时行情
         /// </summary>
-        public void ReqRegisterSymbol(string symbol)
+        public int ReqRegisterSymbol(Symbol sym)
         {
-            //if (!connecton.IsTickConnected) return;
-            //connecton.Subscribe(symbol);
+            logger.Info(string.Format("Subscribe market data for symbol:{0}",sym.Symbol));
+            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
+            request.Exchange = sym.Exchange;
+            request.SymbolList.Add(sym.Symbol);
+            this.SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
-        /// 请求注销合约
+        /// 注销合约实时行情
         /// </summary>
         /// <param name="symbol"></param>
-        public void ReqUnRegisterSymbol(string symbol)
+        public int ReqUnRegisterSymbol(Symbol sym)
         {
-            //if (!connecton.IsTickConnected) return;
-            //connecton.UnSubscribe(symbol);
+            logger.Info(string.Format("Unsubscribe market data for symbol:{0}",sym.Symbol));
+            //int reqid = NextRequestID;
+            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
+            request.Exchange = sym.Exchange;
+            request.SymbolList.Add(sym.Symbol);
+            this.SendPacket(request);
+            return requestid;
         }
+
+        ///// <summary>
+        ///// 请求注册行情数据
+        ///// </summary>
+        //public void ReqRegisterSymbol(string symbol)
+        //{
+        //    //if (!connecton.IsTickConnected) return;
+        //    //connecton.Subscribe(symbol);
+        //}
+
+        ///// <summary>
+        ///// 请求注销合约
+        ///// </summary>
+        ///// <param name="symbol"></param>
+        //public void ReqUnRegisterSymbol(string symbol)
+        //{
+        //    //if (!connecton.IsTickConnected) return;
+        //    //connecton.UnSubscribe(symbol);
+        //}
 
         /// <summary>
         /// 请求修改密码

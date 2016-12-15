@@ -404,7 +404,7 @@ namespace TradingLib.XTrader.Future
             {
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
-                CoreService.TLClient.ReqRegisterSymbol(pos.Symbol);//注册合约
+                CoreService.TLClient.ReqRegisterSymbol(pos.oSymbol);//注册合约
             }
 
             positionGrid.ClearSelection();
@@ -454,7 +454,7 @@ namespace TradingLib.XTrader.Future
             {
                 this.GotPosition(pos);
                 CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
-                CoreService.TLClient.ReqRegisterSymbol(pos.Symbol);//注册合约
+                CoreService.TLClient.ReqRegisterSymbol(pos.oSymbol);//注册合约
             }
             positionGrid.ClearSelection();
         }
