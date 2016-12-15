@@ -235,6 +235,7 @@
     <Compile Include="TraderConfig.cs" />
     <Compile Include="Utils_GDI.cs" />
     <Compile Include="Util_Account.cs" />
+    <Compile Include="Util_Object.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\ctrlListBox.resx">
@@ -304,9 +305,9 @@
       <Project>{0D69469A-0AF0-4238-BD69-F9ADE1298854}</Project>
       <Name>TradingLib.MarketData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TradingLib.TraderCore\TradingLib.TraderCore.csproj">
-      <Project>{4F336ECB-8144-41BA-8B82-258AC7FC4A60}</Project>
-      <Name>TradingLib.TraderCore</Name>
+    <ProjectReference Include="..\..\TradingLib.TraderCore2\TradingLib.TraderCore2.csproj">
+      <Project>{67979A46-0F1A-4E65-8777-6E9EB512E960}</Project>
+      <Name>TradingLib.TraderCore2</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -416,8 +417,9 @@
       <OutFiles Include="$(OutputPath)\TradingLib.API.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.TraderCore.dll" />
+	  <OutFiles Include="$(OutputPath)\TradingLib.TraderCore2.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
-	  <OutFiles Include="$(OutputPath)\ICSharpCode.TextEditor.dll" />
+      <OutFiles Include="$(OutputPath)\ICSharpCode.TextEditor.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\..\Build\XTraderLite\TraderAPI\" SkipUnchangedFiles="false" />
   </Target>
