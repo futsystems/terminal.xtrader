@@ -172,16 +172,10 @@ namespace TradingLib.TraderCore
                 //无持仓,字典中删除合约
                 posHoldSymbols.TryRemove(key, out target);
             }
-            int oldCnt = hashSetSymbol.Count;
             hashSetSymbol.Clear();
             foreach(var symbol in posHoldSymbols.Values)
             {
                 hashSetSymbol.Add(symbol);
-            }
-            if (oldCnt != hashSetSymbol.Count)
-            { 
-                //合约订阅集合发生变化 触发合约集合变化事件
-
             }
         }
 

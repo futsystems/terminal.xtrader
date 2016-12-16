@@ -35,9 +35,9 @@ namespace TradingLib.TraderCore
             switch (packet.Type)
             {
                 //Tick数据
-                case MessageTypes.TICKNOTIFY:
-                    CliOnTickNotify(packet as TickNotify);
-                    break;
+                //case MessageTypes.TICKNOTIFY:
+                //    CliOnTickNotify(packet as TickNotify);
+                //    break;
                 //登入回报
                 case MessageTypes.LOGINRESPONSE:
                     CliOnLogin(packet as LoginResponse);

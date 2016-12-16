@@ -34,6 +34,8 @@ namespace TradingLib.MarketData
     public interface ITraderAPI
     {
         TraderAPISetting APISetting { get; }
+
+
         /// <summary>
         /// 是否可见
         /// </summary>
@@ -82,6 +84,24 @@ namespace TradingLib.MarketData
         void PlaceOrder(bool side, string exchagne, string symbol, int size, double price);
 
         /// <summary>
+        /// 合约更新行情数据
+        /// </summary>
+        /// <param name="symbol"></param>
+        void NotifyTick(MDSymbol symbol);
+
+
+        /// <summary>
+        /// 交易组件所需合约注册列表
+        /// </summary>
+        IEnumerable<string> SymbolRegisters { get; }
+
+        /// <summary>
+        /// 合约注册集合发生变动
+        /// </summary>
+        event Action SymbolRegisterChanged;
+
+
+        /// <summary>
         /// 查看某合约的分时/K线
         /// </summary>
         event Action<string, string,int> ViewKChart;
@@ -103,21 +123,9 @@ namespace TradingLib.MarketData
         event Action TradingInfoRest;
 
 
-        /// <summary>
-        /// 交易组件所需合约注册列表
-        /// </summary>
-        IEnumerable<string> SymbolRegisters { get; }
+        
 
-        /// <summary>
-        /// 合约注册集合发生变动
-        /// </summary>
-        event Action SymbolRegisterChanged;
-
-        /// <summary>
-        /// 合约更新行情数据
-        /// </summary>
-        /// <param name="symbol"></param>
-        void NotifyTick(MDSymbol symbol);
+        
 
 
     }

@@ -44,6 +44,21 @@ namespace TradingLib.XTrader.Future
             tradeGrid.MouseClick += new MouseEventHandler(tradeGrid_MouseClick);
         }
 
+        void ctrlTrade_Load(object sender, EventArgs e)
+        {
+            if (this._realview)
+            {
+                CoreService.EventCore.RegIEventHandler(this);
+                CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
+
+                CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
+                CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
+            }
+            tradeGrid.ClearSelection();
+        }
+
+
+
         void tradeGrid_MouseClick(object sender, MouseEventArgs e)
         {
             int rowid = GetRowIndexAt(e.Y);
@@ -221,18 +236,7 @@ namespace TradingLib.XTrader.Future
             }
         }
 
-        void ctrlTrade_Load(object sender, EventArgs e)
-        {
-            if (this._realview)
-            {
-                CoreService.EventCore.RegIEventHandler(this);
-                CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
-
-                CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
-                CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
-            }
-            tradeGrid.ClearSelection();
-        }
+        
 
         void EventOther_OnResumeDataEnd()
         {
@@ -250,10 +254,6 @@ namespace TradingLib.XTrader.Future
 
         public void OnInit()
         {
-            //foreach (var f in CoreService.TradingInfoTracker.TradeTracker)
-            //{
-            //    this.GotFill(f);
-            //}
             _tradeViewType = EnumTradeViewType.Detail;
             LoadTrade();
 

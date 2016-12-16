@@ -330,35 +330,5 @@ namespace TradingLib.TraderCore
             return requestid;
         }
         #endregion
-
-        //#region 行情订阅与取消
-        ///// <summary>
-        ///// 订阅合约实时行情
-        ///// </summary>
-        //public int ReqRegisterSymbol(Symbol sym)
-        //{
-        //    logger.Info(string.Format("Subscribe market data for symbol:{0}", sym.Symbol));
-        //    RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
-        //    request.Exchange = sym.Exchange;
-        //    request.SymbolList.Add(sym.Symbol);
-        //    this.SendPacket(request);
-        //    return requestid;
-        //}
-
-        ///// <summary>
-        ///// 注销合约实时行情
-        ///// </summary>
-        ///// <param name="symbol"></param>
-        //public int ReqUnRegisterSymbol(Symbol sym)
-        //{
-        //    logger.Info(string.Format("Unsubscribe market data for symbol:{0}", sym.Symbol));
-        //    UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
-        //    request.Exchange = sym.Exchange;
-        //    request.SymbolList.Add(sym.Symbol);
-        //    SendPacket(request);
-        //    return requestid;
-        //}
-        //#endregion
-
     }
 }

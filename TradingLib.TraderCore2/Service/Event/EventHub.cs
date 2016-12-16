@@ -158,16 +158,5 @@ namespace TradingLib.TraderCore
                 OnResumeDataEnd();
             }
         }
-
-
-        #region 合约 持仓 选中事件
-        
-
-
-
-       
-        #endregion
-
-        
     }
 }

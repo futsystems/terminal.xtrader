@@ -11,10 +11,10 @@ namespace TradingLib.TraderCore
         /// 响应行情
         /// </summary>
         /// <param name="response"></param>
-        void CliOnTickNotify(TickNotify response)
-        {
-            CoreService.EventIndicator.FireTick(response.Tick);
-        }
+        //void CliOnTickNotify(TickNotify response)
+        //{
+        //    CoreService.EventIndicator.FireTick(response.Tick);
+        //}
 
         /// <summary>
         /// 响应委托回报

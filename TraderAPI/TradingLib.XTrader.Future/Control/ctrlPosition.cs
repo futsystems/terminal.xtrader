@@ -39,11 +39,13 @@ namespace TradingLib.XTrader.Future
 
         void WireEvent()
         {
+            this.Load += new EventHandler(ctrlPosition_Load);
+
             btnFlat.Click += new EventHandler(btnFlat_Click);
             btnFlatAll.Click += new EventHandler(btnFlatAll_Click);
             btnReserve.Click += new EventHandler(btnReserve_Click);
             btnLockPos.Click += new EventHandler(btnLockPos_Click);
-            this.Load += new EventHandler(ctrlPosition_Load);
+            
             positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
             positionGrid.MouseClick += new MouseEventHandler(positionGrid_MouseClick);
             positionGrid.MouseDoubleClick += new MouseEventHandler(positionGrid_MouseDoubleClick);
@@ -373,6 +375,7 @@ namespace TradingLib.XTrader.Future
                 if (this._realview)
                 {
                     CoreService.EventCore.RegIEventHandler(this);
+
                     CoreService.EventIndicator.GotTickEvent += new Action<Tick>(GotTick);
                     CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFill);
                     CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
@@ -403,8 +406,6 @@ namespace TradingLib.XTrader.Future
             foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 this.GotPosition(pos);
-                //CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
-                //CoreService.EventHub.ReqRegisterSymbol(pos.oSymbol);//注册合约
             }
 
             positionGrid.ClearSelection();
@@ -453,8 +454,6 @@ namespace TradingLib.XTrader.Future
             foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 this.GotPosition(pos);
-                //CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
-                //CoreService.EventHub.ReqRegisterSymbol(pos.oSymbol);//注册合约
             }
             positionGrid.ClearSelection();
         }

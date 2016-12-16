@@ -29,25 +29,5 @@ namespace TradingLib.XTrader
                 return defaultinstance._eventUI;
             }
         }
-
-        public static event Action<Symbol> OnReqRegisterSymbol = delegate { };
-        /// <summary>
-        /// 注册某个合约实时行情
-        /// </summary>
-        /// <param name="sym"></param>
-        public static void ReqRegisterSymbol(Symbol sym)
-        {
-            OnReqRegisterSymbol(sym);
-        }
-
-        public static event Action<Symbol> OnReqUnRegisterSymbol = delegate { };
-        /// <summary>
-        /// 注销某个合约实时行情
-        /// </summary>
-        /// <param name="sym"></param>
-        public static void ReqUnRegisterSymbol(Symbol sym)
-        {
-            OnReqUnRegisterSymbol(sym);
-        }
     }
 }
