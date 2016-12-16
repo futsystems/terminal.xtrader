@@ -498,16 +498,27 @@ namespace XTraderLite
             }
             else
             {
+                //更新报价列表
                 if (ctrlQuoteList.Visible)
                 {
                     ctrlQuoteList.Update(symbol);
                 }
 
+                //更新绘图控件
                 if (ctrlKChart.Visible)
                 {
                     ctrlKChart.Update(symbol);
                 }
+
+                //更新底部高亮合约
                 ctrlSymbolHighLight.Update(symbol);
+
+                //更新交易组件实时行情
+                if (_traderApi != null)
+                {
+                    _traderApi.NotifyTick(symbol);
+                }
+
                 //保存LastTick
                 if (symbol.TickSnapshot.Time != symbol.LastTickSnapshot.Time)
                 {

@@ -67,8 +67,8 @@ namespace TradingLib.XTrader.Future
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
             CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(EventIndicator_GotErrorOrderEvent);
 
-            CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
-            CoreService.EventHub.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
+            UIService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolSelectedEvent);
+            UIService.EventUI.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
             CoreService.EventHub.OnRspXQryMaxOrderVolResponse += new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse);
 
             CoreService.EventCore.RegIEventHandler(this);
@@ -339,7 +339,7 @@ namespace TradingLib.XTrader.Future
             if (symbol != null)
             {
                 logger.Info(string.Format("Symbol:{0} Selected", symbol.Symbol));
-                CoreService.EventHub.FireSymbolSelectedEvent(this, symbol);
+                UIService.EventUI.FireSymbolSelectedEvent(this, symbol);
             }
             else //当前没有选中任何合约
             {
@@ -352,7 +352,7 @@ namespace TradingLib.XTrader.Future
         void inputSymbol_SymbolSelected(Symbol obj)
         {
             logger.Info(string.Format("Symbol:{0} Selected", obj.Symbol));
-            CoreService.EventHub.FireSymbolSelectedEvent(this, obj);
+            UIService.EventUI.FireSymbolSelectedEvent(this, obj);
         }
 
         /// <summary>

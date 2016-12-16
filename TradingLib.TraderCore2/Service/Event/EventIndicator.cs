@@ -19,6 +19,13 @@ namespace TradingLib.TraderCore
         /// </summary>
         public event Action<Tick> GotTickEvent;
 
+        public void FireTick(Tick k)
+        {
+            if (GotTickEvent != null)
+                GotTickEvent(k);
+        }
+
+
         /// <summary>
         /// 委托事件
         /// </summary>
@@ -48,11 +55,7 @@ namespace TradingLib.TraderCore
 
         public event Action<PositionEx> GotPositionNotifyEvent = delegate { };
 
-        internal void FireTick(Tick k)
-        {
-            if (GotTickEvent != null)
-                GotTickEvent(k);
-        }
+        
 
         internal void FireOrder(Order o)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using TradingLib.API;
@@ -52,7 +53,7 @@ namespace TradingLib.TraderCore
         /// 合约
         /// 委托 持仓 合约需要 记录 用于保持行情订阅
         /// </summary>
-        public List<Symbol> HotSymbols { get; set; }
+        public IEnumerable<Symbol> HotSymbols { get { return hashSetSymbol; } }
 
         public TradingInfoTracker()
         {
@@ -62,10 +63,10 @@ namespace TradingLib.TraderCore
             TradeTracker = new ThreadSafeList<Trade>();
             TickTracker = new TickTracker();
             Account = new AccountLite();
-            HotSymbols = new List<Symbol>();
 
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
+            CoreService.EventIndicator.GotPositionNotifyEvent += new Action<PositionEx>(EventIndicator_GotPositionNotifyEvent);
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);
 
             CoreService.EventHub.OnRspXQryOrderResponse += new Action<Order, RspInfo, int, bool>(EventQry_OnRspXQryOrderResponse);
@@ -74,6 +75,8 @@ namespace TradingLib.TraderCore
             CoreService.EventHub.OnRspXQryAccountResponse += new Action<AccountLite, RspInfo, int, bool>(EventQry_OnRspXQryAccountResponse);
             PositionTracker.NewPositionEvent += new Action<Position>(PositionTracker_NewPositionEvent);
         }
+
+        
 
 
         void EventIndicator_GotTickEvent(Tick obj)
@@ -91,7 +94,6 @@ namespace TradingLib.TraderCore
         {
             bool accept = false;
             PositionTracker.GotFill(obj, out accept);
-            KeepSymbol(obj.oSymbol);
             if (accept)
             {
                 OrderTracker.GotFill(obj);
@@ -102,8 +104,14 @@ namespace TradingLib.TraderCore
         void EventIndicator_GotOrderEvent(Order obj)
         {
             OrderTracker.GotOrder(obj);
-            KeepSymbol(obj.oSymbol);
         }
+
+        void EventIndicator_GotPositionNotifyEvent(PositionEx obj)
+        {
+            Position pos = this.PositionTracker[obj.Symbol, obj.Account, obj.Side];
+            BookPositionHoldSymbols(pos);
+        }
+
 
 
         int _qrypositionid = 0;
@@ -128,19 +136,55 @@ namespace TradingLib.TraderCore
             PositionTracker.Clear();
             HoldPositionTracker.Clear();
             TradeTracker.Clear();
-            HotSymbols.Clear();
+            
             Account = null;
         }
 
 
-        void KeepSymbol(Symbol symbol)
+
+        /// <summary>
+        /// 持仓合约维护器
+        /// 持仓不为零时 记录合约 用于订阅实时行情
+        /// </summary>
+        ConcurrentDictionary<string, Symbol> posHoldSymbols = new ConcurrentDictionary<string, Symbol>();
+        HashSet<Symbol> hashSetSymbol = new HashSet<Symbol>();
+        /// <summary>
+        /// 记录持仓合约
+        /// </summary>
+        /// <param name="pos"></param>
+        void BookPositionHoldSymbols(Position pos)
         {
-            if (symbol == null) return;
-            if (!HotSymbols.Contains(symbol))
+            if (pos == null)
             {
-                HotSymbols.Add(symbol);
+                logger.Warn("Pos is null");
+                return;
+            }
+
+            string key = pos.GetPositionKey();
+            Symbol target = null;
+            if (!pos.isFlat)
+            {
+                //有持仓,添加合约到字典
+                posHoldSymbols.TryAdd(key, pos.oSymbol);
+            }
+            else
+            {
+                //无持仓,字典中删除合约
+                posHoldSymbols.TryRemove(key, out target);
+            }
+            int oldCnt = hashSetSymbol.Count;
+            hashSetSymbol.Clear();
+            foreach(var symbol in posHoldSymbols.Values)
+            {
+                hashSetSymbol.Add(symbol);
+            }
+            if (oldCnt != hashSetSymbol.Count)
+            { 
+                //合约订阅集合发生变化 触发合约集合变化事件
+
             }
         }
+
         int _qryorderid = 0;
         void EventQry_OnRspXQryYDPositionResponse(PositionDetail arg1, RspInfo arg2, int arg3, bool arg4)
         {
@@ -149,7 +193,6 @@ namespace TradingLib.TraderCore
             {
                 PositionTracker.GotPosition(arg1);
                 HoldPositionTracker.GotPosition(arg1);
-                KeepSymbol(arg1.oSymbol);
             }
             if (arg4)
             {
@@ -165,7 +208,7 @@ namespace TradingLib.TraderCore
             if (arg1 != null)
             {
                 OrderTracker.GotOrder(arg1);
-                KeepSymbol(arg1.oSymbol);
+                //KeepSymbol(arg1.oSymbol);
             }
             if (arg4)
             {
@@ -182,7 +225,7 @@ namespace TradingLib.TraderCore
             {
                 bool accept = false;
                 PositionTracker.GotFill(arg1, out accept);
-                KeepSymbol(arg1.oSymbol);
+                //KeepSymbol(arg1.oSymbol);
                 if (accept)
                 {
                     OrderTracker.GotFill(arg1);
@@ -200,6 +243,18 @@ namespace TradingLib.TraderCore
         {
             if (arg3 != _qryaccountinfoid) return;
             CoreService.TradingInfoTracker.Account = arg1;
+            
+            //执行数据初始化
+            //隔夜持仓查询完毕后 将隔夜持仓对应合约放入列表
+            foreach (var pos in PositionTracker)
+            {
+                BookPositionHoldSymbols(pos);
+            }
+
+
+            logger.Info("交易信息查询完毕");
+            CoreService.EventHub.FireResumeDataEnd();
+
             //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件
             if (!CoreService.Initialized)
             {
@@ -217,8 +272,7 @@ namespace TradingLib.TraderCore
                 }
             }
 
-            logger.Info("交易信息回复完毕");
-            CoreService.EventHub.FireResumeDataEnd();
+            
         }
 
         void PositionTracker_NewPositionEvent(Position obj)

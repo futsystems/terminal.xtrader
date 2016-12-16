@@ -18,6 +18,22 @@ namespace TradingLib.MarketData
     }
 
     /// <summary>
+    /// 实时行情注册
+    /// </summary>
+    public class SymbolRegister
+    {
+        /// <summary>
+        /// 交易所代码
+        /// </summary>
+        public string Exchange { get; set; }
+
+        /// <summary>
+        /// 合约代码
+        /// </summary>
+        public string Symbol { get; set; }
+    }
+
+    /// <summary>
     /// 合约对象
     /// </summary>
     [Serializable]

@@ -36,6 +36,11 @@ namespace XTraderLite
                 symlist = symlist.Union(ctrlQuoteList.SymbolVisible);
             }
 
+            if (_traderApi != null)
+            { 
+                symlist = symlist.Union(MDService.DataAPI.Symbols.Where(sym=>_traderApi.SymbolRegisters.Contains(sym.UniqueKey)));
+            }
+
             return symlist;
         }
     }

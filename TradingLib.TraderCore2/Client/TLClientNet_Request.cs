@@ -59,6 +59,7 @@ namespace TradingLib.TraderCore
             SendPacket(request);
             return requestid;
         }
+
         /// <summary>
         /// 提交委托操作
         /// </summary>
@@ -76,7 +77,7 @@ namespace TradingLib.TraderCore
         }
 
         /// <summary>
-        /// 直接取消委托
+        /// 取消委托
         /// </summary>
         /// <param name="id"></param>
         public int ReqCancelOrder(long id)
@@ -89,9 +90,6 @@ namespace TradingLib.TraderCore
             action.OrderID = id;
             return ReqOrderAction(action);
         }
-
-
-
 
         /// <summary>
         /// 请求登入
@@ -136,7 +134,6 @@ namespace TradingLib.TraderCore
         public int ReqXQryMarketTime()
         {
             logger.Info("Qry MarketTime");
-
             XQryMarketTimeRequest request = RequestTemplate<XQryMarketTimeRequest>.CliSendRequest(++requestid);
             SendPacket(request);
             return requestid;
@@ -148,7 +145,6 @@ namespace TradingLib.TraderCore
         public int  ReqXQryExchange()
         {
             logger.Info("Qry Exchange");
-
             XQryExchangeRequuest request = RequestTemplate<XQryExchangeRequuest>.CliSendRequest(++requestid);
             SendPacket(request);
             return requestid;
@@ -160,7 +156,6 @@ namespace TradingLib.TraderCore
         public int  ReqXQrySecurity()
         {
             logger.Info("Qry Security");
-
             XQrySecurityRequest request = RequestTemplate<XQrySecurityRequest>.CliSendRequest(++requestid);
             SendPacket(request);
             return requestid;
@@ -172,7 +167,6 @@ namespace TradingLib.TraderCore
         public int  ReqXQrySymbol(string exchange,string symbol)
         {
             logger.Info("Qry Symbol Exchange:" + exchange + " Code:" + symbol);
-
             XQrySymbolRequest request = RequestTemplate<XQrySymbolRequest>.CliSendRequest(++requestid);
             request.Exchange = exchange;
             request.Symbol = symbol;
@@ -226,55 +220,6 @@ namespace TradingLib.TraderCore
 
 
         #endregion
-
-
-        /// <summary>
-        /// 订阅合约实时行情
-        /// </summary>
-        public int ReqRegisterSymbol(Symbol sym)
-        {
-            logger.Info(string.Format("Subscribe market data for symbol:{0}",sym.Symbol));
-            RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
-            request.Exchange = sym.Exchange;
-            request.SymbolList.Add(sym.Symbol);
-            this.SendPacket(request);
-            return requestid;
-        }
-
-        /// <summary>
-        /// 注销合约实时行情
-        /// </summary>
-        /// <param name="symbol"></param>
-        public int ReqUnRegisterSymbol(Symbol sym)
-        {
-            logger.Info(string.Format("Unsubscribe market data for symbol:{0}",sym.Symbol));
-            //int reqid = NextRequestID;
-            UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
-            request.Exchange = sym.Exchange;
-            request.SymbolList.Add(sym.Symbol);
-            this.SendPacket(request);
-            return requestid;
-        }
-
-        ///// <summary>
-        ///// 请求注册行情数据
-        ///// </summary>
-        //public void ReqRegisterSymbol(string symbol)
-        //{
-        //    //if (!connecton.IsTickConnected) return;
-        //    //connecton.Subscribe(symbol);
-        //}
-
-        ///// <summary>
-        ///// 请求注销合约
-        ///// </summary>
-        ///// <param name="symbol"></param>
-        //public void ReqUnRegisterSymbol(string symbol)
-        //{
-        //    //if (!connecton.IsTickConnected) return;
-        //    //connecton.UnSubscribe(symbol);
-        //}
-
         /// <summary>
         /// 请求修改密码
         /// </summary>
@@ -288,7 +233,6 @@ namespace TradingLib.TraderCore
             request.Account = _account;
             request.OldPassword = oldpass;
             request.NewPassword = newpass;
-
             SendPacket(request);
         }
 
@@ -299,14 +243,12 @@ namespace TradingLib.TraderCore
         public int ReqXQryMaxOrderVol(string exchange,string symbol, bool side = true, QSEnumOffsetFlag offset = QSEnumOffsetFlag.UNKNOWN)
         {
             logger.Info("Qry Max Order Vol,Symbol:" + symbol);
-
             XQryMaxOrderVolRequest request = RequestTemplate<XQryMaxOrderVolRequest>.CliSendRequest(++requestid);
             request.Exchange = exchange;
             request.Symbol = symbol;
             request.Side = side;
             request.OffsetFlag = offset;
             request.Account = _account;
-
             SendPacket(request);
             return requestid;
         }
@@ -315,14 +257,14 @@ namespace TradingLib.TraderCore
         /// 查询行情快照
         /// </summary>
         /// <param name="symbol"></param>
-        public void ReqXQryTickSnapShot(string exchange,string symbol)
+        public int ReqXQryTickSnapShot(string exchange,string symbol)
         {
             logger.Info("Qry TickSnapshot:" + symbol);
             XQryTickSnapShotRequest request = RequestTemplate<XQryTickSnapShotRequest>.CliSendRequest(++requestid);
             request.Symbol = symbol;
             request.Exchange = exchange;
-
             SendPacket(request);
+            return requestid;
         }
 
         /// <summary>
@@ -371,7 +313,6 @@ namespace TradingLib.TraderCore
         {
             logger.Info("Qry ExchangeRate");
             XQryExchangeRateRequest request = RequestTemplate<XQryExchangeRateRequest>.CliSendRequest(++requestid);
-
             SendPacket(request);
             return requestid;
         }
@@ -385,12 +326,39 @@ namespace TradingLib.TraderCore
         {
             logger.Info("Qry PositionDetail");
             XQryPositionDetailRequest request = RequestTemplate<XQryPositionDetailRequest>.CliSendRequest(++requestid);
-
             SendPacket(request);
             return requestid;
         }
         #endregion
 
+        //#region 行情订阅与取消
+        ///// <summary>
+        ///// 订阅合约实时行情
+        ///// </summary>
+        //public int ReqRegisterSymbol(Symbol sym)
+        //{
+        //    logger.Info(string.Format("Subscribe market data for symbol:{0}", sym.Symbol));
+        //    RegisterSymbolTickRequest request = RequestTemplate<RegisterSymbolTickRequest>.CliSendRequest(++requestid);
+        //    request.Exchange = sym.Exchange;
+        //    request.SymbolList.Add(sym.Symbol);
+        //    this.SendPacket(request);
+        //    return requestid;
+        //}
+
+        ///// <summary>
+        ///// 注销合约实时行情
+        ///// </summary>
+        ///// <param name="symbol"></param>
+        //public int ReqUnRegisterSymbol(Symbol sym)
+        //{
+        //    logger.Info(string.Format("Unsubscribe market data for symbol:{0}", sym.Symbol));
+        //    UnregisterSymbolTickRequest request = RequestTemplate<UnregisterSymbolTickRequest>.CliSendRequest(++requestid);
+        //    request.Exchange = sym.Exchange;
+        //    request.SymbolList.Add(sym.Symbol);
+        //    SendPacket(request);
+        //    return requestid;
+        //}
+        //#endregion
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -50,7 +51,17 @@ namespace TradingLib.XTrader.Stock
         /// </summary>
         public event Action TradingInfoRest = delegate { };
 
+        ConcurrentDictionary<string, Symbol> _symbolRegister = new ConcurrentDictionary<string, Symbol>();
+        /// <summary>
+        /// 交易组件所需合约注册集合
+        /// </summary>
+        public IEnumerable<string> SymbolRegisters { get { return _symbolRegister.Keys; } }
 
+
+        /// <summary>
+        /// 合约集合变动事件
+        /// </summary>
+        public event Action SymbolRegisterChanged = delegate { };
 
         public MainContainer()
         {
@@ -175,6 +186,10 @@ namespace TradingLib.XTrader.Stock
             }
         }
 
+        public void NotifyTick(MDSymbol symbol)
+        {
+
+        }
         /// <summary>
         /// 提交委托
         /// </summary>

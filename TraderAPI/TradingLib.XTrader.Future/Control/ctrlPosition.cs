@@ -226,8 +226,8 @@ namespace TradingLib.XTrader.Future
             Position pos = CurrentPositoin;
             if (pos != null)
             {
-                CoreService.EventHub.FireSymbolSelectedEvent(this, pos.oSymbol);
-                CoreService.EventHub.FirePositionSelectedEvent(this, pos);
+                UIService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+                UIService.EventUI.FirePositionSelectedEvent(this, pos);
             }
         }
 
@@ -286,7 +286,7 @@ namespace TradingLib.XTrader.Future
                     }
                     else
                     {
-                        CoreService.EventHub.FireSymbolSelectedEvent(this, current_pos.oSymbol);
+                        UIService.EventUI.FireSymbolSelectedEvent(this, current_pos.oSymbol);
                     }
                 }
             }
@@ -403,8 +403,8 @@ namespace TradingLib.XTrader.Future
             foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 this.GotPosition(pos);
-                CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
-                CoreService.TLClient.ReqRegisterSymbol(pos.oSymbol);//注册合约
+                //CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
+                //CoreService.EventHub.ReqRegisterSymbol(pos.oSymbol);//注册合约
             }
 
             positionGrid.ClearSelection();
@@ -443,7 +443,7 @@ namespace TradingLib.XTrader.Future
             Position pos = CurrentPositoin;
             if (pos == null) return;
             logger.Info(string.Format("Position:{0} selected", pos.GetPositionKey()));
-            CoreService.EventHub.FireSymbolSelectedEvent(this, pos.oSymbol);
+            UIService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
         }
 
 
@@ -453,8 +453,8 @@ namespace TradingLib.XTrader.Future
             foreach (var pos in CoreService.TradingInfoTracker.PositionTracker)
             {
                 this.GotPosition(pos);
-                CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
-                CoreService.TLClient.ReqRegisterSymbol(pos.oSymbol);//注册合约
+                //CoreService.TLClient.ReqXQryTickSnapShot(pos.oSymbol.Exchange, pos.oSymbol.Symbol);
+                //CoreService.EventHub.ReqRegisterSymbol(pos.oSymbol);//注册合约
             }
             positionGrid.ClearSelection();
         }

@@ -101,5 +101,24 @@ namespace TradingLib.MarketData
         /// 刷新交易数据时 需要将行情组件内的持仓信息重置 然后再讲最新数据填充到行情组件
         /// </summary>
         event Action TradingInfoRest;
+
+
+        /// <summary>
+        /// 交易组件所需合约注册列表
+        /// </summary>
+        IEnumerable<string> SymbolRegisters { get; }
+
+        /// <summary>
+        /// 合约注册集合发生变动
+        /// </summary>
+        event Action SymbolRegisterChanged;
+
+        /// <summary>
+        /// 合约更新行情数据
+        /// </summary>
+        /// <param name="symbol"></param>
+        void NotifyTick(MDSymbol symbol);
+
+
     }
 }

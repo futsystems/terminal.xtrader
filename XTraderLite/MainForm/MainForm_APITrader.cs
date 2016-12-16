@@ -57,12 +57,21 @@ namespace XTraderLite
                     _traderApi.ViewKChart += new Action<string, string, int>(_traderApi_ViewKChart);
                     _traderApi.PositionNotify += new Action<string, string, bool,int, decimal>(_traderApi_PositionNotify);
                     _traderApi.TradingInfoRest += new Action(_traderApi_TradingInfoRest);
+                    _traderApi.SymbolRegisterChanged += new Action(_traderApi_SymbolRegisterChanged);//订阅实时合约集合发生变化
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("交易插件加载异常,请检查配置文件");
             }
+        }
+
+        void _traderApi_SymbolRegisterChanged()
+        {
+            logger.Info(string.Format("TradingBox's SymbolRegister Changed:{0}", string.Join(",", _traderApi.SymbolRegisters.ToArray())));
+            IEnumerable<MDSymbol> symlist = GetSymbolsNeeded();
+            MDService.DataAPI.RegisterSymbol(symlist.ToArray());
+            symbolRegister.AddRange(symlist);//记录当前QuoteList所注册合约 用于视图变化时注销合约行情
         }
 
         void _traderApi_TradingInfoRest()

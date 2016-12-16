@@ -89,8 +89,8 @@ namespace TradingLib.XTrader.Future
                     {
                         if (pos != null)
                         {
-                            CoreService.EventHub.FireSymbolSelectedEvent(this, pos.oSymbol);
-                            CoreService.EventHub.FirePositionSelectedEvent(this, pos);
+                            UIService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+                            UIService.EventUI.FirePositionSelectedEvent(this, pos);
                         }
                     }
                 }

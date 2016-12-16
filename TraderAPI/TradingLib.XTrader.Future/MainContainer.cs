@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -54,6 +55,18 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         public event Action<string, string, int> ViewKChart;
 
+        ConcurrentDictionary<string, Symbol> _symbolRegister = new ConcurrentDictionary<string, Symbol>();
+        /// <summary>
+        /// 交易组件所需合约注册集合
+        /// </summary>
+        public IEnumerable<string> SymbolRegisters { get { return _symbolRegister.Keys; } }
+
+
+        /// <summary>
+        /// 合约集合变动事件
+        /// </summary>
+        public event Action SymbolRegisterChanged = delegate { };
+
         public MainContainer()
         {
             apisetting.TradingBoxMinHeight = 258;
@@ -77,12 +90,15 @@ namespace TradingLib.XTrader.Future
 
             CoreService.EventIndicator.GotPositionNotifyEvent += new Action<PositionEx>(EventIndicator_GotPositionNotifyEvent);
 
-            CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventUI_OnSymbolSelectedEvent);
+            //合约选择
+            UIService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventHub_OnSymbolSelectedEvent);
+            UIService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventHub_OnSymbolUnSelectedEvent);
+
+            //数据恢复
             CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             
         }
-
 
 
         void EventIndicator_GotPositionNotifyEvent(PositionEx obj)
@@ -93,42 +109,37 @@ namespace TradingLib.XTrader.Future
             }
         }
 
-        void EventOther_OnResumeDataStart()
-        {
-            TradingInfoRest();
-        }
-
-        void EventOther_OnResumeDataEnd()
-        {
-            if (TraderConfig.ExPositionLine)
-            {
-                foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
-                {
-                    PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
-                }
-            }
-        }
-
         /// <summary>
         /// 初始化完毕事件
         /// 将当前持仓以事件的方式对外发送 向行情组件填充数据
         /// </summary>
         void EventCore_OnInitializedEvent()
         {
-            if (TraderConfig.ExPositionLine)
-            {
-                foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
-                {
-                    PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
-                }
-            }
+
         }
 
-
-
-        void EventUI_OnSymbolSelectedEvent(object arg1, API.Symbol arg2)
+        #region 合约选择
+        /// <summary>
+        /// 非选中合约
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        void EventHub_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
         {
-            if(arg2 == null) return;
+            if (arg2 == null) return;
+            UnRegisterSymbol(arg2);
+        }
+
+        /// <summary>
+        /// 选中合约
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        void EventHub_OnSymbolSelectedEvent(object arg1, API.Symbol arg2)
+        {
+            if (arg2 == null) return;
+            RegisterSymbol(arg2);
+
             if (ViewKChart != null)
             {
                 //同步切换行情窗口中的合约
@@ -146,6 +157,79 @@ namespace TradingLib.XTrader.Future
                 }
             }
         }
+        #endregion
+
+        #region 交易数据恢复
+        void EventOther_OnResumeDataStart()
+        {
+            TradingInfoRest();
+        }
+
+        /// <summary>
+        /// 交易数据查询完毕
+        /// </summary>
+        void EventOther_OnResumeDataEnd()
+        {
+            //1.交易记录查询完毕后将 重新设定合约注册
+            _symbolRegister.Clear();
+            foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
+            {
+                RegisterSymbol(sym, false);
+            }
+            //触发合约集合变动事件
+            SymbolRegisterChanged();
+
+            //2.对外执行持仓更新
+            if (TraderConfig.ExPositionLine)
+            {
+                foreach (var pos in CoreService.TradingInfoTracker.PositionTracker.Where(pos => !pos.isFlat))
+                {
+                    PositionNotify(pos.oSymbol.Exchange, pos.oSymbol.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, pos.UnsignedSize, pos.AvgPrice);
+                }
+            }
+        }
+        #endregion
+
+        #region 订阅/注销 合约实时行情
+        /// <summary>
+        /// 订阅合约
+        /// </summary>
+        /// <param name="sym"></param>
+        void RegisterSymbol(Symbol sym,bool fireEvent=true)
+        {
+            bool ret = _symbolRegister.TryAdd(sym.UniqueKey,sym);
+            if (ret)
+            {
+                CoreService.TLClient.ReqXQryTickSnapShot(sym.Exchange, sym.Symbol);
+                //触发变动事件
+            }
+            if (ret && fireEvent)
+            {
+                SymbolRegisterChanged();
+            }
+        }
+
+
+        /// <summary>
+        /// 注销合约
+        /// </summary>
+        /// <param name="sym"></param>
+        void UnRegisterSymbol(Symbol sym)//, bool fireEvent = true)
+        {
+            Symbol target = null;
+            bool ret = false;
+            if (!CoreService.TradingInfoTracker.HotSymbols.Contains(sym))
+            {
+                ret = _symbolRegister.TryRemove(sym.UniqueKey, out target);
+            }
+            //注销合约是在选中合约时 对上一次选中合约的注销 都是伴随着选中合约发生的 因此这里只在订阅合约处 触发事件 避免多次触发
+            //if (ret && fireEvent)
+            //{
+            //    SymbolRegisterChanged();
+            //}
+        }
+        #endregion
+
 
         ctrlFutureTrader  _trader = null;
 
@@ -208,7 +292,13 @@ namespace TradingLib.XTrader.Future
         }
 
 
-        #region 操作
+        #region 接口操作
+        /// <summary>
+        /// 选择某合约
+        /// 行情切换合约时 交易窗口同步选择对应合约
+        /// </summary>
+        /// <param name="exchange"></param>
+        /// <param name="symbol"></param>
         public void SelectSymbol(string exchange, string symbol)
         {
             if (_trader != null)
@@ -216,7 +306,7 @@ namespace TradingLib.XTrader.Future
                 Symbol sym = CoreService.BasicInfoTracker.GetSymbol(exchange, symbol);
                 if (sym != null)
                 {
-                    CoreService.EventHub.FireSymbolSelectedEvent(this, sym);
+                    UIService.EventUI.FireSymbolSelectedEvent(this, sym);
                 }
                 else
                 {
@@ -224,6 +314,47 @@ namespace TradingLib.XTrader.Future
                 }
             }
         }
+
+        Dictionary<string, Tick> snapshotMap = new Dictionary<string, Tick>();
+        /// <summary>
+        /// 合约更新行情数据
+        /// </summary>
+        /// <param name="symbol"></param>
+        public void NotifyTick(MDSymbol symbol)
+        {
+            if (!_symbolRegister.Keys.Contains(symbol.UniqueKey)) return;
+            Tick k = null;
+            if (!snapshotMap.TryGetValue(symbol.UniqueKey, out k))
+            {
+                k = new TickImpl();
+                k.Exchange = symbol.Exchange;
+                k.Symbol = symbol.Symbol;
+                k.UpdateType = "S";
+                k.DataFeed = QSEnumDataFeedTypes.DEFAULT;
+
+            }
+            
+            k.Date = symbol.TickSnapshot.Date;
+            k.Time = symbol.TickSnapshot.Time;
+            k.Trade = (decimal)symbol.TickSnapshot.Price;
+            k.Size = (int)symbol.TickSnapshot.Size;
+            k.BidPrice = (decimal)symbol.TickSnapshot.Buy1;
+            k.BidSize = (int)symbol.TickSnapshot.BuyQTY1;
+            k.AskPrice = (decimal)symbol.TickSnapshot.Sell1;
+            k.AskSize = (int)symbol.TickSnapshot.SellQTY1;
+            k.Vol = (int)symbol.TickSnapshot.Volume;
+            k.Open = (decimal)symbol.TickSnapshot.Open;
+            k.High = (decimal)symbol.TickSnapshot.High;
+            k.Low = (decimal)symbol.TickSnapshot.Low;
+            k.PreClose = (decimal)symbol.TickSnapshot.PreClose;
+            k.PreOpenInterest = symbol.TickSnapshot.PreOI;
+            k.PreSettlement = (decimal)symbol.TickSnapshot.PreSettlement;
+            k.Settlement = (decimal)symbol.TickSnapshot.Settlement;
+
+            CoreService.EventIndicator.FireTick(k);
+
+        }
+
 
         /// <summary>
         /// 进入委托提交状态

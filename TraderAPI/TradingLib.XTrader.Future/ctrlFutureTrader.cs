@@ -56,36 +56,36 @@ namespace TradingLib.XTrader.Future
         }
 
         #region 定时操作
-        System.Timers.Timer timer;
+        //System.Timers.Timer timer;
 
-        /// <summary>
-        /// 初始化定时任务
-        /// </summary>
-        void InitTimer()
-        {
-            if (timer == null)
-            {
-                timer = new System.Timers.Timer();
-                timer.Interval = 3000;
-                timer.Enabled = true;
-                timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
-                timer.Start();
-            }
-        }
+        ///// <summary>
+        ///// 初始化定时任务
+        ///// </summary>
+        //void InitTimer()
+        //{
+        //    if (timer == null)
+        //    {
+        //        timer = new System.Timers.Timer();
+        //        timer.Interval = 3000;
+        //        timer.Enabled = true;
+        //        timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+        //        timer.Start();
+        //    }
+        //}
 
-        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            //定时任务 定时重新注册需要合约的实时行情 避免行情停止
-            foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
-            {
-                CoreService.TLClient.ReqRegisterSymbol(sym);
-            }
+        //void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        //{
+        //    //定时任务 定时重新注册需要合约的实时行情 避免行情停止
+        //    foreach (var sym in CoreService.TradingInfoTracker.HotSymbols)
+        //    {
+        //        CoreService.TLClient.ReqRegisterSymbol(sym);
+        //    }
 
-            if (ctrlOrderEntry1.SymbolSelected != null)
-            {
-                CoreService.TLClient.ReqRegisterSymbol(ctrlOrderEntry1.SymbolSelected);
-            }
-        }
+        //    if (ctrlOrderEntry1.SymbolSelected != null)
+        //    {
+        //        CoreService.TLClient.ReqRegisterSymbol(ctrlOrderEntry1.SymbolSelected);
+        //    }
+        //}
 
         #endregion
 
@@ -204,8 +204,8 @@ namespace TradingLib.XTrader.Future
             CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
 
-            CoreService.EventHub.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
-            CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
+            //CoreService.EventHub.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventUI_OnSymbolUnSelectedEvent);
+            //CoreService.EventHub.OnSymbolSelectedEvent += new Action<object, TradingLib.API.Symbol>(EventUI_OnSymbolSelectedEvent);
             CoreService.EventHub.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
 
             btnMin.Click += new EventHandler(btnMin_Click);
@@ -259,27 +259,36 @@ namespace TradingLib.XTrader.Future
         }
         #endregion
 
+        ///// <summary>
+        ///// 取消合约选择
+        ///// </summary>
+        ///// <param name="arg1"></param>
+        ///// <param name="arg2"></param>
+        //void EventUI_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
+        //{
+        //    if (arg2 != null)
+        //    {
+        //        //非常驻合约 则需要取消 避免不必要的订阅
+        //        if (!CoreService.TradingInfoTracker.HotSymbols.Contains(arg2))
+        //        {
+        //            CoreService.EventHub.ReqUnRegisterSymbol(arg2);
+        //        }
+        //    }
+        //}
 
-        void EventUI_OnSymbolUnSelectedEvent(object arg1, Symbol arg2)
-        {
-            if (arg2 != null)
-            {
-                //非常驻合约 则需要取消 避免不必要的订阅
-                if (!CoreService.TradingInfoTracker.HotSymbols.Contains(arg2))
-                {
-                    CoreService.TLClient.ReqUnRegisterSymbol(arg2);
-                }
-            }
-        }
-
-        void EventUI_OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
-        {
-            if (arg2 != null)
-            {
-                CoreService.TLClient.ReqXQryTickSnapShot(arg2.Exchange, arg2.Symbol);
-                CoreService.TLClient.ReqRegisterSymbol(arg2);
-            }
-        }
+        ///// <summary>
+        ///// 选择合约
+        ///// </summary>
+        ///// <param name="arg1"></param>
+        ///// <param name="arg2"></param>
+        //void EventUI_OnSymbolSelectedEvent(object arg1, TradingLib.API.Symbol arg2)
+        //{
+        //    if (arg2 != null)
+        //    {
+        //        CoreService.TLClient.ReqXQryTickSnapShot(arg2.Exchange, arg2.Symbol);
+        //        CoreService.EventHub.ReqRegisterSymbol(arg2);
+        //    }
+        //}
 
 
 
@@ -351,7 +360,7 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                InitTimer();
+                //InitTimer();
 
                 lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
                 CoreService.TLClient.ReqXQryAccountFinance();
@@ -361,7 +370,6 @@ namespace TradingLib.XTrader.Future
         public void OnDisposed()
         {
             logger.Info("ctrlFutureTrader Disposed");
-            timer.Stop();
         }
 
         #region 弹窗提醒
