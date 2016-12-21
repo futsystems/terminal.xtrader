@@ -30,6 +30,21 @@ namespace TradingLib.DataFarmManager
             btnStopFeedTick.Click += new EventHandler(btnStopFeedTick_Click);
             btnStartFeedTick.Click += new EventHandler(btnStartFeedTick_Click);
             btnFunctionForm.Click += new EventHandler(btnFunctionForm_Click);
+
+            btnSwitTickSrv.Click += new EventHandler(btnSwitTickSrv_Click);
+            btnQryCurrentTickSrv.Click += new EventHandler(btnQryCurrentTickSrv_Click);
+        }
+
+        void btnQryCurrentTickSrv_Click(object sender, EventArgs e)
+        {
+            fmCurrentTickSrv fm = new fmCurrentTickSrv();
+            fm.ShowDialog();
+            fm.Close();
+        }
+
+        void btnSwitTickSrv_Click(object sender, EventArgs e)
+        {
+            DataCoreService.DataClient.ReqContribRequest("DataFarm", "SwitchTickSrv", "");
         }
 
         void btnFunctionForm_Click(object sender, EventArgs e)
@@ -82,7 +97,10 @@ namespace TradingLib.DataFarmManager
         void btnConnect_Click(object sender, EventArgs e)
         {
             //DataCoreService.InitClient("127.0.0.1", 5060);
-            DataCoreService.InitClient(new string[] { "121.41.76.214" }, 5060);
+            //DataCoreService.InitClient(new string[] { "127.0.0.1" }, 55622);
+            //DataCoreService.InitClient(new string[] { "139.224.194.129" }, 55622);
+            DataCoreService.InitClient(new string[] { "112.124.126.212" }, 55622);
+            //DataCoreService.InitClient(new string[] { "121.41.76.214" }, 5060);
             //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
             DataCoreService.EventHub.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);

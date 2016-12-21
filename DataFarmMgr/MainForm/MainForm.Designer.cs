@@ -43,7 +43,6 @@
             this.btnStopFeedTick = new System.Windows.Forms.ToolStripButton();
             this.btnFunctionForm = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSecurity = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,8 +52,12 @@
             this.menuExchange = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBarData = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRestoreTask = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSwitTickSrv = new System.Windows.Forms.ToolStripButton();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
+            this.btnQryCurrentTickSrv = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -82,7 +85,10 @@
             this.toolStripSeparator4,
             this.btnStartFeedTick,
             this.btnStopFeedTick,
-            this.btnFunctionForm});
+            this.btnFunctionForm,
+            this.toolStripSeparator5,
+            this.btnSwitTickSrv,
+            this.btnQryCurrentTickSrv});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1274, 25);
@@ -185,13 +191,6 @@
             this.mainPanel.Size = new System.Drawing.Size(1274, 617);
             this.mainPanel.TabIndex = 2;
             // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
-            this.ctrlQuoteList.TabIndex = 0;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -260,17 +259,47 @@
             this.menuBarData.Size = new System.Drawing.Size(192, 22);
             this.menuBarData.Text = "Bar数据";
             // 
+            // menuRestoreTask
+            // 
+            this.menuRestoreTask.Name = "menuRestoreTask";
+            this.menuRestoreTask.Size = new System.Drawing.Size(192, 22);
+            this.menuRestoreTask.Text = "数据恢复任务";
+            // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(192, 22);
             this.toolStripMenuItem4.Text = "toolStripMenuItem4";
             // 
-            // menuRestoreTask
+            // toolStripSeparator5
             // 
-            this.menuRestoreTask.Name = "menuRestoreTask";
-            this.menuRestoreTask.Size = new System.Drawing.Size(192, 22);
-            this.menuRestoreTask.Text = "数据恢复任务";
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnSwitTickSrv
+            // 
+            this.btnSwitTickSrv.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSwitTickSrv.Image = ((System.Drawing.Image)(resources.GetObject("btnSwitTickSrv.Image")));
+            this.btnSwitTickSrv.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSwitTickSrv.Name = "btnSwitTickSrv";
+            this.btnSwitTickSrv.Size = new System.Drawing.Size(77, 22);
+            this.btnSwitTickSrv.Text = "切换TickSrv";
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
+            this.ctrlQuoteList.TabIndex = 0;
+            // 
+            // btnQryCurrentTickSrv
+            // 
+            this.btnQryCurrentTickSrv.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnQryCurrentTickSrv.Image = ((System.Drawing.Image)(resources.GetObject("btnQryCurrentTickSrv.Image")));
+            this.btnQryCurrentTickSrv.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnQryCurrentTickSrv.Name = "btnQryCurrentTickSrv";
+            this.btnQryCurrentTickSrv.Size = new System.Drawing.Size(77, 22);
+            this.btnQryCurrentTickSrv.Text = "查询TickSrv";
             // 
             // MainForm
             // 
@@ -323,5 +352,8 @@
         private System.Windows.Forms.ToolStripButton btnStopFeedTick;
         private System.Windows.Forms.ToolStripButton btnFunctionForm;
         private System.Windows.Forms.ToolStripMenuItem menuRestoreTask;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton btnSwitTickSrv;
+        private System.Windows.Forms.ToolStripButton btnQryCurrentTickSrv;
     }
 }

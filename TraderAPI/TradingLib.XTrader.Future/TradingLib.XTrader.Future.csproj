@@ -418,7 +418,6 @@
       <OutFiles Include="$(OutputPath)\$(AssemblyName).dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.API.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
-      <OutFiles Include="$(OutputPath)\TradingLib.TraderCore.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.TraderCore2.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
       <OutFiles Include="$(OutputPath)\ICSharpCode.TextEditor.dll" />
