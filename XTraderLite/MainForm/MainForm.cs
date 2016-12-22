@@ -112,16 +112,20 @@ namespace XTraderLite
             btnFreqM1.Tag = ConstFreq.Freq_M1;
             btnFreqM3.Tag = ConstFreq.Freq_M3;
             btnFreqM5.Tag = ConstFreq.Freq_M5;
+            btnFreqM10.Tag = ConstFreq.Freq_M10;
             btnFreqM15.Tag = ConstFreq.Freq_M15;
             btnFreqM30.Tag = ConstFreq.Freq_M30;
             btnFreqM60.Tag = ConstFreq.Freq_M60;
+            btnFreqH2.Tag = ConstFreq.Freq_H2;
 
             freqLink.AddLast(ConstFreq.Freq_M1);
             freqLink.AddLast(ConstFreq.Freq_M3);
             freqLink.AddLast(ConstFreq.Freq_M5);
+            freqLink.AddLast(ConstFreq.Freq_M10);
             freqLink.AddLast(ConstFreq.Freq_M15);
             freqLink.AddLast(ConstFreq.Freq_M30);
             freqLink.AddLast(ConstFreq.Freq_M60);
+            freqLink.AddLast(ConstFreq.Freq_H2);
             freqLink.AddLast(ConstFreq.Freq_Day);
             freqLink.AddLast(ConstFreq.Freq_Week);
             freqLink.AddLast(ConstFreq.Freq_Month);
@@ -136,9 +140,11 @@ namespace XTraderLite
             freqButtons.Add(btnFreqM1);
             freqButtons.Add(btnFreqM3);
             freqButtons.Add(btnFreqM5);
+            freqButtons.Add(btnFreqM10);
             freqButtons.Add(btnFreqM15);
             freqButtons.Add(btnFreqM30);
             freqButtons.Add(btnFreqM60);
+            freqButtons.Add(btnFreqH2);
             #endregion
 
 
@@ -191,9 +197,11 @@ namespace XTraderLite
                 btnFreqM1.Image = Properties.Resources.xgj_freq_1min;
                 btnFreqM3.Image = Properties.Resources.xqj_freq_3min;
                 btnFreqM5.Image = Properties.Resources.xqj_freq_5min;
+                btnFreqM10.Image = Properties.Resources.xqj_freq_10min;
                 btnFreqM15.Image = Properties.Resources.xqj_freq_15min;
                 btnFreqM30.Image = Properties.Resources.xqj_freq_30min;
                 btnFreqM60.Image = Properties.Resources.xqj_freq_60min;
+                btnFreqH2.Image = Properties.Resources.xqj_freq_2hour;
 
                 this.Icon = Properties.Resources.xgj;
                 //btnTickList.Visible = false;

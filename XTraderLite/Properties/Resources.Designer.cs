@@ -633,6 +633,16 @@ namespace XTraderLite.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap xqj_freq_10min {
+            get {
+                object obj = ResourceManager.GetObject("xqj_freq_10min", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap xqj_freq_15min {
             get {
                 object obj = ResourceManager.GetObject("xqj_freq_15min", resourceCulture);
@@ -646,6 +656,16 @@ namespace XTraderLite.Properties {
         internal static System.Drawing.Bitmap xqj_freq_2hour {
             get {
                 object obj = ResourceManager.GetObject("xqj_freq_2hour", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap xqj_freq_2hour1 {
+            get {
+                object obj = ResourceManager.GetObject("xqj_freq_2hour1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

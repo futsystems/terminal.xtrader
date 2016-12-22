@@ -335,6 +335,7 @@
     <None Include="Resources\xgj\toobar\xqj_timeview.png" />
     <None Include="Resources\xgj\cb-no.png" />
     <None Include="Resources\xgj\cb-yes.png" />
+    <None Include="Resources\xgj\toobar\xqj_freq_10min.png" />
     <Content Include="xgj.ico" />
     <None Include="Resources\xgj\min-normal.png" />
     <None Include="Resources\xgj\close-normal.png" />

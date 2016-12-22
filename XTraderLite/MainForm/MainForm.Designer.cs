@@ -55,9 +55,11 @@
             this.btnFreqM1 = new System.Windows.Forms.ToolStripButton();
             this.btnFreqM3 = new System.Windows.Forms.ToolStripButton();
             this.btnFreqM5 = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqM10 = new System.Windows.Forms.ToolStripButton();
             this.btnFreqM15 = new System.Windows.Forms.ToolStripButton();
             this.btnFreqM30 = new System.Windows.Forms.ToolStripButton();
             this.btnFreqM60 = new System.Windows.Forms.ToolStripButton();
+            this.btnFreqH2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnFormula = new System.Windows.Forms.ToolStripButton();
             this.btnTickList = new System.Windows.Forms.ToolStripButton();
@@ -91,6 +93,7 @@
             this.menuScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuDataFarmSiteList = new System.Windows.Forms.ToolStripMenuItem();
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.技术ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuIntraView = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,6 +120,7 @@
             this.btnMax = new System.Windows.Forms.PictureBox();
             this.topHeader = new System.Windows.Forms.Label();
             this.bottomStatusPanel = new System.Windows.Forms.Panel();
+            this.panelSiteInfo = new System.Windows.Forms.Panel();
             this.lbCurrentServer = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ctrlSymbolHighLight = new TradingLib.XTrader.Control.ctrlSymbolHighLight();
@@ -126,8 +130,6 @@
             this.KeyCode = new MyEdit();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
-            this.panelSiteInfo = new System.Windows.Forms.Panel();
-            this.menuDataFarmSiteList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
@@ -143,9 +145,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).BeginInit();
             this.bottomStatusPanel.SuspendLayout();
+            this.panelSiteInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgConn)).BeginInit();
             this.SearchBox.SuspendLayout();
-            this.panelSiteInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolBar
@@ -178,9 +180,11 @@
             this.btnFreqM1,
             this.btnFreqM3,
             this.btnFreqM5,
+            this.btnFreqM10,
             this.btnFreqM15,
             this.btnFreqM30,
             this.btnFreqM60,
+            this.btnFreqH2,
             this.toolStripSeparator5,
             this.btnFormula,
             this.btnTickList,
@@ -196,7 +200,7 @@
             this.toolBar.Margin = new System.Windows.Forms.Padding(1);
             this.toolBar.Name = "toolBar";
             this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolBar.Size = new System.Drawing.Size(920, 25);
+            this.toolBar.Size = new System.Drawing.Size(1173, 25);
             this.toolBar.TabIndex = 0;
             // 
             // btnBack
@@ -436,6 +440,15 @@
             this.btnFreqM5.Size = new System.Drawing.Size(23, 23);
             this.btnFreqM5.Text = "5分钟图";
             // 
+            // btnFreqM10
+            // 
+            this.btnFreqM10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqM10.Image = global::XTraderLite.Properties.Resources.xqj_freq_10min;
+            this.btnFreqM10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqM10.Name = "btnFreqM10";
+            this.btnFreqM10.Size = new System.Drawing.Size(23, 22);
+            this.btnFreqM10.Text = "10分钟图";
+            // 
             // btnFreqM15
             // 
             this.btnFreqM15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -465,6 +478,15 @@
             this.btnFreqM60.Name = "btnFreqM60";
             this.btnFreqM60.Size = new System.Drawing.Size(23, 23);
             this.btnFreqM60.Text = "60分钟图";
+            // 
+            // btnFreqH2
+            // 
+            this.btnFreqH2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFreqH2.Image = global::XTraderLite.Properties.Resources.xqj_freq_2hour1;
+            this.btnFreqH2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFreqH2.Name = "btnFreqH2";
+            this.btnFreqH2.Size = new System.Drawing.Size(23, 22);
+            this.btnFreqH2.Text = "2小时图";
             // 
             // toolStripSeparator5
             // 
@@ -571,7 +593,7 @@
             this.panelHolder.Controls.Add(this.bottomStatusPanel);
             this.panelHolder.Location = new System.Drawing.Point(1, 1);
             this.panelHolder.Name = "panelHolder";
-            this.panelHolder.Size = new System.Drawing.Size(920, 703);
+            this.panelHolder.Size = new System.Drawing.Size(1173, 703);
             this.panelHolder.TabIndex = 5;
             // 
             // workPanel
@@ -582,7 +604,7 @@
             this.workPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.workPanel.Location = new System.Drawing.Point(0, 25);
             this.workPanel.Name = "workPanel";
-            this.workPanel.Size = new System.Drawing.Size(920, 653);
+            this.workPanel.Size = new System.Drawing.Size(1173, 653);
             this.workPanel.TabIndex = 5;
             // 
             // panelMarket
@@ -597,7 +619,7 @@
             this.panelMarket.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMarket.Location = new System.Drawing.Point(0, 0);
             this.panelMarket.Name = "panelMarket";
-            this.panelMarket.Size = new System.Drawing.Size(920, 371);
+            this.panelMarket.Size = new System.Drawing.Size(1173, 371);
             this.panelMarket.TabIndex = 2;
             // 
             // ctrlSymbolInfo
@@ -679,7 +701,7 @@
             this.splitter.MinExtra = 0;
             this.splitter.MinSize = 280;
             this.splitter.Name = "splitter";
-            this.splitter.Size = new System.Drawing.Size(920, 2);
+            this.splitter.Size = new System.Drawing.Size(1173, 2);
             this.splitter.TabIndex = 1;
             this.splitter.TabStop = false;
             // 
@@ -689,7 +711,7 @@
             this.panelBroker.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBroker.Location = new System.Drawing.Point(0, 373);
             this.panelBroker.Name = "panelBroker";
-            this.panelBroker.Size = new System.Drawing.Size(920, 280);
+            this.panelBroker.Size = new System.Drawing.Size(1173, 280);
             this.panelBroker.TabIndex = 0;
             // 
             // panelTop
@@ -704,7 +726,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(920, 25);
+            this.panelTop.Size = new System.Drawing.Size(1173, 25);
             this.panelTop.TabIndex = 4;
             // 
             // btnBBS
@@ -712,7 +734,7 @@
             this.btnBBS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBBS.BackColor = System.Drawing.Color.Transparent;
             this.btnBBS.BackgroundImage = global::XTraderLite.Properties.Resources.bbs;
-            this.btnBBS.Location = new System.Drawing.Point(751, 3);
+            this.btnBBS.Location = new System.Drawing.Point(1004, 3);
             this.btnBBS.Name = "btnBBS";
             this.btnBBS.Size = new System.Drawing.Size(74, 20);
             this.btnBBS.TabIndex = 7;
@@ -723,7 +745,7 @@
             this.btnTrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTrade.BackColor = System.Drawing.Color.Transparent;
             this.btnTrade.BackgroundImage = global::XTraderLite.Properties.Resources.trade;
-            this.btnTrade.Location = new System.Drawing.Point(674, 3);
+            this.btnTrade.Location = new System.Drawing.Point(927, 3);
             this.btnTrade.Name = "btnTrade";
             this.btnTrade.Size = new System.Drawing.Size(74, 20);
             this.btnTrade.TabIndex = 6;
@@ -751,7 +773,7 @@
             this.帮助ToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(315, 24);
+            this.mainMenu.Size = new System.Drawing.Size(223, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -773,41 +795,47 @@
             // menuConnect
             // 
             this.menuConnect.Name = "menuConnect";
-            this.menuConnect.Size = new System.Drawing.Size(152, 22);
+            this.menuConnect.Size = new System.Drawing.Size(146, 22);
             this.menuConnect.Text = "连接服务器";
             // 
             // menuDisconnect
             // 
             this.menuDisconnect.Name = "menuDisconnect";
-            this.menuDisconnect.Size = new System.Drawing.Size(152, 22);
+            this.menuDisconnect.Size = new System.Drawing.Size(146, 22);
             this.menuDisconnect.Text = "断开服务器";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
             // 
             // menuScreen
             // 
             this.menuScreen.Name = "menuScreen";
-            this.menuScreen.Size = new System.Drawing.Size(152, 22);
+            this.menuScreen.Size = new System.Drawing.Size(146, 22);
             this.menuScreen.Text = "屏幕截图";
             // 
             // menuPrint
             // 
             this.menuPrint.Name = "menuPrint";
-            this.menuPrint.Size = new System.Drawing.Size(152, 22);
+            this.menuPrint.Size = new System.Drawing.Size(146, 22);
             this.menuPrint.Text = "打印";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(143, 6);
+            // 
+            // menuDataFarmSiteList
+            // 
+            this.menuDataFarmSiteList.Name = "menuDataFarmSiteList";
+            this.menuDataFarmSiteList.Size = new System.Drawing.Size(146, 22);
+            this.menuDataFarmSiteList.Text = "行情服务站点";
             // 
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(152, 22);
+            this.menuExit.Size = new System.Drawing.Size(146, 22);
             this.menuExit.Text = "退出系统";
             // 
             // 技术ToolStripMenuItem
@@ -954,7 +982,7 @@
             this.panelControlBox.Controls.Add(this.btnMin);
             this.panelControlBox.Controls.Add(this.btnMax);
             this.panelControlBox.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControlBox.Location = new System.Drawing.Point(838, 0);
+            this.panelControlBox.Location = new System.Drawing.Point(1091, 0);
             this.panelControlBox.Name = "panelControlBox";
             this.panelControlBox.Size = new System.Drawing.Size(82, 25);
             this.panelControlBox.TabIndex = 3;
@@ -1012,8 +1040,18 @@
             this.bottomStatusPanel.Location = new System.Drawing.Point(0, 678);
             this.bottomStatusPanel.Margin = new System.Windows.Forms.Padding(0);
             this.bottomStatusPanel.Name = "bottomStatusPanel";
-            this.bottomStatusPanel.Size = new System.Drawing.Size(920, 25);
+            this.bottomStatusPanel.Size = new System.Drawing.Size(1173, 25);
             this.bottomStatusPanel.TabIndex = 3;
+            // 
+            // panelSiteInfo
+            // 
+            this.panelSiteInfo.BackColor = System.Drawing.Color.Transparent;
+            this.panelSiteInfo.Controls.Add(this.lbCurrentServer);
+            this.panelSiteInfo.Controls.Add(this.label1);
+            this.panelSiteInfo.Location = new System.Drawing.Point(0, 0);
+            this.panelSiteInfo.Name = "panelSiteInfo";
+            this.panelSiteInfo.Size = new System.Drawing.Size(113, 25);
+            this.panelSiteInfo.TabIndex = 0;
             // 
             // lbCurrentServer
             // 
@@ -1052,7 +1090,7 @@
             this.imgConn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.imgConn.BackColor = System.Drawing.Color.Transparent;
             this.imgConn.BackgroundImage = global::XTraderLite.Properties.Resources.connected;
-            this.imgConn.Location = new System.Drawing.Point(845, 2);
+            this.imgConn.Location = new System.Drawing.Point(1098, 2);
             this.imgConn.Name = "imgConn";
             this.imgConn.Size = new System.Drawing.Size(18, 18);
             this.imgConn.TabIndex = 1;
@@ -1065,7 +1103,7 @@
             this.lbTime.AutoSize = true;
             this.lbTime.BackColor = System.Drawing.Color.Transparent;
             this.lbTime.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTime.Location = new System.Drawing.Point(862, 6);
+            this.lbTime.Location = new System.Drawing.Point(1115, 6);
             this.lbTime.Name = "lbTime";
             this.lbTime.Size = new System.Drawing.Size(55, 15);
             this.lbTime.TabIndex = 0;
@@ -1109,27 +1147,11 @@
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
             // 
-            // panelSiteInfo
-            // 
-            this.panelSiteInfo.BackColor = System.Drawing.Color.Transparent;
-            this.panelSiteInfo.Controls.Add(this.lbCurrentServer);
-            this.panelSiteInfo.Controls.Add(this.label1);
-            this.panelSiteInfo.Location = new System.Drawing.Point(0, 0);
-            this.panelSiteInfo.Name = "panelSiteInfo";
-            this.panelSiteInfo.Size = new System.Drawing.Size(113, 25);
-            this.panelSiteInfo.TabIndex = 0;
-            // 
-            // menuDataFarmSiteList
-            // 
-            this.menuDataFarmSiteList.Name = "menuDataFarmSiteList";
-            this.menuDataFarmSiteList.Size = new System.Drawing.Size(152, 22);
-            this.menuDataFarmSiteList.Text = "行情服务站点";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1003, 705);
+            this.ClientSize = new System.Drawing.Size(1256, 705);
             this.ControlBox = false;
             this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.panelHolder);
@@ -1160,11 +1182,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMax)).EndInit();
             this.bottomStatusPanel.ResumeLayout(false);
             this.bottomStatusPanel.PerformLayout();
+            this.panelSiteInfo.ResumeLayout(false);
+            this.panelSiteInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgConn)).EndInit();
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
-            this.panelSiteInfo.ResumeLayout(false);
-            this.panelSiteInfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1270,6 +1292,8 @@
         private System.Windows.Forms.Label lbCurrentServer;
         private System.Windows.Forms.Panel panelSiteInfo;
         private System.Windows.Forms.ToolStripMenuItem menuDataFarmSiteList;
+        private System.Windows.Forms.ToolStripButton btnFreqM10;
+        private System.Windows.Forms.ToolStripButton btnFreqH2;
     }
 }
 

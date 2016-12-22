@@ -33,6 +33,8 @@ namespace XTraderLite
             btnFreqM1.Click += new EventHandler(btnFreq_Click);
             btnFreqM5.Click += new EventHandler(btnFreq_Click);
             btnFreqM3.Click += new EventHandler(btnFreq_Click);
+            btnFreqM10.Click += new EventHandler(btnFreq_Click);
+            btnFreqH2.Click += new EventHandler(btnFreq_Click);
             btnFreqM15.Click += new EventHandler(btnFreq_Click);
             btnFreqM30.Click += new EventHandler(btnFreq_Click);
             btnFreqM60.Click += new EventHandler(btnFreq_Click);

@@ -238,9 +238,11 @@ namespace DataAPI.Futs
                 case ConstFreq.Freq_M1: return new BarFrequency(BarInterval.Minute,1);
                 case ConstFreq.Freq_M3: return new BarFrequency(BarInterval.ThreeMin, 1);
                 case ConstFreq.Freq_M5: return new BarFrequency(BarInterval.FiveMin,1);
+                case ConstFreq.Freq_M10: return new BarFrequency(BarInterval.CustomTime, 600);//10分钟
                 case ConstFreq.Freq_M15: return new BarFrequency(BarInterval.FifteenMin, 1);
                 case ConstFreq.Freq_M30: return new BarFrequency(BarInterval.ThirtyMin, 1);
                 case ConstFreq.Freq_M60: return new BarFrequency(BarInterval.Hour, 1);
+                case ConstFreq.Freq_H2: return new BarFrequency(BarInterval.Hour, 2);//2小时
                 case ConstFreq.Freq_Day: return new BarFrequency(BarInterval.Day, 1);
                 case ConstFreq.Freq_Week: return new BarFrequency(BarInterval.Day, 7);//周
                 case ConstFreq.Freq_Month: return new BarFrequency(BarInterval.Day, 30);//月
