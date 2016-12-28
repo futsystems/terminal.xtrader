@@ -236,7 +236,7 @@ namespace TradingLib.XTrader.Future
                 }
 
                 //委托处于Open状态 则查询一次财务信息与可开
-                if (obj.Status == QSEnumOrderStatus.Opened || obj.Status == QSEnumOrderStatus.Canceled)
+                if ((obj.Status == QSEnumOrderStatus.Opened && obj.isLimit) || (obj.Status == QSEnumOrderStatus.Canceled && obj.isLimit))
                 {
                     QryMaxOrderVol();
                     QryAccountFinance();

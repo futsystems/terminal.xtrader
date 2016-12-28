@@ -240,6 +240,7 @@ namespace TradingLib.XTrader.Future
             {
                 CoreService.EventCore.RegIEventHandler(this);
                 CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
+                CoreService.EventIndicator.GotErrorOrderEvent += new Action<Order, RspInfo>(GotOrderError);
 
                 CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
                 CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
@@ -249,6 +250,8 @@ namespace TradingLib.XTrader.Future
                 orderGrid.SelectedRows[0].Selected = false;
             }
         }
+
+       
 
 
         void EventOther_OnResumeDataEnd()
@@ -363,6 +366,24 @@ namespace TradingLib.XTrader.Future
         {
             if (o.oSymbol != null) return o.oSymbol.GetName();
             return o.Symbol;
+        }
+
+        void GotOrderError(Order arg1, RspInfo arg2)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<Order, RspInfo>(GotOrderError), new object[] { arg1, arg2 });
+            }
+            else
+            { 
+                int i = OrderID2RowIdx(arg1.id);
+                if (i > 0)
+                {
+                    tb.Rows[i][STATUS] = arg1.Status;
+                    tb.Rows[i][STATUSSTR] = Util.GetEnumDescription(arg1.Status);
+                    tb.Rows[i][COMMENT] = arg1.Comment;
+                }
+            }
         }
 
         public void GotOrder(Order o)
