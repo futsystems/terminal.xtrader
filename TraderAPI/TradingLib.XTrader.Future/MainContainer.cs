@@ -39,7 +39,7 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// 交易窗口操作 关闭 最小化 最大化操作
         /// </summary>
-        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion = delegate { };
 
         /// <summary>
         /// 持仓更新事件
@@ -83,7 +83,7 @@ namespace TradingLib.XTrader.Future
         void WireEvent()
         {
             ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
-            ctrlTraderLogin.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
+            ctrlTraderLogin.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
             //ctrlTraderLogin.ExitTrader += new Action(ctrlTraderLogin_ExitTrader);
 
             CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
@@ -256,7 +256,8 @@ namespace TradingLib.XTrader.Future
                 {
                     _trader = new ctrlFutureTrader();
                     _trader.Dock = DockStyle.Fill;
-                    _trader.TraderWindowOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
+                    _trader.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
+                    _trader.LockTradingBox += new Action(OnLockTradingBox);
                     this.Controls.Add(_trader);
                 }
                 ctrlTraderLogin.Visible = false;
@@ -264,16 +265,26 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        void OnLockTradingBox()
+        {
+            
+            _trader.Visible = false;
+            ctrlTraderLogin.LockMode();
+            ctrlTraderLogin.Show();
+
+        }
+
         void OnTraderWindowOpeartion(EnumTraderWindowOperation obj)
         {
-            if (TraderWindowOpeartion != null)
-            {
+
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                 {
+                    //重置行情行情窗口交易信息
                     TradingInfoRest();
-
+                    //调用主程序 执行交易窗口操作 最大化 最小化
                     TraderWindowOpeartion(obj);
 
+                    //如果是关闭操作 则调用TraderLogin执行停止操作
                     if (obj == EnumTraderWindowOperation.Close)
                     {
                         //关闭交易系统
@@ -288,7 +299,7 @@ namespace TradingLib.XTrader.Future
 
                 });
             
-            }
+            
         }
 
 

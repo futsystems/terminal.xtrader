@@ -21,13 +21,13 @@ namespace TradingLib.XTrader.Future
         /// <summary>
         /// 
         /// </summary>
-        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+        public event Action<EnumTraderWindowOperation> TradingBoxOpeartion;
 
-        public event Action ExitTrader;
-
-        public event Action EntryTrader;
+        public event Action EntryTrader = delegate { };
 
         ILog logger = LogManager.GetLogger("ctrlTraderLogin");
+
+        string _pass = string.Empty;
 
         public ctrlTraderLogin()
         {
@@ -46,6 +46,7 @@ namespace TradingLib.XTrader.Future
             this.Load +=new EventHandler(ctrlTraderLogin_Load);
 
             btnLogin.Click += new EventHandler(btnLogin_Click);
+            btnUnLock.Click += new EventHandler(btnUnLock_Click);
             btnExit.Click += new EventHandler(btnExit_Click);
 
             CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);
@@ -54,6 +55,8 @@ namespace TradingLib.XTrader.Future
             CoreService.EventCore.OnInitializeStatusEvent += new Action<string>(EventCore_OnInitializeStatusEvent);
             CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
         }
+
+        
 
 
         void ctrlTraderLogin_Load(object sender, EventArgs e)
@@ -86,6 +89,9 @@ namespace TradingLib.XTrader.Future
         {
             encrypt.SelectedIndex = 0;
             account.Focus();
+
+            LoginMode();
+
             string fn = Path.Combine(new string[] { "Config", "account.txt" });
             if (!File.Exists(fn))
             {
@@ -108,19 +114,34 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        public void LockMode()
+        {
+            btnUnLock.Visible = true;
+            btnLogin.Visible = false;
+            PanelVerify.Visible = false;
+            account.Enabled = false;
+            password.Text = string.Empty;
+            verify.Text = string.Empty;
+        }
 
+        public void LoginMode()
+        {
+            btnUnLock.Visible = false;
+            btnLogin.Visible = true;
+            PanelVerify.Visible = true;
+            account.Enabled = true;
+            password.Text = string.Empty;
+            verify.Text = string.Empty;
+        }
 
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void btnExit_Click(object sender, EventArgs e)
         {
-            //System.Threading.ThreadPool.QueueUserWorkItem(o => { 
-            //    StopTrader();
-                if (TraderWindowOpeartion != null)
-                {
-                    TraderWindowOpeartion(EnumTraderWindowOperation.Close);
-                }
-           
-
-            
+            TradingBoxOpeartion(EnumTraderWindowOperation.Close);
         }
 
 
@@ -131,17 +152,18 @@ namespace TradingLib.XTrader.Future
         {
             _bkgo = false;
 
+            this.LoginMode();
+
             Reset();
 
             CoreService.Reset();
-
-            if (ExitTrader != null)
-            {
-                ExitTrader();
-            }
         }
 
-        //加载交易插件并执行初始化过程
+        /// <summary>
+        /// 登入操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void btnLogin_Click(object sender, EventArgs e)
         {
             logger.Info("登入-------------------");
@@ -177,6 +199,34 @@ namespace TradingLib.XTrader.Future
                 
             }
         }
+
+        /// <summary>
+        /// 解锁操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnUnLock_Click(object sender, EventArgs e)
+        {
+            if (this.password.Text == "")
+            {
+                ShowStatus("请输入密码信息！");
+                this.password.Focus();
+            }
+            else
+            {
+                if (this.password.Text == _pass)
+                {
+                    EntryTrader();
+                }
+                else
+                {
+                    ShowStatus("密码错误 解锁失败");
+                    this.password.Focus();
+                }
+            }
+        }
+
+
 
         ctrlFutureTrader CreateTraderControl()
         {
@@ -218,6 +268,7 @@ namespace TradingLib.XTrader.Future
                 ShowStatus("选择可用交易节点");
             }
 
+            _pass = this.password.Text;
             //登入过程开始
             _connectstart = true;
             _connecttime = DateTime.Now;

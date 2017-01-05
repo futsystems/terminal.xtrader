@@ -20,7 +20,12 @@ namespace TradingLib.XTrader.Future
 {
     public partial class ctrlFutureTrader : UserControl, TradingLib.API.IEventBinder
     {
-        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion;
+        public event Action<EnumTraderWindowOperation> TradingBoxOpeartion = delegate { };
+
+        /// <summary>
+        /// 锁定交易窗口
+        /// </summary>
+        public event Action LockTradingBox = delegate { };
 
         ILog logger = LogManager.GetLogger("ctrlFutureTrader");
 
@@ -178,9 +183,14 @@ namespace TradingLib.XTrader.Future
             
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
-
+            btnLock.Click += new EventHandler(btnLock_Click);
             CoreService.EventCore.RegIEventHandler(this);
            
+        }
+
+        void btnLock_Click(object sender, EventArgs e)
+        {
+            LockTradingBox();
         }
 
 
@@ -199,27 +209,18 @@ namespace TradingLib.XTrader.Future
             DialogResult dr = MessageBox.Show("确认退出交易系统?", "关闭", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.OK)
             {
-                if (TraderWindowOpeartion != null)
-                {
-                    TraderWindowOpeartion(EnumTraderWindowOperation.Close);
-                }
+                TradingBoxOpeartion(EnumTraderWindowOperation.Close);
             }
         }
 
         void btnMax_Click(object sender, EventArgs e)
         {
-            if (TraderWindowOpeartion != null)
-            {
-                TraderWindowOpeartion(EnumTraderWindowOperation.Max);
-            }
+            TradingBoxOpeartion(EnumTraderWindowOperation.Max);
         }
 
         void btnMin_Click(object sender, EventArgs e)
         {
-            if (TraderWindowOpeartion != null)
-            {
-                TraderWindowOpeartion(EnumTraderWindowOperation.Min);
-            }
+            TradingBoxOpeartion(EnumTraderWindowOperation.Min);
         }
         #endregion
 

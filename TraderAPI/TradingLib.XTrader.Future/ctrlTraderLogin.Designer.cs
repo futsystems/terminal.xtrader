@@ -44,7 +44,10 @@
             this.holder = new System.Windows.Forms.Panel();
             this.password = new System.Windows.Forms.MaskedTextBox();
             this.ctVerify1 = new TradingLib.XTrader.Future.ctVerify();
+            this.btnUnLock = new System.Windows.Forms.Button();
+            this.PanelVerify = new System.Windows.Forms.Panel();
             this.holder.SuspendLayout();
+            this.PanelVerify.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +89,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(172, 90);
+            this.label4.Location = new System.Drawing.Point(3, 3);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 4;
@@ -105,14 +108,14 @@
             this.encrypt.FormattingEnabled = true;
             this.encrypt.Items.AddRange(new object[] {
             "验证码"});
-            this.encrypt.Location = new System.Drawing.Point(238, 90);
+            this.encrypt.Location = new System.Drawing.Point(69, 3);
             this.encrypt.Name = "encrypt";
             this.encrypt.Size = new System.Drawing.Size(70, 20);
             this.encrypt.TabIndex = 4;
             // 
             // verify
             // 
-            this.verify.Location = new System.Drawing.Point(320, 90);
+            this.verify.Location = new System.Drawing.Point(151, 3);
             this.verify.Name = "verify";
             this.verify.Size = new System.Drawing.Size(78, 21);
             this.verify.TabIndex = 5;
@@ -166,8 +169,9 @@
             // holder
             // 
             this.holder.BackColor = System.Drawing.Color.Transparent;
+            this.holder.Controls.Add(this.PanelVerify);
+            this.holder.Controls.Add(this.btnUnLock);
             this.holder.Controls.Add(this.password);
-            this.holder.Controls.Add(this.ctVerify1);
             this.holder.Controls.Add(this.label1);
             this.holder.Controls.Add(this._msg);
             this.holder.Controls.Add(this.serverList);
@@ -176,11 +180,8 @@
             this.holder.Controls.Add(this.label5);
             this.holder.Controls.Add(this.label3);
             this.holder.Controls.Add(this.btnExit);
-            this.holder.Controls.Add(this.label4);
             this.holder.Controls.Add(this.btnLogin);
-            this.holder.Controls.Add(this.verify);
             this.holder.Controls.Add(this.account);
-            this.holder.Controls.Add(this.encrypt);
             this.holder.Location = new System.Drawing.Point(211, 0);
             this.holder.Name = "holder";
             this.holder.Size = new System.Drawing.Size(475, 187);
@@ -196,11 +197,31 @@
             // 
             // ctVerify1
             // 
-            this.ctVerify1.Location = new System.Drawing.Point(404, 90);
+            this.ctVerify1.Location = new System.Drawing.Point(231, 3);
             this.ctVerify1.Name = "ctVerify1";
             this.ctVerify1.Size = new System.Drawing.Size(63, 21);
             this.ctVerify1.TabIndex = 14;
             this.ctVerify1.TabStop = false;
+            // 
+            // btnUnLock
+            // 
+            this.btnUnLock.Location = new System.Drawing.Point(238, 126);
+            this.btnUnLock.Name = "btnUnLock";
+            this.btnUnLock.Size = new System.Drawing.Size(75, 23);
+            this.btnUnLock.TabIndex = 16;
+            this.btnUnLock.Text = "解 锁";
+            this.btnUnLock.UseVisualStyleBackColor = true;
+            // 
+            // PanelVerify
+            // 
+            this.PanelVerify.Controls.Add(this.label4);
+            this.PanelVerify.Controls.Add(this.encrypt);
+            this.PanelVerify.Controls.Add(this.verify);
+            this.PanelVerify.Controls.Add(this.ctVerify1);
+            this.PanelVerify.Location = new System.Drawing.Point(169, 85);
+            this.PanelVerify.Name = "PanelVerify";
+            this.PanelVerify.Size = new System.Drawing.Size(303, 26);
+            this.PanelVerify.TabIndex = 17;
             // 
             // ctrlTraderLogin
             // 
@@ -212,6 +233,8 @@
             this.Size = new System.Drawing.Size(933, 235);
             this.holder.ResumeLayout(false);
             this.holder.PerformLayout();
+            this.PanelVerify.ResumeLayout(false);
+            this.PanelVerify.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -234,5 +257,7 @@
         private System.Windows.Forms.Panel holder;
         private ctVerify ctVerify1;
         private System.Windows.Forms.MaskedTextBox password;
+        private System.Windows.Forms.Button btnUnLock;
+        private System.Windows.Forms.Panel PanelVerify;
     }
 }
