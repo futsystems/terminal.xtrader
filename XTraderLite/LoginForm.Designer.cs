@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.holder = new System.Windows.Forms.Panel();
             this.panel_XGJ = new System.Windows.Forms.Panel();
+            this.lbFocus = new System.Windows.Forms.Label();
             this.cbUpdateBasic = new System.Windows.Forms.PictureBox();
             this.cbSaveAccount = new System.Windows.Forms.PictureBox();
             this.@__msg2 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.MaskedTextBox();
-            this.lbFocus = new System.Windows.Forms.Label();
             this.holder.SuspendLayout();
             this.panel_XGJ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbUpdateBasic)).BeginInit();
@@ -180,6 +180,15 @@
             this.panel_XGJ.Size = new System.Drawing.Size(730, 410);
             this.panel_XGJ.TabIndex = 25;
             // 
+            // lbFocus
+            // 
+            this.lbFocus.AutoSize = true;
+            this.lbFocus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
+            this.lbFocus.Location = new System.Drawing.Point(488, 255);
+            this.lbFocus.Name = "lbFocus";
+            this.lbFocus.Size = new System.Drawing.Size(0, 12);
+            this.lbFocus.TabIndex = 7;
+            // 
             // cbUpdateBasic
             // 
             this.cbUpdateBasic.Image = global::XTraderLite.Properties.Resources.cb_yes;
@@ -296,7 +305,7 @@
             this.topImage.InitialImage = null;
             this.topImage.Location = new System.Drawing.Point(0, 0);
             this.topImage.Name = "topImage";
-            this.topImage.Size = new System.Drawing.Size(574, 224);
+            this.topImage.Size = new System.Drawing.Size(574, 71);
             this.topImage.TabIndex = 0;
             this.topImage.TabStop = false;
             // 
@@ -326,15 +335,6 @@
             this.password.Size = new System.Drawing.Size(74, 21);
             this.password.TabIndex = 3;
             this.password.Text = "888888";
-            // 
-            // lbFocus
-            // 
-            this.lbFocus.AutoSize = true;
-            this.lbFocus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(214)))), ((int)(((byte)(241)))));
-            this.lbFocus.Location = new System.Drawing.Point(488, 255);
-            this.lbFocus.Name = "lbFocus";
-            this.lbFocus.Size = new System.Drawing.Size(0, 12);
-            this.lbFocus.TabIndex = 7;
             // 
             // LoginForm
             // 

@@ -45,7 +45,6 @@ namespace TradingLib.XTrader.Future
             //合约选择控件
             inputSymbol.SymbolSelected += new Action<Symbol>(inputSymbol_SymbolSelected);//下拉选择
             inputSymbol.TextChanged += new EventHandler(inputSymbol_TextChanged);//合约输入
-            //inputSymbol.DropDown += new EventHandler(inputSymbol_DropDown);
             inputSymbol.SecuritySelected += new Action(inputSymbol_SecuritySelected);
             
             inputFlagClose.Click += new EventHandler(inputFlagClose_Click);
@@ -53,11 +52,16 @@ namespace TradingLib.XTrader.Future
             inputFlagOpen.Click += new EventHandler(inputFlagOpen_Click);
             inputFlagAuto.CheckedChanged += new EventHandler(inputFlagAuto_CheckedChanged);
 
+            inputRBuy.Click += new EventHandler(inputRBuy_Click);
+            inputRSell.Click += new EventHandler(inputRSell_Click);
+
             inputPrice.NumTxtValSelected += new Action<string>(inputPrice_NumTxtValSelected);
             inputPrice.ValueChanged += new Action<decimal>(inputPrice_ValueChanged);
 
             btnBuy.Click += new EventHandler(btnBuy_Click);
             btnSell.Click += new EventHandler(btnSell_Click);
+            btnEntryOrder.Click += new EventHandler(btnEntryOrder_Click);
+            btnClose.Click += new EventHandler(btnClose_Click);
 
             btnQryMaxVol.Click += new EventHandler(btnQryMaxVol_Click);
             btnReset.Click += new EventHandler(btnReset_Click);
@@ -73,6 +77,12 @@ namespace TradingLib.XTrader.Future
 
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        
+
+        
+
+        
 
         void btnQryMaxVol_Click(object sender, EventArgs e)
         {
@@ -180,26 +190,39 @@ namespace TradingLib.XTrader.Future
         {
             ResetInput();
 
-            if (arg2.isLong)
+            //快捷下单
+            if (_ordermode == 0)
+            {
+                if (arg2.isLong)
+                {
+                    btnBuy.Enabled = false;
+                    if (!_autoflag)
+                    {
+                        inputFlagClose.Checked = true;
+                        _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                    }
+                    inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
+                }
+                else
+                {
+                    btnSell.Enabled = false;
+                    if (!_autoflag)
+                    {
+                        inputFlagClose.Checked = true;
+                        _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
+                    }
+                    inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
+                }
+            }
+
+            //三键下单
+            if (_ordermode == 1)
             {
                 btnBuy.Enabled = false;
-                if (!_autoflag)
-                {
-                    inputFlagClose.Checked = true;
-                    _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
-                }
-                inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
-            }
-            else
-            {
                 btnSell.Enabled = false;
-                if (!_autoflag)
-                {
-                    inputFlagClose.Checked = true;
-                    _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
-                }
                 inputSize.SetValue(Math.Abs(arg2.FlatSize).ToString());
             }
+
             _positionSelected = true;
             _position = arg2;
         }
@@ -303,27 +326,12 @@ namespace TradingLib.XTrader.Future
             inputSize.DropDownControl = sizeBox;
             inputSize.DropDownSizeMode = SizeMode.UseControlSize;
 
+            btnEntryOrder.BackColor = Constants.BuyColor;
+
             ResetInputPrice();
             ResetPriceButton();
 
-            if (TraderConfig.ExFlagAuto)
-            {
-                _autoflag = true;
-                inputFlagAuto.Checked = true;
-                _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;//服务端自动判定
-                inputFlagClose.Enabled = false;
-                inputFlagOpen.Enabled = false;
-                inputFlagCloseToday.Enabled = false;
-                inputFlagClose.Checked = false;
-                inputFlagOpen.Checked = false;
-                inputFlagCloseToday.Checked = false;
-            }
-            else
-            {
-                _autoflag = false;
-                inputFlagOpen.Checked = true;
-                _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
-            }
+           
 
             //
             tabPageFlashOrder.Controls.Add(panelFlashOrder);
@@ -332,6 +340,7 @@ namespace TradingLib.XTrader.Future
             panelFlashOrder.Dock = DockStyle.Fill;
             panelThreeBtn.Dock = DockStyle.Fill;
             panelTradition.Dock = DockStyle.Fill;
+            EntryFlash();
         }
 
 
@@ -403,6 +412,7 @@ namespace TradingLib.XTrader.Future
         }
 
 
+        int _ordermode = 0;
         /// <summary>
         /// 禁止切换Tab
         /// </summary>
@@ -412,6 +422,8 @@ namespace TradingLib.XTrader.Future
         {
             //e.Cancel = true;
             //MessageBox.Show(e.TabPageIndex.ToString());
+            //切换下单模式时 重置输入控件
+            ResetInput();
             if (e.TabPageIndex == 0)
             {
                 EntryFlash();
@@ -426,10 +438,14 @@ namespace TradingLib.XTrader.Future
             }
         }
 
-        //模式切换
+            
 
+        /// <summary>
+        /// 闪电下单
+        /// </summary>
         void EntryFlash()
         {
+            _ordermode = 0;
             panelFlashOrder.Controls.Add(holderPanel_Symbol);
 
             panelFlashOrder.Controls.Add(inputFlagOpen);
@@ -441,10 +457,12 @@ namespace TradingLib.XTrader.Future
             panelFlashOrder.Controls.Add(inputFlagAuto);
             inputFlagAuto.Location = new Point(184, 47);
 
+            //数量
             panelFlashOrder.Controls.Add(label2);
             label2.Location = new Point(7, 77);
             panelFlashOrder.Controls.Add(inputSize);
             inputSize.Location = new Point(42, 72);
+
             panelFlashOrder.Controls.Add(label4);
             label4.Location = new Point(127, 68);
             panelFlashOrder.Controls.Add(label5);
@@ -458,34 +476,129 @@ namespace TradingLib.XTrader.Future
             panelFlashOrder.Controls.Add(lbShortCloseVol);
             lbShortCloseVol.Location = new Point(215, 84);
 
+            //价格
             panelFlashOrder.Controls.Add(label3);
             label3.Location = new Point(7, 107);
             panelFlashOrder.Controls.Add(inputPrice);
             inputPrice.Location = new Point(42, 104);
 
+            //小按钮
             panelFlashOrder.Controls.Add(btnQryMaxVol);
             btnQryMaxVol.Location = new Point(7, 137);
             panelFlashOrder.Controls.Add(btnReset);
             btnReset.Location = new Point(7, 157);
             panelFlashOrder.Controls.Add(btnConditionOrder);
             btnConditionOrder.Location = new Point(7, 177);
+
             panelFlashOrder.Controls.Add(btnBuy);
             btnBuy.Location = new Point(152, 137);
             panelFlashOrder.Controls.Add(btnSell);
             btnSell.Location = new Point(238, 137);
 
 
+            //加载默认开平标识配置
+            LoadDefaultFlag();
+
         }
 
-
+        /// <summary>
+        /// 3键下单
+        /// </summary>
         void EntryThreeBtn()
         {
+            _ordermode = 1;
             panelThreeBtn.Controls.Add(holderPanel_Symbol);
+
+            //数量
+            panelThreeBtn.Controls.Add(label2);
+            label2.Location = new Point(7, 46);
+            panelThreeBtn.Controls.Add(inputSize);
+            inputSize.Location = new Point(42, 41);
+
+            //价格
+            panelThreeBtn.Controls.Add(label3);
+            label3.Location = new Point(163, 44);
+            panelThreeBtn.Controls.Add(inputPrice);
+            inputPrice.Location = new Point(198, 41);
+
+            //买
+            panelThreeBtn.Controls.Add(lbLongOpenVol);
+            lbLongOpenVol.Location = new Point(40,75);
+            panelThreeBtn.Controls.Add(btnBuy);
+            btnBuy.Location = new Point(21, 90);
+
+            //卖
+            panelThreeBtn.Controls.Add(lbShortOpenVol);
+            lbShortOpenVol.Location = new Point(140, 75);
+            panelThreeBtn.Controls.Add(btnSell);
+            btnSell.Location = new Point(125, 91);
+
+            //小按钮
+            panelThreeBtn.Controls.Add(btnQryMaxVol);
+            btnQryMaxVol.Location = new Point(10, 170);
+            panelThreeBtn.Controls.Add(btnReset);
+            btnReset.Location = new Point(70, 170);
+            panelThreeBtn.Controls.Add(btnConditionOrder);
+            btnConditionOrder.Location = new Point(128, 170);
+
+
+            _autoflag = false;
         }
 
+        /// <summary>
+        /// 传统下单
+        /// </summary>
         void EntryTradition()
         {
+            _ordermode = 2;
             panelTradition.Controls.Add(holderPanel_Symbol);
+            panelTradition.Controls.Add(label6);
+            label6.Location = new Point(9, 51);
+            //panelTradition.Controls.Add(inputRBuy);
+            //inputRBuy.Location = new Point(44, 49);
+            //panelTradition.Controls.Add(inputRSell);
+            //inputRSell.Location = new Point(97, 49);
+
+            panelTradition.Controls.Add(label7);
+            label7.Location = new Point(9, 73);
+            panelTradition.Controls.Add(inputFlagOpen);
+            inputFlagOpen.Location = new Point(44, 71);
+            panelTradition.Controls.Add(inputFlagClose);
+            inputFlagClose.Location = new Point(97, 71);
+            panelTradition.Controls.Add(inputFlagCloseToday);
+            inputFlagCloseToday.Location = new Point(150, 71);
+
+
+            //数量
+            panelTradition.Controls.Add(label2);
+            label2.Location = new Point(9, 99);
+            panelTradition.Controls.Add(inputSize);
+            inputSize.Location = new Point(44, 94);
+
+            //价格
+            panelTradition.Controls.Add(label3);
+            label3.Location = new Point(9, 123);
+            panelTradition.Controls.Add(inputPrice);
+            inputPrice.Location = new Point(44, 120);
+
+            //小按钮
+            panelTradition.Controls.Add(btnQryMaxVol);
+            btnQryMaxVol.Location = new Point(10, 150);
+            panelTradition.Controls.Add(btnReset);
+            btnReset.Location = new Point(70, 150);
+            panelTradition.Controls.Add(btnConditionOrder);
+            btnConditionOrder.Location = new Point(128, 150);
+
+
+
+            //开平标识可用 且默认止于开仓
+            inputFlagClose.Enabled = true;
+            inputFlagOpen.Enabled = true;
+            inputFlagCloseToday.Enabled = true;
+            inputFlagOpen.Checked = true;
+            _autoflag = false;
+            _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+
         }
         
 
@@ -518,7 +631,6 @@ namespace TradingLib.XTrader.Future
             {
                 inputPrice.SetTxtVal("对手价");
             }
-
             inputArbFlag.SelectedIndex = 0;
 
             if (_symbol != null)
@@ -617,9 +729,10 @@ namespace TradingLib.XTrader.Future
 
         void btnSell_Click(object sender, EventArgs e)
         {
-            SendOrder(false);
+            SendOrder(false,_ordermode, _ordermode==1?QSEnumOffsetFlag.OPEN: QSEnumOffsetFlag.UNKNOWN);
+
             //发送平仓委托后 自动切换回开仓状态
-            if (TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit)
+            if ((_ordermode == 0 || _ordermode == 2) && TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit)
             {
                 if (!_autoflag && _currentOffsetFlag != QSEnumOffsetFlag.OPEN)
                 {
@@ -627,13 +740,13 @@ namespace TradingLib.XTrader.Future
                     inputFlagOpen.Checked = true;
                 }
             }
-
         }
 
         void btnBuy_Click(object sender, EventArgs e)
         {
-            SendOrder(true);
-            if (TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit)
+            SendOrder(true, _ordermode,_ordermode==1?QSEnumOffsetFlag.OPEN: QSEnumOffsetFlag.UNKNOWN);
+
+            if ((_ordermode == 0 || _ordermode == 2) && TraderConfig.ExSwitchToOpenWhenCloseOrderSubmit)
             {
                 if (!_autoflag && _currentOffsetFlag != QSEnumOffsetFlag.OPEN)
                 {
@@ -642,6 +755,61 @@ namespace TradingLib.XTrader.Future
                 }
             }
         }
+
+        void btnEntryOrder_Click(object sender, EventArgs e)
+        {
+            if (inputRBuy.Checked)
+            {
+                SendOrder(true, _ordermode,QSEnumOffsetFlag.UNKNOWN);
+            }
+            else
+            {
+                SendOrder(false, _ordermode,QSEnumOffsetFlag.UNKNOWN);
+            }
+        }
+
+        void btnClose_Click(object sender, EventArgs e)
+        {
+            if (_symbol == null)
+            {
+                MessageBox.Show("请选择交易合约", "委托参数错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int size = 0;
+            if (!int.TryParse(inputSize.TxtValue, out size)) size = 0;
+            if (size == 0)
+            {
+                MessageBox.Show("委托数量需大于零", "委托参数错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (_positionSelected)
+            {
+                if (_position != null && !_position.isFlat)
+                {
+                    SendOrder(_position.DirectionType == QSEnumPositionDirectionType.Long?false:true, _ordermode, QSEnumOffsetFlag.CLOSE);
+                }
+            }
+            else
+            {
+
+                Position lpos = CoreService.TradingInfoTracker.PositionTracker[_symbol.Symbol, CoreService.TradingInfoTracker.Account.Account, true];
+                Position spos = CoreService.TradingInfoTracker.PositionTracker[_symbol.Symbol, CoreService.TradingInfoTracker.Account.Account, false];
+
+                if ((!lpos.isFlat) && (!spos.isFlat))
+                {
+                    MessageBox.Show("合约处于锁仓状态，请双击持仓列表选中持仓");
+                    return;
+                }
+                if (lpos.isFlat && spos.isFlat)
+                {
+                    MessageBox.Show("选中合约无持仓");
+                    return;
+                }
+
+                SendOrder(lpos.isFlat ? true : false, _ordermode, QSEnumOffsetFlag.CLOSE);
+            }
+        }
+
 
         /// <summary>
         /// 从加入输入控件获得价格
@@ -727,7 +895,21 @@ namespace TradingLib.XTrader.Future
             if (price == 0) return "市价";
             return "限价:" + price.ToFormatStr(_symbol.SecurityFamily.GetPriceFormat());
         }
-        void SendOrder(bool side)
+
+        /// <summary>
+        /// 快捷下单 通过开平标识_currentoffsetflag来设定
+        /// 三键下单 区分开仓按钮与平仓按钮 通过SendOrder直接传递开平
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        QSEnumOffsetFlag GetOffsetFlag(int mode,QSEnumOffsetFlag offset)
+        {
+            if (mode == 0) return _currentOffsetFlag;
+            if (mode == 1) return offset;//
+            return _currentOffsetFlag;
+            
+        }
+        void SendOrder(bool side,int mode,QSEnumOffsetFlag offset)
         {
             if (_symbol == null)
             {
@@ -761,7 +943,7 @@ namespace TradingLib.XTrader.Future
             order.Size = size;
             order.Side = side;
             order.LimitPrice = price;
-            order.OffsetFlag = _currentOffsetFlag;
+            order.OffsetFlag = GetOffsetFlag(mode, offset);
 
             //一键下单
             if (TraderConfig.ExSendOrderDirect)
@@ -830,9 +1012,48 @@ namespace TradingLib.XTrader.Future
             _autoflag = false;
             _currentOffsetFlag = QSEnumOffsetFlag.CLOSE;
         }
+
+        void LoadDefaultFlag()
+        {
+            if (TraderConfig.ExFlagAuto)
+            {
+                _autoflag = true;
+                inputFlagAuto.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.UNKNOWN;//服务端自动判定
+                inputFlagClose.Enabled = false;
+                inputFlagOpen.Enabled = false;
+                inputFlagCloseToday.Enabled = false;
+                inputFlagClose.Checked = false;
+                inputFlagOpen.Checked = false;
+                inputFlagCloseToday.Checked = false;
+            }
+            else
+            {
+                _autoflag = false;
+                inputFlagOpen.Checked = true;
+                _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
+            }
+        }
         #endregion
 
 
+        #region 传统下单 买 卖
+        void inputRSell_Click(object sender, EventArgs e)
+        {
+            if (inputRSell.Checked)
+            {
+                btnEntryOrder.BackColor = Constants.SellColor;
+            }
+        }
+
+        void inputRBuy_Click(object sender, EventArgs e)
+        {
+            if (inputRBuy.Checked)
+            {
+                btnEntryOrder.BackColor = Constants.BuyColor;
+            }
+        }
+        #endregion
 
 
         #region 可开与账户财务查询

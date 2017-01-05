@@ -43,25 +43,35 @@
             this.inputFlagCloseToday = new System.Windows.Forms.RadioButton();
             this.inputFlagClose = new System.Windows.Forms.RadioButton();
             this.inputFlagOpen = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPageThreeBtn = new System.Windows.Forms.TabPage();
             this.panelFlashOrder = new System.Windows.Forms.Panel();
             this.tabPageTradition = new System.Windows.Forms.TabPage();
-            this.holderPanel_Symbol = new System.Windows.Forms.Panel();
             this.panelThreeBtn = new System.Windows.Forms.Panel();
             this.panelTradition = new System.Windows.Forms.Panel();
+            this.holderPanel_Symbol = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.inputRBuy = new System.Windows.Forms.RadioButton();
+            this.inputRSell = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnEntryOrder = new System.Windows.Forms.Button();
+            this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
+            this.btnConditionOrder = new TradingLib.XTrader.FButton();
+            this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
+            this.btnReset = new TradingLib.XTrader.FButton();
+            this.btnQryMaxVol = new TradingLib.XTrader.FButton();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.inputArbFlag = new CSharpWin.ComboBoxEx();
-            this.btnConditionOrder = new TradingLib.XTrader.FButton();
-            this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
-            this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
-            this.btnQryMaxVol = new TradingLib.XTrader.FButton();
-            this.btnSell = new TradingLib.XTrader.FButton();
-            this.btnReset = new TradingLib.XTrader.FButton();
+            this.btnClose = new TradingLib.XTrader.FButton();
             this.btnBuy = new TradingLib.XTrader.FButton();
+            this.btnSell = new TradingLib.XTrader.FButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.panelFlashOrder.SuspendLayout();
+            this.panelThreeBtn.SuspendLayout();
+            this.panelTradition.SuspendLayout();
             this.holderPanel_Symbol.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -106,7 +116,7 @@
             // lbShortOpenVol
             // 
             this.lbShortOpenVol.AutoSize = true;
-            this.lbShortOpenVol.Location = new System.Drawing.Point(150, 84);
+            this.lbShortOpenVol.Location = new System.Drawing.Point(140, 75);
             this.lbShortOpenVol.Name = "lbShortOpenVol";
             this.lbShortOpenVol.Size = new System.Drawing.Size(17, 12);
             this.lbShortOpenVol.TabIndex = 27;
@@ -115,7 +125,7 @@
             // lbLongOpenVol
             // 
             this.lbLongOpenVol.AutoSize = true;
-            this.lbLongOpenVol.Location = new System.Drawing.Point(150, 68);
+            this.lbLongOpenVol.Location = new System.Drawing.Point(40, 75);
             this.lbLongOpenVol.Name = "lbLongOpenVol";
             this.lbLongOpenVol.Size = new System.Drawing.Size(17, 12);
             this.lbLongOpenVol.TabIndex = 26;
@@ -166,7 +176,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 107);
+            this.label3.Location = new System.Drawing.Point(9, 123);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 7;
@@ -175,7 +185,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 77);
+            this.label2.Location = new System.Drawing.Point(9, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 5;
@@ -184,7 +194,7 @@
             // inputFlagCloseToday
             // 
             this.inputFlagCloseToday.AutoSize = true;
-            this.inputFlagCloseToday.Location = new System.Drawing.Point(116, 47);
+            this.inputFlagCloseToday.Location = new System.Drawing.Point(150, 71);
             this.inputFlagCloseToday.Name = "inputFlagCloseToday";
             this.inputFlagCloseToday.Size = new System.Drawing.Size(47, 16);
             this.inputFlagCloseToday.TabIndex = 4;
@@ -194,7 +204,7 @@
             // inputFlagClose
             // 
             this.inputFlagClose.AutoSize = true;
-            this.inputFlagClose.Location = new System.Drawing.Point(63, 47);
+            this.inputFlagClose.Location = new System.Drawing.Point(97, 71);
             this.inputFlagClose.Name = "inputFlagClose";
             this.inputFlagClose.Size = new System.Drawing.Size(47, 16);
             this.inputFlagClose.TabIndex = 3;
@@ -205,22 +215,13 @@
             // 
             this.inputFlagOpen.AutoSize = true;
             this.inputFlagOpen.Checked = true;
-            this.inputFlagOpen.Location = new System.Drawing.Point(10, 47);
+            this.inputFlagOpen.Location = new System.Drawing.Point(44, 71);
             this.inputFlagOpen.Name = "inputFlagOpen";
             this.inputFlagOpen.Size = new System.Drawing.Size(47, 16);
             this.inputFlagOpen.TabIndex = 2;
             this.inputFlagOpen.TabStop = true;
             this.inputFlagOpen.Text = "开仓";
             this.inputFlagOpen.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "合约";
             // 
             // tabPageThreeBtn
             // 
@@ -235,23 +236,8 @@
             // panelFlashOrder
             // 
             this.panelFlashOrder.Controls.Add(this.lbShortCloseVol);
-            this.panelFlashOrder.Controls.Add(this.holderPanel_Symbol);
             this.panelFlashOrder.Controls.Add(this.lbLongCloseVol);
             this.panelFlashOrder.Controls.Add(this.checkBox2);
-            this.panelFlashOrder.Controls.Add(this.lbShortOpenVol);
-            this.panelFlashOrder.Controls.Add(this.inputFlagOpen);
-            this.panelFlashOrder.Controls.Add(this.lbLongOpenVol);
-            this.panelFlashOrder.Controls.Add(this.inputFlagClose);
-            this.panelFlashOrder.Controls.Add(this.btnConditionOrder);
-            this.panelFlashOrder.Controls.Add(this.inputFlagCloseToday);
-            this.panelFlashOrder.Controls.Add(this.label2);
-            this.panelFlashOrder.Controls.Add(this.inputSize);
-            this.panelFlashOrder.Controls.Add(this.label3);
-            this.panelFlashOrder.Controls.Add(this.inputPrice);
-            this.panelFlashOrder.Controls.Add(this.btnQryMaxVol);
-            this.panelFlashOrder.Controls.Add(this.btnSell);
-            this.panelFlashOrder.Controls.Add(this.btnReset);
-            this.panelFlashOrder.Controls.Add(this.btnBuy);
             this.panelFlashOrder.Controls.Add(this.inputFlagAuto);
             this.panelFlashOrder.Controls.Add(this.label5);
             this.panelFlashOrder.Controls.Add(this.label4);
@@ -271,6 +257,40 @@
             this.tabPageTradition.Text = "传统下单";
             this.tabPageTradition.UseVisualStyleBackColor = true;
             // 
+            // panelThreeBtn
+            // 
+            this.panelThreeBtn.Controls.Add(this.btnClose);
+            this.panelThreeBtn.Controls.Add(this.lbShortOpenVol);
+            this.panelThreeBtn.Controls.Add(this.lbLongOpenVol);
+            this.panelThreeBtn.Controls.Add(this.btnBuy);
+            this.panelThreeBtn.Controls.Add(this.btnSell);
+            this.panelThreeBtn.Location = new System.Drawing.Point(5, 452);
+            this.panelThreeBtn.Name = "panelThreeBtn";
+            this.panelThreeBtn.Size = new System.Drawing.Size(320, 200);
+            this.panelThreeBtn.TabIndex = 2;
+            // 
+            // panelTradition
+            // 
+            this.panelTradition.Controls.Add(this.panel1);
+            this.panelTradition.Controls.Add(this.btnEntryOrder);
+            this.panelTradition.Controls.Add(this.label7);
+            this.panelTradition.Controls.Add(this.inputSize);
+            this.panelTradition.Controls.Add(this.btnConditionOrder);
+            this.panelTradition.Controls.Add(this.inputPrice);
+            this.panelTradition.Controls.Add(this.btnReset);
+            this.panelTradition.Controls.Add(this.label2);
+            this.panelTradition.Controls.Add(this.btnQryMaxVol);
+            this.panelTradition.Controls.Add(this.label3);
+            this.panelTradition.Controls.Add(this.inputFlagOpen);
+            this.panelTradition.Controls.Add(this.label6);
+            this.panelTradition.Controls.Add(this.inputFlagClose);
+            this.panelTradition.Controls.Add(this.inputFlagCloseToday);
+            this.panelTradition.Controls.Add(this.holderPanel_Symbol);
+            this.panelTradition.Location = new System.Drawing.Point(5, 658);
+            this.panelTradition.Name = "panelTradition";
+            this.panelTradition.Size = new System.Drawing.Size(320, 200);
+            this.panelTradition.TabIndex = 3;
+            // 
             // holderPanel_Symbol
             // 
             this.holderPanel_Symbol.Controls.Add(this.inputSymbol);
@@ -280,21 +300,175 @@
             this.holderPanel_Symbol.Location = new System.Drawing.Point(0, 0);
             this.holderPanel_Symbol.Name = "holderPanel_Symbol";
             this.holderPanel_Symbol.Size = new System.Drawing.Size(320, 32);
-            this.holderPanel_Symbol.TabIndex = 0;
+            this.holderPanel_Symbol.TabIndex = 2;
             // 
-            // panelThreeBtn
+            // label1
             // 
-            this.panelThreeBtn.Location = new System.Drawing.Point(5, 452);
-            this.panelThreeBtn.Name = "panelThreeBtn";
-            this.panelThreeBtn.Size = new System.Drawing.Size(320, 200);
-            this.panelThreeBtn.TabIndex = 2;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "合约";
             // 
-            // panelTradition
+            // label6
             // 
-            this.panelTradition.Location = new System.Drawing.Point(5, 658);
-            this.panelTradition.Name = "panelTradition";
-            this.panelTradition.Size = new System.Drawing.Size(320, 200);
-            this.panelTradition.TabIndex = 3;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "方向";
+            // 
+            // inputRBuy
+            // 
+            this.inputRBuy.AutoSize = true;
+            this.inputRBuy.Checked = true;
+            this.inputRBuy.Location = new System.Drawing.Point(3, 3);
+            this.inputRBuy.Name = "inputRBuy";
+            this.inputRBuy.Size = new System.Drawing.Size(47, 16);
+            this.inputRBuy.TabIndex = 30;
+            this.inputRBuy.TabStop = true;
+            this.inputRBuy.Text = "买入";
+            this.inputRBuy.UseVisualStyleBackColor = true;
+            // 
+            // inputRSell
+            // 
+            this.inputRSell.AutoSize = true;
+            this.inputRSell.Location = new System.Drawing.Point(56, 3);
+            this.inputRSell.Name = "inputRSell";
+            this.inputRSell.Size = new System.Drawing.Size(47, 16);
+            this.inputRSell.TabIndex = 31;
+            this.inputRSell.Text = "卖出";
+            this.inputRSell.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 12);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "开平";
+            // 
+            // btnEntryOrder
+            // 
+            this.btnEntryOrder.BackColor = System.Drawing.Color.Red;
+            this.btnEntryOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEntryOrder.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnEntryOrder.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnEntryOrder.Location = new System.Drawing.Point(184, 123);
+            this.btnEntryOrder.Name = "btnEntryOrder";
+            this.btnEntryOrder.Size = new System.Drawing.Size(123, 45);
+            this.btnEntryOrder.TabIndex = 33;
+            this.btnEntryOrder.Text = "下 单";
+            this.btnEntryOrder.UseVisualStyleBackColor = false;
+            // 
+            // inputSize
+            // 
+            this.inputSize.DecimalPlace = 2;
+            this.inputSize.DropDownControl = null;
+            this.inputSize.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
+            this.inputSize.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputSize.Location = new System.Drawing.Point(44, 94);
+            this.inputSize.MaxVal = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.inputSize.MinVal = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputSize.Name = "inputSize";
+            this.inputSize.PriceFormat = "{0:F2}";
+            this.inputSize.ShowTop = false;
+            this.inputSize.Size = new System.Drawing.Size(79, 20);
+            this.inputSize.SymbolSelected = false;
+            this.inputSize.TabIndex = 21;
+            this.inputSize.Text = "fPriceInput2";
+            this.inputSize.TxtValue = "1";
+            // 
+            // btnConditionOrder
+            // 
+            this.btnConditionOrder.BackColor = System.Drawing.Color.White;
+            this.btnConditionOrder.CheckButton = false;
+            this.btnConditionOrder.Checked = false;
+            this.btnConditionOrder.Enabled = false;
+            this.btnConditionOrder.IsPriceOn = false;
+            this.btnConditionOrder.Location = new System.Drawing.Point(128, 150);
+            this.btnConditionOrder.Name = "btnConditionOrder";
+            this.btnConditionOrder.OrderEntryButton = false;
+            this.btnConditionOrder.PriceStr = "";
+            this.btnConditionOrder.Size = new System.Drawing.Size(50, 18);
+            this.btnConditionOrder.TabIndex = 25;
+            this.btnConditionOrder.Text = "条件单";
+            this.btnConditionOrder.UseVisualStyleBackColor = true;
+            // 
+            // inputPrice
+            // 
+            this.inputPrice.DecimalPlace = 2;
+            this.inputPrice.DropDownControl = null;
+            this.inputPrice.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
+            this.inputPrice.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputPrice.Location = new System.Drawing.Point(44, 120);
+            this.inputPrice.MaxVal = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.inputPrice.MinVal = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.inputPrice.Name = "inputPrice";
+            this.inputPrice.PriceFormat = "{0:F2}";
+            this.inputPrice.ShowTop = false;
+            this.inputPrice.Size = new System.Drawing.Size(119, 20);
+            this.inputPrice.SymbolSelected = false;
+            this.inputPrice.TabIndex = 20;
+            this.inputPrice.Text = "fPriceInput1";
+            this.inputPrice.TxtValue = "0";
+            // 
+            // btnReset
+            // 
+            this.btnReset.BackColor = System.Drawing.Color.White;
+            this.btnReset.CheckButton = false;
+            this.btnReset.Checked = false;
+            this.btnReset.IsPriceOn = false;
+            this.btnReset.Location = new System.Drawing.Point(70, 150);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.OrderEntryButton = false;
+            this.btnReset.PriceStr = "";
+            this.btnReset.Size = new System.Drawing.Size(50, 18);
+            this.btnReset.TabIndex = 10;
+            this.btnReset.Text = "复位";
+            this.btnReset.UseVisualStyleBackColor = true;
+            // 
+            // btnQryMaxVol
+            // 
+            this.btnQryMaxVol.BackColor = System.Drawing.Color.White;
+            this.btnQryMaxVol.CheckButton = false;
+            this.btnQryMaxVol.Checked = false;
+            this.btnQryMaxVol.IsPriceOn = false;
+            this.btnQryMaxVol.Location = new System.Drawing.Point(10, 150);
+            this.btnQryMaxVol.Name = "btnQryMaxVol";
+            this.btnQryMaxVol.OrderEntryButton = false;
+            this.btnQryMaxVol.PriceStr = "";
+            this.btnQryMaxVol.Size = new System.Drawing.Size(50, 18);
+            this.btnQryMaxVol.TabIndex = 9;
+            this.btnQryMaxVol.Text = "查可开";
+            this.btnQryMaxVol.UseVisualStyleBackColor = true;
             // 
             // inputSymbol
             // 
@@ -324,128 +498,22 @@
             this.inputArbFlag.TabIndex = 24;
             this.inputArbFlag.TabStop = false;
             // 
-            // btnConditionOrder
+            // btnClose
             // 
-            this.btnConditionOrder.BackColor = System.Drawing.Color.White;
-            this.btnConditionOrder.CheckButton = false;
-            this.btnConditionOrder.Checked = false;
-            this.btnConditionOrder.Enabled = false;
-            this.btnConditionOrder.IsPriceOn = false;
-            this.btnConditionOrder.Location = new System.Drawing.Point(7, 177);
-            this.btnConditionOrder.Name = "btnConditionOrder";
-            this.btnConditionOrder.OrderEntryButton = false;
-            this.btnConditionOrder.PriceStr = "";
-            this.btnConditionOrder.Size = new System.Drawing.Size(50, 18);
-            this.btnConditionOrder.TabIndex = 25;
-            this.btnConditionOrder.Text = "条件单";
-            this.btnConditionOrder.UseVisualStyleBackColor = true;
-            // 
-            // inputSize
-            // 
-            this.inputSize.DecimalPlace = 2;
-            this.inputSize.DropDownControl = null;
-            this.inputSize.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
-            this.inputSize.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.inputSize.Location = new System.Drawing.Point(42, 72);
-            this.inputSize.MaxVal = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.inputSize.MinVal = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.inputSize.Name = "inputSize";
-            this.inputSize.PriceFormat = "{0:F2}";
-            this.inputSize.ShowTop = false;
-            this.inputSize.Size = new System.Drawing.Size(79, 20);
-            this.inputSize.SymbolSelected = false;
-            this.inputSize.TabIndex = 21;
-            this.inputSize.Text = "fPriceInput2";
-            this.inputSize.TxtValue = "1";
-            // 
-            // inputPrice
-            // 
-            this.inputPrice.DecimalPlace = 2;
-            this.inputPrice.DropDownControl = null;
-            this.inputPrice.DropDownSizeMode = TradingLib.XTrader.Future.SizeMode.UseComboSize;
-            this.inputPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.inputPrice.Location = new System.Drawing.Point(42, 104);
-            this.inputPrice.MaxVal = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.inputPrice.MinVal = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.inputPrice.Name = "inputPrice";
-            this.inputPrice.PriceFormat = "{0:F2}";
-            this.inputPrice.ShowTop = false;
-            this.inputPrice.Size = new System.Drawing.Size(119, 20);
-            this.inputPrice.SymbolSelected = false;
-            this.inputPrice.TabIndex = 20;
-            this.inputPrice.Text = "fPriceInput1";
-            this.inputPrice.TxtValue = "0";
-            // 
-            // btnQryMaxVol
-            // 
-            this.btnQryMaxVol.BackColor = System.Drawing.Color.White;
-            this.btnQryMaxVol.CheckButton = false;
-            this.btnQryMaxVol.Checked = false;
-            this.btnQryMaxVol.IsPriceOn = false;
-            this.btnQryMaxVol.Location = new System.Drawing.Point(7, 137);
-            this.btnQryMaxVol.Name = "btnQryMaxVol";
-            this.btnQryMaxVol.OrderEntryButton = false;
-            this.btnQryMaxVol.PriceStr = "";
-            this.btnQryMaxVol.Size = new System.Drawing.Size(50, 18);
-            this.btnQryMaxVol.TabIndex = 9;
-            this.btnQryMaxVol.Text = "查可开";
-            this.btnQryMaxVol.UseVisualStyleBackColor = true;
-            // 
-            // btnSell
-            // 
-            this.btnSell.BackColor = System.Drawing.Color.Transparent;
-            this.btnSell.CheckButton = false;
-            this.btnSell.Checked = false;
-            this.btnSell.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnSell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
-            this.btnSell.IsPriceOn = false;
-            this.btnSell.Location = new System.Drawing.Point(238, 137);
-            this.btnSell.Name = "btnSell";
-            this.btnSell.OrderEntryButton = true;
-            this.btnSell.PriceStr = "";
-            this.btnSell.Size = new System.Drawing.Size(80, 60);
-            this.btnSell.TabIndex = 17;
-            this.btnSell.Text = "卖出";
-            this.btnSell.UseVisualStyleBackColor = true;
-            // 
-            // btnReset
-            // 
-            this.btnReset.BackColor = System.Drawing.Color.White;
-            this.btnReset.CheckButton = false;
-            this.btnReset.Checked = false;
-            this.btnReset.IsPriceOn = false;
-            this.btnReset.Location = new System.Drawing.Point(7, 157);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.OrderEntryButton = false;
-            this.btnReset.PriceStr = "";
-            this.btnReset.Size = new System.Drawing.Size(50, 18);
-            this.btnReset.TabIndex = 10;
-            this.btnReset.Text = "复位";
-            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.CheckButton = false;
+            this.btnClose.Checked = false;
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnClose.ForeColor = System.Drawing.Color.Black;
+            this.btnClose.IsPriceOn = false;
+            this.btnClose.Location = new System.Drawing.Point(227, 91);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.OrderEntryButton = true;
+            this.btnClose.PriceStr = "";
+            this.btnClose.Size = new System.Drawing.Size(80, 60);
+            this.btnClose.TabIndex = 28;
+            this.btnClose.Text = "平仓";
+            this.btnClose.UseVisualStyleBackColor = true;
             // 
             // btnBuy
             // 
@@ -455,7 +523,7 @@
             this.btnBuy.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnBuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
             this.btnBuy.IsPriceOn = false;
-            this.btnBuy.Location = new System.Drawing.Point(152, 137);
+            this.btnBuy.Location = new System.Drawing.Point(21, 90);
             this.btnBuy.Name = "btnBuy";
             this.btnBuy.OrderEntryButton = true;
             this.btnBuy.PriceStr = "";
@@ -463,6 +531,32 @@
             this.btnBuy.TabIndex = 16;
             this.btnBuy.Text = "买入";
             this.btnBuy.UseVisualStyleBackColor = true;
+            // 
+            // btnSell
+            // 
+            this.btnSell.BackColor = System.Drawing.Color.Transparent;
+            this.btnSell.CheckButton = false;
+            this.btnSell.Checked = false;
+            this.btnSell.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
+            this.btnSell.IsPriceOn = false;
+            this.btnSell.Location = new System.Drawing.Point(125, 91);
+            this.btnSell.Name = "btnSell";
+            this.btnSell.OrderEntryButton = true;
+            this.btnSell.PriceStr = "";
+            this.btnSell.Size = new System.Drawing.Size(80, 60);
+            this.btnSell.TabIndex = 17;
+            this.btnSell.Text = "卖出";
+            this.btnSell.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.inputRBuy);
+            this.panel1.Controls.Add(this.inputRSell);
+            this.panel1.Location = new System.Drawing.Point(42, 46);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(124, 22);
+            this.panel1.TabIndex = 34;
             // 
             // ctrlOrderEntry
             // 
@@ -478,8 +572,14 @@
             this.tabControl1.ResumeLayout(false);
             this.panelFlashOrder.ResumeLayout(false);
             this.panelFlashOrder.PerformLayout();
+            this.panelThreeBtn.ResumeLayout(false);
+            this.panelThreeBtn.PerformLayout();
+            this.panelTradition.ResumeLayout(false);
+            this.panelTradition.PerformLayout();
             this.holderPanel_Symbol.ResumeLayout(false);
             this.holderPanel_Symbol.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -489,7 +589,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageFlashOrder;
         private System.Windows.Forms.TabPage tabPageThreeBtn;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton inputFlagOpen;
         private System.Windows.Forms.RadioButton inputFlagClose;
         private System.Windows.Forms.RadioButton inputFlagCloseToday;
@@ -502,20 +601,28 @@
         private System.Windows.Forms.Label label4;
         private FButton btnBuy;
         private FButton btnSell;
-        private ctrlSymbolSelecter inputSymbol;
         private FNumberInput inputPrice;
         private FNumberInput inputSize;
         private System.Windows.Forms.TabPage tabPageTradition;
         private System.Windows.Forms.CheckBox checkBox2;
-        private CSharpWin.ComboBoxEx inputArbFlag;
         private FButton btnConditionOrder;
         private System.Windows.Forms.Label lbShortOpenVol;
         private System.Windows.Forms.Label lbLongOpenVol;
         private System.Windows.Forms.Label lbLongCloseVol;
         private System.Windows.Forms.Label lbShortCloseVol;
         private System.Windows.Forms.Panel panelFlashOrder;
-        private System.Windows.Forms.Panel holderPanel_Symbol;
         private System.Windows.Forms.Panel panelThreeBtn;
         private System.Windows.Forms.Panel panelTradition;
+        private FButton btnClose;
+        private System.Windows.Forms.Panel holderPanel_Symbol;
+        private ctrlSymbolSelecter inputSymbol;
+        private System.Windows.Forms.Label label1;
+        private CSharpWin.ComboBoxEx inputArbFlag;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton inputRBuy;
+        private System.Windows.Forms.RadioButton inputRSell;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnEntryOrder;
+        private System.Windows.Forms.Panel panel1;
     }
 }
