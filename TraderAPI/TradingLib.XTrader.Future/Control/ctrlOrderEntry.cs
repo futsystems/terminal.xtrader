@@ -324,7 +324,17 @@ namespace TradingLib.XTrader.Future
                 inputFlagOpen.Checked = true;
                 _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
             }
+
+            //
+            tabPageFlashOrder.Controls.Add(panelFlashOrder);
+            tabPageThreeBtn.Controls.Add(panelThreeBtn);
+            tabPageTradition.Controls.Add(panelTradition);
+            panelFlashOrder.Dock = DockStyle.Fill;
+            panelThreeBtn.Dock = DockStyle.Fill;
+            panelTradition.Dock = DockStyle.Fill;
         }
+
+
 
         #region 合约选择控件 选择合约
         void inputSymbol_TextChanged(object sender, EventArgs e)
@@ -391,6 +401,8 @@ namespace TradingLib.XTrader.Future
             inputPrice.SetTxtVal(obj);
             inputPrice.HideDropDown();
         }
+
+
         /// <summary>
         /// 禁止切换Tab
         /// </summary>
@@ -398,9 +410,84 @@ namespace TradingLib.XTrader.Future
         /// <param name="e"></param>
         void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            e.Cancel = true;
+            //e.Cancel = true;
+            //MessageBox.Show(e.TabPageIndex.ToString());
+            if (e.TabPageIndex == 0)
+            {
+                EntryFlash();
+            }
+            else if (e.TabPageIndex == 1)
+            {
+                EntryThreeBtn();
+            }
+            else
+            {
+                EntryTradition();
+            }
         }
 
+        //模式切换
+
+        void EntryFlash()
+        {
+            panelFlashOrder.Controls.Add(holderPanel_Symbol);
+
+            panelFlashOrder.Controls.Add(inputFlagOpen);
+            inputFlagOpen.Location = new Point(10, 47);
+            panelFlashOrder.Controls.Add(inputFlagClose);
+            inputFlagClose.Location = new Point(63, 47);
+            panelFlashOrder.Controls.Add(inputFlagCloseToday);
+            inputFlagCloseToday.Location = new Point(116, 47);
+            panelFlashOrder.Controls.Add(inputFlagAuto);
+            inputFlagAuto.Location = new Point(184, 47);
+
+            panelFlashOrder.Controls.Add(label2);
+            label2.Location = new Point(7, 77);
+            panelFlashOrder.Controls.Add(inputSize);
+            inputSize.Location = new Point(42, 72);
+            panelFlashOrder.Controls.Add(label4);
+            label4.Location = new Point(127, 68);
+            panelFlashOrder.Controls.Add(label5);
+            label5.Location = new Point(127, 84);
+            panelFlashOrder.Controls.Add(lbLongOpenVol);
+            lbLongOpenVol.Location = new Point(150, 68);
+            panelFlashOrder.Controls.Add(lbLongCloseVol);
+            lbLongCloseVol.Location = new Point(215, 68);
+            panelFlashOrder.Controls.Add(lbShortOpenVol);
+            lbShortOpenVol.Location = new Point(150, 84);
+            panelFlashOrder.Controls.Add(lbShortCloseVol);
+            lbShortCloseVol.Location = new Point(215, 84);
+
+            panelFlashOrder.Controls.Add(label3);
+            label3.Location = new Point(7, 107);
+            panelFlashOrder.Controls.Add(inputPrice);
+            inputPrice.Location = new Point(42, 104);
+
+            panelFlashOrder.Controls.Add(btnQryMaxVol);
+            btnQryMaxVol.Location = new Point(7, 137);
+            panelFlashOrder.Controls.Add(btnReset);
+            btnReset.Location = new Point(7, 157);
+            panelFlashOrder.Controls.Add(btnConditionOrder);
+            btnConditionOrder.Location = new Point(7, 177);
+            panelFlashOrder.Controls.Add(btnBuy);
+            btnBuy.Location = new Point(152, 137);
+            panelFlashOrder.Controls.Add(btnSell);
+            btnSell.Location = new Point(238, 137);
+
+
+        }
+
+
+        void EntryThreeBtn()
+        {
+            panelThreeBtn.Controls.Add(holderPanel_Symbol);
+        }
+
+        void EntryTradition()
+        {
+            panelTradition.Controls.Add(holderPanel_Symbol);
+        }
+        
 
         void ResetInputPrice()
         {
