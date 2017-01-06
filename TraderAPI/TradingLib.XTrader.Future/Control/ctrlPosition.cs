@@ -228,7 +228,7 @@ namespace TradingLib.XTrader.Future
             Position pos = CurrentPositoin;
             if (pos != null)
             {
-                UIService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
+                //UIService.EventUI.FireSymbolSelectedEvent(this, pos.oSymbol);
                 UIService.EventUI.FirePositionSelectedEvent(this, pos);
             }
         }

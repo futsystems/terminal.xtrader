@@ -293,7 +293,7 @@ namespace TradingLib.XTrader.Future
                         if (_trader != null)
                         {
                             _trader.Visible = false;
-                            _trader = null;
+                            //_trader = null;
                         }
                     }
 

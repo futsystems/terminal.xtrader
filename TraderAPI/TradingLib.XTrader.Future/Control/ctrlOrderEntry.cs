@@ -151,9 +151,8 @@ namespace TradingLib.XTrader.Future
         string _priceFormat = "{0:F2}";
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
-            if (arg2 != null)// && (_symbol == null || _symbol.Symbol != arg2.Symbol))
+            if (arg2 != null)
             {
-
                 _symbol = arg2;
                 _priceFormat = _symbol.SecurityFamily.GetPriceFormat();
                 
@@ -174,6 +173,8 @@ namespace TradingLib.XTrader.Future
 
                 //重置输入控件
                 ResetInput();
+                //选择合约后 根据持仓设定 三键下单按钮文字
+                SetBtnText();
             }
         }
 
@@ -285,7 +286,9 @@ namespace TradingLib.XTrader.Future
                 QryMaxOrderVol();
                 QryAccountFinance();
             }
-            
+
+            //获得成交后 持仓发生变化 根据持仓状态 显示三键下单按钮文字
+            SetBtnText();
         }
 
         
@@ -499,6 +502,7 @@ namespace TradingLib.XTrader.Future
             //加载默认开平标识配置
             LoadDefaultFlag();
 
+            SetBtnText();
         }
 
         /// <summary>
@@ -543,6 +547,7 @@ namespace TradingLib.XTrader.Future
 
 
             _autoflag = false;
+            SetBtnText();
         }
 
         /// <summary>
@@ -600,8 +605,43 @@ namespace TradingLib.XTrader.Future
             _currentOffsetFlag = QSEnumOffsetFlag.OPEN;
 
         }
-        
 
+        
+        void SetBtnText()
+        {
+            if (_ordermode == 0)
+            {
+                btnBuy.Text = "买入";
+                btnSell.Text = "卖出";
+            }
+
+            //三键下单根据持仓状态动态显示按钮文字
+            if (_ordermode == 1)
+            {
+                Position lpos = CoreService.TradingInfoTracker.PositionTracker[_symbol.Symbol, CoreService.TradingInfoTracker.Account.Account, true];
+                Position spos = CoreService.TradingInfoTracker.PositionTracker[_symbol.Symbol, CoreService.TradingInfoTracker.Account.Account, false];
+
+                //无持仓
+                if (lpos.isFlat && spos.isFlat)
+                {
+                    btnBuy.Text = "买入";
+                    btnSell.Text = "卖出";
+                }
+                //锁仓状态
+                else if (!lpos.isFlat && !spos.isFlat)
+                {
+                    btnBuy.Text = "买入";
+                    btnSell.Text = "卖出";
+                }
+                else
+                {
+                    bool havelong = !lpos.isFlat;
+                    btnBuy.Text = havelong ? "加多" : "锁仓";
+                    btnSell.Text = havelong ? "锁仓" : "加空";
+                }
+            }
+            
+        }
         void ResetInputPrice()
         {
             inputPrice.SetTxtVal("对手价");

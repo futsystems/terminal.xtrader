@@ -265,7 +265,7 @@ namespace TradingLib.TraderCore
         void GotTick(Tick k)
         {
             if (k == null || !k.IsValid()) return;
-            if (k.UpdateType != "X") return;
+            if (k.UpdateType != "X" && k.UpdateType !="S") return;
             ThreadSafeList<PositionOffsetArgs> target = null;
             if (symbolargsmap.TryGetValue(k.Symbol, out target))
             {
