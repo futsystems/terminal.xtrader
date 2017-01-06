@@ -85,7 +85,7 @@ namespace TradingLib.XTrader.Future
                 content.Add(string.Format("手续费:{0}", report.Commission.ToFormatStr().PadRightEx(columnWidth - 7)));
                 content.Add(string.Format("保证金:{0}", report.Margin.ToFormatStr().PadRightEx(columnWidth - 7)) + split + string.Format("风险度:{0}", (report.Margin / report.NowEquity).ToFormatStr("{0:P}").PadRightEx(columnWidth - 7)));
                 content.Add(string.Empty);
-                content.Add(string.Format("冻结保证金:{0}", report.MarginFrozen.ToFormatStr().PadRightEx(columnWidth -10)) + split + string.Format("冻结手续费:{0}", report.CommissionFrozen.ToFormatStr().PadRightEx(columnWidth - 10)));
+                content.Add(string.Format("冻结保证金:{0}", report.MarginFrozen.ToFormatStr().PadRightEx(columnWidth -11)) + split + string.Format("冻结手续费:{0}", report.CommissionFrozen.ToFormatStr().PadRightEx(columnWidth - 11)));
                 content.Add(string.Format("冻结资金:{0}", (report.CommissionFrozen + report.MarginFrozen).ToFormatStr().PadRightEx(columnWidth - 9)));
                 content.Add(string.Empty);
                 content.Add(string.Format("入金金额:{0}", report.CashIn.ToFormatStr().PadRightEx(columnWidth - 9)) + split + string.Format("出金金额:{0}", report.CashOut.ToFormatStr().PadRightEx(columnWidth - 9)));
