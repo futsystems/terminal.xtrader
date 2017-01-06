@@ -105,7 +105,7 @@ namespace TradingLib.XTrader.Future
             {
                 value.Value = _posOffset.Value;
                 start.Value = _posOffset.Start;
-                size.Value = _posOffset.Size;
+                size.Value = _posOffset.Size<=size.Maximum?_posOffset.Size:size.Maximum;
             }
         }
         /// <summary>

@@ -26,6 +26,17 @@ namespace TradingLib.TraderCore
             argList.Add(this.LossArg);
         }
 
+        public void Reset()
+        {
+            foreach (var offset in this.argList)
+            {
+
+                offset.Enable = false;
+                offset.Fired = false;
+                offset.FlatOrderRefList.Clear();
+                
+            }
+        }
 
         /// <summary>
         /// 对应持仓对象
@@ -38,6 +49,7 @@ namespace TradingLib.TraderCore
         ThreadSafeList<PositionOffsetArg> argList = new ThreadSafeList<PositionOffsetArg>();
 
         public IEnumerable<PositionOffsetArg> PositionOffsetArgList { get { return argList; } }
+
         /// <summary>
         /// 止盈参数
         /// </summary>
@@ -47,138 +59,6 @@ namespace TradingLib.TraderCore
         /// 止损参数
         /// </summary>
         public PositionOffsetArg LossArg { get; set; }
-
-        //public long ProfitTakeOrder { get; set; }//是否已经发送止盈委托
-        //public int ProfitFireCount { get; set; }//止盈委托触发次数
-        //public bool NeedTakeProfit { get; set; }//是否需要出发止盈委托
-        //public DateTime ProfitTakeTime { get; set; }//止盈委托发出时间
-
-        //public decimal ProfitTakePrice
-        //{
-        //    get
-        //    {
-        //        return this.ProfitArg.TargetPrice(this.Position);
-        //    }
-        //}
-
-        //public long LossTakeOrder { get; set; }
-        //public int LossFireCount { get; set; }
-        //public bool NeedTakeLoss { get; set; }
-        //public DateTime LossTakeTime { get; set; }
-        //public decimal LossTakePrice
-        //{
-        //    get
-        //    {
-        //        return this.LossArg.TargetPrice(this.Position);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 是否设置了有效的止盈止损参数
-        ///// 如果设置了止盈止损参数则系统需要检查是否触发了止盈或止损
-        ///// </summary>
-        //public bool NeedCheck
-        //{
-        //    get
-        //    {
-        //        if ((this.ProfitArg != null && this.ProfitArg.Enable) || (this.LossArg != null && this.LossArg.Enable))
-        //            return true;
-        //        else
-        //            return false;
-        //    }
-        //}
-
-
-        ///// <summary>
-        ///// 检查止损
-        ///// </summary>
-        //public bool CheckTakeLoss(Tick k)
-        //{
-        //    if (!this.LossArg.Enable) return false;
-
-        //    decimal hitprice = LossTakePrice;
-        //    bool side = this.Position.DirectionType == QSEnumPositionDirectionType.Long;
-        //    if (side)
-        //    {
-        //        if (k.Trade <= hitprice)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        if (k.Trade >= hitprice)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 检查止盈
-        ///// </summary>
-        ///// <returns></returns>
-        //public bool CheckTakeProfit(Tick k)
-        //{
-        //    if (!this.ProfitArg.Enable) return false;//止盈未启用
-
-        //    bool side = this.Position.DirectionType == QSEnumPositionDirectionType.Long;
-
-        //    if (ProfitArg.OffsetType == QSEnumPositionOffsetType.TRAILING)
-        //    {
-        //        decimal hitprice = ProfitTakePrice;
-        //        if (hitprice > 0)
-        //        {
-        //            if (k.Trade <= hitprice)
-        //            {
-        //                return true;//执行止盈
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Util.Debug("profittakeprice:" + ProfitTakePrice.ToString() + " profit arg enable:" + this.ProfitArg.Enable.ToString());
-        //        decimal hitprice = ProfitTakePrice;
-        //        if (side)
-        //        {
-        //            if (k.Trade >= hitprice)
-        //            {
-        //                return true;//执行止盈
-        //            }
-        //            return false;
-        //        }
-        //        else//空
-        //        {
-        //            if (k.Trade <= hitprice)
-        //            {
-        //                return true;
-        //            }
-        //            return false;
-        //        }
-        //    }
-        //    return false;//不止盈
-        //}
-
-
-        ///// <summary>
-        ///// 重置positionoffset 参数
-        ///// </summary>
-        //public void Reset()
-        //{
-        //    ProfitArg.Enable = false;
-        //    NeedTakeProfit = false;
-        //    ProfitTakeOrder = -1;
-        //    ProfitFireCount = 0;
-        //    ProfitTakeTime = DateTime.Now;
-
-        //    LossArg.Enable = false;
-        //    NeedTakeLoss = false;
-        //    LossTakeOrder = -1;
-        //    LossFireCount = 0;
-        //    LossTakeTime = DateTime.Now;
-        //}
 
     }
 
@@ -207,17 +87,22 @@ namespace TradingLib.TraderCore
         {
             //有持仓生成时 创建该持仓对应的止盈止损数据集
             CoreService.TradingInfoTracker.GotPositionEvent += new Action<Position>(NewPosition);
+
             //响应行情数据 监控持仓止盈止损状态
             CoreService.EventIndicator.GotTickEvent +=new Action<Tick>(GotTick);
+
+            CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFillEvent);
 
             //响应委托回报数据
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
 
         }
 
+        
+
         void EventIndicator_GotOrderEvent(Order obj)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -319,22 +204,21 @@ namespace TradingLib.TraderCore
             }
         }
 
+        void GotFillEvent(Trade obj)
+        {
+            Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,obj.Account,obj.PositionSide];
+            //当持仓归零时重置止盈止损参数
+            if(pos!=null && pos.isFlat)
+            {
+                var arg = GetPositionOffsetArgs(pos);
+                arg.Reset();
+            }
+        }
+
         void ProcessTick(PositionOffsetArgs args,Tick tick)
         {
             //非持仓对应合约 直接返回
             if (tick.Symbol != args.Position.Symbol) return;
-
-            //无持仓 重置所有止盈止损设置
-            //if (args.Position.isFlat)
-            //{
-            //    foreach (var arg in args.PositionOffsetArgList)
-            //    {
-            //        //重置
-            //        arg.Enable = false;
-            //        arg.Fired = false;
-            //        arg.FlatOrderRefList.Clear();
-            //    }
-            //}
 
             foreach (var arg in args.PositionOffsetArgList)
             {
@@ -351,60 +235,6 @@ namespace TradingLib.TraderCore
                     arg.FlatOrderRefList = FlatPosition(args.Position, arg.Size);
                 }
             }
-
-            ////非持仓对应合约 直接返回
-            //if (tick.Symbol != args.Position.Symbol) return;
-
-            ////1.是否设置有效止盈止损
-            //bool needcheck = args.NeedCheck;
-
-            //if (!needcheck) return;//没有有效止盈与止损参数 直接返回
-
-            ////是否触发平仓操作
-            //bool flatsend = args.NeedTakeProfit || args.NeedTakeLoss;
-
-
-            ////如果触发平仓操作并 仓位已经 flat,则重置参数 ->  触发了止盈与止损并平仓了 则表明是止盈或止损平仓
-            //if (flatsend && args.Position.isFlat)
-            //{
-            //    logger.Info("触发平仓操作成功,重置止盈止损参数");
-            //    args.Reset();
-            //    return;
-            //}
-
-            ////如果设置了止盈止损,但是没有持仓了 则重置止盈止损 -> 手工或者其他方式平仓
-            //if (args.Position.isFlat)
-            //{
-            //    logger.Info("持仓被平仓,止盈止损重置");
-            //    args.Reset();
-            //    return;
-            //}
-
-            ////没有触发平仓,并且有持仓 则我们进行检查
-            //if (!flatsend)
-            //{
-            //    args.NeedTakeLoss = args.CheckTakeLoss(tick);
-            //    if (args.NeedTakeLoss)
-            //    {
-            //        args.LossFireCount++;
-            //        args.LossTakeTime = DateTime.Now;
-            //        args.LossTakeOrder = FlatPosition(args.Position,args.LossArg.Size,"客户端止损");
-                    
-            //        logger.Info("触发客户端止损:" + args.LossTakePrice.ToString() + " " + args.LossTakeOrder.ToString());
-            //    }
-
-            //    args.NeedTakeProfit = args.CheckTakeProfit(tick);//检查是否需要止盈
-            //    //如果需要止盈则发送委托
-            //    if (args.NeedTakeProfit)
-            //    {
-            //        args.ProfitFireCount++;//累加触发次数
-            //        args.ProfitTakeTime = DateTime.Now;//记录触发时间
-            //        args.ProfitTakeOrder = FlatPosition(args.Position,args.ProfitArg.Size, "客户端止盈");//平仓
-            //        logger.Info("触发客户端止盈" + args.ProfitTakePrice.ToString() + " " + args.ProfitTakeOrder.ToString());
-
-            //    }
-            //    return;
-            //}
         }
 
 

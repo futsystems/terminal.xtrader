@@ -600,6 +600,11 @@ namespace TradingLib.XTrader.Future
                 try
                 {
                     Position pos = CoreService.TradingInfoTracker.PositionTracker[f.Symbol,f.Account, f.PositionSide];//获得对应持仓数据
+
+                    PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
+                    if (args.ProfitArg.Size > pos.UnsignedSize) args.ProfitArg.Size = pos.UnsignedSize;
+                    if (args.LossArg.Size > pos.UnsignedSize) args.LossArg.Size = pos.UnsignedSize;
+
                     string key = pos.GetPositionKey();
                     int posidx = PosiitonRowIdx(key);
                     if ((posidx > -1) && (posidx < tb.Rows.Count))
@@ -644,6 +649,12 @@ namespace TradingLib.XTrader.Future
                             tb.Rows[i][UNREALIZEDPL] = (pos.UnRealizedPL * pos.oSymbol.Multiple).ToFormatStr() + " " + pos.oSymbol.SecurityFamily.Currency.ToString(); ;
                             tb.Rows[i][UNREALIZEDPOINT] = pos.UnRealizedPL.ToFormatStr();
                             tb.Rows[i][UNREALIZEDPLACCTCURRENCY] = (pos.UnRealizedPL * pos.oSymbol.Multiple*CoreService.TradingInfoTracker.Account.GetExchangeRate(pos.oSymbol.SecurityFamily.Currency)).ToFormatStr();
+
+                            //更新止盈止损数值
+                            string lossstr = GetGridPositionOffsetText(pos, QSEnumPositionOffsetDirection.LOSS);
+                            string profitstr = GetGridPositionOffsetText(pos, QSEnumPositionOffsetDirection.PROFIT);
+                            tb.Rows[i][LOSSTARGET] = lossstr;
+                            tb.Rows[i][PROFITTARGET] = profitstr;
                         }
 
                     }
@@ -666,6 +677,7 @@ namespace TradingLib.XTrader.Future
                 try
                 {
                     Position pos = CoreService.TradingInfoTracker.PositionTracker[order.Symbol,order.Account, order.PositionSide];//获得对应持仓数据
+                    
                     string key = pos.GetPositionKey();
                     int posidx = PosiitonRowIdx(key);
                     if ((posidx > -1) && (posidx < tb.Rows.Count))
@@ -758,7 +770,7 @@ namespace TradingLib.XTrader.Future
             else
             {
                 targetprice = args.ProfitArg.TargetPrice(pos);
-                sizestr = args.ProfitArg.Size == 0 ? "所有" : args.LossArg.Size.ToString();
+                sizestr = args.ProfitArg.Size == 0 ? "所有" : args.ProfitArg.Size.ToString();
             }
 
             if (targetprice == -1)
