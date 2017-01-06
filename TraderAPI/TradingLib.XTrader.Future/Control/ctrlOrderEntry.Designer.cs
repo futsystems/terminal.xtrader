@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageFlashOrder = new System.Windows.Forms.TabPage();
+            this.tabPageThreeBtn = new System.Windows.Forms.TabPage();
+            this.tabPageTradition = new System.Windows.Forms.TabPage();
             this.lbShortCloseVol = new System.Windows.Forms.Label();
             this.lbLongCloseVol = new System.Windows.Forms.Label();
             this.lbShortOpenVol = new System.Windows.Forms.Label();
@@ -43,35 +45,33 @@
             this.inputFlagCloseToday = new System.Windows.Forms.RadioButton();
             this.inputFlagClose = new System.Windows.Forms.RadioButton();
             this.inputFlagOpen = new System.Windows.Forms.RadioButton();
-            this.tabPageThreeBtn = new System.Windows.Forms.TabPage();
             this.panelFlashOrder = new System.Windows.Forms.Panel();
-            this.tabPageTradition = new System.Windows.Forms.TabPage();
             this.panelThreeBtn = new System.Windows.Forms.Panel();
+            this.btnClose = new TradingLib.XTrader.FButton();
+            this.btnBuy = new TradingLib.XTrader.FButton();
+            this.btnSell = new TradingLib.XTrader.FButton();
             this.panelTradition = new System.Windows.Forms.Panel();
-            this.holderPanel_Symbol = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.inputRBuy = new System.Windows.Forms.RadioButton();
             this.inputRSell = new System.Windows.Forms.RadioButton();
-            this.label7 = new System.Windows.Forms.Label();
             this.btnEntryOrder = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.inputSize = new TradingLib.XTrader.Future.FNumberInput();
             this.btnConditionOrder = new TradingLib.XTrader.FButton();
             this.inputPrice = new TradingLib.XTrader.Future.FNumberInput();
             this.btnReset = new TradingLib.XTrader.FButton();
             this.btnQryMaxVol = new TradingLib.XTrader.FButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.holderPanel_Symbol = new System.Windows.Forms.Panel();
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
+            this.label1 = new System.Windows.Forms.Label();
             this.inputArbFlag = new CSharpWin.ComboBoxEx();
-            this.btnClose = new TradingLib.XTrader.FButton();
-            this.btnBuy = new TradingLib.XTrader.FButton();
-            this.btnSell = new TradingLib.XTrader.FButton();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.panelFlashOrder.SuspendLayout();
             this.panelThreeBtn.SuspendLayout();
             this.panelTradition.SuspendLayout();
-            this.holderPanel_Symbol.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.holderPanel_Symbol.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -94,6 +94,26 @@
             this.tabPageFlashOrder.TabIndex = 0;
             this.tabPageFlashOrder.Text = "闪电下单";
             this.tabPageFlashOrder.UseVisualStyleBackColor = true;
+            // 
+            // tabPageThreeBtn
+            // 
+            this.tabPageThreeBtn.Location = new System.Drawing.Point(4, 22);
+            this.tabPageThreeBtn.Name = "tabPageThreeBtn";
+            this.tabPageThreeBtn.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageThreeBtn.Size = new System.Drawing.Size(326, 206);
+            this.tabPageThreeBtn.TabIndex = 1;
+            this.tabPageThreeBtn.Text = "三键下单";
+            this.tabPageThreeBtn.UseVisualStyleBackColor = true;
+            // 
+            // tabPageTradition
+            // 
+            this.tabPageTradition.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTradition.Name = "tabPageTradition";
+            this.tabPageTradition.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTradition.Size = new System.Drawing.Size(326, 206);
+            this.tabPageTradition.TabIndex = 2;
+            this.tabPageTradition.Text = "传统下单";
+            this.tabPageTradition.UseVisualStyleBackColor = true;
             // 
             // lbShortCloseVol
             // 
@@ -223,16 +243,6 @@
             this.inputFlagOpen.Text = "开仓";
             this.inputFlagOpen.UseVisualStyleBackColor = true;
             // 
-            // tabPageThreeBtn
-            // 
-            this.tabPageThreeBtn.Location = new System.Drawing.Point(4, 22);
-            this.tabPageThreeBtn.Name = "tabPageThreeBtn";
-            this.tabPageThreeBtn.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageThreeBtn.Size = new System.Drawing.Size(326, 206);
-            this.tabPageThreeBtn.TabIndex = 1;
-            this.tabPageThreeBtn.Text = "三键下单";
-            this.tabPageThreeBtn.UseVisualStyleBackColor = true;
-            // 
             // panelFlashOrder
             // 
             this.panelFlashOrder.Controls.Add(this.lbShortCloseVol);
@@ -247,16 +257,6 @@
             this.panelFlashOrder.Size = new System.Drawing.Size(320, 200);
             this.panelFlashOrder.TabIndex = 1;
             // 
-            // tabPageTradition
-            // 
-            this.tabPageTradition.Location = new System.Drawing.Point(4, 22);
-            this.tabPageTradition.Name = "tabPageTradition";
-            this.tabPageTradition.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTradition.Size = new System.Drawing.Size(326, 206);
-            this.tabPageTradition.TabIndex = 2;
-            this.tabPageTradition.Text = "传统下单";
-            this.tabPageTradition.UseVisualStyleBackColor = true;
-            // 
             // panelThreeBtn
             // 
             this.panelThreeBtn.Controls.Add(this.btnClose);
@@ -268,6 +268,57 @@
             this.panelThreeBtn.Name = "panelThreeBtn";
             this.panelThreeBtn.Size = new System.Drawing.Size(320, 200);
             this.panelThreeBtn.TabIndex = 2;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.CheckButton = false;
+            this.btnClose.Checked = false;
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnClose.ForeColor = System.Drawing.Color.Black;
+            this.btnClose.IsPriceOn = false;
+            this.btnClose.Location = new System.Drawing.Point(227, 91);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.OrderEntryButton = true;
+            this.btnClose.PriceStr = "";
+            this.btnClose.Size = new System.Drawing.Size(80, 60);
+            this.btnClose.TabIndex = 28;
+            this.btnClose.Text = "平仓";
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnBuy
+            // 
+            this.btnBuy.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuy.CheckButton = false;
+            this.btnBuy.Checked = false;
+            this.btnBuy.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnBuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
+            this.btnBuy.IsPriceOn = false;
+            this.btnBuy.Location = new System.Drawing.Point(21, 90);
+            this.btnBuy.Name = "btnBuy";
+            this.btnBuy.OrderEntryButton = true;
+            this.btnBuy.PriceStr = "";
+            this.btnBuy.Size = new System.Drawing.Size(80, 60);
+            this.btnBuy.TabIndex = 16;
+            this.btnBuy.Text = "买入";
+            this.btnBuy.UseVisualStyleBackColor = true;
+            // 
+            // btnSell
+            // 
+            this.btnSell.BackColor = System.Drawing.Color.Transparent;
+            this.btnSell.CheckButton = false;
+            this.btnSell.Checked = false;
+            this.btnSell.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
+            this.btnSell.IsPriceOn = false;
+            this.btnSell.Location = new System.Drawing.Point(125, 91);
+            this.btnSell.Name = "btnSell";
+            this.btnSell.OrderEntryButton = true;
+            this.btnSell.PriceStr = "";
+            this.btnSell.Size = new System.Drawing.Size(80, 60);
+            this.btnSell.TabIndex = 17;
+            this.btnSell.Text = "卖出";
+            this.btnSell.UseVisualStyleBackColor = true;
             // 
             // panelTradition
             // 
@@ -291,34 +342,14 @@
             this.panelTradition.Size = new System.Drawing.Size(320, 200);
             this.panelTradition.TabIndex = 3;
             // 
-            // holderPanel_Symbol
+            // panel1
             // 
-            this.holderPanel_Symbol.Controls.Add(this.inputSymbol);
-            this.holderPanel_Symbol.Controls.Add(this.label1);
-            this.holderPanel_Symbol.Controls.Add(this.inputArbFlag);
-            this.holderPanel_Symbol.Dock = System.Windows.Forms.DockStyle.Top;
-            this.holderPanel_Symbol.Location = new System.Drawing.Point(0, 0);
-            this.holderPanel_Symbol.Name = "holderPanel_Symbol";
-            this.holderPanel_Symbol.Size = new System.Drawing.Size(320, 32);
-            this.holderPanel_Symbol.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "合约";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 51);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "方向";
+            this.panel1.Controls.Add(this.inputRBuy);
+            this.panel1.Controls.Add(this.inputRSell);
+            this.panel1.Location = new System.Drawing.Point(42, 46);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(124, 22);
+            this.panel1.TabIndex = 34;
             // 
             // inputRBuy
             // 
@@ -342,15 +373,6 @@
             this.inputRSell.Text = "卖出";
             this.inputRSell.UseVisualStyleBackColor = true;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 73);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 12);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "开平";
-            // 
             // btnEntryOrder
             // 
             this.btnEntryOrder.BackColor = System.Drawing.Color.Red;
@@ -363,6 +385,15 @@
             this.btnEntryOrder.TabIndex = 33;
             this.btnEntryOrder.Text = "下 单";
             this.btnEntryOrder.UseVisualStyleBackColor = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 12);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "开平";
             // 
             // inputSize
             // 
@@ -409,6 +440,7 @@
             this.btnConditionOrder.TabIndex = 25;
             this.btnConditionOrder.Text = "条件单";
             this.btnConditionOrder.UseVisualStyleBackColor = true;
+            this.btnConditionOrder.Visible = false;
             // 
             // inputPrice
             // 
@@ -470,6 +502,26 @@
             this.btnQryMaxVol.Text = "查可开";
             this.btnQryMaxVol.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "方向";
+            // 
+            // holderPanel_Symbol
+            // 
+            this.holderPanel_Symbol.Controls.Add(this.inputSymbol);
+            this.holderPanel_Symbol.Controls.Add(this.label1);
+            this.holderPanel_Symbol.Controls.Add(this.inputArbFlag);
+            this.holderPanel_Symbol.Dock = System.Windows.Forms.DockStyle.Top;
+            this.holderPanel_Symbol.Location = new System.Drawing.Point(0, 0);
+            this.holderPanel_Symbol.Name = "holderPanel_Symbol";
+            this.holderPanel_Symbol.Size = new System.Drawing.Size(320, 32);
+            this.holderPanel_Symbol.TabIndex = 2;
+            // 
             // inputSymbol
             // 
             this.inputSymbol.AllowResizeDropDown = true;
@@ -484,6 +536,15 @@
             this.inputSymbol.Size = new System.Drawing.Size(151, 22);
             this.inputSymbol.TabIndex = 18;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "合约";
+            // 
             // inputArbFlag
             // 
             this.inputArbFlag.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
@@ -497,66 +558,6 @@
             this.inputArbFlag.Size = new System.Drawing.Size(80, 22);
             this.inputArbFlag.TabIndex = 24;
             this.inputArbFlag.TabStop = false;
-            // 
-            // btnClose
-            // 
-            this.btnClose.BackColor = System.Drawing.Color.Transparent;
-            this.btnClose.CheckButton = false;
-            this.btnClose.Checked = false;
-            this.btnClose.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnClose.ForeColor = System.Drawing.Color.Black;
-            this.btnClose.IsPriceOn = false;
-            this.btnClose.Location = new System.Drawing.Point(227, 91);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.OrderEntryButton = true;
-            this.btnClose.PriceStr = "";
-            this.btnClose.Size = new System.Drawing.Size(80, 60);
-            this.btnClose.TabIndex = 28;
-            this.btnClose.Text = "平仓";
-            this.btnClose.UseVisualStyleBackColor = true;
-            // 
-            // btnBuy
-            // 
-            this.btnBuy.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuy.CheckButton = false;
-            this.btnBuy.Checked = false;
-            this.btnBuy.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnBuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(9)))), ((int)(((byte)(9)))));
-            this.btnBuy.IsPriceOn = false;
-            this.btnBuy.Location = new System.Drawing.Point(21, 90);
-            this.btnBuy.Name = "btnBuy";
-            this.btnBuy.OrderEntryButton = true;
-            this.btnBuy.PriceStr = "";
-            this.btnBuy.Size = new System.Drawing.Size(80, 60);
-            this.btnBuy.TabIndex = 16;
-            this.btnBuy.Text = "买入";
-            this.btnBuy.UseVisualStyleBackColor = true;
-            // 
-            // btnSell
-            // 
-            this.btnSell.BackColor = System.Drawing.Color.Transparent;
-            this.btnSell.CheckButton = false;
-            this.btnSell.Checked = false;
-            this.btnSell.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnSell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(138)))), ((int)(((byte)(2)))));
-            this.btnSell.IsPriceOn = false;
-            this.btnSell.Location = new System.Drawing.Point(125, 91);
-            this.btnSell.Name = "btnSell";
-            this.btnSell.OrderEntryButton = true;
-            this.btnSell.PriceStr = "";
-            this.btnSell.Size = new System.Drawing.Size(80, 60);
-            this.btnSell.TabIndex = 17;
-            this.btnSell.Text = "卖出";
-            this.btnSell.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.inputRBuy);
-            this.panel1.Controls.Add(this.inputRSell);
-            this.panel1.Location = new System.Drawing.Point(42, 46);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(124, 22);
-            this.panel1.TabIndex = 34;
             // 
             // ctrlOrderEntry
             // 
@@ -576,10 +577,10 @@
             this.panelThreeBtn.PerformLayout();
             this.panelTradition.ResumeLayout(false);
             this.panelTradition.PerformLayout();
-            this.holderPanel_Symbol.ResumeLayout(false);
-            this.holderPanel_Symbol.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.holderPanel_Symbol.ResumeLayout(false);
+            this.holderPanel_Symbol.PerformLayout();
             this.ResumeLayout(false);
 
         }

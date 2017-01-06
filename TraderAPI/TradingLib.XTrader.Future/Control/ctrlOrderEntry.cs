@@ -616,7 +616,7 @@ namespace TradingLib.XTrader.Future
             }
 
             //三键下单根据持仓状态动态显示按钮文字
-            if (_ordermode == 1)
+            if (_ordermode == 1 && _symbol != null)
             {
                 Position lpos = CoreService.TradingInfoTracker.PositionTracker[_symbol.Symbol, CoreService.TradingInfoTracker.Account.Account, true];
                 Position spos = CoreService.TradingInfoTracker.PositionTracker[_symbol.Symbol, CoreService.TradingInfoTracker.Account.Account, false];
