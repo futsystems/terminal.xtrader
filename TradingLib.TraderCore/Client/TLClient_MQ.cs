@@ -42,7 +42,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 服务类型，数据/成交/两者同时支持
         /// </summary>
-        public QSEnumProviderType ProviderType { get; set; }
+        //public QSEnumProviderType ProviderType { get; set; }
 
         AsyncClient _mqcli = null;//通讯client组件
         int _tickerrors = 0;//tick数据处理错误计数
@@ -991,7 +991,7 @@ namespace TradingLib.TraderCore
         {
             logger.Info(PROGRAME + ":Checing TickDataSupport...");
             //logger.Info(_skip+"providertype:" + ProviderType.ToString());
-            if (_rfl.Contains(MessageTypes.TICKNOTIFY) && (ProviderType == QSEnumProviderType.DataFeed || ProviderType == QSEnumProviderType.Both))
+            if (_rfl.Contains(MessageTypes.TICKNOTIFY))
             {
                 logger.Info(_skip + "Spuuort Tick we subscribde tick data server");
                 //放入线程中执行有可能业务注册合约时 Tick通道没有正常启动
