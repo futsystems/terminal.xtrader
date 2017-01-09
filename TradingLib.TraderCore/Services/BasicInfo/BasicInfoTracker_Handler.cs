@@ -20,12 +20,12 @@ namespace TradingLib.TraderCore
         }
 
 
-        public void GotMarketTime(MarketTime mt, bool islast)
+        public void GotMarketTime(MarketTimeImpl mt, bool islast)
         {
             if (mt != null)
             {
-                MarketTime target = null;
-                MarketTime notify = null;
+                MarketTimeImpl target = null;
+                MarketTimeImpl notify = null;
                 if (markettimemap.TryGetValue(mt.ID, out target))
                 {
                     //更新
@@ -47,12 +47,12 @@ namespace TradingLib.TraderCore
 
         }
 
-        public void GotExchange(Exchange ex, bool islast)
+        public void GotExchange(ExchangeImpl ex, bool islast)
         {
             if (ex != null)
             {
-                Exchange target = null;
-                Exchange notify = null;
+                ExchangeImpl target = null;
+                ExchangeImpl notify = null;
                 if (exchangemap.TryGetValue(ex.ID, out target))
                 {
                     //更新

@@ -25,7 +25,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 交易所
         /// </summary>
-        public IEnumerable<Exchange> Exchanges
+        public IEnumerable<ExchangeImpl> Exchanges
         {
             get
             {
@@ -61,9 +61,9 @@ namespace TradingLib.TraderCore
 
 
 
-        public MarketTime GetMarketTime(int id)
+        public MarketTimeImpl GetMarketTime(int id)
         {
-            MarketTime mt = null;
+            MarketTimeImpl mt = null;
             if (markettimemap.TryGetValue(id, out mt))
             {
                 return mt;
@@ -71,9 +71,9 @@ namespace TradingLib.TraderCore
             return null;
         }
 
-        public Exchange GetExchange(int id)
+        public ExchangeImpl GetExchange(int id)
         {
-            Exchange ex = null;
+            ExchangeImpl ex = null;
             if (exchangemap.TryGetValue(id, out ex))
             {
                 return ex;

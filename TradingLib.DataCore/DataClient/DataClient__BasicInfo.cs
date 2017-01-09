@@ -16,12 +16,12 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 市场时间段map
         /// </summary>
-        Dictionary<int, MarketTime> markettimemap = new Dictionary<int, MarketTime>();
+        Dictionary<int, MarketTimeImpl> markettimemap = new Dictionary<int, MarketTimeImpl>();
 
         /// <summary>
         /// 交易所map
         /// </summary>
-        Dictionary<int, Exchange> exchangemap = new Dictionary<int, Exchange>();
+        Dictionary<int, ExchangeImpl> exchangemap = new Dictionary<int, ExchangeImpl>();
 
         /// <summary>
         /// 品种map
@@ -67,9 +67,9 @@ namespace TradingLib.DataCore
         }
 
 
-        void GotMarketTime(MarketTime mt)
+        void GotMarketTime(MarketTimeImpl mt)
         {
-            MarketTime target = null;
+            MarketTimeImpl target = null;
             if (markettimemap.TryGetValue(mt.ID, out target))
             {
                 target.Name = mt.Name;
@@ -107,9 +107,9 @@ namespace TradingLib.DataCore
             }
         }
 
-        void GotExchange(Exchange exchange)
+        void GotExchange(ExchangeImpl exchange)
         {
-            Exchange target = null;
+            ExchangeImpl target = null;
             if (exchangemap.TryGetValue(exchange.ID, out target))
             {
                 target.Name = exchange.Name;
@@ -293,7 +293,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 市场时间段
         /// </summary>
-        public IEnumerable<IMarketTime> MarketTimes
+        public IEnumerable<MarketTime> MarketTimes
         {
             get
             {
@@ -304,7 +304,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 交易所
         /// </summary>
-        public IEnumerable<Exchange> Exchanges
+        public IEnumerable<ExchangeImpl> Exchanges
         {
             get
             {
@@ -335,9 +335,9 @@ namespace TradingLib.DataCore
             }
         }
 
-        private MarketTime GetMarketTime(int id)
+        private MarketTimeImpl GetMarketTime(int id)
         {
-            MarketTime mt = null;
+            MarketTimeImpl mt = null;
             if (markettimemap.TryGetValue(id, out mt))
             {
                 return mt;
@@ -345,9 +345,9 @@ namespace TradingLib.DataCore
             return null;
         }
 
-        private Exchange GetExchange(int id)
+        private ExchangeImpl GetExchange(int id)
         {
-            Exchange ex = null;
+            ExchangeImpl ex = null;
             if (exchangemap.TryGetValue(id, out ex))
             {
                 return ex;

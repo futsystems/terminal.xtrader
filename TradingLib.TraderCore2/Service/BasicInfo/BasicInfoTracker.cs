@@ -40,12 +40,12 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 市场时间段map
         /// </summary>
-        Dictionary<int, MarketTime> markettimemap = new Dictionary<int, MarketTime>();
+        Dictionary<int, MarketTimeImpl> markettimemap = new Dictionary<int, MarketTimeImpl>();
 
         /// <summary>
         /// 交易所map
         /// </summary>
-        Dictionary<int, Exchange> exchangemap = new Dictionary<int, Exchange>();
+        Dictionary<int, ExchangeImpl> exchangemap = new Dictionary<int, ExchangeImpl>();
 
         /// <summary>
         /// 品种map
