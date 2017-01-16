@@ -35,14 +35,14 @@ namespace TradingLib.DataFarmManager
             btnDel.Click += new EventHandler(btnDel_Click);
             btnSubmit.Click += new EventHandler(btnSubmit_Click);
 
-            DataCoreService.EventManager.OnMGRUpdateMarketTimeResponse += new Action<RspMGRUpdateMarketTimeResponse>(EventManager_OnMGRUpdateMarketTimeResponse);
-
-            //timezone.SelectedIndex = 1;
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_MARKETTIME, OnRspUpdateMarketTime);
         }
 
-        void EventManager_OnMGRUpdateMarketTimeResponse(RspMGRUpdateMarketTimeResponse obj)
+        void OnRspUpdateMarketTime(string json,bool isLast)
         {
-            SetMarketTime(obj.MarketTime);
+            string message = json.DeserializeObject<string>();
+            var mt = MarketTimeImpl.Deserialize(message);
+            SetMarketTime(mt);
         }
 
 
@@ -145,9 +145,9 @@ namespace TradingLib.DataFarmManager
             }
         }
 
-        MarketTime _mt = null;
+        MarketTimeImpl _mt = null;
 
-        public void SetMarketTime(MarketTime mt)
+        public void SetMarketTime(MarketTimeImpl mt)
         {
             //清空原有数据
             rangemap.Clear();

@@ -46,7 +46,7 @@ namespace TradingLib.DataFarmManager
                 string symbol = barGrid.SelectedRows[0].Cells[SYMBOL].Value.ToString();
 
                 MessageBox.Show(exchange + " " + symbol);
-                DataCoreService.DataClient.ReqContribRequest("DataFarm", "ResetRestoreTask", TradingLib.Mixins.Json.JsonMapper.ToJson(new { exchange = exchange, symbol = symbol }));
+                DataCoreService.DataClient.ReqContribRequest("DataFarm", "ResetRestoreTask",new { exchange = exchange, symbol = symbol });
             }
             else
             {
@@ -73,7 +73,7 @@ namespace TradingLib.DataFarmManager
 
         void OnTaskStatus(string json, bool islast)
         {
-            RestoreTask[] items = ManagerHelper.ParseJsonResponse<RestoreTask[]>(json);
+            RestoreTask[] items = json.DeserializeObject<RestoreTask[]>();
             if (items == null) return;
             foreach (var item in items)
             {

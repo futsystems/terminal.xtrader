@@ -12,7 +12,6 @@ namespace TradingLib.DataCore
 
     public partial class DataClient
     {
-
         /// <summary>
         /// 发送数据包
         /// </summary>
@@ -288,13 +287,25 @@ namespace TradingLib.DataCore
         /// <param name="cmdStr">命令编号</param>
         /// <param name="args">命令参数</param>
         /// <returns></returns>
-        public int ReqContribRequest(string moduleId, string cmdStr, string args)
+        public int ReqContribRequest(string moduleId, string cmdStr, string args,bool asjson = false)
         {
             int reqid = NextRequestID;
             MGRContribRequest request = RequestTemplate<MGRContribRequest>.CliSendRequest(reqid);
             request.ModuleID = moduleId;
             request.CMDStr = cmdStr;
-            request.Parameters = args;
+            request.Parameters = asjson ? args.SerializeObject() : args;
+
+            mktClient.TLSend(request);
+            return reqid;
+        }
+
+        public int ReqContribRequest(string moduleId, string cmdStr, object obj)
+        {
+            int reqid = NextRequestID;
+            MGRContribRequest request = RequestTemplate<MGRContribRequest>.CliSendRequest(reqid);
+            request.ModuleID = moduleId;
+            request.CMDStr = cmdStr;
+            request.Parameters = obj.SerializeObject();
 
             mktClient.TLSend(request);
             return reqid;

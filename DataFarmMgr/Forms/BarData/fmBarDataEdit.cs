@@ -29,16 +29,16 @@ namespace TradingLib.DataFarmManager
 
                 if (MessageBox.Show("确认删除Bar数据", "删除Bar数据", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    string cmd = TradingLib.Mixins.Json.JsonMapper.ToJson(
+                    string cmd =
                     new
                     {
-                        Exchange=_symbol.Exchange,
-                        Symbol=_symbol.Symbol,
+                        Exchange = _symbol.Exchange,
+                        Symbol = _symbol.Symbol,
                         IntervalType = BarInterval.CustomTime,
-                        Interval=60,
-                        ID=new int[]{_bar.ID},
-                        
-                    });
+                        Interval = 60,
+                        ID = new int[] { _bar.ID },
+
+                    }.SerializeObject();
                     DataCoreService.DataClient.ReqContribRequest("DataFarm", "DeleteBar", cmd);
                 }
             }
@@ -60,8 +60,7 @@ namespace TradingLib.DataFarmManager
                     _bar.OpenInterest = (int)oi.Value;
                     _bar.TradeCount = (int)xCount.Value;
                     _bar.TradingDay = (int)tradingday.Value;
-                    string barstr = TradingLib.Mixins.Json.JsonMapper.ToJson(_bar);
-                    DataCoreService.DataClient.ReqContribRequest("DataFarm", "UpdateBar", barstr);
+                    DataCoreService.DataClient.ReqContribRequest("DataFarm", "UpdateBar", _bar);
                 }
             }
             else

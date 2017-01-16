@@ -36,20 +36,20 @@ namespace TradingLib.DataCore
         }
 
 
-        EventManager _eventManager;
+        //EventManager _eventManager;
 
-        /// <summary>
-        /// 管理事件集合
-        /// </summary>
-        public static EventManager EventManager
-        {
-            get
-            {
-                if (defaultinstance._eventManager == null)
-                    defaultinstance._eventManager = new EventManager();
-                return defaultinstance._eventManager;
-            }
-        }
+        ///// <summary>
+        ///// 管理事件集合
+        ///// </summary>
+        //public static EventManager EventManager
+        //{
+        //    get
+        //    {
+        //        if (defaultinstance._eventManager == null)
+        //            defaultinstance._eventManager = new EventManager();
+        //        return defaultinstance._eventManager;
+        //    }
+        //}
 
 
         EventContrib _eventContrib;

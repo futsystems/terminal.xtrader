@@ -45,13 +45,16 @@ namespace TradingLib.DataFarmManager
             secGrid.DoubleClick += new EventHandler(secGrid_DoubleClick);
             btnAddSecurity.Click += new EventHandler(btnAddSecurity_Click);
 
-            DataCoreService.EventManager.OnMGRUpdateSecurityResponse += new Action<RspMGRUpdateSecurityResponse>(EventManager_OnMGRUpdateSecurityResponse);
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_SECURITY, OnRspUpdateSecurity);
         }
 
-        void EventManager_OnMGRUpdateSecurityResponse(RspMGRUpdateSecurityResponse obj)
+        void OnRspUpdateSecurity(string json,bool isLast)
         {
-            SecurityFamilyImpl sec = DataCoreService.DataClient.GetSecurity(obj.SecurityFaimly.Code);
-            InvokGotSecurity(sec);
+            string message = json.DeserializeObject<string>();
+            var sec = SecurityFamilyImpl.Deserialize(message);
+
+            SecurityFamilyImpl localsec = DataCoreService.DataClient.GetSecurity(sec.Code);
+            InvokGotSecurity(localsec);
         }
 
         void btnAddSecurity_Click(object sender, EventArgs e)

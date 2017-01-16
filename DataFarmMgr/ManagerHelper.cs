@@ -6,41 +6,40 @@ using System.Text;
 using System.Windows.Forms;
 using TradingLib.API;
 using TradingLib.Common;
-using TradingLib.Mixins.Json;
 using TradingLib.DataCore;
 
 namespace TradingLib.DataFarmManager
 {
     public class ManagerHelper
     {
-        /// <summary>
-        /// 解析返回的Json数据到对象
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static T ParseJsonResponse<T>(string json)
-        {
-            JsonReply<T> reply = JsonReply.ParseReply<T>(json);
-            if (reply.Code == 0)
-            {
-                return reply.Payload;
-            }
-            else
-            {
-                return default(T);
-            }
-        }
+        ///// <summary>
+        ///// 解析返回的Json数据到对象
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="json"></param>
+        ///// <returns></returns>
+        //public static T ParseJsonResponse<T>(string json)
+        //{
+        //    JsonReply<T> reply = JsonReply.ParseReply<T>(json);
+        //    if (reply.Code == 0)
+        //    {
+        //        return reply.Payload;
+        //    }
+        //    else
+        //    {
+        //        return default(T);
+        //    }
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static TradingLib.Mixins.Json.JsonData ToJsonObject(string json)
-        {
-            return TradingLib.Mixins.Json.JsonMapper.ToObject(json);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="json"></param>
+        ///// <returns></returns>
+        //public static TradingLib.Mixins.Json.JsonData ToJsonObject(string json)
+        //{
+        //    return TradingLib.Mixins.Json.JsonMapper.ToObject(json);
+        //}
 
 
         /// <summary>
@@ -106,7 +105,7 @@ namespace TradingLib.DataFarmManager
             }
             else
             {
-                foreach (SecurityFamilyImpl sec in DataCoreService.DataClient.Securities.Where(ex => (ex != null && ((ex.Exchange as Exchange).ID == id))).ToArray())
+                foreach (SecurityFamilyImpl sec in DataCoreService.DataClient.Securities.Where(ex => (ex != null && ((ex.Exchange as ExchangeImpl).ID == id))).ToArray())
                 {
                     ValueObject<int> vo = new ValueObject<int>();
                     vo.Name = sec.Code + "-" + sec.Name;
@@ -229,7 +228,7 @@ namespace TradingLib.DataFarmManager
                 vo1.Value = 0;
                 list.Add(vo1);
             }
-            foreach (MarketTime mt in DataCoreService.DataClient.MarketTimes)
+            foreach (MarketTimeImpl mt in DataCoreService.DataClient.MarketTimes)
             {
                 ValueObject<int> vo = new ValueObject<int>();
                 vo.Name = mt.Name;

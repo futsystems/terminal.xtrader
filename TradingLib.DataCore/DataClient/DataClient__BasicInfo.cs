@@ -58,13 +58,13 @@ namespace TradingLib.DataCore
             }
         }
 
-        void OnMGRUpdateMarketTime(RspMGRUpdateMarketTimeResponse response)
-        {
-            if (response.MarketTime != null)
-            {
-                GotMarketTime(response.MarketTime);
-            }
-        }
+        //void OnMGRUpdateMarketTime(RspMGRUpdateMarketTimeResponse response)
+        //{
+        //    if (response.MarketTime != null)
+        //    {
+        //        GotMarketTime(response.MarketTime);
+        //    }
+        //}
 
 
         void GotMarketTime(MarketTimeImpl mt)
@@ -99,13 +99,13 @@ namespace TradingLib.DataCore
             }
         }
 
-        void OnMGRUpdateExchange(RspMGRUpdateExchangeResponse response)
-        {
-            if (response.Exchange != null)
-            {
-                GotExchange(response.Exchange);
-            }
-        }
+        //void OnMGRUpdateExchange(RspMGRUpdateExchangeResponse response)
+        //{
+        //    if (response.Exchange != null)
+        //    {
+        //        GotExchange(response.Exchange);
+        //    }
+        //}
 
         void GotExchange(ExchangeImpl exchange)
         {
@@ -142,13 +142,13 @@ namespace TradingLib.DataCore
             }
         }
 
-        void OnMGRUpdateSecurity(RspMGRUpdateSecurityResponse response)
-        {
-            if (response.SecurityFaimly != null)
-            {
-                GotSecurity(response.SecurityFaimly);
-            }
-        }
+        //void OnMGRUpdateSecurity(RspMGRUpdateSecurityResponse response)
+        //{
+        //    if (response.SecurityFaimly != null)
+        //    {
+        //        GotSecurity(response.SecurityFaimly);
+        //    }
+        //}
 
         void GotSecurity(SecurityFamilyImpl sec)
         {
@@ -209,13 +209,13 @@ namespace TradingLib.DataCore
 
         }
 
-        void OnMGRUpdateSymbol(RspMGRUpdateSymbolResponse response)
-        {
-            if (response.Symbol != null)
-            {
-                GotSymbol(response.Symbol);
-            }
-        }
+        //void OnMGRUpdateSymbol(RspMGRUpdateSymbolResponse response)
+        //{
+        //    if (response.Symbol != null)
+        //    {
+        //        GotSymbol(response.Symbol);
+        //    }
+        //}
 
         void GotSymbol(SymbolImpl symbol)
         {
@@ -293,7 +293,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 市场时间段
         /// </summary>
-        public IEnumerable<MarketTime> MarketTimes
+        public IEnumerable<MarketTimeImpl> MarketTimes
         {
             get
             {

@@ -35,21 +35,24 @@ namespace TradingLib.DataFarmManager
             //exchangeGrid.DoubleClick += new EventHandler(exchangegrid_DoubleClick);
             exchangeGrid.DoubleClick += new EventHandler(exchangeGrid_DoubleClick);
             //btnAddExchange.Click += new EventHandler(btnAddExchange_Click);
-            DataCoreService.EventManager.OnMGRUpdateExchangeResponse += new Action<RspMGRUpdateExchangeResponse>(EventManager_OnMGRUpdateExchangeResponse);
-            foreach (Exchange ex in DataCoreService.DataClient.Exchanges)
+            
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_EXCHANGE, OnRspUpdateExchange);
+            foreach (ExchangeImpl ex in DataCoreService.DataClient.Exchanges)
             {
                 this.InvokeGotExchange(ex);
             }
         }
 
-        void EventManager_OnMGRUpdateExchangeResponse(RspMGRUpdateExchangeResponse obj)
+        void OnRspUpdateExchange(string json,bool isLast)
         {
-            InvokeGotExchange(obj.Exchange);
+            string message = json.DeserializeObject<string>();
+            var ex = ExchangeImpl.Deserialize(message);
+            InvokeGotExchange(ex);
         }
 
         void exchangeGrid_DoubleClick(object sender, EventArgs e)
         {
-            Exchange current = GetExchangeSelected(CurrentExchangeID);
+            ExchangeImpl current = GetExchangeSelected(CurrentExchangeID);
             if (current == null)
             {
                 MessageBox.Show("请选择要编辑的交易所");
@@ -82,9 +85,9 @@ namespace TradingLib.DataFarmManager
 
 
         //通过行号得该行的Security
-        Exchange GetExchangeSelected(int id)
+        ExchangeImpl GetExchangeSelected(int id)
         {
-            Exchange ex = null;
+            ExchangeImpl ex = null;
             if (exchangemap.TryGetValue(id, out ex))
             {
                 return ex;
@@ -97,7 +100,7 @@ namespace TradingLib.DataFarmManager
         }
 
         Dictionary<int, int> exchangeidmap = new Dictionary<int, int>();
-        Dictionary<int, Exchange> exchangemap = new Dictionary<int, Exchange>();
+        Dictionary<int, ExchangeImpl> exchangemap = new Dictionary<int, ExchangeImpl>();
 
         int ExchangeIdx(int id)
         {
@@ -114,11 +117,11 @@ namespace TradingLib.DataFarmManager
 
 
        
-        void InvokeGotExchange(Exchange ex)
+        void InvokeGotExchange(ExchangeImpl ex)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<Exchange>(InvokeGotExchange), new object[] { ex });
+                Invoke(new Action<ExchangeImpl>(InvokeGotExchange), new object[] { ex });
             }
             else
             {

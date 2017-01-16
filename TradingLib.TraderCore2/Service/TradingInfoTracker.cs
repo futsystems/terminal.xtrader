@@ -47,7 +47,7 @@ namespace TradingLib.TraderCore
         /// <summary>
         /// 交易账户对象
         /// </summary>
-        public AccountLite Account { get; set; }
+        public AccountItem Account { get; set; }
 
         /// <summary>
         /// 合约
@@ -62,7 +62,7 @@ namespace TradingLib.TraderCore
             HoldPositionTracker = new LSPositionTracker("");
             TradeTracker = new ThreadSafeList<Trade>();
             TickTracker = new TickTracker();
-            Account = new AccountLite();
+            Account = new AccountItem();
 
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
@@ -72,7 +72,7 @@ namespace TradingLib.TraderCore
             CoreService.EventHub.OnRspXQryOrderResponse += new Action<Order, RspInfo, int, bool>(EventQry_OnRspXQryOrderResponse);
             CoreService.EventHub.OnRspXQryYDPositionResponse += new Action<PositionDetail, RspInfo, int, bool>(EventQry_OnRspXQryYDPositionResponse);
             CoreService.EventHub.OnRspXQryFillResponese += new Action<Trade, RspInfo, int, bool>(EventQry_OnRspXQryFillResponese);
-            CoreService.EventHub.OnRspXQryAccountResponse += new Action<AccountLite, RspInfo, int, bool>(EventQry_OnRspXQryAccountResponse);
+            CoreService.EventHub.OnRspXQryAccountResponse += new Action<AccountItem, RspInfo, int, bool>(EventQry_OnRspXQryAccountResponse);
             PositionTracker.NewPositionEvent += new Action<Position>(PositionTracker_NewPositionEvent);
         }
 
@@ -233,7 +233,7 @@ namespace TradingLib.TraderCore
             }
         }
 
-        void EventQry_OnRspXQryAccountResponse(AccountLite arg1, RspInfo arg2, int arg3, bool arg4)
+        void EventQry_OnRspXQryAccountResponse(AccountItem arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qryaccountinfoid) return;
             CoreService.TradingInfoTracker.Account = arg1;

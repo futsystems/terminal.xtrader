@@ -29,16 +29,16 @@ namespace TradingLib.DataFarmManager
             ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList());
             ManagerHelper.AdapterToIDataSource(cbSecurity).BindDataSource(ManagerHelper.GetSecurityCombListViaExchange(0));
 
-            DataCoreService.EventManager.OnMGRUpdateSymbolResponse += new Action<RspMGRUpdateSymbolResponse>(EventManager_OnMGRUpdateSymbolResponse);
-            
-
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_SYMBOL, OnRspUpdateSymbol);
             this.Load += new EventHandler(fmSymbolList_Load);
         }
 
-        void EventManager_OnMGRUpdateSymbolResponse(RspMGRUpdateSymbolResponse obj)
+        void OnRspUpdateSymbol(string json,bool isLast)
         {
-            SecurityFamilyImpl sec = DataCoreService.DataClient.GetSecurity(obj.Symbol.security_fk);
-            SymbolImpl symbol = DataCoreService.DataClient.GetSymbol(sec.Exchange.EXCode, obj.Symbol.Symbol);
+            string message = json.DeserializeObject<string>();
+            var sym = SymbolImpl.Deserialize(message);
+            SecurityFamilyImpl sec = DataCoreService.DataClient.GetSecurity(sym.security_fk);
+            SymbolImpl symbol = DataCoreService.DataClient.GetSymbol(sec.Exchange.EXCode, sym.Symbol);
             InvokeGotSymbol(symbol);
         }
 
@@ -194,7 +194,7 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][SECID] = sym.SecurityFamily != null ? (sym.SecurityFamily as SecurityFamilyImpl).ID : 0;
                     gt.Rows[i][SECCODE] = sym.SecurityFamily != null ? sym.SecurityFamily.Code : "未设置";
                     gt.Rows[i][SECTYPE] = sym.SecurityType;
-                    gt.Rows[i][EXCHANGEID] = sym.SecurityFamily != null ? (sym.SecurityFamily.Exchange as Exchange).ID : 0;
+                    gt.Rows[i][EXCHANGEID] = sym.SecurityFamily != null ? (sym.SecurityFamily.Exchange as ExchangeImpl).ID : 0;
                     gt.Rows[i][EXCHANGE] = sym.SecurityFamily != null ? sym.SecurityFamily.Exchange.Title : "未设置";
 
                
@@ -213,7 +213,7 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][SECID] = sym.SecurityFamily != null ? (sym.SecurityFamily as SecurityFamilyImpl).ID : 0;
                     gt.Rows[i][SECCODE] = sym.SecurityFamily != null ? sym.SecurityFamily.Code : "未设置";
                     gt.Rows[i][SECTYPE] = sym.SecurityType;
-                    gt.Rows[i][EXCHANGEID] = sym.SecurityFamily != null ? (sym.SecurityFamily.Exchange as Exchange).ID : 0;
+                    gt.Rows[i][EXCHANGEID] = sym.SecurityFamily != null ? (sym.SecurityFamily.Exchange as ExchangeImpl).ID : 0;
                     gt.Rows[i][EXCHANGE] = sym.SecurityFamily != null ? sym.SecurityFamily.Exchange.Title : "未设置";
 
                     gt.Rows[i][MONTH] = GetMonth(sym);//sym.Month;

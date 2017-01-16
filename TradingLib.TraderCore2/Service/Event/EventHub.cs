@@ -49,8 +49,8 @@ namespace TradingLib.TraderCore
         }
 
 
-        public event Action<AccountLite, RspInfo, int, bool> OnRspXQryAccountResponse;
-        internal void FireRspXQryAccountResponse(AccountLite info, RspInfo rsp, int requestId, bool isLast)
+        public event Action<AccountItem, RspInfo, int, bool> OnRspXQryAccountResponse;
+        internal void FireRspXQryAccountResponse(AccountItem info, RspInfo rsp, int requestId, bool isLast)
         {
             if (OnRspXQryAccountResponse != null)
             {

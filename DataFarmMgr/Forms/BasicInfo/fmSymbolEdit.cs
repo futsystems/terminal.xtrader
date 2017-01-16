@@ -341,7 +341,7 @@ namespace TradingLib.DataFarmManager
 
                 this.Text = "编辑合约[" + _symbol.Symbol + "]";
 
-                int exid = _symbol.SecurityFamily != null ? (_symbol.SecurityFamily.Exchange as Exchange).ID : 0;
+                int exid = _symbol.SecurityFamily != null ? (_symbol.SecurityFamily.Exchange as ExchangeImpl).ID : 0;
                 cbExchange.SelectedValue = exid;
                 cbExchange.Enabled = false;
 

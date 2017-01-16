@@ -194,13 +194,13 @@ namespace TradingLib.DataCore
 
                 
                 #region 管理操作
-                case MessageTypes.MGRCONTRIBRESPONSE:
+                case MessageTypes.MGR_RSP_CONTRIB:
                     { 
                         RspMGRContribResponse response = obj as RspMGRContribResponse;
                         DataCoreService.EventContrib.OnMGRContribResponse(response);
                         return;
                     }
-                case MessageTypes.MGRCONTRIBRNOTIFY:
+                case MessageTypes.MGR_RTN_CONTRIB:
                     {
                         NotifyMGRContribNotify notify = obj as NotifyMGRContribNotify;
                         DataCoreService.EventContrib.OnMGRContribNotifyResponse(notify);
@@ -208,38 +208,38 @@ namespace TradingLib.DataCore
                     }
 
 
-                //合约更新回报
-                case MessageTypes.MGRUPDATESYMBOLRESPONSE:
-                    {
-                        RspMGRUpdateSymbolResponse response = obj as RspMGRUpdateSymbolResponse;
-                        this.OnMGRUpdateSymbol(response);
-                        DataCoreService.EventManager.FireOnMGRUpdateSymbolResponse(response);
+                ////合约更新回报
+                //case MessageTypes.MGRUPDATESYMBOLRESPONSE:
+                //    {
+                //        RspMGRUpdateSymbolResponse response = obj as RspMGRUpdateSymbolResponse;
+                //        this.OnMGRUpdateSymbol(response);
+                //        DataCoreService.EventManager.FireOnMGRUpdateSymbolResponse(response);
 
-                        break;
-                    }
-                //品种更新回报
-                case MessageTypes.MGRUPDATESECURITYRESPONSE:
-                    {
-                        RspMGRUpdateSecurityResponse response = obj as RspMGRUpdateSecurityResponse;
-                        this.OnMGRUpdateSecurity(response);
-                        DataCoreService.EventManager.FireOnMGRUpdateSecurityResponse(response);
-                        break;
-                    }
-                //更新交易所回报
-                case MessageTypes.MGRUPDATEEXCHANGERESPONSE:
-                    {
-                        RspMGRUpdateExchangeResponse response = obj as RspMGRUpdateExchangeResponse;
-                        this.OnMGRUpdateExchange(response);
-                        DataCoreService.EventManager.FireOnMGRUpdateExchangeResponse(response);
-                        break;
-                    }
-                case MessageTypes.MGRUPDATEMARKETTIMERESPONSE:
-                    {
-                        RspMGRUpdateMarketTimeResponse response = obj as RspMGRUpdateMarketTimeResponse;
-                        this.OnMGRUpdateMarketTime(response);
-                        DataCoreService.EventManager.FireOnMGRUpdateMarketTimeResponse(response);
-                        break;
-                    }
+                //        break;
+                //    }
+                ////品种更新回报
+                //case MessageTypes.MGRUPDATESECURITYRESPONSE:
+                //    {
+                //        RspMGRUpdateSecurityResponse response = obj as RspMGRUpdateSecurityResponse;
+                //        this.OnMGRUpdateSecurity(response);
+                //        DataCoreService.EventManager.FireOnMGRUpdateSecurityResponse(response);
+                //        break;
+                //    }
+                ////更新交易所回报
+                //case MessageTypes.MGRUPDATEEXCHANGERESPONSE:
+                //    {
+                //        RspMGRUpdateExchangeResponse response = obj as RspMGRUpdateExchangeResponse;
+                //        this.OnMGRUpdateExchange(response);
+                //        DataCoreService.EventManager.FireOnMGRUpdateExchangeResponse(response);
+                //        break;
+                //    }
+                //case MessageTypes.MGRUPDATEMARKETTIMERESPONSE:
+                //    {
+                //        RspMGRUpdateMarketTimeResponse response = obj as RspMGRUpdateMarketTimeResponse;
+                //        this.OnMGRUpdateMarketTime(response);
+                //        DataCoreService.EventManager.FireOnMGRUpdateMarketTimeResponse(response);
+                //        break;
+                //    }
                 #endregion
 
 

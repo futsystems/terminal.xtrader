@@ -32,7 +32,7 @@ namespace TradingLib.DataFarmManager
         void mktimeGrid_DoubleClick(object sender, EventArgs e)
         {
             fmMarketTimeEdit fm = new fmMarketTimeEdit();
-            MarketTime mt = GetVisibleMarketTime(CurrentMarketTimeID);
+            MarketTimeImpl mt = GetVisibleMarketTime(CurrentMarketTimeID);
             if (mt != null)
             {
                 fm.SetMarketTime(mt);
@@ -42,7 +42,7 @@ namespace TradingLib.DataFarmManager
 
         void fmMarketTimeList_Load(object sender, EventArgs e)
         {
-            foreach (MarketTime mt in DataCoreService.DataClient.MarketTimes)
+            foreach (MarketTimeImpl mt in DataCoreService.DataClient.MarketTimes)
             {
                 InvokeGotMarketTime(mt);
             }
@@ -69,9 +69,9 @@ namespace TradingLib.DataFarmManager
         }
 
         //通过行号得该行的Security
-        MarketTime GetVisibleMarketTime(int id)
+        MarketTimeImpl GetVisibleMarketTime(int id)
         {
-            MarketTime mt = null;
+            MarketTimeImpl mt = null;
             if (markettimemap.TryGetValue(id, out mt))
             {
                 return mt;
@@ -85,7 +85,7 @@ namespace TradingLib.DataFarmManager
 
 
 
-        Dictionary<int, MarketTime> markettimemap = new Dictionary<int, MarketTime>();
+        Dictionary<int, MarketTimeImpl> markettimemap = new Dictionary<int, MarketTimeImpl>();
         Dictionary<int, int> markettimeidxmap = new Dictionary<int, int>();
 
         int MarketTimeIdx(int id)
@@ -103,11 +103,11 @@ namespace TradingLib.DataFarmManager
 
 
 
-        void InvokeGotMarketTime(MarketTime mt)
+        void InvokeGotMarketTime(MarketTimeImpl mt)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<MarketTime>(InvokeGotMarketTime), new object[] { mt });
+                Invoke(new Action<MarketTimeImpl>(InvokeGotMarketTime), new object[] { mt });
             }
             else
             {

@@ -36,7 +36,7 @@ namespace TradingLib.DataFarmManager
             }
             else
             {
-                TradingLib.Mixins.Json.JsonData data =  TradingLib.Mixins.Json.JsonMapper.ToObject(json);
+                var data = json.DeserializeObject();
                 lbCurrentTickSrv.Text = data["Payload"]["Server"].ToString();
             }
         }
