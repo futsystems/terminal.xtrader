@@ -206,40 +206,12 @@ namespace TradingLib.DataCore
                         DataCoreService.EventContrib.OnMGRContribNotifyResponse(notify);
                         return;
                     }
-
-
-                ////合约更新回报
-                //case MessageTypes.MGRUPDATESYMBOLRESPONSE:
-                //    {
-                //        RspMGRUpdateSymbolResponse response = obj as RspMGRUpdateSymbolResponse;
-                //        this.OnMGRUpdateSymbol(response);
-                //        DataCoreService.EventManager.FireOnMGRUpdateSymbolResponse(response);
-
-                //        break;
-                //    }
-                ////品种更新回报
-                //case MessageTypes.MGRUPDATESECURITYRESPONSE:
-                //    {
-                //        RspMGRUpdateSecurityResponse response = obj as RspMGRUpdateSecurityResponse;
-                //        this.OnMGRUpdateSecurity(response);
-                //        DataCoreService.EventManager.FireOnMGRUpdateSecurityResponse(response);
-                //        break;
-                //    }
-                ////更新交易所回报
-                //case MessageTypes.MGRUPDATEEXCHANGERESPONSE:
-                //    {
-                //        RspMGRUpdateExchangeResponse response = obj as RspMGRUpdateExchangeResponse;
-                //        this.OnMGRUpdateExchange(response);
-                //        DataCoreService.EventManager.FireOnMGRUpdateExchangeResponse(response);
-                //        break;
-                //    }
-                //case MessageTypes.MGRUPDATEMARKETTIMERESPONSE:
-                //    {
-                //        RspMGRUpdateMarketTimeResponse response = obj as RspMGRUpdateMarketTimeResponse;
-                //        this.OnMGRUpdateMarketTime(response);
-                //        DataCoreService.EventManager.FireOnMGRUpdateMarketTimeResponse(response);
-                //        break;
-                //    }
+                case MessageTypes.MGR_RSP:
+                    {
+                        RspMGRResponse response = obj as RspMGRResponse;
+                        DataCoreService.EventContrib.OnMGRRsp(response);
+                        return;
+                    }
                 #endregion
 
 

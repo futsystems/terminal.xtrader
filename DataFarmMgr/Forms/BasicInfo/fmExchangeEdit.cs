@@ -25,23 +25,25 @@ namespace TradingLib.DataFarmManager
             ManagerHelper.AdapterToIDataSource(cbCountry).BindDataSource(ManagerHelper.GetEnumValueObjects<Country>());
             ManagerHelper.AdapterToIDataSource(cbTimeZone).BindDataSource(ManagerHelper.GetTimeZoneList());
 
+            btnSubmit.Click += new EventHandler(btnSubmit_Click);
             this.Load += new EventHandler(fmExchangeEdit_Load);
             this.FormClosing += new FormClosingEventHandler(fmExchangeEdit_FormClosing);
-            
         }
 
-        void fmExchangeEdit_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DataCoreService.EventContrib.UnRegisterCallback("DataFarm", "QryCalendarList", OnQryCalendarItems);
-        }
+
 
         void fmExchangeEdit_Load(object sender, EventArgs e)
         {
-            btnSubmit.Click += new EventHandler(btnSubmit_Click);
-            DataCoreService.EventContrib.RegisterCallback("DataFarm", "QryCalendarList", OnQryCalendarItems);
-
-            DataCoreService.DataClient.ReqContribRequest("DataFarm", "QryCalendarList", "");
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.QRY_INFO_CALENDARLIST, OnQryCalendarItems);
+            DataCoreService.DataClient.ReqQryCalendarList();
         }
+
+        
+        void fmExchangeEdit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DataCoreService.EventContrib.UnRegisterCallback(Modules.DATACORE, Method_DataCore.QRY_INFO_CALENDARLIST, OnQryCalendarItems);
+        }
+
 
         void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -71,7 +73,6 @@ namespace TradingLib.DataFarmManager
                     ex.Calendar = this.calendar.SelectedValue.ToString();
                     ex.TimeZoneID = this.cbTimeZone.SelectedValue.ToString();
                     ex.CloseTime = Util.ToTLTime(this.closeTime.Value);
-
                     DataCoreService.DataClient.ReqUpdateExchange(ex);
                     this.Close();
                 }
@@ -81,7 +82,6 @@ namespace TradingLib.DataFarmManager
         List<CalendarItem> calenarlist = new List<CalendarItem>();
         void OnQryCalendarItems(string json, bool islast)
         {
-
             CalendarItem item = json.DeserializeObject<CalendarItem>();
             if (item != null)
             {

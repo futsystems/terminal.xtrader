@@ -10,6 +10,10 @@ namespace TradingLib.DataFarmManager
 {
     public static class DataClientUtil
     {
+        public static int ReqQryCalendarList(this DataClient client)
+        {
+            return client.ReqContribRequest(Modules.DATACORE, Method_DataCore.QRY_INFO_CALENDARLIST,"");
+        }
         /// <summary>
         /// 更新合约数据
         /// </summary>

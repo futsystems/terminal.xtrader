@@ -58,7 +58,6 @@
     <Compile Include="DataClient\DataClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Event\EventHub.cs" />
-    <Compile Include="Service\Event\EventManager.cs" />
     <Compile Include="Service\DataCoreService.cs" />
     <Compile Include="TLSocket_TCP.cs" />
     <Compile Include="DataClient\DataClient__.cs" />

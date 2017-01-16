@@ -31,8 +31,11 @@ namespace TradingLib.DataFarmManager
             ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList(true));
 
             this.Load += new EventHandler(fmSecurityList_Load);
+            this.FormClosing += new FormClosingEventHandler(fmSecurityList_FormClosing);
   
         }
+
+
 
         void fmSecurityList_Load(object sender, EventArgs e)
         {
@@ -48,6 +51,11 @@ namespace TradingLib.DataFarmManager
             DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_SECURITY, OnRspUpdateSecurity);
         }
 
+        void fmSecurityList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DataCoreService.EventContrib.UnRegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_SECURITY, OnRspUpdateSecurity);
+        }
+
         void OnRspUpdateSecurity(string json,bool isLast)
         {
             string message = json.DeserializeObject<string>();
@@ -61,18 +69,22 @@ namespace TradingLib.DataFarmManager
         {
             fmSecurityEdit fm = new fmSecurityEdit();
             fm.ShowDialog();
-
+            fm.Dispose();
         }
 
         void secGrid_DoubleClick(object sender, EventArgs e)
         {
-            SecurityFamilyImpl sec = GetVisibleSecurity(CurrentSecurityID);
-            if (sec != null)
+            SecurityFamilyImpl sec = CurrentSecurity;
+            if (sec == null)
             {
-                fmSecurityEdit fm = new fmSecurityEdit();
-                fm.Security = sec;
-                fm.ShowDialog();
+                MessageBox.Show("请选择要编辑的品种");
+                return;
             }
+            fmSecurityEdit fm = new fmSecurityEdit();
+            fm.Security = sec;
+            fm.ShowDialog();
+            fm.Dispose();
+            
         }
 
         void cbExchange_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,47 +108,25 @@ namespace TradingLib.DataFarmManager
         }
 
         //得到当前选择的行号
-        private int CurrentSecurityID
+        private SecurityFamilyImpl CurrentSecurity
         {
             get
             {
                 int row = secGrid.SelectedRows.Count > 0 ? secGrid.SelectedRows[0].Index : -1;
                 if (row >= 0)
                 {
-                    return int.Parse(secGrid[0, row].Value.ToString());
+                    return secGrid[TAG, row].Value as SecurityFamilyImpl;
                 }
                 else
                 {
-                    return 0;
+                    return null;
                 }
             }
         }
 
-
-
-        //通过行号得该行的Security
-        SecurityFamilyImpl GetVisibleSecurity(int id)
-        {
-            SecurityFamilyImpl sec = null;
-            if (securitymap.TryGetValue(id, out sec))
-            {
-                return sec;
-            }
-            else
-            {
-                return null;
-            }
-
-        }
-
-
-
-
-        Dictionary<int, SecurityFamilyImpl> securitymap = new Dictionary<int, SecurityFamilyImpl>();
         Dictionary<int, int> securityidxmap = new Dictionary<int, int>();
         int SecurityFamilyIdx(int id)
         {
-
             int rowid = -1;
             if (securityidxmap.TryGetValue(id, out rowid))
             {
@@ -162,8 +152,6 @@ namespace TradingLib.DataFarmManager
                 {
                     gt.Rows.Add(sec.ID);
                     int i = gt.Rows.Count - 1;
-
-                    securitymap.Add(sec.ID, sec);
                     securityidxmap.Add(sec.ID, i);
 
                     gt.Rows[i][CODE] = sec.Code;
@@ -178,16 +166,12 @@ namespace TradingLib.DataFarmManager
                     
                     gt.Rows[i][MARKETTIMEID] = sec.mkttime_fk;
                     gt.Rows[i][MARKETTIME] = sec.MarketTime != null ? sec.MarketTime.Name : "未设置";
-
-                    gt.Rows[i][DATAFEED] = sec.DataFeed;
+                    gt.Rows[i][TAG] = sec;
                 }
                 else
                 {
                     int i = r;
-                    //获得当前实例
-
                     SecurityFamilyImpl target = DataCoreService.DataClient.GetSecurity(sec.ID);
-                    //MessageBox.Show("got security target code:" + target.Code + " seccode:" + sec.Code);
                     if (target != null)
                     {
                         
@@ -203,8 +187,6 @@ namespace TradingLib.DataFarmManager
                        
                         gt.Rows[i][MARKETTIMEID] = target.mkttime_fk;
                         gt.Rows[i][MARKETTIME] = target.MarketTime != null ? target.MarketTime.Name : "未设置";
-
-                        gt.Rows[i][DATAFEED] = sec.DataFeed;
                     }
 
 
@@ -228,8 +210,7 @@ namespace TradingLib.DataFarmManager
         const string EXCHANGE = "交易所";
         const string MARKETTIMEID = "MarketTimeID";
         const string MARKETTIME = "交易时间段";
-        const string DATAFEED = "行情源";
-
+        const string TAG = "TAG";
 
 
         #endregion
@@ -237,7 +218,6 @@ namespace TradingLib.DataFarmManager
         DataTable gt = new DataTable();
         BindingSource datasource = new BindingSource();
 
-        //初始化Account显示空格
         private void InitTable()
         {
             gt.Columns.Add(ID);//
@@ -251,7 +231,7 @@ namespace TradingLib.DataFarmManager
             gt.Columns.Add(EXCHANGE);
             gt.Columns.Add(MARKETTIMEID);
             gt.Columns.Add(MARKETTIME);
-            gt.Columns.Add(DATAFEED);
+            gt.Columns.Add(TAG, typeof(SecurityFamilyImpl));
 
         }
 
@@ -266,10 +246,9 @@ namespace TradingLib.DataFarmManager
             grid.DataSource = datasource;
 
             //需要在绑定数据源后设定具体的可见性
-            //grid.Columns[EXCHANGEID].IsVisible = false;
-            //grid.Columns[ID].Visible = false;
-            //grid.Columns[SECTYPE].Visible = false;
-            //grid.Columns[SECID].Visible = false;
+            grid.Columns[EXCHANGEID].Visible = false;
+            grid.Columns[MARKETTIMEID].Visible = false;
+            grid.Columns[TAG].Visible = false;
 
         }
 

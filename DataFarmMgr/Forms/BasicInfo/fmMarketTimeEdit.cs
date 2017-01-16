@@ -35,6 +35,18 @@ namespace TradingLib.DataFarmManager
             btnDel.Click += new EventHandler(btnDel_Click);
             btnSubmit.Click += new EventHandler(btnSubmit_Click);
 
+            this.Load += new EventHandler(fmMarketTimeEdit_Load);
+            this.FormClosing += new FormClosingEventHandler(fmMarketTimeEdit_FormClosing);
+            
+        }
+
+        void fmMarketTimeEdit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DataCoreService.EventContrib.UnRegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_MARKETTIME, OnRspUpdateMarketTime);
+        }
+
+        void fmMarketTimeEdit_Load(object sender, EventArgs e)
+        {
             DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_MARKETTIME, OnRspUpdateMarketTime);
         }
 
@@ -42,7 +54,7 @@ namespace TradingLib.DataFarmManager
         {
             string message = json.DeserializeObject<string>();
             var mt = MarketTimeImpl.Deserialize(message);
-            SetMarketTime(mt);
+            SetMarketTime(DataCoreService.DataClient.GetMarketTime(mt.ID));
         }
 
 
@@ -62,41 +74,15 @@ namespace TradingLib.DataFarmManager
             //更新MarketTime
             if (_mt != null)
             {
-
                 string rangestr = GetRangesStr();
                 _mt.CloseTime = Util.ToTLTime(closetime.Value);
                 _mt.DeserializeTradingRange(rangestr);
-
                 DataCoreService.DataClient.ReqUpdateMarketTime(_mt);
             }
         }
 
-        //void btnEdit_Click(object sender, EventArgs e)
-        //{
-        //    string key = CurrentRangeKey;
-        //    TradingRange range = null;
-        //    //MessageBox.Show("currentkey:" + key);
-        //    if (rangemap.TryGetValue(key, out range))
-        //    {
-        //        fmTradingRange fm = new fmTradingRange();
-        //        fm.SetTradingRange(range);
-        //        if (fm.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
-        //        {
-        //            TradingRange outrange = fm.CurrentRange;
-        //            GotTradingRange(outrange);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        MoniterHelper.WindowMessage("请选择要编辑的交易小节");
-        //        return;
-        //    }
-        //}
-
         void btnDel_Click(object sender, EventArgs e)
         {
-
             string key = CurrentRangeKey;
             if (string.IsNullOrEmpty(key))
             {
@@ -107,7 +93,6 @@ namespace TradingLib.DataFarmManager
             {
                 RemoveTrangeRange(key);
             }
-            
         }
 
         void RemoveTrangeRange(string rangekey)
@@ -157,7 +142,6 @@ namespace TradingLib.DataFarmManager
             lbMTName.Text = mt.Name;
             lbDesp.Text = mt.Description;
             this.closetime.Value = Util.ToDateTime(Util.ToTLDate(), _mt.CloseTime);
-            //timezone.SelectedValue = string.IsNullOrEmpty(mt.TimeZone) ? "" : mt.TimeZone;
             foreach (var m in mt.RangeList.Values)
             {
                 GotTradingRange(m as TradingRangeImpl);
@@ -182,19 +166,7 @@ namespace TradingLib.DataFarmManager
             }
         }
 
-
-        //Dictionary<string,int> rangeidxmap = new Dictionary<string,int>();
         Dictionary<string, TradingRange> rangemap = new Dictionary<string, TradingRange>();
-        //int RangeKey2Idx(string rangekey)
-        //{
-        //    int idx = -1;
-        //    if (rangeidxmap.TryGetValue(rangekey, out idx))
-        //    {
-        //        return idx;
-        //    }
-        //    return -1;
-        //}
-
         void GotTradingRange(TradingRangeImpl range)
         {
             if (InvokeRequired)
@@ -220,18 +192,6 @@ namespace TradingLib.DataFarmManager
                     rangemap.Add(range.RangeKey, range);
 
                 }
-                //else
-                //{
-                //    int i = r;
-                //    gt.Rows[i][STARTDAY] = GetWeekDayTitle(range.StartDay);
-                //    gt.Rows[i][STARTTIME] = GetTimeStr(range.StartTime);
-                //    gt.Rows[i][ENDDAY] = GetWeekDayTitle(range.EndDay);
-
-                //    gt.Rows[i][ENDTIME] = GetTimeStr(range.EndTime);
-                //    gt.Rows[i][SETTLEFLAG] = Util.GetEnumDescription(range.SettleFlag);
-
-                //    rangemap.Add(range.RangeKey, range);
-                //}
             }
         }
 
@@ -254,6 +214,7 @@ namespace TradingLib.DataFarmManager
                     return "异常";
             }
         }
+
         #region 表格
         #region 显示字段
 

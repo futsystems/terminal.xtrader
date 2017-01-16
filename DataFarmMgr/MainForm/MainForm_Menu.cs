@@ -52,7 +52,7 @@ namespace TradingLib.DataFarmManager
         {
             fmExchangeList fm = new fmExchangeList();
             fm.ShowDialog();
-            fm.Close();
+            fm.Dispose();
         }
 
         void menuSecurity_Click(object sender, EventArgs e)

@@ -26,21 +26,23 @@ namespace TradingLib.DataFarmManager
             InitTable();
             BindToTable();
 
+            exchangeGrid.DoubleClick += new EventHandler(exchangeGrid_DoubleClick);
             this.Load += new EventHandler(fmExchangeList_Load);
+            this.FormClosing += new FormClosingEventHandler(fmExchangeList_FormClosing);
+        }
+
+        void fmExchangeList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DataCoreService.EventContrib.UnRegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_EXCHANGE, OnRspUpdateExchange);
         }
 
         void fmExchangeList_Load(object sender, EventArgs e)
         {
-            //exchangeGrid.RowPrePaint += new DataGridViewRowPrePaintEventHandler(exchangegrid_RowPrePaint);
-            //exchangeGrid.DoubleClick += new EventHandler(exchangegrid_DoubleClick);
-            exchangeGrid.DoubleClick += new EventHandler(exchangeGrid_DoubleClick);
-            //btnAddExchange.Click += new EventHandler(btnAddExchange_Click);
-            
-            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_EXCHANGE, OnRspUpdateExchange);
             foreach (ExchangeImpl ex in DataCoreService.DataClient.Exchanges)
             {
                 this.InvokeGotExchange(ex);
             }
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.UPDATE_INFO_EXCHANGE, OnRspUpdateExchange);
         }
 
         void OnRspUpdateExchange(string json,bool isLast)
@@ -52,56 +54,36 @@ namespace TradingLib.DataFarmManager
 
         void exchangeGrid_DoubleClick(object sender, EventArgs e)
         {
-            ExchangeImpl current = GetExchangeSelected(CurrentExchangeID);
-            if (current == null)
+            ExchangeImpl ex = CurrentExchange;
+            if (ex == null)
             {
                 MessageBox.Show("请选择要编辑的交易所");
                 return;
             }
             fmExchangeEdit fm = new fmExchangeEdit();
-            fm.SetExchange(current);
+            fm.SetExchange(ex);
             fm.ShowDialog();
-            fm.Close();
+            fm.Dispose();
         }
 
-        private int CurrentExchangeID
+        private ExchangeImpl CurrentExchange
         {
             get
             {
                 int row = exchangeGrid.SelectedRows.Count > 0 ? exchangeGrid.SelectedRows[0].Index : -1; ;
                 if (row >= 0)
                 {
-                    return int.Parse(exchangeGrid[0, row].Value.ToString());
+                    return exchangeGrid[TAG, row].Value as ExchangeImpl;
                 }
                 else
                 {
-                    return 0;
+                    return null;
                 }
             }
         }
 
-        
-
-
-
-        //通过行号得该行的Security
-        ExchangeImpl GetExchangeSelected(int id)
-        {
-            ExchangeImpl ex = null;
-            if (exchangemap.TryGetValue(id, out ex))
-            {
-                return ex;
-            }
-            else
-            {
-                return null;
-            }
-
-        }
 
         Dictionary<int, int> exchangeidmap = new Dictionary<int, int>();
-        Dictionary<int, ExchangeImpl> exchangemap = new Dictionary<int, ExchangeImpl>();
-
         int ExchangeIdx(int id)
         {
             int rowid = -1;
@@ -135,12 +117,12 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][EXCOUNTRY] = Util.GetEnumDescription(ex.Country);
                     gt.Rows[i][TITLE] = ex.Title;
 
-                    gt.Rows[i][TIMEZONE] = ex.TimeZoneID;//ex.TimeZoneInfo != null ? ex.TimeZoneInfo.DisplayName : "";
+                    gt.Rows[i][TIMEZONE] = ex.TimeZoneID;
                     gt.Rows[i][CALENDAR] = ex.Calendar;
                     gt.Rows[i][SETTLETIME] = Util.ToDateTime(Util.ToTLDate(), ex.CloseTime).ToString("HH:mm:ss");
                     gt.Rows[i][SETTLETYPE] = Util.GetEnumDescription(ex.SettleType);
+                    gt.Rows[i][TAG] = ex;
 
-                    exchangemap.Add(ex.ID, ex);
                     exchangeidmap.Add(ex.ID, i);
 
                 }
@@ -150,15 +132,13 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][EXNAME] = ex.Name;
                     gt.Rows[i][EXCOUNTRY] = Util.GetEnumDescription(ex.Country);
                     gt.Rows[i][TITLE] = ex.Title;
-                    gt.Rows[i][TIMEZONE] = ex.TimeZoneID;// ex.TimeZoneInfo != null ? ex.TimeZoneInfo.DisplayName : "";
+                    gt.Rows[i][TIMEZONE] = ex.TimeZoneID;
                     gt.Rows[i][CALENDAR] = ex.Calendar;
                     gt.Rows[i][SETTLETIME] = Util.ToDateTime(Util.ToTLDate(), ex.CloseTime).ToString("HH:mm:ss");
                     gt.Rows[i][SETTLETYPE] = Util.GetEnumDescription(ex.SettleType);
                 }
             }
         }
-
-
 
         #region 表格
         const string EXID = "全局ID";
@@ -171,6 +151,7 @@ namespace TradingLib.DataFarmManager
         const string CALENDAR = "交易日历";
         const string SETTLETIME = "结算时间";
         const string SETTLETYPE = "结算方式";
+        const string TAG = "TAG";
 
         DataTable gt = new DataTable();
         BindingSource datasource = new BindingSource();
@@ -190,6 +171,7 @@ namespace TradingLib.DataFarmManager
             gt.Columns.Add(CALENDAR);
             gt.Columns.Add(SETTLETIME);
             gt.Columns.Add(SETTLETYPE);
+            gt.Columns.Add(TAG,typeof(ExchangeImpl));
         }
 
         /// <summary>
@@ -202,8 +184,9 @@ namespace TradingLib.DataFarmManager
             datasource.DataSource = gt;
             grid.DataSource = datasource;
 
-            grid.Columns[EXID].Width = 60;
+            grid.Columns[TAG].Visible = false;
 
+            grid.Columns[EXID].Width = 60;
             grid.Columns[EXCODE].Width = 60;
             grid.Columns[EXCOUNTRY].Width = 60;
             grid.Columns[EXNAME].Width = 120;

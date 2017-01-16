@@ -47,6 +47,7 @@ namespace TradingLib.DataCore
         /// <param name="del"></param>
         public void RegisterCallback(string module, string cmd, Action<string,bool> del)
         {
+            logger.Info(string.Format("register module:{0} cmd:{1}", module, cmd));
             string key = module.ToUpper() + "-" + cmd.ToUpper();
 
             if (!callbackmap.Keys.Contains(key))
@@ -86,6 +87,7 @@ namespace TradingLib.DataCore
         /// <param name="del"></param>
         public void UnRegisterCallback(string module, string cmd, Action<string, bool> del)
         {
+            logger.Info(string.Format("unregister module:{0} cmd:{1}", module, cmd));
             string key = module.ToUpper() + "-" + cmd.ToUpper();
 
             if (!callbackmap.Keys.Contains(key))
@@ -179,6 +181,21 @@ namespace TradingLib.DataCore
             {
                 logger.Warn("do not have any callback for " + key + " registed!");
             }
+        }
+
+
+        /// <summary>
+        /// 服务端返回通知信息
+        /// </summary>
+        public event Action<RspInfo> OnRspInfoEvent = delegate { };
+
+        /// <summary>
+        /// 响应服务端操作提示
+        /// </summary>
+        /// <param name="response"></param>
+        internal void OnMGRRsp(RspMGRResponse response)
+        {
+            OnRspInfoEvent(response.RspInfo);
         }
     }
 }

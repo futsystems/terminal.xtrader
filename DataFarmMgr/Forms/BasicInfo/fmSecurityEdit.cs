@@ -22,7 +22,6 @@ namespace TradingLib.DataFarmManager
 
             ManagerHelper.AdapterToIDataSource(cbSecurityType).BindDataSource(ManagerHelper.GetEnumValueObjects<SecurityType>());
             ManagerHelper.AdapterToIDataSource(cbExchange).BindDataSource(ManagerHelper.GetExchangeCombList());
-
             ManagerHelper.AdapterToIDataSource(cbMarketTime).BindDataSource(ManagerHelper.GetMarketTimeCombList());
             ManagerHelper.AdapterToIDataSource(cbCurrency).BindDataSource(ManagerHelper.GetEnumValueObjects<CurrencyType>());
 
@@ -34,17 +33,13 @@ namespace TradingLib.DataFarmManager
         {
             if (_sec != null)
             {
-                //
                 _sec.Code = code.Text;
                 _sec.Name = name.Text;
                 _sec.Currency = (CurrencyType)cbCurrency.SelectedValue;
                 _sec.Type =(SecurityType)cbSecurityType.SelectedValue;
-
                 _sec.Multiple = (int)multiple.Value;
                 _sec.PriceTick = pricetick.Value;
-              
                 _sec.exchange_fk = (int)cbExchange.SelectedValue;
-               
                 _sec.mkttime_fk = (int)cbMarketTime.SelectedValue;
 
                 DataCoreService.DataClient.ReqUpdateSecurity(_sec);
@@ -52,19 +47,14 @@ namespace TradingLib.DataFarmManager
             else
             {
                 SecurityFamilyImpl target = new SecurityFamilyImpl();
-
-                target.ID = 0;//0标识新增 数据库ID非0
+                target.ID = 0;
                 target.Code = code.Text;
                 target.Name = name.Text;
                 target.Currency = (CurrencyType)cbCurrency.SelectedValue;
                 target.Type = (SecurityType)cbSecurityType.SelectedValue;
-
                 target.Multiple = (int)multiple.Value;
                 target.PriceTick = pricetick.Value;
-
-
                 target.exchange_fk = (int)cbExchange.SelectedValue;
-
                 target.mkttime_fk = (int)cbMarketTime.SelectedValue;
 
                 DataCoreService.DataClient.ReqUpdateSecurity(target);

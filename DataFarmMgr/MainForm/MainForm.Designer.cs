@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.status = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -42,6 +42,9 @@
             this.btnStartFeedTick = new System.Windows.Forms.ToolStripButton();
             this.btnStopFeedTick = new System.Windows.Forms.ToolStripButton();
             this.btnFunctionForm = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSwitTickSrv = new System.Windows.Forms.ToolStripButton();
+            this.btnQryCurrentTickSrv = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,22 +57,19 @@
             this.menuBarData = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRestoreTask = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnSwitTickSrv = new System.Windows.Forms.ToolStripButton();
             this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
-            this.btnQryCurrentTickSrv = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // status
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 667);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1274, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.status.Location = new System.Drawing.Point(0, 667);
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(1274, 22);
+            this.status.TabIndex = 0;
+            this.status.Text = "statusStrip1";
             // 
             // toolStrip1
             // 
@@ -182,6 +182,29 @@
             this.btnFunctionForm.Size = new System.Drawing.Size(36, 22);
             this.btnFunctionForm.Text = "工具";
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnSwitTickSrv
+            // 
+            this.btnSwitTickSrv.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSwitTickSrv.Image = ((System.Drawing.Image)(resources.GetObject("btnSwitTickSrv.Image")));
+            this.btnSwitTickSrv.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSwitTickSrv.Name = "btnSwitTickSrv";
+            this.btnSwitTickSrv.Size = new System.Drawing.Size(77, 22);
+            this.btnSwitTickSrv.Text = "切换TickSrv";
+            // 
+            // btnQryCurrentTickSrv
+            // 
+            this.btnQryCurrentTickSrv.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnQryCurrentTickSrv.Image = ((System.Drawing.Image)(resources.GetObject("btnQryCurrentTickSrv.Image")));
+            this.btnQryCurrentTickSrv.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnQryCurrentTickSrv.Name = "btnQryCurrentTickSrv";
+            this.btnQryCurrentTickSrv.Size = new System.Drawing.Size(77, 22);
+            this.btnQryCurrentTickSrv.Text = "查询TickSrv";
+            // 
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.ctrlQuoteList);
@@ -271,35 +294,12 @@
             this.toolStripMenuItem4.Size = new System.Drawing.Size(192, 22);
             this.toolStripMenuItem4.Text = "toolStripMenuItem4";
             // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // btnSwitTickSrv
-            // 
-            this.btnSwitTickSrv.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnSwitTickSrv.Image = ((System.Drawing.Image)(resources.GetObject("btnSwitTickSrv.Image")));
-            this.btnSwitTickSrv.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSwitTickSrv.Name = "btnSwitTickSrv";
-            this.btnSwitTickSrv.Size = new System.Drawing.Size(77, 22);
-            this.btnSwitTickSrv.Text = "切换TickSrv";
-            // 
             // ctrlQuoteList
             // 
             this.ctrlQuoteList.Location = new System.Drawing.Point(3, 3);
             this.ctrlQuoteList.Name = "ctrlQuoteList";
             this.ctrlQuoteList.Size = new System.Drawing.Size(351, 167);
             this.ctrlQuoteList.TabIndex = 0;
-            // 
-            // btnQryCurrentTickSrv
-            // 
-            this.btnQryCurrentTickSrv.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnQryCurrentTickSrv.Image = ((System.Drawing.Image)(resources.GetObject("btnQryCurrentTickSrv.Image")));
-            this.btnQryCurrentTickSrv.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnQryCurrentTickSrv.Name = "btnQryCurrentTickSrv";
-            this.btnQryCurrentTickSrv.Size = new System.Drawing.Size(77, 22);
-            this.btnQryCurrentTickSrv.Text = "查询TickSrv";
             // 
             // MainForm
             // 
@@ -308,7 +308,7 @@
             this.ClientSize = new System.Drawing.Size(1274, 689);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.status);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -326,7 +326,7 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip status;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnConnect;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

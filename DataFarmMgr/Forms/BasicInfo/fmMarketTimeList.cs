@@ -31,13 +31,18 @@ namespace TradingLib.DataFarmManager
 
         void mktimeGrid_DoubleClick(object sender, EventArgs e)
         {
-            fmMarketTimeEdit fm = new fmMarketTimeEdit();
-            MarketTimeImpl mt = GetVisibleMarketTime(CurrentMarketTimeID);
-            if (mt != null)
+            
+            MarketTimeImpl mt = CurrentMarketTime;
+            if (mt == null)
             {
-                fm.SetMarketTime(mt);
-                fm.ShowDialog();
+                MessageBox.Show("请选择要编辑的交易时间段");
+                return;
             }
+            fmMarketTimeEdit fm = new fmMarketTimeEdit();
+            fm.SetMarketTime(mt);
+            fm.ShowDialog();
+            fm.Dispose();
+            
         }
 
         void fmMarketTimeList_Load(object sender, EventArgs e)
@@ -49,45 +54,24 @@ namespace TradingLib.DataFarmManager
         }
 
 
-     
-
-        //得到当前选择的行号
-        private int CurrentMarketTimeID
+        private MarketTimeImpl CurrentMarketTime
         {
             get
             {
                 int row = mktimeGrid.SelectedRows.Count > 0 ? mktimeGrid.SelectedRows[0].Index : -1; ;
                 if (row >= 0)
                 {
-                    return int.Parse(mktimeGrid[0, row].Value.ToString());
+                    return mktimeGrid[TAG, row].Value as MarketTimeImpl;
                 }
                 else
                 {
-                    return 0;
+                    return null;
                 }
             }
         }
 
-        //通过行号得该行的Security
-        MarketTimeImpl GetVisibleMarketTime(int id)
-        {
-            MarketTimeImpl mt = null;
-            if (markettimemap.TryGetValue(id, out mt))
-            {
-                return mt;
-            }
-            else
-            {
-                return null;
-            }
 
-        }
-
-
-
-        Dictionary<int, MarketTimeImpl> markettimemap = new Dictionary<int, MarketTimeImpl>();
         Dictionary<int, int> markettimeidxmap = new Dictionary<int, int>();
-
         int MarketTimeIdx(int id)
         {
             int rowid = -1;
@@ -119,8 +103,8 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][MTNAME] = mt.Name;
                     gt.Rows[i][MTDESC] = mt.Description;
                     gt.Rows[i][CLOSETIME] = Util.ToDateTime(Util.ToTLDate(), mt.CloseTime).ToString("HH:mm:ss");
+                    gt.Rows[i][TAG] = mt;
 
-                    markettimemap.Add(mt.ID, mt);
                     markettimeidxmap.Add(mt.ID, i);
 
                 }
@@ -142,6 +126,7 @@ namespace TradingLib.DataFarmManager
         const string MTNAME = "名称";
         const string MTDESC = "描述";
         const string CLOSETIME = "收盘时间";
+        const string TAG = "TAG";
 
         DataTable gt = new DataTable();
         BindingSource datasource = new BindingSource();
@@ -175,6 +160,7 @@ namespace TradingLib.DataFarmManager
             gt.Columns.Add(MTNAME);//
             gt.Columns.Add(MTDESC);//
             gt.Columns.Add(CLOSETIME);
+            gt.Columns.Add(TAG,typeof(MarketTimeImpl));
         }
 
         /// <summary>
@@ -186,6 +172,7 @@ namespace TradingLib.DataFarmManager
             datasource.DataSource = gt;
             grid.DataSource = datasource;
 
+            grid.Columns[TAG].Visible = false;
             grid.Columns[MTID].Width = 60;
             //grid.Columns[MTNAME].Width = 200;
             grid.Columns[CLOSETIME].Width = 60;

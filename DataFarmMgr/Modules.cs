@@ -13,23 +13,28 @@ namespace TradingLib.DataFarmManager
     public class Method_DataCore
     {
         /// <summary>
+        /// 查询交易所交易日历列表
+        /// </summary>
+        public const string QRY_INFO_CALENDARLIST = "QryCalendarList";
+
+        /// <summary>
         /// 更新交易时间段
         /// </summary>
-        public const string UPDATE_INFO_MARKETTIME = "";
+        public const string UPDATE_INFO_MARKETTIME = "UpdateMarketTime";
 
         /// <summary>
         /// 更新交易所
         /// </summary>
-        public const string UPDATE_INFO_EXCHANGE = "";
+        public const string UPDATE_INFO_EXCHANGE = "UpdateExchange";
 
         /// <summary>
         /// 更新品种
         /// </summary>
-        public const string UPDATE_INFO_SECURITY = "";
+        public const string UPDATE_INFO_SECURITY = "UpdateSecurity";
 
         /// <summary>
         /// 更新合约
         /// </summary>
-        public const string UPDATE_INFO_SYMBOL = "";
+        public const string UPDATE_INFO_SYMBOL = "UpdateSymbol";
     }
 }

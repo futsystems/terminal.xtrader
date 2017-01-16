@@ -69,49 +69,37 @@ namespace TradingLib.DataFarmManager
             fm.ShowDialog();
         }
 
-        //得到当前选择的行号
-        private int CurrentSymbolID
+        private SymbolImpl CurrentSymbol
         {
             get
             {
                 int row = symGrid.SelectedRows.Count > 0 ? symGrid.SelectedRows[0].Index : -1;
                 if (row >= 0)
                 {
-                    return int.Parse(symGrid[0, row].Value.ToString());
+                    return symGrid[TAG, row].Value as SymbolImpl;
                 }
                 else
                 {
-                    return 0;
+                    return null;
                 }
             }
         }
 
 
-        //通过行号得该行的Security
-        SymbolImpl GetVisibleSymbol(int id)
-        {
-            SymbolImpl sym = null;
-            if (symbolmap.TryGetValue(id, out sym))
-            {
-                return sym;
-            }
-            else
-            {
-                return null;
-            }
-
-        }
-
         void symGrid_DoubleClick(object sender, EventArgs e)
         {
-            SymbolImpl symbol = GetVisibleSymbol(CurrentSymbolID);
-            if (symbol != null)
+            SymbolImpl symbol = CurrentSymbol;
+            if (symbol == null)
             {
-                
-                fmSymbolEdit fm = new fmSymbolEdit();
-                fm.Symbol = symbol;
-                fm.ShowDialog();
+                MessageBox.Show("请选择要编辑的合约");
+                return;
             }
+                
+            fmSymbolEdit fm = new fmSymbolEdit();
+            fm.Symbol = symbol;
+            fm.ShowDialog();
+            fm.Dispose();
+            
         }
 
         void cbSecurity_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,8 +140,6 @@ namespace TradingLib.DataFarmManager
             }
         }
 
-
-        Dictionary<int, SymbolImpl> symbolmap = new Dictionary<int, SymbolImpl>();
         Dictionary<int, int> symbolidxmap = new Dictionary<int, int>();
 
         int SymbolIdx(int id)
@@ -184,8 +170,6 @@ namespace TradingLib.DataFarmManager
                 {
                     gt.Rows.Add(sym.ID);
                     int i = gt.Rows.Count - 1;
-
-                    symbolmap.Add(sym.ID, sym);
                     symbolidxmap.Add(sym.ID, i);
 
                     gt.Rows[i][SYMBOL] = sym.Symbol;
@@ -202,6 +186,8 @@ namespace TradingLib.DataFarmManager
                     gt.Rows[i][EXPIREDATE] = GetExpireDate(sym);//sym.ExpireDate;
                     gt.Rows[i][SYMBOLTYPE] = Util.GetEnumDescription(sym.SymbolType);
                     gt.Rows[i][TRADEABLE] = sym.Tradeable;
+
+                    gt.Rows[i][TAG] = sym;
 
                 }
                 else
@@ -265,7 +251,7 @@ namespace TradingLib.DataFarmManager
         const string EXPIREDATE = "到期日";
         const string SYMBOLTYPE = "类别";
         const string TRADEABLE = "可交易";
-
+        const string TAG = "TAG";
 
         #endregion
 
@@ -287,7 +273,7 @@ namespace TradingLib.DataFarmManager
             gt.Columns.Add(EXPIREDATE);
             gt.Columns.Add(SYMBOLTYPE);
             gt.Columns.Add(TRADEABLE);
-
+            gt.Columns.Add(TAG, typeof(SymbolImpl));
         }
 
         /// <summary>
@@ -301,7 +287,9 @@ namespace TradingLib.DataFarmManager
             grid.DataSource = datasource;
 
             //需要在绑定数据源后设定具体的可见性
-            //grid.Columns[EXCHANGEID].IsVisible = false;
+            grid.Columns[EXCHANGEID].Visible = false;
+            grid.Columns[SECID].Visible = false;
+            grid.Columns[TAG].Visible = false;
             //grid.Columns[ID].Visible = false;
             //grid.Columns[SECTYPE].Visible = false;
             //grid.Columns[SECID].Visible = false;
