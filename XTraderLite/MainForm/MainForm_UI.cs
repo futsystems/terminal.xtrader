@@ -99,14 +99,9 @@ namespace XTraderLite
 
         void InitUserSetting()
         {
-            if (Global.IsXGJStyle)
-            {
-                topHeader.Text = "信管家";
-            }
-            else
-            {
-                topHeader.Text = "交易大师-机构版";
-            }
+
+            topHeader.Text = Global.HeadTitle;
+
         }
 
         void UpdateServerInfo()

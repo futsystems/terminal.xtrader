@@ -53,7 +53,7 @@
             this.panel_Classic = new System.Windows.Forms.Panel();
             this.topImage = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.slogen = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.MaskedTextBox();
             this.holder.SuspendLayout();
             this.panel_XGJ.SuspendLayout();
@@ -135,6 +135,7 @@
             // 
             // cbServer
             // 
+            this.cbServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbServer.FormattingEnabled = true;
             this.cbServer.Location = new System.Drawing.Point(297, 244);
             this.cbServer.Name = "cbServer";
@@ -282,7 +283,7 @@
             // 
             this.panel_Classic.Controls.Add(this.topImage);
             this.panel_Classic.Controls.Add(this.label4);
-            this.panel_Classic.Controls.Add(this.label5);
+            this.panel_Classic.Controls.Add(this.slogen);
             this.panel_Classic.Controls.Add(this.password);
             this.panel_Classic.Controls.Add(this.btnLogin);
             this.panel_Classic.Controls.Add(this._msg);
@@ -295,17 +296,16 @@
             this.panel_Classic.Controls.Add(this.checkBox1);
             this.panel_Classic.Location = new System.Drawing.Point(3, 3);
             this.panel_Classic.Name = "panel_Classic";
-            this.panel_Classic.Size = new System.Drawing.Size(574, 115);
+            this.panel_Classic.Size = new System.Drawing.Size(574, 401);
             this.panel_Classic.TabIndex = 24;
             // 
             // topImage
             // 
             this.topImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topImage.Image = global::XTraderLite.Properties.Resources.login;
             this.topImage.InitialImage = null;
             this.topImage.Location = new System.Drawing.Point(0, 0);
             this.topImage.Name = "topImage";
-            this.topImage.Size = new System.Drawing.Size(574, 71);
+            this.topImage.Size = new System.Drawing.Size(574, 238);
             this.topImage.TabIndex = 0;
             this.topImage.TabStop = false;
             // 
@@ -317,15 +317,15 @@
             this.label4.Size = new System.Drawing.Size(2, 110);
             this.label4.TabIndex = 22;
             // 
-            // label5
+            // slogen
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(20, 333);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(143, 21);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "交易大师 荣誉出品";
+            this.slogen.AutoSize = true;
+            this.slogen.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.slogen.Location = new System.Drawing.Point(20, 333);
+            this.slogen.Name = "slogen";
+            this.slogen.Size = new System.Drawing.Size(143, 21);
+            this.slogen.TabIndex = 23;
+            this.slogen.Text = "交易大师 荣誉出品";
             // 
             // password
             // 
@@ -377,7 +377,7 @@
         private System.Windows.Forms.Panel holder;
         private System.Windows.Forms.MaskedTextBox password;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label slogen;
         private System.Windows.Forms.Panel panel_Classic;
         private System.Windows.Forms.Panel panel_XGJ;
         private System.Windows.Forms.Button btnLogin2;

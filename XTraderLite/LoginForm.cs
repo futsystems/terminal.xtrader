@@ -17,6 +17,7 @@ namespace XTraderLite
     {
         ILog logger = LogManager.GetLogger("LoginForm");
         Starter mStarter = null;
+        ConfigFile _cfgfile;
         public LoginForm(Starter start)
         {
             //允许线程间调用控件属性 否则无法本地调试
@@ -24,8 +25,17 @@ namespace XTraderLite
 
             InitializeComponent();
             InitContrl();
+            _cfgfile = ConfigFile.GetConfigFile("Setting.cfg");
+            Global.ClassicLogin = _cfgfile["ClassicLogin"].AsBool();
+            Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
+            Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
+            Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
+            Global.PluginBroker = _cfgfile["Broker"].AsString();
+            Global.PluginMarket = _cfgfile["Market"].AsString();
 
-            if (Global.IsXGJStyle)
+            slogen.Text = _cfgfile["Slogen"].AsString();
+            topImage.Image = Image.FromFile("Config/login.png");
+            if (!Global.ClassicLogin)
             {
                 XGJLogin();
             }
@@ -51,6 +61,7 @@ namespace XTraderLite
             holder.Height = 370;
             holder.Width = 560;
             panel_Classic.Dock = DockStyle.Fill;
+            topImage.Height = 230;
             panel_XGJ.Visible = false;
 
         }
@@ -65,7 +76,6 @@ namespace XTraderLite
             panel_Classic.Visible = false;
             this.Icon = Properties.Resources.xgj;
             this.Text = "信管家";
-
         }
 
         void InitContrl()
@@ -256,9 +266,7 @@ namespace XTraderLite
             //登入过程开始
             _connectstart = true;
             _connecttime = DateTime.Now;
-            //从配置文件设定的dll初始化行情插件
-            string dllname = new ConfigFileBase("apimarket.cfg").GetFirstLine();
-            MDService.InitDataAPI(dllname);
+            MDService.InitDataAPI(Global.PluginMarket);
 
             if (MDService.DataAPI == null)
             {

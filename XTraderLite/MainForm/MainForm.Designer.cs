@@ -74,11 +74,6 @@
             this.panelHolder = new System.Windows.Forms.Panel();
             this.workPanel = new System.Windows.Forms.Panel();
             this.panelMarket = new System.Windows.Forms.Panel();
-            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
-            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
-            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
-            this.ctrlKChart = new CStock.TStock();
-            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panelBroker = new System.Windows.Forms.Panel();
             this.panelTop = new System.Windows.Forms.Panel();
@@ -113,7 +108,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRelief = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cornerImg = new System.Windows.Forms.PictureBox();
             this.panelControlBox = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.PictureBox();
             this.btnMin = new System.Windows.Forms.PictureBox();
@@ -123,13 +118,18 @@
             this.panelSiteInfo = new System.Windows.Forms.Panel();
             this.lbCurrentServer = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ctrlSymbolHighLight = new TradingLib.XTrader.Control.ctrlSymbolHighLight();
             this.imgConn = new System.Windows.Forms.PictureBox();
             this.lbTime = new System.Windows.Forms.Label();
             this.SearchBox = new System.Windows.Forms.Panel();
-            this.KeyCode = new MyEdit();
             this.KeyClose = new System.Windows.Forms.Panel();
             this.SymbolListBox = new System.Windows.Forms.ListBox();
+            this.KeyCode = new MyEdit();
+            this.ctrlSymbolInfo = new TradingLib.XTrader.Control.ctrlSymbolInfo();
+            this.ctrlPriceVolList = new TradingLib.XTrader.Control.ctrlPriceVolList();
+            this.ctrlTickList = new TradingLib.XTrader.Control.ctrlTickList();
+            this.ctrlKChart = new CStock.TStock();
+            this.ctrlQuoteList = new TradingLib.XTrader.Control.ctrlQuoteList();
+            this.ctrlSymbolHighLight = new TradingLib.XTrader.Control.ctrlSymbolHighLight();
             this.toolBar.SuspendLayout();
             this.panelHolder.SuspendLayout();
             this.workPanel.SuspendLayout();
@@ -139,7 +139,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnTrade)).BeginInit();
             this.panelMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cornerImg)).BeginInit();
             this.panelControlBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).BeginInit();
@@ -622,77 +622,6 @@
             this.panelMarket.Size = new System.Drawing.Size(1173, 371);
             this.panelMarket.TabIndex = 2;
             // 
-            // ctrlSymbolInfo
-            // 
-            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
-            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
-            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
-            this.ctrlSymbolInfo.TabIndex = 6;
-            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
-            this.ctrlSymbolInfo.Visible = false;
-            // 
-            // ctrlPriceVolList
-            // 
-            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
-            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
-            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlPriceVolList.TabIndex = 5;
-            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
-            this.ctrlPriceVolList.Visible = false;
-            // 
-            // ctrlTickList
-            // 
-            this.ctrlTickList.LastLoadRequestID = 0;
-            this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
-            this.ctrlTickList.Name = "ctrlTickList";
-            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
-            this.ctrlTickList.TabIndex = 4;
-            this.ctrlTickList.Text = "ctrlTickList1";
-            this.ctrlTickList.Visible = false;
-            // 
-            // ctrlKChart
-            // 
-            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
-            this.ctrlKChart.BarViewWindowCount = 3;
-            this.ctrlKChart.DaysForIntradayView = 1;
-            this.ctrlKChart.FsAll = false;
-            this.ctrlKChart.FsFull = false;
-            this.ctrlKChart.HighPicture = false;
-            this.ctrlKChart.IntradayViewWindowCount = 2;
-            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
-            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
-            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
-            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
-            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
-            this.ctrlKChart.Name = "ctrlKChart";
-            this.ctrlKChart.NoMoreBarDate = false;
-            this.ctrlKChart.PR10 = false;
-            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
-            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
-            this.ctrlKChart.ShowBottomCalendar = true;
-            this.ctrlKChart.ShowBottomTabMenu = true;
-            this.ctrlKChart.ShowCrossCursor = false;
-            this.ctrlKChart.ShowCurWindow = true;
-            this.ctrlKChart.ShowDetailPanel = true;
-            this.ctrlKChart.ShowDrawToolBox = false;
-            this.ctrlKChart.ShowLeftAxis = true;
-            this.ctrlKChart.ShowRightAxis = false;
-            this.ctrlKChart.ShowTopHeader = true;
-            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
-            this.ctrlKChart.StartIndex = 24;
-            this.ctrlKChart.TabIndex = 2;
-            this.ctrlKChart.Train = false;
-            this.ctrlKChart.TrainEnd = 0;
-            this.ctrlKChart.Visible = false;
-            // 
-            // ctrlQuoteList
-            // 
-            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
-            this.ctrlQuoteList.Name = "ctrlQuoteList";
-            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
-            this.ctrlQuoteList.TabIndex = 1;
-            this.ctrlQuoteList.Visible = false;
-            // 
             // splitter
             // 
             this.splitter.BackColor = System.Drawing.Color.Silver;
@@ -720,7 +649,7 @@
             this.panelTop.Controls.Add(this.btnBBS);
             this.panelTop.Controls.Add(this.btnTrade);
             this.panelTop.Controls.Add(this.panelMenu);
-            this.panelTop.Controls.Add(this.pictureBox1);
+            this.panelTop.Controls.Add(this.cornerImg);
             this.panelTop.Controls.Add(this.panelControlBox);
             this.panelTop.Controls.Add(this.topHeader);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -965,15 +894,15 @@
             this.menuAbout.Size = new System.Drawing.Size(122, 22);
             this.menuAbout.Text = "关于";
             // 
-            // pictureBox1
+            // cornerImg
             // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.cornerImg.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cornerImg.BackgroundImage")));
+            this.cornerImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cornerImg.Location = new System.Drawing.Point(3, 3);
+            this.cornerImg.Name = "cornerImg";
+            this.cornerImg.Size = new System.Drawing.Size(18, 18);
+            this.cornerImg.TabIndex = 3;
+            this.cornerImg.TabStop = false;
             // 
             // panelControlBox
             // 
@@ -1075,16 +1004,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "站点:";
             // 
-            // ctrlSymbolHighLight
-            // 
-            this.ctrlSymbolHighLight.BackColor = System.Drawing.Color.Transparent;
-            this.ctrlSymbolHighLight.Location = new System.Drawing.Point(163, 0);
-            this.ctrlSymbolHighLight.Name = "ctrlSymbolHighLight";
-            this.ctrlSymbolHighLight.Size = new System.Drawing.Size(274, 25);
-            this.ctrlSymbolHighLight.TabIndex = 2;
-            this.ctrlSymbolHighLight.TabStop = false;
-            this.ctrlSymbolHighLight.Text = "ctrlSymbolHighLight1";
-            // 
             // imgConn
             // 
             this.imgConn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1122,13 +1041,6 @@
             this.SearchBox.TabIndex = 149;
             this.SearchBox.Visible = false;
             // 
-            // KeyCode
-            // 
-            this.KeyCode.Location = new System.Drawing.Point(4, 25);
-            this.KeyCode.Name = "KeyCode";
-            this.KeyCode.Size = new System.Drawing.Size(165, 21);
-            this.KeyCode.TabIndex = 3;
-            // 
             // KeyClose
             // 
             this.KeyClose.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1146,6 +1058,94 @@
             this.SymbolListBox.Name = "SymbolListBox";
             this.SymbolListBox.Size = new System.Drawing.Size(165, 123);
             this.SymbolListBox.TabIndex = 0;
+            // 
+            // KeyCode
+            // 
+            this.KeyCode.Location = new System.Drawing.Point(4, 25);
+            this.KeyCode.Name = "KeyCode";
+            this.KeyCode.Size = new System.Drawing.Size(165, 21);
+            this.KeyCode.TabIndex = 3;
+            // 
+            // ctrlSymbolInfo
+            // 
+            this.ctrlSymbolInfo.Location = new System.Drawing.Point(210, 186);
+            this.ctrlSymbolInfo.Name = "ctrlSymbolInfo";
+            this.ctrlSymbolInfo.Size = new System.Drawing.Size(200, 150);
+            this.ctrlSymbolInfo.TabIndex = 6;
+            this.ctrlSymbolInfo.Text = "ctrlSymbolInfo1";
+            this.ctrlSymbolInfo.Visible = false;
+            // 
+            // ctrlPriceVolList
+            // 
+            this.ctrlPriceVolList.Location = new System.Drawing.Point(3, 186);
+            this.ctrlPriceVolList.Name = "ctrlPriceVolList";
+            this.ctrlPriceVolList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlPriceVolList.TabIndex = 5;
+            this.ctrlPriceVolList.Text = "ctrlPriceVolList2";
+            this.ctrlPriceVolList.Visible = false;
+            // 
+            // ctrlTickList
+            // 
+            this.ctrlTickList.LastLoadRequestID = 0;
+            this.ctrlTickList.Location = new System.Drawing.Point(413, 30);
+            this.ctrlTickList.Name = "ctrlTickList";
+            this.ctrlTickList.Size = new System.Drawing.Size(203, 150);
+            this.ctrlTickList.TabIndex = 4;
+            this.ctrlTickList.Text = "ctrlTickList1";
+            this.ctrlTickList.Visible = false;
+            // 
+            // ctrlKChart
+            // 
+            this.ctrlKChart.BackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.BarViewWindowCount = 3;
+            this.ctrlKChart.DaysForIntradayView = 1;
+            this.ctrlKChart.FsAll = false;
+            this.ctrlKChart.FsFull = false;
+            this.ctrlKChart.HighPicture = false;
+            this.ctrlKChart.IntradayViewWindowCount = 2;
+            this.ctrlKChart.KChartBackColor = System.Drawing.Color.Black;
+            this.ctrlKChart.KChartLineColor = System.Drawing.Color.Maroon;
+            this.ctrlKChart.KChartViewType = CStock.KChartViewType.TimeView;
+            this.ctrlKChart.Location = new System.Drawing.Point(210, 30);
+            this.ctrlKChart.Margin = new System.Windows.Forms.Padding(0);
+            this.ctrlKChart.Name = "ctrlKChart";
+            this.ctrlKChart.NoMoreBarDate = false;
+            this.ctrlKChart.PR10 = false;
+            this.ctrlKChart.PreClose = -1.7976931348623157E+308D;
+            this.ctrlKChart.Quan = CStock.QuanType.qsNone;
+            this.ctrlKChart.ShowBottomCalendar = true;
+            this.ctrlKChart.ShowBottomTabMenu = true;
+            this.ctrlKChart.ShowCrossCursor = false;
+            this.ctrlKChart.ShowCurWindow = true;
+            this.ctrlKChart.ShowDetailPanel = true;
+            this.ctrlKChart.ShowDrawToolBox = false;
+            this.ctrlKChart.ShowLeftAxis = true;
+            this.ctrlKChart.ShowRightAxis = false;
+            this.ctrlKChart.ShowTopHeader = true;
+            this.ctrlKChart.Size = new System.Drawing.Size(200, 150);
+            this.ctrlKChart.StartIndex = 24;
+            this.ctrlKChart.TabIndex = 2;
+            this.ctrlKChart.Train = false;
+            this.ctrlKChart.TrainEnd = 0;
+            this.ctrlKChart.Visible = false;
+            // 
+            // ctrlQuoteList
+            // 
+            this.ctrlQuoteList.Location = new System.Drawing.Point(3, 30);
+            this.ctrlQuoteList.Name = "ctrlQuoteList";
+            this.ctrlQuoteList.Size = new System.Drawing.Size(200, 150);
+            this.ctrlQuoteList.TabIndex = 1;
+            this.ctrlQuoteList.Visible = false;
+            // 
+            // ctrlSymbolHighLight
+            // 
+            this.ctrlSymbolHighLight.BackColor = System.Drawing.Color.Transparent;
+            this.ctrlSymbolHighLight.Location = new System.Drawing.Point(163, 0);
+            this.ctrlSymbolHighLight.Name = "ctrlSymbolHighLight";
+            this.ctrlSymbolHighLight.Size = new System.Drawing.Size(274, 25);
+            this.ctrlSymbolHighLight.TabIndex = 2;
+            this.ctrlSymbolHighLight.TabStop = false;
+            this.ctrlSymbolHighLight.Text = "ctrlSymbolHighLight1";
             // 
             // MainForm
             // 
@@ -1175,7 +1175,7 @@
             this.panelMenu.PerformLayout();
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cornerImg)).EndInit();
             this.panelControlBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin)).EndInit();
@@ -1256,7 +1256,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem menuExit;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox cornerImg;
         private TradingLib.XTrader.Control.ctrlQuoteList ctrlQuoteList;
         private System.Windows.Forms.ToolStrip toolBar;
         private TradingLib.XTrader.Control.ctrlTickList ctrlTickList;

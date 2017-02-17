@@ -171,10 +171,6 @@ namespace XTraderLite
 
             if (Global.IsXGJStyle)
             {
-                panelMenu.Location = new Point(panelMenu.Location.X - pictureBox1.Width, panelMenu.Location.Y);
-                pictureBox1.Visible = false;
-
-
                 btnBack.Image = Properties.Resources.xqj_back;
                 btnHome.Image = Properties.Resources.xqj_home;
 
@@ -208,9 +204,19 @@ namespace XTraderLite
                 //btnPriceVolList.Visible = false;
                 //btnWatchList.Visible = false;
                 //toolStripSeparator5.Visible = false;
-                this.Text = "信管家";
                 this.panelSiteInfo.Visible = false;
 
+            }
+
+            cornerImg.Visible = Global.ShowCorner;
+            if (!Global.ShowCorner)
+            {
+                panelMenu.Location = new Point(panelMenu.Location.X - cornerImg.Width, panelMenu.Location.Y);
+            }
+            this.Text = Global.TaskBarTitle;
+            if (!Global.ClassicLogin)
+            {
+                this.Icon = Properties.Resources.xgj;
             }
 
             #region 加载行情服务站点

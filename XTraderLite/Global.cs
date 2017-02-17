@@ -8,5 +8,34 @@ namespace XTraderLite
     public class Global
     {
         public static bool IsXGJStyle = true;
+
+        /// <summary>
+        /// 经典登入
+        /// </summary>
+        public static bool ClassicLogin = false;
+        /// <summary>
+        /// 顶部标题名称
+        /// </summary>
+        public static string HeadTitle = "信管家";
+
+        /// <summary>
+        /// 显示左上角图标
+        /// </summary>
+        public static bool ShowCorner = false;
+
+
+        /// <summary>
+        /// 任务栏显示文字
+        /// </summary>
+        public static string TaskBarTitle = "测试";
+
+        /// <summary>
+        /// 行情插件
+        /// </summary>
+        public static string PluginMarket = "";
+        /// <summary>
+        /// 交易插件
+        /// </summary>
+        public static string PluginBroker = "";
     }
 }

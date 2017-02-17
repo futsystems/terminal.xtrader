@@ -38,8 +38,7 @@ namespace XTraderLite
             {
                 //
                 //从配置文件设定的dll初始化交易插件
-                string dllname = new ConfigFileBase("apitrader.cfg").GetFirstLine();
-                _traderApi = Utils.LoadTraderAPI(dllname);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
+                _traderApi = Utils.LoadTraderAPI(Global.PluginBroker);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
 
                 if (_traderApi != null)
                 {
