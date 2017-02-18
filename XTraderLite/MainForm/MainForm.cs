@@ -199,7 +199,7 @@ namespace XTraderLite
                 btnFreqM60.Image = Properties.Resources.xqj_freq_60min;
                 btnFreqH2.Image = Properties.Resources.xqj_freq_2hour;
 
-                this.Icon = Properties.Resources.xgj;
+                //this.Icon = Properties.Resources.xgj;
                 //btnTickList.Visible = false;
                 //btnPriceVolList.Visible = false;
                 //btnWatchList.Visible = false;

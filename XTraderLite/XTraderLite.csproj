@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>xgj.ico</ApplicationIcon>
+    <ApplicationIcon>custwb.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ant.Component">
@@ -303,6 +303,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="custwb.ico" />
     <Content Include="main.ico" />
     <None Include="Resources\style2.txt" />
     <None Include="Resources\xgj\toobar\xgj_freq_1min.png" />
