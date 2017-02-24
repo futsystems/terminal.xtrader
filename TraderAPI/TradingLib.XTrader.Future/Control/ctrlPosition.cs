@@ -256,7 +256,7 @@ namespace TradingLib.XTrader.Future
                     int rownum = positionGrid.CurrentRow.Index + 1;
                     if (positionGrid.CurrentCell.ColumnIndex == 13)
                     {
-                        PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                        PositionOffsetArgSet args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
                         if (args == null) return;
 
                         frmPositionOffset fm = new frmPositionOffset();
@@ -272,7 +272,7 @@ namespace TradingLib.XTrader.Future
                     }
                     else if (positionGrid.CurrentCell.ColumnIndex == 14)
                     {
-                        PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
+                        PositionOffsetArgSet args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
                         if (args == null) return;
 
                         frmPositionOffset fm = new frmPositionOffset();
@@ -601,7 +601,7 @@ namespace TradingLib.XTrader.Future
                 {
                     Position pos = CoreService.TradingInfoTracker.PositionTracker[f.Symbol,f.Account, f.PositionSide];//获得对应持仓数据
 
-                    PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
+                    PositionOffsetArgSet args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
                     if (args.ProfitArg.Size > pos.UnsignedSize) args.ProfitArg.Size = pos.UnsignedSize;
                     if (args.LossArg.Size > pos.UnsignedSize) args.LossArg.Size = pos.UnsignedSize;
 
@@ -756,7 +756,7 @@ namespace TradingLib.XTrader.Future
 
         string GetGridPositionOffsetText(Position pos, QSEnumPositionOffsetDirection direction)
         {
-            PositionOffsetArgs args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
+            PositionOffsetArgSet args = CoreService.PositionWatcher.GetPositionOffsetArgs(pos);
             if (args == null) return "无";
             decimal targetprice = 0;
             //logger.Info("it is here");

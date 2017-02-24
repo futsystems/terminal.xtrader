@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using TradingLib.API;
@@ -14,9 +15,9 @@ namespace TradingLib.TraderCore
     /// <summary>
     /// 持仓 止盈止损参数
     /// </summary>
-    public class PositionOffsetArgs
+    public class PositionOffsetArgSet
     {
-        public PositionOffsetArgs(Position pos)
+        public PositionOffsetArgSet(Position pos)
         {
             this.Position = pos;
             this.ProfitArg = new PositionOffsetArg(pos.Account, pos.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, QSEnumPositionOffsetDirection.PROFIT);
@@ -74,13 +75,14 @@ namespace TradingLib.TraderCore
 
         /// <summary>
         /// 持仓 与 止盈止损参数映射 一个持仓有一个PositionOffsetArgs与之对应
+        /// 行情线程与界面UI线程都会对止盈止损参数进行获取或者跟新操作为了避免多线程访问数据问题，这里使用线程安全字典类型
         /// </summary>
-        Dictionary<string, PositionOffsetArgs> argsmap = new Dictionary<string, PositionOffsetArgs>();
+        ConcurrentDictionary<string, PositionOffsetArgSet> argsmap = new ConcurrentDictionary<string, PositionOffsetArgSet>();
 
         /// <summary>
-        /// 将止盈止损参数 按合约进行分类
+        /// 将止盈止损参数 按合约进行分类 方便行情驱动
         /// </summary>
-        Dictionary<string, ThreadSafeList<PositionOffsetArgs>> symbolargsmap = new Dictionary<string, ThreadSafeList<PositionOffsetArgs>>();
+        ConcurrentDictionary<string, ThreadSafeList<PositionOffsetArgSet>> symbolargsmap = new ConcurrentDictionary<string, ThreadSafeList<PositionOffsetArgSet>>();
 
 
         public PositionWatcher()
@@ -91,6 +93,7 @@ namespace TradingLib.TraderCore
             //响应行情数据 监控持仓止盈止损状态
             CoreService.EventIndicator.GotTickEvent +=new Action<Tick>(GotTick);
 
+            //响应行情数据
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(GotFillEvent);
 
             //响应委托回报数据
@@ -110,9 +113,9 @@ namespace TradingLib.TraderCore
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public PositionOffsetArgs GetPositionOffsetArgs(Position pos)
+        public PositionOffsetArgSet GetPositionOffsetArgs(Position pos)
         {
-            PositionOffsetArgs target = null;
+            PositionOffsetArgSet target = null;
             if (argsmap.TryGetValue(pos.GetPositionKey(), out target))
             {
                 return target;
@@ -129,13 +132,12 @@ namespace TradingLib.TraderCore
             //持仓没有对应的止盈止损数据则新增
             if (!argsmap.Keys.Contains(pos.GetPositionKey()))
             {
-                PositionOffsetArgs args = new PositionOffsetArgs(pos);
-                argsmap.Add(pos.GetPositionKey(), args);
-
+                PositionOffsetArgSet args = new PositionOffsetArgSet(pos);
+                argsmap.TryAdd(pos.GetPositionKey(), args);
 
                 if (!symbolargsmap.Keys.Contains(pos.Symbol))
                 {
-                    symbolargsmap.Add(pos.Symbol, new ThreadSafeList<PositionOffsetArgs>());
+                    symbolargsmap.TryAdd(pos.Symbol, new ThreadSafeList<PositionOffsetArgSet>());
                 }
                 symbolargsmap[pos.Symbol].Add(args);
 
@@ -151,7 +153,7 @@ namespace TradingLib.TraderCore
         {
             if (k == null || !k.IsValid()) return;
             if (k.UpdateType != "X" && k.UpdateType !="S") return;
-            ThreadSafeList<PositionOffsetArgs> target = null;
+            ThreadSafeList<PositionOffsetArgSet> target = null;
             if (symbolargsmap.TryGetValue(k.Symbol, out target))
             {
                 foreach (var arg in target)
@@ -167,7 +169,7 @@ namespace TradingLib.TraderCore
         {
             if (o.Status == QSEnumOrderStatus.Filled)
             {
-                ThreadSafeList<PositionOffsetArgs> target = null;
+                ThreadSafeList<PositionOffsetArgSet> target = null;
                 if (symbolargsmap.TryGetValue(o.Symbol, out target))
                 {
                     foreach (var arg in target)
@@ -178,7 +180,7 @@ namespace TradingLib.TraderCore
             }
         }
 
-        void ProcessOrder(PositionOffsetArgs args, Order o)
+        void ProcessOrder(PositionOffsetArgSet args, Order o)
         {
             //非持仓对应合约 直接返回
             if (o.Symbol != args.Position.Symbol) return;
@@ -215,7 +217,7 @@ namespace TradingLib.TraderCore
             }
         }
 
-        void ProcessTick(PositionOffsetArgs args,Tick tick)
+        void ProcessTick(PositionOffsetArgSet args, Tick tick)
         {
             //非持仓对应合约 直接返回
             if (tick.Symbol != args.Position.Symbol) return;
