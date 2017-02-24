@@ -19,7 +19,11 @@ namespace TradingLib.TraderCore
     {
         public PositionOffsetArgSet(Position pos)
         {
-            this.Position = pos;
+            //this.Position = pos;
+            //this.Key = pos.GetPositionKey();
+            this.Symbol = pos.Symbol;
+            this.Account = pos.Account;
+            this.Side = pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false;
             this.ProfitArg = new PositionOffsetArg(pos.Account, pos.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, QSEnumPositionOffsetDirection.PROFIT);
             this.LossArg = new PositionOffsetArg(pos.Account, pos.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false, QSEnumPositionOffsetDirection.LOSS);
 
@@ -39,11 +43,18 @@ namespace TradingLib.TraderCore
             }
         }
 
+
         /// <summary>
         /// 对应持仓对象
         /// </summary>
-        public Position Position { get; set; }
+        //public Position Position { get; set; }
 
+        public string Account { get; set; }
+
+        public string Symbol { get; set; }
+
+        public bool Side { get; set; }
+       // public string Key { get; set; }
         /// <summary>
         /// 止盈止损参数列表
         /// </summary>
@@ -60,6 +71,11 @@ namespace TradingLib.TraderCore
         /// 止损参数
         /// </summary>
         public PositionOffsetArg LossArg { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Profit:{0} Loss:{1}", this.ProfitArg != null ? this.ProfitArg.ToString() : "null", this.LossArg != null ? this.LossArg.ToString() : "null");
+        }
 
     }
 
@@ -101,7 +117,8 @@ namespace TradingLib.TraderCore
 
         }
 
-        
+
+        public ConcurrentDictionary<string, PositionOffsetArgSet> ArgMap { get { return argsmap; } }
 
         void EventIndicator_GotOrderEvent(Order obj)
         {
@@ -182,8 +199,10 @@ namespace TradingLib.TraderCore
 
         void ProcessOrder(PositionOffsetArgSet args, Order o)
         {
+            var tpos = CoreService.TradingInfoTracker.PositionTracker[args.Symbol, args.Account, args.Side];
+            if (tpos == null) return;
             //非持仓对应合约 直接返回
-            if (o.Symbol != args.Position.Symbol) return;
+            if (o.Symbol != tpos.Symbol) return;
 
             List<string> removelsit = new List<string>();
             foreach (var arg in args.PositionOffsetArgList)
@@ -220,7 +239,7 @@ namespace TradingLib.TraderCore
         void ProcessTick(PositionOffsetArgSet args, Tick tick)
         {
             //非持仓对应合约 直接返回
-            if (tick.Symbol != args.Position.Symbol) return;
+            if (tick.Symbol != args.Symbol) return;
 
             foreach (var arg in args.PositionOffsetArgList)
             {
@@ -229,12 +248,17 @@ namespace TradingLib.TraderCore
 
                 //参数已经Fired委托 pass
                 if (arg.Fired) continue;
-
                 //检查
-                arg.Fired = arg.NeedSendOrder(args.Position, tick);
+                var tpos = CoreService.TradingInfoTracker.PositionTracker[args.Symbol, args.Account, args.Side];
+                if (tpos == null) return;
+                arg.Fired = arg.NeedSendOrder(tpos, tick);
+                //decimal val = arg.TargetPrice(args.Position);
+                //List<Position> positionlist = CoreService.TradingInfoTracker.PositionTracker.Positions.ToList();
+                logger.Info(string.Format("Arg:{0} TargetPrice:{1} Trade:{2} Fired:{3}", arg, arg.TargetPrice(tpos), tick.Trade, arg.Fired));
+                
                 if (arg.Fired)
                 {
-                    arg.FlatOrderRefList = FlatPosition(args.Position, arg.Size);
+                    arg.FlatOrderRefList = FlatPosition(tpos, arg.Size);
                 }
             }
         }

@@ -176,6 +176,12 @@ namespace TradingLib.XTrader.Future
             {
                 RegisterSymbol(sym, false);
             }
+
+            if(UIService.EventUI.SymbolSelected!= null)
+            {
+                //注册当前选中合约
+                RegisterSymbol(UIService.EventUI.SymbolSelected);
+            }
             //触发合约集合变动事件
             SymbolRegisterChanged();
 
@@ -333,7 +339,9 @@ namespace TradingLib.XTrader.Future
         /// <param name="symbol"></param>
         public void NotifyTick(MDSymbol symbol)
         {
+            //会出现 合约注册为无的情况 导致无法获得正常的行情数据
             if (!_symbolRegister.Keys.Contains(symbol.UniqueKey)) return;
+            int x = CoreService.TradingInfoTracker.HotSymbols.Count();
             Tick k = null;
             if (!snapshotMap.TryGetValue(symbol.UniqueKey, out k))
             {

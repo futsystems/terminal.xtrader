@@ -1199,5 +1199,12 @@ namespace TradingLib.XTrader.Future
 
         #endregion
 
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            fmOffsetDebug fm = new fmOffsetDebug();
+            fm.ShowDialog();
+            fm.Close();
+        }
+
     }
 }

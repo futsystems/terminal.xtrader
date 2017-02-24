@@ -134,6 +134,12 @@
     <Compile Include="Common\FNumberInput.Designer.cs">
       <DependentUpon>FNumberInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\fmOffsetDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\fmOffsetDebug.Designer.cs">
+      <DependentUpon>fmOffsetDebug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\frmPositionOffset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\ctrlTrade.resx">
       <DependentUpon>ctrlTrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\fmOffsetDebug.resx">
+      <DependentUpon>fmOffsetDebug.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\frmPositionOffset.resx">
       <DependentUpon>frmPositionOffset.cs</DependentUpon>
