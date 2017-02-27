@@ -66,6 +66,8 @@ namespace TradingLib.XTrader.Future
             btnQryMaxVol.Click += new EventHandler(btnQryMaxVol_Click);
             btnReset.Click += new EventHandler(btnReset_Click);
 
+            btnQryArgs.Click += new EventHandler(btnQryArgs_Click);
+
             CoreService.EventIndicator.GotTickEvent += new Action<Tick>(EventIndicator_GotTickEvent);//响应实时行情
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(EventIndicator_GotOrderEvent);
             CoreService.EventIndicator.GotFillEvent += new Action<Trade>(EventIndicator_GotFillEvent);
@@ -77,6 +79,8 @@ namespace TradingLib.XTrader.Future
 
             CoreService.EventCore.RegIEventHandler(this);
         }
+
+        
 
         
 
@@ -1199,12 +1203,12 @@ namespace TradingLib.XTrader.Future
 
         #endregion
 
-        private void btnDebug_Click(object sender, EventArgs e)
+
+        void btnQryArgs_Click(object sender, EventArgs e)
         {
             fmOffsetDebug fm = new fmOffsetDebug();
             fm.ShowDialog();
             fm.Close();
         }
-
     }
 }

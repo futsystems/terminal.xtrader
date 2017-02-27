@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using TradingLib.API;
 using TradingLib.Common;
 using Common.Logging;
@@ -19,8 +20,6 @@ namespace TradingLib.TraderCore
     {
         public PositionOffsetArgSet(Position pos)
         {
-            //this.Position = pos;
-            //this.Key = pos.GetPositionKey();
             this.Symbol = pos.Symbol;
             this.Account = pos.Account;
             this.Side = pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false;
@@ -39,22 +38,16 @@ namespace TradingLib.TraderCore
                 offset.Enable = false;
                 offset.Fired = false;
                 offset.FlatOrderRefList.Clear();
-                
+
             }
         }
-
-
-        /// <summary>
-        /// 对应持仓对象
-        /// </summary>
-        //public Position Position { get; set; }
 
         public string Account { get; set; }
 
         public string Symbol { get; set; }
 
         public bool Side { get; set; }
-       // public string Key { get; set; }
+
         /// <summary>
         /// 止盈止损参数列表
         /// </summary>
@@ -89,6 +82,8 @@ namespace TradingLib.TraderCore
 
         ILog logger = LogManager.GetLogger("PositionWatcher");
 
+        public ConcurrentDictionary<string, PositionOffsetArgSet> ArgMap { get { return argsmap; } }
+
         /// <summary>
         /// 持仓 与 止盈止损参数映射 一个持仓有一个PositionOffsetArgs与之对应
         /// 行情线程与界面UI线程都会对止盈止损参数进行获取或者跟新操作为了避免多线程访问数据问题，这里使用线程安全字典类型
@@ -100,7 +95,7 @@ namespace TradingLib.TraderCore
         /// </summary>
         ConcurrentDictionary<string, ThreadSafeList<PositionOffsetArgSet>> symbolargsmap = new ConcurrentDictionary<string, ThreadSafeList<PositionOffsetArgSet>>();
 
-
+        
         public PositionWatcher()
         {
             //有持仓生成时 创建该持仓对应的止盈止损数据集
@@ -115,10 +110,51 @@ namespace TradingLib.TraderCore
             //响应委托回报数据
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
 
+            Start();
         }
 
+        void Start()
+        {
+            if (processgo) return;
+            processgo = true;
+            processThread = new Thread(ProcessArg);
+            processThread.IsBackground = true;
+            processThread.Start();
+        }
+        Thread processThread = null;
+        bool processgo = false;
 
-        public ConcurrentDictionary<string, PositionOffsetArgSet> ArgMap { get { return argsmap; } }
+        void ProcessArg()
+        {
+            while (processgo)
+            {
+                foreach (var argset in argsmap.Values)
+                {
+                    foreach (var arg in argset.PositionOffsetArgList)
+                    {
+                        try
+                        {
+                            //止损参数启用 且已经触发 同时超过5秒
+                            if (arg.Enable && arg.Fired && DateTime.Now.Subtract(arg.SentTime).TotalSeconds > 5)
+                            {
+                                var pos = CoreService.TradingInfoTracker.PositionTracker[argset.Symbol, argset.Account, argset.Side];
+                                if (pos != null && !pos.isFlat)
+                                {
+                                    logger.Info("~~~~~~~~~~~~~ ReFlat Postion");
+                                    arg.FlatOrderRefList = FlatPosition(pos, arg.Size);
+                                    arg.SentTime = DateTime.Now;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("ReFlat position error:" + ex.ToString());
+                        }
+                    }
+                }
+                Thread.Sleep(300);
+            }
+        }
 
         void EventIndicator_GotOrderEvent(Order obj)
         {
@@ -259,6 +295,7 @@ namespace TradingLib.TraderCore
                 if (arg.Fired)
                 {
                     arg.FlatOrderRefList = FlatPosition(tpos, arg.Size);
+                    arg.SentTime = DateTime.Now;
                 }
             }
         }

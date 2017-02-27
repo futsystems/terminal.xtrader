@@ -66,7 +66,9 @@
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.label1 = new System.Windows.Forms.Label();
             this.inputArbFlag = new CSharpWin.ComboBoxEx();
+            this.btnQryArgs = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.tabPageFlashOrder.SuspendLayout();
             this.panelFlashOrder.SuspendLayout();
             this.panelThreeBtn.SuspendLayout();
             this.panelTradition.SuspendLayout();
@@ -87,6 +89,7 @@
             // 
             // tabPageFlashOrder
             // 
+            this.tabPageFlashOrder.Controls.Add(this.btnQryArgs);
             this.tabPageFlashOrder.Location = new System.Drawing.Point(4, 22);
             this.tabPageFlashOrder.Name = "tabPageFlashOrder";
             this.tabPageFlashOrder.Padding = new System.Windows.Forms.Padding(3);
@@ -559,6 +562,15 @@
             this.inputArbFlag.TabIndex = 24;
             this.inputArbFlag.TabStop = false;
             // 
+            // btnQryArgs
+            // 
+            this.btnQryArgs.Location = new System.Drawing.Point(4, 177);
+            this.btnQryArgs.Name = "btnQryArgs";
+            this.btnQryArgs.Size = new System.Drawing.Size(75, 23);
+            this.btnQryArgs.TabIndex = 0;
+            this.btnQryArgs.Text = "止损参数";
+            this.btnQryArgs.UseVisualStyleBackColor = true;
+            // 
             // ctrlOrderEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -571,6 +583,7 @@
             this.Name = "ctrlOrderEntry";
             this.Size = new System.Drawing.Size(335, 877);
             this.tabControl1.ResumeLayout(false);
+            this.tabPageFlashOrder.ResumeLayout(false);
             this.panelFlashOrder.ResumeLayout(false);
             this.panelFlashOrder.PerformLayout();
             this.panelThreeBtn.ResumeLayout(false);
@@ -625,5 +638,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnEntryOrder;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnQryArgs;
     }
 }
