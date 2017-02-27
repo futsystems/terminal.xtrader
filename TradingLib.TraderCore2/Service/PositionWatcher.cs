@@ -111,8 +111,10 @@ namespace TradingLib.TraderCore
             CoreService.EventIndicator.GotOrderEvent += new Action<Order>(GotOrder);
 
             Start();
+            this.Enable = false;
         }
 
+        public bool Enable { get; set; }
         void Start()
         {
             if (processgo) return;
@@ -128,27 +130,39 @@ namespace TradingLib.TraderCore
         {
             while (processgo)
             {
-                foreach (var argset in argsmap.Values)
+                if (this.Enable)
                 {
-                    foreach (var arg in argset.PositionOffsetArgList)
+                    foreach (var argset in argsmap.Values)
                     {
-                        try
+                        foreach (var arg in argset.PositionOffsetArgList)
                         {
-                            //止损参数启用 且已经触发 同时超过5秒
-                            if (arg.Enable && arg.Fired && DateTime.Now.Subtract(arg.SentTime).TotalSeconds > 5)
+                            try
                             {
-                                var pos = CoreService.TradingInfoTracker.PositionTracker[argset.Symbol, argset.Account, argset.Side];
-                                if (pos != null && !pos.isFlat)
+                                //止损参数启用 且已经触发 同时超过5秒
+                                if (arg.Enable && arg.Fired && DateTime.Now.Subtract(arg.SentTime).TotalSeconds > 5)
                                 {
-                                    logger.Info("~~~~~~~~~~~~~ ReFlat Postion");
-                                    arg.FlatOrderRefList = FlatPosition(pos, arg.Size);
-                                    arg.SentTime = DateTime.Now;
+                                    var pos = CoreService.TradingInfoTracker.PositionTracker[argset.Symbol, argset.Account, argset.Side];
+                                    if (pos != null && !pos.isFlat)
+                                    {
+                                        if (!pos.isFlat)
+                                        {
+                                            logger.Info("~~~~~~~~~~~~~ ReFlat Postion");
+                                            arg.FlatOrderRefList = FlatPosition(pos, arg.Size);
+                                            arg.SentTime = DateTime.Now;
+                                        }
+                                        else
+                                        {   //重置止损 止盈参数
+                                            arg.Enable = false;
+                                            arg.Fired = false;
+                                            arg.FlatOrderRefList.Clear();
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.Error("ReFlat position error:" + ex.ToString());
+                            catch (Exception ex)
+                            {
+                                logger.Error("ReFlat position error:" + ex.ToString());
+                            }
                         }
                     }
                 }
@@ -204,6 +218,7 @@ namespace TradingLib.TraderCore
         /// <param name="k"></param>
         void GotTick(Tick k)
         {
+            if (!this.Enable) return;
             if (k == null || !k.IsValid()) return;
             if (k.UpdateType != "X" && k.UpdateType !="S") return;
             ThreadSafeList<PositionOffsetArgSet> target = null;
@@ -216,10 +231,37 @@ namespace TradingLib.TraderCore
             }
         }
 
+        void ProcessTick(PositionOffsetArgSet args, Tick tick)
+        {
+            //非持仓对应合约 直接返回
+            if (tick.Symbol != args.Symbol) return;
 
+            foreach (var arg in args.PositionOffsetArgList)
+            {
+                //没有处于Enable状态 pass
+                if (!arg.Enable) continue;
+
+                //参数已经Fired委托 pass
+                if (arg.Fired) continue;
+                //检查
+                var tpos = CoreService.TradingInfoTracker.PositionTracker[args.Symbol, args.Account, args.Side];
+                if (tpos == null) return;
+                arg.Fired = arg.NeedSendOrder(tpos, tick);
+                //decimal val = arg.TargetPrice(args.Position);
+                //List<Position> positionlist = CoreService.TradingInfoTracker.PositionTracker.Positions.ToList();
+                logger.Info(string.Format("Arg:{0} TargetPrice:{1} Trade:{2} Fired:{3}", arg, arg.TargetPrice(tpos), tick.Trade, arg.Fired));
+
+                if (arg.Fired)
+                {
+                    arg.FlatOrderRefList = FlatPosition(tpos, arg.Size);
+                    arg.SentTime = DateTime.Now;
+                }
+            }
+        }
 
         void GotOrder(Order o)
         {
+            this.Enable = false;
             if (o.Status == QSEnumOrderStatus.Filled)
             {
                 ThreadSafeList<PositionOffsetArgSet> target = null;
@@ -235,6 +277,7 @@ namespace TradingLib.TraderCore
 
         void ProcessOrder(PositionOffsetArgSet args, Order o)
         {
+            
             var tpos = CoreService.TradingInfoTracker.PositionTracker[args.Symbol, args.Account, args.Side];
             if (tpos == null) return;
             //非持仓对应合约 直接返回
@@ -263,6 +306,7 @@ namespace TradingLib.TraderCore
 
         void GotFillEvent(Trade obj)
         {
+            if (this.Enable) return;
             Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,obj.Account,obj.PositionSide];
             //当持仓归零时重置止盈止损参数
             if(pos!=null && pos.isFlat)
@@ -272,33 +316,7 @@ namespace TradingLib.TraderCore
             }
         }
 
-        void ProcessTick(PositionOffsetArgSet args, Tick tick)
-        {
-            //非持仓对应合约 直接返回
-            if (tick.Symbol != args.Symbol) return;
-
-            foreach (var arg in args.PositionOffsetArgList)
-            {
-                //没有处于Enable状态 pass
-                if (!arg.Enable) continue;
-
-                //参数已经Fired委托 pass
-                if (arg.Fired) continue;
-                //检查
-                var tpos = CoreService.TradingInfoTracker.PositionTracker[args.Symbol, args.Account, args.Side];
-                if (tpos == null) return;
-                arg.Fired = arg.NeedSendOrder(tpos, tick);
-                //decimal val = arg.TargetPrice(args.Position);
-                //List<Position> positionlist = CoreService.TradingInfoTracker.PositionTracker.Positions.ToList();
-                logger.Info(string.Format("Arg:{0} TargetPrice:{1} Trade:{2} Fired:{3}", arg, arg.TargetPrice(tpos), tick.Trade, arg.Fired));
-                
-                if (arg.Fired)
-                {
-                    arg.FlatOrderRefList = FlatPosition(tpos, arg.Size);
-                    arg.SentTime = DateTime.Now;
-                }
-            }
-        }
+        
 
 
         List<string> FlatPosition(Position pos,int size)

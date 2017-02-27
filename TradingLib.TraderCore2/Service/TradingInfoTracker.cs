@@ -121,8 +121,10 @@ namespace TradingLib.TraderCore
         public void ResumeData()
         {
             CoreService.EventHub.FireResumeDataStart();
+            CoreService.PositionWatcher.Enable = false;
             //重置维护期
             Reset();
+            
             //执行隔夜持仓查询 并按序触发后续查询
             Status("查询隔夜持仓");
             _qrypositionid = CoreService.TLClient.ReqXQryYDPositon();
@@ -247,6 +249,7 @@ namespace TradingLib.TraderCore
 
 
             logger.Info("交易信息查询完毕");
+            CoreService.PositionWatcher.Enable = true;
             CoreService.EventHub.FireResumeDataEnd();
 
             //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件
