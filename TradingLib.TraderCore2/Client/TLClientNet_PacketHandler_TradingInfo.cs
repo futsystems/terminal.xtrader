@@ -28,6 +28,10 @@ namespace TradingLib.TraderCore
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Exchange,o.Symbol);
             }
+            if (o.RequestID == _lastOrderInsertReq)
+            {
+                _lastOrderNotified = true;
+            }
             CoreService.EventIndicator.FireOrder(o);
         }
 
