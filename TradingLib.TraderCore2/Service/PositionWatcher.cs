@@ -142,7 +142,7 @@ namespace TradingLib.TraderCore
                                 if (arg.Enable && arg.Fired && DateTime.Now.Subtract(arg.SentTime).TotalSeconds > 5)
                                 {
                                     var pos = CoreService.TradingInfoTracker.PositionTracker[argset.Symbol, argset.Account, argset.Side];
-                                    if (pos != null && !pos.isFlat)
+                                    if (pos != null)
                                     {
                                         if (!pos.isFlat)
                                         {
@@ -247,9 +247,10 @@ namespace TradingLib.TraderCore
                 var tpos = CoreService.TradingInfoTracker.PositionTracker[args.Symbol, args.Account, args.Side];
                 if (tpos == null) return;
                 arg.Fired = arg.NeedSendOrder(tpos, tick);
-                //decimal val = arg.TargetPrice(args.Position);
-                //List<Position> positionlist = CoreService.TradingInfoTracker.PositionTracker.Positions.ToList();
+
+#if DEBUG
                 logger.Info(string.Format("Arg:{0} TargetPrice:{1} Trade:{2} Fired:{3}", arg, arg.TargetPrice(tpos), tick.Trade, arg.Fired));
+#endif
 
                 if (arg.Fired)
                 {
@@ -261,7 +262,7 @@ namespace TradingLib.TraderCore
 
         void GotOrder(Order o)
         {
-            this.Enable = false;
+            if (!this.Enable) return;
             if (o.Status == QSEnumOrderStatus.Filled)
             {
                 ThreadSafeList<PositionOffsetArgSet> target = null;
@@ -306,7 +307,7 @@ namespace TradingLib.TraderCore
 
         void GotFillEvent(Trade obj)
         {
-            if (this.Enable) return;
+            if (!this.Enable) return;
             Position pos = CoreService.TradingInfoTracker.PositionTracker[obj.Symbol,obj.Account,obj.PositionSide];
             //当持仓归零时重置止盈止损参数
             if(pos!=null && pos.isFlat)
@@ -321,6 +322,13 @@ namespace TradingLib.TraderCore
 
         List<string> FlatPosition(Position pos,int size)
         {
+            if (!CoreService.TLClient.LastOrderNotified)
+            {
+                CoreService.TLClient.Stop();
+                CoreService.TLClient.Start();
+                return new List<string>();
+            }
+
             logger.Info("FlatPositon:" + pos.GetPositionKey());
             List<string> reflist = new List<string>();
             if (pos == null || pos.isFlat) return reflist;

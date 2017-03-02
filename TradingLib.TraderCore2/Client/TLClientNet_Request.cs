@@ -42,12 +42,20 @@ namespace TradingLib.TraderCore
             }
         }
 
+        int _lastOrderInsertReq = 0;
+        bool _lastOrderNotified = true;
+        /// <summary>
+        /// 上一个委托是否有正常回报 避免多次重复发单
+        /// </summary>
+        public bool LastOrderNotified { get { return _lastOrderNotified; } }
         /// <summary>
         /// 发送委托
         /// </summary>
         /// <param name="order"></param>
         public int  ReqOrderInsert(Order order)
         {
+            _lastOrderNotified = false;
+
             logger.Info("Send Order:" + order.GetOrderInfo());
 
             order.Account = _account;
@@ -57,6 +65,8 @@ namespace TradingLib.TraderCore
             request.Order.OrderRef = NextOrderRef;
             
             SendPacket(request);
+            _lastOrderInsertReq = requestid;
+            
             return requestid;
         }
 

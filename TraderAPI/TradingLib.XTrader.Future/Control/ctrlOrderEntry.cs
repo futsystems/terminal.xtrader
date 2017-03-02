@@ -77,7 +77,24 @@ namespace TradingLib.XTrader.Future
             UIService.EventUI.OnPositionSelectedEvent += new Action<object, Position>(EventUI_OnPositionSelectedEvent);
             CoreService.EventHub.OnRspXQryMaxOrderVolResponse += new Action<RspXQryMaxOrderVolResponse>(EventQry_OnRspXQryMaxOrderVolResponse);
 
+            CoreService.EventHub.OnResumeDataStart += new Action(EventHub_OnResumeDataStart);
+            CoreService.EventHub.OnResumeDataEnd += new Action(EventHub_OnResumeDataEnd);
+
             CoreService.EventCore.RegIEventHandler(this);
+        }
+
+        void EventHub_OnResumeDataEnd()
+        {
+            btnBuy.Enabled = true;
+            btnSell.Enabled = true;
+            btnClose.Enabled = true;
+        }
+
+        void EventHub_OnResumeDataStart()
+        {
+            btnBuy.Enabled = false;
+            btnSell.Enabled = false;
+            btnClose.Enabled = false;
         }
 
         
@@ -348,6 +365,10 @@ namespace TradingLib.XTrader.Future
             panelThreeBtn.Dock = DockStyle.Fill;
             panelTradition.Dock = DockStyle.Fill;
             EntryFlash();
+            btnQryArgs.Visible = false;
+#if DEBUG
+            btnQryArgs.Visible = true;
+#endif
         }
 
 
@@ -992,6 +1013,11 @@ namespace TradingLib.XTrader.Future
             //一键下单
             if (TraderConfig.ExSendOrderDirect)
             {
+                if (!CoreService.TLClient.LastOrderNotified)
+                {
+                    MessageBox.Show("上次提交委托未回报，请重启交易端，避免重复下单");
+                    return;
+                }
                 _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
                 btnBuy.Enabled = false;
                 btnSell.Enabled = false;
@@ -1002,6 +1028,11 @@ namespace TradingLib.XTrader.Future
                 string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(), GetOffsetString());
                 if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
+                    if (!CoreService.TLClient.LastOrderNotified)
+                    {
+                        MessageBox.Show("上次提交委托未回报，请重启交易端，避免重复下单");
+                        return;
+                    }
                     _orderInesertId = CoreService.TLClient.ReqOrderInsert(order);
                     btnBuy.Enabled = false;
                     btnSell.Enabled = false;

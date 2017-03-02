@@ -57,6 +57,7 @@ namespace TradingLib.TraderCore
 
         public TradingInfoTracker()
         {
+            ResumeEnd = false;
             OrderTracker = new OrderTracker();
             PositionTracker = new LSPositionTracker("");
             HoldPositionTracker = new LSPositionTracker("");
@@ -113,7 +114,7 @@ namespace TradingLib.TraderCore
         }
 
 
-
+        public bool ResumeEnd { get; set; }
         int _qrypositionid = 0;
         /// <summary>
         /// 请求恢复日内交易记录
@@ -121,6 +122,7 @@ namespace TradingLib.TraderCore
         public void ResumeData()
         {
             CoreService.EventHub.FireResumeDataStart();
+            this.ResumeEnd = false;
             CoreService.PositionWatcher.Enable = false;
             //重置维护期
             Reset();
@@ -250,6 +252,7 @@ namespace TradingLib.TraderCore
 
             logger.Info("交易信息查询完毕");
             CoreService.PositionWatcher.Enable = true;
+            this.ResumeEnd = true;
             CoreService.EventHub.FireResumeDataEnd();
 
             //登入第一次初始化过程中 查询完毕后需要启动行情连接并执行初始化事件

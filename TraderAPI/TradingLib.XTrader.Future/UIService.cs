@@ -29,5 +29,10 @@ namespace TradingLib.XTrader
                 return defaultinstance._eventUI;
             }
         }
+
+        public int SendOrder(Order o)
+        {
+            return TraderCore.CoreService.TLClient.ReqOrderInsert(o);
+        }
     }
 }

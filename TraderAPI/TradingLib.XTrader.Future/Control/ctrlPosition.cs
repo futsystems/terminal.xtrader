@@ -49,6 +49,25 @@ namespace TradingLib.XTrader.Future
             positionGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(positionGrid_CellFormatting);
             positionGrid.MouseClick += new MouseEventHandler(positionGrid_MouseClick);
             positionGrid.MouseDoubleClick += new MouseEventHandler(positionGrid_MouseDoubleClick);
+            CoreService.EventHub.OnResumeDataStart += new Action(EventHub_OnResumeDataStart);
+            CoreService.EventHub.OnResumeDataEnd += new Action(EventHub_OnResumeDataEnd);
+        }
+
+        void EventHub_OnResumeDataEnd()
+        {
+            btnFlat.Enabled = true;
+            btnFlatAll.Enabled = true;
+            btnReserve.Enabled = true;
+            btnLockPos.Enabled = true;
+        }
+
+        void EventHub_OnResumeDataStart()
+        {
+            btnFlat.Enabled = false;
+            btnFlatAll.Enabled = false;
+            btnReserve.Enabled = false;
+            btnLockPos.Enabled = false;
+
         }
 
         void btnLockPos_Click(object sender, EventArgs e)
@@ -150,13 +169,29 @@ namespace TradingLib.XTrader.Future
         {
             if (MessageBox.Show("确认平掉所有持仓?", "确认全平", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                foreach (Position pos in CoreService.TradingInfoTracker.PositionTracker)
-                {
-                    if (!pos.isFlat)
+                System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(
+                    (object o) =>
                     {
-                        FlatPosition(pos);
+                        foreach (Position pos in CoreService.TradingInfoTracker.PositionTracker)
+                        {
+                            DateTime now = DateTime.Now;
+                            if (!pos.isFlat)
+                            {
+                                while (!CoreService.TLClient.LastOrderNotified)
+                                {
+                                    System.Threading.Thread.Sleep(200);
+                                    if (DateTime.Now.Subtract(now).TotalSeconds > 5)
+                                    {
+                                        MessageBox.Show("上次提交委托未回报，请重启交易端，避免重复下单");
+                                        return;
+                                    }
+                                }
+
+                                FlatPosition(pos);
+                            }
+                        }
                     }
-                }
+                ));
             }
         }
 
@@ -200,6 +235,12 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
+                if (!CoreService.TLClient.LastOrderNotified)
+                {
+                    MessageBox.Show("上次提交委托未回报，请重启交易端，避免重复下单");
+                    return;
+                }
+
                 Order o = new MarketOrderFlat(pos);
                 o.Symbol = pos.oSymbol.Symbol;
                 o.Exchange = pos.oSymbol.Exchange;
@@ -209,6 +250,12 @@ namespace TradingLib.XTrader.Future
 
         void LockPosition(Position pos)
         {
+            if (!CoreService.TLClient.LastOrderNotified)
+            {
+                MessageBox.Show("上次提交委托未回报，请重启交易端，避免重复下单");
+                return;
+            }
+
             logger.Info("LockPositon:" + pos.GetPositionKey());
             if (pos == null || pos.isFlat) return;
 

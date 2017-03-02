@@ -52,6 +52,20 @@ namespace TradingLib.XTrader.Future
             orderGrid.CellFormatting += new DataGridViewCellFormattingEventHandler(orderGrid_CellFormatting);
             orderGrid.MouseClick += new MouseEventHandler(orderGrid_MouseClick);
             orderGrid.DoubleClick += new EventHandler(orderGrid_DoubleClick);
+            CoreService.EventHub.OnResumeDataStart += new Action(EventHub_OnResumeDataStart);
+            CoreService.EventHub.OnResumeDataEnd += new Action(EventHub_OnResumeDataEnd);
+        }
+
+        void EventHub_OnResumeDataEnd()
+        {
+            btnCancel.Enabled = true;
+            btnCancelAll.Enabled = true;
+        }
+
+        void EventHub_OnResumeDataStart()
+        {
+            btnCancel.Enabled = false;
+            btnCancelAll.Enabled = false;
         }
 
         void orderGrid_DoubleClick(object sender, EventArgs e)
