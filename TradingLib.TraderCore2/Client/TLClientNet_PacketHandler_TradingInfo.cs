@@ -81,6 +81,11 @@ namespace TradingLib.TraderCore
         {
             logger.Debug("Got Order Error Notify:" + response.ToString());
             CoreService.EventIndicator.FireErrorOrder(response.Order, response.RspInfo);
+            if (response.Order.RequestID == _lastOrderInsertReq)
+            {
+                _lastOrderNotified = true;
+            }
+
             if (IsRspInfoError(response.RspInfo))
             {
                 PromptMessage msg = new PromptMessage("提交委托异常", "{0},ErrorCode[{1}]".Put(response.RspInfo.ErrorMessage, response.RspInfo.ErrorID));
