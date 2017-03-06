@@ -37,5 +37,10 @@ namespace XTraderLite
         /// 交易插件
         /// </summary>
         public static string PluginBroker = "";
+
+        /// <summary>
+        /// 在线出入金地址
+        /// </summary>
+        public static string PayUrl = "";
     }
 }

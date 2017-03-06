@@ -32,6 +32,7 @@ namespace XTraderLite
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
             Global.PluginBroker = _cfgfile["Broker"].AsString();
             Global.PluginMarket = _cfgfile["Market"].AsString();
+            Global.PayUrl = _cfgfile["PayUrl"].AsString();
 
             slogen.Text = _cfgfile["Slogen"].AsString();
             topImage.Image = Image.FromFile("Config/login.png");

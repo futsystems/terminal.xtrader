@@ -40,11 +40,26 @@ namespace XTraderLite
 
             //交易
             menuTrading.Click += new EventHandler(menuTrading_Click);
+            menuPay.Click += new EventHandler(menuPay_Click);
 
             //帮助
             menuRelief.Click += new EventHandler(menuRelief_Click);
             menuAbout.Click += new EventHandler(menuAbout_Click);
             menuShortCutKey.Click += new EventHandler(menuShortCutKey_Click);
+        }
+
+        //打开网页 在线出入金
+        void menuPay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("iexplore.exe", Global.PayUrl);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("请手工打开网页:{0} 进行出入金操作", Global.PayUrl));
+            }
+                
         }
 
         void menuDataFarmSiteList_Click(object sender, EventArgs e)
