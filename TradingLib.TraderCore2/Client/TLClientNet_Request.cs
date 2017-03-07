@@ -340,5 +340,22 @@ namespace TradingLib.TraderCore
             return requestid;
         }
         #endregion
+
+        public int ReqContribRequest(string module, string cmd, object jobj)
+        {
+            return this.ReqContribRequest(module, cmd, jobj.SerializeObject());
+        }
+
+        public int ReqContribRequest(string module, string cmd, string arg, bool str2json = false)
+        {
+            logger.Info(string.Format("ContribRequest Module:{0} Cmd:{1} Args:{2}", module, cmd, arg));
+            int reqid = ++requestid;
+            ContribRequest request = RequestTemplate<ContribRequest>.CliSendRequest(reqid);
+            request.ModuleID = module;
+            request.CMDStr = cmd;
+            request.Parameters = str2json ? arg.SerializeObject() : arg;
+            SendPacket(request);
+            return reqid;
+        }
     }
 }

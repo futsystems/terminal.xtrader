@@ -103,5 +103,14 @@ namespace TradingLib.TraderCore
             CoreService.EventHub.FireRspXQrySymbolResponse(target, response.RspInfo, response.RequestID, response.IsLast);
 
         }
+
+        void CliOnContribResponse(RspContribResponse response)
+        {
+            string module = response.ModuleID;
+            string cmd = response.CMDStr;
+            string ret = response.Result;
+            logger.Debug("ContribResponse ->Module:" + module + " CMD:" + cmd + " Ret:" + ret);
+            CoreService.EventCore.GotContribResponse(module, cmd,response.RspInfo, ret, response.IsLast);
+        }
     }
 }

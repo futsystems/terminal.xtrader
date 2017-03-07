@@ -125,7 +125,9 @@ namespace TradingLib.TraderCore
                 case MessageTypes.XPOSITIONDETAILRESPONSE://查询持仓明细回报
                     CliOnXQryPositionDetails(packet as RspXQryPositionDetailResponse);
                     break;
-
+                case MessageTypes.CONTRIBRESPONSE:
+                    CliOnContribResponse(packet as RspContribResponse);
+                    break;
                 default:
                     logger.Error("Packet Handler Not Set, Packet:" + packet.ToString());
                     break;
