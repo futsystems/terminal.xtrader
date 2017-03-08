@@ -34,13 +34,28 @@ namespace TradingLib.XTrader.Future
         {
             CoreService.EventCore.RegisterCallback("MsgExch", "QryContractBank", OnQryBank);
             CoreService.EventCore.RegisterCallback("AccountManager", "QryAccountProfile", OnQryAccountProfile);
+            CoreService.EventCore.RegisterCallback("AccountManager", "UpdateAccountProfile", OnUpdateProfile);
         }
 
         public void OnDisposed()
-        { 
-        
+        {
+            CoreService.EventCore.UnRegisterCallback("MsgExch", "QryContractBank", OnQryBank);
+            CoreService.EventCore.UnRegisterCallback("AccountManager", "QryAccountProfile", OnQryAccountProfile);
+            CoreService.EventCore.UnRegisterCallback("AccountManager", "UpdateAccountProfile", OnUpdateProfile);
         }
 
+        void OnUpdateProfile(RspInfo info, string json, bool islast)
+        {
+            if (info.ErrorID == 0)
+            {
+                MessageBox.Show("更新签约银行信息成功");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(info.ErrorMessage);
+            }
+        }
         void OnQryBank(RspInfo info,string json, bool islast)
         {
             ContractBank[] splist = json.DeserializeObject<ContractBank[]>();

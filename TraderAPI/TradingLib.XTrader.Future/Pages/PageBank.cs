@@ -41,8 +41,9 @@ namespace TradingLib.XTrader.Future
         }
 
         public void OnDisposed()
-        { 
-            
+        {
+            CoreService.EventCore.UnRegisterCallback("APIService", "Deposit", OnDeposit);
+            CoreService.EventCore.UnRegisterCallback("APIService", "Withdraw", OnWithdraw);
         }
 
         void OnWithdraw(RspInfo info, string json, bool islast)
