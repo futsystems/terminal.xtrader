@@ -91,8 +91,23 @@ namespace TradingLib.XTrader.Future
                 MessageBox.Show("金额需大于零");
                 return;
             }
-            CoreService.TLClient.ReqDeposit(amount.Value);
-            btnDeposit.Enabled = false;
+            string msg = string.Empty;
+            bool isex = CoreService.TradingInfoTracker.Account.Currency != CurrencyType.RMB;
+            if(isex)
+            {
+                var rate = CoreService.TradingInfoTracker.Account.GetExchangeRate(CurrencyType.RMB);
+
+                msg = string.Format("确认入金人民币:{0}元 ({1}{2})", amount.Value.ToFormatStr(), (rate * amount.Value).ToFormatStr(), Util.GetEnumDescription(CoreService.TradingInfoTracker.Account.Currency));
+            }
+            else
+            {
+                msg = string.Format("确认入金人民币:{0}元",amount.Value);
+            }
+            if (MessageBox.Show(msg,"确认入金", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+                CoreService.TLClient.ReqDeposit(amount.Value);
+                btnDeposit.Enabled = false;
+            }
         }
 
         void btnWithdraw_Click(object sender, EventArgs e)
@@ -102,8 +117,25 @@ namespace TradingLib.XTrader.Future
                 MessageBox.Show("金额需大于零");
                 return;
             }
-            CoreService.TLClient.ReqWithdraw(amount.Value);
-            btnWithdraw.Enabled = false;
+            
+            string msg = string.Empty;
+            bool isex = CoreService.TradingInfoTracker.Account.Currency != CurrencyType.RMB;
+            if(isex)
+            {
+                var rate = CoreService.TradingInfoTracker.Account.GetExchangeRate(CurrencyType.RMB);
+
+                msg = string.Format("确认出金人民币:{0}元 ({1}{2})", amount.Value.ToFormatStr(), (rate * amount.Value).ToFormatStr(), Util.GetEnumDescription(CoreService.TradingInfoTracker.Account.Currency));
+            }
+            else
+            {
+                msg = string.Format("确认出金人民币:{0}元",amount.Value);
+            }
+            if (MessageBox.Show(msg, "确认出金", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+
+                CoreService.TLClient.ReqWithdraw(amount.Value);
+                btnWithdraw.Enabled = false;
+            }
         }
 
         void btnSetBankInfo_Click(object sender, EventArgs e)
