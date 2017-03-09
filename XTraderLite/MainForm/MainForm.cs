@@ -98,7 +98,8 @@ namespace XTraderLite
         void InitControls()
         {
             this.KeyPreview = true;//Gets or sets a value indicating whether the form will receive key events before the event is passed to the control that has focus.
-            this.panelHolder.Width = this.Width - 2;
+            //this.panelHolder.Width = this.Width - 2;
+            //this.panelHolder.Dock = DockStyle.Fill;
             this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             //_curView = ctrlQuoteList;//设置默认当前视图控件
