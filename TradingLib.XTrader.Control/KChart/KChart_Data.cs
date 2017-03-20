@@ -314,28 +314,35 @@ namespace CStock
         /// </summary>
         public void ReCalculate(object obj,bool calcInd = true)
         {
-            //logger.Info("ReCalculate:"+obj.ToString());
-            int dataLength, detailBoardWidth, leftW, rightW, showCount;
-            dataLength = GS[0].RecordCount;
-            if(!this.StartFix)
+            try
             {
-                leftW = 0;
-                if (GS[0].ShowLeft)
-                    leftW = 40;
-                rightW = 0;
-                if (GS[0].ShowRight)
-                    rightW = 40;
-                detailBoardWidth = 0;
-                if (this.ShowDetailPanel)
-                    detailBoardWidth = Board.Width + SP1.Width;
-                showCount = (int)(Math.Floor((Width - detailBoardWidth - leftW - rightW - (!this.StartFix?this.ExtendedRightSpace:0)) / GS[0].FScale));
-                this.StartIndex = dataLength - showCount;
+                //logger.Info("ReCalculate:"+obj.ToString());
+                int dataLength, detailBoardWidth, leftW, rightW, showCount;
+                dataLength = GS[0].RecordCount;
+                if (!this.StartFix)
+                {
+                    leftW = 0;
+                    if (GS[0].ShowLeft)
+                        leftW = 40;
+                    rightW = 0;
+                    if (GS[0].ShowRight)
+                        rightW = 40;
+                    detailBoardWidth = 0;
+                    if (this.ShowDetailPanel)
+                        detailBoardWidth = Board.Width + SP1.Width;
+                    showCount = (int)(Math.Floor((Width - detailBoardWidth - leftW - rightW - (!this.StartFix ? this.ExtendedRightSpace : 0)) / GS[0].FScale));
+                    this.StartIndex = dataLength - showCount;
+                }
+                if (calcInd)
+                {
+                    //执行计算
+                    for (int i = 0; i < techwindows; i++)//只计算显示的窗口指标数据
+                        GS[i].run();
+                }
             }
-            if (calcInd)
+            catch (Exception ex)
             {
-                //执行计算
-                for (int i = 0; i < techwindows; i++)//只计算显示的窗口指标数据
-                    GS[i].run();
+                logger.Error("ReCalculate Error:" + ex.ToString());
             }
         }
 
