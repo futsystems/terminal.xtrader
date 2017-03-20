@@ -70,14 +70,9 @@ namespace TradingLib.XTrader.Future
         public MainContainer()
         {
             apisetting.TradingBoxMinHeight = 258;
-
-
             InitializeComponent();
             ctrlTraderLogin.BackColor = Color.White;
-
             WireEvent();
-
-            
         }
 
         void WireEvent()
@@ -256,18 +251,25 @@ namespace TradingLib.XTrader.Future
             }
             else
             {
-                //进行延迟加载，避免第一次初始化时创建所有控件
-                //如果每次退出再登入都重新创建_trader控件 则多次登入后会卡死界面，后来通过复用解决这个问题
-                if (_trader == null)
+                try
                 {
-                    _trader = new ctrlFutureTrader();
-                    _trader.Dock = DockStyle.Fill;
-                    _trader.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
-                    _trader.LockTradingBox += new Action(OnLockTradingBox);
-                    this.Controls.Add(_trader);
+                    //进行延迟加载，避免第一次初始化时创建所有控件
+                    //如果每次退出再登入都重新创建_trader控件 则多次登入后会卡死界面，后来通过复用解决这个问题
+                    if (_trader == null)
+                    {
+                        _trader = new ctrlFutureTrader();
+                        _trader.Dock = DockStyle.Fill;
+                        _trader.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
+                        _trader.LockTradingBox += new Action(OnLockTradingBox);
+                        this.Controls.Add(_trader);
+                    }
+                    ctrlTraderLogin.Visible = false;
+                    _trader.Show();
                 }
-                ctrlTraderLogin.Visible = false;
-                _trader.Show();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("程序异常,联系程序开发人员:" + ex.ToString());
+                }
             }
         }
 

@@ -21,25 +21,25 @@ namespace DataAPI.Futs
         List<BlockInfo> blockInfoList = new List<BlockInfo>();
         public FutsDataAPI()
         {
-            APISetting.TickMode = EnumMDTickMode.Register;
-            APISetting.QryBarTimeSupport = true;
-            APISetting.QryMinuteDataTimeSupport = true;
+                APISetting.TickMode = EnumMDTickMode.Register;
+                APISetting.QryBarTimeSupport = true;
+                APISetting.QryMinuteDataTimeSupport = true;
 
-            DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
-            DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
-            DataCoreService.EventHub.OnLoginEvent += new Action<LoginResponse>(EventHub_OnLoginEvent);
-            DataCoreService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
+                DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
+                DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
+                DataCoreService.EventHub.OnLoginEvent += new Action<LoginResponse>(EventHub_OnLoginEvent);
+                DataCoreService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
 
-            DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
+                DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
 
-            //Bar数据查询
-            DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
-            //分笔成交数据查询
-            DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
-            //价格成交量查询
-            DataCoreService.EventHub.OnRspPriceVolEvent += new Action<RspXQryPriceVolResponse>(EventHub_OnRspPriceVolEvent);
-            //分时数据查询
-            DataCoreService.EventHub.OnRspMinuteDataEvent += new Action<RspXQryMinuteDataResponse>(EventHub_OnRspMinuteDataEvent);
+                //Bar数据查询
+                DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
+                //分笔成交数据查询
+                DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
+                //价格成交量查询
+                DataCoreService.EventHub.OnRspPriceVolEvent += new Action<RspXQryPriceVolResponse>(EventHub_OnRspPriceVolEvent);
+                //分时数据查询
+                DataCoreService.EventHub.OnRspMinuteDataEvent += new Action<RspXQryMinuteDataResponse>(EventHub_OnRspMinuteDataEvent);
         }
 
 

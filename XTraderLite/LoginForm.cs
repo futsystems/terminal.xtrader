@@ -30,12 +30,12 @@ namespace XTraderLite
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
             Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
-            Global.PluginBroker = _cfgfile["Broker"].AsString();
-            Global.PluginMarket = _cfgfile["Market"].AsString();
+            //Global.PluginBroker = _cfgfile["Broker"].AsString();
+            //Global.PluginMarket = _cfgfile["Market"].AsString();
             Global.PayUrl = _cfgfile["PayUrl"].AsString();
 
             slogen.Text = _cfgfile["Slogen"].AsString();
-            topImage.Image = Image.FromFile("Config/login.png");
+            topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
             if (!Global.ClassicLogin)
             {
                 XGJLogin();
@@ -264,33 +264,40 @@ namespace XTraderLite
         /// </summary>
         void Connect()
         {
-            //登入过程开始
-            _connectstart = true;
-            _connecttime = DateTime.Now;
-            MDService.InitDataAPI(Global.PluginMarket);
-
-            if (MDService.DataAPI == null)
+            try
             {
-                MessageBox.Show("行情插件加载异常");
-                Reset();
-                return;
+                //登入过程开始
+                _connectstart = true;
+                _connecttime = DateTime.Now;
+                MDService.InitDataAPI(new DataAPI.Futs.FutsDataAPI());
+
+                if (MDService.DataAPI == null)
+                {
+                    MessageBox.Show("行情插件加载异常");
+                    Reset();
+                    return;
+                }
+
+                //ServerNode node = cbServer.SelectedItem as ServerNode;
+                //if (node != null)
+                //{
+                //    MDService.DataAPI.Connect(new string[] { node.Address }, node.Port);
+                //}
+
+                List<string> serverList = new List<string>();
+                int port = 0;
+                foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
+                {
+                    if (port == 0) port = v.Port;
+                    serverList.Add(v.Address);
+                }
+
+                MDService.DataAPI.Connect(serverList.ToArray(), port);
             }
-
-            //ServerNode node = cbServer.SelectedItem as ServerNode;
-            //if (node != null)
-            //{
-            //    MDService.DataAPI.Connect(new string[] { node.Address }, node.Port);
-            //}
-
-            List<string> serverList = new List<string>();
-            int port = 0;
-            foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
+            catch (Exception ex)
             {
-                if(port ==0) port = v.Port;
-                serverList.Add(v.Address);
+                System.Windows.Forms.MessageBox.Show("程序异常,联系程序开发人员:" + ex.ToString());
             }
-
-            MDService.DataAPI.Connect(serverList.ToArray(), port);
 
         }
 

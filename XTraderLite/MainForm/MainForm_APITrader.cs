@@ -38,7 +38,7 @@ namespace XTraderLite
             {
                 //
                 //从配置文件设定的dll初始化交易插件
-                _traderApi = Utils.LoadTraderAPI(Global.PluginBroker);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
+                _traderApi = new TradingLib.XTrader.Future.MainContainer();//Utils.LoadTraderAPI(Global.PluginBroker);//此处可以设定类名 这样就可以提供多个插件 通过配置文件来实现加载哪个交易或行情插件
 
                 if (_traderApi != null)
                 {
@@ -61,7 +61,7 @@ namespace XTraderLite
             }
             catch (Exception ex)
             {
-                MessageBox.Show("交易插件加载异常,请检查配置文件");
+                System.Windows.Forms.MessageBox.Show("程序异常,联系程序开发人员:" + ex.ToString());
             }
         }
 

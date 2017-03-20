@@ -32,11 +32,11 @@ namespace XTraderLite
         /// <summary>
         /// 行情插件
         /// </summary>
-        public static string PluginMarket = "";
+        //public static string PluginMarket = "";
         /// <summary>
         /// 交易插件
         /// </summary>
-        public static string PluginBroker = "";
+        //public static string PluginBroker = "";
 
         /// <summary>
         /// 在线出入金地址

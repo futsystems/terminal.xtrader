@@ -71,11 +71,11 @@ namespace TradingLib.MarketData
         /// </summary>
         /// <param name="address"></param>
         /// <param name="port"></param>
-        public static void InitDataAPI(string name)
+        public static void InitDataAPI(IMarketDataAPI api)
         {
             if (defaultInstance._dataAPI == null)
             {
-                defaultInstance._dataAPI = Utils.LoadDataAPI(name);
+                defaultInstance._dataAPI = api;
             }
         }
 
