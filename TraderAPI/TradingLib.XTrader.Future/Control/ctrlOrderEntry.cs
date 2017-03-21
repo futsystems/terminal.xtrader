@@ -1025,7 +1025,7 @@ namespace TradingLib.XTrader.Future
             else
             {
                 //以价格:00 买入1手 
-                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(), GetOffsetString());
+                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(BrokerAPIConstants.IsLongSymbolName), GetOffsetString());
                 if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     if (!CoreService.TLClient.LastOrderNotified)

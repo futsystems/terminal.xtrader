@@ -8,6 +8,11 @@ namespace TradingLib.XTrader.Control
 {
     public class UIConstant
     {
+        /// <summary>
+        /// 盘口头部是否合约是否以博易样式显示
+        /// </summary>
+        public static int BoardTitleSymbolStyle = 1;
+
         public static int HeaderHeight = 26;
         public static int RowHeight = 24;
 

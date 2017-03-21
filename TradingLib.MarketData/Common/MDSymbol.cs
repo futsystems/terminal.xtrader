@@ -93,6 +93,16 @@ namespace TradingLib.MarketData
             }
         }
 
+        string _symbol2 = string.Empty;
+        /// <summary>
+        /// 合约2
+        /// </summary>
+        public string Symbol2
+        {
+            get { return _symbol2; }
+            set { _symbol2 = value; }
+        }
+
         /// <summary>
         /// 交易小节
         /// 用于绘制分时图

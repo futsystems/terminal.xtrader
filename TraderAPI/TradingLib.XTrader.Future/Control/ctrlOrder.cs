@@ -378,7 +378,7 @@ namespace TradingLib.XTrader.Future
 
         string GetSymbolName(Order o)
         {
-            if (o.oSymbol != null) return o.oSymbol.GetName();
+            if (o.oSymbol != null) return o.oSymbol.GetName(BrokerAPIConstants.IsLongSymbolName);
             return o.Symbol;
         }
 

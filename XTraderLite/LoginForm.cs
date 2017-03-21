@@ -30,6 +30,10 @@ namespace XTraderLite
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
             Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
+            Global.LongSymbolName = !_cfgfile["IsShortName"].AsBool();
+            Global.BoardTitleSymbolStyle = _cfgfile["BoardTitleSymbolStyle"].AsInt();
+            TradingLib.XTrader.Control.UIConstant.BoardTitleSymbolStyle = Global.BoardTitleSymbolStyle;
+
             //Global.PluginBroker = _cfgfile["Broker"].AsString();
             //Global.PluginMarket = _cfgfile["Market"].AsString();
             Global.PayUrl = _cfgfile["PayUrl"].AsString();
@@ -269,6 +273,7 @@ namespace XTraderLite
                 //登入过程开始
                 _connectstart = true;
                 _connecttime = DateTime.Now;
+                DataAPI.Futs.DataAPIConstants.IsLongSymbolName = Global.LongSymbolName;
                 MDService.InitDataAPI(new DataAPI.Futs.FutsDataAPI());
 
                 if (MDService.DataAPI == null)

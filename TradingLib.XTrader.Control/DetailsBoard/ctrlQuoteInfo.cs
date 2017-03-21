@@ -46,7 +46,16 @@ namespace TradingLib.XTrader
         public void SetSymbol(MDSymbol sym)
         {
             _symbol = sym;
-            _symTitle = string.Format("{0}({1})", _symbol.Name, _symbol.Symbol);
+            string tmp = string.Empty;
+            if (TradingLib.XTrader.Control.UIConstant.BoardTitleSymbolStyle == 2)
+            {
+                tmp = _symbol.Symbol2;
+            }
+            else
+            {
+                tmp = _symbol.Symbol;
+            }
+            _symTitle = string.Format("{0}({1})", _symbol.Name, tmp);
             _priceFormat = sym.GetFormat();
         }
 

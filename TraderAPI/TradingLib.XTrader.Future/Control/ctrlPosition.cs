@@ -585,14 +585,14 @@ namespace TradingLib.XTrader.Future
             OrderTracker ot = CoreService.TradingInfoTracker.OrderTracker;
             return pos.isFlat ? 0 : (pos.UnsignedSize - ot.GetPendingExitSize(pos.Symbol, pos.DirectionType == QSEnumPositionDirectionType.Long ? true : false));
         }
-
+        
         /// 获得合约名称
         /// </summary>
         /// <param name="fill"></param>
         /// <returns></returns>
         string GetSymbolName(Position pos)
         {
-            if (pos.oSymbol != null) return pos.oSymbol.GetName();
+            if (pos.oSymbol != null) return pos.oSymbol.GetName(BrokerAPIConstants.IsLongSymbolName);
             return pos.Symbol;
         }
 

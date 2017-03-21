@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAPIConstants.cs" />
     <Compile Include="FutsDataAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FutsDataAPI_.cs" />

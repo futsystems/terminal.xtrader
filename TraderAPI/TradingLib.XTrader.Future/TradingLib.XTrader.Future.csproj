@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrokerAPIConstants.cs" />
     <Compile Include="Common\DataSource.cs" />
     <Compile Include="Common\ExTask.cs" />
     <Compile Include="Common\MouseHook.cs" />

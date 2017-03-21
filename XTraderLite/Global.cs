@@ -30,6 +30,17 @@ namespace XTraderLite
         public static string TaskBarTitle = "测试";
 
         /// <summary>
+        /// 是否显示长合约格式
+        /// 长格式 HSI1701
+        /// 短格式 HSI01
+        /// </summary>
+        public static bool LongSymbolName = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int BoardTitleSymbolStyle = 1;
+        /// <summary>
         /// 行情插件
         /// </summary>
         //public static string PluginMarket = "";

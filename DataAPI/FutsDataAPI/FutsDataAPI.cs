@@ -144,7 +144,8 @@ namespace DataAPI.Futs
                 MDSymbol symbol = new MDSymbol();
                 symbol.Symbol = target.Symbol;
                 symbol.SecCode = target.SecurityFamily.Code;
-                symbol.Name = target.GetName();
+                symbol.Name = target.GetName(DataAPIConstants.IsLongSymbolName);
+                symbol.Symbol2 = target.GetCodeNumSuffix(DataAPIConstants.IsLongSymbolName);
                 symbol.Currency = MDCurrency.RMB;
                 symbol.Exchange = target.Exchange;
                 symbol.Multiple = target.Multiple;

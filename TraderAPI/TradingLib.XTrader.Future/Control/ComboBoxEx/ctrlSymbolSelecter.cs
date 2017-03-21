@@ -536,7 +536,7 @@ namespace TradingLib.XTrader.Future
                     _currentSymbolSet = target;
                     foreach (var item in target.Symbols)
                     {
-                        this.m_symbolList.Items.Add(string.Format("{0}|{1}",item.Value.Symbol,item.Value.GetName()));
+                        this.m_symbolList.Items.Add(string.Format("{0}|{1}", item.Value.Symbol, item.Value.GetName(BrokerAPIConstants.IsLongSymbolName)));
                     }
                 }
                 this.m_symbolList.InitScrollBar();
