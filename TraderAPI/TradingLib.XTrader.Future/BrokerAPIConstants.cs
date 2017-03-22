@@ -9,7 +9,7 @@ namespace TradingLib.XTrader.Future
     {
         static BrokerAPIConstants()
         {
-            IsLongSymbolName = false;
+            IsLongSymbolName = true;
         }
         public static bool IsLongSymbolName { get; set; }
     }
