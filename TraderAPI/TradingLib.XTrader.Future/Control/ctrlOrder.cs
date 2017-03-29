@@ -162,17 +162,17 @@ namespace TradingLib.XTrader.Future
         {
             try
             {
-                if (e.ColumnIndex == 5)
-                {
-                    //e.CellStyle.Font = UIConstant.BoldFont;
-                    bool side = false;
-                    bool.TryParse(orderGrid[4, e.RowIndex].Value.ToString(), out side);
-                    e.CellStyle.ForeColor = side ? Constants.BuyColor : Constants.SellColor;
-                }
                 if (e.ColumnIndex == 6)
                 {
                     //e.CellStyle.Font = UIConstant.BoldFont;
-                    bool open = orderGrid[6, e.RowIndex].Value.ToString() == "开";
+                    bool side = false;
+                    bool.TryParse(orderGrid[5, e.RowIndex].Value.ToString(), out side);
+                    e.CellStyle.ForeColor = side ? Constants.BuyColor : Constants.SellColor;
+                }
+                if (e.ColumnIndex == 7)
+                {
+                    //e.CellStyle.Font = UIConstant.BoldFont;
+                    bool open = orderGrid[7, e.RowIndex].Value.ToString() == "开";
 
                     e.CellStyle.ForeColor = open ? Color.Black : Color.Blue;
                 }
@@ -378,7 +378,13 @@ namespace TradingLib.XTrader.Future
 
         string GetSymbolName(Order o)
         {
-            if (o.oSymbol != null) return o.oSymbol.GetName(BrokerAPIConstants.IsLongSymbolName);
+            if (o.oSymbol != null) return o.oSymbol.GetName(Constants.SymbolNameStyle == 0);
+            return o.Symbol;
+        }
+
+        string GetSymbolTitle(Order o)
+        {
+            if (o.oSymbol != null) return o.oSymbol.GetSymbolTitle();
             return o.Symbol;
         }
 
@@ -421,6 +427,7 @@ namespace TradingLib.XTrader.Future
                         tb.Rows[i][DATETIME] = o.GetDateTime();
                         tb.Rows[i][TIME] = GetDateTimeString(o);
                         tb.Rows[i][SYMBOL] = o.Symbol;
+                        tb.Rows[i][SYMBOLTITLE] = GetSymbolTitle(o);
                         tb.Rows[i][SIDE] = o.Side;
                         tb.Rows[i][SIDESTR] = o.Side ? "买" : "  卖";
                         tb.Rows[i][FLAG] = o.IsEntryPosition ? "开" : " 平";
@@ -460,7 +467,8 @@ namespace TradingLib.XTrader.Future
         const string ID = "委托键";
         const string DATETIME = "DATETIME";
         const string TIME = "委托时间";
-        const string SYMBOL = "合约";
+        const string SYMBOL = "合约STD";
+        const string SYMBOLTITLE = "合约";
         const string SIDE = "SIDE";
         const string SIDESTR = "买卖";
         const string FLAG = "开平";
@@ -487,6 +495,7 @@ namespace TradingLib.XTrader.Future
             tb.Columns.Add(DATETIME);
             tb.Columns.Add(TIME);
             tb.Columns.Add(SYMBOL);
+            tb.Columns.Add(SYMBOLTITLE);
 
             tb.Columns.Add(SIDE);
             tb.Columns.Add(SIDESTR);
@@ -510,7 +519,7 @@ namespace TradingLib.XTrader.Future
             DataGridView grid = orderGrid;
 
             grid.Columns[TIME].Width = 100;
-            grid.Columns[SYMBOL].Width = 120;
+            grid.Columns[SYMBOLTITLE].Width = 120;
             grid.Columns[SIDE].Width = 40;
             grid.Columns[FLAG].Width = 40;
             grid.Columns[ORDERPRICE].Width = 75;
@@ -523,6 +532,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[ORDERID].Width = 80;
             grid.Columns[NAME].Width = 120;
 
+            grid.Columns[SYMBOL].Visible = false;
 
             orderGrid.CalcRowWidth();
 

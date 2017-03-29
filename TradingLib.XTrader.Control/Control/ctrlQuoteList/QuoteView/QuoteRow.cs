@@ -148,7 +148,7 @@ namespace TradingLib.XTrader.Control
         void SetUnchangedCell()
         {
             this[EnumFileldType.SYMBOL].Symbol = _symbol.Symbol;
-            this[EnumFileldType.SYMBOLNAME].Symbol = _symbol.Name;
+            this[EnumFileldType.SYMBOLNAME].Symbol = UIConstant.QuoteSymbolNameStyle == 0 ? _symbol.NameLong : _symbol.NameShort;// _symbol.Name;
             //设置合约/名称字段
             //if (_quotelist.Columns.Contains(QuoteListConst.SYMBOL))
             //{

@@ -9,9 +9,25 @@ namespace TradingLib.XTrader.Control
     public class UIConstant
     {
         /// <summary>
-        /// 盘口头部是否合约是否以博易样式显示
+        /// 报价列表第一列标准合约隐藏
         /// </summary>
-        public static int BoardTitleSymbolStyle = 1;
+        public static bool QuoteViewStdSumbolHidden = false;
+        /// <summary>
+        /// 盘口头部是否合约是否以博易样式显示
+        /// 0为长
+        /// 1为短
+        /// </summary>
+        public static int BoardSymbolTitleStyle = 0;
+
+        public static int BoardSymbolNameStyle = 0;
+
+        /// <summary>
+        /// 报价合约名称
+        /// 0为长恒生1701
+        /// 1为短恒生01
+        /// </summary>
+        public static int QuoteSymbolNameStyle = 1;
+
 
         public static int HeaderHeight = 26;
         public static int RowHeight = 24;

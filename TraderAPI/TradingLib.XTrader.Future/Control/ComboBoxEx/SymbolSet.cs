@@ -25,7 +25,7 @@ namespace TradingLib.XTrader.Future
         /// <param name="symbol"></param>
         public void AddSymbol(Symbol symbol)
         {
-            this.Symbols.Add(symbol.Symbol,symbol);
+            this.Symbols.Add(symbol.GetSymbolTitle(), symbol);
         }
         /// <summary>
         /// 合约集名称
@@ -41,11 +41,14 @@ namespace TradingLib.XTrader.Future
         public Symbol GetSymbol(string symbol)
         {
             Symbol target = null;
+
             if (this.Symbols.TryGetValue(symbol, out target))
             {
                 return target;
             }
             return null;
+           
+            
         }
     }
 }

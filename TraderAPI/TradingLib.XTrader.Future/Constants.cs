@@ -18,5 +18,9 @@ namespace TradingLib.XTrader.Future
 
         public static System.Drawing.Color BuyColor = Color.FromArgb(254, 36, 36);
         public static System.Drawing.Color SellColor = Color.FromArgb(0, 127, 0);
+
+        public static int SymbolTitleStyle = 0;
+
+        public static int SymbolNameStyle = 0;
     }
 }

@@ -93,15 +93,13 @@ namespace TradingLib.MarketData
             }
         }
 
-        string _symbol2 = string.Empty;
-        /// <summary>
-        /// 合约2
-        /// </summary>
-        public string Symbol2
-        {
-            get { return _symbol2; }
-            set { _symbol2 = value; }
-        }
+
+        public string NameShort { get; set; }
+        public string NameLong { get; set; }
+
+        public string TitleShort { get; set; }
+
+        public string TitleLong { get; set; }
 
         /// <summary>
         /// 交易小节

@@ -34,12 +34,12 @@ namespace XTraderLite
         /// 长格式 HSI1701
         /// 短格式 HSI01
         /// </summary>
-        public static bool LongSymbolName = true;
+        //public static bool LongSymbolName = true;
 
         /// <summary>
         /// 
         /// </summary>
-        public static int BoardTitleSymbolStyle = 1;
+        //public static int BoardTitleStyle = 1;
         /// <summary>
         /// 行情插件
         /// </summary>

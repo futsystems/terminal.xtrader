@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using TradingLib.MarketData;
 using Common.Logging;
 using System.Drawing;
-
+using TradingLib.XTrader.Control;
 using CStock;
 
 namespace TradingLib.XTrader
@@ -46,16 +46,16 @@ namespace TradingLib.XTrader
         public void SetSymbol(MDSymbol sym)
         {
             _symbol = sym;
-            string tmp = string.Empty;
-            if (TradingLib.XTrader.Control.UIConstant.BoardTitleSymbolStyle == 2)
-            {
-                tmp = _symbol.Symbol2;
-            }
-            else
-            {
-                tmp = _symbol.Symbol;
-            }
-            _symTitle = string.Format("{0}({1})", _symbol.Name, tmp);
+            //string tmp = string.Empty;
+            //if (UIConstant.BoardSymbolTitleStyle == 1)
+            //{
+            //    tmp = _symbol.TitleShort;
+            //}
+            //else
+            //{
+            //    tmp = _symbol.TitleLong;
+            //}
+            _symTitle = string.Format("{0}({1})", UIConstant.BoardSymbolNameStyle==0?_symbol.NameLong:_symbol.NameShort, UIConstant.BoardSymbolTitleStyle == 0 ? _symbol.TitleLong : _symbol.TitleShort);
             _priceFormat = sym.GetFormat();
         }
 

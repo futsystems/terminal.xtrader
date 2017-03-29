@@ -375,14 +375,14 @@ namespace TradingLib.XTrader.Future
         {
             try
             {
-                if (e.ColumnIndex == 5)
+                if (e.ColumnIndex == 6)
                 {
                     //e.CellStyle.Font = UIConstant.BoldFont;
                     bool side = false;
-                    bool.TryParse(positionGrid[4, e.RowIndex].Value.ToString(), out side);
+                    bool.TryParse(positionGrid[5, e.RowIndex].Value.ToString(), out side);
                     e.CellStyle.ForeColor = side ? Constants.BuyColor : Constants.SellColor;
                 }
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 7)
                 {
                     //e.CellStyle.Font = UIConstant.BoldFont;
                     //bool open = positionGrid[6, e.RowIndex].Value.ToString() == "开";
@@ -390,7 +390,7 @@ namespace TradingLib.XTrader.Future
                     e.CellStyle.ForeColor = Color.Blue;
                 }
 
-                if (e.ColumnIndex == 10 || e.ColumnIndex == 11)
+                if (e.ColumnIndex == 11 || e.ColumnIndex == 12)
                 {
                     decimal val = 0;
                     if (!decimal.TryParse(positionGrid[12, e.RowIndex].Value.ToString(), out val)) val = 0;
@@ -552,7 +552,11 @@ namespace TradingLib.XTrader.Future
         }
 
 
-
+        string GetSymbolTitle(Position pos)
+        {
+            if (pos.oSymbol != null) return pos.oSymbol.GetSymbolTitle();
+            return pos.Symbol;
+        }
         /// <summary>
         /// 插入一条新的持仓对象
         /// </summary>
@@ -568,6 +572,7 @@ namespace TradingLib.XTrader.Future
             tb.Rows[i][ACCOUNT] = pos.Account;
             tb.Rows[i][SYMBOLKEY] = pos.oSymbol.GetUniqueKey();
             tb.Rows[i][SYMBOL] = pos.Symbol;
+            tb.Rows[i][SYMBOLTITLE] = GetSymbolTitle(pos);
             tb.Rows[i][SIDE] = pos.DirectionType == QSEnumPositionDirectionType.Long;//??
             tb.Rows[i][SIDESTR] = (pos.DirectionType == QSEnumPositionDirectionType.Long?"买":" 卖");
 
@@ -592,7 +597,7 @@ namespace TradingLib.XTrader.Future
         /// <returns></returns>
         string GetSymbolName(Position pos)
         {
-            if (pos.oSymbol != null) return pos.oSymbol.GetName(BrokerAPIConstants.IsLongSymbolName);
+            if (pos.oSymbol != null) return pos.oSymbol.GetName(Constants.SymbolNameStyle == 0);
             return pos.Symbol;
         }
 
@@ -838,7 +843,8 @@ namespace TradingLib.XTrader.Future
         const string POSKEY = "持仓键";
         const string ACCOUNT = "ACCOUNT";
         const string SYMBOLKEY = "合约键";
-        const string SYMBOL = "合约";
+        const string SYMBOL = "合约STD";
+        const string SYMBOLTITLE = "合约";
         const string SIDE = "SIDE";
         const string SIDESTR = "方向";
         const string PROPERTY = "属性";
@@ -869,6 +875,7 @@ namespace TradingLib.XTrader.Future
         {
             tb.Columns.Add(POSKEY);//0
             tb.Columns.Add(SYMBOL);//1
+            tb.Columns.Add(SYMBOLTITLE);
             tb.Columns.Add(ACCOUNT);//2
             tb.Columns.Add(SYMBOLKEY);//3
             tb.Columns.Add(SIDE);//4
@@ -893,7 +900,7 @@ namespace TradingLib.XTrader.Future
         {
             DataGridView grid = positionGrid;
 
-            grid.Columns[SYMBOL].Width = 120;
+            grid.Columns[SYMBOLTITLE].Width = 120;
             grid.Columns[SIDESTR].Width = 40;
             grid.Columns[PROPERTY].Width = 40;
             grid.Columns[SIZE].Width = 46;
@@ -907,7 +914,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[FLAG].Width = 40;
             grid.Columns[NAME].Width = 120;
 
-
+           
             positionGrid.CalcRowWidth();
         }
 
@@ -929,6 +936,7 @@ namespace TradingLib.XTrader.Future
             grid.Columns[SIDE].Visible = false;
             grid.Columns[SYMBOLKEY].Visible = false;
             grid.Columns[UNREALIZEDPOINT].Visible = false;
+            grid.Columns[SYMBOL].Visible = false;
             grid.Columns[FLAG].Visible = Constants.HedgeFieldVisible;
 
             for (int i = 0; i < tb.Columns.Count; i++)

@@ -30,9 +30,16 @@ namespace XTraderLite
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
             Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
-            Global.LongSymbolName = !_cfgfile["IsShortName"].AsBool();
-            Global.BoardTitleSymbolStyle = _cfgfile["BoardTitleSymbolStyle"].AsInt();
-            TradingLib.XTrader.Control.UIConstant.BoardTitleSymbolStyle = Global.BoardTitleSymbolStyle;
+            //Global.LongSymbolName = !_cfgfile["IsShortName"].AsBool();
+
+            UIConstant.QuoteViewStdSumbolHidden = _cfgfile["QuoteViewStdSumbolHidden"].AsBool();//报价列表 标准合约隐藏
+            UIConstant.QuoteSymbolNameStyle = _cfgfile["QuoteSymbolNameStyle"].AsInt();//报价列表 合约名类型
+
+            UIConstant.BoardSymbolTitleStyle = _cfgfile["BoardSymbolTitleStyle"].AsInt();//盘口明细顶部合约Title类被
+            UIConstant.BoardSymbolNameStyle = _cfgfile["BoardSymbolNameStyle"].AsInt();
+
+            TradingLib.XTrader.Future.Constants.SymbolNameStyle = _cfgfile["BrokerSymbolNameStyle"].AsInt();
+            TradingLib.XTrader.Future.Constants.SymbolTitleStyle = _cfgfile["BrokerSymbolTitleStyle"].AsInt();
 
             //Global.PluginBroker = _cfgfile["Broker"].AsString();
             //Global.PluginMarket = _cfgfile["Market"].AsString();
@@ -273,7 +280,7 @@ namespace XTraderLite
                 //登入过程开始
                 _connectstart = true;
                 _connecttime = DateTime.Now;
-                DataAPI.Futs.DataAPIConstants.IsLongSymbolName = Global.LongSymbolName;
+                
                 MDService.InitDataAPI(new DataAPI.Futs.FutsDataAPI());
 
                 if (MDService.DataAPI == null)

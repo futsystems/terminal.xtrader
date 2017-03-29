@@ -170,6 +170,11 @@ namespace TradingLib.XTrader.Future
 
 
         string _priceFormat = "{0:F2}";
+        string GetSymbolTitle(Symbol symbol)
+        {
+            if (Constants.SymbolTitleStyle == 2) return symbol.Symbol;
+            return symbol.GetCodeNumSuffix(Constants.SymbolTitleStyle == 0);
+        }
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
             if (arg2 != null)
@@ -178,9 +183,9 @@ namespace TradingLib.XTrader.Future
                 _priceFormat = _symbol.SecurityFamily.GetPriceFormat();
                 
                 //合约选择框文字
-                if (!inputSymbol.Text.StartsWith(_symbol.Symbol))
+                if (!inputSymbol.Text.StartsWith(GetSymbolTitle(_symbol)))
                 {
-                    inputSymbol.Text = _symbol.Symbol;
+                    inputSymbol.Text = _symbol.GetSymbolTitle();
                 }
 
                 //下单按钮可以显示盘口价格
@@ -382,7 +387,7 @@ namespace TradingLib.XTrader.Future
                 s = inputSymbol.Text.Split('|')[0];
                 
             }
-            Symbol symbol = CoreService.BasicInfoTracker.Symbols.Where(sym => sym.Symbol == s).FirstOrDefault();
+            Symbol symbol = CoreService.BasicInfoTracker.Symbols.Where(sym => sym.GetSymbolTitle() == s).FirstOrDefault();
             if (symbol != null)
             {
                 logger.Info(string.Format("Symbol:{0} Selected", symbol.Symbol));
@@ -1025,7 +1030,7 @@ namespace TradingLib.XTrader.Future
             else
             {
                 //以价格:00 买入1手 
-                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(BrokerAPIConstants.IsLongSymbolName), GetOffsetString());
+                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(Constants.SymbolNameStyle == 0), GetOffsetString());
                 if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     if (!CoreService.TLClient.LastOrderNotified)

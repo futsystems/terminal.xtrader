@@ -385,7 +385,6 @@ namespace TradingLib.XTrader.Future
                 m_popupCtrl.Hide();
             }
             this.Text = obj;
-
             if (_currentSymbolSet != null)
             {
                 string[] rec = obj.Split('|');
@@ -522,6 +521,8 @@ namespace TradingLib.XTrader.Future
 
         #endregion
 
+      
+
         #region IPopupControlHost Members
 
         SymbolSet _currentSymbolSet = null;
@@ -536,7 +537,7 @@ namespace TradingLib.XTrader.Future
                     _currentSymbolSet = target;
                     foreach (var item in target.Symbols)
                     {
-                        this.m_symbolList.Items.Add(string.Format("{0}|{1}", item.Value.Symbol, item.Value.GetName(BrokerAPIConstants.IsLongSymbolName)));
+                        this.m_symbolList.Items.Add(string.Format("{0}|{1}", item.Value.GetSymbolTitle(), item.Value.GetName(Constants.SymbolNameStyle == 0)));
                     }
                 }
                 this.m_symbolList.InitScrollBar();

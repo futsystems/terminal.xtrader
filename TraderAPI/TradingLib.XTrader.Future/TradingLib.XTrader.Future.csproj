@@ -255,6 +255,7 @@
     <Compile Include="Utils_GDI.cs" />
     <Compile Include="Util_Account.cs" />
     <Compile Include="Util_Object.cs" />
+    <Compile Include="Util_Symbol.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Control\ctrlListBox.resx">

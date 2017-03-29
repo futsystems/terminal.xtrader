@@ -22,7 +22,8 @@ namespace TradingLib.XTrader.Control
 
             tmp = new QuoteColumnConfigs(EnumQuoteListType.ALL);
             tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 6));
+            if (!UIConstant.QuoteViewStdSumbolHidden)
+                tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 6));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 8));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 5));
@@ -36,7 +37,8 @@ namespace TradingLib.XTrader.Control
 
             tmp = new QuoteColumnConfigs(EnumQuoteListType.STOCK_CN);
             tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL,5));
+            if (!UIConstant.QuoteViewStdSumbolHidden)
+                tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL,5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME,7));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.CHANGEPECT, 4));
 
@@ -63,14 +65,16 @@ namespace TradingLib.XTrader.Control
 
             tmp = new QuoteColumnConfigs(EnumQuoteListType.FUTURE_CN);
             tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 2));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 2));
+            if (!UIConstant.QuoteViewStdSumbolHidden)
+                tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 2));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 3));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LASTSIZE, 3));
             configMap.Add(EnumQuoteListType.FUTURE_CN, tmp);
 
             tmp = new QuoteColumnConfigs(EnumQuoteListType.FUTURE_IQFeed);
             tmp.AddColumn(new ColumnConfig(EnumFileldType.INDEX, 4));
-            tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 5));
+            if (!UIConstant.QuoteViewStdSumbolHidden)
+                tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOL, 5));
             tmp.AddColumn(new ColumnConfig(EnumFileldType.SYMBOLNAME, 7));
 
             tmp.AddColumn(new ColumnConfig(EnumFileldType.LAST, 5));

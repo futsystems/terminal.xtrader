@@ -287,7 +287,7 @@ namespace TradingLib.XTrader.Future
         /// <returns></returns>
         string GetSymbolName(Trade fill)
         {
-            if (fill.oSymbol != null) return fill.oSymbol.GetName(BrokerAPIConstants.IsLongSymbolName);
+            if (fill.oSymbol != null) return fill.oSymbol.GetName(Constants.SymbolNameStyle==0);
             return fill.Symbol;
         }
 
@@ -312,7 +312,11 @@ namespace TradingLib.XTrader.Future
             return Util.ToDateTime(t.xDate, t.xTime).ToString(_realview ? _realDT : _histDT);
         }
 
-
+        string GetSymbolTitle(Trade fill)
+        {
+            if (fill.oSymbol != null) return fill.oSymbol.GetSymbolTitle();
+            return fill.Symbol;
+        }
         public void GotFill(Trade fill)
         {
             if (InvokeRequired)
@@ -326,7 +330,7 @@ namespace TradingLib.XTrader.Future
                 int i = tb.Rows.Count - 1;//得到新建的Row号
                 tb.Rows[i][DATETIME] = Util.ToTLDateTime(fill.xDate, fill.xTime);
                 tb.Rows[i][TIME] = GetDateTime(fill);
-                tb.Rows[i][SYMBOL] = fill.Symbol;
+                tb.Rows[i][SYMBOL] = GetSymbolTitle(fill);
                 tb.Rows[i][SIDE] = fill.Side;
                 tb.Rows[i][SIDESTR] = fill.Side?"买":"卖";
                 tb.Rows[i][FLAG] = (fill.IsEntryPosition ? "开" : " 平");

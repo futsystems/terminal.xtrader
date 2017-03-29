@@ -156,10 +156,7 @@ namespace CStock
                     FScale = (rectWidth - leftYAxisWidth - rightYAxisWidth) / recordCount;
             }
 
-
             rectWidth = rectWidth - rightYAxisWidth;
-
-
 
             ////显示股票名称和公式名称
             fw = 0;
