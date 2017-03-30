@@ -37,7 +37,8 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\Futs.base\lib\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NodaTime">
+    <Reference Include="NodaTime, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Futs.base\lib\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />

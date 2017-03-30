@@ -133,7 +133,8 @@ namespace DataAPI.Futs
         void EventHub_OnInitializedEvent()
         {
             Instant now = SystemClock.Instance.Now;//标准UTC时间
-            DateTimeZone localZone = DateTimeZoneProviders.Tzdb.GetSystemDefault();//本地市区
+            //DateTimeZone localZone = DateTimeZoneProviders.Tzdb.GetSystemDefault();//本地市区
+            DateTimeZone localZone = DateTimeZoneProviders.Tzdb.GetZoneOrNull("Asia/Shanghai");
             Offset localOffset = localZone.GetUtcOffset(now);
 
             DateTimeZone exZone = null;
