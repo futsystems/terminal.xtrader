@@ -301,7 +301,7 @@ namespace TradingLib.XTrader.Future
                 if (current_pos != null)
                 {
                     int rownum = positionGrid.CurrentRow.Index + 1;
-                    if (positionGrid.CurrentCell.ColumnIndex == 13)
+                    if (positionGrid.CurrentCell.ColumnIndex == 14)
                     {
                         PositionOffsetArgSet args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
                         if (args == null) return;
@@ -317,7 +317,7 @@ namespace TradingLib.XTrader.Future
                         fm.Show();
                         return;
                     }
-                    else if (positionGrid.CurrentCell.ColumnIndex == 14)
+                    else if (positionGrid.CurrentCell.ColumnIndex == 15)
                     {
                         PositionOffsetArgSet args = CoreService.PositionWatcher.GetPositionOffsetArgs(current_pos);
                         if (args == null) return;

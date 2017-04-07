@@ -40,6 +40,7 @@ namespace XTraderLite
 
             TradingLib.XTrader.Future.Constants.SymbolNameStyle = _cfgfile["BrokerSymbolNameStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.SymbolTitleStyle = _cfgfile["BrokerSymbolTitleStyle"].AsInt();
+            TradingLib.XTrader.Future.Constants.PageBankStyle = _cfgfile["PageBankStyle"].AsInt();
 
             //Global.PluginBroker = _cfgfile["Broker"].AsString();
             //Global.PluginMarket = _cfgfile["Market"].AsString();

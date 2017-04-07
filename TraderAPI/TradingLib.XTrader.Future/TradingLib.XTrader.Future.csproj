@@ -236,6 +236,12 @@
     <Compile Include="Pages\PagePass.Designer.cs">
       <DependentUpon>PagePass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageBank1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageBank1.Designer.cs">
+      <DependentUpon>PageBank1.cs</DependentUpon>
+    </Compile>
     <Compile Include="PageTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Control\ctrlPosition.cs">
@@ -320,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PagePass.resx">
       <DependentUpon>PagePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageBank1.resx">
+      <DependentUpon>PageBank1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

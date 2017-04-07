@@ -22,5 +22,8 @@ namespace TradingLib.XTrader.Future
         public static int SymbolTitleStyle = 0;
 
         public static int SymbolNameStyle = 0;
+
+
+        public static int PageBankStyle = 0;
     }
 }

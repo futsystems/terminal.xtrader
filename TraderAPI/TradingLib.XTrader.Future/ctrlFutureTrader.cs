@@ -71,7 +71,24 @@ namespace TradingLib.XTrader.Future
             pagemap.Add(PageTypes.PAGE_POSITION, new PagePosition());
             pagemap.Add(PageTypes.PAGE_QRY, new PageQry());
             pagemap.Add(PageTypes.PAGE_HELP, new PageHelp());
-            pagemap.Add(PageTypes.PAGE_BANK, new PageBank());
+            switch (Constants.PageBankStyle)
+            {
+                case 0:
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBank());
+                        break;
+                    }
+                case 1:
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBank1());
+                        break;
+                    }
+                default:
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBank());
+                        break;
+                    }
+            }
             pagemap.Add(PageTypes.PAGE_PASS, new PagePass());
             foreach (var page in pagemap.Values)
             {
