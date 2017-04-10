@@ -40,21 +40,21 @@
             this.depositLeverageDeposit = new System.Windows.Forms.RadioButton();
             this.amountDeposit = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnDeposit = new TradingLib.XTrader.FButton();
             this.cbCurrency = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.withdrawAvabile = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.withdrawCreditWithdraw = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.withdrawNormal = new System.Windows.Forms.RadioButton();
             this.amountWithdraw = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.cbCurrency2 = new System.Windows.Forms.ComboBox();
-            this.account = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnDeposit = new TradingLib.XTrader.FButton();
             this.btnWithdraw = new TradingLib.XTrader.FButton();
             this.btnSetBankInfo = new TradingLib.XTrader.FButton();
-            this.label8 = new System.Windows.Forms.Label();
-            this.withdrawAvabile = new System.Windows.Forms.Label();
+            this.account = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -111,8 +111,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(424, 69);
             this.textBox1.TabIndex = 12;
-            this.textBox1.Text = "1.入金手续费是打款金额的0.3%无上限，入金直接到账\r\n2.配资入金 ：杠杆比例1人民币=1美元，系统默认追加配资资金；例：入金10080人民币（1400美金）" +
-    "，根据杠杆比例该账户可用资金为11400美金。 \r\n3.追加资金 ：增加当前权益部分，系统不再进行增加配资额度。 ";
+            this.textBox1.Text = "1.入金手续费是打款金额的0.3%无上限，入金直接到账\r\n2.配资入金 ：杠杆比例1人民币=1美元，系统默认追加配资资金；例：入金10000人民币（1388.8美" +
+    "金），根据杠杆比例该账户可用资金为11388.8美金。 \r\n3.追加资金 ：增加当前权益部分，系统不再进行增加配资额度。 ";
             // 
             // label6
             // 
@@ -146,7 +146,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(265, 171);
+            this.tabPage1.Size = new System.Drawing.Size(297, 171);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "充值";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -204,6 +204,21 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "币种";
             // 
+            // btnDeposit
+            // 
+            this.btnDeposit.BackColor = System.Drawing.Color.White;
+            this.btnDeposit.CheckButton = false;
+            this.btnDeposit.Checked = false;
+            this.btnDeposit.IsPriceOn = false;
+            this.btnDeposit.Location = new System.Drawing.Point(39, 123);
+            this.btnDeposit.Name = "btnDeposit";
+            this.btnDeposit.OrderEntryButton = false;
+            this.btnDeposit.PriceStr = "";
+            this.btnDeposit.Size = new System.Drawing.Size(147, 23);
+            this.btnDeposit.TabIndex = 2;
+            this.btnDeposit.Text = "充值(银行资金转账户)";
+            this.btnDeposit.UseVisualStyleBackColor = false;
+            // 
             // cbCurrency
             // 
             this.cbCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -231,6 +246,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "提现";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // withdrawAvabile
+            // 
+            this.withdrawAvabile.AutoSize = true;
+            this.withdrawAvabile.Location = new System.Drawing.Point(227, 46);
+            this.withdrawAvabile.Name = "withdrawAvabile";
+            this.withdrawAvabile.Size = new System.Drawing.Size(17, 12);
+            this.withdrawAvabile.TabIndex = 19;
+            this.withdrawAvabile.Text = "--";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(192, 46);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 12);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "可提:";
             // 
             // withdrawCreditWithdraw
             // 
@@ -294,39 +327,6 @@
             this.cbCurrency2.Size = new System.Drawing.Size(89, 20);
             this.cbCurrency2.TabIndex = 15;
             // 
-            // account
-            // 
-            this.account.AutoSize = true;
-            this.account.Location = new System.Drawing.Point(75, 9);
-            this.account.Name = "account";
-            this.account.Size = new System.Drawing.Size(17, 12);
-            this.account.TabIndex = 7;
-            this.account.Text = "--";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "交易账户";
-            // 
-            // btnDeposit
-            // 
-            this.btnDeposit.BackColor = System.Drawing.Color.White;
-            this.btnDeposit.CheckButton = false;
-            this.btnDeposit.Checked = false;
-            this.btnDeposit.IsPriceOn = false;
-            this.btnDeposit.Location = new System.Drawing.Point(39, 123);
-            this.btnDeposit.Name = "btnDeposit";
-            this.btnDeposit.OrderEntryButton = false;
-            this.btnDeposit.PriceStr = "";
-            this.btnDeposit.Size = new System.Drawing.Size(147, 23);
-            this.btnDeposit.TabIndex = 2;
-            this.btnDeposit.Text = "充值(银行资金转账户)";
-            this.btnDeposit.UseVisualStyleBackColor = false;
-            // 
             // btnWithdraw
             // 
             this.btnWithdraw.BackColor = System.Drawing.Color.White;
@@ -357,23 +357,23 @@
             this.btnSetBankInfo.Text = "设定签约银行";
             this.btnSetBankInfo.UseVisualStyleBackColor = false;
             // 
-            // label8
+            // account
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(192, 46);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 12);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "可提:";
+            this.account.AutoSize = true;
+            this.account.Location = new System.Drawing.Point(75, 9);
+            this.account.Name = "account";
+            this.account.Size = new System.Drawing.Size(17, 12);
+            this.account.TabIndex = 7;
+            this.account.Text = "--";
             // 
-            // withdrawAvabile
+            // label3
             // 
-            this.withdrawAvabile.AutoSize = true;
-            this.withdrawAvabile.Location = new System.Drawing.Point(227, 46);
-            this.withdrawAvabile.Name = "withdrawAvabile";
-            this.withdrawAvabile.Size = new System.Drawing.Size(17, 12);
-            this.withdrawAvabile.TabIndex = 19;
-            this.withdrawAvabile.Text = "--";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "交易账户";
             // 
             // PageBank1
             // 
