@@ -264,7 +264,7 @@ namespace TradingLib.XTrader.Future
                         this.Controls.Add(_trader);
                     }
                     ctrlTraderLogin.Visible = false;
-                    _trader.Show();
+                    _trader.Entry();
                 }
                 catch (Exception ex)
                 {

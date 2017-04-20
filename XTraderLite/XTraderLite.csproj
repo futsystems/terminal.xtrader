@@ -379,21 +379,21 @@
     <CommonDLL Include="..\..\Futs.base\lib\update\Smark.Core.dll" />
     <CommonDLL Include="..\..\Futs.base\lib\Common.Logging.Core.dll" />
     <CommonDLL Include="..\..\Futs.base\lib\Common.Logging.dll" />
-	<CommonDLL Include="..\..\Futs.base\lib\NodaTime.dll" />
-	<CommonDLL Include="..\..\Futs.base\lib\Newtonsoft.Json.dll" />
-	<CommonDLL Include="..\..\Futs.base\lib\ICSharpCode.TextEditor.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\NodaTime.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\Newtonsoft.Json.dll" />
+    <CommonDLL Include="..\..\Futs.base\lib\ICSharpCode.TextEditor.dll" />
   </ItemGroup>
   <Target Name="AfterBuild">
     <ItemGroup>
       <OutFiles Include="$(OutputPath)\$(AssemblyName).exe" />
       <OutFiles Include="$(OutputPath)\TradingLib.MarketData.dll" />
       <OutFiles Include="$(OutputPath)\TradingLib.XTrader.Control.dll" />
-	  <OutFiles Include="$(OutputPath)\FutsDataAPI.dll" />
-	  <OutFiles Include="$(OutputPath)\TradingLib.API.dll" />
-	  <OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
-	  <OutFiles Include="$(OutputPath)\XTrader.Future.dll" />
-	  <OutFiles Include="$(OutputPath)\TradingLib.DataCore.dll" />
-	  <OutFiles Include="$(OutputPath)\TradingLib.TraderCore2.dll" />
+      <OutFiles Include="$(OutputPath)\FutsDataAPI.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.API.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.Common.dll" />
+      <OutFiles Include="$(OutputPath)\XTrader.Future.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.DataCore.dll" />
+      <OutFiles Include="$(OutputPath)\TradingLib.TraderCore2.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(OutFiles)" DestinationFolder="..\Build\XTraderLite\" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(CommonDLL)" DestinationFolder="..\Build\XTraderLite\" ContinueOnError="false" />

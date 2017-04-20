@@ -18,7 +18,7 @@ using Common.Logging;
 
 namespace TradingLib.XTrader.Future
 {
-    public partial class ctrlFutureTrader : UserControl, TradingLib.API.IEventBinder
+    public partial class ctrlFutureTrader : UserControl
     {
         public event Action<EnumTraderWindowOperation> TradingBoxOpeartion = delegate { };
 
@@ -43,23 +43,7 @@ namespace TradingLib.XTrader.Future
         }
 
 
-        void InitMenu()
-        {
-            ctrlListMenu1.AddMenu(new MenuItem("交易", Properties.Resources.f1, true, delegate() { ShowPage(PageTypes.PAGE_TRADING); }));
-            ctrlListMenu1.AddMenu(new MenuItem("当日委托", Properties.Resources.f2, true, delegate() { ShowPage(PageTypes.PAGE_ORDER); }));
-            ctrlListMenu1.AddMenu(new MenuItem("当日成交", Properties.Resources.f3, true, delegate() { ShowPage(PageTypes.PAGE_TRADE); }));
-            ctrlListMenu1.AddMenu(new MenuItem("持仓", Properties.Resources.f4, true, delegate() { ShowPage(PageTypes.PAGE_POSITION); }));
-            //ctrlListMenu1.AddMenu(new MenuItem("条件单", Properties.Resources.f5, false, delegate() { ShowPage(""); }));
-            ctrlListMenu1.AddMenu(new MenuItem("查询", Properties.Resources.f6, true, delegate() { ShowPage(PageTypes.PAGE_QRY); }));
-            //ctrlListMenu1.AddMenu(new MenuItem("行权", Properties.Resources.f7, false, delegate() { ShowPage(""); }));
-            ctrlListMenu1.AddMenu(new MenuItem("参数设置", Properties.Resources.f8, true, delegate() { ShowPage(PageTypes.PAGE_CONFIG); }));
-            ctrlListMenu1.AddMenu(new MenuItem("帮助及说明", Properties.Resources.f9, true, delegate() { ShowPage(PageTypes.PAGE_HELP); }));
-            ctrlListMenu1.AddMenu(new MenuItem("银期转账", Properties.Resources.zj, true, delegate() { ShowPage(PageTypes.PAGE_BANK); }));
-            ctrlListMenu1.AddMenu(new MenuItem("交易统计", Properties.Resources.tj, true, delegate() { ShowPage(PageTypes.PAGE_STATISTIC); }));
-            ctrlListMenu1.AddMenu(new MenuItem("修改密码", Properties.Resources.pass, true, delegate() { ShowPage(PageTypes.PAGE_PASS); }));
-
-        }
-
+       
 
         #region Page部分
         Dictionary<string, IPage> pagemap = new Dictionary<string, IPage>();
@@ -188,6 +172,23 @@ namespace TradingLib.XTrader.Future
         #endregion
 
 
+        void InitMenu()
+        {
+            ctrlListMenu1.AddMenu(new MenuItem("交易", Properties.Resources.f1, true, delegate() { ShowPage(PageTypes.PAGE_TRADING); }));
+            ctrlListMenu1.AddMenu(new MenuItem("当日委托", Properties.Resources.f2, true, delegate() { ShowPage(PageTypes.PAGE_ORDER); }));
+            ctrlListMenu1.AddMenu(new MenuItem("当日成交", Properties.Resources.f3, true, delegate() { ShowPage(PageTypes.PAGE_TRADE); }));
+            ctrlListMenu1.AddMenu(new MenuItem("持仓", Properties.Resources.f4, true, delegate() { ShowPage(PageTypes.PAGE_POSITION); }));
+            //ctrlListMenu1.AddMenu(new MenuItem("条件单", Properties.Resources.f5, false, delegate() { ShowPage(""); }));
+            ctrlListMenu1.AddMenu(new MenuItem("查询", Properties.Resources.f6, true, delegate() { ShowPage(PageTypes.PAGE_QRY); }));
+            //ctrlListMenu1.AddMenu(new MenuItem("行权", Properties.Resources.f7, false, delegate() { ShowPage(""); }));
+            ctrlListMenu1.AddMenu(new MenuItem("参数设置", Properties.Resources.f8, true, delegate() { ShowPage(PageTypes.PAGE_CONFIG); }));
+            ctrlListMenu1.AddMenu(new MenuItem("帮助及说明", Properties.Resources.f9, true, delegate() { ShowPage(PageTypes.PAGE_HELP); }));
+            ctrlListMenu1.AddMenu(new MenuItem("银期转账", Properties.Resources.zj, true, delegate() { ShowPage(PageTypes.PAGE_BANK); }));
+            ctrlListMenu1.AddMenu(new MenuItem("交易统计", Properties.Resources.tj, false, delegate() { ShowPage(PageTypes.PAGE_STATISTIC); }));
+            ctrlListMenu1.AddMenu(new MenuItem("修改密码", Properties.Resources.pass, true, delegate() { ShowPage(PageTypes.PAGE_PASS); }));
+
+        }
+
         void WireEvent()
         {
             CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
@@ -201,24 +202,34 @@ namespace TradingLib.XTrader.Future
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             btnLock.Click += new EventHandler(btnLock_Click);
-            CoreService.EventCore.RegIEventHandler(this);
-           
         }
+
+
+        #region 锁定 刷新按钮
 
         void btnLock_Click(object sender, EventArgs e)
         {
             LockTradingBox();
         }
 
+        DateTime lastRefresh = DateTime.Now.Subtract(TimeSpan.FromMinutes(1));
 
         /// <summary>
-        /// 账户财务信息查询回报
+        /// 重新请求日内交易记录
         /// </summary>
-        /// <param name="obj"></param>
-        void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse obj)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnRefresh_Click(object sender, EventArgs e)
         {
-            lbMoneyAvabile.Text = string.Format("{0:F2} ({1})", obj.Report.AvabileFunds, Util.GetEnumDescription(CoreService.TradingInfoTracker.Account.Currency));
+            if (DateTime.Now.Subtract(lastRefresh).TotalSeconds < 1)
+            {
+                MessageBox.Show("请勿频繁刷新数据");
+                return;
+            }
+            CoreService.TradingInfoTracker.ResumeData();
+            lastRefresh = DateTime.Now;
         }
+        #endregion
 
         #region ControlBox
         void btnClose_Click(object sender, EventArgs e)
@@ -241,6 +252,15 @@ namespace TradingLib.XTrader.Future
         }
         #endregion
 
+        #region 事件回报
+        /// <summary>
+        /// 账户财务信息查询回报 更新可用资金
+        /// </summary>
+        /// <param name="obj"></param>
+        void EventQry_OnRspXQryAccountFinanceEvent(RspXQryAccountFinanceResponse obj)
+        {
+            lbMoneyAvabile.Text = string.Format("{0:F2} ({1})", obj.Report.AvabileFunds, Util.GetEnumDescription(CoreService.TradingInfoTracker.Account.Currency));
+        }
 
         void EventOther_OnResumeDataStart()
         {
@@ -250,34 +270,16 @@ namespace TradingLib.XTrader.Future
         void EventOther_OnResumeDataEnd()
         {
             btnRefresh.Enabled = true;
+
             //刷新 重新请求交易数据后 查询账户最新财务数据
             CoreService.TLClient.ReqXQryAccountFinance();
         }
 
-        
+
+        #endregion
 
 
-
-        DateTime lastRefresh = DateTime.Now;
-        bool refreshed = false;
-
-        /// <summary>
-        /// 重新请求日内交易记录
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void btnRefresh_Click(object sender, EventArgs e)
-        {
-            if (refreshed && DateTime.Now.Subtract(lastRefresh).TotalSeconds < 1)
-            {
-                MessageBox.Show("请勿频繁刷新数据");
-                return;
-            }
-            CoreService.TradingInfoTracker.ResumeData();
-            lastRefresh = DateTime.Now;
-            refreshed = true;
-        }
-
+        #region 隐藏下单面板
         bool _expandOrderEntry = true;
         /// <summary>
         /// 隐藏下单面板按钮
@@ -297,31 +299,27 @@ namespace TradingLib.XTrader.Future
             }
             
         }
+        #endregion
 
-        public void OnInit()
+        /// <summary>
+        /// 登入成功后 显示控件
+        /// </summary>
+        public void Entry()
         {
-            if (InvokeRequired)
-            {
-                Invoke(new Action(OnInit), new object[] { });
-            }
-            else
-            {
-                //InitTimer();
+            //更新账户名字
+            lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
+            this.Show();
 
-                lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
-                CoreService.TLClient.ReqXQryAccountFinance();
-            }
+            //查询账户财务信息
+            CoreService.TLClient.ReqXQryAccountFinance();
         }
 
-        public void OnDisposed()
+        public void Exit()
         {
-            logger.Info("ctrlFutureTrader Disposed");
+
         }
 
         #region 弹窗提醒
-
-
-
         System.ComponentModel.BackgroundWorker bg;
 
         TradingLib.MarketData.RingBuffer<PromptMessage> infobuffer = new TradingLib.MarketData.RingBuffer<PromptMessage>(1000);
