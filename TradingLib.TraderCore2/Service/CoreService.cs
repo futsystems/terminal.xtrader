@@ -30,6 +30,25 @@ namespace TradingLib.TraderCore
             }
         }
 
+        bool _dataError = false;
+        public static bool InitializedDataError
+        {
+            get
+            {
+                return defaultinstance._dataError;
+            }
+        }
+
+        /// <summary>
+        /// 触发数据加载错误
+        /// </summary>
+        /// <param name="msg"></param>
+        internal static void InitialDataError(string msg)
+        {
+            defaultinstance._dataError = true;
+            CoreService.EventCore.FireDataErrorEvent(msg);
+        }
+
         /// <summary>
         /// 初始化完毕
         /// </summary>
@@ -174,6 +193,7 @@ namespace TradingLib.TraderCore
             BasicInfoTracker.Reset();
             TradingInfoTracker.Reset();
             defaultinstance._isinited = false;
+            defaultinstance._dataError = false;
         }
 
     }

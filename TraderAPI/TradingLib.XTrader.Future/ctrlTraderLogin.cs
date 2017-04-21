@@ -55,7 +55,10 @@ namespace TradingLib.XTrader.Future
             CoreService.EventCore.OnLoginEvent += new Action<LoginResponse>(EventCore_OnLoginEvent);
             CoreService.EventCore.OnInitializeStatusEvent += new Action<string>(EventCore_OnInitializeStatusEvent);//文本信息
             CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
+            CoreService.EventCore.OnDataErrorEvent += new Action<string>(EventCore_OnDataErrorEvent);
         }
+
+
 
         
 
@@ -306,7 +309,8 @@ namespace TradingLib.XTrader.Future
         }
 
         bool initsuccess = false;
-
+        bool dataerror = false;
+        string dataerrormsg = string.Empty;
         /// <summary>
         /// 响应初始化完成事件 用于检查系统是否初始化正常
         /// </summary>
@@ -319,7 +323,16 @@ namespace TradingLib.XTrader.Future
         void EventCore_OnInitializeStatusEvent(string obj)
         {
             if (!inLoginMode) return;
+            //if (dataerror) return;
             ShowStatus(obj);
+        }
+
+        void EventCore_OnDataErrorEvent(string obj)
+        {
+            if (!inLoginMode) return;
+            dataerror = true;
+            dataerrormsg = obj;
+
         }
 
 
@@ -377,7 +390,8 @@ namespace TradingLib.XTrader.Future
 
             _qrybasicinfo = false;
             initsuccess = false;
-
+            dataerror = false;
+            dataerrormsg = string.Empty;
             if (CoreService.TLClient != null)
             {
                 CoreService.TLClient.Stop();
@@ -387,6 +401,10 @@ namespace TradingLib.XTrader.Future
             if (string.IsNullOrEmpty(msg))
             {
                 _msg.Text = "电信、联通用户请分别登入电信、联通站点";
+            }
+            else
+            {
+                _msg.Text = msg;
             }
         }
 
@@ -405,6 +423,8 @@ namespace TradingLib.XTrader.Future
             logger.Info("TraderLogin BW Started");
             while (_bkgo)
             {
+                
+
                 //数据初始化完毕
                 if (CoreService.Initialized &&initsuccess)
                 {
@@ -415,6 +435,12 @@ namespace TradingLib.XTrader.Future
                         EntryTrader();
                         _bkgo = false;
                     }
+                }
+
+                if (dataerror)
+                {
+                    logger.Info("加载数据异常");
+                    Reset(dataerrormsg);
                 }
 
                 if (_connectstart && (DateTime.Now - _connecttime).TotalSeconds > 5 && (!_connected))

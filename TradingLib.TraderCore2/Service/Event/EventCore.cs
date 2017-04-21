@@ -18,6 +18,12 @@ namespace TradingLib.TraderCore
     {
         static ILog logger = LogManager.GetLogger("EventCore");
 
+        public event Action<string> OnDataErrorEvent = delegate { };
+        internal void FireDataErrorEvent(string error)
+        {
+            OnDataErrorEvent(error);
+        }
+
         /// <summary>
         /// 基础数据与帐户列表数据初始化完成事件
         /// </summary>

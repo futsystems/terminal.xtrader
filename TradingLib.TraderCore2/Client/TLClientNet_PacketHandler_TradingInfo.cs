@@ -118,6 +118,11 @@ namespace TradingLib.TraderCore
             if (pd != null)
             {
                 pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Exchange,pd.Symbol);
+
+                if (pd.oSymbol == null)
+                {
+                    CoreService.InitialDataError(string.Format("缺少合约:{0} 数据,请联系管理员", pd.Symbol));
+                }
             }
 
             CoreService.EventHub.FireRspXQryYDPositionResponse(pd, response.RspInfo, response.RequestID, response.IsLast);
@@ -134,7 +139,13 @@ namespace TradingLib.TraderCore
             if (o != null)
             {
                 o.oSymbol = CoreService.BasicInfoTracker.GetSymbol(o.Exchange,o.Symbol);
+
+                if (o.oSymbol == null)
+                {
+                    CoreService.InitialDataError(string.Format("缺少合约:{0} 数据,请联系管理员", o.Symbol));
+                }
             }
+
 
             CoreService.EventHub.FireRspXQryOrderResponse(o, response.RspInfo, response.RequestID, response.IsLast);
         }
@@ -150,6 +161,11 @@ namespace TradingLib.TraderCore
             if (f != null)
             {
                 f.oSymbol = CoreService.BasicInfoTracker.GetSymbol(f.Exchange,f.Symbol);
+
+                if (f.oSymbol == null)
+                {
+                    CoreService.InitialDataError(string.Format("缺少合约:{0} 数据,请联系管理员", f.Symbol));
+                }
             }
 
             CoreService.EventHub.FireRspXQryFillResponese(f, response.RspInfo, response.RequestID, response.IsLast);

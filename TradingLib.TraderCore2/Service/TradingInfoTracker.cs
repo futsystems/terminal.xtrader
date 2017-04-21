@@ -187,12 +187,13 @@ namespace TradingLib.TraderCore
         void EventQry_OnRspXQryYDPositionResponse(PositionDetail arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qrypositionid) return;
+            if (CoreService.InitializedDataError) return;
             if (arg1 != null)
             {
                 PositionTracker.GotPosition(arg1);
                 HoldPositionTracker.GotPosition(arg1);
             }
-            if (arg4)
+            if (arg4 && !CoreService.InitializedDataError)//数据无错才进入下一步操作
             {
                 Status("隔夜持仓查询完毕,查询委托");
                 _qryorderid =  CoreService.TLClient.ReqXQryOrder();
@@ -203,12 +204,13 @@ namespace TradingLib.TraderCore
         void EventQry_OnRspXQryOrderResponse(Order arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qryorderid) return;
+            if (CoreService.InitializedDataError) return;
             if (arg1 != null)
             {
                 OrderTracker.GotOrder(arg1);
                 //KeepSymbol(arg1.oSymbol);
             }
-            if (arg4)
+            if (arg4 && !CoreService.InitializedDataError)
             {
                 Status("委托查询完毕,查询成交");
                 _qrytradeid =  CoreService.TLClient.ReqXQryTrade();
@@ -219,6 +221,7 @@ namespace TradingLib.TraderCore
         void EventQry_OnRspXQryFillResponese(Trade arg1, RspInfo arg2, int arg3, bool arg4)
         {
             if (arg3 != _qrytradeid) return;
+            if (CoreService.InitializedDataError) return;
             if (arg1 != null)
             {
                 bool accept = false;
@@ -230,7 +233,7 @@ namespace TradingLib.TraderCore
                     TradeTracker.Add(arg1);
                 }
             }
-            if (arg4)
+            if (arg4 && !CoreService.InitializedDataError)
             {
                 Status("成交查询完毕,查询账户");
                 _qryaccountinfoid = CoreService.TLClient.ReqXQryAccount();
