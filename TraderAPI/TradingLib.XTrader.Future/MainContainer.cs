@@ -32,40 +32,7 @@ namespace TradingLib.XTrader.Future
     /// </summary>
     public partial class MainContainer : UserControl,ITraderAPI
     {
-        public TraderAPISetting APISetting { get { return apisetting; } }
-
-        TraderAPISetting apisetting = new TraderAPISetting();
-
-        /// <summary>
-        /// 交易窗口操作 关闭 最小化 最大化操作
-        /// </summary>
-        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion = delegate { };
-
-        /// <summary>
-        /// 持仓更新事件
-        /// </summary>
-        public event Action<string, string,bool, int, decimal> PositionNotify = delegate { };
-
-        /// <summary>
-        /// 交易数据重置
-        /// </summary>
-        public event Action TradingInfoRest = delegate { };
-        /// <summary>
-        /// 查看KChart事件
-        /// </summary>
-        public event Action<string, string, int> ViewKChart;
-
-        ConcurrentDictionary<string, Symbol> _symbolRegister = new ConcurrentDictionary<string, Symbol>();
-        /// <summary>
-        /// 交易组件所需合约注册集合
-        /// </summary>
-        public IEnumerable<string> SymbolRegisters { get { return _symbolRegister.Keys; } }
-
-
-        /// <summary>
-        /// 合约集合变动事件
-        /// </summary>
-        public event Action SymbolRegisterChanged = delegate { };
+        ctrlFutureTrader _trader = null;
 
         public MainContainer()
         {
@@ -73,28 +40,30 @@ namespace TradingLib.XTrader.Future
             InitializeComponent();
             ctrlTraderLogin.BackColor = Color.White;
             WireEvent();
+
+            ctrlTraderLogin.Entry();
         }
 
         void WireEvent()
         {
-            ctrlTraderLogin.EntryTrader += new Action(ctrlTraderLogin_EntryTrader);
-            ctrlTraderLogin.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
-            //ctrlTraderLogin.ExitTrader += new Action(ctrlTraderLogin_ExitTrader);
+            ctrlTraderLogin.EntryTrader += new Action(OnEntryTrader);//登入成功基础数据加载完毕后关闭登入窗口 显示交易窗口
+            ctrlTraderLogin.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);//退出交易窗口
 
-            CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
-
+            //持仓数据变化 对外通知 绘图控件用于更新持仓均价线
             CoreService.EventIndicator.GotPositionNotifyEvent += new Action<PositionEx>(EventIndicator_GotPositionNotifyEvent);
 
             //合约选择
-            UIService.EventUI.OnSymbolSelectedEvent += new Action<object, API.Symbol>(EventHub_OnSymbolSelectedEvent);
+            UIService.EventUI.OnSymbolSelectedEvent += new Action<object, Symbol>(EventHub_OnSymbolSelectedEvent);
             UIService.EventUI.OnSymbolUnSelectedEvent += new Action<object, Symbol>(EventHub_OnSymbolUnSelectedEvent);
 
-            //数据恢复
+            //数据恢复 重新注册合约 与通知开仓均价线
             CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             
         }
 
+
+        #region 事件回报
 
         void EventIndicator_GotPositionNotifyEvent(PositionEx obj)
         {
@@ -104,16 +73,7 @@ namespace TradingLib.XTrader.Future
             }
         }
 
-        /// <summary>
-        /// 初始化完毕事件
-        /// 将当前持仓以事件的方式对外发送 向行情组件填充数据
-        /// </summary>
-        void EventCore_OnInitializedEvent()
-        {
 
-        }
-
-        #region 合约选择
         /// <summary>
         /// 非选中合约
         /// </summary>
@@ -152,9 +112,7 @@ namespace TradingLib.XTrader.Future
                 }
             }
         }
-        #endregion
 
-        #region 交易数据恢复
         void EventOther_OnResumeDataStart()
         {
             TradingInfoRest();
@@ -232,22 +190,11 @@ namespace TradingLib.XTrader.Future
         #endregion
 
 
-        ctrlFutureTrader  _trader = null;
-
-        //void ctrlTraderLogin_ExitTrader()
-        //{
-        //    if (TraderWindowOpeartion != null)
-        //    {
-        //        TraderWindowOpeartion(EnumTraderWindowOperation.Close);
-        //    }
-        //}
-
-
-        void ctrlTraderLogin_EntryTrader()
+        void OnEntryTrader()
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(ctrlTraderLogin_EntryTrader), new object[] { });
+                Invoke(new Action(OnEntryTrader), new object[] { });
             }
             else
             {
@@ -259,11 +206,11 @@ namespace TradingLib.XTrader.Future
                     {
                         _trader = new ctrlFutureTrader();
                         _trader.Dock = DockStyle.Fill;
-                        _trader.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);
-                        _trader.LockTradingBox += new Action(OnLockTradingBox);
+                        _trader.TradingBoxOpeartion += new Action<EnumTraderWindowOperation>(OnTraderWindowOpeartion);//交易窗口操作
+                        _trader.LockTradingBox += new Action(OnLockTradingBox);//锁定交易窗口
                         this.Controls.Add(_trader);
                     }
-                    ctrlTraderLogin.Visible = false;
+                    ctrlTraderLogin.Exit();
                     _trader.Entry();
                 }
                 catch (Exception ex)
@@ -275,7 +222,6 @@ namespace TradingLib.XTrader.Future
 
         void OnLockTradingBox()
         {
-            
             _trader.Visible = false;
             ctrlTraderLogin.LockMode();
             ctrlTraderLogin.Show();
@@ -289,6 +235,7 @@ namespace TradingLib.XTrader.Future
                 {
                     //重置行情行情窗口交易信息
                     TradingInfoRest();
+
                     //调用主程序 执行交易窗口操作 最大化 最小化
                     TraderWindowOpeartion(obj);
 
@@ -296,12 +243,10 @@ namespace TradingLib.XTrader.Future
                     if (obj == EnumTraderWindowOperation.Close)
                     {
                         //关闭交易系统
-                        ctrlTraderLogin.Visible = true;
-                        ctrlTraderLogin.StopTrader();
+                        ctrlTraderLogin.Entry();
                         if (_trader != null)
                         {
-                            _trader.Visible = false;
-                            //_trader = null;
+                            _trader.Exit();
                         }
                     }
 
@@ -311,7 +256,45 @@ namespace TradingLib.XTrader.Future
         }
 
 
-        #region 接口操作
+        #region ITraderAPI
+
+        public TraderAPISetting APISetting { get { return apisetting; } }
+
+        TraderAPISetting apisetting = new TraderAPISetting();
+
+
+        /// <summary>
+        /// 交易窗口操作 关闭 最小化 最大化操作
+        /// </summary>
+        public event Action<EnumTraderWindowOperation> TraderWindowOpeartion = delegate { };
+
+        /// <summary>
+        /// 持仓更新事件
+        /// </summary>
+        public event Action<string, string, bool, int, decimal> PositionNotify = delegate { };
+
+        /// <summary>
+        /// 交易数据重置
+        /// </summary>
+        public event Action TradingInfoRest = delegate { };
+        /// <summary>
+        /// 查看KChart事件
+        /// </summary>
+        public event Action<string, string, int> ViewKChart;
+
+        ConcurrentDictionary<string, Symbol> _symbolRegister = new ConcurrentDictionary<string, Symbol>();
+        /// <summary>
+        /// 交易组件所需合约注册集合
+        /// </summary>
+        public IEnumerable<string> SymbolRegisters { get { return _symbolRegister.Keys; } }
+
+
+        /// <summary>
+        /// 合约集合变动事件
+        /// </summary>
+        public event Action SymbolRegisterChanged = delegate { };
+
+
         /// <summary>
         /// 选择某合约
         /// 行情切换合约时 交易窗口同步选择对应合约

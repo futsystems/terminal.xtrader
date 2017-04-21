@@ -42,10 +42,11 @@
             this.panelRight = new System.Windows.Forms.Panel();
             this.panelPageHolder = new System.Windows.Forms.Panel();
             this.panelOrderEntry = new System.Windows.Forms.Panel();
-            this.panelLeft = new System.Windows.Forms.Panel();
             this.ctrlOrderEntry1 = new TradingLib.XTrader.Future.ctrlOrderEntry();
             this.btnHide = new TradingLib.XTrader.FButton();
+            this.panelLeft = new System.Windows.Forms.Panel();
             this.ctrlListMenu1 = new TradingLib.XTrader.Future.ctrlListMenu();
+            this.lbDisconnect = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             this.panelControlBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
@@ -59,6 +60,7 @@
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.lbDisconnect);
             this.panelTop.Controls.Add(this.lbMoneyAvabile);
             this.panelTop.Controls.Add(this.panelControlBox);
             this.panelTop.Controls.Add(this.btnLock);
@@ -198,15 +200,6 @@
             this.panelOrderEntry.Size = new System.Drawing.Size(344, 234);
             this.panelOrderEntry.TabIndex = 2;
             // 
-            // panelLeft
-            // 
-            this.panelLeft.Controls.Add(this.ctrlListMenu1);
-            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLeft.Location = new System.Drawing.Point(0, 0);
-            this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(120, 234);
-            this.panelLeft.TabIndex = 4;
-            // 
             // ctrlOrderEntry1
             // 
             this.ctrlOrderEntry1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -236,6 +229,15 @@
             this.btnHide.Text = "<";
             this.btnHide.UseVisualStyleBackColor = false;
             // 
+            // panelLeft
+            // 
+            this.panelLeft.Controls.Add(this.ctrlListMenu1);
+            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelLeft.Name = "panelLeft";
+            this.panelLeft.Size = new System.Drawing.Size(120, 234);
+            this.panelLeft.TabIndex = 4;
+            // 
             // ctrlListMenu1
             // 
             this.ctrlListMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -244,6 +246,17 @@
             this.ctrlListMenu1.Size = new System.Drawing.Size(120, 234);
             this.ctrlListMenu1.TabIndex = 1;
             this.ctrlListMenu1.Text = "ctrlListMenu1";
+            // 
+            // lbDisconnect
+            // 
+            this.lbDisconnect.AutoSize = true;
+            this.lbDisconnect.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbDisconnect.ForeColor = System.Drawing.Color.Red;
+            this.lbDisconnect.Location = new System.Drawing.Point(340, 6);
+            this.lbDisconnect.Name = "lbDisconnect";
+            this.lbDisconnect.Size = new System.Drawing.Size(300, 12);
+            this.lbDisconnect.TabIndex = 5;
+            this.lbDisconnect.Text = "\"交易服务器连接断开，正在重新建立交易连接...\"";
             // 
             // ctrlFutureTrader
             // 
@@ -287,5 +300,6 @@
         private System.Windows.Forms.PictureBox btnMax;
         private System.Windows.Forms.PictureBox btnMin;
         private System.Windows.Forms.Label lbMoneyAvabile;
+        private System.Windows.Forms.Label lbDisconnect;
     }
 }

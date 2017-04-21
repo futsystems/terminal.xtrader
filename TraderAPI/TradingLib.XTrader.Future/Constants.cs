@@ -9,6 +9,7 @@ namespace TradingLib.XTrader.Future
 {
     public class Constants
     {
+        public const string PRODUCT_INFO = "XTrader.Future";
         public static bool HedgeFieldVisible = false;
 
         public static Color BorderColor = Color.FromArgb(127, 157, 185);

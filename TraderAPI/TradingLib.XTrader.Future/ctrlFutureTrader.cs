@@ -191,6 +191,10 @@ namespace TradingLib.XTrader.Future
 
         void WireEvent()
         {
+            CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);//连接建立
+            CoreService.EventCore.OnDisconnectedEvent += new VoidDelegate(EventCore_OnDisconnectedEvent);//连接断开
+            CoreService.EventCore.OnLoginEvent += new Action<LoginResponse>(EventCore_OnLoginEvent);//登入回报
+
             CoreService.EventHub.OnResumeDataStart += new Action(EventOther_OnResumeDataStart);
             CoreService.EventHub.OnResumeDataEnd += new Action(EventOther_OnResumeDataEnd);
             CoreService.EventHub.OnRspXQryAccountFinanceEvent += new Action<RspXQryAccountFinanceResponse>(EventQry_OnRspXQryAccountFinanceEvent);
@@ -202,6 +206,44 @@ namespace TradingLib.XTrader.Future
             btnHide.Click += new EventHandler(btnHide_Click);
             btnRefresh.Click += new EventHandler(btnRefresh_Click);
             btnLock.Click += new EventHandler(btnLock_Click);
+        }
+
+        
+
+        /// <summary>
+        /// 工作模式
+        /// 工作模式需要响应底层连接断开与连接事件 用于重新登入并刷新数据
+        /// </summary>
+        bool workMode = false;
+
+        void EventCore_OnDisconnectedEvent()
+        {
+            if (!workMode) return;
+            lbDisconnect.Visible = true;
+            lbDisconnect.Text = "交易服务器连接断开，正在重新建立交易连接...";
+        }
+
+        void EventCore_OnConnectedEvent()
+        {
+            if (!workMode) return;
+            //System.Threading.Thread.Sleep(500);
+            CoreService.TLClient.ReqLogin(CoreService.TLClient.UserName,CoreService.TLClient.Password, Constants.PRODUCT_INFO);
+        }
+
+        void EventCore_OnLoginEvent(LoginResponse obj)
+        {
+            if (!workMode) return;
+            if (obj.Authorized)
+            {
+                //System.Threading.Thread.Sleep(500);
+                //登入成功 请求刷新数据
+                CoreService.TradingInfoTracker.ResumeData();
+                lastRefresh = DateTime.Now;
+            }
+            else //更新界面提醒
+            {
+                lbDisconnect.Text = "重新登入交易账号失败，请退出交易客户端重新登入";
+            }
         }
 
 
@@ -270,7 +312,7 @@ namespace TradingLib.XTrader.Future
         void EventOther_OnResumeDataEnd()
         {
             btnRefresh.Enabled = true;
-
+            lbDisconnect.Visible = false;
             //刷新 重新请求交易数据后 查询账户最新财务数据
             CoreService.TLClient.ReqXQryAccountFinance();
         }
@@ -306,6 +348,8 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         public void Entry()
         {
+            workMode = true;
+            lbDisconnect.Visible = false;
             //更新账户名字
             lbAccount.Text = string.Format("{0},您好！", (string.IsNullOrEmpty(CoreService.TradingInfoTracker.Account.Name) ? CoreService.TradingInfoTracker.Account.Account : CoreService.TradingInfoTracker.Account.Name));
             this.Show();
@@ -316,7 +360,8 @@ namespace TradingLib.XTrader.Future
 
         public void Exit()
         {
-
+            workMode = false;
+            this.Hide();
         }
 
         #region 弹窗提醒

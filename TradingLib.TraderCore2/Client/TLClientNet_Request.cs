@@ -119,6 +119,8 @@ namespace TradingLib.TraderCore
             //request.IPAddress = "22.22.22.22";
             //request.MAC = "wwwwww";
             //request.MAC = mac;
+            _username = loginid;
+            _password = pass;
             SendPacket(request);
 
             Func<LocationInfo> del = new Func<LocationInfo>(Util.GetLocationInfo);

@@ -24,9 +24,15 @@ namespace TradingLib.TraderCore
         int _port = 5570;
 
         TLClient<TCPSocket> connecton = null;
-        bool _firstlogin = true;
+       
         string _account = "";
-        
+
+        string _username = string.Empty;
+        string _password = string.Empty;
+
+        public string UserName { get { return _username; } }
+
+        public string Password { get { return _password; } }
 
 
         int _tradingday = 0;
@@ -117,7 +123,6 @@ namespace TradingLib.TraderCore
 
         public void Reset()
         {
-            _firstlogin = true;
             _account = string.Empty;
             _tradingday = 0;
             requestid = 0;

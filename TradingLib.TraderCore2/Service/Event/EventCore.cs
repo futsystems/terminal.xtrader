@@ -97,7 +97,7 @@ namespace TradingLib.TraderCore
         public event VoidDelegate OnConnectedEvent;
         internal void FireConnectedEvent()
         {
-            LogService.Debug("FireConnectedEvent ***");
+            //LogService.Debug("FireConnectedEvent ***");
             if (OnConnectedEvent != null)
                 OnConnectedEvent();
         }
@@ -108,7 +108,7 @@ namespace TradingLib.TraderCore
         public event VoidDelegate OnDisconnectedEvent;
         internal void FireDisconnectedEvent()
         {
-            LogService.Debug("FireDisconnectedEvent");
+            //LogService.Debug("FireDisconnectedEvent");
             if (OnDisconnectedEvent != null)
                 OnDisconnectedEvent();
         }
@@ -117,7 +117,7 @@ namespace TradingLib.TraderCore
         public event Action<LoginResponse> OnLoginEvent;
         internal void FireLoginEvent(LoginResponse response)
         {
-            LogService.Debug("FireLoginEvent");
+            //LogService.Debug("FireLoginEvent");
             if (OnLoginEvent != null)
                 OnLoginEvent(response);
         }

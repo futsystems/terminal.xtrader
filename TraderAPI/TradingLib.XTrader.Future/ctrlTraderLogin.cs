@@ -29,6 +29,7 @@ namespace TradingLib.XTrader.Future
 
         string _pass = string.Empty;
 
+        bool inLoginMode = false;
         public ctrlTraderLogin()
         {
             InitializeComponent();
@@ -52,7 +53,7 @@ namespace TradingLib.XTrader.Future
             CoreService.EventCore.OnConnectedEvent += new VoidDelegate(EventCore_OnConnectedEvent);
             CoreService.EventCore.OnDisconnectedEvent += new VoidDelegate(EventCore_OnDisconnectedEvent);
             CoreService.EventCore.OnLoginEvent += new Action<LoginResponse>(EventCore_OnLoginEvent);
-            CoreService.EventCore.OnInitializeStatusEvent += new Action<string>(EventCore_OnInitializeStatusEvent);
+            CoreService.EventCore.OnInitializeStatusEvent += new Action<string>(EventCore_OnInitializeStatusEvent);//文本信息
             CoreService.EventCore.OnInitializedEvent += new VoidDelegate(EventCore_OnInitializedEvent);
         }
 
@@ -142,21 +143,6 @@ namespace TradingLib.XTrader.Future
         void btnExit_Click(object sender, EventArgs e)
         {
             TradingBoxOpeartion(EnumTraderWindowOperation.Close);
-        }
-
-
-        /// <summary>
-        /// 停止交易系统
-        /// </summary>
-        public void StopTrader()
-        {
-            _bkgo = false;
-
-            this.LoginMode();
-
-            Reset();
-
-            CoreService.Reset();
         }
 
         /// <summary>
@@ -258,10 +244,12 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         void Connect()
         {
+            //如果后台服务停止 则启动后台服务用于监听登入状态并执行界面切换
             if (_bkgo == false)
             {
                 InitBW();
             }
+
             ServerNode node = serverList.SelectedItem as ServerNode;
             if (node == null)
             {
@@ -282,13 +270,14 @@ namespace TradingLib.XTrader.Future
         DateTime _logintime = DateTime.Now;
         void EventCore_OnConnectedEvent()
         {
+            if (!inLoginMode) return;
             _connected = true;
             ShowStatus("服务端连接成功,请求登入");
 
             _loginstart = true;
             _logintime = DateTime.Now;
 
-            CoreService.TLClient.ReqLogin(account.Text, password.Text, "XTrader.Future");
+            CoreService.TLClient.ReqLogin(account.Text, password.Text, Constants.PRODUCT_INFO);
         }
 
         bool _qrybasicinfo = false;
@@ -299,6 +288,7 @@ namespace TradingLib.XTrader.Future
         /// <param name="response"></param>
         void EventCore_OnLoginEvent(LoginResponse response)
         {
+            if (!inLoginMode) return;
             _gotloginrep = true;
             if (response.RspInfo.ErrorID == 0)
             {
@@ -322,17 +312,20 @@ namespace TradingLib.XTrader.Future
         /// </summary>
         void EventCore_OnInitializedEvent()
         {
+            if (!inLoginMode) return;
             initsuccess = true;
         }
 
         void EventCore_OnInitializeStatusEvent(string obj)
         {
+            if (!inLoginMode) return;
             ShowStatus(obj);
         }
 
 
         void EventCore_OnDisconnectedEvent()
         {
+            if (!inLoginMode) return;
             _connected = false;
             _loggedin = false;
         }
@@ -354,7 +347,21 @@ namespace TradingLib.XTrader.Future
             }
         }
 
+        public void Entry()
+        {
+            inLoginMode = true;
+            _bkgo = false;
+            this.LoginMode();
+            Reset();
+            CoreService.Reset();
+            this.Show();
+        }
 
+        public void Exit()
+        {
+            inLoginMode = false;//退出登入模式
+            this.Hide();
+        }
         /// <summary>
         /// 重置异常连接并恢复界面状态
         /// </summary>
@@ -370,6 +377,7 @@ namespace TradingLib.XTrader.Future
 
             _qrybasicinfo = false;
             initsuccess = false;
+
             if (CoreService.TLClient != null)
             {
                 CoreService.TLClient.Stop();
@@ -379,18 +387,6 @@ namespace TradingLib.XTrader.Future
             if (string.IsNullOrEmpty(msg))
             {
                 _msg.Text = "电信、联通用户请分别登入电信、联通站点";
-            }
-        }
-
-        public void EnableLogin()
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new VoidDelegate(EnableLogin), new object[] { });
-            }
-            else
-            {
-                btnLogin.Enabled = true;
             }
         }
 
@@ -426,7 +422,6 @@ namespace TradingLib.XTrader.Future
                     logger.Info("连接服务器超过5秒没有连接事件回报");
                     ShowStatus("连接超时,无法连接到服务器");
                     Reset();
-                    this.EnableLogin();
                 }
 
                 //5秒内没有登入回报
@@ -435,14 +430,12 @@ namespace TradingLib.XTrader.Future
                     logger.Info("登入服务器超过5秒没有连接事件回报");
                     ShowStatus("登入超时,无法登入到服务器");
                     Reset();
-                    this.EnableLogin();
                 }
                 if (_qrybasicinfo && (DateTime.Now - qrybasicinfoTime).TotalSeconds > 10 && (!initsuccess))
                 {
                     logger.Info("获取基础数据超过10秒没有成功");
                     ShowStatus("获取基础数据失败,请重新登入");
                     Reset();
-                    this.EnableLogin();
                 }
                 Thread.Sleep(100);
             }
@@ -467,4 +460,6 @@ namespace TradingLib.XTrader.Future
             holder.Location = new Point((this.Width - holder.Width) / 2, holder.Location.Y);
         }
     }
+
+
 }

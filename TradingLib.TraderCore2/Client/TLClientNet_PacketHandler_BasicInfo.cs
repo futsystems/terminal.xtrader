@@ -26,6 +26,7 @@ namespace TradingLib.TraderCore
                 _sessionID = response.SessionIDi;
             }
             CoreService.EventCore.FireLoginEvent(response);
+            //如果登入成功且基础数据没有初始化 则恢复基础数据
             if (response.Authorized && !CoreService.BasicInfoTracker.Inited)
             {
                 //请求市场交易时间段
