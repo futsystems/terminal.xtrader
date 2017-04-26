@@ -13,7 +13,7 @@ namespace TradingLib.XTrader.Future
         {
             if (Constants.SymbolTitleStyle == 2)
                 return symbol.Symbol;
-            return symbol.GetCodeNumSuffix(Constants.SymbolTitleStyle == 0);
+            return symbol.GetAlphabetName(Constants.SymbolTitleStyle == 0);
         }
     }
 }

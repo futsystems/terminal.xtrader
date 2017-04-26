@@ -145,12 +145,12 @@ namespace DataAPI.Futs
                 MDSymbol symbol = new MDSymbol();
                 symbol.Symbol = target.Symbol;
                 symbol.SecCode = target.SecurityFamily.Code;
-                symbol.Name = target.GetName(true);
+                symbol.Name = target.GetTitleName(true);
 
-                symbol.NameLong = target.GetName(true);
-                symbol.NameShort = target.GetName(false);
-                symbol.TitleLong = target.GetCodeNumSuffix(true);
-                symbol.TitleShort = target.GetCodeNumSuffix(false);
+                symbol.NameLong = target.GetTitleName(true);
+                symbol.NameShort = target.GetTitleName(false);
+                symbol.TitleLong = target.GetAlphabetName(true);
+                symbol.TitleShort = target.GetAlphabetName(false);
 
                 symbol.Currency = MDCurrency.RMB;
                 symbol.Exchange = target.Exchange;

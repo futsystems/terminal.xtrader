@@ -287,7 +287,7 @@ namespace TradingLib.XTrader.Future
         /// <returns></returns>
         string GetSymbolName(Trade fill)
         {
-            if (fill.oSymbol != null) return fill.oSymbol.GetName(Constants.SymbolNameStyle==0);
+            if (fill.oSymbol != null) return fill.oSymbol.GetTitleName(Constants.SymbolNameStyle==0);
             return fill.Symbol;
         }
 

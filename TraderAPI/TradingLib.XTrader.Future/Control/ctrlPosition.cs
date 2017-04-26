@@ -597,7 +597,7 @@ namespace TradingLib.XTrader.Future
         /// <returns></returns>
         string GetSymbolName(Position pos)
         {
-            if (pos.oSymbol != null) return pos.oSymbol.GetName(Constants.SymbolNameStyle == 0);
+            if (pos.oSymbol != null) return pos.oSymbol.GetTitleName(Constants.SymbolNameStyle == 0);
             return pos.Symbol;
         }
 

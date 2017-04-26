@@ -173,7 +173,7 @@ namespace TradingLib.XTrader.Future
         string GetSymbolTitle(Symbol symbol)
         {
             if (Constants.SymbolTitleStyle == 2) return symbol.Symbol;
-            return symbol.GetCodeNumSuffix(Constants.SymbolTitleStyle == 0);
+            return symbol.GetAlphabetName(Constants.SymbolTitleStyle == 0);
         }
         void EventUI_OnSymbolSelectedEvent(object arg1, Symbol arg2)
         {
@@ -1030,7 +1030,7 @@ namespace TradingLib.XTrader.Future
             else
             {
                 //以价格:00 买入1手 
-                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetName(Constants.SymbolNameStyle == 0), GetOffsetString());
+                string msg = "以价格:{0} {1}{4}{2}手 {3}".Put(GetPriceString(order.LimitPrice), order.Side ? "买入" : "卖出", order.UnsignedSize, _symbol.GetTitleName(Constants.SymbolNameStyle == 0), GetOffsetString());
                 if (MessageBox.Show(msg, "确认提交委托?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     if (!CoreService.TLClient.LastOrderNotified)
