@@ -310,6 +310,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="custwb.ico" />
+    <Content Include="custwi.ico" />
     <Content Include="main.ico" />
     <None Include="Resources\style2.txt" />
     <None Include="Resources\xgj\toobar\xgj_freq_1min.png" />
