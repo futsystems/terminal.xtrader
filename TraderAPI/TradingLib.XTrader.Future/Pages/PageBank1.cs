@@ -35,7 +35,8 @@ namespace TradingLib.XTrader.Future
             cbCurrency.VisibleChanged += new EventHandler(cbCurrency_VisibleChanged);
             cbCurrency2.VisibleChanged += new EventHandler(cbCurrency_VisibleChanged);
 
-            depositNormal.Checked = true;
+            //depositNormal.Checked = true;
+            depositLeverageDeposit.Checked = true;
             withdrawNormal.Checked = true;
 
             btnSetBankInfo.Click += new EventHandler(btnSetBankInfo_Click);

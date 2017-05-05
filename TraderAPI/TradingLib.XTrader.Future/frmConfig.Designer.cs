@@ -31,6 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cbExFlagAuto = new System.Windows.Forms.CheckBox();
             this.cbExPositionLine = new System.Windows.Forms.CheckBox();
             this.cbExSendOrderDirect = new System.Windows.Forms.CheckBox();
             this.cbExSwitchToOpenWhenCloseOrderSubmit = new System.Windows.Forms.CheckBox();
@@ -38,7 +39,6 @@
             this.cbExDoubleOrderCancelIfNotFilled = new System.Windows.Forms.CheckBox();
             this.cbExSwitchSymbolOfMarketDataView = new System.Windows.Forms.CheckBox();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.cbExFlagAuto = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -79,6 +79,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "交易界面";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cbExFlagAuto
+            // 
+            this.cbExFlagAuto.AutoSize = true;
+            this.cbExFlagAuto.Location = new System.Drawing.Point(287, 7);
+            this.cbExFlagAuto.Name = "cbExFlagAuto";
+            this.cbExFlagAuto.Size = new System.Drawing.Size(120, 16);
+            this.cbExFlagAuto.TabIndex = 6;
+            this.cbExFlagAuto.Text = "默认下单自动状态";
+            this.cbExFlagAuto.UseVisualStyleBackColor = true;
             // 
             // cbExPositionLine
             // 
@@ -148,16 +158,6 @@
             this.btnSubmit.TabIndex = 1;
             this.btnSubmit.Text = "确 认";
             this.btnSubmit.UseVisualStyleBackColor = true;
-            // 
-            // cbExFlagAuto
-            // 
-            this.cbExFlagAuto.AutoSize = true;
-            this.cbExFlagAuto.Location = new System.Drawing.Point(287, 7);
-            this.cbExFlagAuto.Name = "cbExFlagAuto";
-            this.cbExFlagAuto.Size = new System.Drawing.Size(120, 16);
-            this.cbExFlagAuto.TabIndex = 6;
-            this.cbExFlagAuto.Text = "默认下单自动状态";
-            this.cbExFlagAuto.UseVisualStyleBackColor = true;
             // 
             // frmConfig
             // 
