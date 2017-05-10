@@ -117,6 +117,32 @@ namespace TradingLib.TraderCore
             connecton.OnConnectEvent += new ConnectDel(connecton_OnConnectEvent);
             connecton.OnDisconnectEvent += new DisconnectDel(connecton_OnDisconnectEvent);
             connecton.OnPacketEvent +=new Action<IPacket>(connecton_OnPacketEvent);
+            connecton.OnNegotiationEvent += new Action<TLNegotiation, string, string>(connecton_OnNegotiationEvent);
+        }
+
+        void connecton_OnNegotiationEvent(TLNegotiation arg1, string arg2, string arg3)
+        {
+            if(connecton == null) return;
+            if (arg1 == null)
+            {
+                connecton.Stop();
+                return;
+            }
+            string rawstr = string.Empty;
+            try
+            {
+                rawstr = StringCipher.Decrypt(arg1.NegoResponse, arg2);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Negotiation Error");
+            }
+
+            if (rawstr != arg3)
+            {
+                connecton.Stop();
+            }
+
         }
 
 
