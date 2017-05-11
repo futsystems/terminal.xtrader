@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TradingLib.MarketData;
 
 namespace XTraderLite
 {
@@ -30,28 +31,21 @@ namespace XTraderLite
         public static string TaskBarTitle = "测试";
 
         /// <summary>
-        /// 是否显示长合约格式
-        /// 长格式 HSI1701
-        /// 短格式 HSI01
+        /// 部署编号
         /// </summary>
-        //public static bool LongSymbolName = true;
+        public static string DeployID = string.Empty;
 
         /// <summary>
-        /// 
+        /// 配置服务器
         /// </summary>
-        //public static int BoardTitleStyle = 1;
-        /// <summary>
-        /// 行情插件
-        /// </summary>
-        //public static string PluginMarket = "";
-        /// <summary>
-        /// 交易插件
-        /// </summary>
-        //public static string PluginBroker = "";
+        public static string AppServer = string.Empty;
 
         /// <summary>
         /// 在线出入金地址
         /// </summary>
         public static string PayUrl = "";
+
+
+        public static AppConfig AppConfig { get; set; }
     }
 }

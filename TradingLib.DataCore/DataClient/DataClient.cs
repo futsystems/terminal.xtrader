@@ -87,6 +87,43 @@ namespace TradingLib.DataCore
             mktClient.OnConnectEvent += new ConnectDel(OnConnectEvent);
             mktClient.OnDisconnectEvent += new DisconnectDel(OnDisconnectEvent);
             mktClient.OnPacketEvent += new Action<IPacket>(OnPacketEvent);
+            mktClient.OnEncodeEvent += new Func<string, string, string>(mktClient_OnEncodeEvent);
+            mktClient.OnDecodeEvent += new Func<string, string, string>(mktClient_OnDecodeEvent);
+            mktClient.OnNegotiationEvent += new Action<TLNegotiation, string, string>(mktClient_OnNegotiationEvent);
+        }
+
+        void mktClient_OnNegotiationEvent(TLNegotiation arg1, string arg2, string arg3)
+        {
+            if (mktClient == null) return;
+            if (arg1 == null)
+            {
+                mktClient.Stop();
+                return;
+            }
+            string rawstr = string.Empty;
+            try
+            {
+                rawstr = StringCipher.Decrypt(arg1.NegoResponse, arg2);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Negotiation Error");
+            }
+
+            if (rawstr != arg3)
+            {
+                mktClient.Stop();
+            }
+        }
+
+        string mktClient_OnDecodeEvent(string arg1, string arg2)
+        {
+            return StringCipher.Decrypt(arg1, arg2);
+        }
+
+        string mktClient_OnEncodeEvent(string arg1, string arg2)
+        {
+            return StringCipher.Encrypt(arg1, arg2);
         }
 
         /// <summary>

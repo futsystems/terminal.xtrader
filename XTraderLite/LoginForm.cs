@@ -18,6 +18,7 @@ namespace XTraderLite
         ILog logger = LogManager.GetLogger("LoginForm");
         Starter mStarter = null;
         ConfigFile _cfgfile;
+        
         public LoginForm(Starter start)
         {
             //允许线程间调用控件属性 否则无法本地调试
@@ -30,7 +31,8 @@ namespace XTraderLite
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
             Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
-            //Global.LongSymbolName = !_cfgfile["IsShortName"].AsBool();
+            
+
 
             UIConstant.QuoteViewStdSumbolHidden = _cfgfile["QuoteViewStdSumbolHidden"].AsBool();//报价列表 标准合约隐藏
             UIConstant.QuoteSymbolNameStyle = _cfgfile["QuoteSymbolNameStyle"].AsInt();//报价列表 合约名类型
@@ -42,11 +44,30 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.SymbolTitleStyle = _cfgfile["BrokerSymbolTitleStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.PageBankStyle = _cfgfile["PageBankStyle"].AsInt();
 
-            //Global.PluginBroker = _cfgfile["Broker"].AsString();
-            //Global.PluginMarket = _cfgfile["Market"].AsString();
             Global.PayUrl = _cfgfile["PayUrl"].AsString();
-
             slogen.Text = _cfgfile["Slogen"].AsString();
+
+            
+            //判断是否有UNIT编号
+            if (_cfgfile.ContainsKey("UNIT"))
+            {
+                Global.DeployID = _cfgfile["UNIT"].AsString();
+            }
+            else
+            { //如果没有配置UNIT信息 则从update_config文件中获取UNIT
+                XTraderLite.Compat.Utils.LoadINI();
+                Global.DeployID = XTraderLite.Compat.Utils.Unit;
+            }
+
+            if (_cfgfile.ContainsKey("APPServer"))
+            { 
+                Global.AppServer =  _cfgfile["APPServer"].AsString();
+            }
+            else
+            {
+                Global.AppServer = "120.26.45.94";
+            }
+              
             topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
             if (!Global.ClassicLogin)
             {
@@ -59,7 +80,7 @@ namespace XTraderLite
 
             mStarter = start;
             btnLogin.Enabled = false;
-            _msg.Visible = false;
+            //_msg.Visible = false;
             WireEvent();
 
             InitBW();
@@ -298,11 +319,11 @@ namespace XTraderLite
                 //}
 
                 List<string> serverList = new List<string>();
-                int port = 0;
-                foreach (var v in (new ServerConfig("market.cfg")).GetServerNodes())
+                int port = Global.AppConfig.MarketPort;
+                foreach (var address in Global.AppConfig.MarketAddress.Split(','))
                 {
-                    if (port == 0) port = v.Port;
-                    serverList.Add(v.Address);
+                    if (string.IsNullOrEmpty(address)) continue;
+                    serverList.Add(address);
                 }
 
                 MDService.DataAPI.Connect(serverList.ToArray(), port);
@@ -521,9 +542,109 @@ namespace XTraderLite
         protected override void OnPaint(PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
+
+
+        }
+
+        public void InvokeQryAppConfig()
+        {
+            Func<AppConfig> del = new Func<AppConfig>(QryAppConfig);
+            del.BeginInvoke(QryAppConfigCallBack, null);
+        }
+        void QryAppConfigCallBack(IAsyncResult result)
+        {
+            Func<AppConfig> proc = ((System.Runtime.Remoting.Messaging.AsyncResult)result).AsyncDelegate as Func<AppConfig>;
+            AppConfig info = proc.EndInvoke(result);
+
+            if (info == null)
+            {
+                ShowStatus("获取配置信息异常,请检查网络并重启交易端");
+                return;
+            }
+            if (string.IsNullOrEmpty(info.MarketAddress))
+            {
+                ShowStatus("无可用行情服务器列表,请联系客服");
+                return;
+            }
+
+            Global.AppConfig = info;
+            ShowStatus("配置信息加载完毕");
+
+            //允许登入
+            this.EnableLogin();
+
         }
 
 
+        AppConfig QryAppConfig()
+        {
+            ShowStatus("请求配置信息");
+            System.Xml.XmlDocument xml = new System.Xml.XmlDocument();
+            string urlStr = string.Format("http://{0}/pc/{1}/app.xml",Global.AppServer,Global.DeployID);
+            try
+            {
+                System.Net.WebRequest wReq = System.Net.WebRequest.Create(urlStr);
+                System.Net.WebResponse wResp = wReq.GetResponse();
 
+                AppConfig config = new AppConfig();
+
+                using (System.IO.Stream respStream = wResp.GetResponseStream())
+                {
+                    using (System.IO.StreamReader receiveStream = new System.IO.StreamReader(respStream))
+                    {
+                        string receiveString = receiveStream.ReadToEnd();
+                        xml.LoadXml(receiveString);
+
+                        System.Xml.XmlNode infoRoot = xml.SelectSingleNode("info");
+                        System.Xml.XmlNodeList infoNodes = infoRoot.ChildNodes;
+
+                        foreach (var item in infoNodes)
+                        {
+
+                            System.Xml.XmlElement node = (System.Xml.XmlElement)item;
+                            string name = node.Name.ToUpper();
+                            switch (name)
+                            {
+                                case "UNIT":
+                                    {
+                                        config.Unit = node.InnerText;
+                                        break;
+                                    }
+                                case "MARKETADDRESS":
+                                    {
+                                        config.MarketAddress = node.InnerText;
+                                        break;
+                                    }
+                                case "MARKETPORT":
+                                    {
+                                        config.MarketPort = int.Parse(node.InnerText);
+                                        break;
+                                    }
+                                    /*
+                                case "BROKERADDRESS":
+                                    {
+                                        config.BrokerAddress = node.InnerText;
+                                        break;
+                                    }
+                                case "BROKERPORT":
+                                    {
+                                        config.BrokerPort = int.Parse(node.InnerText);
+                                        break;
+                                    }**/
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+                return config;
+            }
+            catch(Exception ex)
+            {
+                //ShowStatus("获取配置信息异常,请检查网络并重启交易端");
+                logger.Error("get app config error:" + ex.ToString());
+                return null;
+            }
+        }
     }
 }

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compat\Utils.cs" />
     <Compile Include="DataAPIUtils.cs" />
     <Compile Include="frmDataFarmList.cs">
       <SubType>Form</SubType>
