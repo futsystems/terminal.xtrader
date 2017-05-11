@@ -118,6 +118,18 @@ namespace TradingLib.TraderCore
             connecton.OnDisconnectEvent += new DisconnectDel(connecton_OnDisconnectEvent);
             connecton.OnPacketEvent +=new Action<IPacket>(connecton_OnPacketEvent);
             connecton.OnNegotiationEvent += new Action<TLNegotiation, string, string>(connecton_OnNegotiationEvent);
+            connecton.OnEncodeEvent += new Func<string, string, string>(connecton_OnEncodeEvent);
+            connecton.OnDecodeEvent += new Func<string, string, string>(connecton_OnDecodeEvent);
+        }
+
+        string connecton_OnDecodeEvent(string arg1, string arg2)
+        {
+            return StringCipher.Decrypt(arg1, arg2);
+        }
+
+        string connecton_OnEncodeEvent(string arg1, string arg2)
+        {
+            return StringCipher.Encrypt(arg1, arg2);
         }
 
         void connecton_OnNegotiationEvent(TLNegotiation arg1, string arg2, string arg3)
