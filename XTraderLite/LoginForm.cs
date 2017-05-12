@@ -80,6 +80,7 @@ namespace XTraderLite
 
             mStarter = start;
             btnLogin.Enabled = false;
+            btnLogin2.Enabled = false;
             //_msg.Visible = false;
             WireEvent();
 
@@ -506,6 +507,7 @@ namespace XTraderLite
 
                 //CoreService.TLClient.Stop();
                 this.btnLogin.Enabled = true;
+                this.btnLogin2.Enabled = true;
                 //lbLoginStatus.Text = "请登入";
             }).Start();
         }
@@ -519,6 +521,7 @@ namespace XTraderLite
             else
             {
                 btnLogin.Enabled = true;
+                btnLogin2.Enabled = true;
             }
         }
         #endregion
@@ -537,6 +540,7 @@ namespace XTraderLite
             SavePropertiesConfig();
             System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
             this.btnLogin.Enabled = false;
+            this.btnLogin2.Enabled = false;
         }
 
         protected override void OnPaint(PaintEventArgs e)
