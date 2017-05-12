@@ -226,6 +226,7 @@ namespace XTraderLite
                 Properties.Settings.Default.Pass = string.Empty;
             }
 
+
             Properties.Settings.Default.Save();
         }
 
@@ -535,19 +536,48 @@ namespace XTraderLite
 
         void btnLogin_Click(object sender, EventArgs e)
         {
-            logger.Info("登入-------------------");
-            _msg.Visible = true;
-            SavePropertiesConfig();
-            System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
             this.btnLogin.Enabled = false;
             this.btnLogin2.Enabled = false;
+
+            if (NeedQryAppConfig())
+            {
+                InvokeQryAppConfig();
+            }
+            else
+            {
+                
+
+                logger.Info("登入-------------------");
+                _msg.Visible = true;
+                SavePropertiesConfig();
+                System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
+            }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        bool NeedQryAppConfig()
         {
-            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
+            int lastUpdateTime = Properties.Settings.Default.UpdateTime;
+            int now = ToTLDate(DateTime.Now);
+            if (now > lastUpdateTime)
+            {
+                return true;
+            }
+
+            AppConfig info = new AppConfig();
+            info.Unit = Properties.Settings.Default.Unit;
+            info.MarketAddress = Properties.Settings.Default.MarketAddress;
+            info.MarketPort = Properties.Settings.Default.MarketPort;
+
+            if (string.IsNullOrEmpty(info.MarketAddress)) return true;
 
 
+            Global.AppConfig = info;
+            return false;
+        }
+
+        static int ToTLDate(DateTime dt)
+        {
+            return dt.Year * 10000 + dt.Month * 100 + dt.Day;
         }
 
         public void InvokeQryAppConfig()
@@ -573,10 +603,24 @@ namespace XTraderLite
 
             Global.AppConfig = info;
             ShowStatus("配置信息加载完毕");
+            Properties.Settings.Default.UpdateTime = ToTLDate(DateTime.Now);
+            Properties.Settings.Default.MarketAddress = info.MarketAddress;
+            Properties.Settings.Default.MarketPort = info.MarketPort;
+            Properties.Settings.Default.Unit = info.Unit;
+            Properties.Settings.Default.Save();
 
-            //允许登入
-            this.EnableLogin();
+            ////允许登入
+            //this.EnableLogin();
+            logger.Info("登入-------------------");
+            _msg.Visible = true;
+            SavePropertiesConfig();
+            System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
+            
+        }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
         }
 
 

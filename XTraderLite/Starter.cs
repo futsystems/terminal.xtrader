@@ -59,9 +59,9 @@ namespace XTraderLite
                 this.PrimaryForm = new MainForm();
 
                 //主窗体初始化完毕后 开启登入按钮
-               // _loginform.EnableLogin();
+                _loginform.EnableLogin();
                 //异步查询部署配置信息 用于获取行情地址与交易地址
-                _loginform.InvokeQryAppConfig();
+                //_loginform.InvokeQryAppConfig();
             }).Start();
         }
 
