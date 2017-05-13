@@ -209,16 +209,19 @@ namespace XTraderLite
 
             }
 
+            cornerImg.Image = Image.FromHbitmap(Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap().GetHbitmap());
             cornerImg.Visible = Global.ShowCorner;
             if (!Global.ShowCorner)
             {
                 panelMenu.Location = new Point(panelMenu.Location.X - cornerImg.Width, panelMenu.Location.Y);
             }
             this.Text = Global.TaskBarTitle;
-            if (!Global.ClassicLogin)
-            {
-                this.Icon = Properties.Resources.xgj;
-            }
+            //使用全局图标
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            //if (!Global.ClassicLogin)
+            //{
+            //    this.Icon = Properties.Resources.xgj;
+            //}
 
             //在线出入金菜单
             toolStripSeparatorPay.Visible = false;

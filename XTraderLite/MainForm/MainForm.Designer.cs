@@ -912,10 +912,11 @@
             // cornerImg
             // 
             this.cornerImg.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cornerImg.BackgroundImage")));
-            this.cornerImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cornerImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cornerImg.Location = new System.Drawing.Point(3, 3);
             this.cornerImg.Name = "cornerImg";
             this.cornerImg.Size = new System.Drawing.Size(18, 18);
+            this.cornerImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.cornerImg.TabIndex = 3;
             this.cornerImg.TabStop = false;
             // 

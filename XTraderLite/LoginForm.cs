@@ -69,6 +69,8 @@ namespace XTraderLite
             }
               
             topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
+
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             if (!Global.ClassicLogin)
             {
                 XGJLogin();
@@ -109,7 +111,8 @@ namespace XTraderLite
             holder.Width = 730;
             panel_XGJ.Dock = DockStyle.Fill;
             panel_Classic.Visible = false;
-            this.Icon = Properties.Resources.xgj;
+
+            //this.Icon = Properties.Resources.xgj;
             this.Text = "信管家";
         }
 
