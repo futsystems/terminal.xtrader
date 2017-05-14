@@ -23,9 +23,11 @@ namespace XTraderLite
         {
             //允许线程间调用控件属性 否则无法本地调试
             CheckForIllegalCrossThreadCalls = false;
-
             InitializeComponent();
             InitContrl();
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+
             _cfgfile = ConfigFile.GetConfigFile("Setting.cfg");
             Global.ClassicLogin = _cfgfile["ClassicLogin"].AsBool();
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
@@ -67,10 +69,11 @@ namespace XTraderLite
             {
                 Global.AppServer = "120.26.45.94";
             }
-              
+            
+            //设置登入界面图片
             topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
 
-            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            //设置样式
             if (!Global.ClassicLogin)
             {
                 XGJLogin();

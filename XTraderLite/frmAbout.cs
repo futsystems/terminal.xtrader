@@ -14,6 +14,7 @@ namespace XTraderLite
         public frmAbout()
         {
             InitializeComponent();
+            lbVersion.Text = "2.0.2";
         }
 
         private void button1_Click(object sender, EventArgs e)

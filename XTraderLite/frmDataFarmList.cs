@@ -24,13 +24,13 @@ namespace XTraderLite
             {
                 if (MDService.DataAPI.CurrentServer != null)
                 {
-                    string address = MDService.DataAPI.CurrentServer.Address.ToString();
-                    ServerNode srv = (new ServerConfig("market.cfg")).GetServerNodes().Where(node => node.Address == address).FirstOrDefault();
-                    if (srv != null)
-                    {
-                        lbCurrentServer.Text = srv.Title;
+                    lbCurrentServer.Text = MDService.DataAPI.CurrentServer.Address.ToString();
+                    //ServerNode srv = (new ServerConfig("market.cfg")).GetServerNodes().Where(node => node.Address == address).FirstOrDefault();
+                    //if (srv != null)
+                    //{
+                    //    lbCurrentServer.Text = srv.Title;
 
-                    }
+                    //}
                 }
             }
             else
