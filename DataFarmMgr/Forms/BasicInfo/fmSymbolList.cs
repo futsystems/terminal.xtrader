@@ -173,7 +173,7 @@ namespace TradingLib.DataFarmManager
                     symbolidxmap.Add(sym.ID, i);
 
                     gt.Rows[i][SYMBOL] = sym.Symbol;
-                    gt.Rows[i][NAME] = sym.GetName();
+                    gt.Rows[i][NAME] = sym.GetTitleName(true);
 
                     gt.Rows[i][SECID] = sym.SecurityFamily != null ? (sym.SecurityFamily as SecurityFamilyImpl).ID : 0;
                     gt.Rows[i][SECCODE] = sym.SecurityFamily != null ? sym.SecurityFamily.Code : "未设置";
@@ -194,7 +194,7 @@ namespace TradingLib.DataFarmManager
                 {
                     int i = r;
                     gt.Rows[i][SYMBOL] = sym.Symbol;
-                    gt.Rows[i][NAME] = sym.GetName();
+                    gt.Rows[i][NAME] = sym.GetTitleName(true);
                   
                     gt.Rows[i][SECID] = sym.SecurityFamily != null ? (sym.SecurityFamily as SecurityFamilyImpl).ID : 0;
                     gt.Rows[i][SECCODE] = sym.SecurityFamily != null ? sym.SecurityFamily.Code : "未设置";

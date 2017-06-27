@@ -44,7 +44,7 @@ namespace TradingLib.DataFarmManager
 
         void btnSwitTickSrv_Click(object sender, EventArgs e)
         {
-            DataCoreService.DataClient.ReqContribRequest("DataFarm", "SwitchTickSrv", "");
+            DataCoreService.DataClient.ReqSwitchTickServer();
         }
 
         void btnFunctionForm_Click(object sender, EventArgs e)
@@ -56,12 +56,12 @@ namespace TradingLib.DataFarmManager
 
         void btnStartFeedTick_Click(object sender, EventArgs e)
         {
-            DataCoreService.DataClient.ReqContribRequest("DataFarm", "StartFeedTick", "");
+            DataCoreService.DataClient.ReqAcceptTick();
         }
 
         void btnStopFeedTick_Click(object sender, EventArgs e)
         {
-            DataCoreService.DataClient.ReqContribRequest("DataFarm", "StopFeedTick", "");
+            DataCoreService.DataClient.ReqRejectTick();
         }
 
         void btnUnregister_Click(object sender, EventArgs e)
@@ -98,9 +98,9 @@ namespace TradingLib.DataFarmManager
         {
             //DataCoreService.InitClient("127.0.0.1", 5060);
             //DataCoreService.InitClient(new string[] { "127.0.0.1" }, 55622);
-            //DataCoreService.InitClient(new string[] { "139.224.194.129" }, 55622);//上海
+            DataCoreService.InitClient(new string[] { "139.224.194.129" }, 55622);//上海
             //DataCoreService.InitClient(new string[] { "112.124.126.212" }, 55622);
-            DataCoreService.InitClient(new string[] { "121.41.76.214" }, 55622);//数据写库
+            //DataCoreService.InitClient(new string[] { "112.124.126.212" }, 55622);//数据写库
             //mdClient = new TradingLib.MDClient.MDClient("127.0.0.1", 5060, 5060);
             DataCoreService.EventHub.OnInitializedEvent += new Action(mdClient_OnInitializedEvent);
             DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(mdClient_OnRtnTickEvent);
@@ -125,7 +125,7 @@ namespace TradingLib.DataFarmManager
                     MDSymbol symbol = new MDSymbol();
                     symbol.Symbol = target.Symbol;
                     symbol.SecCode = target.SecurityFamily.Code;
-                    symbol.Name = target.GetName();
+                    symbol.Name = target.GetTitleName(true);
                     symbol.Currency = MDCurrency.RMB;
                     symbol.Exchange = target.Exchange;
                     symbol.Multiple = target.Multiple;
@@ -161,8 +161,8 @@ namespace TradingLib.DataFarmManager
         {
             if (obj.Authorized)
             {
-                logger.Info("login success ~~~~~~~~~~ qry basic data");
-                DataCoreService.DataClient.QryMarketTime();
+                logger.Info("login success");
+                //DataCoreService.DataClient.QryMarketTime();
             }
         }
 

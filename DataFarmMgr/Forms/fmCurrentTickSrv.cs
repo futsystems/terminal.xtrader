@@ -24,8 +24,8 @@ namespace TradingLib.DataFarmManager
 
         void fmCurrentTickSrv_Load(object sender, EventArgs e)
         {
-            DataCoreService.EventContrib.RegisterCallback("DataFarm", "QryTickSrv", OnQryTickSrv);
-            DataCoreService.DataClient.ReqContribRequest("DataFarm", "QryTickSrv", "");
+            DataCoreService.EventContrib.RegisterCallback(Modules.DATACORE, Method_DataCore.QRY_CURRENT_TICK_SERVER, OnQryTickSrv);
+            DataCoreService.DataClient.ReqQryCurrentTickSrv();
         }
 
         void OnQryTickSrv(string json, bool islast)
@@ -37,7 +37,7 @@ namespace TradingLib.DataFarmManager
             else
             {
                 var data = json.DeserializeObject();
-                lbCurrentTickSrv.Text = data["Payload"]["Server"].ToString();
+                lbCurrentTickSrv.Text = data["Server"].ToString();
             }
         }
     }
