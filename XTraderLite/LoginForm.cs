@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using Common.Logging;
 using TradingLib.MarketData;
@@ -70,8 +71,8 @@ namespace XTraderLite
                 Global.AppServer = "120.26.45.94";
             }
             
-            //设置登入界面图片
-            topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
+            
+            
 
             //设置样式
             if (!Global.ClassicLogin)
@@ -80,6 +81,17 @@ namespace XTraderLite
             }
             else
             {
+
+                //设置自定义登入界面
+                if (File.Exists("Config/login.png"))
+                {
+                    topImage.Image = Image.FromFile("Config/login.png");
+                }
+                else
+                {
+                    //设置登入界面图片
+                    topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
+                }
                 ClassicLogin();
             }
 
