@@ -203,7 +203,7 @@ namespace DataAPI.Futs
             foreach (var exchange in DataCoreService.DataClient.Exchanges)
             {
                 string k = exchange.EXCode;
-                blockInfoList.Add(new BlockInfo(exchange.Title, new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                blockInfoList.Add(new BlockInfo(exchange.Title,exchange.EXCode, new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                     =>
                 {
                     if (symbol.Exchange == k)

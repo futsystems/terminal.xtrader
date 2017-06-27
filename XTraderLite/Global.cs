@@ -8,6 +8,11 @@ namespace XTraderLite
 {
     public class Global
     {
+        /// <summary>
+        /// 板块列表
+        /// </summary>
+        public static List<string> QuoteBlockList = new List<string>();
+
         public static bool IsXGJStyle = true;
 
         /// <summary>

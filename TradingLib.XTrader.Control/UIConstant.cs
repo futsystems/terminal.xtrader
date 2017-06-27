@@ -21,6 +21,8 @@ namespace TradingLib.XTrader.Control
 
         public static int BoardSymbolNameStyle = 0;
 
+       
+
         /// <summary>
         /// 报价合约名称
         /// 0为长恒生1701

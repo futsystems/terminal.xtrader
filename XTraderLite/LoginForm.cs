@@ -42,6 +42,14 @@ namespace XTraderLite
 
             UIConstant.BoardSymbolTitleStyle = _cfgfile["BoardSymbolTitleStyle"].AsInt();//盘口明细顶部合约Title类被
             UIConstant.BoardSymbolNameStyle = _cfgfile["BoardSymbolNameStyle"].AsInt();
+            var blockStr = _cfgfile["Block"].AsString();
+            if(!string.IsNullOrEmpty(blockStr))
+            {
+                foreach(var block in blockStr.Split(','))
+                {
+                    Global.QuoteBlockList.Add(block);
+                }
+            }
 
             TradingLib.XTrader.Future.Constants.SymbolNameStyle = _cfgfile["BrokerSymbolNameStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.SymbolTitleStyle = _cfgfile["BrokerSymbolTitleStyle"].AsInt();

@@ -235,6 +235,7 @@ namespace XTraderLite
             #region 加载行情服务站点
             srvList =  (new ServerConfig("market.cfg")).GetServerNodes();
             #endregion
+
             UpdateTime();
 
 
@@ -307,10 +308,22 @@ namespace XTraderLite
         {
             BindDataAPICallBack();
 
-            foreach (var b in MDService.DataAPI.BlockInfos)
+            if (Global.QuoteBlockList.Count == 0)
             {
-                ctrlQuoteList.AddBlock(b.Title, b.Filter, (TradingLib.XTrader.Control.EnumQuoteListType)b.QuoteViewType);
-
+                foreach (var b in MDService.DataAPI.BlockInfos)
+                {
+                    ctrlQuoteList.AddBlock(b.Title, b.Filter, (TradingLib.XTrader.Control.EnumQuoteListType)b.QuoteViewType);
+                }
+            }
+            else
+            {
+                //按顺序添加到报价列表
+                foreach (var key in Global.QuoteBlockList)
+                {
+                    var b = MDService.DataAPI.BlockInfos.Where(item => item.Key == key).FirstOrDefault();
+                    if (b == null) continue;
+                    ctrlQuoteList.AddBlock(b.Title, b.Filter, (TradingLib.XTrader.Control.EnumQuoteListType)b.QuoteViewType);
+                }
             }
             //数据完毕后 初始化报价面板并以第一个tab为默认视图
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);

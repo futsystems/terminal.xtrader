@@ -13,12 +13,16 @@ namespace TradingLib.MarketData
     /// </summary>
     public class BlockInfo
     {
-        public BlockInfo(string name, Predicate<MDSymbol> filter, int viewType)
+        public BlockInfo(string name,string key, Predicate<MDSymbol> filter, int viewType)
         {
             this.Title = name;
             this.Filter = filter;
             this.QuoteViewType = viewType;
+            this.Key = key;
         }
+
+        public string Key { get; set; }
+
         /// <summary>
         /// 标题
         /// </summary>
