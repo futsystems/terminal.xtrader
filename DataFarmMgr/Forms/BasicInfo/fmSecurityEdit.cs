@@ -41,7 +41,7 @@ namespace TradingLib.DataFarmManager
                 _sec.PriceTick = pricetick.Value;
                 _sec.exchange_fk = (int)cbExchange.SelectedValue;
                 _sec.mkttime_fk = (int)cbMarketTime.SelectedValue;
-
+                _sec.Tradeable = true;
                 DataCoreService.DataClient.ReqUpdateSecurity(_sec);
             }
             else

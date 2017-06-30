@@ -157,13 +157,13 @@ namespace TradingLib.TraderCore
 
         }
 
-
+        const int REQID_START = 0;
 
         public void Reset()
         {
             _account = string.Empty;
             _tradingday = 0;
-            requestid = 0;
+            requestid = REQID_START;
         }
 
 

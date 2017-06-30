@@ -11,7 +11,7 @@ namespace TradingLib.TraderCore
 {
     public partial class TLClientNet
     {
-        int requestid = 0;
+        int requestid = REQID_START;
         /// <summary>
         /// 发送业务数据包
         /// </summary>
