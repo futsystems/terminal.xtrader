@@ -30,13 +30,14 @@ namespace TradingLib.XTrader.Control
             this.MouseLeave += new EventHandler(BlockButton_MouseLeave);
             this.MouseClick += new MouseEventHandler(BlockButton_MouseClick);
 
+            /*
             AddBlock("所有", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     return true;
                 })
                 
-                ,EnumQuoteListType.ALL);
+                ,EnumQuoteListType.ALL);**/
            
         }
 

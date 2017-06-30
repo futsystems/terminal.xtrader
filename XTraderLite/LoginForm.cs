@@ -347,11 +347,25 @@ namespace XTraderLite
                 //}
 
                 List<string> serverList = new List<string>();
-                int port = Global.AppConfig.MarketPort;
-                foreach (var address in Global.AppConfig.MarketAddress.Split(','))
+                int port = 0;
+
+                if (string.IsNullOrEmpty(_cfgfile["MDServer"].AsString()) || string.IsNullOrEmpty(_cfgfile["MDPort"].AsString()))
                 {
-                    if (string.IsNullOrEmpty(address)) continue;
-                    serverList.Add(address);
+                    port = Global.AppConfig.MarketPort;
+                    foreach (var address in Global.AppConfig.MarketAddress.Split(','))
+                    {
+                        if (string.IsNullOrEmpty(address)) continue;
+                        serverList.Add(address);
+                    }
+                }
+                else
+                {
+                    port = _cfgfile["MDPort"].AsInt();
+                    foreach (var address in _cfgfile["MDServer"].AsString().Split(','))
+                    {
+                        if (string.IsNullOrEmpty(address)) continue;
+                        serverList.Add(address);
+                    }
                 }
 
                 MDService.DataAPI.Connect(serverList.ToArray(), port);
