@@ -57,14 +57,19 @@ namespace TradingLib.XTrader.Future
             pagemap.Add(PageTypes.PAGE_HELP, new PageHelp());
             switch (Constants.PageBankStyle)
             {
-                case 0:
+                case 0://常规出入金
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBank());
                         break;
                     }
-                case 1:
+                case 1://配资业务逻辑
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBank1());
+                        break;
+                    }
+                case 2://分众支付 选择银行与支付宝
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBankFZ());
                         break;
                     }
                 default:
