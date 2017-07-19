@@ -81,5 +81,7 @@ namespace TradingLib.XTrader.Control
             if (change < 0) return Color.FromArgb(0,255,255);
             return Color.Gray;
         }
+
+        
     }
 }

@@ -248,6 +248,12 @@
     <Compile Include="Pages\PageBankFZ.Designer.cs">
       <DependentUpon>PageBankFZ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageBankAliPay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageBankAliPay.Designer.cs">
+      <DependentUpon>PageBankAliPay.cs</DependentUpon>
+    </Compile>
     <Compile Include="PageTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Control\ctrlPosition.cs">
@@ -338,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageBankFZ.resx">
       <DependentUpon>PageBankFZ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageBankAliPay.resx">
+      <DependentUpon>PageBankAliPay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

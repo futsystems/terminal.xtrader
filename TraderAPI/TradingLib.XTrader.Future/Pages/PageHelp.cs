@@ -17,6 +17,9 @@ namespace TradingLib.XTrader.Future
         public PageHelp()
         {
             InitializeComponent();
+
+            string brand = string.IsNullOrEmpty(Constants.BranName) ? "交易大师" : Constants.BranName;
+            brandName.Text = brand;
         }
     }
 }

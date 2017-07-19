@@ -26,5 +26,7 @@ namespace TradingLib.XTrader.Future
 
 
         public static int PageBankStyle = 0;
+
+        public static string BranName = "";
     }
 }

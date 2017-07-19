@@ -16,6 +16,16 @@ namespace XTraderLite
         public static bool IsXGJStyle = true;
 
         /// <summary>
+        /// 品牌名称
+        /// </summary>
+        public static string BrandName = "";
+
+        /// <summary>
+        /// 公司名称
+        /// </summary>
+        public static string BrandCompany = "";
+
+        /// <summary>
         /// 经典登入
         /// </summary>
         public static bool ClassicLogin = false;

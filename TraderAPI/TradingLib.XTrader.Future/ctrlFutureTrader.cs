@@ -72,6 +72,11 @@ namespace TradingLib.XTrader.Future
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankFZ());
                         break;
                     }
+                case 3://
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBankAliPay());
+                        break;
+                    }
                 default:
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBank());

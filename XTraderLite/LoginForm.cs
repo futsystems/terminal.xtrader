@@ -34,7 +34,8 @@ namespace XTraderLite
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
             Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
-            
+            Global.BrandName = _cfgfile["BandName"].AsString();
+            Global.BrandCompany = _cfgfile["BandCompany"].AsString();
 
 
             UIConstant.QuoteViewStdSumbolHidden = _cfgfile["QuoteViewStdSumbolHidden"].AsBool();//报价列表 标准合约隐藏
@@ -42,6 +43,9 @@ namespace XTraderLite
 
             UIConstant.BoardSymbolTitleStyle = _cfgfile["BoardSymbolTitleStyle"].AsInt();//盘口明细顶部合约Title类被
             UIConstant.BoardSymbolNameStyle = _cfgfile["BoardSymbolNameStyle"].AsInt();
+            
+
+
             var blockStr = _cfgfile["Block"].AsString();
             if(!string.IsNullOrEmpty(blockStr))
             {
@@ -54,6 +58,8 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.SymbolNameStyle = _cfgfile["BrokerSymbolNameStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.SymbolTitleStyle = _cfgfile["BrokerSymbolTitleStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.PageBankStyle = _cfgfile["PageBankStyle"].AsInt();
+            TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
+
 
             Global.PayUrl = _cfgfile["PayUrl"].AsString();
             slogen.Text = _cfgfile["Slogen"].AsString();

@@ -31,10 +31,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.brandName = new System.Windows.Forms.Label();
+            this.productName = new System.Windows.Forms.Label();
             this.lbVersion = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.brandCompany = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -68,23 +68,23 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "版本:";
             // 
-            // label4
+            // brandName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(54, 84);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "交易大师";
+            this.brandName.AutoSize = true;
+            this.brandName.Location = new System.Drawing.Point(54, 84);
+            this.brandName.Name = "brandName";
+            this.brandName.Size = new System.Drawing.Size(53, 12);
+            this.brandName.TabIndex = 4;
+            this.brandName.Text = "交易大师";
             // 
-            // label5
+            // productName
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(102, 107);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(125, 12);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "交易大师投资分析系统";
+            this.productName.AutoSize = true;
+            this.productName.Location = new System.Drawing.Point(102, 107);
+            this.productName.Name = "productName";
+            this.productName.Size = new System.Drawing.Size(125, 12);
+            this.productName.TabIndex = 5;
+            this.productName.Text = "交易大师投资分析系统";
             // 
             // lbVersion
             // 
@@ -95,14 +95,14 @@
             this.lbVersion.TabIndex = 6;
             this.lbVersion.Text = "6.0.0";
             // 
-            // label7
+            // brandCompany
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 160);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(197, 12);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "上海大师网络数据信息咨询有限公司";
+            this.brandCompany.AutoSize = true;
+            this.brandCompany.Location = new System.Drawing.Point(13, 160);
+            this.brandCompany.Name = "brandCompany";
+            this.brandCompany.Size = new System.Drawing.Size(197, 12);
+            this.brandCompany.TabIndex = 7;
+            this.brandCompany.Text = "上海大师网络数据信息咨询有限公司";
             // 
             // label8
             // 
@@ -142,10 +142,10 @@
             this.ClientSize = new System.Drawing.Size(382, 249);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.brandCompany);
             this.Controls.Add(this.lbVersion);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.productName);
+            this.Controls.Add(this.brandName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -166,10 +166,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label brandName;
+        private System.Windows.Forms.Label productName;
         private System.Windows.Forms.Label lbVersion;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label brandCompany;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
     }
