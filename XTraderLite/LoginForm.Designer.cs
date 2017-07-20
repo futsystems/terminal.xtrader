@@ -51,6 +51,9 @@
             this.btnMin2 = new System.Windows.Forms.PictureBox();
             this.btnLogin2 = new System.Windows.Forms.Button();
             this.panel_Classic = new System.Windows.Forms.Panel();
+            this.panel_risk = new System.Windows.Forms.Panel();
+            this.riskConfirm = new System.Windows.Forms.CheckBox();
+            this.readRisk = new System.Windows.Forms.LinkLabel();
             this.topImage = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.slogen = new System.Windows.Forms.Label();
@@ -63,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnClose2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).BeginInit();
             this.panel_Classic.SuspendLayout();
+            this.panel_risk.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -154,9 +158,9 @@
             // 
             // holder
             // 
-            this.holder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.holder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.holder.BackColor = System.Drawing.Color.Transparent;
             this.holder.Controls.Add(this.panel_XGJ);
             this.holder.Controls.Add(this.panel_Classic);
@@ -176,7 +180,7 @@
             this.panel_XGJ.Controls.Add(this.username2);
             this.panel_XGJ.Controls.Add(this.panel_controlbox);
             this.panel_XGJ.Controls.Add(this.btnLogin2);
-            this.panel_XGJ.Location = new System.Drawing.Point(131, 166);
+            this.panel_XGJ.Location = new System.Drawing.Point(11, 410);
             this.panel_XGJ.Name = "panel_XGJ";
             this.panel_XGJ.Size = new System.Drawing.Size(730, 410);
             this.panel_XGJ.TabIndex = 25;
@@ -281,6 +285,7 @@
             // 
             // panel_Classic
             // 
+            this.panel_Classic.Controls.Add(this.panel_risk);
             this.panel_Classic.Controls.Add(this.topImage);
             this.panel_Classic.Controls.Add(this.label4);
             this.panel_Classic.Controls.Add(this.slogen);
@@ -294,10 +299,40 @@
             this.panel_Classic.Controls.Add(this.label1);
             this.panel_Classic.Controls.Add(this.cbServer);
             this.panel_Classic.Controls.Add(this.checkBox1);
-            this.panel_Classic.Location = new System.Drawing.Point(3, 3);
+            this.panel_Classic.Location = new System.Drawing.Point(11, 3);
             this.panel_Classic.Name = "panel_Classic";
             this.panel_Classic.Size = new System.Drawing.Size(574, 401);
             this.panel_Classic.TabIndex = 24;
+            // 
+            // panel_risk
+            // 
+            this.panel_risk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_risk.Controls.Add(this.riskConfirm);
+            this.panel_risk.Controls.Add(this.readRisk);
+            this.panel_risk.Location = new System.Drawing.Point(410, 364);
+            this.panel_risk.Name = "panel_risk";
+            this.panel_risk.Size = new System.Drawing.Size(152, 25);
+            this.panel_risk.TabIndex = 26;
+            // 
+            // riskConfirm
+            // 
+            this.riskConfirm.AutoSize = true;
+            this.riskConfirm.Location = new System.Drawing.Point(3, 6);
+            this.riskConfirm.Name = "riskConfirm";
+            this.riskConfirm.Size = new System.Drawing.Size(96, 16);
+            this.riskConfirm.TabIndex = 24;
+            this.riskConfirm.Text = "确认风险提示";
+            this.riskConfirm.UseVisualStyleBackColor = true;
+            // 
+            // readRisk
+            // 
+            this.readRisk.AutoSize = true;
+            this.readRisk.Location = new System.Drawing.Point(105, 6);
+            this.readRisk.Name = "readRisk";
+            this.readRisk.Size = new System.Drawing.Size(29, 12);
+            this.readRisk.TabIndex = 25;
+            this.readRisk.TabStop = true;
+            this.readRisk.Text = "阅读";
             // 
             // topImage
             // 
@@ -357,6 +392,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMin2)).EndInit();
             this.panel_Classic.ResumeLayout(false);
             this.panel_Classic.PerformLayout();
+            this.panel_risk.ResumeLayout(false);
+            this.panel_risk.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
             this.ResumeLayout(false);
 
@@ -390,5 +427,8 @@
         private System.Windows.Forms.PictureBox cbSaveAccount;
         private System.Windows.Forms.PictureBox cbUpdateBasic;
         private System.Windows.Forms.Label lbFocus;
+        private System.Windows.Forms.CheckBox riskConfirm;
+        private System.Windows.Forms.LinkLabel readRisk;
+        private System.Windows.Forms.Panel panel_risk;
     }
 }

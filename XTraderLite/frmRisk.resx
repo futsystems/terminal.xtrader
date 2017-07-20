@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>国际综合操盘协议
+第一条 合作方式
+1.乙方以保证金方式取得甲方期货交易账户的操作权限，且乙方独立承担操盘的全部风险。甲方授权给乙方操盘的期货交易账户可交易金额为乙方保证金的一定比例。具体约定如下：
+2. 乙方可以使用上述期货交易账户内资金总额购买开放品种的主力合约，盈利归乙方所有，亏损由乙方承担，即乙方对上述账户进行期货买卖等操作产生的一切风险和后果由乙方承担，与甲方无关。
+●特别说明
+1、由于交易环境不同，报单交易要通过海底光缆才能到达境外交易所，每笔报单时间大概在100毫秒
+2、另外国内网络堵塞也会造成交易延时，如果在交易过程中出现不能平仓现象，在确定需要平仓时可及时与总部客服联系（通过电话或工作QQ）进行平仓。
+3、以上情况均属正常现象，可通过上述提供的方法进行操作。
+第二条 交易综合费
+用于支付（交易手续费）和实盘资金占用费。操作中只收取交易手续费，无其他任何费用。（甲方会根据行情走势情况定期调整交易手续费）
+第三条 甲方的权利、义务及违约责任
+1. 甲方有权监管期货交易账户的运作，对乙方进行账户管理和风险控制。
+2. 甲方应对乙方的信息及本协议内容保密；如任乙方违约，或因相关权力部门要求（包括但不限于法院、仲裁机构、金融监管机构等），甲方有权披露。
+3. 如乙方所购（期货合约）因异常波动、突发性事件或不可控等原因连续（涨）跌停板导致平仓无法实现，对甲方资金造成损失。该(期货合约)连续（涨）跌停板打开且平仓可以实现时，如乙方仍有未清偿的债务，则甲方有权直接将该(期货账户)平仓用于清偿乙方所欠甲方的债务，剩余部分返还至乙方指定账户内。当乙方所欠甲方的债务全部清偿完毕，则甲方不再收取乙方的账户管理费和逾期违约金。
+
+第四条 风险揭示
+甲方在签署本合同前须履行风险提示义务；乙方在签署本合同前须详细阅读本协议内容及相关风险提示，以便正确、全面了解(期货)合作操盘网上交易的风险。
+●南极星不会代替乙方进行操盘或收取乙方操盘所获得利润，期货交易买卖均由乙方自行操作，所以乙方必须全部承担账户的盈亏风险。
+●乙方签订本合同后，表明乙方已完全了解网上交易可能存在的相应风险，以及自身决策失误造成的损失，并承诺自行承担。
+第五条 协议的订立
+1. 乙方同意并确认自行根据南极星网站有关规则和说明在南极星网站签署本协议。
+2. 甲乙双方通过上述方式接受本协议且甲方审核通过时，本协议立即生效。
+3. 甲方可根据风控需求，对以本协议风控规则进行修订并在甲方网站发布。甲乙双方需应不时地注意甲方及具体规则的变更，若甲乙双方在本协议及具体规则内容公告变更后继续使用本服务的，表示甲乙双方已充分阅读、理解并接受修改后的协议和具体规则内容，也将遵循修改后的协议和具体规则使用本网站的服务；同时就甲乙双方在协议和具体规则修订前通过本网站进行的交易及其效力，视为您已同意并已按照本协议及有关规则进行了相应的授权和追认。
+
+</value>
+  </data>
+</root>

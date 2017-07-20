@@ -60,6 +60,7 @@ namespace XTraderLite
         /// </summary>
         public static string PayUrl = "";
 
+        public static bool RiskPrompt = false;
 
         public static AppConfig AppConfig { get; set; }
     }

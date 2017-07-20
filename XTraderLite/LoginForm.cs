@@ -36,7 +36,7 @@ namespace XTraderLite
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
             Global.BrandName = _cfgfile["BandName"].AsString();
             Global.BrandCompany = _cfgfile["BandCompany"].AsString();
-
+            Global.RiskPrompt = _cfgfile["RiskPrompt"].AsBool();
 
             UIConstant.QuoteViewStdSumbolHidden = _cfgfile["QuoteViewStdSumbolHidden"].AsBool();//报价列表 标准合约隐藏
             UIConstant.QuoteSymbolNameStyle = _cfgfile["QuoteSymbolNameStyle"].AsInt();//报价列表 合约名类型
@@ -109,10 +109,14 @@ namespace XTraderLite
                 ClassicLogin();
             }
 
+
             mStarter = start;
             btnLogin.Enabled = false;
             btnLogin2.Enabled = false;
             //_msg.Visible = false;
+
+            panel_risk.Visible = Global.RiskPrompt;
+
             WireEvent();
 
             InitBW();
@@ -207,7 +211,16 @@ namespace XTraderLite
             btnClose2.Click += new EventHandler(btnCancel_Click);
             cbSaveAccount.Click += new EventHandler(cbSaveAccount_Click);
             cbUpdateBasic.Click += new EventHandler(cbUpdateBasic_Click);
-            
+
+
+            readRisk.Click += new EventHandler(readRisk_Click);
+        }
+
+        void readRisk_Click(object sender, EventArgs e)
+        {
+            frmRisk fm = new frmRisk();
+            fm.ShowDialog();
+            fm.Close();
         }
 
         void btnLogin2_Paint(object sender, PaintEventArgs e)
@@ -582,6 +595,14 @@ namespace XTraderLite
 
         void btnLogin_Click(object sender, EventArgs e)
         {
+            if (Global.RiskPrompt)
+            {
+                if (!riskConfirm.Checked)
+                {
+                    MessageBox.Show("请阅读并确认风险提示");
+                    return;
+                }
+            }
             this.btnLogin.Enabled = false;
             this.btnLogin2.Enabled = false;
 
