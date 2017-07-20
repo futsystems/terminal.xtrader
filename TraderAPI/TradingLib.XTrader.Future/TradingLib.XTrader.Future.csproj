@@ -248,6 +248,12 @@
     <Compile Include="Pages\PageBankFZ.Designer.cs">
       <DependentUpon>PageBankFZ.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageBankAliPay2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageBankAliPay2.Designer.cs">
+      <DependentUpon>PageBankAliPay2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageBankAliPay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -344,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageBankFZ.resx">
       <DependentUpon>PageBankFZ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageBankAliPay2.resx">
+      <DependentUpon>PageBankAliPay2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageBankAliPay.resx">
       <DependentUpon>PageBankAliPay.cs</DependentUpon>
