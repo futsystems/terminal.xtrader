@@ -226,11 +226,11 @@ namespace XTraderLite
             //在线出入金菜单
             toolStripSeparatorPay.Visible = false;
             menuPay.Visible = false;
-            if(!string.IsNullOrEmpty(Global.PayUrl))
-            {
-                toolStripSeparatorPay.Visible = true;
-                menuPay.Visible = true;
-            }
+            //if(!string.IsNullOrEmpty(Global.PayUrl))
+            //{
+            //    toolStripSeparatorPay.Visible = true;
+            //    menuPay.Visible = true;
+            //}
 
             #region 加载行情服务站点
             srvList =  (new ServerConfig("market.cfg")).GetServerNodes();

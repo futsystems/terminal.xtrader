@@ -37,6 +37,10 @@ namespace XTraderLite
             Global.BrandName = _cfgfile["BandName"].AsString();
             Global.BrandCompany = _cfgfile["BandCompany"].AsString();
             Global.RiskPrompt = _cfgfile["RiskPrompt"].AsBool();
+            Global.NewsUrl = _cfgfile["NewsUrl"].AsString();
+
+
+
 
             UIConstant.QuoteViewStdSumbolHidden = _cfgfile["QuoteViewStdSumbolHidden"].AsBool();//报价列表 标准合约隐藏
             UIConstant.QuoteSymbolNameStyle = _cfgfile["QuoteSymbolNameStyle"].AsInt();//报价列表 合约名类型
@@ -61,7 +65,7 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
 
-            Global.PayUrl = _cfgfile["PayUrl"].AsString();
+            //Global.PayUrl = _cfgfile["PayUrl"].AsString();
             slogen.Text = _cfgfile["Slogen"].AsString();
 
             

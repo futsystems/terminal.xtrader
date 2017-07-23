@@ -58,7 +58,7 @@ namespace XTraderLite
         /// <summary>
         /// 在线出入金地址
         /// </summary>
-        public static string PayUrl = "";
+        public static string NewsUrl = "";
 
         public static bool RiskPrompt = false;
 

@@ -53,11 +53,11 @@ namespace XTraderLite
         {
             try
             {
-                System.Diagnostics.Process.Start("iexplore.exe", Global.PayUrl);
+                //System.Diagnostics.Process.Start("iexplore.exe", Global.PayUrl);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("请手工打开网页:{0} 进行出入金操作", Global.PayUrl));
+                //MessageBox.Show(string.Format("请手工打开网页:{0} 进行出入金操作", Global.PayUrl));
             }
                 
         }

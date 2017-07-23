@@ -46,6 +46,7 @@ namespace XTraderLite
 
 
             btnDebugForm.Click += new EventHandler(btnDebugForm_Click);
+            btnNews.Click += new EventHandler(btnNews_Click);
 
 #if  DEBUG
             
@@ -57,6 +58,14 @@ namespace XTraderLite
             toolStripSeparator10.Visible = false;
 #endif
 
+        }
+
+        void btnNews_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Global.NewsUrl))
+            {
+                System.Diagnostics.Process.Start("iexplore.exe", Global.NewsUrl);
+            }
         }
 
         void btnDebugForm_Click(object sender, EventArgs e)
