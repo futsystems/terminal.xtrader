@@ -99,7 +99,6 @@ namespace XTraderLite
             }
             else
             {
-
                 //设置自定义登入界面
                 if (File.Exists("Config/login.png"))
                 {
@@ -149,7 +148,10 @@ namespace XTraderLite
             panel_XGJ.Dock = DockStyle.Fill;
             panel_Classic.Visible = false;
 
-            //this.Icon = Properties.Resources.xgj;
+            if (File.Exists("Config/login_xgj.png"))
+            {
+                panel_XGJ.BackgroundImage = Image.FromFile("Config/login_xgj.png");
+            }
             this.Text = "信管家";
         }
 
