@@ -82,6 +82,11 @@ namespace TradingLib.TraderCore
         void CliOnXQryPositionDetails(RspXQryPositionDetailResponse response)
         {
             logger.Debug("Got XQry PositionDetail Response:" + response.ToString());
+            PositionDetail pd = response.PositionDetail;
+            if (pd != null)
+            {
+                pd.oSymbol = CoreService.BasicInfoTracker.GetSymbol(pd.Exchange, pd.Symbol);
+            }
             CoreService.EventHub.FireRspXQryPositionDetailResponse(response);
         }
 

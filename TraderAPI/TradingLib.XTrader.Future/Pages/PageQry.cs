@@ -141,6 +141,12 @@ namespace TradingLib.XTrader.Future
         #region 持仓明细
 
 
+        string GetSymbolTitle(PositionDetail pd)
+        {
+            if (pd.oSymbol != null) return pd.oSymbol.GetSymbolTitle();
+            return pd.Symbol;
+        }
+
         List<PositionDetail> positiondetaillist = new List<PositionDetail>();
         void EventQry_OnRspXQryPositionDetailResponse(RspXQryPositionDetailResponse obj)
         {
@@ -157,7 +163,8 @@ namespace TradingLib.XTrader.Future
                 {
                     List<string> settlelist = new List<string>();
                     int ln = 142;
-                    string sline = Line(ln);
+                    string sline = Line(ln-12);
+                    
 
                     int i = 0;
                     int size = 0;
@@ -168,7 +175,7 @@ namespace TradingLib.XTrader.Future
                     settlelist.Add(string.Empty);
                     settlelist.Add(SectionName("持仓明细"));
                     settlelist.Add(sline);
-                    settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|",
+                    settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|",//{12}|",
                         "交易所".PadCenterEx(len_EXCH),
                         "品种".PadCenterEx(len_SECURITY),
                         "合约".PadCenterEx( len_SYMBOL),
@@ -181,7 +188,8 @@ namespace TradingLib.XTrader.Future
                         "今结算".PadCenterEx( len_PRICE),
                         "浮动盈亏".PadCenterEx( len_PROFIT),
                         "盯市盈亏".PadCenterEx( len_PROFIT),
-                        "保证金".PadCenterEx(len_MARGIN)
+                        "保证金".PadCenterEx(len_MARGIN),
+                        "保证金(基)".PadCenterEx(len_MARGIN)
                         ));
                     settlelist.Add(sline);
                     foreach (PositionDetail pd in positiondetaillist)
@@ -193,11 +201,13 @@ namespace TradingLib.XTrader.Future
                         unpl += 0;
                         unplbydate += pd.PositionProfitByDate;
                         hmargin += pd.Margin;
+                        
 
-                        settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|",
+                        settlelist.Add(string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|",//{12}|",
                             pd.Exchange.PadCenterEx( len_EXCH),
                             sym.GetSecurityName().PadCenterEx(len_SECURITY),
-                            pd.Symbol.PadCenterEx( len_SYMBOL),
+
+                            GetSymbolTitle(pd).PadCenterEx(len_SYMBOL),
                             pd.OpenDate.ToString().PadCenterEx( len_DATE),
                             "投".PadCenterEx(len_TBMM),
                             (pd.Side ? "买" : " 卖").PadLeftEx(len_TBMM),
