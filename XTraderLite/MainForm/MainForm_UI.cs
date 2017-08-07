@@ -37,7 +37,10 @@ namespace XTraderLite
 
         void btnBBS_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("欢迎访问");
+            if (!string.IsNullOrEmpty(Global.NewsUrl))
+            {
+                System.Diagnostics.Process.Start("iexplore.exe", Global.NewsUrl);
+            }
         }
 
         void btnTrade_Click(object sender, EventArgs e)
