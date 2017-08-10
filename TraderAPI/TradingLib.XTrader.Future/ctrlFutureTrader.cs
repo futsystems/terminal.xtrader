@@ -72,6 +72,11 @@ namespace TradingLib.XTrader.Future
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankFZ());
                         break;
                     }
+                case 4://七彩支付 选择银行银行
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBankSe7());
+                        break;
+                    }
                 case 3://
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankAliPay());

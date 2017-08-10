@@ -118,5 +118,29 @@ namespace XTraderLite.Properties {
                 this["UpdateTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DeployMarketServer {
+            get {
+                return ((string)(this["DeployMarketServer"]));
+            }
+            set {
+                this["DeployMarketServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GroupMarketServer {
+            get {
+                return ((string)(this["GroupMarketServer"]));
+            }
+            set {
+                this["GroupMarketServer"] = value;
+            }
+        }
     }
 }

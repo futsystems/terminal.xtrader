@@ -62,6 +62,21 @@ namespace XTraderLite
 
         public static bool RiskPrompt = false;
 
+        /// <summary>
+        /// 行情服务器分配版本
+        /// </summary>
+        public static int DataFarmGroup = 0;
+
         public static AppConfig AppConfig { get; set; }
+
+        /// <summary>
+        /// 组设定
+        /// </summary>
+        public static DataFarmConfig GroupConfig { get; set; }
+
+        /// <summary>
+        /// 部署设定
+        /// </summary>
+        public static DataFarmConfig DeoplyConfig { get; set; }
     }
 }
