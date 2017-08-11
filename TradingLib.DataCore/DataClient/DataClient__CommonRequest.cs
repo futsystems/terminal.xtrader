@@ -77,6 +77,7 @@ namespace TradingLib.DataCore
             LoginRequest request = RequestTemplate<LoginRequest>.CliSendRequest(reqid);
             request.LoginID = username;
             request.Passwd = pass;
+            
             mktClient.TLSend(request);
             return reqid;
         }

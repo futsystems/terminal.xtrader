@@ -170,6 +170,11 @@ namespace TradingLib.DataCore
             GotSymbol(response.Symbol);
             if (response.IsLast)
             {
+                if(_callback !=null)
+                {
+                    BindData();
+                    _callback.OnInitialized();
+                }
                 if (!DataCoreService.Initialized)
                 {
                     logger.Info("合约查询完毕,查询隔夜持仓");

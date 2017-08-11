@@ -8,6 +8,20 @@ using TradingLib.Common;
 
 namespace TradingLib.DataCore
 {
+    public interface IDataCallback
+    {
+        void OnConnected();
+        void OnDisconnected();
+        void OnLogin(LoginResponse response);
+        void OnInitialized();
+
+        void OnRtnTick(Tick k);
+        void OnRspBar(RspQryBarResponseBin response);
+        void OnRspTradeSplit(RspXQryTradeSplitResponse response);
+        void OnRspPriceVol(RspXQryPriceVolResponse response);
+        void OnRspMinuteData(RspXQryMinuteDataResponse response);
+    }
+
     public class EventHub
     {
 
@@ -58,6 +72,16 @@ namespace TradingLib.DataCore
         {
             if (OnRtnTickEvent != null)
                 OnRtnTickEvent(k);
+        }
+
+        public event Action<TickData> OnRtnTickDataEvent;
+
+        internal void FireRtnTickDataEvent(TickData k)
+        {
+            if (OnRtnTickDataEvent != null)
+            {
+                OnRtnTickDataEvent(k);
+            }
         }
 
 

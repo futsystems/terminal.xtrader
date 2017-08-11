@@ -20,26 +20,112 @@ namespace DataAPI.Futs
         Dictionary<string, MDSymbol> symbolMap = new Dictionary<string, MDSymbol>();
         List<BlockInfo> blockInfoList = new List<BlockInfo>();
         public FutsDataAPI()
+    {
+            APISetting.TickMode = EnumMDTickMode.Register;
+            APISetting.QryBarTimeSupport = true;
+            APISetting.QryMinuteDataTimeSupport = true;
+
+            DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
+            DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
+            DataCoreService.EventHub.OnLoginEvent += new Action<LoginResponse>(EventHub_OnLoginEvent);
+            DataCoreService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
+
+            DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
+            DataCoreService.EventHub.OnRtnTickDataEvent += new Action<TickData>(EventHub_OnRtnTickDataEvent);
+                
+
+
+            //Bar数据查询
+            DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
+            //分笔成交数据查询
+            DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
+            //价格成交量查询
+            DataCoreService.EventHub.OnRspPriceVolEvent += new Action<RspXQryPriceVolResponse>(EventHub_OnRspPriceVolEvent);
+            //分时数据查询
+            DataCoreService.EventHub.OnRspMinuteDataEvent += new Action<RspXQryMinuteDataResponse>(EventHub_OnRspMinuteDataEvent);
+        }
+
+        void EventHub_OnRtnTickDataEvent(TickData tick)
         {
-                APISetting.TickMode = EnumMDTickMode.Register;
-                APISetting.QryBarTimeSupport = true;
-                APISetting.QryMinuteDataTimeSupport = true;
+            string key = tick.GetUniqueKey();
+            MDSymbol symbol = null;
+            if (symbolMap.TryGetValue(key, out symbol))
+            {
+                switch (tick.TickType)
+                {
+                    case TickDataImpl.TICKTYPE_TRADE:
+                        {
+                            symbol.TickSnapshot.Date = tick.Date;
+                            symbol.TickSnapshot.Time = tick.Time;
+                            symbol.TickSnapshot.Price = tick.TradePrice;
+                            symbol.TickSnapshot.Size = tick.TradeSize;
+                            symbol.TickSnapshot.Volume = tick.Vol;
+                            {
+                                if (symbol.LongPosition.Size != 0)
+                                {
+                                    symbol.LongPosition.UnRealizedPL = (symbol.LastTickSnapshot.Price - symbol.LongPosition.PositionCost) * symbol.Multiple * symbol.LongPosition.Size;
+                                }
+                                if (symbol.ShortPosition.Size != 0)
+                                {
+                                    symbol.ShortPosition.UnRealizedPL = -1 * (symbol.LastTickSnapshot.Price - symbol.ShortPosition.PositionCost) * symbol.Multiple * symbol.ShortPosition.Size;
+                                }
+                            }
+                            break;
+                        }
+                    case TickDataImpl.TICKTYPE_QUOTE:
+                        {
+                            symbol.TickSnapshot.Date = tick.Date;
+                            symbol.TickSnapshot.Time = tick.Time;
 
-                DataCoreService.EventHub.OnConnectedEvent += new Action(EventHub_OnConnectedEvent);
-                DataCoreService.EventHub.OnDisconnectedEvent += new Action(EventHub_OnDisconnectedEvent);
-                DataCoreService.EventHub.OnLoginEvent += new Action<LoginResponse>(EventHub_OnLoginEvent);
-                DataCoreService.EventHub.OnInitializedEvent += new Action(EventHub_OnInitializedEvent);
+                            symbol.TickSnapshot.Buy1 = tick.BidPrice;
+                            symbol.TickSnapshot.BuyQTY1 = tick.BidSize;
+                            symbol.TickSnapshot.Sell1 = tick.AskPrice;
+                            symbol.TickSnapshot.SellQTY1 = tick.AskSize;
+                            
+                            break;
+                        }
+                    case TickDataImpl.TICKTYPE_STATISTIC:
+                        {
+                            symbol.TickSnapshot.Open = tick.Open;
+                            symbol.TickSnapshot.High =tick.High;
+                            symbol.TickSnapshot.Low =tick.Low;
+                            symbol.TickSnapshot.Volume = tick.Vol;
+                            symbol.TickSnapshot.PreClose = tick.PreClose;
+                            symbol.TickSnapshot.PreOI = tick.PreOI;
+                            symbol.TickSnapshot.OI = tick.OI;
+                            symbol.TickSnapshot.Settlement = tick.Settlement;
+                            symbol.TickSnapshot.PreSettlement = tick.PreSettlement;
+                            break;
+                        }
+                    case TickDataImpl.TICKTYPE_SNAPSHOT:
+                        {
+                            symbol.TickSnapshot.Date = tick.Date;
+                            symbol.TickSnapshot.Time = tick.Time;
 
-                DataCoreService.EventHub.OnRtnTickEvent += new Action<Tick>(EventHub_OnRtnTickEvent);
+                            symbol.TickSnapshot.Price = tick.TradePrice;
+                            symbol.TickSnapshot.Size = tick.TradeSize;
+                            symbol.TickSnapshot.Volume = tick.Vol;
 
-                //Bar数据查询
-                DataCoreService.EventHub.OnRspBarEvent += new Action<RspQryBarResponseBin>(EventHub_OnRspBarEvent);
-                //分笔成交数据查询
-                DataCoreService.EventHub.OnRspTradeSplitEvent += new Action<RspXQryTradeSplitResponse>(EventHub_OnRspTradeSplitEvent);
-                //价格成交量查询
-                DataCoreService.EventHub.OnRspPriceVolEvent += new Action<RspXQryPriceVolResponse>(EventHub_OnRspPriceVolEvent);
-                //分时数据查询
-                DataCoreService.EventHub.OnRspMinuteDataEvent += new Action<RspXQryMinuteDataResponse>(EventHub_OnRspMinuteDataEvent);
+                            symbol.TickSnapshot.Open = tick.Open;
+                            symbol.TickSnapshot.High = tick.High;
+                            symbol.TickSnapshot.Low = tick.Low;
+                            symbol.TickSnapshot.Volume = tick.Vol;
+                            symbol.TickSnapshot.PreClose = tick.PreClose;
+                            symbol.TickSnapshot.PreOI = tick.PreOI;
+                            symbol.TickSnapshot.OI = tick.OI;
+                            symbol.TickSnapshot.Settlement = tick.Settlement;
+                            symbol.TickSnapshot.PreSettlement = tick.PreSettlement;
+                            break;
+
+                        }
+                    default:
+                        break;
+                    
+                }
+
+                if (OnRtnTick != null)
+                    OnRtnTick(symbol);
+            }
         }
 
 
@@ -67,6 +153,7 @@ namespace DataAPI.Futs
                 symbol.TickSnapshot.Date = tick.Date;
                 symbol.TickSnapshot.Time = tick.Time;
                 symbol.TickSnapshot.Volume = tick.Vol;
+
                 symbol.TickSnapshot.Open = (double)tick.Open;
                 symbol.TickSnapshot.High = (double)tick.High;
                 symbol.TickSnapshot.Low = (double)tick.Low;

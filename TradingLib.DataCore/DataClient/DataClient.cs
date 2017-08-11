@@ -92,6 +92,12 @@ namespace TradingLib.DataCore
             mktClient.OnNegotiationEvent += new Action<TLNegotiation, string, string>(mktClient_OnNegotiationEvent);
         }
 
+        IDataCallback _callback = null;
+        public void RegisterCallback(IDataCallback callback)
+        {
+            _callback = callback;
+        }
+
         void mktClient_OnNegotiationEvent(TLNegotiation arg1, string arg2, string arg3)
         {
             if (mktClient == null) return;
@@ -145,13 +151,16 @@ namespace TradingLib.DataCore
                 case MessageTypes.TICKNOTIFY:
                     {
                         TickNotify response = obj as TickNotify;
+                        if (_callback != null) _callback.OnRtnTick(response.Tick);
                         DataCoreService.EventHub.FireRtnTickEvent(response.Tick);
                         return;
                     }
                 case MessageTypes.XTICKSNAPSHOTRESPONSE:
                     {
                         RspXQryTickSnapShotResponse response = obj as RspXQryTickSnapShotResponse;
+                        if (_callback != null) _callback.OnRtnTick(response.Tick);
                         DataCoreService.EventHub.FireRtnTickEvent(response.Tick);
+                        
                         return;
                     }
                 case MessageTypes.XMARKETTIMERESPONSE:
@@ -193,24 +202,35 @@ namespace TradingLib.DataCore
                         if (!DataCoreService.Initialized && response.Authorized)
                         {
                             logger.Info("Login Success Qry Basic Info");
-                            DataCoreService.DataClient.QryMarketTime();
+                            if (DataCoreService.DataClient != null)
+                            {
+                                DataCoreService.DataClient.QryMarketTime();
+                            }
                         }
-
+                        if (_callback != null)_callback.OnLogin(response);
                         DataCoreService.EventHub.FireLoginEvent(response);
-
+                        
                         return;
                     }
                 //查询Bar数据回报
                 case MessageTypes.BIN_BARRESPONSE:
                     {
                         RspQryBarResponseBin response = obj as RspQryBarResponseBin;
+                        if (_callback != null) _callback.OnRspBar(response);
                         DataCoreService.EventHub.FireOnRspBarEvent(response);
+                        return;
+                    }
+                case MessageTypes.XTICKNOTIFY2:
+                    {
+                        TickDataNotify response = obj as TickDataNotify;
+                        response.TickData.ForEach(k => DataCoreService.EventHub.FireRtnTickDataEvent(k));
                         return;
                     }
                 //查询分笔成交数据
                 case MessageTypes.XQRYTRADSPLITRESPONSE:
                     {
                         RspXQryTradeSplitResponse response = obj as RspXQryTradeSplitResponse;
+                        if(_callback != null) _callback.OnRspTradeSplit(response);
                         DataCoreService.EventHub.FireOnRspTradeSplitEvent(response);
                         return;
                     }
@@ -218,6 +238,7 @@ namespace TradingLib.DataCore
                 case MessageTypes.XQRYPRICEVOLRESPONSE:
                     {
                         RspXQryPriceVolResponse response = obj as RspXQryPriceVolResponse;
+                        if (_callback != null) _callback.OnRspPriceVol(response);
                         DataCoreService.EventHub.FireOnRspPriceVolEvent(response);
                         return;
                     }
@@ -225,6 +246,7 @@ namespace TradingLib.DataCore
                 case MessageTypes.XQRYMINUTEDATARESPONSE:
                     {
                         RspXQryMinuteDataResponse response = obj as RspXQryMinuteDataResponse;
+                        if (_callback != null) _callback.OnRspMinuteData(response);
                         DataCoreService.EventHub.FireOnRspMinuteDataEvent(response);
                         return;
                     }
@@ -261,17 +283,17 @@ namespace TradingLib.DataCore
         void OnDisconnectEvent()
         {
             logger.Info(string.Format("Hist Socket Disconnected"));
+            if (_callback != null) _callback.OnDisconnected();
             DataCoreService.EventHub.FireDisconnectedEvent();
+            
         }
 
         void OnConnectEvent()
         {
             logger.Info(string.Format("Hist Socket Connected Server:{0} Port:{1}", mktClient.CurrentServer.Address, mktClient.CurrentServer.Port));
+            if (_callback != null) _callback.OnConnected();
             DataCoreService.EventHub.FireConnectedEvent();
-            //执行登入
-
-            //执行查询
-            //QryMarketTime();
+            
         }
 
     }
