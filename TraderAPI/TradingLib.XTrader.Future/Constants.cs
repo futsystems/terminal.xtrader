@@ -28,5 +28,10 @@ namespace TradingLib.XTrader.Future
         public static int PageBankStyle = 0;
 
         public static string BranName = "";
+
+        public static string CashURL1 = "";
+
+        public static string CashURL2 = "";
+
     }
 }

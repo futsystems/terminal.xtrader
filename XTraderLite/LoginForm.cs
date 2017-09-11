@@ -63,6 +63,10 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.SymbolNameStyle = _cfgfile["BrokerSymbolNameStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.SymbolTitleStyle = _cfgfile["BrokerSymbolTitleStyle"].AsInt();
             TradingLib.XTrader.Future.Constants.PageBankStyle = _cfgfile["PageBankStyle"].AsInt();
+
+            TradingLib.XTrader.Future.Constants.CashURL1 = _cfgfile["CashURL1"].AsString();
+            TradingLib.XTrader.Future.Constants.CashURL2 = _cfgfile["CashURL2"].AsString();
+
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
 

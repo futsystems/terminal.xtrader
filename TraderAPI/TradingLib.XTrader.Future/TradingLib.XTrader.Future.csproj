@@ -266,6 +266,18 @@
     <Compile Include="Pages\PageBankSe7.Designer.cs">
       <DependentUpon>PageBankSe7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageBankStd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageBankStd.Designer.cs">
+      <DependentUpon>PageBankStd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageBankWebSite.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\PageBankWebSite.Designer.cs">
+      <DependentUpon>PageBankWebSite.cs</DependentUpon>
+    </Compile>
     <Compile Include="PageTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Control\ctrlPosition.cs">
@@ -365,6 +377,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\PageBankSe7.resx">
       <DependentUpon>PageBankSe7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageBankStd.resx">
+      <DependentUpon>PageBankStd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\PageBankWebSite.resx">
+      <DependentUpon>PageBankWebSite.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
