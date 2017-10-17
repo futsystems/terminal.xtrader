@@ -25,6 +25,7 @@ namespace XTraderLite
             //允许线程间调用控件属性 否则无法本地调试
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+
             InitContrl();
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
@@ -39,7 +40,11 @@ namespace XTraderLite
             Global.RiskPrompt = _cfgfile["RiskPrompt"].AsBool();
             Global.NewsUrl = _cfgfile["NewsUrl"].AsString();
             Global.DataFarmGroup = _cfgfile["DataFarmGroup"].AsInt();
-
+            Global.DefaultMarketUser = _cfgfile["DefaultMarketUser"].AsString();
+            Global.DefaultBlock = _cfgfile["DefaultBlock"].AsString();
+            Global.XGJCTRL_R = _cfgfile["LOGINXGJCTRLCOLOR_R"].AsInt();
+            Global.XGJCTRL_B = _cfgfile["LOGINXGJCTRLCOLOR_B"].AsInt();
+            Global.XGJCTRL_G = _cfgfile["LOGINXGJCTRLCOLOR_G"].AsInt();
 
 
 
@@ -108,6 +113,7 @@ namespace XTraderLite
                 if (File.Exists("Config/login.png"))
                 {
                     topImage.Image = Image.FromFile("Config/login.png");
+
                 }
                 else
                 {
@@ -117,6 +123,22 @@ namespace XTraderLite
                 ClassicLogin();
             }
 
+            this.Text = string.Format("登入{0}", Global.TaskBarTitle);
+
+
+            //如果设定了默认用户名 则不允许修改
+            if (!string.IsNullOrEmpty(Global.DefaultMarketUser))
+            {
+                username.Text = Global.DefaultMarketUser;
+                username.Enabled = false;
+                password.Enabled = false;
+
+                username2.Text = Global.DefaultMarketUser;
+                username2.Enabled = false;
+                password2.Enabled = false;
+                cbSaveAccount.Enabled = false;
+                cbUpdateBasic.Enabled = false;
+            }
 
             mStarter = start;
             btnLogin.Enabled = false;
@@ -156,8 +178,14 @@ namespace XTraderLite
             if (File.Exists("Config/login_xgj.png"))
             {
                 panel_XGJ.BackgroundImage = Image.FromFile("Config/login_xgj.png");
+                var color = Color.FromArgb(Global.XGJCTRL_R, Global.XGJCTRL_G, Global.XGJCTRL_B);
+                username2.BackColor = color;
+                password2.BackColor = color;
+                cbSaveAccount.BackColor = color;
+                cbUpdateBasic.BackColor = color;
+
             }
-            this.Text = "信管家";
+            
         }
 
         void InitContrl()
@@ -178,8 +206,9 @@ namespace XTraderLite
             cbUpdateBasic.Image = (updateBasic ? Properties.Resources.cb_yes : Properties.Resources.cb_no);
             cbSaveAccount.Image = (saveAccout ? Properties.Resources.cb_yes : Properties.Resources.cb_no);
 
-            username2.Text = Properties.Settings.Default.Account;
-            password2.Text = Properties.Settings.Default.Pass;
+            //username2.Text = Properties.Settings.Default.Account;
+            //password2.Text = Properties.Settings.Default.Pass;
+            password2.Text = "12345678";
 
 
         }
@@ -324,7 +353,7 @@ namespace XTraderLite
 
         void LoginForm_Load(object sender, EventArgs e)
         {
-            
+         
         }
 
 
@@ -809,7 +838,8 @@ namespace XTraderLite
                 marketlist.AddRange(tmp);
             }
 
-            if (Global.GroupConfig != null && !string.IsNullOrEmpty(Global.GroupConfig.MarketServer))
+            else
+            //if (Global.GroupConfig != null && !string.IsNullOrEmpty(Global.GroupConfig.MarketServer))
             {
                 string[] rec = Global.GroupConfig.MarketServer.Split(',');
                 var tmp = rec.Where(add => !string.IsNullOrEmpty(add)).OrderBy(add => Guid.NewGuid());

@@ -180,6 +180,10 @@ namespace TradingLib.XTrader.Control
             blockTab.SelectTab(index);
         }
 
+        public int GetIndex(string title)
+        {
+            return blockTab.GetIndex(title);
+        }
         public void Update(MDSymbol symbol)
         {
             quotelist.Update(symbol);

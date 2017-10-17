@@ -59,6 +59,9 @@ namespace XTraderLite
         public MainForm()
         {
             InitializeComponent();
+            //默认窗口最大化
+            //this.WindowState = FormWindowState.Maximized;
+            btnMax_Click(null, null);
             _debugform = new frmDebug();
             //将控件日志输出时间绑定到debug函数 用于输出到控件
             ControlLogFactoryAdapter.SendDebugEvent += new Action<string>(Debug);
@@ -342,7 +345,18 @@ namespace XTraderLite
             }
             //数据完毕后 初始化报价面板并以第一个tab为默认视图
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
-            ctrlQuoteList.SelectTab(0);
+
+            int idx = -1;
+            if (!string.IsNullOrEmpty(Global.DefaultBlock))
+            {
+                var b = MDService.DataAPI.BlockInfos.Where(item => item.Key == Global.DefaultBlock).FirstOrDefault();
+                if (b != null)
+                {
+                    idx = ctrlQuoteList.GetIndex(b.Title);
+                }
+            }
+
+            ctrlQuoteList.SelectTab(idx>=0?idx:0);
 
             //设置底部跑马灯
             InitHightLight();

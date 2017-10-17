@@ -50,6 +50,19 @@ namespace TradingLib.XTrader.Control
             }
         }
 
+        public int GetIndex(string title)
+        {
+            int i = 0;
+            for (i = 0; i < _btnList.Count; i++)
+            {
+                if (_btnList[i].Title == title)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         public void SelectTab(int index)
         {
             BlockButton btn = this[index];

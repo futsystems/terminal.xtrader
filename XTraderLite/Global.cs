@@ -67,6 +67,21 @@ namespace XTraderLite
         /// </summary>
         public static int DataFarmGroup = 0;
 
+        /// <summary>
+        /// 默认行情用户
+        /// </summary>
+        public static string DefaultMarketUser = string.Empty;
+
+        /// <summary>
+        /// 默认开启 停留的页面
+        /// </summary>
+        public static string DefaultBlock = string.Empty;
+
+        public static int XGJCTRL_R = 0;
+        public static int XGJCTRL_B = 0;
+        public static int XGJCTRL_G = 0;
+
+
         public static AppConfig AppConfig { get; set; }
 
         /// <summary>
