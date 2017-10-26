@@ -49,6 +49,9 @@ namespace TradingLib.XTrader.Future
             list.Add(new ValueObject<string>() { Value = "03080000", Name = "招商银行" });
             list.Add(new ValueObject<string>() { Value = "03010000", Name = "交通银行" });
             list.Add(new ValueObject<string>() { Value = "01000000", Name = "中国邮政" });
+            list.Add(new ValueObject<string>() { Value = "03020000", Name = "中信银行" });
+            list.Add(new ValueObject<string>() { Value = "03030000", Name = "光大银行" });
+            list.Add(new ValueObject<string>() { Value = "03050000", Name = "民生银行" });
 
 
             return list;
