@@ -18,8 +18,9 @@ namespace TradingLib.XTrader.Future
         {
             InitializeComponent();
 
-            string brand = string.IsNullOrEmpty(Constants.BranName) ? "交易大师" : Constants.BranName;
+            string brand = string.IsNullOrEmpty(Constants.BranName) ? "交易大师" : Constants.BranName+"交易系统";
             brandName.Text = brand;
+            label2.Text = string.Format("(C) {0}", DateTime.Now.Year);
         }
     }
 }

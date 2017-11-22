@@ -127,7 +127,7 @@ namespace TradingLib.MarketData
         {
             if (configData.Count <= 0)
                 return new CfgValue("");
-            else if (configData.ContainsKey(key))
+            else if (configData.Keys.Contains(key))
                 return configData[key];
             else
                 return new CfgValue("");

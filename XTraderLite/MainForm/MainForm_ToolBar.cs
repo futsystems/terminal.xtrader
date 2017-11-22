@@ -58,6 +58,7 @@ namespace XTraderLite
             toolStripSeparator10.Visible = false;
 #endif
 
+            
         }
 
         void btnNews_Click(object sender, EventArgs e)

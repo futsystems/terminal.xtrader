@@ -313,12 +313,12 @@ namespace XTraderLite
 
             if (Global.QuoteBlockList.Count == 0)
             {
-                ctrlQuoteList.AddBlock("所有", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                ctrlQuoteList.AddBlock("所有品种", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     return true;
                 })
-                , TradingLib.XTrader.Control.EnumQuoteListType.ALL);
+                , TradingLib.XTrader.Control.EnumQuoteListType.FUTURE_IQFeed);
 
 
                 foreach (var b in MDService.DataAPI.BlockInfos)
@@ -328,12 +328,12 @@ namespace XTraderLite
             }
             else
             {
-                ctrlQuoteList.AddBlock("所有", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                ctrlQuoteList.AddBlock("所有品种", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
                 =>
                 {
                     return Global.QuoteBlockList.Contains(symbol.Exchange);
                 })
-                , TradingLib.XTrader.Control.EnumQuoteListType.ALL);
+                , TradingLib.XTrader.Control.EnumQuoteListType.FUTURE_IQFeed);
 
                 //按顺序添加到报价列表
                 foreach (var key in Global.QuoteBlockList)

@@ -35,13 +35,14 @@ namespace XTraderLite
             Global.HeadTitle = _cfgfile["HeadTitle"].AsString();
             Global.ShowCorner = _cfgfile["ShowCorner"].AsBool();
             Global.TaskBarTitle = _cfgfile["TaskBarTitle"].AsString();
-            Global.BrandName = _cfgfile["BandName"].AsString();
-            Global.BrandCompany = _cfgfile["BandCompany"].AsString();
+            Global.BrandName = _cfgfile["BrandName"].AsString();
+            Global.BrandCompany = _cfgfile["BrandCompany"].AsString();
             Global.RiskPrompt = _cfgfile["RiskPrompt"].AsBool();
             Global.NewsUrl = _cfgfile["NewsUrl"].AsString();
             Global.DataFarmGroup = _cfgfile["DataFarmGroup"].AsInt();
             Global.DefaultMarketUser = _cfgfile["DefaultMarketUser"].AsString();
             Global.DefaultBlock = _cfgfile["DefaultBlock"].AsString();
+            Global.ShowMDIP = _cfgfile["ShowMDIP"].AsBool();
             Global.XGJCTRL_R = _cfgfile["LOGINXGJCTRLCOLOR_R"].AsInt();
             Global.XGJCTRL_B = _cfgfile["LOGINXGJCTRLCOLOR_B"].AsInt();
             Global.XGJCTRL_G = _cfgfile["LOGINXGJCTRLCOLOR_G"].AsInt();
@@ -90,7 +91,13 @@ namespace XTraderLite
                 Global.DeployID = XTraderLite.Compat.Utils.Unit;
             }
 
-            if (_cfgfile.ContainsKey("APPServer"))
+            if (!string.IsNullOrEmpty(_cfgfile["UpdateServer"].AsString()))
+            {
+                XTraderLite.Compat.Utils.LoadINI();
+                XTraderLite.Compat.Utils.IPAddress = _cfgfile["UpdateServer"].AsString();
+            }
+
+            if (!string.IsNullOrEmpty(_cfgfile["APPServer"].AsString()))
             { 
                 Global.AppServer =  _cfgfile["APPServer"].AsString();
             }

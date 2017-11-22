@@ -184,6 +184,7 @@
     <Compile Include="Starter.cs" />
     <EmbeddedResource Include="frmRisk.resx">
       <DependentUpon>frmRisk.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDataFarmList.resx">
       <DependentUpon>frmDataFarmList.cs</DependentUpon>
@@ -199,6 +200,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRelief.resx">
       <DependentUpon>frmRelief.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmShortCutKey.resx">
       <DependentUpon>frmShortCutKey.cs</DependentUpon>

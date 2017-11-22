@@ -68,6 +68,11 @@ namespace XTraderLite
         public static int DataFarmGroup = 0;
 
         /// <summary>
+        /// 显示行情IP地址
+        /// </summary>
+        public static bool ShowMDIP = false;
+
+        /// <summary>
         /// 默认行情用户
         /// </summary>
         public static string DefaultMarketUser = string.Empty;

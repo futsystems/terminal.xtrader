@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageFlashOrder = new System.Windows.Forms.TabPage();
+            this.btnQryArgs = new System.Windows.Forms.Button();
             this.tabPageThreeBtn = new System.Windows.Forms.TabPage();
             this.tabPageTradition = new System.Windows.Forms.TabPage();
             this.lbShortCloseVol = new System.Windows.Forms.Label();
@@ -66,7 +67,6 @@
             this.inputSymbol = new TradingLib.XTrader.Future.ctrlSymbolSelecter();
             this.label1 = new System.Windows.Forms.Label();
             this.inputArbFlag = new CSharpWin.ComboBoxEx();
-            this.btnQryArgs = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageFlashOrder.SuspendLayout();
             this.panelFlashOrder.SuspendLayout();
@@ -97,6 +97,15 @@
             this.tabPageFlashOrder.TabIndex = 0;
             this.tabPageFlashOrder.Text = "闪电下单";
             this.tabPageFlashOrder.UseVisualStyleBackColor = true;
+            // 
+            // btnQryArgs
+            // 
+            this.btnQryArgs.Location = new System.Drawing.Point(4, 177);
+            this.btnQryArgs.Name = "btnQryArgs";
+            this.btnQryArgs.Size = new System.Drawing.Size(75, 23);
+            this.btnQryArgs.TabIndex = 0;
+            this.btnQryArgs.Text = "止损参数";
+            this.btnQryArgs.UseVisualStyleBackColor = true;
             // 
             // tabPageThreeBtn
             // 
@@ -379,7 +388,6 @@
             // btnEntryOrder
             // 
             this.btnEntryOrder.BackColor = System.Drawing.Color.Red;
-            this.btnEntryOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntryOrder.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnEntryOrder.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnEntryOrder.Location = new System.Drawing.Point(184, 123);
@@ -561,15 +569,6 @@
             this.inputArbFlag.Size = new System.Drawing.Size(80, 22);
             this.inputArbFlag.TabIndex = 24;
             this.inputArbFlag.TabStop = false;
-            // 
-            // btnQryArgs
-            // 
-            this.btnQryArgs.Location = new System.Drawing.Point(4, 177);
-            this.btnQryArgs.Name = "btnQryArgs";
-            this.btnQryArgs.Size = new System.Drawing.Size(75, 23);
-            this.btnQryArgs.TabIndex = 0;
-            this.btnQryArgs.Text = "止损参数";
-            this.btnQryArgs.UseVisualStyleBackColor = true;
             // 
             // ctrlOrderEntry
             // 
