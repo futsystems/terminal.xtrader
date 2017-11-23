@@ -1043,7 +1043,7 @@
             this.topHeader.Name = "topHeader";
             this.topHeader.Size = new System.Drawing.Size(127, 20);
             this.topHeader.TabIndex = 4;
-            this.topHeader.Text = "巨融交易端-机构版";
+            this.topHeader.Text = "机构版";
             // 
             // bottomStatusPanel
             // 
