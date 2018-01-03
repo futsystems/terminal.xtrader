@@ -87,6 +87,11 @@ namespace TradingLib.XTrader.Future
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankWebSite());
                         break;
                     }
+                case 8://配资出入金
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBank8());
+                        break;
+                    }
                 case 9://标准版选择银行三方支付
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankStd());

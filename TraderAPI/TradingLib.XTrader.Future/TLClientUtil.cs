@@ -42,6 +42,11 @@ namespace TradingLib.XTrader.Future
             return client.ReqContribRequest("APIService", "Deposit2", new { amount=val,business_type=type});
         }
 
+        public static int ReqDeposit8(this TLClientNet client, decimal val,string bank, EnumBusinessType type)
+        {
+            return client.ReqContribRequest("APIService", "Deposit2", new { amount = val,bank = bank, business_type = type });
+        }
+
         public static int ReqWithdraw(this TLClientNet client, decimal val)
         {
             return client.ReqContribRequest("APIService", "Withdraw", val.ToString());
