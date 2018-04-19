@@ -33,5 +33,7 @@ namespace TradingLib.XTrader.Future
 
         public static string CashURL2 = "";
 
+        public static string QRDescription = "";
+
     }
 }

@@ -41,6 +41,15 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         public event Action<MDSymbol, QuoteMouseEventType> MouseEvent;
 
+
+
+        public event Action<MDSymbol> WatchSymbolEvent = delegate { };
+
+        public event Action<MDSymbol> UnWatchSymbolEvent = delegate { };
+
+
+        public event Action WatchManagerEvent = delegate { };
+
         /// <summary>
         /// 可视合约发生变化
         /// </summary>
@@ -55,6 +64,20 @@ namespace TradingLib.XTrader.Control
             blockTab.BlockTabClick += new EventHandler<BlockTabClickEvent>(blockTab_BlockTabClick);//底部Tab切换
             scrollBar.Scroll += new ScrollEventHandler(scrollBar_Scroll);
             scrollBar.ValueChanged += new EventHandler(scrollBar_ValueChanged);
+            quotelist.WatchSymbolEvent += (s) => 
+            {
+                WatchSymbolEvent(s); 
+            
+            };
+            quotelist.UnWatchSymbolEvent += (s) => 
+            {
+                UnWatchSymbolEvent(s);
+                if (this.CurrentBlock != null)
+                {
+                    LoadData(this.CurrentBlock);
+                }
+            };
+            quotelist.WatchManagerEvent += () => { WatchManagerEvent(); };
         }
 
 
@@ -99,6 +122,8 @@ namespace TradingLib.XTrader.Control
             logger.Info("scroll:" + e.ScrollOrientation + " v:" + e.NewValue.ToString());
         }
 
+
+        BlockButton CurrentBlock { get; set; }
         /// <summary>
         /// 点击Tab后清空报价列表合约 并设定新的合约列表
         /// 合约列表要排序后放入
@@ -109,24 +134,51 @@ namespace TradingLib.XTrader.Control
         {
             if (e.TargtButton != null)
             {
-                if (e.TargtButton.SymbolFilter != null && symbolMap.Count()>0)
+                this.CurrentBlock = e.TargtButton;
+                LoadData(this.CurrentBlock);
+            }
+        }
+
+        public bool IsWatchMode { get { return quotelist.IsWatchMode; } }
+        void LoadData(BlockButton target)
+        {
+
+            if (target.SymbolFilter != null && symbolMap.Count() > 0)
+            {
+                quotelist.Clear();
+                quotelist.IsWatchMode = target.Title == "自选";
+                quotelist.BeginUpdate();
+
+
+                quotelist.ApplyConfig(target.QuoteType);
+
+                //如果指定了合约集合则按合约集合显示排序 否则过滤后按品种分类排序
+                if (target.QuerySymbols != null)
                 {
-                    quotelist.Clear();
-                    quotelist.BeginUpdate();
-                    IEnumerable<MDSymbol> list = symbolMap.Where(sym => e.TargtButton.SymbolFilter(sym));
-
-                    quotelist.ApplyConfig(e.TargtButton.QuoteType);
-
+                    quotelist.AddSymbols(target.QuerySymbols());
+                }
+                else
+                {
+                    IEnumerable<MDSymbol> list = symbolMap.Where(sym => target.SymbolFilter(sym));
                     foreach (var g in list.GroupBy(sym => sym.SecCode))
                     {
                         quotelist.AddSymbols(g.OrderBy(sym => sym.SortKey));
                     }
-
-                    //quotelist.ApplyConfig(e.TargtButton.QuoteType); 在切换Tab时 如果在添加合约之后则会导致 GetPreClose获得异常昨日价格 从而导致计算涨跌幅异常 因此先 applyconfig 然后添加合约
-                    quotelist.EndUpdate();
                 }
+
+                //quotelist.ApplyConfig(e.TargtButton.QuoteType); 在切换Tab时 如果在添加合约之后则会导致 GetPreClose获得异常昨日价格 从而导致计算涨跌幅异常 因此先 applyconfig 然后添加合约
+                quotelist.EndUpdate();
             }
         }
+
+        public void Reload()
+        {
+            if (this.CurrentBlock != null)
+            {
+                this.LoadData(this.CurrentBlock);
+            }
+        }
+
 
 
         /// <summary>
@@ -167,9 +219,9 @@ namespace TradingLib.XTrader.Control
         /// </summary>
         /// <param name="title"></param>
         /// <param name="filter"></param>
-        public void AddBlock(string title,Predicate<MDSymbol> filter,EnumQuoteListType type)
+        public void AddBlock(string title, Predicate<MDSymbol> filter, EnumQuoteListType type, Func<IEnumerable<MDSymbol>> querySymbol=null)
         {
-            blockTab.AddBlock(title, filter,type);
+            blockTab.AddBlock(title, filter, type,querySymbol);
         }
         /// <summary>
         /// 选中某个Tab

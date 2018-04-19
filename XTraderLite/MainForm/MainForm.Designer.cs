@@ -107,7 +107,7 @@
             this.toolStripSeparatorPay = new System.Windows.Forms.ToolStripSeparator();
             this.menuPay = new System.Windows.Forms.ToolStripMenuItem();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.自选ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuWatchMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.公式管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.使用说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -775,7 +775,7 @@
             this.帮助ToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(223, 24);
+            this.mainMenu.Size = new System.Drawing.Size(315, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -904,39 +904,39 @@
             this.menuTrading.BackColor = System.Drawing.SystemColors.Control;
             this.menuTrading.Name = "menuTrading";
             this.menuTrading.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.menuTrading.Size = new System.Drawing.Size(147, 22);
+            this.menuTrading.Size = new System.Drawing.Size(152, 22);
             this.menuTrading.Text = "交易大师";
             // 
             // toolStripSeparatorPay
             // 
             this.toolStripSeparatorPay.Name = "toolStripSeparatorPay";
-            this.toolStripSeparatorPay.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparatorPay.Size = new System.Drawing.Size(149, 6);
             // 
             // menuPay
             // 
             this.menuPay.Name = "menuPay";
-            this.menuPay.Size = new System.Drawing.Size(147, 22);
+            this.menuPay.Size = new System.Drawing.Size(152, 22);
             this.menuPay.Text = "在线出入金";
             // 
             // 工具ToolStripMenuItem
             // 
             this.工具ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.自选ToolStripMenuItem,
+            this.menuWatchMgr,
             this.公式管理ToolStripMenuItem});
             this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
             this.工具ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.工具ToolStripMenuItem.Text = "工具";
             // 
-            // 自选ToolStripMenuItem
+            // menuWatchMgr
             // 
-            this.自选ToolStripMenuItem.Name = "自选ToolStripMenuItem";
-            this.自选ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.自选ToolStripMenuItem.Text = "自选";
+            this.menuWatchMgr.Name = "menuWatchMgr";
+            this.menuWatchMgr.Size = new System.Drawing.Size(152, 22);
+            this.menuWatchMgr.Text = "自选";
             // 
             // 公式管理ToolStripMenuItem
             // 
             this.公式管理ToolStripMenuItem.Name = "公式管理ToolStripMenuItem";
-            this.公式管理ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.公式管理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.公式管理ToolStripMenuItem.Text = "公式管理";
             // 
             // 帮助ToolStripMenuItem
@@ -1041,7 +1041,7 @@
             this.topHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.topHeader.Location = new System.Drawing.Point(489, 1);
             this.topHeader.Name = "topHeader";
-            this.topHeader.Size = new System.Drawing.Size(127, 20);
+            this.topHeader.Size = new System.Drawing.Size(51, 20);
             this.topHeader.TabIndex = 4;
             this.topHeader.Text = "机构版";
             // 
@@ -1225,7 +1225,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuPriceVol;
         private System.Windows.Forms.ToolStripMenuItem menuBarView;
         private System.Windows.Forms.ToolStripMenuItem menuSwitchKchart;
-        private System.Windows.Forms.ToolStripMenuItem 自选ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuWatchMgr;
         private System.Windows.Forms.ToolStripMenuItem 公式管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton btnQuoteView;
         private System.Windows.Forms.ToolStripButton btnIntraView;

@@ -22,6 +22,26 @@ namespace XTraderLite
             //绑定对外事件
             ctrlQuoteList.MouseEvent += new Action<TradingLib.MarketData.MDSymbol, TradingLib.XTrader.Control.QuoteMouseEventType>(quoteView_MouseEvent);
             ctrlQuoteList.SymbolVisibleChanged += new EventHandler<TradingLib.XTrader.Control.SymbolVisibleChangeEventArgs>(ctrlQuoteList_SymbolVisibleChanged);
+            ctrlQuoteList.WatchSymbolEvent += new Action<MDSymbol>(ctrlQuoteList_WatchSymbolEvent);
+            ctrlQuoteList.UnWatchSymbolEvent += new Action<MDSymbol>(ctrlQuoteList_UnWatchSymbolEvent);
+            ctrlQuoteList.WatchManagerEvent += new Action(ctrlQuoteList_WatchManagerEvent);
+        }
+
+        void ctrlQuoteList_WatchManagerEvent()
+        {
+            var fm = new fmWatchMgr(watchList);
+            fm.ShowDialog();
+        }
+
+        void ctrlQuoteList_UnWatchSymbolEvent(MDSymbol obj)
+        {
+            watchList.UnWatchSymbol(obj.Symbol);
+        }
+
+        void ctrlQuoteList_WatchSymbolEvent(MDSymbol obj)
+        {
+            //throw new NotImplementedException();
+            watchList.WatchSymbol(obj.Symbol);
         }
 
         void ctrlQuoteList_SymbolVisibleChanged(object sender, TradingLib.XTrader.Control.SymbolVisibleChangeEventArgs e)

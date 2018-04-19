@@ -82,6 +82,11 @@ namespace TradingLib.XTrader.Future
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankAliPay());
                         break;
                     }
+                case 6://
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBankAliPay2());
+                        break;
+                    }
                 case 5://网页跳转支付
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankWebSite());

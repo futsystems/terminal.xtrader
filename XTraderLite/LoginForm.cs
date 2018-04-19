@@ -72,7 +72,7 @@ namespace XTraderLite
 
             TradingLib.XTrader.Future.Constants.CashURL1 = _cfgfile["CashURL1"].AsString();
             TradingLib.XTrader.Future.Constants.CashURL2 = _cfgfile["CashURL2"].AsString();
-
+            TradingLib.XTrader.Future.Constants.QRDescription = _cfgfile["QRDescription"].AsString();
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
 

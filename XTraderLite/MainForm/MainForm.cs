@@ -35,6 +35,9 @@ namespace XTraderLite
 
 
         List<ServerNode> srvList = new List<ServerNode>();
+
+        WatchList watchList = new WatchList();
+
         ///获取 当前拥有焦点的控件
         private Control GetFocusedControl()
         {
@@ -311,6 +314,11 @@ namespace XTraderLite
         {
             BindDataAPICallBack();
 
+            //初始化自选数据
+            watchList.Load();
+            watchList.WatchListChanged += new Action(watchList_WatchListChanged);
+
+            //初始化板块信息
             if (Global.QuoteBlockList.Count == 0)
             {
                 ctrlQuoteList.AddBlock("所有品种", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
@@ -325,6 +333,13 @@ namespace XTraderLite
                 {
                     ctrlQuoteList.AddBlock(b.Title, b.Filter, (TradingLib.XTrader.Control.EnumQuoteListType)b.QuoteViewType);
                 }
+
+                ctrlQuoteList.AddBlock("自选", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    return watchList.IsWatched(symbol.Symbol);
+                })
+                , TradingLib.XTrader.Control.EnumQuoteListType.FUTURE_IQFeed, watchList.GetWatchSymbols);
             }
             else
             {
@@ -342,6 +357,12 @@ namespace XTraderLite
                     if (b == null) continue;
                     ctrlQuoteList.AddBlock(b.Title, b.Filter, (TradingLib.XTrader.Control.EnumQuoteListType)b.QuoteViewType);
                 }
+                ctrlQuoteList.AddBlock("自选", new Predicate<TradingLib.MarketData.MDSymbol>((symbol)
+                =>
+                {
+                    return watchList.IsWatched(symbol.Symbol);
+                })
+                , TradingLib.XTrader.Control.EnumQuoteListType.FUTURE_IQFeed, watchList.GetWatchSymbols);
             }
             //数据完毕后 初始化报价面板并以第一个tab为默认视图
             ctrlQuoteList.SetSymbols(MDService.DataAPI.Symbols);
@@ -368,6 +389,14 @@ namespace XTraderLite
 
             //启动定时任务
             InitTimer();
+        }
+
+        void watchList_WatchListChanged()
+        {
+            if (ctrlQuoteList.IsWatchMode)
+            {
+                ctrlQuoteList.Reload();
+            }
         }
 
 

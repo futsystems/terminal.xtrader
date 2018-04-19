@@ -46,8 +46,12 @@ namespace TradingLib.XTrader.Control
 
         public event EventHandler<SymbolVisibleChangeEventArgs> SymbolVisibleChanged;
 
-        
 
+        public event Action<MDSymbol> WatchSymbolEvent = delegate { };
+
+        public event Action<MDSymbol> UnWatchSymbolEvent = delegate { };
+
+        public event Action WatchManagerEvent = delegate { };
         /// <summary>
         /// 报价单 小下单面板行情事件
         /// </summary>
@@ -73,13 +77,15 @@ namespace TradingLib.XTrader.Control
         QuoteStyle _quotestyle;
         public QuoteStyle DefaultQuoteStyle { get { return _quotestyle; } }
 
+
+        public bool IsWatchMode { get; set; }
         
         public ViewQuoteList()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
             this.BackColor = Color.Black;
-
+            this.IsWatchMode = false;
             InitQuoteColumns();
 
             InitConfig();
@@ -100,6 +106,59 @@ namespace TradingLib.XTrader.Control
             //初始化右键菜单
             if(MenuEnable)
                 initMenu();
+
+            
+            
+        }
+
+        void ViewQuoteList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                var point = this.PointToClient(Cursor.Position);
+
+                var rowId = MouseInRow(e);
+
+                if (rowId < 0) return;//如果选择的行小于0 则返回最后一行
+                if (rowId > (_count - 1)) return;//如果选择的行 超过当总行数,则返回到第一行
+
+                ContextMenu menu = new ContextMenu();
+                if (IsWatchMode)
+                {
+                    menu.MenuItems.Add(new MenuItem("删除自选", (a1, a2) =>
+                    {
+                        var symbol = SelectedSymbol;
+                        if (symbol != null)
+                        {
+                            UnWatchSymbolEvent(symbol);
+                        }
+                    }));
+                    menu.MenuItems.Add("-");
+                    menu.MenuItems.Add(new MenuItem("管理自选", (a1, a2) =>
+                    {
+                        WatchManagerEvent();
+                    }));
+                }
+                else
+                {
+                    menu.MenuItems.Add(new MenuItem("添加自选", (a1, a2) =>
+                        {
+                            var symbol = SelectedSymbol;
+                            if (symbol != null)
+                            {
+                                WatchSymbolEvent(symbol);
+                            }
+                        }));
+
+                   
+                }
+                menu.Show(this, point);
+            }
+        }
+
+
+        void OnWatchSymbol(object sender, EventArgs e)
+        { 
             
         }
 
@@ -114,8 +173,8 @@ namespace TradingLib.XTrader.Control
             this.MouseDown += new MouseEventHandler(ViewQuoteList_MouseDown);
             this.MouseUp += new MouseEventHandler(ViewQuoteList_MouseUp);
             this.MouseWheel += new MouseEventHandler(ViewQuoteList_MouseWheel);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(ViewQuoteList_MouseDoubleClick);
-            
+            this.MouseDoubleClick += new MouseEventHandler(ViewQuoteList_MouseDoubleClick);
+            this.MouseClick += new MouseEventHandler(ViewQuoteList_MouseClick);
             this.SizeChanged += new EventHandler(ViewQuoteList_SizeChanged);
 
             //this.SizeChanged +=new EventHandler(ViewQuoteList_SizeChanged);

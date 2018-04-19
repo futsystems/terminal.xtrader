@@ -29,28 +29,27 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSetBankInfo = new TradingLib.XTrader.FButton();
+            this.qrDescription = new System.Windows.Forms.Label();
+            this.qrImage = new System.Windows.Forms.PictureBox();
             this.account = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbCurrency = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnWithdraw = new TradingLib.XTrader.FButton();
             this.amount = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.qrImage = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.btnSetBankInfo = new TradingLib.XTrader.FButton();
+            this.btnWithdraw = new TradingLib.XTrader.FButton();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.amount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qrImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.amount)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.qrImage);
             this.panel1.Controls.Add(this.btnSetBankInfo);
             this.panel1.Controls.Add(this.account);
@@ -65,20 +64,23 @@
             this.panel1.Size = new System.Drawing.Size(870, 319);
             this.panel1.TabIndex = 26;
             // 
-            // btnSetBankInfo
+            // qrDescription
             // 
-            this.btnSetBankInfo.BackColor = System.Drawing.Color.White;
-            this.btnSetBankInfo.CheckButton = false;
-            this.btnSetBankInfo.Checked = false;
-            this.btnSetBankInfo.IsPriceOn = false;
-            this.btnSetBankInfo.Location = new System.Drawing.Point(207, 4);
-            this.btnSetBankInfo.Name = "btnSetBankInfo";
-            this.btnSetBankInfo.OrderEntryButton = false;
-            this.btnSetBankInfo.PriceStr = "";
-            this.btnSetBankInfo.Size = new System.Drawing.Size(147, 23);
-            this.btnSetBankInfo.TabIndex = 8;
-            this.btnSetBankInfo.Text = "设定签约银行";
-            this.btnSetBankInfo.UseVisualStyleBackColor = false;
+            this.qrDescription.AutoSize = true;
+            this.qrDescription.ForeColor = System.Drawing.Color.Red;
+            this.qrDescription.Location = new System.Drawing.Point(589, 16);
+            this.qrDescription.Name = "qrDescription";
+            this.qrDescription.Size = new System.Drawing.Size(161, 12);
+            this.qrDescription.TabIndex = 11;
+            this.qrDescription.Text = "入金请用支付宝扫二维码转账";
+            // 
+            // qrImage
+            // 
+            this.qrImage.Location = new System.Drawing.Point(381, 3);
+            this.qrImage.Name = "qrImage";
+            this.qrImage.Size = new System.Drawing.Size(200, 200);
+            this.qrImage.TabIndex = 9;
+            this.qrImage.TabStop = false;
             // 
             // account
             // 
@@ -116,21 +118,6 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "币种";
             // 
-            // btnWithdraw
-            // 
-            this.btnWithdraw.BackColor = System.Drawing.Color.White;
-            this.btnWithdraw.CheckButton = false;
-            this.btnWithdraw.Checked = false;
-            this.btnWithdraw.IsPriceOn = false;
-            this.btnWithdraw.Location = new System.Drawing.Point(207, 79);
-            this.btnWithdraw.Name = "btnWithdraw";
-            this.btnWithdraw.OrderEntryButton = false;
-            this.btnWithdraw.PriceStr = "";
-            this.btnWithdraw.Size = new System.Drawing.Size(147, 23);
-            this.btnWithdraw.TabIndex = 3;
-            this.btnWithdraw.Text = "出金(账户资金转银行)";
-            this.btnWithdraw.UseVisualStyleBackColor = false;
-            // 
             // amount
             // 
             this.amount.DecimalPlaces = 2;
@@ -153,36 +140,51 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "转账金额";
             // 
-            // qrImage
+            // btnSetBankInfo
             // 
-            this.qrImage.Location = new System.Drawing.Point(381, 3);
-            this.qrImage.Name = "qrImage";
-            this.qrImage.Size = new System.Drawing.Size(280, 280);
-            this.qrImage.TabIndex = 9;
-            this.qrImage.TabStop = false;
+            this.btnSetBankInfo.BackColor = System.Drawing.Color.White;
+            this.btnSetBankInfo.CheckButton = false;
+            this.btnSetBankInfo.Checked = false;
+            this.btnSetBankInfo.IsPriceOn = false;
+            this.btnSetBankInfo.Location = new System.Drawing.Point(207, 4);
+            this.btnSetBankInfo.Name = "btnSetBankInfo";
+            this.btnSetBankInfo.OrderEntryButton = false;
+            this.btnSetBankInfo.PriceStr = "";
+            this.btnSetBankInfo.Size = new System.Drawing.Size(147, 23);
+            this.btnSetBankInfo.TabIndex = 8;
+            this.btnSetBankInfo.Text = "设定签约银行";
+            this.btnSetBankInfo.UseVisualStyleBackColor = false;
             // 
-            // label5
+            // btnWithdraw
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(205, 50);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 12);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "入金请用支付宝扫二维码转账";
+            this.btnWithdraw.BackColor = System.Drawing.Color.White;
+            this.btnWithdraw.CheckButton = false;
+            this.btnWithdraw.Checked = false;
+            this.btnWithdraw.IsPriceOn = false;
+            this.btnWithdraw.Location = new System.Drawing.Point(207, 46);
+            this.btnWithdraw.Name = "btnWithdraw";
+            this.btnWithdraw.OrderEntryButton = false;
+            this.btnWithdraw.PriceStr = "";
+            this.btnWithdraw.Size = new System.Drawing.Size(147, 56);
+            this.btnWithdraw.TabIndex = 3;
+            this.btnWithdraw.Text = "出金(账户资金转银行)";
+            this.btnWithdraw.UseVisualStyleBackColor = false;
             // 
             // PageBankAliPay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.qrDescription);
             this.Controls.Add(this.panel1);
             this.Name = "PageBankAliPay";
             this.Size = new System.Drawing.Size(872, 319);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.amount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qrImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.amount)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -198,6 +200,6 @@
         private System.Windows.Forms.Label account;
         private FButton btnSetBankInfo;
         private System.Windows.Forms.PictureBox qrImage;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label qrDescription;
     }
 }

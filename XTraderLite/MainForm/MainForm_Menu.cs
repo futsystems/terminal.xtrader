@@ -47,11 +47,17 @@ namespace XTraderLite
             menuAbout.Click += new EventHandler(menuAbout_Click);
             menuShortCutKey.Click += new EventHandler(menuShortCutKey_Click);
 
-
+            menuWatchMgr.Click += new EventHandler(menuWatchMgr_Click);
             if (!Global.ShowMDIP)
             {
                 menuDataFarmSiteList.Visible = false;
             }
+        }
+
+        void menuWatchMgr_Click(object sender, EventArgs e)
+        {
+            var fm = new fmWatchMgr(watchList);
+            fm.ShowDialog();
         }
 
         //打开网页 在线出入金

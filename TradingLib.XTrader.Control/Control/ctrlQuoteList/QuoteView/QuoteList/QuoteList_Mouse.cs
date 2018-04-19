@@ -80,29 +80,50 @@ namespace TradingLib.XTrader.Control
             {
                 this.Focus();
 
-                if (e.Button == MouseButtons.Left)
+                //if (e.Button == MouseButtons.Left)
+                //{
+                if (e.Y > 0 && e.Y < this.HeaderHeight)//在标题栏进行鼠标位置判定
                 {
-                    if (e.Y > 0 && e.Y < this.HeaderHeight)//在标题栏进行鼠标位置判定
+                    if (e.Button == MouseButtons.Left)
                     {
                         int currentColumn = MouseIInYLineIdentity(e);
-                        if (currentColumn !=-1)
+                        if (currentColumn != -1)
                         {
                             logger.Info("can chagne width column:" + currentColumn.ToString());
                             _cursorType = CursorType.CHANGEWIDTH;
                             CurrentMoveYLIneID = currentColumn;
                         }
                     }
-                    else //在非标题区域 则选择某行
-                    {
-                        int rowId = Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
-                        SelectRow(rowId);
-                    }
                 }
+                else //在非标题区域 则选择某行
+                {
+                    int rowId = Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
+
+                    if (rowId < 0)return;//如果选择的行小于0 则返回最后一行
+                    if (rowId > (_count - 1)) return;//如果选择的行 超过当总行数,则返回到第一行
+
+                    SelectRow(rowId);
+                }
+                //}
+                /*
                 if (e.Button == MouseButtons.Right)
                 {
-                    if (_cmenu != null)
-                        _cmenu.Show(new Point(MousePosition.X, MousePosition.Y));
-                }
+                    if (e.Y > 0 && e.Y < this.HeaderHeight)//在标题栏进行鼠标位置判定
+                    {
+
+                    }
+                    else
+                    {
+                        int rowId = Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
+                        if (rowId < 0) return;//如果选择的行小于0 则返回最后一行
+                        if (rowId > (_count - 1)) return;//如果选择的行 超过当总行数,则返回到第一行
+
+                        SelectRow(rowId);
+
+                        if (_cmenu != null)
+                            _cmenu.Show(new Point(MousePosition.X, MousePosition.Y));
+                    }
+                }**/
             }
             catch (Exception ex)
             {
@@ -139,6 +160,16 @@ namespace TradingLib.XTrader.Control
             return -1;
         }
 
+        private int MouseInRow(MouseEventArgs e)
+        {
+            if (e.Y > 0 && e.Y > this.HeaderHeight)
+            {
+                int rowId = Convert.ToInt16((e.Y - DefaultQuoteStyle.HeaderHeight) / DefaultQuoteStyle.RowHeight) + _beginIdx;
+                return rowId;
+            }
+            return -1;
+        }
+
         /// <summary>
         /// 根据X位置获得当前列
         /// </summary>
@@ -156,6 +187,7 @@ namespace TradingLib.XTrader.Control
             }
             return null;
         }
+
         /// <summary>
         /// 通过拖动改变列宽时显示的虚线
         /// </summary>

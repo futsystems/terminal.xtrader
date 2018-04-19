@@ -27,7 +27,9 @@ namespace TradingLib.XTrader.Future
             if (File.Exists("Config/qr.png"))
             {
                 qrImage.Image = Image.FromFile("Config/qr.png");
+                qrImage.SizeMode = PictureBoxSizeMode.StretchImage;
             }
+            qrDescription.Text = Constants.QRDescription;
         }
 
 

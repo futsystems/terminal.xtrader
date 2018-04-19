@@ -8,11 +8,11 @@ namespace TradingLib.XTrader.Control
 {
     public class BlockButton
     {
-        public BlockButton(string title, Predicate<MDSymbol> filter,EnumQuoteListType quoteType)
+        public BlockButton(string title, Predicate<MDSymbol> filter,EnumQuoteListType quoteType,Func<IEnumerable<MDSymbol>> querySymbol)
         {
             this.Title = title;
             this.SymbolFilter = filter;
-
+            this.QuerySymbols = querySymbol;
             this.StartX = 0;
             this.EndX = 0;
             this.Index = 0;
@@ -22,6 +22,8 @@ namespace TradingLib.XTrader.Control
         }
 
         public Predicate<MDSymbol> SymbolFilter { get; set; }
+
+        public Func<IEnumerable<MDSymbol>> QuerySymbols { get; set; }
         /// <summary>
         /// 按钮标题
         /// </summary>

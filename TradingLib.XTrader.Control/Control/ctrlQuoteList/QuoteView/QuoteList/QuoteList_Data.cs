@@ -127,6 +127,7 @@ namespace TradingLib.XTrader.Control
             _endIdx = 0;
             _selectedRow = -1;
 
+            IsWatchMode = false;
         }
         #endregion
     }

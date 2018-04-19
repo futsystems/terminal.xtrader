@@ -217,11 +217,11 @@ namespace TradingLib.XTrader.Control
             this.Width = totalWidth+200;
         }
 
-        
 
-        public void AddBlock(string title,Predicate<MDSymbol> filter,EnumQuoteListType type)
+
+        public void AddBlock(string title, Predicate<MDSymbol> filter, EnumQuoteListType type, Func<IEnumerable<MDSymbol>> querySymbol)
         {
-            BlockButton btn = new BlockButton(title,filter,type);
+            BlockButton btn = new BlockButton(title, filter, type, querySymbol);
             _btnList.Add(btn);
         }
 
