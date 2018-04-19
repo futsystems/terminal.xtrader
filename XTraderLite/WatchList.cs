@@ -79,6 +79,7 @@ namespace XTraderLite
             {
                 symList.RemoveAt(idx);
                 symList.Insert(idx - 1, symbol);
+                this.Save();
                 WatchListChanged();
                 return idx - 1;
             }
@@ -92,6 +93,7 @@ namespace XTraderLite
             {
                 symList.RemoveAt(idx);
                 symList.Insert(idx + 1, symbol);
+                this.Save();
                 WatchListChanged();
                 return idx + 1;
             }
