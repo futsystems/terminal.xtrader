@@ -137,10 +137,12 @@ namespace XTraderLite
             if (!string.IsNullOrEmpty(Global.DefaultMarketUser))
             {
                 username.Text = Global.DefaultMarketUser;
+                password.Text = "123456";
                 username.Enabled = false;
                 password.Enabled = false;
 
                 username2.Text = Global.DefaultMarketUser;
+                password2.Text = "123456";
                 username2.Enabled = false;
                 password2.Enabled = false;
                 cbSaveAccount.Enabled = false;
@@ -215,7 +217,7 @@ namespace XTraderLite
 
             //username2.Text = Properties.Settings.Default.Account;
             //password2.Text = Properties.Settings.Default.Pass;
-            password2.Text = "12345678";
+            //password2.Text = "12345678";
 
 
         }

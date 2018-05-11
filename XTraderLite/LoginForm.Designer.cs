@@ -115,7 +115,6 @@
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(155, 21);
             this.username.TabIndex = 2;
-            this.username.Text = "88888888";
             // 
             // label3
             // 
@@ -369,7 +368,6 @@
             this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(74, 21);
             this.password.TabIndex = 3;
-            this.password.Text = "888888";
             // 
             // LoginForm
             // 

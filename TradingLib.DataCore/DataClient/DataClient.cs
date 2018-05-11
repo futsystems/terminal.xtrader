@@ -38,7 +38,7 @@ namespace TradingLib.DataCore
         /// <summary>
         /// 返回当前连接服务器地址
         /// </summary>
-        public IPEndPoint CurrentServer 
+        public string CurrentServer 
         {
 
             get
@@ -290,7 +290,7 @@ namespace TradingLib.DataCore
 
         void OnConnectEvent()
         {
-            logger.Info(string.Format("Hist Socket Connected Server:{0} Port:{1}", mktClient.CurrentServer.Address, mktClient.CurrentServer.Port));
+            logger.Info(string.Format("Hist Socket Connected Server:{0} Port:{1}", mktClient.CurrentServer, mktClient.Port));
             if (_callback != null) _callback.OnConnected();
             DataCoreService.EventHub.FireConnectedEvent();
             

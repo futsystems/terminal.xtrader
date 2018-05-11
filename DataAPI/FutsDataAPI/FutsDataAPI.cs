@@ -372,7 +372,7 @@ namespace DataAPI.Futs
         /// <summary>
         /// 返回当前连接服务器地址
         /// </summary>
-        public IPEndPoint CurrentServer 
+        public string CurrentServer 
         {
             get{
                 if (DataCoreService.DataClient != null)

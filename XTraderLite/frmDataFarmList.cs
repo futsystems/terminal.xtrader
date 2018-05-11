@@ -24,13 +24,14 @@ namespace XTraderLite
             {
                 if (MDService.DataAPI.CurrentServer != null)
                 {
-                    lbCurrentServer.Text = MDService.DataAPI.CurrentServer.Address.ToString();
-                    //ServerNode srv = (new ServerConfig("market.cfg")).GetServerNodes().Where(node => node.Address == address).FirstOrDefault();
-                    //if (srv != null)
-                    //{
-                    //    lbCurrentServer.Text = srv.Title;
-
-                    //}
+                    if (MDService.DataAPI.CurrentServer.EndsWith("tickcloud.net"))
+                    {
+                        lbCurrentServer.Text = MDService.DataAPI.CurrentServer.Split('.')[0];
+                    }
+                    else
+                    {
+                        lbCurrentServer.Text = MDService.DataAPI.CurrentServer;
+                    }
                 }
             }
             else

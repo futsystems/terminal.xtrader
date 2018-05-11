@@ -118,7 +118,7 @@ namespace TradingLib.MarketData
         /// <summary>
         /// 返回当前连接服务器地址
         /// </summary>
-        IPEndPoint CurrentServer { get; }
+        string CurrentServer { get; }
 
         /// <summary>
         /// 登入服务端

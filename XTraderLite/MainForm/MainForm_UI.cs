@@ -113,8 +113,7 @@ namespace XTraderLite
             {
                 if (MDService.DataAPI.CurrentServer != null)
                 {
-                    //MessageBox.Show(MDService.DataAPI.CurrentServer.Address.ToString());
-                    string address = MDService.DataAPI.CurrentServer.Address.ToString();
+                    string address = MDService.DataAPI.CurrentServer;
                     ServerNode srv = srvList.Where(node => node.Address == address).FirstOrDefault();
                     if (srv != null)
                     {
