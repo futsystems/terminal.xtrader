@@ -63,4 +63,36 @@ namespace TradingLib.MarketData
         public int MarketPort { get; set; }
     }
 
+
+    [DataContract]
+    public class HistServerConfig
+    {
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
+
+        [DataMember(Name = "port")]
+        public int Port { get; set; }
+    }
+
+
+    [DataContract]
+    public class DeployConfig
+    {
+        /// <summary>
+        /// 行情服务器地址列表
+        /// </summary>
+        [DataMember(Name = "deploy")]
+        public string DeployID { get; set; }
+
+        [DataMember(Name = "is_exist")]
+        public bool IsExist { get; set; }
+
+        [DataMember(Name = "is_avabile")]
+        public bool IsAvabile { get; set; }
+
+        [DataMember(Name = "hist_server")]
+        public HistServerConfig HistServerConfig { get; set; }
+
+    }
+
 }

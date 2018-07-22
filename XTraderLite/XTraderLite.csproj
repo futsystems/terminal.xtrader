@@ -332,6 +332,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
+    <None Include="Resources\open.png" />
     <None Include="Resources\style2.txt" />
     <None Include="Resources\xgj\toobar\xgj_freq_1min.png" />
     <None Include="Resources\xgj\toobar\xgj_freq_day.png" />

@@ -62,6 +62,7 @@ namespace TradingLib.XTrader.Future
         {
             CoreService.EventCore.RegisterCallback("APIService", "DepositFZ", OnDeposit);
             CoreService.EventCore.RegisterCallback("APIService", "Withdraw", OnWithdraw);
+            btnSetBankInfo.Visible = Constants.EnableConfigBank;
         }
 
         public void OnDisposed()

@@ -33,6 +33,8 @@ namespace TradingLib.XTrader.Future
 
         public static string CashURL2 = "";
 
+        public static bool  EnableConfigBank = true;
+
         public static string QRDescription = "";
 
     }

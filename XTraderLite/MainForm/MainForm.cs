@@ -238,6 +238,11 @@ namespace XTraderLite
             //    menuPay.Visible = true;
             //}
 
+            if (Global.NewsBtn == 1)
+            {
+                btnBBS.Image = Properties.Resources.open;
+            }
+
             #region 加载行情服务站点
             srvList =  (new ServerConfig("market.cfg")).GetServerNodes();
             #endregion

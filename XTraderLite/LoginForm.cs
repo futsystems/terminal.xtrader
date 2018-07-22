@@ -39,6 +39,8 @@ namespace XTraderLite
             Global.BrandCompany = _cfgfile["BrandCompany"].AsString();
             Global.RiskPrompt = _cfgfile["RiskPrompt"].AsBool();
             Global.NewsUrl = _cfgfile["NewsUrl"].AsString();
+            Global.NewsBtn = _cfgfile["NewsBtn"].AsInt();
+
             Global.DataFarmGroup = _cfgfile["DataFarmGroup"].AsInt();
             Global.DefaultMarketUser = _cfgfile["DefaultMarketUser"].AsString();
             Global.DefaultBlock = _cfgfile["DefaultBlock"].AsString();
@@ -46,6 +48,7 @@ namespace XTraderLite
             Global.XGJCTRL_R = _cfgfile["LOGINXGJCTRLCOLOR_R"].AsInt();
             Global.XGJCTRL_B = _cfgfile["LOGINXGJCTRLCOLOR_B"].AsInt();
             Global.XGJCTRL_G = _cfgfile["LOGINXGJCTRLCOLOR_G"].AsInt();
+
 
 
 
@@ -73,6 +76,7 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.CashURL1 = _cfgfile["CashURL1"].AsString();
             TradingLib.XTrader.Future.Constants.CashURL2 = _cfgfile["CashURL2"].AsString();
             TradingLib.XTrader.Future.Constants.QRDescription = _cfgfile["QRDescription"].AsString();
+            TradingLib.XTrader.Future.Constants.EnableConfigBank = _cfgfile["EnableConfigBank"].AsBool();
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
 
@@ -103,10 +107,8 @@ namespace XTraderLite
             }
             else
             {
-                Global.AppServer = "120.26.45.94";
+                Global.AppServer = "config.cloud-deploy.com";
             }
-            
-            
             
 
             //设置样式
@@ -131,7 +133,6 @@ namespace XTraderLite
             }
 
             this.Text = string.Format("登入{0}", Global.TaskBarTitle);
-
 
             //如果设定了默认用户名 则不允许修改
             if (!string.IsNullOrEmpty(Global.DefaultMarketUser))
@@ -408,47 +409,15 @@ namespace XTraderLite
                     return;
                 }
 
-                //ServerNode node = cbServer.SelectedItem as ServerNode;
-                //if (node != null)
-                //{
-                //    MDService.DataAPI.Connect(new string[] { node.Address }, node.Port);
-                //}
-
-                List<string> serverList = new List<string>();
-                int port = 0;
-                //配置文件指定行情服务器地址无效 从配置信息加载行情服务器地址
                 if (string.IsNullOrEmpty(_cfgfile["MDServer"].AsString()) || string.IsNullOrEmpty(_cfgfile["MDPort"].AsString()))
                 {
-                    port = 0;
-                    IEnumerable<string> tmp = null;
-                    if (Global.DataFarmGroup > 0)
-                    {
-                        port = Global.GroupConfig.MarketPort;
-                        tmp = ReSortMarketServer();
-                    }
-                    else
-                    {
-                        port = Global.AppConfig.MarketPort;
-                        tmp = Global.AppConfig.MarketAddress.Split(',');
-                    }
-
-                    foreach (var address in tmp)
-                    {
-                        if (string.IsNullOrEmpty(address)) continue;
-                        serverList.Add(address);
-                    }
+                    MDService.DataAPI.Connect(new string[] { Global.Config.HistServerConfig.Address }, Global.Config.HistServerConfig.Port);
                 }
                 else
                 {
-                    port = _cfgfile["MDPort"].AsInt();
-                    foreach (var address in _cfgfile["MDServer"].AsString().Split(','))
-                    {
-                        if (string.IsNullOrEmpty(address)) continue;
-                        serverList.Add(address);
-                    }
-                }
 
-                MDService.DataAPI.Connect(serverList.ToArray(), port);
+                    MDService.DataAPI.Connect(new string[] { _cfgfile["MDServer"].AsString() }, _cfgfile["MDPort"].AsInt());
+                }
             }
             catch (Exception ex)
             {
@@ -667,90 +636,83 @@ namespace XTraderLite
             this.btnLogin.Enabled = false;
             this.btnLogin2.Enabled = false;
 
-           
-
-            //新版行情地址配置系统
-            if (Global.DataFarmGroup > 0)
-            {
-                InvokeQryDataFarmConfig();
-            }
-            else
-            {
-                //老版行情地址配置系统
-                if (NeedQryAppConfig())
-                {
-                    InvokeQryAppConfig();
-                }
-                else
-                {
-                    logger.Info("登入-------------------");
-                    _msg.Visible = true;
-                    SavePropertiesConfig();
-                    System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
-                }
-            }
+           //第二代配置服务器
+           InvokeQryDeployConfig();
+            
         }
 
 
         
 
-        bool NeedQryAppConfig()
-        {
-            int lastUpdateTime = Properties.Settings.Default.UpdateTime;
-            int now = ToTLDate(DateTime.Now);
-            if (now > lastUpdateTime)
-            {
-                return true;
-            }
-
-            AppConfig info = new AppConfig();
-            info.Unit = Properties.Settings.Default.Unit;
-            info.MarketAddress = Properties.Settings.Default.MarketAddress;
-            info.MarketPort = Properties.Settings.Default.MarketPort;
-
-            if (string.IsNullOrEmpty(info.MarketAddress)) return true;
-
-
-            Global.AppConfig = info;
-            return false;
-        }
+       
 
         static int ToTLDate(DateTime dt)
         {
             return dt.Year * 10000 + dt.Month * 100 + dt.Day;
         }
 
-        public void InvokeQryAppConfig()
-        {
-            Func<AppConfig> del = new Func<AppConfig>(QryAppConfig);
-            del.BeginInvoke(QryAppConfigCallBack, null);
-        }
-        void QryAppConfigCallBack(IAsyncResult result)
-        {
-            Func<AppConfig> proc = ((System.Runtime.Remoting.Messaging.AsyncResult)result).AsyncDelegate as Func<AppConfig>;
-            AppConfig info = proc.EndInvoke(result);
 
-            if (info == null)
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
+        }
+
+
+        #region Ver2 行情服务器分配
+
+        void InvokeQryDeployConfig()
+        {
+            Action del = new Action(() => {
+                string url = string.Format("http://{0}/config/desktop/{1}/", Global.AppServer, Global.DeployID);
+                Global.Config = NetHelper.GetHttpJsonResponse<DeployConfig>(url);
+            });
+            del.BeginInvoke(QryDeployConfigCallback, null);
+        }
+
+        void QryDeployConfigCallback(IAsyncResult result)
+        {
+            Action proc = ((System.Runtime.Remoting.Messaging.AsyncResult)result).AsyncDelegate as Action;
+            proc.EndInvoke(result);
+            //查询配置信息结束
+
+            //组设定与部署设定均不存在
+            if (Global.Config == null)
             {
                 ShowStatus("获取配置信息异常,请检查网络并重启交易端");
                 return;
             }
-            if (string.IsNullOrEmpty(info.MarketAddress))
+
+            if (Global.Config.IsExist == false)
             {
-                ShowStatus("无可用行情服务器列表,请联系客服");
+                ShowStatus("部署环境不存在");
                 return;
             }
 
-            Global.AppConfig = info;
-            ShowStatus("配置信息加载完毕");
-            Properties.Settings.Default.UpdateTime = ToTLDate(DateTime.Now);
-            Properties.Settings.Default.MarketAddress = info.MarketAddress;
-            Properties.Settings.Default.MarketPort = info.MarketPort;
-            Properties.Settings.Default.Unit = info.Unit;
-            Properties.Settings.Default.Save();
+            if (Global.Config.IsAvabile == false)
+            {
+                ShowStatus("部署环境不可用");
+                return;
+            }
 
-            ////允许登入
-            //this.EnableLogin();
+            bool set_server = (!string.IsNullOrEmpty(_cfgfile["MDServer"].AsString()) && !string.IsNullOrEmpty(_cfgfile["MDPort"].AsString()));
+
+            if (Global.Config.HistServerConfig == null && (!set_server))
+            {
+                ShowStatus("无可用行情服务器");
+                return;
+            }
+
+
+            ShowStatus("配置信息加载完毕");
+
+            if (Global.Config.HistServerConfig != null)
+            {
+                Properties.Settings.Default.UpdateTime = ToTLDate(DateTime.Now);
+                Properties.Settings.Default.MarketAddress = Global.Config.HistServerConfig.Address;
+                Properties.Settings.Default.MarketPort = Global.Config.HistServerConfig.Port;
+                Properties.Settings.Default.Save();
+            }
+
             logger.Info("登入-------------------");
             _msg.Visible = true;
             SavePropertiesConfig();
@@ -758,179 +720,8 @@ namespace XTraderLite
             
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
-        }
-
-        #region 新版本行情服务器分配
-
-        /// <summary>
-        /// 查询行情服务器组设置
-        /// </summary>
-        /// <returns></returns>
-        DataFarmConfig QryDataFarmGroupConfig()
-        {
-            return NetHelper.GetHttpJsonResponse<DataFarmConfig>(string.Format("http://{0}/pc/datafarm-{1}.json", Global.AppServer, Global.DataFarmGroup));
-        }
-
-        /// <summary>
-        /// 查询行情服务器部署设置
-        /// </summary>
-        /// <returns></returns>
-        DataFarmConfig QryDataFarmDeployConfig()
-        {
-            return NetHelper.GetHttpJsonResponse<DataFarmConfig>(string.Format("http://{0}/pc/datafarm-{1}.json", Global.AppServer, Global.DeployID));
-        }
-
-        void QryDataFarmConfig()
-        {
-            Global.GroupConfig = QryDataFarmGroupConfig();
-            Global.DeoplyConfig = QryDataFarmDeployConfig();
-        }
-
-        void QryDataFarmConfigCallback(IAsyncResult result)
-        {
-            Action proc = ((System.Runtime.Remoting.Messaging.AsyncResult)result).AsyncDelegate as Action;
-            proc.EndInvoke(result);
-            //查询配置信息结束
-
-            //组设定与部署设定均不存在
-            if (Global.GroupConfig == null)
-            {
-                ShowStatus("获取配置信息异常,请检查网络并重启交易端");
-                return;
-            }
-            ShowStatus("配置信息加载完毕");
-
-            if (Global.DeoplyConfig != null)
-            {
-                Properties.Settings.Default.UpdateTime = ToTLDate(DateTime.Now);
-                Properties.Settings.Default.DeployMarketServer = Global.DeoplyConfig.MarketServer;
-                Properties.Settings.Default.MarketPort = Global.DeoplyConfig.MarketPort;
-                Properties.Settings.Default.Save();
-            }
-            if (Global.GroupConfig != null)
-            {
-                Properties.Settings.Default.UpdateTime = ToTLDate(DateTime.Now);
-                Properties.Settings.Default.GroupMarketServer = Global.GroupConfig.MarketServer;
-                Properties.Settings.Default.MarketPort = Global.GroupConfig.MarketPort;
-                Properties.Settings.Default.Save();
-            }
-
-            logger.Info("登入-------------------");
-            _msg.Visible = true;
-            SavePropertiesConfig();
-            System.Threading.ThreadPool.QueueUserWorkItem(new WaitCallback(o => Connect()));
-        }
-
-
-        void InvokeQryDataFarmConfig()
-        {
-            Action del = new Action(QryDataFarmConfig);
-            del.BeginInvoke(QryDataFarmConfigCallback, null);
-        }
-
-        /// <summary>
-        /// 排序行情服务器地址
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<string> ReSortMarketServer()
-        {
-            List<string> marketlist = new List<string>();
-
-            //优先使用部署配置行情服务器
-            if (Global.DeoplyConfig != null && !string.IsNullOrEmpty(Global.DeoplyConfig.MarketServer))
-            {
-                string[] rec = Global.DeoplyConfig.MarketServer.Split(',');
-                var tmp = rec.Where(add => !string.IsNullOrEmpty(add)).OrderBy(add => Guid.NewGuid());
-                marketlist.AddRange(tmp);
-            }
-
-            else
-            //if (Global.GroupConfig != null && !string.IsNullOrEmpty(Global.GroupConfig.MarketServer))
-            {
-                string[] rec = Global.GroupConfig.MarketServer.Split(',');
-                var tmp = rec.Where(add => !string.IsNullOrEmpty(add)).OrderBy(add => Guid.NewGuid());
-                marketlist.AddRange(tmp);
-            }
-            return marketlist;
-        }
-
-
-
         #endregion
 
 
-        AppConfig QryAppConfig()
-        {
-            ShowStatus("请求配置信息");
-            System.Xml.XmlDocument xml = new System.Xml.XmlDocument();
-            string urlStr = string.Format("http://{0}/pc/{1}/app.xml",Global.AppServer,Global.DeployID);
-            try
-            {
-                System.Net.WebRequest wReq = System.Net.WebRequest.Create(urlStr);
-                System.Net.WebResponse wResp = wReq.GetResponse();
-
-                AppConfig config = new AppConfig();
-
-                using (System.IO.Stream respStream = wResp.GetResponseStream())
-                {
-                    using (System.IO.StreamReader receiveStream = new System.IO.StreamReader(respStream))
-                    {
-                        string receiveString = receiveStream.ReadToEnd();
-                        xml.LoadXml(receiveString);
-
-                        System.Xml.XmlNode infoRoot = xml.SelectSingleNode("info");
-                        System.Xml.XmlNodeList infoNodes = infoRoot.ChildNodes;
-
-                        foreach (var item in infoNodes)
-                        {
-
-                            System.Xml.XmlElement node = (System.Xml.XmlElement)item;
-                            string name = node.Name.ToUpper();
-                            switch (name)
-                            {
-                                case "UNIT":
-                                    {
-                                        config.Unit = node.InnerText;
-                                        break;
-                                    }
-                                case "MARKETADDRESS":
-                                    {
-                                        config.MarketAddress = node.InnerText;
-                                        break;
-                                    }
-                                case "MARKETPORT":
-                                    {
-                                        config.MarketPort = int.Parse(node.InnerText);
-                                        break;
-                                    }
-                                    /*
-                                case "BROKERADDRESS":
-                                    {
-                                        config.BrokerAddress = node.InnerText;
-                                        break;
-                                    }
-                                case "BROKERPORT":
-                                    {
-                                        config.BrokerPort = int.Parse(node.InnerText);
-                                        break;
-                                    }**/
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                }
-                return config;
-            }
-            catch(Exception ex)
-            {
-                //ShowStatus("获取配置信息异常,请检查网络并重启交易端");
-                logger.Error("get app config error:" + ex.ToString());
-                return null;
-            }
-        }
     }
 }

@@ -60,6 +60,8 @@ namespace XTraderLite
         /// </summary>
         public static string NewsUrl = "";
 
+        public static int NewsBtn = 0;
+
         public static bool RiskPrompt = false;
 
         /// <summary>
@@ -86,17 +88,24 @@ namespace XTraderLite
         public static int XGJCTRL_B = 0;
         public static int XGJCTRL_G = 0;
 
+        /// <summary>
+        /// 配置服务器版本
+        /// </summary>
+        //public static string AppServerVer { get; set; }
 
-        public static AppConfig AppConfig { get; set; }
+        //public static AppConfig AppConfig { get; set; }
 
         /// <summary>
         /// 组设定
         /// </summary>
-        public static DataFarmConfig GroupConfig { get; set; }
+        //public static DataFarmConfig GroupConfig { get; set; }
 
         /// <summary>
         /// 部署设定
         /// </summary>
-        public static DataFarmConfig DeoplyConfig { get; set; }
+        //public static DataFarmConfig DeoplyConfig { get; set; }
+
+
+        public static DeployConfig Config { get; set; }
     }
 }

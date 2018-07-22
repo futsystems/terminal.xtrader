@@ -65,7 +65,8 @@ namespace XTraderLite
         {
             if (!string.IsNullOrEmpty(Global.NewsUrl))
             {
-                System.Diagnostics.Process.Start("iexplore.exe", Global.NewsUrl);
+                System.Diagnostics.Process.Start(Global.NewsUrl);  
+                //System.Diagnostics.Process.Start("iexplore.exe", Global.NewsUrl);
             }
         }
 
