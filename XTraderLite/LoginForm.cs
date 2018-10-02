@@ -80,6 +80,7 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
 
+
             //Global.PayUrl = _cfgfile["PayUrl"].AsString();
             slogen.Text = _cfgfile["Slogen"].AsString();
 
@@ -107,9 +108,10 @@ namespace XTraderLite
             }
             else
             {
-                Global.AppServer = "config.cloud-deploy.com";
+                Global.AppServer = "127.0.0.1";
             }
-            
+            //设定交易服务器地址为APPServer地址
+            TradingLib.XTrader.Future.Constants.APPServer = Global.AppServer;
 
             //设置样式
             if (!Global.ClassicLogin)
