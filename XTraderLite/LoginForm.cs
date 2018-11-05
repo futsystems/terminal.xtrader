@@ -79,9 +79,12 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.EnableConfigBank = _cfgfile["EnableConfigBank"].AsBool();
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
+<<<<<<< HEAD
 
 
             //Global.PayUrl = _cfgfile["PayUrl"].AsString();
+=======
+>>>>>>> 101a32c6dfa61fdf341baa86a67692df365a7ba5
             slogen.Text = _cfgfile["Slogen"].AsString();
 
             
@@ -91,27 +94,35 @@ namespace XTraderLite
                 Global.DeployID = _cfgfile["UNIT"].AsString();
             }
             else
-            { //如果没有配置UNIT信息 则从update_config文件中获取UNIT
-                XTraderLite.Compat.Utils.LoadINI();
-                Global.DeployID = XTraderLite.Compat.Utils.Unit;
-            }
-
-            if (!string.IsNullOrEmpty(_cfgfile["UpdateServer"].AsString()))
             {
-                XTraderLite.Compat.Utils.LoadINI();
-                XTraderLite.Compat.Utils.IPAddress = _cfgfile["UpdateServer"].AsString();
+                MessageBox.Show("配置文件缺少部署编号");
             }
 
             if (!string.IsNullOrEmpty(_cfgfile["APPServer"].AsString()))
             { 
+
                 Global.AppServer =  _cfgfile["APPServer"].AsString();
             }
             else
             {
+<<<<<<< HEAD
                 Global.AppServer = "127.0.0.1";
             }
             //设定交易服务器地址为APPServer地址
             TradingLib.XTrader.Future.Constants.APPServer = Global.AppServer;
+=======
+                MessageBox.Show("配置文件缺少APPServer字段");
+            }
+
+            if (!string.IsNullOrEmpty(_cfgfile["APPPort"].AsString()))
+            {
+
+                Global.AppPort = _cfgfile["APPPort"].AsInt();
+            }
+
+            TradingLib.XTrader.Future.Constants.AppServer = Global.AppServer;
+            
+>>>>>>> 101a32c6dfa61fdf341baa86a67692df365a7ba5
 
             //设置样式
             if (!Global.ClassicLogin)
@@ -129,7 +140,7 @@ namespace XTraderLite
                 else
                 {
                     //设置登入界面图片
-                    topImage.Image = Properties.Resources.login;//Image.FromFile("Config/login.png");
+                    topImage.Image = Properties.Resources.login;
                 }
                 ClassicLogin();
             }
@@ -665,7 +676,7 @@ namespace XTraderLite
         void InvokeQryDeployConfig()
         {
             Action del = new Action(() => {
-                string url = string.Format("http://{0}/config/desktop/{1}/", Global.AppServer, Global.DeployID);
+                string url = string.Format("http://{0}:{1}/config/desktop/{2}/", Global.AppServer,Global.AppPort, Global.DeployID);
                 Global.Config = NetHelper.GetHttpJsonResponse<DeployConfig>(url);
             });
             del.BeginInvoke(QryDeployConfigCallback, null);

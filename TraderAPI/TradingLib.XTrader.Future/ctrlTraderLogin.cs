@@ -264,9 +264,14 @@ namespace TradingLib.XTrader.Future
             _connectstart = true;
             _connecttime = DateTime.Now;
             //
+<<<<<<< HEAD
             logger.Info("client try to connec to:" + node.Address + " port:" + node.Port.ToString());
 
             CoreService.InitClient(Constants.APPServer, 41055);
+=======
+            //logger.Info("client try to connec to:" + node.Address + " port:" + node.Port.ToString());
+            CoreService.InitClient(TradingLib.XTrader.Future.Constants.AppServer, node.Port);
+>>>>>>> 101a32c6dfa61fdf341baa86a67692df365a7ba5
             CoreService.TLClient.Start();
         }
 

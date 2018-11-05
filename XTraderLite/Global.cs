@@ -56,6 +56,11 @@ namespace XTraderLite
         public static string AppServer = string.Empty;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static int AppPort = 80;
+
+        /// <summary>
         /// 在线出入金地址
         /// </summary>
         public static string NewsUrl = "";

@@ -73,19 +73,19 @@
             this.tabPage1.Controls.Add(this.btnQryAccountFinace);
             this.tabPage1.Controls.Add(this.p1TradingDay);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 21);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(943, 290);
+            this.tabPage1.Size = new System.Drawing.Size(943, 291);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "资金状况";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.rtAccountFinanceReport);
             this.panel1.Location = new System.Drawing.Point(165, 10);
@@ -97,7 +97,6 @@
             // 
             this.rtAccountFinanceReport.AutoScroll = true;
             this.rtAccountFinanceReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtAccountFinanceReport.Enabled = false;
             this.rtAccountFinanceReport.IndentStyle = ICSharpCode.TextEditor.Document.IndentStyle.None;
             this.rtAccountFinanceReport.IsReadOnly = false;
             this.rtAccountFinanceReport.Location = new System.Drawing.Point(0, 0);
@@ -146,19 +145,19 @@
             this.tabPage2.Controls.Add(this.p2TradingDay);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.btnQrySettlement);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 21);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(943, 290);
+            this.tabPage2.Size = new System.Drawing.Size(943, 291);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "结算单";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.rtSettlement);
             this.panel2.Location = new System.Drawing.Point(165, 10);
@@ -170,7 +169,6 @@
             // 
             this.rtSettlement.AutoScroll = true;
             this.rtSettlement.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtSettlement.Enabled = false;
             this.rtSettlement.IndentStyle = ICSharpCode.TextEditor.Document.IndentStyle.None;
             this.rtSettlement.IsReadOnly = false;
             this.rtSettlement.Location = new System.Drawing.Point(0, 0);
@@ -216,18 +214,18 @@
             // 
             this.tabPage3.Controls.Add(this.panel3);
             this.tabPage3.Controls.Add(this.btnQryPositionDetail);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 21);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(943, 290);
+            this.tabPage3.Size = new System.Drawing.Size(943, 291);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "持仓明细";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.rtPositionDetails);
             this.panel3.Location = new System.Drawing.Point(165, 10);
@@ -239,7 +237,6 @@
             // 
             this.rtPositionDetails.AutoScroll = true;
             this.rtPositionDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtPositionDetails.Enabled = false;
             this.rtPositionDetails.IndentStyle = ICSharpCode.TextEditor.Document.IndentStyle.None;
             this.rtPositionDetails.IsReadOnly = false;
             this.rtPositionDetails.Location = new System.Drawing.Point(0, 0);
