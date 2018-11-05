@@ -37,11 +37,8 @@ namespace TradingLib.XTrader.Future
 
         public static string QRDescription = "";
 
-<<<<<<< HEAD
-        public static string APPServer = "127.0.0.1";
-=======
         public static string AppServer = "127.0.0.1";
->>>>>>> 101a32c6dfa61fdf341baa86a67692df365a7ba5
+
 
     }
 }

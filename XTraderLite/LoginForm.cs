@@ -79,12 +79,6 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.EnableConfigBank = _cfgfile["EnableConfigBank"].AsBool();
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
-<<<<<<< HEAD
-
-
-            //Global.PayUrl = _cfgfile["PayUrl"].AsString();
-=======
->>>>>>> 101a32c6dfa61fdf341baa86a67692df365a7ba5
             slogen.Text = _cfgfile["Slogen"].AsString();
 
             
@@ -105,12 +99,6 @@ namespace XTraderLite
             }
             else
             {
-<<<<<<< HEAD
-                Global.AppServer = "127.0.0.1";
-            }
-            //设定交易服务器地址为APPServer地址
-            TradingLib.XTrader.Future.Constants.APPServer = Global.AppServer;
-=======
                 MessageBox.Show("配置文件缺少APPServer字段");
             }
 
@@ -122,7 +110,7 @@ namespace XTraderLite
 
             TradingLib.XTrader.Future.Constants.AppServer = Global.AppServer;
             
->>>>>>> 101a32c6dfa61fdf341baa86a67692df365a7ba5
+
 
             //设置样式
             if (!Global.ClassicLogin)
