@@ -37,8 +37,13 @@ namespace TradingLib.XTrader.Future
             CoreService.EventHub.OnRspXQrySettlementResponse += new Action<RspXQrySettleInfoResponse>(EventQry_OnRspXQrySettlementResponse);
             CoreService.EventHub.OnRspXQryPositionDetailResponse += new Action<RspXQryPositionDetailResponse>(EventQry_OnRspXQryPositionDetailResponse);
 
+            rtAccountFinanceReport.Document.ReadOnly = true;
+            rtPositionDetails.Document.ReadOnly = true;
+            rtSettlement.Document.ReadOnly = true;
+
             this.Load += new EventHandler(PageQry_Load);
         }
+        
 
         
 
