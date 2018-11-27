@@ -83,6 +83,13 @@ namespace TradingLib.DataFarmManager
         {
             ctrlQuoteList.Dock = DockStyle.Fill;
 
+            TradingLib.MarketData.ConfigFile config = TradingLib.MarketData.ConfigFile.GetConfigFile("moniter.cfg");
+
+            //var server = config["Server"].AsString();
+            //MessageBox.Show("server:" + server);
+
+            Global.Server = config["Server"].AsString();
+
         }
 
 

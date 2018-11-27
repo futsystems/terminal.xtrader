@@ -97,7 +97,7 @@ namespace TradingLib.DataFarmManager
         void btnConnect_Click(object sender, EventArgs e)
         {
             //DataCoreService.InitClient("127.0.0.1", 5060);
-            DataCoreService.InitClient(new string[] { "127.0.0.1" }, 55622);//47.96.37.65
+            DataCoreService.InitClient(new string[] { Global.Server }, 55622);//47.96.37.65
             //DataCoreService.InitClient(new string[] { "116.62.187.140" }, 55622);
             //DataCoreService.InitClient(new string[] { "139.224.194.129" }, 55622);//上海
             //DataCoreService.InitClient(new string[] { "112.124.126.212" }, 55622);

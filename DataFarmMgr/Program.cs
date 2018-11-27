@@ -7,6 +7,7 @@ namespace TradingLib.DataFarmManager
 {
     static class Program
     {
+        
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
