@@ -102,6 +102,11 @@ namespace TradingLib.XTrader.Future
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBankStd());
                         break;
                     }
+                case 10://入金跳转到网站处理
+                    {
+                        pagemap.Add(PageTypes.PAGE_BANK, new PageBankAPI());
+                        break;
+                    }
                 default:
                     {
                         pagemap.Add(PageTypes.PAGE_BANK, new PageBank());
