@@ -703,6 +703,9 @@ namespace XTraderLite
                 return;
             }
 
+            //本地调试行情服务器
+            //Global.Config.HistServerConfig.Address = "127.0.0.1";
+
 
             ShowStatus("配置信息加载完毕");
 
