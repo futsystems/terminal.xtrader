@@ -79,6 +79,10 @@ namespace XTraderLite
             TradingLib.XTrader.Future.Constants.EnableConfigBank = _cfgfile["EnableConfigBank"].AsBool();
             TradingLib.XTrader.Future.Constants.BranName = Global.BrandName;
 
+            TradingLib.XTrader.Future.Constants.CompanyTitle = _cfgfile["CompanyTitle"].AsString();
+            TradingLib.XTrader.Future.Constants.CompanyUrl = _cfgfile["CompanyUrl"].AsString();
+
+
             slogen.Text = _cfgfile["Slogen"].AsString();
 
             

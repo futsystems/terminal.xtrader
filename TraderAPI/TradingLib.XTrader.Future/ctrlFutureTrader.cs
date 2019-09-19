@@ -227,6 +227,11 @@ namespace TradingLib.XTrader.Future
             //ctrlListMenu1.AddMenu(new MenuItem("交易统计", Properties.Resources.tj, false, delegate() { ShowPage(PageTypes.PAGE_STATISTIC); }));
             ctrlListMenu1.AddMenu(new MenuItem("修改密码", Properties.Resources.pass, true, delegate() { ShowPage(PageTypes.PAGE_PASS); }));
 
+
+            if (!string.IsNullOrEmpty(Constants.CompanyTitle) && !string.IsNullOrEmpty(Constants.CompanyUrl))
+            {
+                ctrlListMenu1.AddMenu(new MenuItem(Constants.CompanyTitle, Properties.Resources.f9, true, delegate() { System.Diagnostics.Process.Start(Constants.CompanyUrl); }));
+            }
         }
 
         void WireEvent()

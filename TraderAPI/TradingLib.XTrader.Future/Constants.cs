@@ -39,6 +39,16 @@ namespace TradingLib.XTrader.Future
 
         public static string AppServer = "127.0.0.1";
 
+        /// <summary>
+        /// 公司网站标题
+        /// </summary>
+        public static string CompanyTitle = "";
+
+        /// <summary>
+        /// 公司网站地址
+        /// </summary>
+        public static string CompanyUrl = "";
+
 
     }
 }
